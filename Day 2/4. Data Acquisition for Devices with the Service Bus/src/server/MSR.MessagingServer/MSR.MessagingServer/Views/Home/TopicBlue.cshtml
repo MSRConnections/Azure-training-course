@@ -1,0 +1,76 @@
+﻿@using System.Globalization
+@model List<MSR.MessagingServer.Controllers.MapReferencePoint>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Service bus queue of messages</title>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <style type="text/css">
+            html { height: 100% }
+            body { height: 100%; margin: 0; padding: 0 }
+            #map-canvas { height: 100% }
+        </style>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQ4k7vYAW0gJQGmw_esfsjYLcrRalnTUI&sensor=false">
+        </script>
+        <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript">
+            
+            function initialize() {
+                // draw a map of Europe
+                var mapOptions = {
+                    center: new google.maps.LatLng(54.572062, 3.164062),
+                    zoom: 6,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+                
+                @foreach (var reference in Model)
+                {
+                    <text>
+                    var myLatlng = new google.maps.LatLng(@(reference.Lat), @(reference.Long));
+                    var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    title: "Temperature (Celsius) " + @reference.Temp.ToString(CultureInfo.InvariantCulture)
+                });
+                    
+                    </text>
+                }
+                
+                /*google.maps.event.addListener(map, 'bounds_changed', function () {
+                    var bounds = map.getBounds();
+                    var ne = bounds.getNorthEast(); // LatLng of the north-east corner
+                    var sw = bounds.getSouthWest(); // LatLng of the south-west corder
+                    alert('top lat:' + ne.lat());
+                    alert('bottom lat:' + sw.lat());
+                    alert('left long:' + sw.lng());
+                    alert('right long:' + ne.lng());
+                });*/
+            }
+
+            $(document).ready(function() {
+                setInterval(function() {
+                    $.getJSON('/api/Queue/Topic?topic=blue', function(data) {
+                        if (data == undefined)
+                            return;
+                        
+                        var myLatlng = new google.maps.LatLng(data[0]["Lat"], data[0]["Long"]);
+                        var marker = new google.maps.Marker({
+                            position: myLatlng,
+                            map: map,
+                            title: "Temperature (Celsius) " + data[0]["Temp"]
+                        });
+                    });
+                }, 5000);
+            });
+           
+            google.maps.event.addDomListener(window, 'load', initialize);
+        </script>
+    </head>
+    <body>
+    <div id="map-canvas" style="height: 90%; width: 100%"></div>
+    <div style="height: 10%; width: 100%"><h1 style="text-align: center">Receiving messages using Service Bus Topics on Blue</h1></div>
+  </body>
+</html>
+
+

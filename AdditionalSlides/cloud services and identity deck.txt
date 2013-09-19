@@ -1,0 +1,11 @@
+<<<<<<< HEAD
+Cloud Service: http://azure4fun.blob.core.windows.net/code/WindowsAzureCloudServices.pptx
+Cloud Service + Identity + Service Bus: http://azure4fun.blob.core.windows.net/code/WindowsAzureDevCampsCloudServices.pptx
+Identity: http://azure4fun.blob.core.windows.net/code/IdentityAndAccessControl.pptx
+
+=======
+Cloud Service: http://azure4fun.blob.core.windows.net/code/WindowsAzureCloudServices.pptx
+Cloud Service + Identity + Service Bus: http://azure4fun.blob.core.windows.net/code/WindowsAzureDevCampsCloudServices.pptx
+Identity: http://azure4fun.blob.core.windows.net/code/IdentityAndAccessControl.pptx
+
+>>>>>>> 5f03a975f8d365c4291f5af63c2cf8decbbcf01a

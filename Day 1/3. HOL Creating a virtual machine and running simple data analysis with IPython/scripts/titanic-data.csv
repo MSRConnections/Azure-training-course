@@ -1,0 +1,892 @@
+name;survived;pclass_norm;sex_norm;age_norm;sibsp_norm;parch_norm;fare_norm;embark_norm;pclass
+Andrews. Mr. Thomas Jr;0;-1;-1;0.1125;-0.5;-0.5;-0.06;-1;1
+Campbell. Mr. William;0;0;-1;-0.1125;-0.5;-0.5;-0.06;-1;2
+Cunningham. Mr. Alfred Fleming;0;0;-1;-0.1125;-0.5;-0.5;-0.06;-1;2
+"Frost. Mr. Anthony Wood ""Archie""";0;0;-1;0.0875;-0.5;-0.5;-0.06;-1;2
+Fry. Mr. Richard;0;-1;-1;0.1125;-0.5;-0.5;-0.06;-1;1
+Harrison. Mr. William;0;-1;-1;0.125;-0.5;-0.5;-0.06;-1;1
+Johnson. Mr. Alfred;0;1;-1;0.2375;-0.5;-0.5;-0.06;-1;3
+Johnson. Mr. William Cahoone Jr;0;1;-1;-0.1375;-0.5;-0.5;-0.06;-1;3
+Knight. Mr. Robert J;0;0;-1;0.1125;-0.5;-0.5;-0.06;-1;2
+Leonard. Mr. Lionel;0;1;-1;0.075;-0.5;-0.5;-0.06;-1;3
+"Parkes. Mr. Francis ""Frank""";0;0;-1;-0.15;-0.5;-0.5;-0.06;-1;2
+Parr. Mr. William Henry Marsh;0;-1;-1;-0.0125;-0.5;-0.5;-0.06;-1;1
+Reuchlin. Jonkheer. John George;0;-1;-1;0.1;-0.5;-0.5;-0.06;-1;1
+Tornquist. Mr. William Henry;1;1;-1;-0.0625;-0.5;-0.5;-0.06;-1;3
+Watson. Mr. Ennis Hastings;0;0;-1;-0.1875;-0.5;-0.5;-0.06;-1;2
+Betros. Mr. Tannous;0;1;-1;-0.125;-0.5;-0.5;-0.051975;1;3
+Carlsson. Mr. Frans Olof;0;-1;-1;0.0375;-0.5;-0.5;-0.05;-1;1
+Nysveen. Mr. Johan Hansen;0;1;-1;0.3875;-0.5;-0.5;-0.047525;-1;3
+Lemberopolous. Mr. Peter L;0;1;-1;0.05625;-0.5;-0.5;-0.047125;1;3
+Holm. Mr. John Fredrik Alexander;0;1;-1;0.1625;-0.5;-0.5;-0.0471;-1;3
+Johanson. Mr. Jakob Alfred;0;1;-1;0.05;-0.5;-0.5;-0.0470084;-1;3
+Wiklund. Mr. Jakob Alfred;0;1;-1;-0.15;-0.375;-0.5;-0.0470084;-1;3
+Burke. Mr. Jeremiah;0;1;-1;-0.1375;-0.5;-0.5;-0.0465;0;3
+"Hegarty. Miss. Hanora ""Nora""";0;1;1;-0.15;-0.5;-0.5;-0.0465;0;3
+Hart. Mr. Henry;0;1;-1;-0.05;-0.5;-0.5;-0.0462834;0;3
+Flynn. Mr. John;0;1;-1;0.15;-0.5;-0.5;-0.0461;0;3
+Ekstrom. Mr. Johan;0;1;-1;0.1875;-0.5;-0.5;-0.04605;-1;3
+Hedman. Mr. Oskar Arvid;1;1;-1;-0.0375;-0.5;-0.5;-0.04605;-1;3
+Braund. Mr. Lewis Richard;0;1;-1;-0.0125;-0.375;-0.5;-0.0459084;-1;3
+Ali. Mr. Ahmed;0;1;-1;-0.075;-0.5;-0.5;-0.0459;-1;3
+Ali. Mr. William;0;1;-1;-0.0625;-0.5;-0.5;-0.0459;-1;3
+Asim. Mr. Adola;0;1;-1;0.0625;-0.5;-0.5;-0.0459;-1;3
+Coelho. Mr. Domingos Fernandeo;0;1;-1;-0.125;-0.5;-0.5;-0.0459;-1;3
+Goncalves. Mr. Manuel Estanslas;0;1;-1;0.1;-0.5;-0.5;-0.0459;-1;3
+Jardin. Mr. Jose Neto;0;1;-1;-0.1125;-0.5;-0.5;-0.0459;-1;3
+Sutehall. Mr. Henry Jr;0;1;-1;-0.0625;-0.5;-0.5;-0.0459;-1;3
+Jensen. Mr. Svend Lauritz;0;1;-1;-0.1625;-0.375;-0.5;-0.0458916;-1;3
+Lundahl. Mr. Johan Svensson;0;1;-1;0.2625;-0.5;-0.5;-0.0458916;-1;3
+Kallio. Mr. Nikolai Erland;0;1;-1;-0.1625;-0.5;-0.5;-0.04575;-1;3
+Maenpaa. Mr. Matti Alexanteri;0;1;-1;-0.1;-0.5;-0.5;-0.04575;-1;3
+Nirva. Mr. Iisakki Antino Aijo;0;1;-1;0.1375;-0.5;-0.5;-0.04575;-1;3
+Rintamaki. Mr. Matti;0;1;-1;0.0625;-0.5;-0.5;-0.04575;-1;3
+Madsen. Mr. Fridtjof Arne;1;1;-1;-0.075;-0.5;-0.5;-0.0457166;-1;3
+Attalah. Mr. Sleiman;0;1;-1;0;-0.5;-0.5;-0.04555;1;3
+Badt. Mr. Mohamed;0;1;-1;0.125;-0.5;-0.5;-0.04555;1;3
+Boulos. Mr. Hanna;0;1;-1;-0.15;-0.5;-0.5;-0.04555;1;3
+Elias. Mr. Dibo;0;1;-1;-0.0125;-0.5;-0.5;-0.04555;1;3
+Emir. Mr. Farred Chehab;0;1;-1;-0.0125;-0.5;-0.5;-0.04555;1;3
+Lahoud. Mr. Sarkis;0;1;-1;0;-0.5;-0.5;-0.04555;1;3
+"Leeni. Mr. Fahim (""Philip Zenni"")";1;1;-1;-0.1;-0.5;-0.5;-0.04555;1;3
+Masselmani. Mrs. Fatima;1;1;1;-0.1;-0.5;-0.5;-0.04555;1;3
+"Najib. Miss. Adele Kiamie ""Jane""";1;1;1;-0.1875;-0.5;-0.5;-0.04555;1;3
+Saad. Mr. Khalil;0;1;-1;-0.0625;-0.5;-0.5;-0.04555;1;3
+Youseff. Mr. Gerious;0;1;-1;0.19375;-0.5;-0.5;-0.04555;1;3
+Yousif. Mr. Wazli;0;1;-1;-0.0625;-0.5;-0.5;-0.04555;1;3
+Ayoub. Miss. Banoura;1;1;1;-0.2125;-0.5;-0.5;-0.0455416;1;3
+Barah. Mr. Hanna Assi;1;1;-1;-0.125;-0.5;-0.5;-0.0455416;1;3
+Doharr. Mr. Tannous;0;1;-1;-0.025;-0.5;-0.5;-0.0455416;1;3
+Elias. Mr. Joseph Jr;0;1;-1;-0.1625;-0.375;-0.375;-0.0455416;1;3
+Elias. Mr. Tannous;0;1;-1;-0.1875;-0.375;-0.375;-0.0455416;1;3
+Hanna. Mr. Mansour;0;1;-1;-0.08125;-0.5;-0.5;-0.0455416;1;3
+Ibrahim Shawah. Mr. Yousseff;0;1;-1;0;-0.5;-0.5;-0.0455416;1;3
+Kassem. Mr. Fared;0;1;-1;-0.15;-0.5;-0.5;-0.0455416;1;3
+Mamee. Mr. Hanna;1;1;-1;-0.125;-0.5;-0.5;-0.0455416;1;3
+Moussa. Mrs. (Mantoura Boulos);1;1;1;0.0625;-0.5;-0.5;-0.0455416;1;3
+Novel. Mr. Mansouer;0;1;-1;-0.01875;-0.5;-0.5;-0.0455416;1;3
+Razi. Mr. Raihed;0;1;-1;0;-0.5;-0.5;-0.0455416;1;3
+Saad. Mr. Amin;0;1;-1;0;-0.5;-0.5;-0.0455416;1;3
+Sirayanian. Mr. Orsen;0;1;-1;-0.1;-0.5;-0.5;-0.0455416;1;3
+Toufik. Mr. Nakli;0;1;-1;-0.1625;-0.5;-0.5;-0.0455416;1;3
+Adahl. Mr. Mauritz Nils Martin;0;1;-1;0;-0.5;-0.5;-0.0455;-1;3
+Braund. Mr. Owen Harris;0;1;-1;-0.1;-0.375;-0.5;-0.0455;-1;3
+Coxon. Mr. Daniel;0;1;-1;0.3625;-0.5;-0.5;-0.0455;-1;3
+Dennis. Mr. Samuel;0;1;-1;-0.1;-0.5;-0.5;-0.0455;-1;3
+Elsbury. Mr. William James;0;1;-1;0.2125;-0.5;-0.5;-0.0455;-1;3
+Harmer. Mr. Abraham (David Lishin);0;1;-1;-0.0625;-0.5;-0.5;-0.0455;-1;3
+Keefe. Mr. Arthur;0;1;-1;0.1125;-0.5;-0.5;-0.0455;-1;3
+Landergren. Miss. Aurora Adelia;1;1;1;-0.1;-0.5;-0.5;-0.0455;-1;3
+"Lovell. Mr. John Hall (""Henry"")";0;1;-1;-0.11875;-0.5;-0.5;-0.0455;-1;3
+Perkin. Mr. John Henry;0;1;-1;-0.1;-0.5;-0.5;-0.0455;-1;3
+Reed. Mr. James George;0;1;-1;-0.1375;-0.5;-0.5;-0.0455;-1;3
+Windelov. Mr. Einar;0;1;-1;-0.1125;-0.5;-0.5;-0.0455;-1;3
+Wiseman. Mr. Phillippe;0;1;-1;0.3;-0.5;-0.5;-0.0455;-1;3
+Olsen. Mr. Ole Martin;0;1;-1;-0.0375;-0.5;-0.5;-0.045375;-1;3
+Coleff. Mr. Peju;0;1;-1;0.075;-0.5;-0.5;-0.0450084;-1;3
+Coleff. Mr. Satio;0;1;-1;-0.075;-0.5;-0.5;-0.0450084;-1;3
+Sjoblom. Miss. Anna Sofia;1;1;1;-0.15;-0.5;-0.5;-0.0450084;-1;3
+Karlsson. Mr. Nils August;0;1;-1;-0.1;-0.5;-0.5;-0.0449584;-1;3
+Abbing. Mr. Anthony;0;1;-1;0.15;-0.5;-0.5;-0.0449;-1;3
+Harknett. Miss. Alice Phoebe;0;1;1;-0.1125;-0.5;-0.5;-0.0449;-1;3
+Stanley. Miss. Amy Zillah Elsie;1;1;1;-0.0875;-0.5;-0.5;-0.0449;-1;3
+Willey. Mr. Edward;0;1;-1;-0.15;-0.5;-0.5;-0.0449;-1;3
+O'Sullivan. Miss. Bridget Mary;0;1;1;-0.1125;-0.5;-0.5;-0.0447416;0;3
+Humblen. Mr. Adolf Mathias Nicolai Olsen;0;1;-1;0.15;-0.5;-0.5;-0.0447;-1;3
+Moen. Mr. Sigurd Hansen;0;1;-1;-0.0625;-0.5;-0.5;-0.0447;-1;3
+Salkjelsvik. Miss. Anna Kristine;1;1;1;-0.1125;-0.5;-0.5;-0.0447;-1;3
+Soholt. Mr. Peter Andreas Lauritz Andersen;0;1;-1;-0.1375;-0.5;-0.5;-0.0447;-1;3
+Scanlan. Mr. James;0;1;-1;-0.1;-0.5;-0.5;-0.04455;0;3
+Sadlier. Mr. Matthew;0;1;-1;-0.125;-0.5;-0.5;-0.0445416;0;3
+Charters. Mr. David;0;1;-1;-0.1125;-0.5;-0.5;-0.0445334;0;3
+"Gilnagh. Miss. Katherine ""Katie""";1;1;1;-0.175;-0.5;-0.5;-0.0445334;0;3
+"Mullens. Miss. Katherine ""Katie""";1;1;1;-0.1125;-0.5;-0.5;-0.0445334;0;3
+O'Connell. Mr. Patrick D;0;1;-1;-0.1625;-0.5;-0.5;-0.0445334;0;3
+Kilgannon. Mr. Thomas J;0;1;-1;-0.1;-0.5;-0.5;-0.044525;0;3
+Mannion. Miss. Margareth;1;1;1;-0.025;-0.5;-0.5;-0.044525;0;3
+Gallagher. Mr. Martin;0;1;-1;-0.0625;-0.5;-0.5;-0.0445166;0;3
+Bourke. Miss. Mary;0;1;1;0.125;-0.5;-0.25;-0.0445;0;3
+Canavan. Miss. Mary;0;1;1;-0.1125;-0.5;-0.5;-0.0445;0;3
+"Carr. Miss. Helen ""Ellen""";1;1;1;-0.175;-0.5;-0.5;-0.0445;0;3
+Connaghton. Mr. Michael;0;1;-1;0.0125;-0.5;-0.5;-0.0445;0;3
+Connolly. Miss. Kate;1;1;1;-0.1;-0.5;-0.5;-0.0445;0;3
+Connors. Mr. Patrick;0;1;-1;0.50625;-0.5;-0.5;-0.0445;0;3
+Daly. Mr. Eugene Patrick;1;1;-1;-0.0125;-0.5;-0.5;-0.0445;0;3
+Dooley. Mr. Patrick;0;1;-1;0.025;-0.5;-0.5;-0.0445;0;3
+Duane. Mr. Frank;0;1;-1;0.4375;-0.5;-0.5;-0.0445;0;3
+Farrell. Mr. James;0;1;-1;0.13125;-0.5;-0.5;-0.0445;0;3
+Flynn. Mr. James;0;1;-1;-0.025;-0.5;-0.5;-0.0445;0;3
+Glynn. Miss. Mary Agatha;1;1;1;-0.1375;-0.5;-0.5;-0.0445;0;3
+"Healy. Miss. Hanora ""Nora""";1;1;1;-0.0125;-0.5;-0.5;-0.0445;0;3
+Henry. Miss. Delia;0;1;1;-0.1125;-0.5;-0.5;-0.0445;0;3
+Horgan. Mr. John;0;1;-1;-0.1;-0.5;-0.5;-0.0445;0;3
+Jermyn. Miss. Annie;1;1;1;-0.05;-0.5;-0.5;-0.0445;0;3
+"Keane. Mr. Andrew ""Andy""";0;1;-1;-0.0875;-0.5;-0.5;-0.0445;0;3
+"Kelly. Miss. Anna Katherine ""Annie Kate""";1;1;1;-0.125;-0.5;-0.5;-0.0445;0;3
+Kelly. Miss. Mary;1;1;1;-0.1;-0.5;-0.5;-0.0445;0;3
+Kiernan. Mr. Philip;0;1;-1;-0.0625;-0.375;-0.5;-0.0445;0;3
+Lindblom. Miss. Augusta Charlotta;0;1;1;0.1875;-0.5;-0.5;-0.0445;-1;3
+"Madigan. Miss. Margaret ""Maggie""";1;1;1;-0.1125;-0.5;-0.5;-0.0445;0;3
+Mangan. Miss. Mary;0;1;1;0.00625;-0.5;-0.5;-0.0445;0;3
+McCormack. Mr. Thomas Joseph;1;1;-1;-0.1375;-0.5;-0.5;-0.0445;0;3
+McMahon. Mr. Martin;0;1;-1;-0.125;-0.5;-0.5;-0.0445;0;3
+Mernagh. Mr. Robert;0;1;-1;-0.025;-0.5;-0.5;-0.0445;0;3
+Morrow. Mr. Thomas Rowan;0;1;-1;0;-0.5;-0.5;-0.0445;0;3
+Myhrman. Mr. Pehr Fabian Oliver Malkolm;0;1;-1;-0.15;-0.5;-0.5;-0.0445;-1;3
+Nysten. Miss. Anna Sofia;1;1;1;-0.1;-0.5;-0.5;-0.0445;-1;3
+O'Connor. Mr. Maurice;0;1;-1;-0.175;-0.5;-0.5;-0.0445;0;3
+O'Driscoll. Miss. Bridget;1;1;1;-0.0375;-0.5;-0.5;-0.0445;0;3
+Smith. Mr. Thomas;0;1;-1;-0.05;-0.5;-0.5;-0.0445;0;3
+Tobin. Mr. Roger;0;1;-1;-0.125;-0.5;-0.5;-0.0445;0;3
+Widegren. Mr. Carl/Charles Peter;0;1;-1;0.2625;-0.5;-0.5;-0.0445;-1;3
+Bengtsson. Mr. John Viktor;0;1;-1;-0.05;-0.5;-0.5;-0.04445;-1;3
+Birkeland. Mr. Hans Martin Monsen;0;1;-1;-0.1125;-0.5;-0.5;-0.04445;-1;3
+Edvardsson. Mr. Gustaf Hjalmar;0;1;-1;-0.15;-0.5;-0.5;-0.04445;-1;3
+Eklund. Mr. Hans Linus;0;1;-1;-0.175;-0.5;-0.5;-0.04445;-1;3
+Gustafsson. Mr. Karl Gideon;0;1;-1;-0.1375;-0.5;-0.5;-0.04445;-1;3
+Johansson. Mr. Karl Johan;0;1;-1;0.0125;-0.5;-0.5;-0.04445;-1;3
+Johnson. Mr. Malkolm Joackim;0;1;-1;0.0375;-0.5;-0.5;-0.04445;-1;3
+Larsson. Mr. Bengt Edvin;0;1;-1;-0.0125;-0.5;-0.5;-0.04445;-1;3
+Lindahl. Miss. Agda Thorilda Viktoria;0;1;1;-0.0625;-0.5;-0.5;-0.04445;-1;3
+Moss. Mr. Albert Johan;1;1;-1;-0.0125;-0.5;-0.5;-0.04445;-1;3
+Ohman. Miss. Velin;1;1;1;-0.1;-0.5;-0.5;-0.04445;-1;3
+Persson. Mr. Ernst Ulrik;1;1;-1;-0.0625;-0.375;-0.5;-0.04445;-1;3
+Petterson. Mr. Johan Emil;0;1;-1;-0.0625;-0.375;-0.5;-0.04445;-1;3
+Pettersson. Miss. Ellen Natalia;0;1;1;-0.15;-0.5;-0.5;-0.04445;-1;3
+Rommetvedt. Mr. Knud Paust;0;1;-1;0.2375;-0.5;-0.5;-0.04445;-1;3
+Svensson. Mr. Johan;0;1;-1;0.55;-0.5;-0.5;-0.04445;-1;3
+McDermott. Miss. Brigdet Delia;1;1;1;0.0125;-0.5;-0.5;-0.044425;0;3
+"Andersson. Mr. August Edvard (""Wennerstrom"")";1;1;-1;-0.0375;-0.5;-0.5;-0.0444084;-1;3
+Carlsson. Mr. August Sigfrid;0;1;-1;-0.025;-0.5;-0.5;-0.0444084;-1;3
+Fischer. Mr. Eberhard Thelander;0;1;-1;-0.15;-0.5;-0.5;-0.0444084;-1;3
+Jansson. Mr. Carl Olof;1;1;-1;-0.1125;-0.5;-0.5;-0.0444084;-1;3
+Johansson. Mr. Erik;0;1;-1;-0.1;-0.5;-0.5;-0.0444084;-1;3
+Svensson. Mr. Olof;0;1;-1;-0.075;-0.5;-0.5;-0.0444084;-1;3
+Nosworthy. Mr. Richard Cater;0;1;-1;-0.1125;-0.5;-0.5;-0.0444;-1;3
+O'Brien. Mr. Timothy;0;1;-1;-0.1125;-0.5;-0.5;-0.0443416;0;3
+"O'Leary. Miss. Hanora ""Norah""";1;1;1;-0.175;-0.5;-0.5;-0.0443416;0;3
+Andersen-Jensen. Miss. Carla Christine Nielsine;1;1;1;-0.1375;-0.375;-0.5;-0.0442916;-1;3
+Andreasson. Mr. Paul Edvin;0;1;-1;-0.125;-0.5;-0.5;-0.0442916;-1;3
+Augustsson. Mr. Albert;0;1;-1;-0.0875;-0.5;-0.5;-0.0442916;-1;3
+Hansen. Mr. Henrik Juul;0;1;-1;-0.05;-0.375;-0.5;-0.0442916;-1;3
+Hansen. Mr. Henry Damsgaard;0;1;-1;-0.1125;-0.5;-0.5;-0.0442916;-1;3
+Jensen. Mr. Hans Peder;0;1;-1;-0.125;-0.5;-0.5;-0.0442916;-1;3
+Jensen. Mr. Niels Peder;0;1;-1;0.225;-0.5;-0.5;-0.0442916;-1;3
+Jonsson. Mr. Carl;1;1;-1;0.025;-0.5;-0.5;-0.0442916;-1;3
+Klasen. Mr. Klas Albin;0;1;-1;-0.15;-0.375;-0.375;-0.0442916;-1;3
+Nilsson. Miss. Helmina Josefina;1;1;1;-0.05;-0.5;-0.5;-0.0442916;-1;3
+Olsson. Miss. Elina;0;1;1;0.0125;-0.5;-0.5;-0.0442916;-1;3
+Olsson. Mr. Nils Johan Goransson;0;1;-1;-0.025;-0.5;-0.5;-0.0442916;-1;3
+Vestrom. Miss. Hulda Amanda Adolfina;0;1;1;-0.2;-0.5;-0.5;-0.0442916;-1;3
+Zimmerman. Mr. Leo;0;1;-1;-0.0125;-0.5;-0.5;-0.04425;-1;3
+Devaney. Miss. Margaret Delia;1;1;1;-0.1375;-0.5;-0.5;-0.0442416;0;3
+McGovern. Miss. Mary;1;1;1;-0.1;-0.5;-0.5;-0.0442416;0;3
+"Mockler. Miss. Helen Mary ""Ellie""";1;1;1;-0.0875;-0.5;-0.5;-0.0442416;0;3
+"O'Dwyer. Miss. Ellen ""Nellie""";1;1;1;-0.0625;-0.5;-0.5;-0.0442416;0;3
+Alexander. Mr. William;0;1;-1;-0.05;-0.5;-0.5;-0.044225;-1;3
+Balkic. Mr. Cerin;0;1;-1;-0.05;-0.5;-0.5;-0.0442084;-1;3
+Bostandyeff. Mr. Guentcho;0;1;-1;-0.05;-0.5;-0.5;-0.0442084;-1;3
+Cor. Mr. Liudevit;0;1;-1;-0.1375;-0.5;-0.5;-0.0442084;-1;3
+Danoff. Mr. Yoto;0;1;-1;-0.0375;-0.5;-0.5;-0.0442084;-1;3
+Dantcheff. Mr. Ristiu;0;1;-1;-0.0625;-0.5;-0.5;-0.0442084;-1;3
+Denkoff. Mr. Mitto;0;1;-1;0;-0.5;-0.5;-0.0442084;-1;3
+Drazenoic. Mr. Jozef;0;1;-1;0.0375;-0.5;-0.5;-0.0442084;1;3
+Gheorgheff. Mr. Stanio;0;1;-1;-0.025;-0.5;-0.5;-0.0442084;1;3
+Hendekovic. Mr. Ignjac;0;1;-1;-0.025;-0.5;-0.5;-0.0442084;-1;3
+Ivanoff. Mr. Kanio;0;1;-1;-0.125;-0.5;-0.5;-0.0442084;-1;3
+Jalsevac. Mr. Ivan;1;1;-1;-0.0125;-0.5;-0.5;-0.0442084;1;3
+Jonkoff. Mr. Lalio;0;1;-1;-0.0875;-0.5;-0.5;-0.0442084;-1;3
+Karaic. Mr. Milan;0;1;-1;0;-0.5;-0.5;-0.0442084;-1;3
+Kraeff. Mr. Theodor;0;1;-1;-0.025;-0.5;-0.5;-0.0442084;1;3
+Laleff. Mr. Kristo;0;1;-1;-0.0875;-0.5;-0.5;-0.0442084;-1;3
+Markoff. Mr. Marin;0;1;-1;0.0625;-0.5;-0.5;-0.0442084;1;3
+Markun. Mr. Johann;0;1;-1;0.0375;-0.5;-0.5;-0.0442084;-1;3
+Mineff. Mr. Ivan;0;1;-1;-0.075;-0.5;-0.5;-0.0442084;-1;3
+Mionoff. Mr. Stoytcho;0;1;-1;-0.025;-0.5;-0.5;-0.0442084;-1;3
+Mitkoff. Mr. Mito;0;1;-1;-0.0875;-0.5;-0.5;-0.0442084;-1;3
+Naidenoff. Mr. Penko;0;1;-1;-0.1;-0.5;-0.5;-0.0442084;-1;3
+Nankoff. Mr. Minko;0;1;-1;0.025;-0.5;-0.5;-0.0442084;-1;3
+Nenkoff. Mr. Christo;0;1;-1;-0.1;-0.5;-0.5;-0.0442084;-1;3
+Pavlovic. Mr. Stefo;0;1;-1;0.025;-0.5;-0.5;-0.0442084;-1;3
+Petranec. Miss. Matilda;0;1;1;-0.025;-0.5;-0.5;-0.0442084;-1;3
+Petroff. Mr. Nedelio;0;1;-1;-0.1375;-0.5;-0.5;-0.0442084;-1;3
+"Petroff. Mr. Pastcho (""Pentcho"")";0;1;-1;-0.0125;-0.5;-0.5;-0.0442084;-1;3
+Plotcharsky. Mr. Vasil;0;1;-1;-0.0375;-0.5;-0.5;-0.0442084;-1;3
+Radeff. Mr. Alexander;0;1;-1;-0.0375;-0.5;-0.5;-0.0442084;-1;3
+Rekic. Mr. Tido;0;1;-1;0.1;-0.5;-0.5;-0.0442084;-1;3
+Sdycoff. Mr. Todor;0;1;-1;0.15;-0.5;-0.5;-0.0442084;-1;3
+Sivic. Mr. Husein;0;1;-1;0.125;-0.5;-0.5;-0.0442084;-1;3
+Slabenoff. Mr. Petco;0;1;-1;0.15;-0.5;-0.5;-0.0442084;-1;3
+Staneff. Mr. Ivan;0;1;-1;-0.0875;-0.5;-0.5;-0.0442084;-1;3
+Stoytcheff. Mr. Ilia;0;1;-1;-0.1375;-0.5;-0.5;-0.0442084;-1;3
+Todoroff. Mr. Lalio;0;1;-1;-0.0875;-0.5;-0.5;-0.0442084;-1;3
+Turcin. Mr. Stjepan;0;1;-1;0.075;-0.5;-0.5;-0.0442084;-1;3
+Vovk. Mr. Janko;0;1;-1;-0.1;-0.5;-0.5;-0.0442084;-1;3
+Alhomaki. Mr. Ilmari Rudolf;0;1;-1;-0.125;-0.5;-0.5;-0.04415;-1;3
+Andersson. Miss. Erna Alexandra;1;1;1;-0.1625;0;-0.25;-0.04415;-1;3
+Gustafsson. Mr. Anders Vilhelm;0;1;-1;0.0875;-0.25;-0.5;-0.04415;-1;3
+Gustafsson. Mr. Johan Birger;0;1;-1;-0.025;-0.25;-0.5;-0.04415;-1;3
+Heikkinen. Miss. Laina;1;1;1;-0.05;-0.5;-0.5;-0.04415;-1;3
+Heininen. Miss. Wendla Maria;0;1;1;-0.0875;-0.5;-0.5;-0.04415;-1;3
+Honkanen. Miss. Eliina;1;1;1;-0.0375;-0.5;-0.5;-0.04415;-1;3
+Ilmakangas. Miss. Pieta Sofia;0;1;1;-0.0625;-0.375;-0.5;-0.04415;-1;3
+Jussila. Mr. Eiriik;1;1;-1;0.025;-0.5;-0.5;-0.04415;-1;3
+Leinonen. Mr. Antti Gustaf;0;1;-1;0.025;-0.5;-0.5;-0.04415;-1;3
+Lindqvist. Mr. Eino William;1;1;-1;-0.125;-0.375;-0.5;-0.04415;-1;3
+Niskanen. Mr. Juha;1;1;-1;0.1125;-0.5;-0.5;-0.04415;-1;3
+Pekoniemi. Mr. Edvard;0;1;-1;-0.1125;-0.5;-0.5;-0.04415;-1;3
+Salonen. Mr. Johan Werner;0;1;-1;0.1125;-0.5;-0.5;-0.04415;-1;3
+Sivola. Mr. Antti Wilhelm;0;1;-1;-0.1125;-0.5;-0.5;-0.04415;-1;3
+Stranden. Mr. Juho;1;1;-1;0.0125;-0.5;-0.5;-0.04415;-1;3
+Sundman. Mr. Johan Julian;1;1;-1;0.175;-0.5;-0.5;-0.04415;-1;3
+Tikkanen. Mr. Juho;0;1;-1;0.025;-0.5;-0.5;-0.04415;-1;3
+"McGowan. Miss. Anna ""Annie""";1;1;1;-0.1875;-0.5;-0.5;-0.0439416;0;3
+Adams. Mr. John;0;1;-1;-0.05;-0.5;-0.5;-0.0439;-1;3
+Allen. Mr. William Henry;0;1;-1;0.0625;-0.5;-0.5;-0.0439;-1;3
+Barton. Mr. David John;0;1;-1;-0.1;-0.5;-0.5;-0.0439;-1;3
+Beavan. Mr. William Thomas;0;1;-1;-0.1375;-0.5;-0.5;-0.0439;-1;3
+Brocklebank. Mr. William Alfred;0;1;-1;0.0625;-0.5;-0.5;-0.0439;-1;3
+Cann. Mr. Ernest Charles;0;1;-1;-0.1125;-0.5;-0.5;-0.0439;-1;3
+Celotti. Mr. Francesco;0;1;-1;-0.075;-0.5;-0.5;-0.0439;-1;3
+Christmann. Mr. Emil;0;1;-1;-0.0125;-0.5;-0.5;-0.0439;-1;3
+"Cohen. Mr. Gurshon ""Gus""";1;1;-1;-0.15;-0.5;-0.5;-0.0439;-1;3
+Cook. Mr. Jacob;0;1;-1;0.1625;-0.5;-0.5;-0.0439;-1;3
+Corn. Mr. Harry;0;1;-1;0;-0.5;-0.5;-0.0439;-1;3
+Dahl. Mr. Karl Edwart;1;1;-1;0.1875;-0.5;-0.5;-0.0439;-1;3
+Dorking. Mr. Edward Arthur;1;1;-1;-0.1375;-0.5;-0.5;-0.0439;-1;3
+Gilinski. Mr. Eliezer;0;1;-1;-0.1;-0.5;-0.5;-0.0439;-1;3
+Green. Mr. George Henry;0;1;-1;0.2625;-0.5;-0.5;-0.0439;-1;3
+Kelly. Mr. James;0;1;-1;0.175;-0.5;-0.5;-0.0439;-1;3
+Maisner. Mr. Simon;0;1;-1;0.05;-0.5;-0.5;-0.0439;-1;3
+Meanwell. Miss. (Marion Ogden);0;1;1;0.4125;-0.5;-0.5;-0.0439;-1;3
+Meek. Mrs. Thomas (Annie Louise Rowley);0;1;1;0.0125;-0.5;-0.5;-0.0439;-1;3
+Meo. Mr. Alfonzo;0;1;-1;0.31875;-0.5;-0.5;-0.0439;-1;3
+Moore. Mr. Leonard Charles;0;1;-1;-0.1375;-0.5;-0.5;-0.0439;-1;3
+Morley. Mr. William;0;1;-1;0.05;-0.5;-0.5;-0.0439;-1;3
+Moutal. Mr. Rahamin Haim;0;1;-1;-0.025;-0.5;-0.5;-0.0439;-1;3
+Murdlin. Mr. Joseph;0;1;-1;-0.1;-0.5;-0.5;-0.0439;-1;3
+Peduzzi. Mr. Joseph;0;1;-1;-0.075;-0.5;-0.5;-0.0439;-1;3
+Pickard. Mr. Berk (Berk Trembisky);1;1;-1;0.025;-0.5;-0.5;-0.0439;-1;3
+Rogers. Mr. William John;0;1;-1;-0.0125;-0.5;-0.5;-0.0439;-1;3
+Rouse. Mr. Richard Henry;0;1;-1;0.25;-0.5;-0.5;-0.0439;-1;3
+Rush. Mr. Alfred George John;0;1;-1;-0.175;-0.5;-0.5;-0.0439;-1;3
+Saundercock. Mr. William Henry;0;1;-1;-0.125;-0.5;-0.5;-0.0439;-1;3
+Sawyer. Mr. Frederick Charles;0;1;-1;-0.06875;-0.5;-0.5;-0.0439;-1;3
+Shorney. Mr. Charles Joseph;0;1;-1;-0.1;-0.5;-0.5;-0.0439;-1;3
+Simmons. Mr. John;0;1;-1;0.1125;-0.5;-0.5;-0.0439;-1;3
+Sirota. Mr. Maurice;0;1;-1;-0.125;-0.5;-0.5;-0.0439;-1;3
+Slocovski. Mr. Selman Francis;0;1;-1;-0.125;-0.5;-0.5;-0.0439;-1;3
+Somerton. Mr. Francis William;0;1;-1;0;-0.5;-0.5;-0.0439;-1;3
+Stanley. Mr. Edward Roland;0;1;-1;-0.1125;-0.5;-0.5;-0.0439;-1;3
+Sunderland. Mr. Victor Francis;1;1;-1;-0.175;-0.5;-0.5;-0.0439;-1;3
+Theobald. Mr. Thomas Leonard;0;1;-1;0.05;-0.5;-0.5;-0.0439;-1;3
+Tomlin. Mr. Ernest Portage;0;1;-1;0.00625;-0.5;-0.5;-0.0439;-1;3
+Torber. Mr. Ernst William;0;1;-1;0.175;-0.5;-0.5;-0.0439;-1;3
+Webber. Mr. James;0;1;-1;0.45;-0.5;-0.5;-0.0439;-1;3
+"Williams. Mr. Howard Hugh ""Harry""";0;1;-1;-0.025;-0.5;-0.5;-0.0439;-1;3
+Johannesen-Bratthammer. Mr. Bernt;1;1;-1;-0.0125;-0.5;-0.5;-0.043775;-1;3
+Peters. Miss. Katie;0;1;1;-0.05;-0.5;-0.5;-0.043725;0;3
+Crease. Mr. Ernest James;0;1;-1;-0.1375;-0.5;-0.5;-0.0436834;-1;3
+Allum. Mr. Owen George;0;1;-1;-0.15;-0.5;-0.5;-0.0434;-1;3
+Gronnestad. Mr. Daniel Danielsen;0;1;-1;0.025;-0.5;-0.5;-0.043275;-1;3
+Olsen. Mr. Karl Siegwart Andreas;0;1;-1;0.15;-0.5;-0.375;-0.0431916;-1;3
+Kalvik. Mr. Johannes Halvorsen;0;1;-1;-0.1125;-0.5;-0.5;-0.0431334;-1;3
+Moran. Mr. James;0;1;-1;-0.0375;-0.5;-0.5;-0.0430834;0;3
+Thomas. Master. Assad Alexander;1;1;-1;-0.36975;-0.5;-0.375;-0.0429666;1;3
+Johansson. Mr. Gustaf Joel;0;1;-1;0.0375;-0.5;-0.5;-0.0426916;-1;3
+Cacic. Miss. Marija;0;1;1;0;-0.5;-0.5;-0.042675;-1;3
+Cacic. Mr. Luka;0;1;-1;0.1;-0.5;-0.5;-0.042675;-1;3
+Calic. Mr. Jovo;0;1;-1;-0.1625;-0.5;-0.5;-0.042675;-1;3
+Calic. Mr. Petar;0;1;-1;-0.1625;-0.5;-0.5;-0.042675;-1;3
+Culumovic. Mr. Jeso;0;1;-1;-0.1625;-0.5;-0.5;-0.042675;-1;3
+Dimic. Mr. Jovan;0;1;-1;0.15;-0.5;-0.5;-0.042675;-1;3
+Kink. Mr. Vincenz;0;1;-1;-0.05;-0.25;-0.5;-0.042675;-1;3
+Lulic. Mr. Nikola;1;1;-1;-0.0375;-0.5;-0.5;-0.042675;-1;3
+Oreskovic. Miss. Marija;0;1;1;-0.125;-0.5;-0.5;-0.042675;-1;3
+Oreskovic. Mr. Luka;0;1;-1;-0.125;-0.5;-0.5;-0.042675;-1;3
+Pasic. Mr. Jakob;0;1;-1;-0.1125;-0.5;-0.5;-0.042675;-1;3
+Smiljanic. Mr. Mile;0;1;-1;0.0875;-0.5;-0.5;-0.042675;-1;3
+Stankovic. Mr. Ivan;0;1;-1;0.0375;-0.5;-0.5;-0.042675;1;3
+Osman. Mrs. Mara;1;1;1;0.0125;-0.5;-0.5;-0.0426334;-1;3
+Paulner. Mr. Uscher;0;1;-1;-0.175;-0.5;-0.5;-0.042575;1;3
+Haas. Miss. Aloisia;0;1;1;-0.075;-0.5;-0.5;-0.0423;-1;3
+Vander Cruyssen. Mr. Victor;0;1;-1;0.2125;-0.5;-0.5;-0.042;-1;3
+Waelens. Mr. Achille;0;1;-1;-0.1;-0.5;-0.5;-0.042;-1;3
+Osen. Mr. Olaf Elon;0;1;-1;-0.175;-0.5;-0.5;-0.0415666;-1;3
+Odahl. Mr. Nils Martin;0;1;-1;-0.0875;-0.5;-0.5;-0.04155;-1;3
+Olsvigen. Mr. Thor Anderson;0;1;-1;-0.125;-0.5;-0.5;-0.04155;-1;3
+Aks. Mrs. Sam (Leah Rosen);1;1;1;-0.15;-0.5;-0.375;-0.0413;-1;3
+Berglund. Mr. Karl Ivar Sven;0;1;-1;-0.1;-0.5;-0.5;-0.0413;-1;3
+Ahlin. Mrs. Johan (Johanna Persdotter Larsson);0;1;1;0.125;-0.375;-0.5;-0.04105;-1;3
+Larsson. Mr. August Viktor;0;1;-1;-0.0125;-0.5;-0.5;-0.0410334;-1;3
+de Mulder. Mr. Theodore;1;1;-1;0;-0.5;-0.5;-0.041;-1;3
+de Pelsmaeker. Mr. Alfons;0;1;-1;-0.175;-0.5;-0.5;-0.041;-1;3
+Hampe. Mr. Leon;0;1;-1;-0.125;-0.5;-0.5;-0.041;-1;3
+Lievens. Mr. Rene Aime;0;1;-1;-0.075;-0.5;-0.5;-0.041;-1;3
+Sheerlinck. Mr. Jan Baptist;1;1;-1;-0.0125;-0.5;-0.5;-0.041;-1;3
+van Melkebeke. Mr. Philemon;0;1;-1;-0.0875;-0.5;-0.5;-0.041;-1;3
+Vande Velde. Mr. Johannes Joseph;0;1;-1;0.0375;-0.5;-0.5;-0.041;-1;3
+Vande Walle. Mr. Nestor Cyriel;0;1;-1;-0.025;-0.5;-0.5;-0.041;-1;3
+Vanden Steen. Mr. Leo Peter;0;1;-1;-0.025;-0.5;-0.5;-0.041;-1;3
+Laitinen. Miss. Kristina Sofia;0;1;1;0.0875;-0.5;-0.5;-0.040825;-1;3
+Turkula. Mrs. (Hedwig);1;1;1;0.4125;-0.5;-0.5;-0.040825;-1;3
+Jussila. Miss. Katriina;0;1;1;-0.125;-0.375;-0.5;-0.04035;-1;3
+Jussila. Miss. Mari Aina;0;1;1;-0.1125;-0.375;-0.5;-0.04035;-1;3
+Strandberg. Miss. Ida Sofia;0;1;1;-0.1;-0.5;-0.5;-0.040325;-1;3
+Turja. Miss. Anna Sofia;1;1;1;-0.15;-0.5;-0.5;-0.0403166;-1;3
+Gustafsson. Mr. Alfred Ossian;0;1;-1;-0.125;-0.5;-0.5;-0.0403084;-1;3
+Dakic. Mr. Branko;0;1;-1;-0.1375;-0.5;-0.5;-0.0396584;-1;3
+Strom. Miss. Telma Matilda;0;1;1;-0.35;-0.5;-0.375;-0.039075;-1;3
+Strom. Mrs. Wilhelm (Elna Matilda Persson);0;1;1;-0.0125;-0.375;-0.375;-0.039075;-1;3
+Banfield. Mr. Frederick James;0;0;-1;-0.025;-0.5;-0.5;-0.039;-1;2
+Coleridge. Mr. Reginald Charles;0;0;-1;-0.0125;-0.5;-0.5;-0.039;-1;2
+Gavey. Mr. Lawrence;0;0;-1;-0.05;-0.5;-0.5;-0.039;-1;2
+Harris. Mr. George;1;0;-1;0.4;-0.5;-0.5;-0.039;-1;2
+Harris. Mr. Walter;0;0;-1;0;-0.5;-0.5;-0.039;-1;2
+Ilett. Miss. Bertha;1;0;1;-0.1625;-0.5;-0.5;-0.039;-1;2
+Jenkin. Mr. Stephen Curnow;0;0;-1;0.025;-0.5;-0.5;-0.039;-1;2
+Kvillner. Mr. Johan Henrik Johannesson;0;0;-1;0.0125;-0.5;-0.5;-0.039;-1;2
+Lemore. Mrs. (Amelia Milley);1;0;1;0.05;-0.5;-0.5;-0.039;-1;2
+Leyson. Mr. Robert William Norman;0;0;-1;-0.075;-0.5;-0.5;-0.039;-1;2
+Mack. Mrs. (Mary);0;0;1;0.3375;-0.5;-0.5;-0.039;-1;2
+Mellors. Mr. William John;1;0;-1;-0.1375;-0.5;-0.5;-0.039;-1;2
+Mitchell. Mr. Henry Michael;0;0;-1;0.5;-0.5;-0.5;-0.039;-1;2
+Mudd. Mr. Thomas Charles;0;0;-1;-0.175;-0.5;-0.5;-0.039;-1;2
+Nye. Mrs. (Elizabeth Ramell);1;0;1;-0.0125;-0.5;-0.5;-0.039;-1;2
+Pain. Dr. Alfred;0;0;-1;-0.0875;-0.5;-0.5;-0.039;-1;2
+Pengelly. Mr. Frederick William;0;0;-1;-0.1375;-0.5;-0.5;-0.039;-1;2
+Reeves. Mr. David;0;0;-1;0.075;-0.5;-0.5;-0.039;-1;2
+Ridsdale. Miss. Lucy;1;0;1;0.25;-0.5;-0.5;-0.039;-1;2
+Rugg. Miss. Emily;1;0;1;-0.1125;-0.5;-0.5;-0.039;-1;2
+Slemen. Mr. Richard James;0;0;-1;0.0625;-0.5;-0.5;-0.039;-1;2
+Toomey. Miss. Ellen;1;0;1;0.25;-0.5;-0.5;-0.039;-1;2
+"Troutt. Miss. Edwina Celia ""Winnie""";1;0;1;-0.0375;-0.5;-0.5;-0.039;-1;2
+Wheadon. Mr. Edward H;0;0;-1;0.45;-0.5;-0.5;-0.039;-1;2
+Dahlberg. Miss. Gerda Ulrika;0;1;1;-0.1;-0.5;-0.5;-0.0389666;-1;3
+Johnson. Master. Harold Theodor;1;1;-1;-0.325;-0.375;-0.375;-0.0377334;-1;3
+Johnson. Miss. Eleanor Ileen;1;1;1;-0.3625;-0.375;-0.375;-0.0377334;-1;3
+Johnson. Mrs. Oscar W (Elisabeth Vilhelmina Berg);1;1;1;-0.0375;-0.5;-0.25;-0.0377334;-1;3
+Nicola-Yarred. Master. Elias;1;1;-1;-0.225;-0.375;-0.5;-0.0375166;1;3
+Nicola-Yarred. Miss. Jamila;1;1;1;-0.2;-0.375;-0.5;-0.0375166;1;3
+Andrew. Mr. Edgardo Samuel;0;0;-1;-0.15;-0.5;-0.5;-0.037;-1;2
+Bailey. Mr. Percy Andrew;0;0;-1;-0.15;-0.5;-0.5;-0.037;-1;2
+Giles. Mr. Frederick Edward;0;0;-1;-0.1125;-0.375;-0.5;-0.037;-1;2
+Hocking. Mr. Richard George;0;0;-1;-0.0875;-0.25;-0.375;-0.037;-1;2
+Lehmann. Miss. Bertha;1;0;1;-0.1625;-0.5;-0.5;-0.036;1;2
+Hunt. Mr. George Henry;0;0;-1;0.0375;-0.5;-0.5;-0.03545;-1;2
+Hirvonen. Miss. Hildur E;1;1;1;-0.35;-0.5;-0.375;-0.035425;-1;3
+Keane. Miss. Nora A;1;0;1;0.2;-0.5;-0.5;-0.0353;0;2
+Kirkland. Rev. Charles Leonard;0;0;-1;0.3375;-0.5;-0.5;-0.0353;0;2
+Slayter. Miss. Hilda Mary;1;0;1;0;-0.5;-0.5;-0.0353;0;2
+Dowdell. Miss. Elizabeth;1;1;1;0;-0.5;-0.5;-0.03505;-1;3
+Emanuel. Miss. Virginia Ethel;1;1;1;-0.3125;-0.5;-0.5;-0.03505;-1;3
+Moor. Master. Meier;1;1;-1;-0.3;-0.5;-0.375;-0.03505;-1;3
+Moor. Mrs. (Beila);1;1;1;-0.0375;-0.5;-0.375;-0.03505;-1;3
+Bateman. Rev. Robert James;0;0;-1;0.2625;-0.5;-0.5;-0.03495;-1;2
+Trout. Mrs. William H (Jessie L);1;0;1;-0.025;-0.5;-0.5;-0.0347;-1;2
+Levy. Mr. Rene Jacques;0;0;-1;0.075;-0.5;-0.5;-0.03425;1;2
+Ball. Mrs. (Ada E Hall);1;0;1;0.075;-0.5;-0.5;-0.034;-1;2
+Beesley. Mr. Lawrence;1;0;-1;0.05;-0.5;-0.5;-0.034;-1;2
+Berriman. Mr. William John;0;0;-1;-0.0875;-0.5;-0.5;-0.034;-1;2
+Bracken. Mr. James H;0;0;-1;-0.0375;-0.5;-0.5;-0.034;-1;2
+"Brown. Miss. Amelia ""Mildred""";1;0;1;-0.075;-0.5;-0.5;-0.034;-1;2
+Buss. Miss. Kate;1;0;1;0.075;-0.5;-0.5;-0.034;-1;2
+Butler. Mr. Reginald Fenton;0;0;-1;-0.0625;-0.5;-0.5;-0.034;-1;2
+Byles. Rev. Thomas Roussel Davids;0;0;-1;0.15;-0.5;-0.5;-0.034;-1;2
+Bystrom. Mrs. (Karolina);1;0;1;0.15;-0.5;-0.5;-0.034;-1;2
+Carbines. Mr. William;0;0;-1;-0.1375;-0.5;-0.5;-0.034;-1;2
+Collander. Mr. Erik Gustaf;0;0;-1;-0.025;-0.5;-0.5;-0.034;-1;2
+Davis. Miss. Mary;1;0;1;-0.025;-0.5;-0.5;-0.034;-1;2
+Eitemiller. Mr. George Floyd;0;0;-1;-0.0875;-0.5;-0.5;-0.034;-1;2
+Fahlstrom. Mr. Arne Jonas;0;0;-1;-0.15;-0.5;-0.5;-0.034;-1;2
+Fox. Mr. Stanley Hubert;0;0;-1;0.075;-0.5;-0.5;-0.034;-1;2
+Funk. Miss. Annie Clemmer;0;0;1;0.1;-0.5;-0.5;-0.034;-1;2
+Garside. Miss. Ethel;1;0;1;0.05;-0.5;-0.5;-0.034;-1;2
+Gill. Mr. John William;0;0;-1;-0.075;-0.5;-0.5;-0.034;-1;2
+Gillespie. Mr. William Henry;0;0;-1;0.05;-0.5;-0.5;-0.034;-1;2
+Givard. Mr. Hans Kristensen;0;0;-1;0;-0.5;-0.5;-0.034;-1;2
+Greenberg. Mr. Samuel;0;0;-1;0.275;-0.5;-0.5;-0.034;-1;2
+Hale. Mr. Reginald;0;0;-1;0;-0.5;-0.5;-0.034;-1;2
+Hodges. Mr. Henry Price;0;0;-1;0.25;-0.5;-0.5;-0.034;-1;2
+Hosono. Mr. Masabumi;1;0;-1;0.15;-0.5;-0.5;-0.034;-1;2
+Matthews. Mr. William John;0;0;-1;0;-0.5;-0.5;-0.034;-1;2
+Meyer. Mr. August;0;0;-1;0.1125;-0.5;-0.5;-0.034;-1;2
+Milling. Mr. Jacob Christian;0;0;-1;0.225;-0.5;-0.5;-0.034;-1;2
+Montvila. Rev. Juozas;0;0;-1;-0.0375;-0.5;-0.5;-0.034;-1;2
+Otter. Mr. Richard;0;0;-1;0.1125;-0.5;-0.5;-0.034;-1;2
+Pinsky. Mrs. (Rosa);1;0;1;0.025;-0.5;-0.5;-0.034;-1;2
+Ponesell. Mr. Martin;0;0;-1;0.05;-0.5;-0.5;-0.034;-1;2
+Reynaldo. Ms. Encarnacion;1;0;1;-0.025;-0.5;-0.5;-0.034;-1;2
+Sedgwick. Mr. Charles Frederick Waddington;0;0;-1;-0.0625;-0.5;-0.5;-0.034;-1;2
+Silven. Miss. Lyyli Karoliina;1;0;1;-0.15;-0.5;-0.25;-0.034;-1;2
+Sinkkonen. Miss. Anna;1;0;1;0;-0.5;-0.5;-0.034;-1;2
+Smith. Miss. Marion Elsie;1;0;1;0.125;-0.5;-0.5;-0.034;-1;2
+Sobey. Mr. Samuel James Hayden;0;0;-1;-0.0625;-0.5;-0.5;-0.034;-1;2
+Troupiansky. Mr. Moses Aaron;0;0;-1;-0.0875;-0.5;-0.5;-0.034;-1;2
+Webber. Miss. Susan;1;0;1;0.03125;-0.5;-0.5;-0.034;-1;2
+Wilhelms. Mr. Charles;1;0;-1;0.0125;-0.5;-0.5;-0.034;-1;2
+Williams. Mr. Charles Eugene;1;0;-1;-0.0875;-0.5;-0.5;-0.034;-1;2
+"Yrois. Miss. Henriette (""Mrs Harbeck"")";0;0;1;-0.075;-0.5;-0.5;-0.034;-1;2
+Karun. Miss. Manca;1;1;1;-0.325;-0.5;-0.375;-0.0331666;1;3
+Chapman. Mr. Charles Henry;0;0;-1;0.275;-0.5;-0.5;-0.033;-1;2
+"Kelly. Mrs. Florence ""Fannie""";1;0;1;0.1875;-0.5;-0.5;-0.033;-1;2
+Norman. Mr. Robert Douglas;0;0;-1;-0.025;-0.5;-0.5;-0.033;-1;2
+Sjostedt. Mr. Ernst Adolf;0;0;-1;0.3625;-0.5;-0.5;-0.033;-1;2
+Jerwan. Mrs. Amin S (Marie Marthe Thuillard);1;0;1;-0.0875;-0.5;-0.5;-0.0324166;1;2
+Duran y More. Miss. Asuncion;1;0;1;-0.0375;-0.375;-0.5;-0.0322834;1;2
+Padro y Manent. Mr. Julian;1;0;-1;-0.05;-0.5;-0.5;-0.032275;1;2
+Moraweck. Dr. Ernest;0;0;-1;0.3;-0.5;-0.5;-0.032;-1;2
+Hansen. Mr. Claus Peter;0;1;-1;0.1375;-0.25;-0.5;-0.0317834;-1;3
+Danbom. Mr. Ernst Gilbert;0;1;-1;0.05;-0.375;-0.375;-0.0312;-1;3
+Danbom. Mrs. Ernst Gilbert (Anna Sigrid Maria Brogren);0;1;1;-0.025;-0.375;-0.375;-0.0312;-1;3
+Barbara. Miss. Saiide;0;1;1;-0.15;-0.5;-0.375;-0.0310916;1;3
+Barbara. Mrs. (Catherine David);0;1;1;0.1875;-0.5;-0.375;-0.0310916;1;3
+Chronopoulos. Mr. Apostolos;0;1;-1;-0.05;-0.375;-0.5;-0.0310916;1;3
+Yasbeck. Mr. Antoni;0;1;-1;-0.0375;-0.375;-0.5;-0.0310916;1;3
+Yasbeck. Mrs. Antoni (Selini Alexander);1;1;1;-0.1875;-0.375;-0.5;-0.0310916;1;3
+Zabour. Miss. Hileni;0;1;1;-0.19375;-0.375;-0.5;-0.0310916;1;3
+Zabour. Miss. Thamine;0;1;1;-0.175;-0.375;-0.5;-0.0310916;1;3
+Attalah. Miss. Malake;0;1;1;-0.1625;-0.5;-0.5;-0.0310834;1;3
+Caram. Mrs. Joseph (Maria Elias);0;1;1;-0.025;-0.375;-0.5;-0.0310834;1;3
+Yousseff. Mr. Gerious;0;1;-1;-0.025;-0.5;-0.5;-0.0310834;1;3
+Garfirth. Mr. John;0;1;-1;-0.1125;-0.5;-0.5;-0.031;-1;3
+Hamalainen. Master. Viljo;1;0;-1;-0.366625;-0.375;-0.375;-0.031;-1;2
+Hamalainen. Mrs. William (Anna);1;0;1;-0.075;-0.5;-0.25;-0.031;-1;2
+Patchett. Mr. George;0;1;-1;-0.1375;-0.5;-0.5;-0.031;-1;3
+Risien. Mr. Samuel Beard;0;1;-1;0.4875;-0.5;-0.5;-0.031;-1;3
+Robins. Mrs. Alexander A (Grace Charity Laury);0;1;1;0.2125;-0.375;-0.5;-0.031;-1;3
+van Billiard. Mr. Austin Blyler;0;1;-1;0.13125;-0.5;-0.25;-0.031;-1;3
+Jarvis. Mr. John Denzil;0;0;-1;0.2125;-0.5;-0.5;-0.03;-1;2
+Richard. Mr. Emile;0;0;-1;-0.0875;-0.5;-0.5;-0.0299084;1;2
+Pernot. Mr. Rene;0;0;-1;0.1125;-0.5;-0.5;-0.0299;1;2
+Shellard. Mr. Frederick William;0;1;-1;0.3125;-0.5;-0.5;-0.0298;-1;3
+Boulos. Miss. Nourelain;0;1;1;-0.2625;-0.375;-0.375;-0.0295084;1;3
+Boulos. Mrs. Joseph (Sultana);0;1;1;0.125;-0.5;-0.25;-0.0295084;1;3
+Moubarek. Master. Gerios;1;1;-1;-0.2875;-0.375;-0.375;-0.0295084;1;3
+"Moubarek. Master. Halim Gonios (""William George"")";1;1;-1;-0.325;-0.375;-0.375;-0.0295084;1;3
+Touma. Mrs. Darwis (Hanne Youssef Razi);1;1;1;-0.0125;-0.5;-0.25;-0.0295084;1;3
+Bourke. Mr. John;0;1;-1;0.125;-0.375;-0.375;-0.029;0;3
+Bourke. Mrs. John (Catherine);0;1;1;0.025;-0.375;-0.375;-0.029;0;3
+Lennon. Mr. Denis;0;1;-1;-0.125;-0.375;-0.5;-0.029;0;3
+McEvoy. Mr. Michael;0;1;-1;-0.1375;-0.5;-0.5;-0.029;0;3
+"Murphy. Miss. Katherine ""Kate""";1;1;1;-0.15;-0.375;-0.5;-0.029;0;3
+Murphy. Miss. Margaret Jane;1;1;1;-0.0625;-0.375;-0.5;-0.029;0;3
+O'Brien. Mr. Thomas;0;1;-1;-0.0375;-0.375;-0.5;-0.029;0;3
+"O'Brien. Mrs. Thomas (Johanna ""Hannah"" Godfrey)";1;1;1;-0.05;-0.375;-0.5;-0.029;0;3
+Lindell. Mr. Edvard Bengtsson;0;1;-1;0.075;-0.375;-0.5;-0.0289;-1;3
+"Nakid. Miss. Maria (""Mary"")";1;1;1;-0.3625;-0.5;-0.25;-0.0285166;1;3
+Nakid. Mr. Sahid;1;1;-1;-0.125;-0.375;-0.375;-0.0285166;1;3
+"Watt. Mrs. James (Elizabeth ""Bessie"" Inglis Milne)";1;0;1;0.125;-0.5;-0.5;-0.0285;-1;2
+Backstrom. Mr. Karl Alfred;0;1;-1;0.025;-0.375;-0.5;-0.0283;-1;3
+Backstrom. Mrs. Karl Alfred (Maria Mathilda Gustafsson);1;1;1;0.0375;-0.125;-0.5;-0.0283;-1;3
+Hakkarainen. Mr. Pekka Pietari;0;1;-1;-0.025;-0.375;-0.5;-0.0283;-1;3
+Hakkarainen. Mrs. Pekka Pietari (Elin Matilda Dolck);1;1;1;-0.075;-0.375;-0.5;-0.0283;-1;3
+"Coutts. Master. Eden Leslie ""Neville""";1;1;-1;-0.2625;-0.375;-0.375;-0.0282;-1;3
+"Coutts. Master. William Loch ""William""";1;1;-1;-0.3375;-0.375;-0.375;-0.0282;-1;3
+Hewlett. Mrs. (Mary D Kingcome) ;1;0;1;0.3125;-0.5;-0.5;-0.028;-1;2
+"Bowen. Mr. David John ""Dai""";0;1;-1;-0.1125;-0.5;-0.5;-0.0278;-1;3
+Cribb. Mr. John Hatfield;0;1;-1;0.175;-0.5;-0.375;-0.0278;-1;3
+Davison. Mrs. Thomas Henry (Mary E Finck);1;1;1;0.05;-0.375;-0.5;-0.0278;-1;3
+Lobb. Mr. William Arthur;0;1;-1;0;-0.375;-0.5;-0.0278;-1;3
+Lobb. Mrs. William Arthur (Cordelia K Stanlick);0;1;1;-0.05;-0.375;-0.5;-0.0278;-1;3
+McNamee. Mr. Neal;0;1;-1;-0.075;-0.375;-0.5;-0.0278;-1;3
+Thorneycroft. Mr. Percival;0;1;-1;0.075;-0.375;-0.5;-0.0278;-1;3
+Thorneycroft. Mrs. Percival (Florence Kate White);1;1;1;0.025;-0.375;-0.5;-0.0278;-1;3
+Williams. Mr. Leslie;0;1;-1;-0.01875;-0.5;-0.5;-0.0278;-1;3
+Sandstrom. Miss. Marguerite Rut;1;1;1;-0.325;-0.375;-0.375;-0.0266;-1;3
+Sandstrom. Mrs. Hjalmar (Agnes Charlotta Bengtsson);1;1;1;-0.075;-0.5;-0.25;-0.0266;-1;3
+de Messemaeker. Mrs. Guillaume Joseph (Emma);1;1;1;0.075;-0.375;-0.5;-0.0252;-1;3
+Arnold-Franchi. Mr. Josef;0;1;-1;-0.0625;-0.375;-0.5;-0.0244;-1;3
+Arnold-Franchi. Mrs. Josef (Josefine Franchi);0;1;1;-0.15;-0.375;-0.5;-0.0244;-1;3
+Vander Planke. Miss. Augusta Maria;0;1;1;-0.15;-0.25;-0.5;-0.024;-1;3
+Vander Planke. Mr. Leo Edmondus;0;1;-1;-0.175;-0.25;-0.5;-0.024;-1;3
+Vander Planke. Mrs. Julius (Emelia Maria Vandemoortele);0;1;1;0.0125;-0.375;-0.5;-0.024;-1;3
+Richards. Master. George Sibley;1;0;-1;-0.364625;-0.375;-0.375;-0.0225;-1;2
+Richards. Master. William Rowe;1;0;-1;-0.3375;-0.375;-0.375;-0.0225;-1;2
+Richards. Mrs. Sidney (Emily Hocking);1;0;1;-0.075;-0.25;-0.125;-0.0225;-1;2
+Albimona. Mr. Nassef Cassem;1;1;-1;-0.05;-0.5;-0.5;-0.022425;1;3
+Hassan. Mr. Houssein G N;0;1;-1;-0.2375;-0.5;-0.5;-0.022425;1;3
+Baclini. Miss. Eugenie;1;1;1;-0.365625;-0.25;-0.375;-0.0214834;1;3
+Baclini. Miss. Helene Barbara;1;1;1;-0.365625;-0.25;-0.375;-0.0214834;1;3
+Baclini. Miss. Marie Catherine;1;1;1;-0.3125;-0.25;-0.375;-0.0214834;1;3
+Baclini. Mrs. Solomon (Latifa Qurban);1;1;1;-0.075;-0.5;-0.125;-0.0214834;1;3
+Mellinger. Miss. Madeleine Violet;1;0;1;-0.2125;-0.5;-0.375;-0.021;-1;2
+Mellinger. Mrs. (Elizabeth Anne Maidment);1;0;1;0.1375;-0.5;-0.375;-0.021;-1;2
+Hagland. Mr. Ingvald Olai Olsen;0;1;-1;-0.025;-0.375;-0.5;-0.0200666;-1;3
+Hagland. Mr. Konrad Mathias Reiersen;0;1;-1;-0.1375;-0.375;-0.5;-0.0200666;-1;3
+Rosblom. Mr. Viktor Richard;0;1;-1;-0.15;-0.375;-0.375;-0.019575;-1;3
+Rosblom. Mrs. Viktor (Helena Wilhelmina);0;1;1;0.1375;-0.5;-0.25;-0.019575;-1;3
+Abbott. Mr. Rossmore Edward;0;1;-1;-0.175;-0.375;-0.375;-0.0195;-1;3
+Abbott. Mrs. Stanton (Rosa Hunt);1;1;1;0.0625;-0.375;-0.375;-0.0195;-1;3
+"Goldsmith. Master. Frank John William ""Frankie""";1;1;-1;-0.2625;-0.5;-0.25;-0.01895;-1;3
+Goldsmith. Mr. Frank John;0;1;-1;0.0375;-0.375;-0.375;-0.01895;-1;3
+Goldsmith. Mrs. Frank John (Emily Alice Brown);1;1;1;0.0125;-0.375;-0.375;-0.01895;-1;3
+Dean. Master. Bertram Vere;1;1;-1;-0.3625;-0.375;-0.25;-0.01885;-1;3
+Dean. Mr. Bertram Frank;0;1;-1;-0.05;-0.375;-0.25;-0.01885;-1;3
+Cameron. Miss. Clear Annie;1;0;1;0.0625;-0.5;-0.5;-0.018;-1;2
+Gale. Mr. Shadrach;0;0;-1;0.05;-0.375;-0.5;-0.018;-1;2
+Renouf. Mr. Peter Henry;0;0;-1;0.05;-0.375;-0.5;-0.018;-1;2
+Renouf. Mrs. Peter Henry (Lillian Jefferys);1;0;1;0;-0.125;-0.5;-0.018;-1;2
+Turpin. Mr. William John Robert;0;0;-1;-0.0125;-0.375;-0.5;-0.018;-1;2
+Turpin. Mrs. William John Robert (Dorothy Ann Wonnacott);0;0;1;-0.0375;-0.375;-0.5;-0.018;-1;2
+Palsson. Master. Gosta Leonard;0;1;-1;-0.35;-0.125;-0.375;-0.01785;-1;3
+Palsson. Miss. Stina Viola;0;1;1;-0.3375;-0.125;-0.375;-0.01785;-1;3
+Palsson. Miss. Torborg Danira;0;1;1;-0.275;-0.125;-0.375;-0.01785;-1;3
+Palsson. Mrs. Nils (Alma Cornelia Berglund);0;1;1;-0.0125;-0.5;0;-0.01785;-1;3
+Samaan. Mr. Youssef;0;1;-1;-0.1875;-0.25;-0.5;-0.0166416;1;3
+Kink-Heilmann. Miss. Luise Gretchen;1;1;1;-0.325;-0.5;-0.25;-0.01595;-1;3
+Peter. Miss. Anna;1;1;1;-0.35;-0.375;-0.375;-0.0152834;1;3
+Peter. Mrs. Catherine (Catherine Rizk);1;1;1;-0.075;-0.5;-0.25;-0.0152834;1;3
+Olsen. Mr. Henry Margido;0;1;-1;-0.025;-0.5;-0.5;-0.01495;-1;3
+Doling. Miss. Elsie;1;0;1;-0.15;-0.5;-0.375;-0.014;-1;2
+Doling. Mrs. John T (Ada Julia Bone);1;0;1;0.05;-0.5;-0.375;-0.014;-1;2
+Hocking. Mrs. Elizabeth (Eliza Needs);1;0;1;0.3;-0.375;-0.125;-0.014;-1;2
+Wells. Miss. Joan;1;0;1;-0.325;-0.375;-0.375;-0.014;-1;2
+McCoy. Miss. Agnes;1;1;1;-0.0125;-0.25;-0.5;-0.0135;0;3
+McCoy. Mr. Bernard;1;1;-1;-0.075;-0.25;-0.5;-0.0135;0;3
+"Johnston. Miss. Catherine Helen ""Carrie""";0;1;1;-0.2875;-0.375;-0.25;-0.0131;-1;3
+Johnston. Mr. Andrew G;0;1;-1;0.0625;-0.375;-0.25;-0.0131;-1;3
+Abelson. Mr. Samuel;0;0;-1;0;-0.375;-0.5;-0.012;1;2
+Abelson. Mrs. Samuel (Hannah Wizosky);1;0;1;-0.025;-0.375;-0.5;-0.012;1;2
+Davies. Mr. Alfred J;0;1;-1;-0.075;-0.25;-0.5;-0.0117;-1;3
+Lester. Mr. James;0;1;-1;0.1125;-0.5;-0.5;-0.0117;-1;3
+Moran. Miss. Bertha;1;1;1;-0.025;-0.375;-0.5;-0.0117;0;3
+Moran. Mr. Daniel J;0;1;-1;-0.0375;-0.375;-0.5;-0.0117;0;3
+Ryan. Mr. Patrick;0;1;-1;-0.075;-0.5;-0.5;-0.0117;0;3
+Van Impe. Miss. Catharina;0;1;1;-0.25;-0.5;-0.25;-0.0117;-1;3
+Van Impe. Mr. Jean Baptiste;0;1;-1;0.075;-0.375;-0.375;-0.0117;-1;3
+Van Impe. Mrs. Jean Baptiste (Rosalie Paula Govaert);0;1;1;0;-0.375;-0.375;-0.0117;-1;3
+Lefebre. Master. Henry Forbes;0;1;-1;-0.3125;-0.125;-0.375;-0.0090666;-1;3
+Lefebre. Miss. Ida;0;1;1;-0.3375;-0.125;-0.375;-0.0090666;-1;3
+Lefebre. Miss. Jeannie;0;1;1;-0.275;-0.125;-0.375;-0.0090666;-1;3
+Lefebre. Miss. Mathilde;0;1;1;-0.225;-0.125;-0.375;-0.0090666;-1;3
+Colley. Mr. Edward Pomeroy;0;-1;-1;0.2125;-0.5;-0.5;-0.008825;-1;1
+Baumann. Mr. John D;0;-1;-1;0.075;-0.5;-0.5;-0.00815;-1;1
+Leader. Dr. Alice (Farnham);1;-1;1;0.2375;-0.5;-0.5;-0.0081416;-1;1
+Swift. Mrs. Frederick Joel (Margaret Welles Barron);1;-1;1;0.225;-0.5;-0.5;-0.0081416;-1;1
+"Angle. Mrs. William A (Florence ""Mary"" Agnes Hughes)";1;0;1;0.075;-0.375;-0.5;-0.008;-1;2
+Beane. Mr. Edward;1;0;-1;0.025;-0.375;-0.5;-0.008;-1;2
+Beane. Mrs. Edward (Ethel Clarke);1;0;1;-0.1375;-0.375;-0.5;-0.008;-1;2
+Bryhl. Mr. Kurt Arnold Gottfrid;0;0;-1;-0.0625;-0.375;-0.5;-0.008;-1;2
+Carter. Mrs. Ernest Courtenay (Lilian Hughes);0;0;1;0.175;-0.375;-0.5;-0.008;-1;2
+Carter. Rev. Ernest Courtenay;0;0;-1;0.3;-0.375;-0.5;-0.008;-1;2
+Chapman. Mr. John Henry;0;0;-1;0.0875;-0.375;-0.5;-0.008;-1;2
+Clarke. Mrs. Charles V (Ada Maria Winfield);1;0;1;-0.025;-0.375;-0.5;-0.008;-1;2
+Downton. Mr. William James;0;0;-1;0.3;-0.5;-0.5;-0.008;-1;2
+Faunthorpe. Mrs. Lizzie (Elizabeth Anne Wilkinson);1;0;1;-0.0125;-0.375;-0.5;-0.008;-1;2
+Fynney. Mr. Joseph J;0;0;-1;0.0625;-0.5;-0.5;-0.008;-1;2
+Gaskell. Mr. Alfred;0;0;-1;-0.175;-0.5;-0.5;-0.008;-1;2
+Hold. Mr. Stephen;0;0;-1;0.175;-0.375;-0.5;-0.008;-1;2
+Kantor. Mr. Sinai;0;0;-1;0.05;-0.375;-0.5;-0.008;-1;2
+Kantor. Mrs. Sinai (Miriam Sternin);1;0;1;-0.075;-0.375;-0.5;-0.008;-1;2
+Lahtinen. Mrs. William (Anna Sylfven);0;0;1;-0.05;-0.375;-0.375;-0.008;-1;2
+Louch. Mrs. Charles Alexander (Alice Adelaide Slow);1;0;1;0.15;-0.375;-0.5;-0.008;-1;2
+McKane. Mr. Peter David;0;0;-1;0.2;-0.5;-0.5;-0.008;-1;2
+"Morley. Mr. Henry Samuel (""Mr Henry Marshall"")";0;0;-1;0.1125;-0.5;-0.5;-0.008;-1;2
+Navratil. Master. Edmond Roger;1;0;-1;-0.35;-0.375;-0.375;-0.008;-1;2
+Navratil. Master. Michel M;1;0;-1;-0.3375;-0.375;-0.375;-0.008;-1;2
+"Navratil. Mr. Michel (""Louis M Hoffman"")";0;0;-1;0.08125;-0.5;-0.25;-0.008;-1;2
+Nicholson. Mr. Arthur Ernest;0;-1;-1;0.425;-0.5;-0.5;-0.008;-1;1
+Parrish. Mrs. (Lutie Davis);1;0;1;0.25;-0.5;-0.375;-0.008;-1;2
+"Phillips. Miss. Kate Florence (""Mrs Kate Louise Phillips Marshall"")";1;0;1;-0.1375;-0.5;-0.5;-0.008;-1;2
+Quick. Miss. Phyllis May;1;0;1;-0.35;-0.375;-0.375;-0.008;-1;2
+Quick. Mrs. Frederick Charles (Jane Richards);1;0;1;0.0375;-0.5;-0.25;-0.008;-1;2
+Sharp. Mr. Percival James R;0;0;-1;-0.0375;-0.5;-0.5;-0.008;-1;2
+Shelley. Mrs. William (Imanita Parrish Hall);1;0;1;-0.0625;-0.5;-0.375;-0.008;-1;2
+Smith. Mr. Richard William;0;-1;-1;0.075;-0.5;-0.5;-0.008;-1;1
+Weisz. Mrs. Leopold (Mathilde Francoise Pede);1;0;1;-0.0125;-0.375;-0.5;-0.008;-1;2
+"Collyer. Miss. Marjorie ""Lottie""";1;0;1;-0.275;-0.5;-0.25;-0.0075;-1;2
+Collyer. Mr. Harvey;0;0;-1;0.0125;-0.375;-0.375;-0.0075;-1;2
+Collyer. Mrs. Harvey (Charlotte Annie Tate);1;0;1;0.0125;-0.375;-0.375;-0.0075;-1;2
+Hart. Miss. Eva Miriam;1;0;1;-0.2875;-0.5;-0.25;-0.0075;-1;2
+Hart. Mr. Benjamin;0;0;-1;0.1625;-0.375;-0.375;-0.0075;-1;2
+Hart. Mrs. Benjamin (Esther Ada Bloomfield);1;0;1;0.1875;-0.375;-0.375;-0.0075;-1;2
+Newsom. Miss. Helen Monypeny;1;-1;1;-0.1375;-0.5;-0.25;-0.0074334;-1;1
+Calderhead. Mr. Edward Pennington;1;-1;-1;0.15;-0.5;-0.5;-0.007425;-1;1
+McGough. Mr. James Robert;1;-1;-1;0.075;-0.5;-0.5;-0.007425;-1;1
+Silverthorne. Mr. Spencer Victor;1;-1;-1;0.0625;-0.5;-0.5;-0.007425;-1;1
+"Flynn. Mr. John Irwin (""Irving"")";1;-1;-1;0.075;-0.5;-0.5;-0.007225;-1;1
+Anderson. Mr. Harry;1;-1;-1;0.225;-0.5;-0.5;-0.0069;-1;1
+Bjornstrom-Steffansson. Mr. Mauritz Hakan;1;-1;-1;-0.025;-0.5;-0.5;-0.0069;-1;1
+Bonnell. Miss. Elizabeth;1;-1;1;0.35;-0.5;-0.5;-0.0069;-1;1
+"Bradley. Mr. George (""George Arthur Brayton"")";1;-1;-1;0.075;-0.5;-0.5;-0.0069;-1;1
+Butt. Major. Archibald Willingham;0;-1;-1;0.1875;-0.5;-0.5;-0.0069;-1;1
+Daly. Mr. Peter Denis ;1;-1;-1;0.2625;-0.5;-0.5;-0.0069;-1;1
+"Homer. Mr. Harry (""Mr E Haven"")";1;-1;-1;0.0625;-0.5;-0.5;-0.0069;1;1
+Klaber. Mr. Herman;0;-1;-1;0.0875;-0.5;-0.5;-0.0069;-1;1
+Millet. Mr. Francis Davis;0;-1;-1;0.4375;-0.5;-0.5;-0.0069;-1;1
+"Romaine. Mr. Charles Hallace (""Mr C Rolmane"")";1;-1;-1;0.1875;-0.5;-0.5;-0.0069;-1;1
+Seward. Mr. Frederic Kimber;1;-1;-1;0.05;-0.5;-0.5;-0.0069;-1;1
+Smart. Mr. John Montgomery;0;-1;-1;0.325;-0.5;-0.5;-0.0069;-1;1
+Stead. Mr. William Thomas;0;-1;-1;0.4;-0.5;-0.5;-0.0069;-1;1
+Weir. Col. John;0;-1;-1;0.375;-0.5;-0.5;-0.0069;-1;1
+Wright. Mr. George;0;-1;-1;0.4;-0.5;-0.5;-0.0069;-1;1
+Jacobsohn. Mr. Sidney Samuel;0;0;-1;0.15;-0.375;-0.5;-0.006;-1;2
+Jacobsohn. Mrs. Sidney Samuel (Amy Frances Christy);1;0;1;-0.075;-0.25;-0.375;-0.006;-1;2
+Brown. Mrs. James Joseph (Margaret Tobin);1;-1;1;0.175;-0.5;-0.5;-0.0045584;1;1
+del Carlo. Mr. Sebastiano;0;0;-1;-0.0125;-0.375;-0.5;-0.0045584;1;2
+Lewy. Mr. Ervin G;0;-1;-1;0.0125;-0.5;-0.5;-0.0045584;1;1
+Stewart. Mr. Albert A;0;-1;-1;0.3;-0.5;-0.5;-0.0045584;1;1
+Uruchurtu. Don. Manuel E;0;-1;-1;0.125;-0.5;-0.5;-0.0045584;1;1
+Foreman. Mr. Benjamin Laventall;0;-1;-1;0;-0.5;-0.5;-0.0045;1;1
+West. Miss. Constance Mirium;1;0;1;-0.3125;-0.375;-0.25;-0.0045;-1;2
+West. Mr. Edwy Arthur;0;0;-1;0.075;-0.375;-0.25;-0.0045;-1;2
+West. Mrs. Edwy Arthur (Ada Mary Worth);1;0;1;0.0375;-0.375;-0.25;-0.0045;-1;2
+Skoog. Master. Harald;0;1;-1;-0.325;-0.125;-0.25;-0.0042;-1;3
+Skoog. Master. Karl Thorsten;0;1;-1;-0.25;-0.125;-0.25;-0.0042;-1;3
+Skoog. Miss. Mabel;0;1;1;-0.2625;-0.125;-0.25;-0.0042;-1;3
+Skoog. Miss. Margit Elizabeth;0;1;1;-0.35;-0.125;-0.25;-0.0042;-1;3
+Skoog. Mr. Wilhelm;0;1;-1;0.125;-0.375;0;-0.0042;-1;3
+Skoog. Mrs. William (Anna Bernhardina Karlsson);0;1;1;0.1875;-0.375;0;-0.0042;-1;3
+Partner. Mr. Austen;0;-1;-1;0.19375;-0.5;-0.5;-0.003;-1;1
+Isham. Miss. Ann Elizabeth;0;-1;1;0.25;-0.5;-0.5;-0.002575;1;1
+Caldwell. Master. Alden Gates;1;0;-1;-0.364625;-0.5;-0.25;-0.002;-1;2
+Caldwell. Mrs. Albert Francis (Sylvia Mae Harbaugh);1;0;1;-0.1;-0.375;-0.375;-0.002;-1;2
+Rice. Master. Arthur;0;1;-1;-0.325;0;-0.375;-0.00175;0;3
+Rice. Master. Eric;0;1;-1;-0.2875;0;-0.375;-0.00175;0;3
+Rice. Master. Eugene;0;1;-1;-0.35;0;-0.375;-0.00175;0;3
+Rice. Master. George Hugh;0;1;-1;-0.275;0;-0.375;-0.00175;0;3
+Rice. Mrs. William (Margaret Norton);0;1;1;0.1125;-0.5;0.125;-0.00175;0;3
+Kent. Mr. Edward Austin;0;-1;-1;0.35;-0.5;-0.5;-0.0006;1;1
+Marechal. Mr. Pierre;1;-1;-1;-0.0125;-0.5;-0.5;-0.0006;1;1
+Natsch. Mr. Charles H;0;-1;-1;0.0875;-0.5;-0.375;-0.0006;1;1
+Barkworth. Mr. Algernon Henry Wilson;1;-1;-1;0.625;-0.5;-0.5;0;-1;1
+Behr. Mr. Karl Howell;1;-1;-1;-0.05;-0.5;-0.5;0;1;1
+Christy. Miss. Julie Rachel;1;0;1;-0.0625;-0.375;-0.375;0;-1;2
+Graham. Miss. Margaret Edith;1;-1;1;-0.1375;-0.5;-0.5;0;-1;1
+Hawksford. Mr. Walter James;1;-1;-1;0.125;-0.5;-0.5;0;-1;1
+Long. Mr. Milton Clyde;0;-1;-1;-0.0125;-0.5;-0.5;0;-1;1
+Nasser. Mr. Nicholas;0;0;-1;0.03125;-0.375;-0.5;0.0001416;1;2
+Nasser. Mrs. Nicholas (Adele Achem);1;0;1;-0.2;-0.375;-0.5;0.0001416;1;2
+Daniel. Mr. Robert Williams;1;-1;-1;-0.0375;-0.5;-0.5;0.001;-1;1
+Molson. Mr. Harry Markland;0;-1;-1;0.3125;-0.5;-0.5;0.001;-1;1
+Peuchen. Major. Arthur Godfrey;1;-1;-1;0.275;-0.5;-0.5;0.001;-1;1
+Saalfeld. Mr. Adolphe;1;-1;-1;0.2125;-0.5;-0.5;0.001;-1;1
+Stahelin-Maeglin. Dr. Max;1;-1;-1;0.025;-0.5;-0.5;0.001;1;1
+Hoyt. Mr. William Fisher;0;-1;-1;0.15;-0.5;-0.5;0.0013916;1;1
+Smith. Mr. James Clinch;0;-1;-1;0.325;-0.5;-0.5;0.0013916;1;1
+Blank. Mr. Henry;1;-1;-1;0.125;-0.5;-0.5;0.002;1;1
+Cairns. Mr. Alexander;0;-1;-1;-0.025;-0.5;-0.5;0.002;-1;1
+Serepeca. Miss. Augusta;1;-1;1;0;-0.5;-0.5;0.002;1;1
+Andersson. Master. Sigvard Harald Elias;0;1;-1;-0.325;0;-0.25;0.00255;-1;3
+Andersson. Miss. Ebba Iris Alfrida;0;1;1;-0.3;0;-0.25;0.00255;-1;3
+Andersson. Miss. Ellis Anna Maria;0;1;1;-0.35;0;-0.25;0.00255;-1;3
+Andersson. Miss. Ingeborg Constanzia;0;1;1;-0.2625;0;-0.25;0.00255;-1;3
+Andersson. Miss. Sigrid Elisabeth;0;1;1;-0.2375;0;-0.25;0.00255;-1;3
+Andersson. Mr. Anders Johan;0;1;-1;0.1125;-0.375;0.125;0.00255;-1;3
+Andersson. Mrs. Anders Johan (Alfrida Konstantia Brogren);0;1;1;0.1125;-0.375;0.125;0.00255;-1;3
+Asplund. Master. Clarence Gustaf Hugo;0;1;-1;-0.2625;0;-0.25;0.002775;-1;3
+Asplund. Master. Edvin Rojj Felix;1;1;-1;-0.3375;0;-0.25;0.002775;-1;3
+Asplund. Miss. Lillian Gertrud;1;1;1;-0.3125;0;-0.25;0.002775;-1;3
+Asplund. Mrs. Carl Oscar (Selma Augusta Emilia Johansson);1;1;1;0.1;-0.375;0.125;0.002775;-1;3
+Sutton. Mr. Frederick;0;-1;-1;0.3875;-0.5;-0.5;0.0046416;-1;1
+Drew. Mrs. James Vivian (Lulu Thorne Christian);1;0;1;0.05;-0.375;-0.375;0.005;-1;2
+"Harper. Miss. Annie Jessie ""Nina""";1;0;1;-0.3;-0.5;-0.375;0.006;-1;2
+Harper. Rev. John;0;0;-1;-0.025;-0.5;-0.375;0.006;-1;2
+Leitch. Miss. Jessie Wills;1;0;1;0.0125;-0.5;-0.5;0.006;-1;2
+Van der hoef. Mr. Wyckoff;0;-1;-1;0.3875;-0.5;-0.5;0.007;-1;1
+Walker. Mr. William Anderson;0;-1;-1;0.2125;-0.5;-0.5;0.0080416;-1;1
+"Ford. Miss. Doolina Margaret ""Daisy""";0;1;1;-0.1125;-0.25;-0.25;0.00875;-1;3
+"Ford. Miss. Robina Maggie ""Ruby""";0;1;1;-0.2625;-0.25;-0.25;0.00875;-1;3
+Ford. Mr. William Neal;0;1;-1;-0.175;-0.375;-0.125;0.00875;-1;3
+Ford. Mrs. Edward (Margaret Ann Watson);0;1;1;0.225;-0.375;-0.125;0.00875;-1;3
+Goldschmidt. Mr. George B;0;-1;-1;0.5125;-0.5;-0.5;0.0093084;1;1
+Williams-Lambert. Mr. Fletcher Fellows;0;-1;-1;0.1875;-0.5;-0.5;0.01;-1;1
+Blackwell. Mr. Stephen Weart;0;-1;-1;0.1875;-0.5;-0.5;0.011;-1;1
+Simonius-Blumer. Col. Oberst Alfons;1;-1;-1;0.325;-0.5;-0.5;0.011;1;1
+Sloper. Mr. William Thompson;1;-1;-1;-0.025;-0.5;-0.5;0.011;-1;1
+Woolner. Mr. Hugh;1;-1;-1;0.1875;-0.5;-0.5;0.011;-1;1
+Davies. Master. John Morgan Jr;1;0;-1;-0.275;-0.375;-0.375;0.0135;-1;2
+Nicholls. Mr. Joseph Charles;0;0;-1;-0.1375;-0.375;-0.375;0.0135;-1;2
+Mallet. Master. Andre;1;0;-1;-0.3625;-0.5;-0.25;0.0140084;1;2
+Mallet. Mr. Albert;0;0;-1;0.0125;-0.375;-0.375;0.0140084;1;2
+Gee. Mr. Arthur H;0;-1;-1;0.2125;-0.5;-0.5;0.017;-1;1
+Becker. Master. Richard F;1;0;-1;-0.3625;-0.25;-0.375;0.018;-1;2
+Becker. Miss. Marion Louise;1;0;1;-0.325;-0.25;-0.375;0.018;-1;2
+Brown. Mr. Thomas William Solomon;0;0;-1;0.375;-0.375;-0.375;0.018;-1;2
+Brown. Mrs. Thomas William Solomon (Elizabeth Catherine Ford);1;0;1;0.125;-0.375;-0.375;0.018;-1;2
+Lines. Miss. Mary Conover;1;-1;1;-0.175;-0.5;-0.375;0.0188;-1;1
+Brewe. Dr. Arthur Jackson;0;-1;-1;0.1875;-0.5;-0.5;0.0192;1;1
+"Duff Gordon. Lady. (Lucille Christiana Sutherland) (""Mrs Morgan"")";1;-1;1;0.225;-0.375;-0.5;0.0192;1;1
+Panula. Master. Eino Viljami;0;1;-1;-0.3625;0;-0.375;0.019375;-1;3
+Panula. Master. Juha Niilo;0;1;-1;-0.2875;0;-0.375;0.019375;-1;3
+Panula. Master. Urho Abraham;0;1;-1;-0.35;0;-0.375;0.019375;-1;3
+Panula. Mr. Ernesti Arvid;0;1;-1;-0.175;0;-0.375;0.019375;-1;3
+Panula. Mr. Jaako Arnold;0;1;-1;-0.2;0;-0.375;0.019375;-1;3
+Panula. Mrs. Juha (Maria Emilia Ojala);0;1;1;0.1375;-0.5;0.125;0.019375;-1;3
+Ross. Mr. John Hugo;0;-1;-1;0.075;-0.5;-0.5;0.02025;1;1
+Laroche. Miss. Simonne Marie Anne Andree;1;0;1;-0.3375;-0.375;-0.25;0.0231584;1;2
+Laroche. Mr. Joseph Philippe Lemercier;0;0;-1;-0.0625;-0.375;-0.25;0.0231584;1;2
+Laroche. Mrs. Joseph (Juliette Marie Louise Lafargue);1;0;1;-0.1;-0.375;-0.25;0.0231584;1;2
+Harrington. Mr. Charles H;0;-1;-1;0.125;-0.5;-0.5;0.0248;-1;1
+Goodwin. Master. Harold Victor;0;1;-1;-0.2625;0.125;-0.25;0.0338;-1;3
+Goodwin. Master. Sidney Leonard;0;1;-1;-0.3625;0.125;-0.25;0.0338;-1;3
+Goodwin. Master. William Frederick;0;1;-1;-0.2375;0.125;-0.25;0.0338;-1;3
+Goodwin. Miss. Lillian Amy;0;1;1;-0.175;0.125;-0.25;0.0338;-1;3
+Goodwin. Mr. Charles Edward;0;1;-1;-0.2;0.125;-0.25;0.0338;-1;3
+Goodwin. Mrs. Frederick (Augusta Tyler);0;1;1;0.1625;-0.375;0.25;0.0338;-1;3
+Carrau. Mr. Francisco M;0;-1;-1;-0.025;-0.5;-0.5;0.0342;-1;1
+Frolicher. Miss. Hedwig Margaritha;1;-1;1;-0.1;-0.5;-0.25;0.039;1;1
+Artagaveytia. Mr. Ramon;0;-1;-1;0.5125;-0.5;-0.5;0.0390084;1;1
+"Mayne. Mlle. Berthe Antonine (""Mrs de Villiers"")";1;-1;1;-0.075;-0.5;-0.5;0.0390084;1;1
+Rood. Mr. Hugh Roscoe;0;-1;-1;0.1;-0.5;-0.5;0.04;-1;1
+Roebling. Mr. Washington Augustus II;0;-1;-1;0.0125;-0.5;-0.5;0.0409916;-1;1
+Appleton. Mrs. Edward Dale (Charlotte Lamson);1;-1;1;0.2875;-0.25;-0.5;0.0429584;-1;1
+Kenyon. Mrs. Frederick R (Marion);1;-1;1;0.0125;-0.375;-0.5;0.043725;-1;1
+McCarthy. Mr. Timothy J;0;-1;-1;0.3;-0.5;-0.5;0.043725;-1;1
+Clifford. Mr. George Quincy;0;-1;-1;0.125;-0.5;-0.5;0.044;-1;1
+Davidson. Mr. Thornton;0;-1;-1;0.0125;-0.375;-0.5;0.044;-1;1
+Holverson. Mr. Alexander Oskar;0;-1;-1;0.15;-0.375;-0.5;0.044;-1;1
+Holverson. Mrs. Alexander Oskar (Mary Aline Towner);1;-1;1;0.0625;-0.375;-0.5;0.044;-1;1
+Porter. Mr. Walter Chamberlain;0;-1;-1;0.2125;-0.5;-0.5;0.044;-1;1
+Taylor. Mr. Elmer Zebley;1;-1;-1;0.225;-0.375;-0.5;0.044;-1;1
+Taylor. Mrs. Elmer Zebley (Juliet Cummins Wright);1;-1;1;0.2375;-0.375;-0.5;0.044;-1;1
+Beckwith. Mr. Richard Leonard;1;-1;-1;0.0875;-0.375;-0.375;0.0451084;-1;1
+Beckwith. Mrs. Richard Leonard (Sallie Monypeny);1;-1;1;0.2125;-0.375;-0.375;0.0451084;-1;1
+Kimball. Mr. Edwin Nelson Jr;1;-1;-1;0.15;-0.375;-0.5;0.0451084;-1;1
+Chambers. Mr. Norman Campbell;1;-1;-1;-0.0375;-0.375;-0.5;0.0462;-1;1
+Chambers. Mrs. Norman Campbell (Bertha Griggs);1;-1;1;0.0375;-0.375;-0.5;0.0462;-1;1
+Futrelle. Mr. Jacques Heath;0;-1;-1;0.0875;-0.375;-0.5;0.0462;-1;1
+Futrelle. Mrs. Jacques Heath (Lily May Peel);1;-1;1;0.0625;-0.375;-0.5;0.0462;-1;1
+Marvin. Mr. Daniel Warner;0;-1;-1;-0.1375;-0.375;-0.5;0.0462;-1;1
+Bowerman. Miss. Elsie Edith;1;-1;1;-0.1;-0.5;-0.375;0.05;-1;1
+Chibnall. Mrs. (Edith Martha Bowerman);1;-1;1;0.225;-0.5;-0.375;0.05;-1;1
+Harder. Mr. George Achilles;1;-1;-1;-0.0625;-0.375;-0.5;0.0508834;1;1
+Silvey. Mr. William Baird;0;-1;-1;0.25;-0.375;-0.5;0.0518;-1;1
+Silvey. Mrs. William Baird (Alice Munger);1;-1;1;0.1125;-0.375;-0.5;0.0518;-1;1
+Bing. Mr. Lee;1;1;-1;0.025;-0.5;-0.5;0.0529916;-1;3
+Chip. Mr. Chang;1;1;-1;0.025;-0.5;-0.5;0.0529916;-1;3
+Foo. Mr. Choong;1;1;-1;0.025;-0.5;-0.5;0.0529916;-1;3
+Lam. Mr. Ali;1;1;-1;0.1;-0.5;-0.5;0.0529916;-1;3
+Lam. Mr. Len;0;1;-1;-0.0875;-0.5;-0.5;0.0529916;-1;3
+Lang. Mr. Fang;1;1;-1;-0.05;-0.5;-0.5;0.0529916;-1;3
+Ling. Mr. Lee;0;1;-1;-0.025;-0.5;-0.5;0.0529916;-1;3
+"Duff Gordon. Sir. Cosmo Edmund (""Mr Morgan"")";1;-1;-1;0.2375;-0.375;-0.5;0.0538584;1;1
+Francatelli. Miss. Laura Mabel;1;-1;1;0;-0.5;-0.5;0.0538584;1;1
+Dick. Mr. Albert Adrian;1;-1;-1;0.0125;-0.375;-0.5;0.054;-1;1
+Dick. Mrs. Albert Adrian (Vera Gillespie);1;-1;1;-0.1625;-0.375;-0.5;0.054;-1;1
+Hippach. Miss. Jean Gertrude;1;-1;1;-0.175;-0.5;-0.375;0.0559584;1;1
+Hippach. Mrs. Louis Albert (Ida Sophia Fischer);1;-1;1;0.175;-0.5;-0.375;0.0559584;1;1
+Rothschild. Mrs. Martin (Elizabeth L. Barrett);1;-1;1;0.3;-0.375;-0.5;0.0588;1;1
+Chaffee. Mr. Herbert Fuller;0;-1;-1;0.2;-0.375;-0.5;0.06235;-1;1
+Williams. Mr. Charles Duane;0;-1;-1;0.2625;-0.5;-0.375;0.0627584;1;1
+Ostby. Mr. Engelhart Cornelius;0;-1;-1;0.4375;-0.5;-0.375;0.0639584;1;1
+Greenfield. Mr. William Bertram;1;-1;-1;-0.0875;-0.5;-0.375;0.0667166;1;1
+Herman. Miss. Alice;1;0;1;-0.075;-0.375;-0.25;0.07;-1;2
+Herman. Mrs. Samuel (Jane Laver);1;0;1;0.225;-0.375;-0.25;0.07;-1;2
+Pears. Mr. Thomas Clinton;0;-1;-1;-0.0125;-0.375;-0.5;0.0732;-1;1
+Pears. Mrs. Thomas (Edith Wearne);1;-1;1;-0.1;-0.375;-0.5;0.0732;-1;1
+Aubart. Mme. Leontine Pauline;1;-1;1;-0.075;-0.5;-0.5;0.0786;1;1
+Sagesser. Mlle. Emma;1;-1;1;-0.075;-0.5;-0.5;0.0786;1;1
+Sage. Master. Thomas Henry;0;1;-1;-0.325;0.5;-0.25;0.0791;-1;3
+Sage. Miss. Constance Gladys;0;1;1;-0.2875;0.5;-0.25;0.0791;-1;3
+"Sage. Miss. Dorothy Edith ""Dolly""";0;1;1;-0.2;0.5;-0.25;0.0791;-1;3
+Sage. Miss. Stella Anna;0;1;1;-0.25;0.5;-0.25;0.0791;-1;3
+Sage. Mr. Douglas Bullen;0;1;-1;-0.125;0.5;-0.25;0.0791;-1;3
+Sage. Mr. Frederick;0;1;-1;-0.175;0.5;-0.25;0.0791;-1;3
+Sage. Mr. George John Jr;0;1;-1;-0.1375;0.5;-0.25;0.0791;-1;3
+Crosby. Capt. Edward Gifford;0;-1;-1;0.5;-0.375;-0.375;0.082;-1;1
+Crosby. Miss. Harriet R;1;-1;1;0.075;-0.5;-0.25;0.082;-1;1
+Cumings. Mrs. John Bradley (Florence Briggs Thayer);1;-1;1;0.1;-0.375;-0.5;0.0825666;1;1
+Davies. Mr. Charles Henry;0;0;-1;-0.15;-0.5;-0.5;0.087;-1;2
+Hickman. Mr. Leonard Mark;0;0;-1;-0.075;-0.25;-0.5;0.087;-1;2
+Hickman. Mr. Lewis;0;0;-1;0.025;-0.25;-0.5;0.087;-1;2
+Hickman. Mr. Stanley George;0;0;-1;-0.1125;-0.25;-0.5;0.087;-1;2
+Hood. Mr. Ambrose Jr;0;0;-1;-0.1125;-0.5;-0.5;0.087;-1;2
+Warren. Mrs. Frank Manley (Anna Sophia Atkinson);1;-1;1;0.375;-0.375;-0.5;0.0905;1;1
+Bazzani. Miss. Albina;1;-1;1;0.025;-0.5;-0.5;0.0925834;1;1
+Harper. Mr. Henry Sleeper;1;-1;-1;0.225;-0.375;-0.5;0.0934584;1;1
+Harper. Mrs. Henry Sleeper (Myna Haxtun);1;-1;1;0.2375;-0.375;-0.5;0.0934584;1;1
+Hassab. Mr. Hammad;1;-1;-1;-0.0375;-0.5;-0.5;0.0934584;1;1
+White. Mr. Percival Wayland;0;-1;-1;0.3;-0.5;-0.375;0.094575;-1;1
+White. Mr. Richard Frasar;0;-1;-1;-0.1125;-0.5;-0.375;0.094575;-1;1
+Andrews. Miss. Kornelia Theodosia;1;-1;1;0.4125;-0.375;-0.5;0.0959166;-1;1
+Hogeboom. Mrs. John C (Anna Andrews);1;-1;1;0.2625;-0.375;-0.5;0.0959166;-1;1
+Longley. Miss. Gretchen Fiske;1;-1;1;-0.1125;-0.5;-0.5;0.0959166;-1;1
+Eustis. Miss. Elizabeth Mussey;1;-1;1;0.3;-0.375;-0.5;0.0965334;1;1
+Stephenson. Mrs. Walter Bertram (Martha Eustis);1;-1;1;0.275;-0.375;-0.5;0.0965334;1;1
+"Barber. Miss. Ellen ""Nellie""";1;-1;1;-0.05;-0.5;-0.5;0.0977;-1;1
+Cavendish. Mr. Tyrell William;0;-1;-1;0.075;-0.375;-0.5;0.0977;-1;1
+Frolicher-Stehli. Mr. Maxmillian;1;-1;-1;0.375;-0.375;-0.375;0.0984;1;1
+Giglio. Mr. Victor;0;-1;-1;-0.075;-0.5;-0.5;0.0984;1;1
+Guggenheim. Mr. Benjamin;0;-1;-1;0.2;-0.5;-0.5;0.0984;1;1
+Thorne. Mrs. Gertrude Maybelle;1;-1;1;0.1;-0.5;-0.5;0.0984;1;1
+Taussig. Miss. Ruth;1;-1;1;-0.15;-0.5;-0.25;0.0993;-1;1
+Taussig. Mr. Emil;0;-1;-1;0.275;-0.375;-0.375;0.0993;-1;1
+Taussig. Mrs. Emil (Tillie Mandelbaum);1;-1;1;0.1125;-0.375;-0.375;0.0993;-1;1
+Icard. Miss. Amelie;1;-1;1;0.1;-0.5;-0.5;0.1;0;1
+Stone. Mrs. George Nelson (Martha Evelyn);1;-1;1;0.4;-0.5;-0.5;0.1;-1;1
+Dodge. Master. Washington;1;-1;-1;-0.325;-0.5;-0.25;0.1037166;-1;1
+Meyer. Mr. Edgar Joseph;0;-1;-1;-0.025;-0.375;-0.5;0.1043416;1;1
+Meyer. Mrs. Edgar Joseph (Leila Saks);1;-1;1;-0.0625;-0.375;-0.5;0.1043416;1;1
+Compton. Miss. Sara Rebecca;1;-1;1;0.1125;-0.375;-0.375;0.1063166;1;1
+Hays. Miss. Margaret Bechstein;1;-1;1;-0.075;-0.5;-0.5;0.1063166;1;1
+Potter. Mrs. Thomas Jr (Lily Alexenia Wilson);1;-1;1;0.325;-0.5;-0.375;0.1063166;1;1
+Harris. Mr. Henry Birkhardt;0;-1;-1;0.1875;-0.375;-0.5;0.10695;-1;1
+Harris. Mrs. Henry Birkhardt (Irene Wallach);1;-1;1;0.0625;-0.375;-0.5;0.10695;-1;1
+Cherry. Miss. Gladys;1;-1;1;0;-0.5;-0.5;0.113;-1;1
+Maioni. Miss. Roberta;1;-1;1;-0.175;-0.5;-0.5;0.113;-1;1
+Rothes. the Countess. of (Lucy Noel Martha Dyer-Edwards);1;-1;1;0.0375;-0.5;-0.5;0.113;-1;1
+Goldenberg. Mr. Samuel L;1;-1;-1;0.2375;-0.375;-0.5;0.1182084;1;1
+Goldenberg. Mrs. Samuel L (Edwiga Grabowska);1;-1;1;0.125;-0.375;-0.5;0.1182084;1;1
+Hoyt. Mr. Frederick Maxfield;1;-1;-1;0.1;-0.375;-0.5;0.12;-1;1
+Hoyt. Mrs. Frederick Maxfield (Jane Anne Forby);1;-1;1;0.0625;-0.375;-0.5;0.12;-1;1
+Minahan. Dr. William Edward;0;-1;-1;0.175;-0.25;-0.5;0.12;0;1
+Minahan. Miss. Daisy E;1;-1;1;0.0375;-0.375;-0.5;0.12;0;1
+Bishop. Mr. Dickinson H;1;-1;-1;-0.0625;-0.375;-0.5;0.1221584;1;1
+Bishop. Mrs. Dickinson H (Helen Walton);1;-1;1;-0.1375;-0.375;-0.5;0.1221584;1;1
+Hays. Mrs. Charles Melville (Clara Jennings Gregg);1;-1;1;0.275;-0.375;-0.375;0.127;-1;1
+Perreault. Miss. Anne;1;-1;1;0;-0.5;-0.5;0.127;-1;1
+Douglas. Mr. Walter Donald;0;-1;-1;0.25;-0.375;-0.5;0.15285;1;1
+LeRoy. Miss. Bertha;1;-1;1;0;-0.5;-0.5;0.15285;1;1
+Penasco y Castellana. Mr. Victor de Satode;0;-1;-1;-0.15;-0.375;-0.5;0.1578;1;1
+Penasco y Castellana. Mrs. Victor de Satode (Maria Josefa Perez de Soto y Vallejo);1;-1;1;-0.1625;-0.375;-0.5;0.1578;1;1
+Fleming. Miss. Margaret;1;-1;1;0.15;-0.5;-0.5;0.1617666;1;1
+Thayer. Mr. John Borland;0;-1;-1;0.2375;-0.375;-0.375;0.1617666;1;1
+Thayer. Mr. John Borland Jr;1;-1;-1;-0.1625;-0.5;-0.25;0.1617666;1;1
+Thayer. Mrs. John Borland (Marian Longstreth Morris);1;-1;1;0.1125;-0.375;-0.375;0.1617666;1;1
+Newell. Miss. Madeleine;1;-1;1;0.0125;-0.375;-0.5;0.16655;1;1
+Newell. Miss. Marjorie;1;-1;1;-0.0875;-0.375;-0.5;0.16655;1;1
+Newell. Mr. Arthur Webster;0;-1;-1;0.35;-0.5;-0.25;0.16655;1;1
+Carter. Master. William Thornton II;1;-1;-1;-0.2375;-0.375;-0.25;0.18;-1;1
+Carter. Miss. Lucile Polk;1;-1;1;-0.2;-0.375;-0.25;0.18;-1;1
+Carter. Mr. William Ernest;1;-1;-1;0.075;-0.375;-0.25;0.18;-1;1
+Carter. Mrs. William Ernest (Lucile Polk);1;-1;1;0.075;-0.375;-0.25;0.18;-1;1
+Frauenthal. Dr. Henry William;1;-1;-1;0.25;-0.25;-0.5;0.2073;-1;1
+Frauenthal. Mrs. Henry William (Clara Heinsheimer);1;-1;1;0.2375;-0.375;-0.5;0.2073;-1;1
+Burns. Miss. Elizabeth Margaret;1;-1;1;0.1375;-0.5;-0.5;0.209;1;1
+Spedden. Mrs. Frederic Oakley (Margaretta Corning Stone);1;-1;1;0.125;-0.375;-0.375;0.209;1;1
+Bissette. Miss. Amelia;1;-1;1;0.0625;-0.5;-0.5;0.2112666;-1;1
+Ringhini. Mr. Sante;0;-1;-1;-0.1;-0.5;-0.5;0.2112666;1;1
+Young. Miss. Marie Grice;1;-1;1;0.075;-0.5;-0.5;0.2112666;1;1
+Lurette. Miss. Elise;1;-1;1;0.35;-0.5;-0.5;0.2330416;1;1
+Spencer. Mrs. William Augustus (Marie Eugenie);1;-1;1;0.1875;-0.375;-0.5;0.2330416;1;1
+Allison. Master. Hudson Trevor;1;-1;-1;-0.3635;-0.375;-0.25;0.2431;-1;1
+Allison. Miss. Helen Loraine;0;-1;1;-0.35;-0.375;-0.25;0.2431;-1;1
+Allison. Mrs. Hudson J C (Bessie Waldo Daniels);0;-1;1;-0.0625;-0.375;-0.25;0.2431;-1;1
+Cleaver. Miss. Alice;1;-1;1;-0.1;-0.5;-0.5;0.2431;-1;1
+Graham. Mr. George Edward;0;-1;-1;0.1;-0.5;-0.375;0.246925;-1;1
+Graham. Mrs. William Thompson (Edith Junkins);1;-1;1;0.35;-0.5;-0.375;0.246925;-1;1
+Shutes. Miss. Elizabeth W;1;-1;1;0.125;-0.5;-0.5;0.246925;-1;1
+Wick. Miss. Mary Natalie;1;-1;1;0.0125;-0.5;-0.25;0.2697334;-1;1
+Wick. Mrs. George Dennick (Mary Hitchcock);1;-1;1;0.1875;-0.375;-0.375;0.2697334;-1;1
+Allen. Miss. Elisabeth Walton;1;-1;1;-0.0125;-0.5;-0.5;0.362675;-1;1
+Madill. Miss. Georgette Alexandra;1;-1;1;-0.1875;-0.5;-0.375;0.362675;-1;1
+Robert. Mrs. Edward Scott (Elisabeth Walton McMillan);1;-1;1;0.1625;-0.5;-0.375;0.362675;-1;1
+Widener. Mr. Harry Elkins;0;-1;-1;-0.0375;-0.5;-0.25;0.363;1;1
+Farthing. Mr. John;0;-1;-1;0.3375;-0.5;-0.5;0.3835584;-1;1
+Astor. Mrs. John Jacob (Madeleine Talmadge Force);1;-1;1;-0.15;-0.375;-0.5;0.39505;1;1
+Bidois. Miss. Rosalie;1;-1;1;0.15;-0.5;-0.5;0.39505;1;1
+Endres. Miss. Caroline Louise;1;-1;1;0.1;-0.5;-0.5;0.39505;1;1
+Robbins. Mr. Victor;0;-1;-1;0.15;-0.5;-0.5;0.39505;1;1
+Baxter. Mr. Quigg Edmond;0;-1;-1;-0.075;-0.5;-0.375;0.4350416;1;1
+Baxter. Mrs. James (Helene DeLaudeniere Chaput);1;-1;1;0.25;-0.5;-0.375;0.4350416;1;1
+Ryerson. Miss. Emily Borie;1;-1;1;-0.15;-0.25;-0.25;0.46475;1;1
+"Ryerson. Miss. Susan Parker ""Suzette""";1;-1;1;-0.1125;-0.25;-0.25;0.46475;1;1
+Fortune. Miss. Alice Elizabeth;1;-1;1;-0.075;-0.125;-0.25;0.466;-1;1
+Fortune. Miss. Mabel Helen;1;-1;1;-0.0875;-0.125;-0.25;0.466;-1;1
+Fortune. Mr. Charles Alexander;0;-1;-1;-0.1375;-0.125;-0.25;0.466;-1;1
+Fortune. Mr. Mark;0;-1;-1;0.425;-0.375;0;0.466;-1;1
+Cardeza. Mr. Thomas Drake Martinez;1;-1;-1;0.075;-0.5;-0.375;0.9646584;1;1
+Lesurer. Mr. Gustave J;1;-1;-1;0.0625;-0.5;-0.5;0.9646584;1;1
+Ward. Miss. Anna;1;-1;1;0.0625;-0.5;-0.5;0.9646584;1;1
