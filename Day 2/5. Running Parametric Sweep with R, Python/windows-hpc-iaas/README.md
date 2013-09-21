@@ -323,7 +323,7 @@ We need a Windows Azure management certificate to authenticate the HPC cluster h
 
 1. Click on the **Settings** tab to display management certificates associated with your subscription.
 
-1. Click on **Upload**, use the file selection box to select the certificate file you copied from the VM, and click the check button to upload and add the management certificate.
+1. Click on **Upload**, use the file selection box to select the certificate file you copied from the VM, and click the check button to upload and add the management certificate. You may use the same certificate that you just imported. The default, hpccert.cer is in C:\Program Files\Microsoft HPC Pack 2012\Bin on the Head node VM.
 
    ![MakeCert](makecert3.png)
    
