@@ -50,7 +50,7 @@ During this exercise you will create a new web site of Django.
 
 1. Click *New* on the command bar.
 
-	![Creating a new Web Site](Images/new-website.png?raw=true "Launch Terminal")
+	![Creating a new Web Site](Images/new-website.png?raw=true "Creating a new Web Site")
 
 	_Creating a new Web Site_
 
@@ -112,14 +112,14 @@ During this exercise you will create a new web site of Django.
 		
 	>**Note**: Replace the first **waws-prod-blu-001.ftp.azurewebsites.windows.net** value with the one obtained from the portal. Also remove the **ftp://** prefix as depicted above.
 
-	![Use FileZilla](images/use-filezilla.png?raw=true "Use FileZilla") 
+	![Use FileZilla](images/use-filezilla.png?raw=true) 
 
 	_Use FileZilla_
 
 	> **Note:** Deployment credentials are other than the Live ID associated with your Windows Azure subscription and are valid for use with all Windows Azure web sites associated with your subscription. If you don't know your deployment credentials you can easily reset them using the management portal. Open the web site **Dashboard** page and click the **Reset deployment credentials** link. Provide a new password and click Ok.
 
 	>
-	>![Entering the username and password](images/deployment-credentials.png?raw=true "Setting the user name and password")
+	>![Entering the username and password](images/deployment-credentials.png?raw=true)
 	>
 	>_Entering the username and password_
 
@@ -128,7 +128,7 @@ During this exercise you will create a new web site of Django.
 
 	
 
-	![Uploading all files](images/ftp-put.png?raw=true "Uploading all files")
+	![Uploading all files](images/ftp-put.png?raw=true)
 
 	_Uploading all files_
 
@@ -196,13 +196,13 @@ _You current location_
 
 1. Create a new website according to the steps in [Exercise 1](#Exercise1).
 
-	![Create a new website](Images/create-website-2.png?raw=true)
+	![Create a new website](Images/create-website-two.png?raw=true)
 
 	_Create a new website_
 
 1. Visit the [Bing Maps Portal](http://www.bingmapsportal.com).
 
-	![Bing Map Portal](Images/bing-map-portal.png?raw=true)
+	![Bing Map Portal](Images/bing-map-portals.png?raw=true)
 
 	_Bing Map Portal_
 
@@ -210,14 +210,14 @@ you can use your Microsoft account to login. If you don't have any Microsoft acc
 
 1. After login into the portal, just click **Create or view keys** to create your own key. Input your application name, url, key type and application type. You can just select **Basic** key and choose your correct application type. Please ensure the **Application URL** is the same as the website you have created in the last steps.
 
-	![Create Bing Map Keys](Images/create-bing-map-keys.png?raw=true)
+	![Create Bing Map Keys](Images/create-bing-map-key.png?raw=true)
 
 	_Create Bing Map Keys_
 
 
 1. You will get your key after you submit your information. Please **Save** the key and you will use it in your html page.
 
-	![Bing Map Key](Images/my-bing-map-key.png?raw=true)
+	![Bing Map Key](Images/my-bing-map-app-key.png?raw=true)
 
 	_Bing Map Key_
 
@@ -229,7 +229,7 @@ you can use your Microsoft account to login. If you don't have any Microsoft acc
 
 1. Use FileZilla to upload the file **location.html** to **site/wwwroot** folder.
 
-	![Upload the location file](Images/upload-location-file.png?raw=true)
+	![Upload the location file](Images/upload-location-html-file,png?raw=true)
 
 	_Upload the location file_
 
