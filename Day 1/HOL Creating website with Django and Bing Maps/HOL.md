@@ -124,9 +124,7 @@ During this exercise you will create a new web site of Django.
 	>_Entering the username and password_
 
 
-1. Click **Quick Connect** and Upload all files using the FileZilla. Navigate to your local Django site on the left and navigate to site\wwwroot on the remote. Then upload the **DjangoApplication** and **site-packages** folder to remote. And you need also need to remove the pre-created file **hostingstart.html**
-
-	
+1. Click **Quick Connect** and Upload all files using the FileZilla. Navigate to your local Django site on the left and navigate to site\wwwroot on the remote. Then upload the **DjangoApplication** and **site-packages** folder to remote. And you also need to remove the pre-created file **hostingstart.html**
 
 	![Uploading all files](images/ftp-put.png?raw=true)
 
@@ -229,7 +227,7 @@ you can use your Microsoft account to login. If you don't have any Microsoft acc
 
 1. Use FileZilla to upload the file **location.html** to **site/wwwroot** folder.
 
-	![Upload the location file](Images/upload-location-html-file,png?raw=true)
+	![Upload the location file](Images/upload-location-html-file.png?raw=true)
 
 	_Upload the location file_
 
