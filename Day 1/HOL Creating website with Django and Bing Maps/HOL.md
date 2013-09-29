@@ -1,20 +1,20 @@
 <a name="HOLTitle"></a>
-# Creating Web Sites with Django #
+# Creating Web Sites with Django and Bing Maps #
 
 ---
 <a name="Overview"></a>
 ## Overview ##
 
-In this hands-on lab we’ll describe how to create a website with Django. Windows Azure Web Sites provide limited free hosting and rapid deployment – and now you can use Django!
+In this hands-on lab we’ll describe how to create a website with Django. Windows Azure Web Sites provide limited free hosting and rapid deployment – and now you can use Django! Besides, you can also create your own website with Bing Map!
 
 <a name="Objectives"></a>
 ### Objectives ###
 
 In this hands-on lab, you will learn how to:
 
-- Create a new Web Site in Windows Azure by using a pre-packaged application from the templates Gallery.
+- Create a new Web Site in Windows Azure by using Django.
 - Add a new page to show your current location by Bing map.
-- using FTP to update the site.
+- using FTP to manage those websites.
 
 <a name="Prerequisites"></a>
 ### Prerequisites ###
