@@ -110,23 +110,23 @@ During this exercise you will create a new web site of Django.
 
 	Provide the **Host Name**, **User Name** and **Password** of your deployment credentials. Make sure that the **User Name** is prefixed by the **Web Site** name (e.g. **djangoSample\admin**) 	
 		
-	>**Note**: Replace the first **waws-prod-blu-001.ftp.azurewebsites.windows.net** value with the one obtained from the portal. Also remove the **ftp://** prefix as depicted above.
+	>**Note**: Replace the first **waws-prod-hk1-001.ftp.azurewebsites.windows.net** value with the one obtained from the portal. Also remove the **ftp://** prefix as depicted above.
 
-	![Use FileZilla](images/use-filezilla.png?raw=true) 
+	![Use FileZilla](Images/use-filezilla.png?raw=true) 
 
 	_Use FileZilla_
 
 	> **Note:** Deployment credentials are other than the Live ID associated with your Windows Azure subscription and are valid for use with all Windows Azure web sites associated with your subscription. If you don't know your deployment credentials you can easily reset them using the management portal. Open the web site **Dashboard** page and click the **Reset deployment credentials** link. Provide a new password and click Ok.
 
 	>
-	>![Entering the username and password](images/deployment-credentials.png?raw=true)
+	>![Entering the username and password](Images/deployment-credentials.png?raw=true)
 	>
 	>_Entering the username and password_
 
 
 1. Click **Quick Connect** and Upload all files using the FileZilla. Navigate to your local Django site on the left and navigate to site\wwwroot on the remote. Then upload the **DjangoApplication** and **site-packages** folder to remote. And you also need to remove the pre-created file **hostingstart.html**
 
-	![Uploading all files](images/ftp-put.png?raw=true)
+	![Uploading all files](Images/ftp-put.png?raw=true)
 
 	_Uploading all files_
 
