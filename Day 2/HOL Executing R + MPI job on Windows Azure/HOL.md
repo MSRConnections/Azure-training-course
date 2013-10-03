@@ -1,20 +1,20 @@
 <a name="HOLTitle"></a>
-# Creating a virtual machine and running simple data analysis with IPython #
+# Executing R+MPI Job on Windows Azure #
 
 ---
 <a name="Overview"></a>
 ## Overview ##
 
-In this hands-on lab you will understand the capabilities of automating the deployment and management of virtual machines in Windows Azure by Python. You will also learn how to run Monte Carlo simulation with IPython Notebook on Windows Azure. 
+In this hands-on lab you will learn to execute R jobs on multiple linux machines with OpenMPI. For acedamic scientists, R and OpenMPI are widely used for their research. Windows Azure provides quick deployment ability to help users to deploy all require software and process data in a very quick manner.
 
 <a name="Objectives"></a>
 ### Objectives ###
 
 In this hands-on lab, you will learn how to:
 
-- Provision Virtual machines with Python.
-- Deploy IPython notebook on your virtual machines.
-- Run Monte Carlo Simulation on Ipython Notebook on Windows Azure.
+- Deploy a Cloud Service with multiple linux machines.
+- Deploy R and MPI on Ubuntu.
+- Execute a sample R tasks with MPI.
 
 <a name="Prerequisites"></a>
 ### Prerequisites ###
@@ -29,23 +29,19 @@ The following is required to complete this hands-on lab:
 
 This hands-on lab includes the following exercises:
 
-1. [Build an Environment to manage Windows Azure with Python](#Exercise1)
-1. [Deploy IPython notebook on Windows Azure](#Exercise2)
-1. [Run Monte Carlo Simulation on IPython](#Exercise3)
+1. [Deploy a Linux cluster with R & MPI installed.](#Exercise1)
+1. [Execute R tasks with MPI on the master node.](#Exercise2)
 
-Estimated time to complete this lab: **60** minutes.
+Estimated time to complete this lab: **45** minutes.
 
 <a name="#Exercise1"></a>
-### Excercise 1: Build a Ubuntu Environment to manage Windows Azure with Python  ###
+### Excercise 1: Deploy a Cloud Service with multiple linux machines.  ###
 
 First, you will need to deploy required software on your linux machine. You are going to install git, Python 2.7, workerpool and paramiko, then you will connect Windows Azure by Python with some configuration. 
 
-<a name="Ex1Task1"></a>
-#### Task 1 - Deploy software on Ubuntu ####
-
 1. Launch a linux machine. You can use Hyper-V to create a virtual machine. In this example, you will launch a Ubuntu 12.04 LTS for Windows Azure Management with Python.
 
-	![Log on to Windows Azure portal](Images/launch-ubuntu.png?raw=true "Launch a ubuntu machine.")
+	![Launch a Ubuntu Machine。](images/launch-ubuntu.png?raw=true "Launch a ubuntu machine.")
 
 	_Launch a Ubuntu Machine_
 
@@ -53,7 +49,7 @@ First, you will need to deploy required software on your linux machine. You are 
 
 1. Launch **Terminal** for software installation on Ubuntu.
 
-	![Launch Terminal](Images/launch-ubuntu-terminal.png?raw=true "Launch Terminal")
+	![Launch Terminal](images/launch-ubuntu-terminal.png?raw=true "Launch Terminal")
 
 	_Launch Terminal_
 
@@ -63,7 +59,7 @@ First, you will need to deploy required software on your linux machine. You are 
 	sudo apt-get install git	
 	````
 	
-	![Install Git](Images/install-git.png?raw=true)
+	![Install Git](images/install-git.png?raw=true)
 
 	_Install Git_
 
@@ -74,7 +70,7 @@ First, you will need to deploy required software on your linux machine. You are 
 	sudo apt-get install python-setuptools
 	````
 
-	![Install Python](Images/install-python.png?raw=true)
+	![Install Python](images/install-python.png?raw=true)
 
 	_Install Python Setup Tools_
 
@@ -87,7 +83,7 @@ First, you will need to deploy required software on your linux machine. You are 
     sudo python setup.py install
     ````
  
-	![Install Windows Azure SDK for Python](Images/install-wa-sdk-python.png?raw=true)
+	![Install Windows Azure SDK for Python](images/install-wa-sdk-python.png?raw=true)
 
 	_Install Windows Azure SDK for Python_
 
@@ -98,15 +94,11 @@ First, you will need to deploy required software on your linux machine. You are 
     sudo easy_install paramiko
 	````
  
-	![Install WorkerPool and Paramiko](Images/install-workerpool-paramiko.png?raw=true)
+	![Install WorkerPool and Paramiko](images/install-workerpool-paramiko.png?raw=true)
 
 	_Install WorkerPool and Paramiko_
 
 All software has been installed on your machine, next we setup to connect to Windows Azure Portal by Python.
-
-<a name="Ex1Task2"></a>
-
-#### Task 2 - Setup Windows Azure Subscription ####
 
 1. To connect to the Service Management endpoint, you need your Windows Azure subscription ID and the path to a valid management certificate. You can obtain your subscription ID through the [management portal](https://manage.windowsazure.com/), and you can create management certificates in a number of ways. In this guide [OpenSSL](http://www.openssl.org/) is used, which you can [download for Windows](http://www.openssl.org/related/binaries.html) and run in a console.
 
@@ -117,7 +109,7 @@ All software has been installed on your machine, next we setup to connect to Win
 	openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem
     ````
  
-	![Create Client Certificate File(a .pem file)](Images/create-pem-file.png?raw=true)
+	![Create Client Certificate File(a .pem file)](images/create-pem-file.png?raw=true)
 
 	_Create Client Certificate File(a .pem file)_
 
@@ -127,7 +119,7 @@ All software has been installed on your machine, next we setup to connect to Win
 	openssl x509 -inform pem -in mycert.pem -outform der -out mycert.cer
 	````
  
-	![Create Server Certificate File(a .cer file)](Images/create-cer-file.png?raw=true)
+	![Create Server Certificate File(a .cer file)](images/create-cer-file.png?raw=true)
 
 	_Create Server Certificate File(a .cer file)_
 
@@ -135,58 +127,33 @@ All software has been installed on your machine, next we setup to connect to Win
 
 1. After you have created these files, you will need to upload the .cer file to Windows Azure via the "Upload" action of the "Settings" tab of the management portal, and you will need to make note of where you saved the .pem file.
 
-	![Upload .cer file to Windows Azure](Images/upload-cer-file-to-wa-1.png?raw=true)
+	![Upload .cer file to Windows Azure](images/upload-cer-file-to-wa-1.png?raw=true)
 
-	![Upload .cer file to Windows Azure](Images/upload-cer-file-to-wa-2.png?raw=true)
-
-	![Upload .cer file to Windows Azure](Images/upload-cer-file-to-wa-3.png?raw=true)
+	![Upload .cer file to Windows Azure](images/upload-cer-file-to-wa-2.png?raw=true)
 
 	_Upload .cer file to Windows Azure_
 
 1. After the cer file is uploaded, you also need to note the subscription id for future use.
 
-	![Get Subscription Id](Images/get-subscription-id.png?raw=true)
+	![Get Subscription Id](images/get-subscription-id.png?raw=true)
 
 	_Get Subscription Id_
 
-
-<a name="#Exercise2"></a>
-
-#### Excerise 2 - Deploy IPython notebook on Windows Azure ####
-
-The [IPython project](http://ipython.org/) provides a collection of tools for scientific computing that include powerful interactive shells, high-performance and easy to use parallel libraries and a web-based environment called the IPython Notebook. The Notebook provides a working environment for interactive computing that combines code execution with the creation of a live computational document. These notebook files can contain arbitrary text, mathematical formulas, input code, results, graphics, videos and any other kind of media that a modern web browser is capable of displaying.
-
-Whether you're absolutely new to Python and want to learn it in a fun, interactive environment or do some serious parallel/technical computing, the IPython Notebook is a great choice. As an illustration of its capabilities, the following screenshot shows the IPython Notebook being used, in combination with the SciPy and matplotlib packages, to analyze the structure of a sound recording:
-
-![IPython Notebook Spectral](Images/ipy-notebook-spectral.png?raw=true)
-
-_IPython Notebook Spectral_
-
-1. First we need to copy the toolkit under **Source\Ex02-DeployIPython** to local Ubuntu machine, then copy **the mycert.pem** to the same folder of the sources.
+1. First we need to copy the toolkit in the local folder to local Ubuntu machine, then copy **the mycert.pem** to the same folder of the sources.
 
 1. Open the file **configSample.py** in gedit. You need to replace the subscription id with yours and the path to your private key file (**mycert.pem**).
 
-	![Edit configSample.py](Images/edit-configSample.png?raw=true)
+	![Edit configSample.py](images/edit-configSample.png?raw=true)
 
 	_Edit configSample.py File_
 
-	You may also need to change the following sections in that files since the service name should be unique on Windows Azure.
+	You may also need to change the sections like "The number of nodes", "The name of VM nodes", "Service Name", "Depolyment Name", "Role Name" and "Media Link Base" in that files since the service name should be unique on Windows Azure. Now we set the number of nodes to be 3, with 1 master and 2 slave. For the "Media Link Base", you must replace the xxx to your correct storage account. If you don't have any storage account under your subscription, you can just create one. Set the location to "East Asia" if you didn't change the default region in the **configSample.py** file.
 
-	- 	The number of nodes
-	-   The name of VM nodes
-	-   Service Name
-	-   Deployment Name
-	-   Role Name
-	-   Media Link Base
-	-   The password of the Notebook
-
-	For the "Media Link Base", you must replace the xxx to your correct storage account. If you don't have any storage account under your subscription, you can just create one. Set the location to "East Asia" if you didn't change the default region in the **configSample.py** file.
-
-	![Create Storage Account](Images/create-storage-account.png?raw=true)
+	![Create Storage Account](images/create-storage-account.png?raw=true)
 
 	_Create Storage Account_
 
-1. Execute **main.py* with following command:
+1. Execute **main.py** with following command:
 
 	````Linux
 	python main.py [start|create|deploy|delete]
@@ -198,98 +165,97 @@ _IPython Notebook Spectral_
 
 	````Linux
 	python main.py start
-	````
-
-	![Execute Toolkit](Images/execute-python-1.png?raw=true)
-
-	_Execute Python Commands_
+	````	
 
 	At first, the **start** command creates a cloud service with the **Service Name** you defined in the configuration file. Then it creates 2 or more small instances in the cloud service. After those machines are launched, the code will connect to those machines and deploy required software and IPython Notebook to those machine automatically.
 
-1. After about 10 minutes, the deployment is done. You will see the IPython cloud service is running in Windows Azure. There are 2 small instances running according to our configuration.
+1. After about 10 minutes, the deployment is done. You will see the new cloud service is running in Windows Azure. There are 3 small instances running according to our configuration.
+	
+	![R and MPI running on Windows Azure](images/mpicluster-ready-on-wa.png?raw=true)
 
-	![IPython Notebook is running in Windows Azure](Images/ipython-deploy-finished.png?raw=true)
+	_MPI and R is installed on Windows Azure_
+	
 
-	![IPython Notebook is running in Windows Azure](Images/ipython-running-on-wa-1.png?raw=true)
+<a name="#Exercise2"></a>
 
-	![IPython Notebook is running in Windows Azure](Images/ipython-running-on-wa-2.png?raw=true)
+#### Excerise 2 - Execute R tasks with MPI on the master node ####
 
-	_IPython Notebook is running in Windows Azure_
+1. Before you can use R with MPI, we need to install Rmpi package in R. Use ssh to connect to the master node and run the command R. 
 
-	Just click the link on windows azure and you will see IPython is ready. If you see warnings for certification issue, just ignore it and continue.
+	![Launch R](images/launch-r.png?raw=true)
 
-	![IPython Notebook is ready](Images/ipython-ready-on-wa.png?raw=true)
+	_Launch R_
 
-	_IPython Notebook_
+1. Then execute following command in R.
 
-<a name="#Exercise3"></a>
-
-#### Excerise 3 - Run Monte Carlo Simulation on IPython ####
-
-Monte Carlo simulation is a computerized mathematical technique that allows people to account for risk in quantitative analysis and decision making. The technique is used by professionals in such widely disparate fields as finance, project management, energy, manufacturing, engineering, research and development, insurance, oil & gas, transportation, and the environment.
-
-Monte Carlo simulation furnishes the decision-maker with a range of possible outcomes and the probabilities they will occur for any choice of action.. It shows the extreme possibilities—the outcomes of going for broke and for the most conservative decision—along with all possible consequences for middle-of-the-road decisions.
-
-The technique was first used by scientists working on the atom bomb; it was named for Monte Carlo, the Monaco resort town renowned for its casinos. Since its introduction in World War II, Monte Carlo simulation has been used to model a variety of physical and conceptual systems. 
-
-In this execise, you will run a Monte Carlo simulation code in your IPython notebook. This notebook shows how to use IPython.parallel to do Monte-Carlo options pricing in parallel. We will compute the price of a large number of options for different strike prices and volatilities, where each task will consist of computing the option price for a single strike price and volatility.
-
-
-1. Login your IPython Notebook with your predefined password, it is **Test12** if you didn't change it.
-
-	![Login IPython](Images/login_ipython.png?raw=true)
-
-	_Login IPython Notebook_
-
-1. Create a new notebook. Execute the following command in a cell.
-cc
-	````Python
-	!wget https://raw.github.com/wenming/BigDataSamples/master/ipythonMLsamples/Cluster%20-%20ParallelMCOptions.ipynb
+	````Linux
+	install.packages("Rmpi")
 	````
 
-	![Login Load Monte Carlo Simulation](Images/load_monte_carlo_simulation.png?raw=true)
-
-	_Load Monte Carlo Simulation_
-
-1. Return to the main page, then click the Clusters tab, input 2 in the # of engines and click **Start**.
+	![Install Rmpi](images/install-rmpi.png?raw=true)
 	
-	![Cluster - ParallelMCOptions](Images/set_parallel_clusters.png?raw=true)
+	_Install Rmpi_
 
-	_Set # of Cluster Engines_
+1. Following is an example of a simple algorithm implemented in the three schemes described on the previous page. This is a simple 10-fold cross-validation example. It represents a common class of problems where a common set of instructions is run given slightly different data, and the results are collected and operated upon. These problems tend to be classified as "embarassingly parallel." 
 
-1. Click the Notebooks tab. There is a new notebook called **ParallelMCOptions-cluster**, click the notebook.
+	This is the original single-machine code. It creates a list of 1000 random samples with 30 predictor variables, with more predictive value being placed on the first 15. There's randomization inserted here to make sure the algorithm actually works. Then, 10-fold cross-validation is done over predicting linear models over the first i predictor variables, where i ranges from 1 to 30. The rss values resulting from the cross-validation are calculated and displayed graphically. 
 
-	![Cluster - ParallelMCOptions](Images/cluster_parallelmcoptions-1.png?raw=true)
+		````Linux
+		# first make some data
+		n <- 1000       # number of obs
+		p <- 30         # number of variables
+		                                                                                
+		x <- matrix(rnorm(n*p),n,p)
+		beta <- c(rnorm(p/2,0,5),rnorm(p/2,0,.25))
+		y <- x %*% beta + rnorm(n,0,20)
+		thedata <- data.frame(y=y,x=x)
+		                                                                                
+		summary(lm(y~x))
+		                                                                                
+		fold <- rep(1:10,length=n)
+		fold <- sample(fold)
+		                                                                                
+		rssresult <- matrix(0,p,10)
+		for (j in 1:10)
+		    for (i in 1:p) {
+		        templm <- lm(y~.,data=thedata[fold!=j,1:(i+1)])
+		        yhat <- predict(templm,newdata=thedata[fold==j,1:(i+1)])
+		        rssresult[i,j] <- sum((yhat-y[fold==j])^2)
+		        }
+		                                                                                
+		# this plot shows cross-validated residual sum of squares versus the model
+		# number.  As expected, the most important thing is including the first p/2
+		# of the predictors.
+		                                                                                
+		plot(apply(rssresult,1,mean))
+		````
 
-	![Cluster - ParallelMCOptions](Images/cluster_parallelmcoptions-2.png?raw=true)
+	Given the above code, the simplest way of parallelizing the code appears to be to parallelize across the 10-folds, where each fold is a separate task accomplished by the slaves. This demonstrates a common idiom when looking for how to parallelize code - look for your loops.
 
-	_Cluster - ParallelMCOptions_
+1. Now you can find other code to parallel the algorithm under the folder **Source\Exercise2**. There are 3 method.
 
-
-
-1. Click **Cell->Run All** to execute the sample. It will run the simulation in parallel.	
-
-	![Cluster - ParallelMCOptions](Images/execute_parallelmcoptions.png?raw=true)
-
-	_Execute Monte Carlo Simulation in Parallel on Azure_
+	**The Brute Force Method**
 	
-	The IPython Notebook and IPython.parallel enable you to parallelize your code on a remote cluster using nothing more than a web browser. As this example shows, once you have a Python function that performs a unit of work, it is easy to invoke that function in parallel for different arguments. The example shown here is extremely simple; the full API is rich and powerful. Details can be found in the [IPython Documentation](http://ipython.org/ipython-doc/stable/parallel/index.html).
+	R code for this solution is **brute_force.R**. It divides the problem into 10 sub-problems, each of which being a separate division of training and test data (a different fold). 10 slaves are spawned to handle this, and each are given a separate fold to perform. The slaves return their results to the master, and the master calculates and plots the results. 
 	
-	After couple of minutes, you will see the result in the page.
+	**The Task Push Method**
+	
+	R code for this solution is **task_push.R**. It divides the problem into tasks the same way as the Brute Force method, but it does not force 1 task per slave. It follows the method described previously. 
+	
+	Notice that messages being contructed are lists. In R, lists provide a convenient means of packing messages that may have multiple named data components, allowing you to create readable, flexible code for creating and using messages. 
+	
+	**he Task Pull Method**
+	
+	R code for this solution **task_pull.R**. It applies the problem into the Task Pull method describes previously. 
 
-	![Cluster - ParallelMCOptions](Images/mc-result-1.png?raw=true)
-	![Cluster - ParallelMCOptions](Images/mc-result-2.png?raw=true)
+1. Execute the following command to run R file.
+	
+	````
+    R CMD BATCH -args brute_force.R
+    ````	 
+	>TODO:add more setup for MPI and screenshots
 
-	_Monte Carlo Simulation Result_
-
-
-1. Check Windows Azure Portal, you can see that the task can be executed on 2 different nodes and the compute load will be distributed to different virtual machines.
-
-	![Cluster - ParallelMCOptions](Images/cpu-load-1.png?raw=true)
-
-	![Cluster - ParallelMCOptions](Images/cpu-load-2.png?raw=true)
-
-	_CPU Load_
+	You will execute the all your R script on Windows Azure
 
 ---
 
@@ -298,6 +264,6 @@ cc
 
 By completing this hands-on lab you learned the following:
 
-- Provision Virtual machines with Python.
-- Deploy IPython notebook on your virtual machines.
-- Run Monte Carlo Simulation on IPython in parallel.
+- Deploy a Cloud Service with multiple linux machines.
+- Deploy R and MPI on Ubuntu.
+- Execute R tasks with MPI.
