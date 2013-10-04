@@ -26,11 +26,11 @@ def main_command(command):
         create_multi_vm_instance.delete_multi_vm()
     elif command == "deploy":
         install_multi_SW_instance.install_multi_sw()
-        sshdeploy.deploy_ipython_cluster()
+        sshdeploy.deploy_mpi_cluster()
     elif command == "start":
         create_multi_vm_instance.create_multi_vm()
         install_multi_SW_instance.install_multi_sw()
-        sshdeploy.deploy_ipython_cluster()
+        sshdeploy.deploy_mpi_cluster()
     else:
         print "Error input"
 

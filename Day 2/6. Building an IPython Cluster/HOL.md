@@ -5,14 +5,14 @@
 <a name="Overview"></a>
 ## Overview ##
 
-In this hands-on lab you will understand the capabilities of automating the deployment and management of virtual machines in Windows Azure by Python. You will also learn how to run Monte Carlo simulation with IPython Notebook on Windows Azure. 
+In this hands-on lab you will learn to deploy an IPython notebook cluster on Windows Azure. You will also execute the Monte Carlo simulation with IPython Notebook on the cluster you created on Windows Azure.
 
 <a name="Objectives"></a>
 ### Objectives ###
 
 In this hands-on lab, you will learn how to:
 
-- Provision Virtual machines with Python.
+- Provision virtual machines with Python.
 - Deploy IPython notebook on your virtual machines.
 - Run Monte Carlo Simulation on Ipython Notebook on Windows Azure.
 
@@ -43,9 +43,9 @@ First, you will need to deploy required software on your linux machine. You are 
 <a name="Ex1Task1"></a>
 #### Task 1 - Deploy software on Ubuntu ####
 
-1. Launch a linux machine. You can use Hyper-V to create a virtual machine. In this example, you will launch a Ubuntu 12.04 LTS for Windows Azure Management with Python.
+1. Launch a linux machine. You can use Hyper-V to create a virtual machine. In this example, you will launch a Ubuntu 12.04 LTS VM to manage Windows Azure by Python.
 
-	![Log on to Windows Azure portal](Images/launch-ubuntu.png?raw=true "Launch a ubuntu machine.")
+	![Log on to Windows Azure portal](images/launch-ubuntu.png?raw=true)
 
 	_Launch a Ubuntu Machine_
 
@@ -53,7 +53,7 @@ First, you will need to deploy required software on your linux machine. You are 
 
 1. Launch **Terminal** for software installation on Ubuntu.
 
-	![Launch Terminal](Images/launch-ubuntu-terminal.png?raw=true "Launch Terminal")
+	![Launch Terminal](images/launch-ubuntu-terminal.png?raw=true)
 
 	_Launch Terminal_
 
@@ -63,7 +63,7 @@ First, you will need to deploy required software on your linux machine. You are 
 	sudo apt-get install git	
 	````
 	
-	![Install Git](Images/install-git.png?raw=true)
+	![Install Git](images/install-git.png?raw=true)
 
 	_Install Git_
 
@@ -74,7 +74,7 @@ First, you will need to deploy required software on your linux machine. You are 
 	sudo apt-get install python-setuptools
 	````
 
-	![Install Python](Images/install-python.png?raw=true)
+	![Install Python](images/install-python.png?raw=true)
 
 	_Install Python Setup Tools_
 
@@ -87,7 +87,7 @@ First, you will need to deploy required software on your linux machine. You are 
     sudo python setup.py install
     ````
  
-	![Install Windows Azure SDK for Python](Images/install-wa-sdk-python.png?raw=true)
+	![Install Windows Azure SDK for Python](images/install-wa-sdk-python.png?raw=true)
 
 	_Install Windows Azure SDK for Python_
 
@@ -98,7 +98,7 @@ First, you will need to deploy required software on your linux machine. You are 
     sudo easy_install paramiko
 	````
  
-	![Install WorkerPool and Paramiko](Images/install-workerpool-paramiko.png?raw=true)
+	![Install WorkerPool and Paramiko](images/install-workerpool-paramiko.png?raw=true)
 
 	_Install WorkerPool and Paramiko_
 
@@ -117,7 +117,7 @@ All software has been installed on your machine, next we setup to connect to Win
 	openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem
     ````
  
-	![Create Client Certificate File(a .pem file)](Images/create-pem-file.png?raw=true)
+	![Create Client Certificate File(a .pem file)](images/create-pem-file.png?raw=true)
 
 	_Create Client Certificate File(a .pem file)_
 
@@ -127,7 +127,7 @@ All software has been installed on your machine, next we setup to connect to Win
 	openssl x509 -inform pem -in mycert.pem -outform der -out mycert.cer
 	````
  
-	![Create Server Certificate File(a .cer file)](Images/create-cer-file.png?raw=true)
+	![Create Server Certificate File(a .cer file)](images/create-cer-file.png?raw=true)
 
 	_Create Server Certificate File(a .cer file)_
 
@@ -135,38 +135,38 @@ All software has been installed on your machine, next we setup to connect to Win
 
 1. After you have created these files, you will need to upload the .cer file to Windows Azure via the "Upload" action of the "Settings" tab of the management portal, and you will need to make note of where you saved the .pem file.
 
-	![Upload .cer file to Windows Azure](Images/upload-cer-file-to-wa-1.png?raw=true)
+	![Upload .cer file to Windows Azure](images/upload-cer-file-to-wa-1.png?raw=true)
 
-	![Upload .cer file to Windows Azure](Images/upload-cer-file-to-wa-2.png?raw=true)
+	![Upload .cer file to Windows Azure](images/upload-cer-file-to-wa-2.png?raw=true)
 
-	![Upload .cer file to Windows Azure](Images/upload-cer-file-to-wa-3.png?raw=true)
+	![Upload .cer file to Windows Azure](images/upload-cer-file-to-wa-3.png?raw=true)
 
 	_Upload .cer file to Windows Azure_
 
-1. After the cer file is uploaded, you also need to note the subscription id for future use.
+1. Please also note the subscription id for future use.
 
-	![Get Subscription Id](Images/get-subscription-id.png?raw=true)
+	![Get Subscription Id](images/get-subscription-id.png?raw=true)
 
 	_Get Subscription Id_
 
 
 <a name="#Exercise2"></a>
 
-#### Excerise 2 - Deploy IPython notebook on Windows Azure ####
+#### Excerise 2 - Deploy IPython Notebook on Windows Azure ####
 
 The [IPython project](http://ipython.org/) provides a collection of tools for scientific computing that include powerful interactive shells, high-performance and easy to use parallel libraries and a web-based environment called the IPython Notebook. The Notebook provides a working environment for interactive computing that combines code execution with the creation of a live computational document. These notebook files can contain arbitrary text, mathematical formulas, input code, results, graphics, videos and any other kind of media that a modern web browser is capable of displaying.
 
 Whether you're absolutely new to Python and want to learn it in a fun, interactive environment or do some serious parallel/technical computing, the IPython Notebook is a great choice. As an illustration of its capabilities, the following screenshot shows the IPython Notebook being used, in combination with the SciPy and matplotlib packages, to analyze the structure of a sound recording:
 
-![IPython Notebook Spectral](Images/ipy-notebook-spectral.png?raw=true)
+![IPython Notebook Spectral](images/ipy-notebook-spectral.png?raw=true)
 
 _IPython Notebook Spectral_
 
-1. First we need to copy the toolkit under **Source\Ex02-DeployIPython** to local Ubuntu machine, then copy **the mycert.pem** to the same folder of the sources.
+1. First we need to copy the toolkit under **Source\Ex02-DeployIPython** to local Ubuntu machine, then copy the **mycert.pem** to the same folder of the source.
 
 1. Open the file **configSample.py** in gedit. You need to replace the subscription id with yours and the path to your private key file (**mycert.pem**).
 
-	![Edit configSample.py](Images/edit-configSample.png?raw=true)
+	![Edit configSample.py](images/edit-configSample.png?raw=true)
 
 	_Edit configSample.py File_
 
@@ -180,19 +180,19 @@ _IPython Notebook Spectral_
 	-   Media Link Base
 	-   The password of the Notebook
 
-	For the "Media Link Base", you must replace the xxx to your correct storage account. If you don't have any storage account under your subscription, you can just create one. Set the location to "East Asia" if you didn't change the default region in the **configSample.py** file.
+	For the "Media Link Base", you must replace the xxx to your correct storage account. If you don't have any storage account under your subscription, you can just create one. Set the location to "East Asia" if you didn't change the default region in the **configSample.py** file. Now we set the number of nodes to 4, which is 1 controller and 3 engines.
 
-	![Create Storage Account](Images/create-storage-account.png?raw=true)
+	![Create Storage Account](images/create-storage-account.png?raw=true)
 
 	_Create Storage Account_
 
-1. Execute **main.py* with following command:
+1. Execute **main.py** with following command:
 
 	````Linux
 	python main.py [start|create|deploy|delete]
 	````
 	
-	There are 4 arguments of the command. **start** creates VMs and deploy IPython; **create** just creates VMs; **deploy** deploys IPython on existing VMs depending on 'create';**delete** removes all resources on Windows Azure.
+	**start** creates VMs and deploy IPython; **create** just creates VMs; **deploy** deploys IPython on existing VMs depending on 'create'; **delete** removes all resources on Windows Azure.
 
 	Now we execute with **start**.
 
@@ -200,25 +200,25 @@ _IPython Notebook Spectral_
 	python main.py start
 	````
 
-	![Execute Toolkit](Images/execute-python-1.png?raw=true)
+	![Execute Toolkit](images/execute-python-1.png?raw=true)
 
 	_Execute Python Commands_
 
-	At first, the **start** command creates a cloud service with the **Service Name** you defined in the configuration file. Then it creates 2 or more small instances in the cloud service. After those machines are launched, the code will connect to those machines and deploy required software and IPython Notebook to those machine automatically.
+	At first, the **start** command creates a cloud service with the **Service Name** you defined in the configuration file. Then it creates 4 small instances in the cloud service. After those machines are launched, the code will connect to those machines and deploy required software and IPython Notebook automatically.
 
-1. After about 10 minutes, the deployment is done. You will see the IPython cloud service is running in Windows Azure. There are 2 small instances running according to our configuration.
+1. After about 10 minutes, the deployment is done. You will see the IPython cloud service is running in Windows Azure. There are 4 small instances running.
 
-	![IPython Notebook is running in Windows Azure](Images/ipython-deploy-finished.png?raw=true)
+	![IPython Notebook is running in Windows Azure](images/ipython-deploy-finished.png?raw=true)
 
-	![IPython Notebook is running in Windows Azure](Images/ipython-running-on-wa-1.png?raw=true)
+	![IPython Notebook is running in Windows Azure](images/ipython-running-on-wa-1.png?raw=true)
 
-	![IPython Notebook is running in Windows Azure](Images/ipython-running-on-wa-2.png?raw=true)
+	![IPython Notebook is running in Windows Azure](images/ipython-running-on-wa-2.png?raw=true)
 
 	_IPython Notebook is running in Windows Azure_
 
 	Just click the link on windows azure and you will see IPython is ready. If you see warnings for certification issue, just ignore it and continue.
 
-	![IPython Notebook is ready](Images/ipython-ready-on-wa.png?raw=true)
+	![IPython Notebook is ready](images/ipython-ready-on-wa.png?raw=true)
 
 	_IPython Notebook_
 
@@ -237,31 +237,31 @@ In this execise, you will run a Monte Carlo simulation code in your IPython note
 
 1. Login your IPython Notebook with your predefined password, it is **Test12** if you didn't change it.
 
-	![Login IPython](Images/login_ipython.png?raw=true)
+	![Login IPython](images/login_ipython.png?raw=true)
 
 	_Login IPython Notebook_
 
 1. Create a new notebook. Execute the following command in a cell.
-cc
+
 	````Python
 	!wget https://raw.github.com/wenming/BigDataSamples/master/ipythonMLsamples/Cluster%20-%20ParallelMCOptions.ipynb
 	````
 
-	![Login Load Monte Carlo Simulation](Images/load_monte_carlo_simulation.png?raw=true)
+	![Login Load Monte Carlo Simulation](images/load_monte_carlo_simulation.png?raw=true)
 
 	_Load Monte Carlo Simulation_
 
-1. Return to the main page, then click the Clusters tab, input 2 in the # of engines and click **Start**.
+1. Return to the main page, then click the Clusters tab, input 3 in the # of engines and click **Start**.
 	
-	![Cluster - ParallelMCOptions](Images/set_parallel_clusters.png?raw=true)
+	![Cluster - ParallelMCOptions](images/set_parallel_clusters.png?raw=true)
 
 	_Set # of Cluster Engines_
 
 1. Click the Notebooks tab. There is a new notebook called **ParallelMCOptions-cluster**, click the notebook.
 
-	![Cluster - ParallelMCOptions](Images/cluster_parallelmcoptions-1.png?raw=true)
+	![Cluster - ParallelMCOptions](images/cluster_parallelmcoptions-1.png?raw=true)
 
-	![Cluster - ParallelMCOptions](Images/cluster_parallelmcoptions-2.png?raw=true)
+	![Cluster - ParallelMCOptions](images/cluster_parallelmcoptions-2.png?raw=true)
 
 	_Cluster - ParallelMCOptions_
 
@@ -269,7 +269,7 @@ cc
 
 1. Click **Cell->Run All** to execute the sample. It will run the simulation in parallel.	
 
-	![Cluster - ParallelMCOptions](Images/execute_parallelmcoptions.png?raw=true)
+	![Cluster - ParallelMCOptions](images/execute_parallelmcoptions.png?raw=true)
 
 	_Execute Monte Carlo Simulation in Parallel on Azure_
 	
@@ -277,21 +277,13 @@ cc
 	
 	After couple of minutes, you will see the result in the page.
 
-	![Cluster - ParallelMCOptions](Images/mc-result-1.png?raw=true)
-	![Cluster - ParallelMCOptions](Images/mc-result-2.png?raw=true)
+	![Cluster - ParallelMCOptions](images/mc-result-1.png?raw=true)
+	![Cluster - ParallelMCOptions](images/mc-result-2.png?raw=true)
 
 	_Monte Carlo Simulation Result_
 
+1. You can use SSH to all engine machines to check the CPU load for different machines. You can see that the task is distributed to multiple machines.
 
-1. Check Windows Azure Portal, you can see that the task can be executed on 2 different nodes and the compute load will be distributed to different virtual machines.
-
-	![Cluster - ParallelMCOptions](Images/cpu-load-1.png?raw=true)
-
-	![Cluster - ParallelMCOptions](Images/cpu-load-2.png?raw=true)
-
-	_CPU Load_
-
->[TODO:CONFIRM WITH WENMING. Is it correct?]	
 
 ---
 
@@ -303,3 +295,4 @@ By completing this hands-on lab you learned the following:
 - Provision Virtual machines with Python.
 - Deploy IPython notebook on your virtual machines.
 - Run Monte Carlo Simulation on IPython in parallel.
+
