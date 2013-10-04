@@ -243,12 +243,6 @@ In this execise, you will run a Monte Carlo simulation code in your IPython note
 
 	_Load Monte Carlo Simulation_
 
-1. Return to the main page, then click the Clusters tab, input 3 in the # of engines and click **Start**.
-	
-	![Cluster - ParallelMCOptions](images/set_parallel_clusters.png?raw=true)
-
-	_Set # of Cluster Engines_
-
 1. Click the Notebooks tab. There is a new notebook called **ParallelMCOptions-cluster**, click the notebook.
 
 	![Cluster - ParallelMCOptions](images/cluster_parallelmcoptions-1.png?raw=true)
@@ -274,7 +268,23 @@ In this execise, you will run a Monte Carlo simulation code in your IPython note
 
 	_Monte Carlo Simulation Result_
 
-1. You can use SSH to all engine machines to check the CPU load for different machines. You can see that the task is distributed to multiple machines.
+1. We can use SSH to controller and engines to check the CPU load for different machines. Run *top* command to check the most CPU consumption process.
+
+	````Linux
+		top
+	````
+
+	During the Monte Carlo is executing, the ipengine consumes almost 100% CPU on all engine machines.
+
+	![Controller](images/ipn-ipcontroller.png?raw=true)
+	
+	![Engine 1](images/ipn-ipengine-1.png?raw=true)
+
+	![Engine 2](images/ipn-ipengine-2.png?raw=true)
+
+	![Engine 3](images/ipn-ipengine-3.png?raw=true)
+
+	_IPython Cluster CPU consumption_
 
 
 ---
@@ -287,4 +297,5 @@ By completing this hands-on lab you learned the following:
 - Provision Virtual machines with Python.
 - Deploy IPython notebook on your virtual machines.
 - Run Monte Carlo Simulation on IPython in parallel.
+
 
