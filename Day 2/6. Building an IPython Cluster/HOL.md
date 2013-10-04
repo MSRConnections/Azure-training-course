@@ -170,17 +170,9 @@ _IPython Notebook Spectral_
 
 	_Edit configSample.py File_
 
-	You may also need to change the following sections in that files since the service name should be unique on Windows Azure.
+	You may also need to change the following sections in that files including, **The number of nodes**, **The name of VM nodes**, **Service Name**, **Deployment Name**, **Role Name**, **Media Link Base**, **The password of the Notebook**.
 
-	- 	The number of nodes
-	-   The name of VM nodes
-	-   Service Name
-	-   Deployment Name
-	-   Role Name
-	-   Media Link Base
-	-   The password of the Notebook
-
-	For the "Media Link Base", you must replace the xxx to your correct storage account. If you don't have any storage account under your subscription, you can just create one. Set the location to "East Asia" if you didn't change the default region in the **configSample.py** file. Now we set the number of nodes to 4, which is 1 controller and 3 engines.
+	For the "Media Link Base", you must set *xxx* in **http://xxx.blob.core.windows.net/vhds/ipythonvm** to your correct storage account. If you don't have any storage account under your subscription, you can just create one. Set the location to "East Asia" if you didn't change the default region in the **configSample.py** file. Now we set the number of nodes to 4, which means 1 controller and 3 engines.
 
 	![Create Storage Account](images/create-storage-account.png?raw=true)
 
