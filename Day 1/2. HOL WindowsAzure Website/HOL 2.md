@@ -43,20 +43,20 @@ During this exercise you will create a new web site of Django.
 
 1. Go to the [Windows Azure Management Portal](https://manage.windowsazure.com/) and sign in using the Microsoft credentials associated with your subscription.
 
-	![Log on to Windows Azure Management Portal](images/login.png?raw=true "Log on to Windows Azure Management Portal.")
+	![Log on to Windows Azure Management Portal](images/login.png "Log on to Windows Azure Management Portal.")
 
 	_Log on to Windows Azure Management Portal_
     
 
 1. Click *New* on the command bar.
 
-	![Creating a new Web Site](images/new-website.png?raw=true "Creating a new Web Site")
+	![Creating a new Web Site](images/new-website.png "Creating a new Web Site")
 
 	_Creating a new Web Site_
 
 1. Click *Web Site* and then *Quick Create*. Filling the website name like **djangowebsite1** and wait for a green mark shows up. If the name is already occupied, we can change to a new name. Select the region and click *Create Web Site*.
 
-    ![Quick Creating a new web site](images/new-website-quick-create.png?raw=true)
+    ![Quick Creating a new web site](images/new-website-quick-create.png)
 
 	_Quick Creating a new web site_
 
@@ -79,7 +79,7 @@ During this exercise you will create a new web site of Django.
 
 	This copies all the libraries located in site-packages, including Django. If there are libraries that are not used by your web site, feel free to remove them.
 
-	![Copy Django Libraries](images/copy-django-libraries.png?raw=true)
+	![Copy Django Libraries](images/copy-django-libraries.png)
 
 	_Copy Django Libraries_
 
@@ -93,7 +93,7 @@ During this exercise you will create a new web site of Django.
 	C:\Python27\python.exe -m django.bin.django-admin startproject DjangoApplication
     ````
  
-	![Create Django Application](images/create-django-application.png?raw=true)
+	![Create Django Application](images/create-django-application.png)
 
 	_Create Django Application_
 
@@ -102,29 +102,29 @@ During this exercise you will create a new web site of Django.
 1. Go to the Windows Azure portal dashboard and copy the *FTP HOSTNAME*
 	
 	
-	![Get FTP Hostname](images/ftp-hostname.png?raw=true)
+	![Get FTP Hostname](images/ftp-hostname.png)
 
 	_Obtaining the FTP deployment hostname_
 
 1. Connect to the FTP publishing service by FileZilla. You can download and install FileZilla to manage all your folders. FileZillar is a free ftp solution. The client version can be downloaded from [here](https://filezilla-project.org/).
 
-	Provide the **Host Name**, **User Name** and **Password** of your deployment credentials. Make sure that the **User Name** is prefixed by the **Web Site** name (e.g. **djangowebsite1\trainingwebsiteuser**) 	
+	Provide the **Host Name**, **User Name** and **Password** of your deployment credentials. Make sure that the **User Name** is prefixed by the **Web Site** name (e.g. **djangowebsite1\trainingwebsiteuser**) 
 
-	![Use FileZilla](images/use-filezilla.png?raw=true) 
+	![Use FileZilla](images/use-filezilla.png) 
 
 	_Use FileZilla_
 
 	> **Note:** Deployment credentials are other than the Live ID associated with your Windows Azure subscription and are valid for use with all Windows Azure web sites associated with your subscription. If you don't know your deployment credentials you can easily reset them using the management portal. Open the web site **Dashboard** page and click the **Reset deployment credentials** link. Provide a new password and click Ok.
 
 	>
-	>![Entering the username and password](images/deployment-credentials.png?raw=true)
+	>![Entering the username and password](images/deployment-credentials.png)
 	>
 	>_Entering the username and password_
 
 
 1. Click **Quick Connect** and Upload all files using the FileZilla. Navigate to your local Django site on the left and navigate to **site\wwwroot** on the right. Then drag the **DjangoApplication** and **site-packages** folders from left to right. You may also need to remove the pre-created file **hostingstart.html** under the **site\wwwroot** folder.
 
-	![Uploading all files](images/ftp-put.png?raw=true)
+	![Uploading all files](images/ftp-put.png)
 
 	_Uploading all files_
 
@@ -132,7 +132,7 @@ During this exercise you will create a new web site of Django.
 	
 	We need to configure the web site to know about our Django project and to use the wfastcgi handler. To do this we can click on the Configure tab along the top of the screen where we’ll want to scroll down to the bottom half of the page which contains app settings and handler mappings.
 
-	![Site Configuration](images/site-configuration.png?raw=true)
+	![Site Configuration](images/site-configuration.png)
 
 	_Site Configuration_
 
@@ -146,7 +146,7 @@ During this exercise you will create a new web site of Django.
 	WSGI_HANDLER = django.core.handlers.wsgi.WSGIHandler()
 	````
 
-	![Django App Settings](images/django-app-settings.png?raw=true)
+	![Django App Settings](images/django-app-settings.png)
 
 	_Django App Settings_
 
@@ -158,13 +158,13 @@ During this exercise you will create a new web site of Django.
 	ADDITIONAL ARGUMENTS = D:\python27\scripts\wfastcgi.py
 	````
 
-	![Django Handler Mapping](images/django-handler-mapping.png?raw=true)
+	![Django Handler Mapping](images/django-handler-mapping.png)
 
 	_Django Handler Mapping_
 
 1. Finally we can go back to the Dashboard, and go down to the SITE URL on the left hand side and click on the link and we’ll open our new Django site:
 
-	![Django Website](images/django-ws.png?raw=true)
+	![Django Website](images/django-ws.png)
 
 	_Django Website_
 	
@@ -177,24 +177,24 @@ Next let's create a very simple html page and show your current location in your
 
 You will see you current location on your website.
 
-![Current Location](images/current-location.png?raw=true)
+![Current Location](images/current-location.png)
 
 _You current location_
 
 
 1. Create a new website according to the steps in [Exercise 1](#Exercise1).
 
-	![Create a new website](images/create-website-two.png?raw=true)
+	![Create a new website](images/create-website-two.png)
 
 	_Create a new website_
 
-	![Another website](images/another-website.png?raw=true)
+	![Another website](images/another-website.png)
 
 	_Another website_
 
 1. Visit the [Bing Maps Portal](http://www.bingmapsportal.com).
 
-	![Bing Map Portal](images/bing-map-portals.png?raw=true)
+	![Bing Map Portal](images/bing-map-portals.png)
 
 	_Bing Map Portal_
 
@@ -202,26 +202,26 @@ you can use your Microsoft account to login. If you don't have any Microsoft acc
 
 1. Click **Create or view keys** to create your own key. Input your application name, Url, key type and application type. Set the Key type to **Basic** and Application type to **Education**. Please ensure the **Application URL** is the same as the website you just created in the last step.
 
-	![Create Bing Map Keys](images/create-bing-map-key.png?raw=true)
+	![Create Bing Map Keys](images/create-bing-map-key.png)
 
 	_Create Bing Map Keys_
 
 
 1. You will get your key after you submit your information. Please **Save** the key and you will use it in your html page.
 
-	![Bing Map Key](images/my-bing-map-app-key.png?raw=true)
+	![Bing Map Key](images/my-bing-map-app-key.png)
 
 	_Bing Map Key_
 
 1. Open the file in **Source\location.html** in text editor, replace the **[ApplicationKey]** with your own application key and save the file..
 
-	![Change Application Key](images/change-app-key.png?raw=true)
+	![Change Application Key](images/change-app-key.png)
 
 	_Change Application Key_
 
 1. Use FileZilla to upload the file **location.html** to **site/wwwroot** folder.
 
-	![Upload the location file](images/upload-location-html-file.png?raw=true)
+	![Upload the location file](images/upload-location-html-file.png)
 
 	_Upload the location file_
 
@@ -229,7 +229,7 @@ you can use your Microsoft account to login. If you don't have any Microsoft acc
 
 1. You will get your current location by clicking "GetCurrentLocation" button. 
 
-	![Current Location](images/current-location.png?raw=true)
+	![Current Location](images/current-location.png)
 
 	_You current location_
  

@@ -43,7 +43,7 @@ Azure Storage Explorer is a useful GUI tool for inspecting and altering the data
 
 1. Azure Storage Explorer can be downloaded from [CodePlex](http://azurestorageexplorer.codeplex.com/). 
 
-	![Azure Storage Explorer Page](images/azure-storage-explorer-page.png?raw=true)
+	![Azure Storage Explorer Page](images/azure-storage-explorer-page.png)
 
 	_Azure Storage Explorer Page_
 
@@ -53,47 +53,47 @@ Azure Storage Explorer is a useful GUI tool for inspecting and altering the data
 
 	> The Azure Storage Explorer can only be installed on Windows machine.
 
-	![Install Azure Storage Explorer](images/install-azure-storage-explorer.png?raw=true)
+	![Install Azure Storage Explorer](images/install-azure-storage-explorer.png)
 
 	_Install Azure Storage Explorer_
 
 1. Before you launch the tool, you need to know your storage account's name add access key. You can find your storage account name and acess key in your Windows Azure Management Portal.
 
-	![Windows Azure Storage Account](images/wa-storage-account.png?raw=true)
+	![Windows Azure Storage Account](images/wa-storage-account.png)
 
 	_Windows Azure Storage Account_
 	
 	Click the "Manage Access Keys" button under the page, then you can get your storage account name and access key.
 
-	![Manage Access Key](images/manage-access-key.png?raw=true)
+	![Manage Access Key](images/manage-access-key.png)
 
 	_Manage Access Key_	
 
 	>If there is no storage account under your subscription, you can just click **New** -> **Data Service** -> **Storage** -> **Quick Create** to create one.
 	>
-	>![Create A Storage Account](images/create-a-storage-account.png?raw=true)
+	>![Create A Storage Account](images/create-a-storage-account.png)
 	>
 	>_Create A Storage Account_	
 
 1. Launch *Azure Storage Explorer*.
 	
-	![Azure Storage Expolor](images/azure-storage-explorer-main.png?raw=true)
+	![Azure Storage Expolor](images/azure-storage-explorer-main.png)
 
-	_Azure Storage Expolor_		
+	_Azure Storage Expolor_
 
 1. Then Click "Add Account" button on the top and input your account name and access key in the form, check the **Use HTTPS** and click "Add Storage Account".
 
-	![Add Account Information](images/add-account-info.png?raw=true)
+	![Add Account Information](images/add-account-info.png)
 
-	_Add Account Information_		
+	_Add Account Information_	
 
 1. A new form will pop up to tell you it takes some time to scan the storage account if it is the first time you add the storage account, just click OK. After several seconds, you can easily view all your blob, table and queue data in your storage account. 
 
-	![New Storage Account Confirmation](images/aze-new-storage-account.png?raw=true)
+	![New Storage Account Confirmation](images/aze-new-storage-account.png)
 
 	_New Storage Account Confirmation_
 
-	![Manage Storage Account](images/aze-manage-storage-account.png?raw=true)
+	![Manage Storage Account](images/aze-manage-storage-account.png)
 
 	_Manage Storage Account_
 
@@ -101,23 +101,23 @@ Azure Storage Explorer is a useful GUI tool for inspecting and altering the data
 
 1. Click *New*, input the container name *samplecontainer* and set the *Accessibility* to be *Public Container*. Click *Create Container* and you will create a new container under the storage account. The "Public Container" means that everyone can access the file through a http link. If you don't want others to access files in the container, just set it to be private.
 	
-	![New Container](images/aze-new-container.png?raw=true)
+	![New Container](images/aze-new-container.png)
 
-	![New Container](images/aze-new-container-2.png?raw=true)
+	![New Container](images/aze-new-container-2.png)
 
-	![New Container](images/aze-new-container-3.png?raw=true)
+	![New Container](images/aze-new-container-3.png)
 
 	_New Container_
 
 1. Next, we will upload a new file to the new container. Click the new container on the left and click *Upload* button on the top.
 
-	![Upload File](images/aze-upload-file.png?raw=true)
+	![Upload File](images/aze-upload-file.png)
 	
 	_Upload File_
 
 1. You can locate any files on your drives. We have some sample files under **Source\Exercise1\** which you can upload. Please make sure you upload the file **cut_diamonds.csv** which will be used [Exercise 2](#Exercise2)
 
-	![Uploaded Files](images/aze-upload-file-finished.png?raw=true)
+	![Uploaded Files](images/aze-upload-file-finished.png)
 	
 	_Uploaded Files_
 
@@ -125,25 +125,25 @@ Azure Storage Explorer is a useful GUI tool for inspecting and altering the data
 
 1. Double click the file **Sample.txt** and you will find more information. You can find the properties and metadata. Since the file is a text file, so you can even see the content of the file in Windows Azure Storage Explorer.
 
-	![File Property](images/aze-file-properties.png?raw=true)
+	![File Property](images/aze-file-properties.png)
 
 	_File Property_
 
-	![File Metadata](images/aze-file-metadata.png?raw=true)
+	![File Metadata](images/aze-file-metadata.png)
 
 	_File Metadata_
 
-	![File Text](images/aze-file-text.png?raw=true)
+	![File Text](images/aze-file-text.png)
 
 	_The Content of a File_
 	
 1. On the top right side, you can also manage your table or queue in your storage account. You can create a new Queue or new Table, then add some queue message or table entity there. The process is quite simiar to blob. For more instructions of Queue or Table in Azure Storage Explorer, you can visit [AzureStorageExplorer4UserGuide.pdf](http://www.codeplex.com/Download?ProjectName=azurestorageexplorer&DownloadId=160664) for more details.
 
-	![Azure Storage Explorer Queue Management](images/aze-queue-management.png?raw=true)
+	![Azure Storage Explorer Queue Management](images/aze-queue-management.png)
 
 	_Azure Storage Explorer Queue Management_
 
-	![Azure Storage Explorer Table Management](images/aze-table-management.png?raw=true)
+	![Azure Storage Explorer Table Management](images/aze-table-management.png)
 
 	_Azure Storage Explorer Table Management_
 
@@ -157,21 +157,21 @@ In order to build an IPython environment on windows azure, you can read  [http:/
 
 After the ipython notebook is deployed, you can open the IPython Notebook in your Explorer:
 
-![IPython Notebook](images/ipython_notebook_main.png?raw=true)
+![IPython Notebook](images/ipython_notebook_main.png)
 
 _IPython Notebook_
 
 1. Create the button **New Notebook** on the top right, 
 
-	![Create a New Notebook](images/ipn-new-notebook.png?raw=true)
+	![Create a New Notebook](images/ipn-new-notebook.png)
 
-	![Create a New Notebook](images/ipn-untitled-notebook.png?raw=true)
+	![Create a New Notebook](images/ipn-untitled-notebook.png)
 
 	_Create a New Notebook_
 
 1. Next we are going to go use some Python code to manage the storage account that we created in Azure Storage Explorer. Open the file **Source\Exercise2\IPythonStorageManager.py** in a text editor and we will execute those commands step by step.
 
-	![IPythonStorageManager Code](images/ipn-code-in-vs.png?raw=true)
+	![IPythonStorageManager Code](images/ipn-code-in-vs.png)
 
 	_IPythonStorageManager Code_
 
@@ -189,7 +189,7 @@ _IPython Notebook_
 		import time
 	````
 
-	![Import Libraries](images/ipy-code-import.png?raw=true)
+	![Import Libraries](images/ipy-code-import.png)
 
 	_Import Libraries_
 
@@ -202,7 +202,7 @@ _IPython Notebook_
 		#get a handle to your account
 		blob_service = BlobService(account_name=account, account_key=key)
 	````
-	![Set Variables](images/ipy-code-key.png?raw=true)
+	![Set Variables](images/ipy-code-key.png)
 
 	_Set Variables_
 
@@ -212,7 +212,7 @@ _IPython Notebook_
 		#get a handle to your account
 		blob_service = BlobService(account_name=account, account_key=key)
 	````
-	![Create Blob Service](images/ipy-code-blob-service.png?raw=true)
+	![Create Blob Service](images/ipy-code-blob-service.png)
 
 	_Create Blob Service_
 
@@ -226,7 +226,7 @@ _IPython Notebook_
 		    print(blob.url)
      ````
 
-	![List All Blobs](images/ipy-code-list-blobs.png?raw=true)
+	![List All Blobs](images/ipy-code-list-blobs.png)
 
 	_List All Blobs_
 
@@ -242,13 +242,13 @@ _IPython Notebook_
 		blob_service.put_blob(containername, 'sample2.txt', sampleblob2, x_ms_blob_type='BlockBlob')		
      ````
 
-	![Upload Blob](images/ipy-code-upload-blob.png?raw=true)
+	![Upload Blob](images/ipy-code-upload-blob.png)
 
 	_Upload Blob_
 
 	When the upload is done, we launch Azure Storage Explorer again and refresh current container. We can see a new file *Sample2.txt" appears in the container.
 
-	![The Sample2.txt is Uploaded](images/aze-refresh-upload-blob.png?raw=true)
+	![The Sample2.txt is Uploaded](images/aze-refresh-upload-blob.png)
 
 	_The Sample2.txt is Uploaded_
 
@@ -262,13 +262,13 @@ _IPython Notebook_
 		#check the azure storage explorer again, the file is removed.	
      ````
 
-	![Delete Blob](images/ipy-code-delete-blob.png?raw=true)
+	![Delete Blob](images/ipy-code-delete-blob.png)
 
 	_Delete Blob_
 
 	Again, in the Azure Storage Explorer again and refresh current container. We can see the file *Sample2.txt" disappears.
 
-	![The Sample2.txt is Deleted](images/aze-refresh-delete-blob.png?raw=true)
+	![The Sample2.txt is Deleted](images/aze-refresh-delete-blob.png)
 
 	_The Sample2.txt is Deleted_
 
@@ -282,7 +282,7 @@ _IPython Notebook_
     f.write(csvblob)	
      ````
 
-	![Download Blob](images/ipy-code-download-blob.png?raw=true)
+	![Download Blob](images/ipy-code-download-blob.png)
 
 	_Download Blob_
 
@@ -294,15 +294,15 @@ _IPython Notebook_
 		columns = defaultdict(list) #we want a list to append each value in each column to
 		with open(csv_file) as f:
 		    reader = csv.DictReader(f) #create a reader which represents rows in a dictionary form
-		    for row in reader: #this will read a row as {column1: value1, column2: value2,...}        
+		    for row in reader: #this will read a row as {column1: value1, column2: value2,...}
 		        for (k,v) in row.items(): #go over each column name and value 
-		            columns[k].append(v) #append the value into the appropriate list based on column name k		
+		            columns[k].append(v) #append the value into the appropriate list based on column name k
 		carat = np.array(columns['Carat'])
 		price = np.array(columns['Price'])
 		scatter(carat,price,marker ='o',color='#ff0000')
      ````
 
-	![Scatter](images/ipy-code-scatter.png?raw=true)
+	![Scatter](images/ipy-code-scatter.png)
 
 	_The carat and price scatter diagram_
 
@@ -316,7 +316,7 @@ _IPython Notebook_
 		table_name = 'diamondtable';
      ````
 
-	![TableService](images/ipy-code-table-service.png?raw=true)
+	![TableService](images/ipy-code-table-service.png)
 
 	_Create Table Service_
 
@@ -330,13 +330,13 @@ _IPython Notebook_
 		result = table_service.create_table(table_name)	
      ````
 
-	![Create New Table](images/ipy-code-create-new-table.png?raw=true)
+	![Create New Table](images/ipy-code-create-new-table.png)
 
 	_Create New Table_
 
 	We goto the Azure Storage Explorer again, click *Tables* and check the new table.
 
-	![New Table is Created](images/aze-create-new-table.png?raw=true)
+	![New Table is Created](images/aze-create-new-table.png)
 
 	_New Table is Created_
 
@@ -347,7 +347,7 @@ _IPython Notebook_
 		index = 0
 		with open(csv_file) as f:
 		    reader = csv.DictReader(f) #create a reader which represents rows in a dictionary form
-		    for row in reader: #this will read a row as {column1: value1, column2: value2,...}        
+		    for row in reader: #this will read a row as {column1: value1, column2: value2,...}
 		        entity = Entity()
 		        entity.PartitionKey = row['Color']
 		        entity.RowKey= str(index)
@@ -363,13 +363,13 @@ _IPython Notebook_
 		#we can check the azure storage explore to query all entities that we inserted.	
      ````
 
-	![Insert Entities](images/ipy-code-insert-entities.png?raw=true)
+	![Insert Entities](images/ipy-code-insert-entities.png)
 
 	_Insert Entities_
 
 	In the Azure Storage Explorer, click *Query* button and you will find all entities are inserted.
 
-	![Entities Are Inserted](images/aze-insert-entities.png?raw=true)
+	![Entities Are Inserted](images/aze-insert-entities.png)
 
 	_Entities Are Inserted_
 
@@ -380,7 +380,7 @@ _IPython Notebook_
 		index = 0
 		with open(csv_file) as f:
 		    reader = csv.DictReader(f) #create a reader which represents rows in a dictionary form
-		    for row in reader: #this will read a row as {column1: value1, column2: value2,...}        
+		    for row in reader: #this will read a row as {column1: value1, column2: value2,...}
 		        entity = Entity()
 		        entity.PartitionKey = row['Color']
 		        entity.RowKey= str(index)
@@ -396,7 +396,7 @@ _IPython Notebook_
 		#we can check the azure storage explore to query all entities that we inserted.	
      ````
 
-	![Query Table](images/ipy-code-query-table.png?raw=true)
+	![Query Table](images/ipy-code-query-table.png)
 
 	_Query Table_
 
@@ -412,19 +412,19 @@ AzCopy is another tool to manage azure storage account. It can be used to copy f
 
 1. Create a new storage account under your subscription on Windows Azure Management Portal. Set the storage account name to a different name.
 
-	![Create A New Storage Account](images/create-another-storage-account.png?raw=true)
+	![Create A New Storage Account](images/create-another-storage-account.png)
 
 	_Create A New Storage Account_
 
 1. Save its access key from the portal.
 
-	![Get Another Storage Account Access Key](images/get-another-storage-account-key.png?raw=true)
+	![Get Another Storage Account Access Key](images/get-another-storage-account-key.png)
 
 	_Get Another Storage Account Access Key_
 
 1. Add the storage account to Azure Storage Explorer again and create a new container in the new storage account.
 
-	![Create A New Container](images/aze-create-new-container.png?raw=true)
+	![Create A New Container](images/aze-create-new-container.png)
 
 	_Create A New Container_
 
@@ -437,13 +437,13 @@ AzCopy is another tool to manage azure storage account. It can be used to copy f
 	Replace all fields according to your configuration. The above command will copy all blobs from the container named "sourcecontainer" in storage account "sourceaccount" to another container named "destcontainer" in storage account "destaccount".
 
 	
-	![AzCopy Between Storage Accounts](images/azcopy-copy-between-storage-account.png?raw=true)
+	![AzCopy Between Storage Accounts](images/azcopy-copy-between-storage-account.png)
 
 	_AzCopy Between Storage Accounts_
 
 	Let's go to the Azure Storage Explorer again and you will find all files are copied to the new container.
 
-	![Check Result in Azure Storage Explorer](images/aze-azcopy-container.png?raw=true)
+	![Check Result in Azure Storage Explorer](images/aze-azcopy-container.png)
 
 	_Check Result in Azure Storage Explorer_
 

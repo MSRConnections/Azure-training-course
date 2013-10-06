@@ -46,7 +46,7 @@ Estimated time to complete this lab: **60** minutes.
 
 Service Bus Queues support a **brokered messaging communication** model. When using queues, components of a distributed application do not communicate directly with each other, they instead exchange messages via a queue, which acts as an intermediary. A message producer (sender) hands off a message to the queue and then continues its processing. Asynchronously, a message consumer (receiver) pulls the message from the queue and processes it. The producer does not have to wait for a reply from the consumer in order to continue to process and send further messages. Queues offer **First In, First Out (FIFO)** message delivery to one or more competing consumers. That is, messages are typically received and processed by the receivers in the order in which they were added to the queue, and each message is received and processed by only one message consumer. 
 
-![Service Bus Queue Introduction](images/sb-queue-introduction.png?raw=true)
+![Service Bus Queue Introduction](images/sb-queue-introduction.png)
 
 _Service Bus Queue Introduction_
  
@@ -68,7 +68,7 @@ To run the nucleotide match, the sample uses the blastn utility, which is a part
 
 The architecture of the sample and the steps of its execution are described:
 
-![NCBI BLAST Architecture](images/blast-architecture.png?raw=true)
+![NCBI BLAST Architecture](images/blast-architecture.png)
 
 _NCBI BLAST Architecture_
 
@@ -87,50 +87,50 @@ We have already an [NCBI BLAST website](http://azure4research-blast.cloudapp.net
 
 1. Open the NCBI BLAST website.
 
-	![NCBI BLAST Website](images/blast-website.png?raw=true)
+	![NCBI BLAST Website](images/blast-website.png)
 	
 	_NCBI BLAST Website_
 
 1. Click the "New Task" link to create a new task
 
-	![BLAST Create New Task](images/blast-new-task.png?raw=true)
+	![BLAST Create New Task](images/blast-new-task.png)
 	
 	_BLAST Create New Task_
 
 1. Then you will navigate to a new page to set some parameters. Select an input file, then click *Queue*
 
-	![BLAST Set Task Information](images/blast-set-task-info.png?raw=true)
+	![BLAST Set Task Information](images/blast-set-task-info.png)
 	
 	_BLAST Set Task Information_
 
 1. Then you will see the task is executing.	
 
-	![BLAST Running Task](images/blast-running-task.png?raw=true)
+	![BLAST Running Task](images/blast-running-task.png)
 	
 	_BLAST Running Task_
 
 1. Because the system needs to download the database files, the very first task after the system has been deployed will take a long time. However, as the system caches database files, jobs after the first will be executed much faster. After serveral minutes, the task is finished.
 
-	![BLAST Task Complete](images/blast-task-complete.png?raw=true)
+	![BLAST Task Complete](images/blast-task-complete.png)
 	
 	_BLAST Task Complete_
 
 1. After a task completes, you can click on its View Result link to view the search result. The link takes you to bov.bioinfo.cas.unt.edu to view the result, as shown followed:
 
-	![BLAST Output File](images/blast-output-file.png?raw=true)
+	![BLAST Output File](images/blast-output-file.png)
 	
 	_BLAST Output File_
 
 
 1. Click on the link to expand hit sequences
 
-	![BLAST Output File Hit Sequences](images/blast-output-file-hit-sequences.png?raw=true)
+	![BLAST Output File Hit Sequences](images/blast-output-file-hit-sequences.png)
 	
 	_BLAST Output File Hit Sequences_
 
 1. Click on any of hit sequences to view its corresponding HSP image
 
-	![BLAST Output File Hit Sequence Image](images/blast-output-file-hsp-image.png?raw=true)
+	![BLAST Output File Hit Sequence Image](images/blast-output-file-hsp-image.png)
 	
 	_BLAST Output File Hit Sequence Image_
 
@@ -151,7 +151,7 @@ Next we are going to use IPython Notebook to send a new task to BLAST Cloud Serv
         import json
     ````
 
-    ![IPython Notebook Import Libraries](images/ipy-send-task-imports.png?raw=true)
+    ![IPython Notebook Import Libraries](images/ipy-send-task-imports.png)
 	
     _IPython Notebook Import Libraries_
 
@@ -169,7 +169,7 @@ Next we are going to use IPython Notebook to send a new task to BLAST Cloud Serv
         bus_service = ServiceBusService(service_namespace=servicenamespace, account_key=accountkey, issuer=issuer)
     ````
 
-    ![IPython Notebook Create Service Bus Service](images/ipy-send-task-bus-service.png?raw=true)
+    ![IPython Notebook Create Service Bus Service](images/ipy-send-task-bus-service.png)
 	
     _IPython Notebook Create Service Bus Service_	
 
@@ -198,7 +198,7 @@ Next we are going to use IPython Notebook to send a new task to BLAST Cloud Serv
         print msg.body
     ````
 
-    ![IPython Notebook Create Message](images/ipy-send-task-create-message.png?raw=true)
+    ![IPython Notebook Create Message](images/ipy-send-task-create-message.png)
 	
     _IPython Notebook Create Message_
 
@@ -222,7 +222,7 @@ Next we are going to use IPython Notebook to send a new task to BLAST Cloud Serv
           table_service.insert_entity(table_name, entity)
     ````
 
-    ![IPython Notebook Insert Table](images/ipy-send-task-insert-table.png?raw=true)
+    ![IPython Notebook Insert Table](images/ipy-send-task-insert-table.png)
 	
     _IPython Notebook Insert Table_
 
@@ -232,13 +232,13 @@ Next we are going to use IPython Notebook to send a new task to BLAST Cloud Serv
 		 bus_service.send_queue_message(queue_name, msg)
     ````
 
-    ![IPython Notebook Submit to Queue](images/ipy-send-task-submit-queue.png?raw=true)
+    ![IPython Notebook Submit to Queue](images/ipy-send-task-submit-queue.png)
 	
     _IPython Notebook Submit to Queue_
 
 1. Then let's navigate to the BLAST website again, click **Refresh** button and check the new task. We can see a task with input file 63 is completed.
 
-    ![New Task Complete](images/ipy-send-task-new-task-complete.png?raw=true)
+    ![New Task Complete](images/ipy-send-task-new-task-complete.png)
 	
     _New Task Complete_
 
@@ -259,7 +259,7 @@ You can use Python to receive a message as well! Messages are received from a qu
 		print msgrec.body 
     ````
     
-    ![IPython Notebook Receive Message](images/ipy-receive-message.png?raw=true)
+    ![IPython Notebook Receive Message](images/ipy-receive-message.png)
 	
     _IPython Notebook Receive Message_
 
@@ -267,19 +267,19 @@ You can use Python to receive a message as well! Messages are received from a qu
 
 	>If there are multiple people using the BLAST service, just do the previous step for multiple times until you receive a message.
 
-    ![IPython Notebook Create Many New Tasks](images/ipy-create-multiple-msgs.png?raw=true)
+    ![IPython Notebook Create Many New Tasks](images/ipy-create-multiple-msgs.png)
 	
     _IPython Notebook Create Many New Tasks_
 
 1. If your IPython notebook receive a new message, then the message's body will be printed. 
 
-    ![IPython Notebook Received New Message](images/ipy-received-new-message.png?raw=true)
+    ![IPython Notebook Received New Message](images/ipy-received-new-message.png)
 	
     _IPython Notebook Received New Message_
 
 1. Let's check the website again, we can see the task is always in queued status because the message was read by IPython Notebook. 
 
-    ![IPython Notebook Task Will NOT be Processed](images/ipy-task-not-processed.png?raw=true)
+    ![IPython Notebook Task Will NOT be Processed](images/ipy-task-not-processed.png)
 	
     _IPython Notebook Task Will NOT be Processed_
 
@@ -298,13 +298,13 @@ You can use Python to receive a message as well! Messages are received from a qu
         print msgrec.body 
     ````
     
-    ![IPython Notebook Receive Message With Peek Lock](images/ipy-receive-message-peek-lock.png?raw=true)
+    ![IPython Notebook Receive Message With Peek Lock](images/ipy-receive-message-peek-lock.png)
 	
     _IPython Notebook Receive Message With Peek Lock_
 
 1. By default the peek lock time is 30 seconds. After that, check the BLAST website again, you will see the task is picked up by the default worker role and it is in *Completed* status:	
 
- 	![IPython Notebook Message Processed Again](images/ipy-msg-processed-peek-lock-no-delete.png?raw=true)
+ 	![IPython Notebook Message Processed Again](images/ipy-msg-processed-peek-lock-no-delete.png)
 	
     _IPython Notebook Message Processed Again_
 
