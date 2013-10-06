@@ -1,0 +1,1 @@
+Import the UseIE9Emulation.reg file before using the MarkdownPreview tool in order to make it use the IE9 rendering engine (Otherwise, by default uses IE7 rendering.)
