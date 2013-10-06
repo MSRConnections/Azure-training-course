@@ -1,7 +1,0 @@
-{
-  "name": "HelloWorld",
-  "version": "0.0.1",
-  "description": "",
-  "main": "./server.js",
-  "engines": { "node": ">= 0.6.0" }
-}
