@@ -302,11 +302,20 @@ _Clustering Example Sample_
 1. In the beginning, the script defines the azure credentials as well as the intended number of clusters. The data is loaded from internet and stored in titanic_data.csv. We just upload the csv file to a public windows azure storage account and download it by HTTPs directly.
 
 	````Python
+		from sklearn.cluster import KMeans
+		import numpy as np
+		import pandas 
+		import matplotlib
+		import matplotlib.pyplot as plt
+		import matplotlib.cm as cm
+		from sklearn.manifold import MDS		
+		NUM_CLUSTERS = 16		
+		####################################
 		# download titanic csv data from github
 		f = urllib.urlopen("https://pythonstore.blob.core.windows.net/data/titanic-data.csv") # YOU MIGHT NEED TO CHANGE THE URL
 		titanic_csv = f.read()
 		with open("titanic.csv", "w") as tmp:
-	    tmp.write(titanic_csv)
+		    tmp.write(titanic_csv)
 	````
 
 1. In the next step, the data set is loaded with pandas. Pandas is a library that makes working with data tables as for example CSV data easy. As the “names” and “survived” groups are not needed for the clustering, they are removed from the data frame:
@@ -336,10 +345,23 @@ _Clustering Example Sample_
 1. After clustering the data, the multi-dimensional data is reduced to two dimensions in order to allow plotting:
 
 	````Python
+		# PLOT PREPARATION
 		# Reduce to two dimensions for plotting
 		mds = MDS(n_components=2)
 		mds.fit(data)
-		scaled_coordinates = mds.embedding_
+		scaled_coordinates = mds.embedding_		
+		# PLOT ON TWO DIMENSIONS
+		labelled_data_x = (dict(), dict())
+		labelled_data_y = (dict(), dict())
+		for label in kmeans_labels_unique:
+		    labelled_data_x[0][label] = []
+		    labelled_data_y[0][label] = []
+		    labelled_data_x[1][label] = []
+		    labelled_data_y[1][label] = []		
+		for i in range(0, len(names)):
+		    label = kmeans_labels[i]
+		    labelled_data_x[survived[i]][label].append(scaled_coordinates[i][0])
+		    labelled_data_y[survived[i]][label].append(scaled_coordinates[i][1])
 	````
 
 1. The script prepares the data in order to be plotted in multiple colors (depending on their cluster) as well as the status of whether the passenger has survived or not. Survived passengers and those who did not survive are assigned different markers and in the end, the plot is shown:

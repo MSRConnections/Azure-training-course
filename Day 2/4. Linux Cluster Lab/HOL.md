@@ -22,6 +22,7 @@ In this hands-on lab, you will learn how to:
 The following is required to complete this hands-on lab:
 
 - A Windows Azure subscription - [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
+- Lab: Using Windows Azure Virtual Machine
 
 ---
 <a name="Exercises"></a>
@@ -36,45 +37,57 @@ This hands-on lab includes the following exercises:
 Estimated time to complete this lab: **60** minutes.
 
 <a name="#Exercise1"></a>
-### Excercise 1: Build a Ubuntu Environment to manage Windows Azure with Python  ###
+### Excercise 1: Build an Environment to manage Windows Azure with Python  ###
 
 First, you will need to deploy required software on your linux machine. You are going to install git, Python 2.7, workerpool and paramiko, then you will connect Windows Azure by Python with some configuration. 
 
 <a name="Ex1Task1"></a>
-#### Task 1 - Deploy software on Ubuntu ####
+#### Task 1 - Deploy software on an Ubuntu Linux Server ####
 
-1. Launch a linux machine. You can use Hyper-V to create a virtual machine. In this example, you will launch a Ubuntu 12.04 LTS VM to manage Windows Azure by Python.
+1. On Windows Azure Management Porcal, click **New** -> **Compute** -> **Virtual Machine** -> **Quick Create**, input all required fields including *DNS Name*, *Image* = Ubuntu Server 12.04 LTS, *Size* = Small, *Password* and *Region*:
 
-	![Log on to Windows Azure portal](images/launch-ubuntu.png?raw=true)
+	![Create an Ubuntu VM](images/create-ubuntu-vm.png)
 
-	_Launch a Ubuntu Machine_
+	_Create an Ubuntu VM_
 
-    Please ensure the linux machine is connected to Internet.
+1. After the machine is created, we can use [putty](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) to connect to that machine from the DNS name. You can find the DNS name from the dashboard of the virtual machine. 
 
-1. Launch **Terminal** for software installation on Ubuntu.
+	![IPython Ubuntu DNS Name](images/ipython-ubuntu-dnsname.png)
 
-	![Launch Terminal](images/launch-ubuntu-terminal.png?raw=true)
+	_IPython Ubuntu DNS Name_
 
-	_Launch Terminal_
+1. For Putty, you can download the [Windows installer for everything except PuTTYtel](http://the.earth.li/~sgtatham/putty/latest/x86/putty-0.63-installer.exe) and install it.
 
-1. Execute following command to install git
+	![Install Putty](images/install-putty.png)
+
+	_Install Putty_
+
+1. Launch Putty and connect to the remote machine with the DNS name.
+	
+	![Connect Remote Machine](images/putty-connect-remote-1.png)
+
+	![Connect Remote Machine](images/putty-connect-remote-2.png)
+
+	_Connect Remote Machine_
+
+1. Then we can execute following command to install git
 
     ````Linux
 	sudo apt-get install git	
 	````
 	
-	![Install Git](images/install-git.png?raw=true)
+	![Install Git](images/install-git.png)
 
 	_Install Git_
 
 
-1. Execute following command to install Python 2.7
+1. Execute following command to install Python Setup Tools.
 
     ````Linux
 	sudo apt-get install python-setuptools
 	````
 
-	![Install Python](images/install-python.png?raw=true)
+	![Install Python](images/install-python.png)
 
 	_Install Python Setup Tools_
 
@@ -83,11 +96,13 @@ First, you will need to deploy required software on your linux machine. You are 
 
     ````Linux
 	git clone https://github.com/WindowsAzure/azure-sdk-for-python.git
-    cd azure-sdk-for-pypthon/src
+    cd ~/azure-sdk-for-python/src/
     sudo python setup.py install
     ````
  
-	![Install Windows Azure SDK for Python](images/install-wa-sdk-python.png?raw=true)
+	![Install Windows Azure SDK for Python](images/install-wa-sdk-python.png)
+
+	![Install Windows Azure SDK for Python](images/install-wa-sdk-python-1.png)
 
 	_Install Windows Azure SDK for Python_
 
@@ -98,7 +113,7 @@ First, you will need to deploy required software on your linux machine. You are 
     sudo easy_install paramiko
 	````
  
-	![Install WorkerPool and Paramiko](images/install-workerpool-paramiko.png?raw=true)
+	![Install WorkerPool and Paramiko](images/install-workerpool-paramiko.png)
 
 	_Install WorkerPool and Paramiko_
 
@@ -108,7 +123,7 @@ All software has been installed on your machine, next we setup to connect to Win
 
 #### Task 2 - Setup Windows Azure Subscription ####
 
-1. To connect to the Service Management endpoint, you need your Windows Azure subscription ID and the path to a valid management certificate. You can obtain your subscription ID through the [management portal](https://manage.windowsazure.com/), and you can create management certificates in a number of ways. In this guide [OpenSSL](http://www.openssl.org/) is used, which you can [download for Windows](http://www.openssl.org/related/binaries.html) and run in a console.
+1. To connect to the Service Management endpoint, you need your Windows Azure subscription ID and the path to a valid management certificate. You can obtain your subscription ID through the [management portal](https://manage.windowsazure.com/), and you can create management certificates in a number of ways. Here we use OpenSSL to create it.
 
 	You actually need to create two certificates, one for the server (a .cer file) and one for the client (a .pem file). To create the .pem file, execute this:
 
@@ -117,7 +132,7 @@ All software has been installed on your machine, next we setup to connect to Win
 	openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem
     ````
  
-	![Create Client Certificate File(a .pem file)](images/create-pem-file.png?raw=true)
+	![Create Client Certificate File(a .pem file)](images/create-pem-file.png)
 
 	_Create Client Certificate File(a .pem file)_
 
@@ -126,26 +141,44 @@ All software has been installed on your machine, next we setup to connect to Win
 	````Linux
 	openssl x509 -inform pem -in mycert.pem -outform der -out mycert.cer
 	````
- 
-	![Create Server Certificate File(a .cer file)](images/create-cer-file.png?raw=true)
+ 	You can use ls to view the file you created.
+
+	![Create Server Certificate File(a .cer file)](images/create-cer-file.png)
 
 	_Create Server Certificate File(a .cer file)_
 
-	For more information about Windows Azure certificates, see [Managing Certificates in Windows Azure](http://msdn.microsoft.com/en-us/library/windowsazure/gg981929.aspx). For a complete description of OpenSSL parameters, see the documentation at [http://www.openssl.org/docs/apps/openssl.html](http://www.openssl.org/docs/apps/openssl.html).
+	>For more information about Windows Azure certificates, see [Managing Certificates in Windows Azure](http://msdn.microsoft.com/en-us/library/windowsazure/gg981929.aspx). For a complete description of OpenSSL parameters, see the documentation at [http://www.openssl.org/docs/apps/openssl.html](http://www.openssl.org/docs/apps/openssl.html).
 
-1. After you have created these files, you will need to upload the .cer file to Windows Azure via the "Upload" action of the "Settings" tab of the management portal, and you will need to make note of where you saved the .pem file.
+1. You need to use pscp to download the **mycert.cer** file to local for uploading to windows azure. Execute the following command in the command line:
 
-	![Upload .cer file to Windows Azure](images/upload-cer-file-to-wa-1.png?raw=true)
+	````CommandPrompt
+	cd [Your Putty Folder]
+	[Your Putty Folder]\pscp.exe -p [username]@[dns name]:/home/[username]/mycert.cer mycert.cer
+	[Your Putty Folder]\pscp.exe -p [username]@[dns name]:/home/[username]/mycert.pem mycert.pem
+	````
 
-	![Upload .cer file to Windows Azure](images/upload-cer-file-to-wa-2.png?raw=true)
+	Just replace [Your Putty Folder],[username] and [dns name].
 
-	![Upload .cer file to Windows Azure](images/upload-cer-file-to-wa-3.png?raw=true)
+	![Donwload cer file](images/download-cer-file.png)
+
+	_Donwload cer file_
+
+	>If you get an error about "Cannot create file xxx", please run your command line in administrators mode and run again.
+	
+
+1. After you have downloaded the file *mycert.cer*, you will need to upload the .cer file to Windows Azure via the "Upload" action of the "Settings" tab of the management portal, and you will need to make note of where you saved the .pem file.
+
+	![Upload .cer file to Windows Azure](images/upload-cer-file-to-wa-1.png)
+
+	![Upload .cer file to Windows Azure](images/upload-cer-file-to-wa-2.png)
+
+	![Upload .cer file to Windows Azure](images/upload-cer-file-to-wa-3.png)
 
 	_Upload .cer file to Windows Azure_
 
 1. Please also note the subscription id for future use.
 
-	![Get Subscription Id](images/get-subscription-id.png?raw=true)
+	![Get Subscription Id](images/get-subscription-id.png)
 
 	_Get Subscription Id_
 
@@ -158,7 +191,7 @@ The [IPython project](http://ipython.org/) provides a collection of tools for sc
 
 Whether you're absolutely new to Python and want to learn it in a fun, interactive environment or do some serious parallel/technical computing, the IPython Notebook is a great choice. As an illustration of its capabilities, the following screenshot shows the IPython Notebook being used, in combination with the SciPy and matplotlib packages, to analyze the structure of a sound recording:
 
-![IPython Notebook Spectral](images/ipy-notebook-spectral.png?raw=true)
+![IPython Notebook Spectral](images/ipy-notebook-spectral.png)
 
 _IPython Notebook Spectral_
 
@@ -166,17 +199,38 @@ _IPython Notebook Spectral_
 
 1. Open the file **configSample.py** in gedit. You need to replace the subscription id with yours and the path to your private key file (**mycert.pem**).
 
-	![Edit configSample.py](images/edit-configSample.png?raw=true)
+	![Edit configSample.py](images/edit-configSample.png)
 
 	_Edit configSample.py File_
 
 	You may also need to change the following sections in that files including, **The number of nodes**, **The name of VM nodes**, **Service Name**, **Deployment Name**, **Role Name**, **Media Link Base**, **The password of the Notebook**.
 
-	For the "Media Link Base", you must set *xxx* in **http://xxx.blob.core.windows.net/vhds/ipythonvm** to your correct storage account. If you don't have any storage account under your subscription, you can just create one. Set the location to "East Asia" if you didn't change the default region in the **configSample.py** file. Now we set the number of nodes to 4, which means 1 controller and 3 engines.
+	>For the "Media Link Base", you must set *xxx* in **http://xxx.blob.core.windows.net/vhds/ipythonvm** to your correct storage account. If you don't have any storage account under your subscription, you can just create one. Set the location to "East Asia" if you didn't change the default region in the **configSample.py** file. Now we set the number of nodes to 3, which means 1 controller and 2 engines.
 
-	![Create Storage Account](images/create-storage-account.png?raw=true)
+	>![Create Storage Account](images/create-storage-account.png)
 
-	_Create Storage Account_
+	>_Create Storage Account_
+
+1. Next we need to upload all files under **Source\Ex02-DeployIPython**. First create a folder in Putty.
+
+	````Linux
+	cd ~
+	mkdir Ex02-DeployIPython
+	````
+
+	![Create Folder](images/create-ex02-folder.png)
+
+	_Create Folder_
+	
+	Then we run following command in Comand line:
+	
+	````CommandPrompt
+	"[You Putty Folder]\pscp.exe" -r [Source\Ex02 filder] * [username]@[dns name]:/home/[username]/Ex02-DeployIPython
+	````
+
+	![Copy files](images/copy-files-remote.png)
+
+	_Create Folder_
 
 1. Execute **main.py** with following command:
 
@@ -192,25 +246,25 @@ _IPython Notebook Spectral_
 	python main.py start
 	````
 
-	![Execute Toolkit](images/execute-python-1.png?raw=true)
+	![Execute Toolkit](images/execute-python-1.png)
 
 	_Execute Python Commands_
 
 	At first, the **start** command creates a cloud service with the **Service Name** you defined in the configuration file. Then it creates 4 small instances in the cloud service. After those machines are launched, the code will connect to those machines and deploy required software and IPython Notebook automatically.
 
-1. After about 10 minutes, the deployment is done. You will see the IPython cloud service is running in Windows Azure. There are 4 small instances running.
+1. After about 10 minutes, the deployment is done. You will see the IPython cloud service is running in Windows Azure. There are 3 small instances running.
 
-	![IPython Notebook is running in Windows Azure](images/ipython-deploy-finished.png?raw=true)
+	![IPython Notebook is running in Windows Azure](images/ipython-deploy-finished.png)
 
-	![IPython Notebook is running in Windows Azure](images/ipython-running-on-wa-1.png?raw=true)
+	![IPython Notebook is running in Windows Azure](images/ipython-running-on-wa-1.png)
 
-	![IPython Notebook is running in Windows Azure](images/ipython-running-on-wa-2.png?raw=true)
+	![IPython Notebook is running in Windows Azure](images/ipython-running-on-wa-2.png)
 
-	_IPython Notebook is running in Windows Azure_
+	_IPython Notebook is running on Windows Azure_
 
 	Just click the link on windows azure and you will see IPython is ready. If you see warnings for certification issue, just ignore it and continue.
 
-	![IPython Notebook is ready](images/ipython-ready-on-wa.png?raw=true)
+	![IPython Notebook is ready](images/ipython-ready-on-wa.png)
 
 	_IPython Notebook_
 
@@ -229,7 +283,7 @@ In this execise, you will run a Monte Carlo simulation code in your IPython note
 
 1. Login your IPython Notebook with your predefined password, it is **Test12** if you didn't change it.
 
-	![Login IPython](images/login_ipython.png?raw=true)
+	![Login IPython](images/login_ipython.png)
 
 	_Login IPython Notebook_
 
@@ -239,15 +293,15 @@ In this execise, you will run a Monte Carlo simulation code in your IPython note
 	!wget https://raw.github.com/wenming/BigDataSamples/master/ipythonMLsamples/Cluster%20-%20ParallelMCOptions.ipynb
 	````
 
-	![Login Load Monte Carlo Simulation](images/load_monte_carlo_simulation.png?raw=true)
+	![Login Load Monte Carlo Simulation](images/load_monte_carlo_simulation.png)
 
 	_Load Monte Carlo Simulation_
 
 1. Click the Notebooks tab. There is a new notebook called **ParallelMCOptions-cluster**, click the notebook.
 
-	![Cluster - ParallelMCOptions](images/cluster_parallelmcoptions-1.png?raw=true)
+	![Cluster - ParallelMCOptions](images/cluster_parallelmcoptions-1.png)
 
-	![Cluster - ParallelMCOptions](images/cluster_parallelmcoptions-2.png?raw=true)
+	![Cluster - ParallelMCOptions](images/cluster_parallelmcoptions-2.png)
 
 	_Cluster - ParallelMCOptions_
 
@@ -255,7 +309,7 @@ In this execise, you will run a Monte Carlo simulation code in your IPython note
 
 1. Click **Cell->Run All** to execute the sample. It will run the simulation in parallel.	
 
-	![Cluster - ParallelMCOptions](images/execute_parallelmcoptions.png?raw=true)
+	![Cluster - ParallelMCOptions](images/execute_parallelmcoptions.png)
 
 	_Execute Monte Carlo Simulation in Parallel on Azure_
 	
@@ -263,8 +317,8 @@ In this execise, you will run a Monte Carlo simulation code in your IPython note
 	
 	After couple of minutes, you will see the result in the page.
 
-	![Cluster - ParallelMCOptions](images/mc-result-1.png?raw=true)
-	![Cluster - ParallelMCOptions](images/mc-result-2.png?raw=true)
+	![Cluster - ParallelMCOptions](images/mc-result-1.png)
+	![Cluster - ParallelMCOptions](images/mc-result-2.png)
 
 	_Monte Carlo Simulation Result_
 
@@ -276,13 +330,11 @@ In this execise, you will run a Monte Carlo simulation code in your IPython note
 
 	During the Monte Carlo is executing, the ipengine consumes almost 100% CPU on all engine machines.
 
-	![Controller](images/ipn-ipcontroller.png?raw=true)
+	![Controller](images/ipn-ipcontroller.png)
 	
-	![Engine 1](images/ipn-ipengine-1.png?raw=true)
+	![Engine 1](images/ipn-ipengine-1.png)
 
-	![Engine 2](images/ipn-ipengine-2.png?raw=true)
-
-	![Engine 3](images/ipn-ipengine-3.png?raw=true)
+	![Engine 2](images/ipn-ipengine-2.png)
 
 	_IPython Cluster CPU consumption_
 
