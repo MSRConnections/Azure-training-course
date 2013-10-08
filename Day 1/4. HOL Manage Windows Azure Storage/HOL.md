@@ -1,4 +1,4 @@
-<a name="HOLTitle"></a>
+h<a name="HOLTitle"></a>
 # Manage Windows Azure Storage #
 
 ---
@@ -19,7 +19,7 @@ In this hands-on lab, you will learn how to:
 <a name="Prerequisites"></a>
 ### Prerequisites ###
 
-The following is required to complete following item:
+The following is required to complete this hands-on lab:
 
 - A Windows Azure subscription - [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
 
@@ -41,17 +41,17 @@ Estimated time to complete this lab: **60** minutes.
 
 Azure Storage Explorer is a useful GUI tool for inspecting and altering the data in your Windows Azure Storage storage projects including the logs of your cloud-hosted applications. All 3 types of cloud storage can be viewed and edited: blobs, queues, and tables. 
 
-1. Azure Storage Explorer can be downloaded from [CodePlex](http://azurestorageexplorer.codeplex.com/). 
+1. Azure Storage Explorer can be downloaded for free from [CodePlex](http://azurestorageexplorer.codeplex.com/). 
 
 	![Azure Storage Explorer Page](images/azure-storage-explorer-page.png)
 
 	_Azure Storage Explorer Page_
 
-    Now the latest version is 4.0, but you can also download the preview version.
+    The latest version is 4.0 Beta, but you can also download the previous released version.
 
 1. Download *Azure Storage Explorer 4* and install it.
 
-	> The Azure Storage Explorer can only be installed on Windows machine.
+	> The Azure Storage Explorer can only be installed on Windows machines.
 
 	![Install Azure Storage Explorer](images/install-azure-storage-explorer.png)
 
@@ -63,7 +63,7 @@ Azure Storage Explorer is a useful GUI tool for inspecting and altering the data
 
 	_Windows Azure Storage Account_
 	
-	Click the "Manage Access Keys" button under the page, then you can get your storage account name and access key.
+	Click the "Manage Access Keys" button under the page to display the storage account name and access keys for the currently selected storage account. 
 
 	![Manage Access Key](images/manage-access-key.png)
 
@@ -87,7 +87,7 @@ Azure Storage Explorer is a useful GUI tool for inspecting and altering the data
 
 	_Add Account Information_	
 
-1. A new form will pop up to tell you it takes some time to scan the storage account if it is the first time you add the storage account, just click OK. After several seconds, you can easily view all your blob, table and queue data in your storage account. 
+1. A new form will pop up to tell you it takes some time to scan the storage account if it is the first time you add the storage account. Click OK and after several seconds Azure Storage Explorer will be ready to help you viewing the blob, table and queue data in your storage account. 
 
 	![New Storage Account Confirmation](images/aze-new-storage-account.png)
 
@@ -97,9 +97,9 @@ Azure Storage Explorer is a useful GUI tool for inspecting and altering the data
 
 	_Manage Storage Account_
 
-	Blob Service is managed by default, you can create, copy, rename or delete a container with the button on left top. Now let's create a sample container and upload a file to your storage account.
+	Azure Storage Explorer displays information about Blob storage by default. From here, you can create, copy, rename or delete a container with the button on left top. Now let's create a sample container and upload a file to your storage account.
 
-1. Click *New*, input the container name *samplecontainer* and set the *Accessibility* to be *Public Container*. Click *Create Container* and you will create a new container under the storage account. The "Public Container" means that everyone can access the file through a http link. If you don't want others to access files in the container, just set it to be private.
+1. Click *New*, input the container name *samplecontainer* and set the *Accessibility* to be *Public Container*. Click *Create Container* and you will create a new container under the storage account. The "Public Container" means that everyone can access the file through its fully qualified URL (via http or https). If you don't want anyone knowing your URLs to be able to access files in the container, set the accessibility to be private instead of public.
 	
 	![New Container](images/aze-new-container.png)
 
@@ -121,9 +121,9 @@ Azure Storage Explorer is a useful GUI tool for inspecting and altering the data
 	
 	_Uploaded Files_
 
-	You can find the basic information of the file including name, last modified, length and content type. Actually it is called a **blob** in windows azure. Each storage account in Windows Azure can save up  to 200TB files and each file can be maximum 200GB.
+	Files stored in the Blob Storage Service can simply referred to as blobs. You can see basic information about the blob such as its name, when last modified, length and content type. Each storage account in Windows Azure can hold up to 200TB which could consist of many large blobs, or even one 200GB blob.
 
-1. Double click the file **Sample.txt** and you will find more information. You can find the properties and metadata. Since the file is a text file, so you can even see the content of the file in Windows Azure Storage Explorer.
+1. Double click the file **Sample.txt** and you will find more information. You can find the properties and metadata. Since the file is a text file, Azure Storage Explorer displays its contents.
 
 	![File Property](images/aze-file-properties.png)
 
@@ -137,7 +137,7 @@ Azure Storage Explorer is a useful GUI tool for inspecting and altering the data
 
 	_The Content of a File_
 	
-1. On the top right side, you can also manage your table or queue in your storage account. You can create a new Queue or new Table, then add some queue message or table entity there. The process is quite simiar to blob. For more instructions of Queue or Table in Azure Storage Explorer, you can visit [AzureStorageExplorer4UserGuide.pdf](http://www.codeplex.com/Download?ProjectName=azurestorageexplorer&DownloadId=160664) for more details.
+1. On the top right side, you can also manage the Windows Azure Table and Queue data in your storage account. With Tables, you can add or remove entities along with other Table management features. With Queues, you can push and pop messages along with other Queue management features. For more instructions on interacting with Queue and Table data using Azure Storage Explorer, you can visit [AzureStorageExplorer4UserGuide.pdf](http://www.codeplex.com/Download?ProjectName=azurestorageexplorer&DownloadId=160664).
 
 	![Azure Storage Explorer Queue Management](images/aze-queue-management.png)
 

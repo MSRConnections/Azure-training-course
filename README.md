@@ -1,4 +1,4 @@
 msr-courseware
 ==============
 
-The courseware for the MSR course introduction to research scientists 
+The courseware for the MSR course introducing Windows Azure to research scientists 
