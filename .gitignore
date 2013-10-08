@@ -40,5 +40,8 @@ nosetests.xml
 .project
 .pydevproject
 
+# Azure CLI
+azure_error
+
 # Word 
 ~$*
