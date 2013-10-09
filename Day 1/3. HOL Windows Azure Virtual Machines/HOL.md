@@ -238,28 +238,6 @@ The machine has installed a lot of packages including IPython, Storm or Shark. W
 
 ## Configurate IPython ##
 
-1. In the image most of the configuration is done. What we need to do is to setup a password for Python. Execute the following command:
-
-	````Linux
-	python -c "import IPython;print IPython.lib.passwd()" 
-	````
-	
-	![Create IPython Password](images/vm-linux-python-create-password.png)
-
-	_Create IPython Password_
-
-
-1. Then we use nano to edit the configuration and update *c.NotebookApp.password* with nano. Since the file is readonly, so remember to add sudo to modify the file. With ctrl+X, you can save the file. You have to press “Y” to confirm the save operation and then press enter.
-
-	````Linux
-	sudo nano /usr/.ipython/profile_nbserver/ipython_notebook_config.py
-	````
-	
-	![Modify Password Configuration](images/vm-linux-python-update-config.png)
-
-	_Modify Password Configuration_
-
-
 1. Now you can start IPython Notebook.You should see that the server has started:
 
 	````Linux
@@ -277,11 +255,33 @@ The machine has installed a lot of packages including IPython, Storm or Shark. W
 	_IPython Notebook Main Page_
 
 
-1. Login with the password you defined before (NOT the SHA1 hash).:
+1. Login with the password. The default password is **Elastacloud123**.
 
 	![IPython Notebook Main Page](images/vm-linux-python-main-page.png)
 
 	_IPython Notebook Main Page_
+
+> if you want to configurate your own password, you can use putty to that linux machine and do following task:
+> Execute the following command:
+
+> 	````Linux
+> 	python -c "import IPython;print IPython.lib.passwd()" 
+> 	````
+	
+> 	![Create IPython Password](images/vm-linux-python-create-password.png)
+
+> 	_Create IPython Password_
+
+
+> Then we use nano to edit the configuration and update *c.NotebookApp.password* with nano. Since the file is readonly, so remember to add sudo to modify the file. With ctrl+X, you can save the file. You have to press “Y” to confirm the save operation and then press enter.
+
+> 	````Linux
+> 	sudo nano /usr/.ipython/profile_nbserver/ipython_notebook_config.py
+> 	````
+	
+> 	![Modify Password Configuration](images/vm-linux-python-update-config.png)
+
+> 	_Modify Password Configuration_
 
 ## Clustering Example with Pandas and Scikit-learn ##
 
@@ -602,4 +602,3 @@ By completing this hands-on lab you learned the following:
 - Create a machine with Windows Server 2012 and run R job.
 - Create a machine from VMDepot and run ipython job.
 - Create a new disk and mount the disk to Windows and Linux.
-
