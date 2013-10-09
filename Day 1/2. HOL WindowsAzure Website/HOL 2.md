@@ -5,7 +5,7 @@
 <a name="Overview"></a>
 ## Overview ##
 
-In this hands-on lab we will describe how to create a Windows Azure Web Site with Django. We will also describe how to create a simple page to display your current location on a Bing Map! We will use FTP to manage those web sites. You can run the lab on Windows, Linux or Mac.
+In this hands-on lab we will describe how to create a Windows Azure Web Site with Django. We will also describe how to create a simple page to show the earthquake information with Django! We will use FTP to manage the web site.
 
 <a name="Objectives"></a>
 ### Objectives ###
@@ -13,8 +13,7 @@ In this hands-on lab we will describe how to create a Windows Azure Web Site wit
 In this hands-on lab, you will learn how to:
 
 - Create a new Web Site on Windows Azure by using Django.
-- Add a new page to show your current location on a Bing Map.
-- Use FTP to manage those web sites.
+- Create a Django website to show earthquake information.
 
 <a name="Prerequisites"></a>
 ### Prerequisites ###
@@ -30,16 +29,14 @@ The following is required to complete this hands-on lab:
 
 This hands-on lab includes the following exercises:
 
-1. [Exercise 1: Create a web site on Azure for Django.](#Exercise1)
-1. [Exercise 2: Display your current location on a Bing Map.](#Exercise2)
+1. [Exercise 1: Create a Web site on Azure of Django.](#Exercise1)
+1. [Exercise 2: Display eathquake locations on your Django Web Site.](#Exercise2)
 
 Estimated time to complete this lab: **45** minutes.
 
 <a name="#Exercise1"></a>
 
-### Exercise 1: Create a web site on Azure for Django ###
-
-During this exercise you will create a new web site for Django.
+### Exercise 1: Create a Web site on Azure of Django. ###
 
 1. Go to the [Windows Azure Management Portal](https://manage.windowsazure.com/) and sign in using the Microsoft credentials associated with your subscription.
 
@@ -62,51 +59,176 @@ During this exercise you will create a new web site for Django.
 
 1. Choose *App Frameworks* category and then select Django. Click on the Next arrow.
 
-	![Creating a new Web Site](images/new-website-for-django.png "Creating a new Web Site for Django")
+	![Creating Django Website](images/new-website-for-django.png)
 
-	_Creating a new Web Site for Django_
+	_Creating Django Webs_
 
-1. Enter a site name, such as *mydjango*, and select the region. Click on the Complete checkmark and that’s it. Your Django web site is now being deployed.
+1. Enter a site name, such as *mydjangowebsite1*, and select the region. Click on the Complete checkmark and that’s it. Your Django web site is now being deployed.
 
-	![Creating a new Web Site](images/config-django.png "Config Django")
+	![Set Django Website Information](images/config-django.png)
 
-	_Config Django_
+	_Set Django Website Informaiton_
 
-1. You can view the status of the deployment in the portal. The status message is updated once completed:
+1. You can read the status of the deployment on the portal. The status message is updated once completed:
 
-	![Creating a new Web Site](images/view-django-status.png "View Django Status")
+	![View Website Deployment Status](images/view-django-status.png)
 
-	_View Django Status_
+	_View Website Deployment Status_
 
 1. From the list of web sites displayed in the portal, select yours by clicking its name. This will display its dashboard:
 
-	![Creating a new Web Site](images/view-django-dashboard.png "View Django Dashboard")
+	![View Django Dashboard](images/view-django-dashboard.png)
 
 	_View Django Dashboard_
 
 1. From the toolbar at the bottom of the dashboard, click on the Browse button to browse the newly created site: 
 
-	![Creating a new Web Site](images/view-django-site.png "View Django Site")
+	![View Django Site](images/view-django-site.png)
 
 	_View Django Site_
 	
 
 <a name="#Exercise2"></a>
 
-#### Excerise 2 - Display your current location on a Bing Map ####
+#### Excerise 2 - Display eathquake locations on your Django Web Site. ####
 
-Next let's enhance your new Django web site by adding a simple html page to show your current location on a map using Bing Maps.
+Next we are going to create a Django website and show some earthquake information from Bing Maps. First we need to install Python and Django on your local machine.
 
-Once completed, you will see you current location displated within your web site:
+1. Download Python from [Python Website](http://www.python.org/) and install Python 2.7.5 to your local machine. 
 
-![Current Location](images/current-location.png)
+	![Download Python](images/download-python.png)
 
-_You current location_
+	_Download Python_
+
+1. Then you need to download the lastest version of [Django](https://www.djangoproject.com/).You also need to download the official release and follow the installation [instuctions](https://docs.djangoproject.com/en/1.5/topics/install/#installing-official-release) to ensure it works on your machine.
 
 
-1. Create a new web site according to the steps in [Exercise 1](#Exercise1).
+	![Download Django](images/download-django.png)
 
-1. Visit the [Bing Maps Portal](http://www.bingmapsportal.com).
+	_Download Django_
+	
+1. Launch your comandline and navigate to the folder **C:\Python27\Scrips**, use the following command to create a DjangoApplication.
+
+	````CommandPrompt
+		python django-admin.py startproject DjangoApplication
+	````
+	After the command is executed, there is output but you can see a new folder *DjangoApplication* is created under your current folder.
+
+	Open the folder and you will see a typical django website structure.
+
+	![Django Website](images/django-application-website.png)
+	![Django Website](images/django-application-website-2.png)
+
+	_Django Website Folder_
+	
+	There is a file *manage.py* and another folder *DjangoApplication* under the *DjangoApplication* folder. In the internal *DjangoApplication* folder, there are 4 files:*__init__.py*,*settings.py*,*urls.py*,*wsgi.py*.
+
+	These files are:
+
+	- The outer DjangoApplication/ root directory is just a container for your project. Its name doesn’t matter to Django; you can rename it to anything you like.
+	- manage.py: A command-line utility that lets you interact with this Django project in various ways. You can read all the details about manage.py in django-admin.py and manage.py.
+	- The inner DjangoApplication/ directory is the actual Python package for your project. Its name is the Python package name you’ll need to use to import anything inside it (e.g. DjangoApplication.urls).
+	- DjangoApplication/__init__.py: An empty file that tells Python that this directory should be considered a Python package. (Read more about packages in the official Python docs if you’re a Python beginner.)
+	- DjangoApplication/settings.py: Settings/configuration for this Django project. Django settings will tell you all about how settings work.
+	- DjangoApplication/urls.py: The URL declarations for this Django project; a “table of contents” of your Django-powered site. You can read more about URLs in URL dispatcher.
+	- DjangoApplication/wsgi.py: An entry-point for WSGI-compatible web servers to serve your project. See How to deploy with WSGI for more details.
+
+1. Next let's change some code to show the earthquake information. You can find the final source code from **Source\Exercise02\DjangoApplication**. First we need to create a new folder **templates** under the sub *DjangoApplication* folder and copy the **earthquake.html** into it. The file is under the same folder of **Source\Exercise02\DjangoApplication**.
+
+1. Open file file settings.py. Add the following code on the top:
+	
+	````Python	
+		import os	
+	````
+
+
+	Add templates folder into TEMPLATE_DIRS section. Ensure you didn't forget to add the comma at the end of the line.
+
+
+	````Python	
+		TEMPLATE_DIRS = (
+	    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+	    # Always use forward slashes, even on Windows.
+	    # Don't forget to use absolute paths, not relative paths.
+	    os.path.join(os.path.dirname(__file__), 'templates').replace('\\','/'),
+		)	
+	````
+
+	![settings.py](images/python-template-dirs.png)
+
+	_settings.py_
+
+1. Next we will add the url redirect to **urls.py** file. Open the file and add a new line to patters and imports view called earthquake, which we are going to create right after.
+
+	````Python
+		from DjangoApplication.view import earthquake
+		urlpatterns = patterns('',
+		    # Examples:
+		    # url(r'^$', 'DjangoApplication.views.home', name='home'),
+		    # url(r'^DjangoApplication/', include('DjangoApplication.DjangoApplication.urls')),
+		    ('^earthquake/$',earthquake),
+		    # Uncomment the admin/doc line below to enable admin documentation:
+		    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+		
+		    # Uncomment the next line to enable the admin:
+		    # url(r'^admin/', include(admin.site.urls)),
+		)	
+	````
+	
+	
+	![urls.py](images/python-urls-patterns.png)
+
+	_urls.py_
+
+1. Next we will create a new **view.py** file and add some python code. The code will download an earthquake csv file from [Earthquake Hazards Program](http://earthquake.usgs.gov) and show recent 20 earthquakes on your Django website.
+
+	The first part of the code is to load required libraries including django, urllib and csv.
+
+	````Python
+		from django.http import HttpResponse
+		from django.template.loader import get_template
+		from django.template import Template, Context
+		from django.http import HttpResponse
+		import urllib
+		import csv
+		import string
+	````
+
+	Next we define a function **earthquake**, in this function, we will load the earthquake information and download the data to local. Finally it will render the predined template and show earthquake locations.
+	
+	````Python
+	    #load the earthquake data from internet
+	    csvgps = urllib.urlopen("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_month.csv")
+	    f = csvgps.read();
+	    with open('csvgps.csv','w') as temp:
+	        temp.write(f)
+	````
+	
+	Then we use csv to load the earthquake latitude, longitude and mag.
+	
+	````Python
+	    data = [[0 for col in range(3)] for row in range(20)]
+	    reader = csv.reader(open("csvgps.csv"), delimiter=",")
+	    index = 0
+	    for line in reader:
+	        if index > 0 and index <= 20:
+	            data[index - 1][0] = float(line[1])
+	            data[index - 1][1] = float(line[2])
+	            data[index - 1][2] = float(line[4])
+	        index = index + 1
+	````
+	
+	Finally the code will load the earthquake.html as a template and replace the earthquake information in the page.
+
+	````Python
+	    #load the template
+	    t = get_template('earthquake.html')
+	    html = t.render(Context({'content': data}))
+	
+	    return HttpResponse(html)
+	````
+
+1. In order to use Bing Map SDK, we will also need to apply for a key. Just visit the [Bing Maps Portal](http://www.bingmapsportal.com).
 
 	![Bing Map Portal](images/bing-map-portals.png)
 
@@ -125,7 +247,7 @@ You can use the same Microsoft account you used to login to the Windows Azure po
 
 	_Bing Map Key_
 
-1. Open the file in **Source\location.html** in text editor, replace the **[ApplicationKey]** with your own application key and save the file.
+1. Open the file in **templates\earthquake.html** in text editor, replace the **Your Bing Maps Key** with your own application key and save the file.
 
 	![Change Application Key](images/change-app-key.png)
 
@@ -133,7 +255,7 @@ You can use the same Microsoft account you used to login to the Windows Azure po
 
 1. Connect to the FTP publishing service by FileZilla. You can download and install FileZilla to manage all your folders. FileZilla is a free ftp solution. The client version can be downloaded from [here](https://filezilla-project.org/).
 
-	Provide the **Host Name**, **User Name** and **Password** of your deployment credentials. The **Host Name** is available from the Dashboard in the portal under FTP HOST NAME (or FTPS HOST NAME) and will look something like _ftp://waws-prod-blu-001.ftp.azurewebsites.windows.net_. Make sure that the **User Name** is prefixed by the **Web Site** name (e.g. **mydjango\trainingwebsiteuser**) 
+	Provide the **Host Name**, **User Name** and **Password** of your deployment credentials. The **Host Name** is available from the Dashboard in the portal under FTP HOST NAME (or FTPS HOST NAME) and will look something like _ftp://waws-prod-blu-001.ftp.azurewebsites.windows.net_. Make sure that the **User Name** is prefixed by the **Web Site** name (e.g. **mydiangowebsite1\trainingwebsiteuser**) 
 
 	![Use FileZilla](images/use-filezilla.png) 
 
@@ -146,20 +268,19 @@ You can use the same Microsoft account you used to login to the Windows Azure po
 	>
 	>_Entering the username and password_
 
-1. Click **Quick Connect** and Upload all files using the FileZilla.Use FileZilla to upload the file **location.html** to **site/wwwroot** folder.
+1. Click **Quick Connect** and Upload all files using the FileZilla.Use FileZilla to upload the subfolder **DjangoApplication** to **site/wwwroot** folder. You can overwrite the server files.
 
-	![Upload the location file](images/upload-location-html-file.png)
+	![Upload Django Website](images/upload-django-website.png)
 
-	_Upload the location file_
+	_Upload Django Website_
 
-1. Browse the new web site http://**[yourwebsite]**.azurewebsites.net/location.html.
+1. Browse the new web site [http://**[yourwebsite]**.azurewebsites.net/earthquake](http://[yourwebsite].azurewebsites.net/earthquake).
 
-1. You will get your current location by clicking *GetCurrentLocation* button. 
+1. You can see the earthquake locations on your website.
 
-	![Current Location](images/current-location.png)
+	![Earthquake Locations](images/earthquake-locations.png)
 
-	_Your current location_
- 
+	_Earthquake Locations_ 
 
 ---
 
@@ -168,6 +289,6 @@ You can use the same Microsoft account you used to login to the Windows Azure po
 
 By completing this hands-on lab you learned the following:
 
-- How to create a Windows Azure Web Site with Django.
-- How to display your current location using a Bing Map on your web site.
+- Create a new Web Site on Windows Azure by using Django.
+- Create a Django website to show earthquake information.
 
