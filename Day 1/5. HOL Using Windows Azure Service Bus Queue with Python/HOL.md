@@ -62,7 +62,7 @@ In order to help understand process Service Bus Queues, we also deploy the NCBI 
 
 The National Center for Biotechnology Information’s Basic Local Alignment Search Tool (NCBI BLAST) Sample demonstrates how to run a [nucleotide match algorithm](http://blast.ncbi.nlm.nih.gov/Blast.cgi) on the human genome using an HPC parametric sweep application.
 
-The parametric sweep application uses a set of input files that contain sequences of nucleotides, comparing them to the human genome database. The application creates output files containing sequence similarities and uploads these files to a BLAST output visualizer (BOV) website.
+The parametric sweep application uses a set of input files that contain sequences of nucleotides, comparing them to the human genome database. The application creates output files containing sequence similarities and uploads these files to a BLAST output visualizer (BOV) web site.
 
 To run the nucleotide match, the sample uses the blastn utility, which is a part of the [BLAST+](http://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=Download) application. 
 
@@ -74,22 +74,22 @@ _NCBI BLAST Architecture_
 
 Architecture of the BLAST sample
 
-1. The client application (browser) submits a parametric sweep job to the Web frontend via an AJAX call to the REST API.
-1. The Web frontend pushes the job to a Service Bus queue.
+1. The client application (browser) submits a parametric sweep job to the Web front-end via an AJAX call to the REST API.
+1. The Web front-end pushes the job to a Service Bus queue.
 1. A compute node gets the sweep job from the job queue and executes on it. The compute nodes are competing consumers of the job queue. This pattern allows us to scale out compute nodes as needed and ensures a submitted job is executed at least once.
 1. The parametric sweep application running on a compute node downloads an input file from a Windows Azure blob storage. The input file includes a nucleotide that is to be compared to the human genome database previously downloaded to each Windows Azure compute node (a Worker Role instance).
-1. After completing a sweep index, the BLAST application uploads the resulting matches file to the BLAST output visualization (BOV) website and receives a matching URL for the file’s visualization page.
+1. After completing a sweep index, the BLAST application uploads the resulting matches file to the BLAST output visualization (BOV) web site and receives a matching URL for the file’s visualization page.
 1. The output file and the URL are written to Windows Azure storage: the file is uploaded to a blob, and the URL is written in a table.
-1. While the parametric sweep job is running, the compute node notifies the web frontend its progress via a SignalR channel. The web frontend then accesses the Windows Azure table storage to get updated URL list and shows it to the user.
+1. While the parametric sweep job is running, the compute node notifies the web front-end its progress via a SignalR channel. The web front-end then accesses the Windows Azure table storage to get updated URL list and shows it to the user.
 1. The user can select any of the URLs to see the rendered image for the nucleotide match.
 
-We have already an [NCBI BLAST website](http://azure4research-blast.cloudapp.net/) deployed and you can just click to have a look. We've also created a sample service bus namespace **sb://sb-azure4research-blast.servicebus.windows.net/** and create a *JobQueue* under the namespace to manage our tasks.
+We have already an [NCBI BLAST web site](http://azure4research-blast.cloudapp.net/) deployed and you can just click to have a look. We've also created a sample service bus namespace **sb://sb-azure4research-blast.servicebus.windows.net/** and created a *JobQueue* under the namespace to manage our tasks.
 
-1. Open the NCBI BLAST website.
+1. Open the NCBI BLAST web site.
 
-	![NCBI BLAST Website](images/blast-website.png)
+	![NCBI BLAST Web site](images/blast-website.png)
 	
-	_NCBI BLAST Website_
+	_NCBI BLAST Web site_
 
 1. Click the "New Task" link to create a new task
 
@@ -109,26 +109,26 @@ We have already an [NCBI BLAST website](http://azure4research-blast.cloudapp.net
 	
 	_BLAST Running Task_
 
-1. Because the system needs to download the database files, the very first task after the system has been deployed will take a long time. However, as the system caches database files, jobs after the first will be executed much faster. After serveral minutes, the task is finished.
+1. Because the system needs to download the database files, the very first task after the system has been deployed will take a long time. However, as the system caches database files, jobs after the first will be executed much faster. After several minutes, the task is finished.
 
 	![BLAST Task Complete](images/blast-task-complete.png)
 	
 	_BLAST Task Complete_
 
-1. After a task completes, you can click on its View Result link to view the search result. The link takes you to bov.bioinfo.cas.unt.edu to view the result, as shown followed:
+1. After a task completes, you can click on its View Result link to view the search result. The link takes you to bov.bioinfo.cas.unt.edu to view the result.
 
 	![BLAST Output File](images/blast-output-file.png)
 	
 	_BLAST Output File_
 
 
-1. Click on the link to expand hit sequences
+1. Click on the link to expand hit sequences.
 
 	![BLAST Output File Hit Sequences](images/blast-output-file-hit-sequences.png)
 	
 	_BLAST Output File Hit Sequences_
 
-1. Click on any of hit sequences to view its corresponding HSP image
+1. Click on any of hit sequences to view its corresponding HSP image.
 
 	![BLAST Output File Hit Sequence Image](images/blast-output-file-hsp-image.png)
 	
@@ -139,7 +139,7 @@ We have already an [NCBI BLAST website](http://azure4research-blast.cloudapp.net
 
 Next we are going to use IPython Notebook to send a new task to BLAST Cloud Service and request it to process. You can find the sample code inside **Source\python_service_bus.py**
 
-1. First we need to import require libraries
+1. First we need to import required libraries:
 
     ````Python
         #import libraries
@@ -156,7 +156,7 @@ Next we are going to use IPython Notebook to send a new task to BLAST Cloud Serv
     _IPython Notebook Import Libraries_
 
 
-1. Run following code to define private variables for service bus.
+1. Run the following code to define private variables we can use to interact with the Service Bus.
 
     ````Python
 		#define service namespace, account key and issuer
@@ -202,7 +202,7 @@ Next we are going to use IPython Notebook to send a new task to BLAST Cloud Serv
 	
     _IPython Notebook Create Message_
 
-1. Before we submit the message to a service bus queue, we have to insert a new entity into a table first for the BLAST website to track the status correctly. 
+1. Before we submit the message to a Service Bus queue, we have to insert a new entity into a table first for the BLAST web site to track the status correctly. 
 
      ````Python
           #insert the message to table first
@@ -236,13 +236,13 @@ Next we are going to use IPython Notebook to send a new task to BLAST Cloud Serv
 	
     _IPython Notebook Submit to Queue_
 
-1. Then let's navigate to the BLAST website again, click **Refresh** button and check the new task. We can see a task with input file 63 is completed.
+1. Then let's navigate to the BLAST web site again, click **Refresh** button and check the new task. We can see a task with input file 63 is completed.
 
     ![New Task Complete](images/ipy-send-task-new-task-complete.png)
 	
     _New Task Complete_
 
-	You can do the samething to check the hit sequences and HSP image as you did in [Exercise1](#Exercise1).
+	You can do the same thing to check the hit sequences and HSP image as you did in [Exercise1](#Exercise1).
 
 	Service Bus queues support a maximum message size of 256 KB (the header, which includes the standard and custom application properties, can have a maximum size of 64 KB). There is no limit on the number of messages held in a queue but there is a cap on the total size of the messages held by a queue. This queue size is defined at creation time, with an upper limit of 5 GB.
 	
@@ -251,7 +251,7 @@ Next we are going to use IPython Notebook to send a new task to BLAST Cloud Serv
 
 You can use Python to receive a message as well! Messages are received from a queue using the **receive_queue_message method** on the **ServiceBusService** object. 
 
-1. Execute following command to receive a message in IPython Notebook. If there is no message in the queue, IPython Notebook will block its thread until timeout. You can see **Kernel busy** on the top right.
+1. Execute following command to receive a message in IPython Notebook. If there is no message in the queue, IPython Notebook will block until either a message arrives or the thread times out. You can see **Kernel busy** on the top right.
  
     ````Python
         #receive a new message
@@ -263,21 +263,21 @@ You can use Python to receive a message as well! Messages are received from a qu
 	
     _IPython Notebook Receive Message_
 
-1. On the BLAST website, click **New Task** to create 2 new tasks. Since we set the worker role to process 1 task at one time, so you your ipython notebook can receive another message.
+1. On the BLAST web site, click **New Task** twice to create 2 new tasks. Since we set the worker role to process only 1 task at one time, your ipython notebook can receive another message.
 
-	>If there are multiple people using the BLAST service, just do the previous step for multiple times until you receive a message.
+	>If there are multiple people using the BLAST service, just do the previous step as many times as needed until you receive a message.
 
     ![IPython Notebook Create Many New Tasks](images/ipy-create-multiple-msgs.png)
 	
     _IPython Notebook Create Many New Tasks_
 
-1. If your IPython notebook receive a new message, then the message's body will be printed. 
+1. If your IPython notebook receives a new message, then the message's body will be printed. 
 
     ![IPython Notebook Received New Message](images/ipy-received-new-message.png)
 	
     _IPython Notebook Received New Message_
 
-1. Let's check the website again, we can see the task is always in queued status because the message was read by IPython Notebook. 
+1. Checking the web site again, we can see the task is stuck in **Queued** status because the message was read by IPython Notebook and BLAST will never see it.
 
     ![IPython Notebook Task Will NOT be Processed](images/ipy-task-not-processed.png)
 	
@@ -302,7 +302,7 @@ You can use Python to receive a message as well! Messages are received from a qu
 	
     _IPython Notebook Receive Message With Peek Lock_
 
-1. By default the peek lock time is 30 seconds. After that, check the BLAST website again, you will see the task is picked up by the default worker role and it is in *Completed* status:	
+1. By default the peek lock time is 30 seconds. After that, check the BLAST web site again, you will see the task is picked up by the default worker role and it is in *Completed* status:	
 
  	![IPython Notebook Message Processed Again](images/ipy-msg-processed-peek-lock-no-delete.png)
 	

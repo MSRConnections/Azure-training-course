@@ -1,4 +1,4 @@
-<a name="HOLTitle"></a>
+﻿<a name="HOLTitle"></a>
 # Creating Web Sites with Django and Bing Maps #
 
 ---
@@ -92,7 +92,7 @@ Estimated time to complete this lab: **45** minutes.
 
 #### Excerise 2 - Display eathquake locations on your Django Web Site. ####
 
-Next we are going to create a Django website and show some earthquake information from Bing Maps. First we need to install Python and Django on your local machine.
+Next we are going to create a Django website and show some earthquake information on a map using Bing Maps. First we need to install Python and Django on your local machine.
 
 1. Download Python from [Python Website](http://www.python.org/) and install Python 2.7.5 to your local machine. 
 
@@ -107,43 +107,49 @@ Next we are going to create a Django website and show some earthquake informatio
 
 	_Download Django_
 	
-1. Launch your comandline and navigate to the folder **C:\Python27\Scrips**, use the following command to create a DjangoApplication.
+1. Launch your comandline and navigate to the folder **C:\Python27\Scripts**, use the following command to create a skeleton of a Django application called *DjangoApplication*.
 
 	````CommandPrompt
 		python django-admin.py startproject DjangoApplication
 	````
+
 	After the command is executed, there is output but you can see a new folder *DjangoApplication* is created under your current folder.
 
 	Open the folder and you will see a typical django website structure.
 
 	![Django Website](images/django-application-website.png)
+
+	_Django Website Top-Level Folder_
+
 	![Django Website](images/django-application-website-2.png)
 
-	_Django Website Folder_
+	_Django Website Application Files_
 	
-	There is a file *manage.py* and another folder *DjangoApplication* under the *DjangoApplication* folder. In the internal *DjangoApplication* folder, there are 4 files:*__init__.py*,*settings.py*,*urls.py*,*wsgi.py*.
+	There is a file *manage.py* and another folder *DjangoApplication* under the *DjangoApplication* folder. In the internal *DjangoApplication* folder, there are 4 files: *\__init__.py*, *settings.py*, *urls.py*, and *wsgi.py*.
 
-	These files are:
+	Quoting from the [tutorial from the official Django Project documention](https://docs.djangoproject.com/en/1.4/intro/tutorial01/):
 
 	- The outer DjangoApplication/ root directory is just a container for your project. Its name doesn’t matter to Django; you can rename it to anything you like.
 	- manage.py: A command-line utility that lets you interact with this Django project in various ways. You can read all the details about manage.py in django-admin.py and manage.py.
 	- The inner DjangoApplication/ directory is the actual Python package for your project. Its name is the Python package name you’ll need to use to import anything inside it (e.g. DjangoApplication.urls).
-	- DjangoApplication/__init__.py: An empty file that tells Python that this directory should be considered a Python package. (Read more about packages in the official Python docs if you’re a Python beginner.)
+	- DjangoApplication/\__init__.py: An empty file that tells Python that this directory should be considered a Python package. (Read more about packages in the official Python docs if you’re a Python beginner.)
 	- DjangoApplication/settings.py: Settings/configuration for this Django project. Django settings will tell you all about how settings work.
 	- DjangoApplication/urls.py: The URL declarations for this Django project; a “table of contents” of your Django-powered site. You can read more about URLs in URL dispatcher.
 	- DjangoApplication/wsgi.py: An entry-point for WSGI-compatible web servers to serve your project. See How to deploy with WSGI for more details.
 
 1. Next let's change some code to show the earthquake information. You can find the final source code from **Source\Exercise02\DjangoApplication**. First we need to create a new folder **templates** under the sub *DjangoApplication* folder and copy the **earthquake.html** into it. The file is under the same folder of **Source\Exercise02\DjangoApplication**.
 
-1. Open file file settings.py. Add the following code on the top:
+1. Open file file **settings.py**. Add the following code on the top:
 	
 	````Python	
 		import os	
 	````
 
+	Add **templates** folder into existing TEMPLATE_DIRS section. Ensure you didn't forget to add the comma at the end of the line.
 
-	Add templates folder into TEMPLATE_DIRS section. Ensure you didn't forget to add the comma at the end of the line.
+	![settings.py](images/python-template-dirs.png)
 
+	_Line to add to existing **TEMPLATE_DIRS** section in settings.py_
 
 	````Python	
 		TEMPLATE_DIRS = (
@@ -153,20 +159,20 @@ Next we are going to create a Django website and show some earthquake informatio
 	    os.path.join(os.path.dirname(__file__), 'templates').replace('\\','/'),
 		)	
 	````
+	_Final **TEMPLATE_DIRS** section after edits_
 
-	![settings.py](images/python-template-dirs.png)
-
-	_settings.py_
-
-1. Next we will add the url redirect to **urls.py** file. Open the file and add a new line to patters and imports view called earthquake, which we are going to create right after.
+1. Next we will add the url redirect to **urls.py** file. First, add *from DjangoApplication.view import earthquake* near the top of the file, as shown, to reference a new view called earthquake (that we will create soon). Second, add *('^earthquake/$',earthquake),* to the patterns section so that web routing to our new view will be recognized.
 
 	````Python
-		from DjangoApplication.view import earthquake
+		from DjangoApplication.view import earthquake # NEW
+
 		urlpatterns = patterns('',
 		    # Examples:
 		    # url(r'^$', 'DjangoApplication.views.home', name='home'),
 		    # url(r'^DjangoApplication/', include('DjangoApplication.DjangoApplication.urls')),
-		    ('^earthquake/$',earthquake),
+
+		    ('^earthquake/$',earthquake), # NEW
+
 		    # Uncomment the admin/doc line below to enable admin documentation:
 		    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 		
@@ -174,29 +180,30 @@ Next we are going to create a Django website and show some earthquake informatio
 		    # url(r'^admin/', include(admin.site.urls)),
 		)	
 	````
-	
-	
+	_Add two lines to urls.py_
+		
 	![urls.py](images/python-urls-patterns.png)
 
-	_urls.py_
+	_urls.py after edits_
 
-1. Next we will create a new **view.py** file and add some python code. The code will download an earthquake csv file from [Earthquake Hazards Program](http://earthquake.usgs.gov) and show recent 20 earthquakes on your Django website.
+1. Next we will create a new **view.py** file and add some python code. The code will download an earthquake csv file from [Earthquake Hazards Program](http://earthquake.usgs.gov) and show 20 recent earthquakes on your Django website using a Bing Map.
 
 	The first part of the code is to load required libraries including django, urllib and csv.
 
 	````Python
-		from django.http import HttpResponse
-		from django.template.loader import get_template
-		from django.template import Template, Context
-		from django.http import HttpResponse
-		import urllib
-		import csv
-		import string
+from django.http import HttpResponse
+from django.template.loader import get_template
+from django.template import Template, Context
+from django.http import HttpResponse
+import urllib
+import csv
+import string
 	````
 
-	Next we define a function **earthquake**, in this function, we will load the earthquake information and download the data to local. Finally it will render the predined template and show earthquake locations.
+	Next we define a function **earthquake** that will be invoked when our web page is accessed. In this function, we will load the earthquake information and download the data locally. Finally, it will render the predefined template and show earthquake locations.
 	
 	````Python
+def earthquake(request):
 	    #load the earthquake data from internet
 	    csvgps = urllib.urlopen("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_month.csv")
 	    f = csvgps.read();
@@ -204,7 +211,7 @@ Next we are going to create a Django website and show some earthquake informatio
 	        temp.write(f)
 	````
 	
-	Then we use csv to load the earthquake latitude, longitude and mag.
+	Continuing the same *earthquake* function, we now use csv library to parse the earthquake latitude, longitude and magnitude from the data file.
 	
 	````Python
 	    data = [[0 for col in range(3)] for row in range(20)]
@@ -218,7 +225,7 @@ Next we are going to create a Django website and show some earthquake informatio
 	        index = index + 1
 	````
 	
-	Finally the code will load the earthquake.html as a template and replace the earthquake information in the page.
+	Finally, to finish up the implementation of the *earthquake* function, the code loads *earthquake.html* as a template and replaces the earthquake information in the page.
 
 	````Python
 	    #load the template
