@@ -107,10 +107,16 @@ Next we are going to create a Django website and show some earthquake informatio
 
 	_Download Django_
 	
-1. Launch your comandline and navigate to the folder **C:\Python27\Scripts**, use the following command to create a skeleton of a Django application called *DjangoApplication*.
+1. Launch your commandline and navigate to a local directory under which you will create your Django web site. Use the following command to create a skeleton of a Django application called *DjangoApplication*.
 
 	````CommandPrompt
-		python django-admin.py startproject DjangoApplication
+		python (path to Python27 Scripts folder)/django-admin.py startproject DjangoApplication
+	````
+
+    For example, on Windows that might be:
+
+	````CommandPrompt
+		python C:\Python27\Scripts\django-admin.py startproject DjangoApplication
 	````
 
 	After the command is executed, there is output but you can see a new folder *DjangoApplication* is created under your current folder.
@@ -171,7 +177,7 @@ Next we are going to create a Django website and show some earthquake informatio
 		    # url(r'^$', 'DjangoApplication.views.home', name='home'),
 		    # url(r'^DjangoApplication/', include('DjangoApplication.DjangoApplication.urls')),
 
-		    ('^earthquake/$',earthquake), # NEW
+		    url(r'^earthquake/$',earthquake), # NEW
 
 		    # Uncomment the admin/doc line below to enable admin documentation:
 		    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
@@ -181,10 +187,6 @@ Next we are going to create a Django website and show some earthquake informatio
 		)	
 	````
 	_Add two lines to urls.py_
-		
-	![urls.py](images/python-urls-patterns.png)
-
-	_urls.py after edits_
 
 1. Next we will create a new **view.py** file and add some python code. The code will download an earthquake csv file from [Earthquake Hazards Program](http://earthquake.usgs.gov) and show 20 recent earthquakes on your Django website using a Bing Map.
 
@@ -281,7 +283,7 @@ You can use the same Microsoft account you used to login to the Windows Azure po
 
 	_Upload Django Website_
 
-1. Browse the new web site [http://**[yourwebsite]**.azurewebsites.net/earthquake](http://[yourwebsite].azurewebsites.net/earthquake).
+1. Browse the new web site [http://**[yourwebsite]**.azurewebsites.net/earthquake](http://[yourwebsite].azurewebsites.net/earthquake), for example, [http://django.azurewebsites.net/earthquake](http://django.azurewebsites.net/earthquake).
 
 1. You can see the earthquake locations on your website.
 
