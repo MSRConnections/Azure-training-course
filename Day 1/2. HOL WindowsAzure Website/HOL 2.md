@@ -177,7 +177,7 @@ Next we are going to create a Django website and show some earthquake informatio
 		    # url(r'^$', 'DjangoApplication.views.home', name='home'),
 		    # url(r'^DjangoApplication/', include('DjangoApplication.DjangoApplication.urls')),
 
-		    url(r'^earthquake/$',earthquake), # NEW
+		    url('^earthquake/$',earthquake), # NEW
 
 		    # Uncomment the admin/doc line below to enable admin documentation:
 		    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
