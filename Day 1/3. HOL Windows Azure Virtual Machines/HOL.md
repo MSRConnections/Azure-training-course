@@ -202,6 +202,8 @@ In this exercise, we created a Windows Server 2012 virtual machine (VM) on Windo
 
 	_Register Image_
 
+Image registration is fast, but be sure to wait until it completes before beginning the next step.
+
 1. Next we create a new virtual machine from the image we just copied from VM Depot and registered. Click **New** -> **Compute** -> **Virtual Machine** -> **From Gallery** to create a new Virtual Machine. This time we choose **My Image** and you will see an image called *Azure-Data-Analysis* there.
 
 	![Create VM from My Images](images/vm-linux-create-vm-my-images.png)
@@ -224,9 +226,9 @@ In this exercise, we created a Windows Server 2012 virtual machine (VM) on Windo
 	
 	![Set Linux Endpoints](images/vm-linux-set-endpoints.png)
 
-	_Set Linux Endpoints_
+	_Configure Linux Endpoints_
 
-1. After several minutes, the machine will be created too. This time we will use Putty to connect the that machine. Input the **DNS Name** of the linux machine into the Host Name, click **OK** to connect.
+1. After several minutes, the machine will be created too. This time we will use PuTTY to connect the that machine. Input the **DNS Name** of the linux machine into the Host Name, click **OK** to connect.
 
 
 1. Input the username and password, then you will see the welcome screen from that machine.
@@ -249,7 +251,7 @@ The machine has installed a lot of packages including IPython, Storm or Shark. W
 
 	_Start IPython Notebook_
 
-1. Navigate your browser to https://\<vm-name>.cloudapp.net. Make sure that you use https and not http. You will see a warning that the certificate is not signed. Since this is your own certificate, you can safely ignore this warning. After ignoring it, you should see the login screen:
+1. Navigate your browser (from your own machine, not the VM) to https://\<vm-name>.cloudapp.net. Make sure that you use https and not http. You will see a warning that the certificate is not signed. Since this is your own certificate, you can safely ignore this warning. After ignoring it, you should see the login screen:
 
 	![IPython Notebook Main Page](images/vm-linux-python-login-page.png)
 
@@ -262,7 +264,7 @@ The machine has installed a lot of packages including IPython, Storm or Shark. W
 
 	_IPython Notebook Main Page_
 
-> if you want to configurate your own password, you can use putty to that linux machine and do following task:
+> if you want to configure your own password, you can use PuTTY to that linux machine and do following task:
 > Execute the following command:
 
 > 	````Linux
@@ -403,7 +405,7 @@ This exercise will show you how to attach new disks to both Linux and Windows vi
 1. A wizard will open asking you to configure the empty disk. Select a storage location, the file name and the size in GB. In addition, you can choose among the following caching modes:
 
 	- Read Only: Reads and writes are cached for future reads but writes are persisted directly to storage
-	- Read Write: Reads and writes are cached for future reads. Non-write-through writes are persisted to the local cache first, then lazily flushed to the Windows Azure Blob service. For SQL Server, writes are always persisted to Windows Azure Storage because it uses write-through
+	- Read/Write: Reads and writes are cached for future reads. Non-write-through writes are persisted to the local cache first, then lazily flushed to the Windows Azure Blob service. For SQL Server, writes are always persisted to Windows Azure Storage because it uses write-through.
 	- None (disabled): Requests bypass the cache completely.
 
 	The best option to use depends on your intended usage. Read/Write offers the best performance in general, but depending on the type of service you want to use (SQL Server, Apache Cassandra), caching might be counter-productive.
@@ -414,7 +416,7 @@ This exercise will show you how to attach new disks to both Linux and Windows vi
 	
 	_Set Disk Property_
 
-1. The operation might take a couple of moments. After that, you should see your disk attached on the VM dashboard in the portal (note that the disk count might need a reload to update):
+1. The operation might take a couple of moments. After that, you should see your disk attached on the VM Dashboard in the portal (note that the disk count might need a reload to update):
 
 	![Attached New Disk](images/disk-attach-empty-disk-to-windows-attached.png)
 	
@@ -464,13 +466,13 @@ This exercise will show you how to attach new disks to both Linux and Windows vi
 	
 	![New Volume Wizard](images/disk-attach-windows-rdp-new-volume-wz-5.png)
 
-1. Click on “Close”. If you select your new disk again, you should see the new volume in the “Volumes” window:
+1. Click on **Close**. If you select your new disk again, you should see the new volume in the “Volumes” window:
 
 	![New Volume Wizard](images/disk-attach-windows-rdp-new-volume-complete.png)
 
 ### Attach Empty Disk to Linux ###
 
-For linux, the steps to add empty disk is exactly the same. The different is the operation on Linux. After redo the step 1 to step 3, we use Putty to connect to the linux machine.
+For linux, the steps to add empty disk is exactly the same. The different is the operation on Linux. After redoing step 1 to step 3, use PuTTY to connect to the linux machine. 
 
 1. First we run the following command to find new disk:
 
@@ -535,6 +537,7 @@ For linux, the steps to add empty disk is exactly the same. The different is the
 1. Mount Disk (Temporarily)
 
 	You can mount the disk with the following command:
+
 	````Linux
 	sudo mount /dev/sdc1 /mnt/data 
 	````
@@ -549,8 +552,13 @@ For linux, the steps to add empty disk is exactly the same. The different is the
 
 	![Mount Disk Temporarily](images/disk-attach-linux-mount.png)
 
-	 
-	This approach has one drawback: If you reboot the virtual machine, you have to manually mount the disk again. In the next step, you will make the mount configuration persistent.
+	If you view the files on the disk, you will see only a single folder added by default, lost+found. 
+
+	````Linux
+	ls /mnt/data
+	````
+
+	This mounting approach has one drawback: If you reboot the virtual machine, you have to manually mount the disk again. In the next step, you will make the mount configuration persistent.
 
 1. If you want to mount disk persistently, you need to mount the disk in fstab.
 
@@ -561,6 +569,7 @@ For linux, the steps to add empty disk is exactly the same. The different is the
 	````
 	
 	Next, you need to open an editor to edit /etc/fstab, the file which holds the partitions to mount during startup:
+
 	````Linux
 	sudo nano /etc/fstab
 	````
@@ -578,6 +587,7 @@ For linux, the steps to add empty disk is exactly the same. The different is the
 	````
 
 	Then press ctrl+x to exit. Confirm saving with “y” and then enter.
+
 	![Edit fstab](images/disk-attach-linux-edit-fstab.png)
 
 	Now you should try to mount the disks in fstab. This can be done with:
