@@ -198,9 +198,9 @@ There are several server processes that need to be started before we can launch 
 
 1. **Redis**: The Redis server provides a simple key-value store that works especially well with web applications written in Node.js.  Start the redis server:
 
-        /usr/sbin/redis-server > ~/redis-server.log 2>&1 &
+        /usr/bin/redis-server > ~/redis-server.log 2>&1 &
         
-1. To make this easier, we've included a convenience script, **launch_server_processes.sh** in *gpskafkademo* that will launch the server processes for you.
+1. To make this easier, we've included a convenience script, **start_server_processes.sh** in *gpskafkademo* that will launch the server processes for you.
 
 ## Launch the Example ##
 
@@ -241,7 +241,7 @@ Our example consists of three parts: a web application that presents GPS coordin
 
 1. Open a third SSH connection to the VM and start the Kafka client:
 
-        cd $HOME/storm-kafka-gps-example/kafka-gps-client
+        cd $HOME/gpskafkademo/kafka-gps-client
         java -cp $(lein classpath) kafka.example.KafkaGpsDataProducer localhost
 
    The client generates random GPS coordinates and sends them to Kafka.  Go back to your web browser and you'll see GPS coordinates being plotted on the globe.  Countries will change color according to the frequency of "hits".
