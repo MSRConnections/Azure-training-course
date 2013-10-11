@@ -1,4 +1,4 @@
-# Processing GPS data with Storm and Kafka on Windows Azure Data Science Core #
+﻿# Processing GPS data with Storm and Kafka on Windows Azure Data Science Core #
 
 In this example, we'll show you how to deploy a [Storm](http://storm-project.net) topology in Windows Azure that reads its data from the [Kafka](http://kafka.apache.org/) messaging system.  We'll use a Kafka client application written in Java to send GPS coordinates from anywhere to the  Kafka cluster.  Our Storm topology will translate those coordinates into JSON objects, use [GeoJSON](http://www.geojson.org/) to identify the country those coordinates belong to, and then keep a running count of how many times that a coordinate lands in a country.  For persistence, the running count is stored in a [Windows Azure Table Storage](http://www.windowsazure.com/en-us/develop/net/how-to-guides/table-services/) service, and the topology periodically dumps a compressed block of coordinates to a [Windows Azure Blob Storage](http://www.windowsazure.com/en-us/develop/net/how-to-guides/blob-storage/) service.  The topology also writes data to [Redis](http://redis.io/) for use by other services, such as the web application we use to display the data in real time.  The web app is written in [Node.js](http://nodejs.org/) and uses [Socket.IO](http://socket.io/) and the [express](http://expressjs.com/) web application framework to read the data from Redis and display it via [D3.js](http://d3js.org/).  
 
@@ -77,7 +77,7 @@ In this example, we'll show you how to deploy a [Storm](http://storm-project.net
 
 The image Azure Data Analysis has installed some software that we can directly use. If you are curious about what we have done on that image, the following instrcutions will help you. 
 
-**Please note that all steps in the section are not required. It is only for your reference.**
+**Please note that not all steps in the section are  required. It is only for your reference.**
 
 1. Initial Installs including git, libzmq, java, g++ etc.
 
