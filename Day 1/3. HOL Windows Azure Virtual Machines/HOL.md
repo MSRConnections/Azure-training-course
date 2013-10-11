@@ -1,4 +1,4 @@
-<a name="HOLTitle"></a>
+﻿<a name="HOLTitle"></a>
 # Using Windows Azure Virtual Machines #
 
 ---
@@ -6,7 +6,7 @@
 <a name="Overview"></a>
 ## Overview ##
 
-In this hands-on lab you create a Windows Virtual Machine. You can install software you need on that machine and run some tasks. Windows Azure also provide VMDeport where you can find a lot of community images which you can use directly. You can also add more disks to your machine for your storage and copy your local file to your machines on Windows Azure.
+In this hands-on lab you create a Windows Virtual Machine. You can install software you need on that machine and run some tasks. Windows Azure also provide VMDepot where you can find a lot of community images which you can use directly. You can also add more disks to your machine for your storage and copy your local file to your machines on Windows Azure.
 
 <a name="Objectives"></a>
 ### Objectives ###
@@ -37,7 +37,7 @@ This hands-on lab includes the following exercises:
 Estimated time to complete this lab: **60** minutes.
 
 <a name="#Exercise1"></a>
-## Exercies 1: Create a machine with Windows Server 2012 and run R job. ##
+## Exercise 1: Create a machine with Windows Server 2012 and run R job. ##
 
 1. You need to login to [Windows Azure Management Portal]（http://manage.windowsazure.com） to get start.
 
@@ -95,7 +95,7 @@ Estimated time to complete this lab: **60** minutes.
 	
 	_Remote Desktop Window_
 
-1. Next we can install R Studio on the Windows Machine and execute some tasks. First we open **Internet Explorer** on that machine and download the R install package from [R Website](http://www.r-project.org/). Click the [CRAN](http://cran.r-project.org/mirrors.html) on the left and select the nearest mirror to download [R for Windows](http://cran.rstudio.com/bin/windows/base/R-3.0.2-win.exe)
+1. Next we can install R Studio on the Windows Machine and execute some tasks. First we open **Internet Explorer** on that machine and download the R install package from [R Website](http://www.r-project.org/). Click the [CRAN mirror](http://cran.r-project.org/mirrors.html) link from the Getting Started area, then select the nearest mirror to start your download of [R for Windows](http://cran.rstudio.com/bin/windows/base/R-3.0.2-win.exe).
 
 	![Download R](images/vm-windows-download-r.png)
 	
@@ -106,7 +106,7 @@ Estimated time to complete this lab: **60** minutes.
 	>
 	>_Turn IE Enhanced Security Off_
 
-1. Launch the downloade R-3.0.2-win.exe and install R. After the install completed, we can launch R GUI Console.
+1. Launch the downloade R-3.0.2-win.exe and install R. After the install completes, we can launch RGui which presents an R Console window.
 	
 	![Install R](images/vm-windows-install-r.png)
 	
@@ -123,13 +123,13 @@ Estimated time to complete this lab: **60** minutes.
 	
 	_Launch RStudio_
 
-1. Next let's execute an R job. First we need to create an R file to the remote machine on Windows Azure. You can find an file **acpclust.R** under the folder **Source\Exercise1**. Windows Remote Desktop support file's Copy/Paste from local machine to remote desktop machine. So you just right click the file **acpclust.R**, click **Copy**, then navigate to the Remote Desktop window's desktop and right clock the desktop, click **Paste**. After several seconds, you will find the file is copied to the remote machine's desktop.
+1. Next let's execute an R job. First we need an R file on the remote machine on Windows Azure. You can find an file **acpclust.R** under the folder **Source\Exercise1**. Since Windows Remote Desktop supports Copy/Paste from a local machine to a remote desktop machine, you can use this to get the file onto the Windows Azure machine. To do this, right-click the file **acpclust.R**, click **Copy**, then navigate to the Remote Desktop window's desktop and right-click the desktop, click **Paste**. After several seconds, you will find the file is copied to the remote machine's desktop.
 
 	![Copy File to Remote Desktop](images/vm-windows-copy-file-to-remote.png)
 	
 	_Copy File to Remote Desktop_
 
-1. To run the **acpclust.R** file, we have to install some package to R. In the RStudio's right corner panel, click **Packages** tab, and click **Install Packages** button.
+1. To run the **acpclust.R** file, we have to install some packages to R. In the RStudio's right corner panel, click **Packages** tab, and click **Install Packages** button.
 
 	![Install R Packages](images/vm-windows-rstudio-install-packages.png)
 	
@@ -138,31 +138,32 @@ Estimated time to complete this lab: **60** minutes.
 1. In the **Install Packages** form, input following command into the Packages:
 
 	````
-	ade4,RColorBrewer pixmap
+	ade4, RColorBrewer pixmap
 	````
+and click **Install** to begin download and installation.
 
 	![Set R Packages](images/vm-windows-rstudio-set-packages.png)
 
 	_Set R Packages_
 
-1. Click Menu **File** -> **Open File** and select the **acpclust.R** file on the desktop. then you will see the file is opened in RStudio.
+1. Click Menu **File** -> **Open File** and select the **acpclust.R** file on the desktop. You will see the file is opened in RStudio.
 
 	![Open an R File](images/vm-windows-rstudio-open-file.png)
 
 	_Open an R File_
 
-1. Click Menu **Code** -> **Run Region** -> **Run All**. RStudio will execute the R code for you and generate the result on the right bottom corner.
+1. Click the menu **Code** -> **Run Region** -> **Run All**. RStudio will execute the R code for you and generate the result on the right bottom corner.
 
 	![Run R File](images/vm-windows-rstudio-run-all-code-complete.png)
 
 	_Run R File_
 
-In this exercise, we created a windows server 2012 on windows azure, installed R and R studio on that machine. We also copied a local file to remote machine's desktop in Remote Desktop session. Finally we can execute the R job on the VM we created.
+In this exercise, we created a Windows Server 2012 virtual machine (VM) on Windows Azure, installed R and R studio on that machine. Then we copied a local file to the remote machine used that file as input for running an R job on our VM.
 
 <a name="#Exercise2"></a>
-## Exercies 2: Create a machine from VM Depot and run ipython job. ##
+## Exercise 2: Create a machine from VM Depot and run ipython job. ##
 
-[VM Depot](https://vmdepot.msopentech.com) is a community-driven catalog of preconfigured operating systems, applications, and development stacks that can easily be deployed on Windows Azure. In this exercise, we will create another machine from the image from VM Depot and run some IPython jobs on that machine.
+[VM Depot](https://vmdepot.msopentech.com) is a community-driven catalog of preconfigured operating systems, applications, and development stacks that can easily be deployed on Windows Azure. In this exercise, we will create another virtual machine, but this time we will use an image from VM Depot. We will also run some IPython jobs on that machine.
 
 1. First we need to copy a community image from VM Depot. In the Windows Azure Management Portal, navigate to **Virtual Machines**, and click **Image** tab. Then you can click **Browse VM Depot**.
 
@@ -189,7 +190,7 @@ In this exercise, we created a windows server 2012 on windows azure, installed R
 
 	_Set Image Storage Account_
 
-1. Then Windows Azure will begin to copy the image from VM Deport to your storage account. It takes couple miniutes to finish and you will see the image is inside the image tab.
+1. Then Windows Azure will begin to copy the image from VM Deport to your storage account. It takes a couple of minutes to finish. Once it completes, you will see the image is inside the image tab.
 
 	![Copy Image from VM Depot](images/vm-linux-vmdepot-copy-image-complete.png)
 
@@ -248,7 +249,7 @@ The machine has installed a lot of packages including IPython, Storm or Shark. W
 
 	_Start IPython Notebook_
 
-1. Navigate your browser to https://<vm-name>.cloudapp.net. Make sure that you use https and not http.You will see a warning that the certificate is not signed. Since this is your own certificate, you can safely ignore this warning. After ignoring it, you should see the login screen:
+1. Navigate your browser to https://\<vm-name>.cloudapp.net. Make sure that you use https and not http. You will see a warning that the certificate is not signed. Since this is your own certificate, you can safely ignore this warning. After ignoring it, you should see the login screen:
 
 	![IPython Notebook Main Page](images/vm-linux-python-login-page.png)
 
@@ -273,7 +274,7 @@ The machine has installed a lot of packages including IPython, Storm or Shark. W
 > 	_Create IPython Password_
 
 
-> Then we use nano to edit the configuration and update *c.NotebookApp.password* with nano. Since the file is readonly, so remember to add sudo to modify the file. With ctrl+X, you can save the file. You have to press “Y” to confirm the save operation and then press enter.
+> Then we use nano to edit the configuration and update *c.NotebookApp.password* with _nano_. Since the file is readonly, we can still modify it if we run _nano_ through _sudo_. With ctrl+X, you can save the file. You have to press “Y” to confirm the save operation and then press enter.
 
 > 	````Linux
 > 	sudo nano /usr/.ipython/profile_nbserver/ipython_notebook_config.py
@@ -385,7 +386,7 @@ _Clustering Example Sample_
 The full source code can be found in **Source\Exercise2\clustering_sample.py**.
 
 <a name="#Exercise3"></a>
-## Exercies 3: Create a new disk and mount the disk to Windows and Linux. ##
+## Exercise 3: Create a new disk and mount the disk to Windows and Linux. ##
 
 This exercise will show you how to attach new disks to both Linux and Windows virtual machines.
 
@@ -404,7 +405,8 @@ This exercise will show you how to attach new disks to both Linux and Windows vi
 	- Read Only: Reads and writes are cached for future reads but writes are persisted directly to storage
 	- Read Write: Reads and writes are cached for future reads. Non-write-through writes are persisted to the local cache first, then lazily flushed to the Windows Azure Blob service. For SQL Server, writes are always persisted to Windows Azure Storage because it uses write-through
 	- None (disabled): Requests bypass the cache completely.
-	- The best option to use depends on your intended usage. Read/Write offers the best performance in general, but depending on the type of service you want to use (SQL Server, Apache Cassandra), caching might be counter-productive.
+
+	The best option to use depends on your intended usage. Read/Write offers the best performance in general, but depending on the type of service you want to use (SQL Server, Apache Cassandra), caching might be counter-productive.
 
 	In this example, select Read/Write. You can change this setting later if desired:
 
