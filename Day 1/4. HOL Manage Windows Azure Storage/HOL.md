@@ -1,4 +1,4 @@
-h<a name="HOLTitle"></a>
+﻿h<a name="HOLTitle"></a>
 # Manage Windows Azure Storage #
 
 ---
@@ -461,3 +461,6 @@ By completing this hands-on lab you learned the following:
 - Use Azure Storage Explorer to manage your storage accounts.
 - Use IPython notebook to run storage commands.
 - Use AzCopy to Copy files between different storage accounts.
+
+© 2013 Microsoft Corporation. All rights reserved.
+Except where otherwise [noted](http://creativecommons.org/policies#license), content on this site is licensed under a [Creative Commons Attribution-NonCommercial 3.0 License.](http://creativecommons.org/licenses/by-nc/3.0/)

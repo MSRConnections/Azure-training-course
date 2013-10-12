@@ -1,4 +1,4 @@
-# Parametric Sweep with MATLAB and Microsoft HPC Pack #
+﻿# Parametric Sweep with MATLAB and Microsoft HPC Pack #
 
 In this example we'll show you how to perform a parametric sweep with MATLAB on a compute cluster of Windows Azure nodes.  The basic approach is to compile your MATLAB code (.m files) into a Windows binary executable that accepts the node ID as a command line argument, then use Microsoft HPC Pack to create and launch a parametric sweep job that runs the compiled MATLAB across the cluster.
 
@@ -222,3 +222,7 @@ It has a global minimum at (x, y) = (1, 1) where f(x, y) = 0, but we're going to
 1. We need to post-process these data files to get our final answer (the minimum value of the Rosenbrock banana function).  On the head node, open a command line window.  Navigate to the **banana_sweep** folder and execute **postprocess_sweep.bat 8**.  The "8" is because we used 8 nodes.  Each of the output files will be downloaded from your Azure storage account and post-processed with the MATLAB executable.  The final answer is printed on the console:
 
    ![Postprocess](doc/postprocess1.png)
+
+
+© 2013 Microsoft Corporation. All rights reserved.
+Except where otherwise [noted](http://creativecommons.org/policies#license), content on this site is licensed under a [Creative Commons Attribution-NonCommercial 3.0 License.](http://creativecommons.org/licenses/by-nc/3.0/)

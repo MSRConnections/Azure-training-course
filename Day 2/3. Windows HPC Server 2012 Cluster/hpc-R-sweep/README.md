@@ -1,4 +1,4 @@
-# Parametric Sweep with R and Python #
+﻿# Parametric Sweep with R and Python #
 
 This example uses a combination of R and Python to download data about baby names in the USA and calculate the percentage of babies per year with a name in the top 100 names of that year.  The calculation is done in parallel with a parametric sweep job.  The output looks something like this:
 
@@ -228,3 +228,7 @@ This example uses a combination of R and Python to download data about baby name
    The final result is written to **bname-top100.png**:
    
    ![Graph](img/bname-top100.png)
+
+
+© 2013 Microsoft Corporation. All rights reserved.
+Except where otherwise [noted](http://creativecommons.org/policies#license), content on this site is licensed under a [Creative Commons Attribution-NonCommercial 3.0 License.](http://creativecommons.org/licenses/by-nc/3.0/)

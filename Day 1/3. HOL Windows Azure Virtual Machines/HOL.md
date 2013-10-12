@@ -621,3 +621,6 @@ By completing this hands-on lab you learned the following:
 - Create a machine with Windows Server 2012 and run R job.
 - Create a machine from VMDepot and run ipython job.
 - Create a new disk and mount the disk to Windows and Linux.
+
+© 2013 Microsoft Corporation. All rights reserved.
+Except where otherwise [noted](http://creativecommons.org/policies#license), content on this site is licensed under a [Creative Commons Attribution-NonCommercial 3.0 License.](http://creativecommons.org/licenses/by-nc/3.0/)

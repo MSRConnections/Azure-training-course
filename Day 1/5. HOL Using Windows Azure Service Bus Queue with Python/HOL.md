@@ -1,4 +1,4 @@
-<a name="HOLTitle"></a>
+﻿<a name="HOLTitle"></a>
 # Using Windows Azure Service Bus Queue with Python #
 
 ---
@@ -320,3 +320,7 @@ By completing this hands-on lab you learned the following:
 - Understand Windows Azure Service Bus Queue.
 - Send a task to a Service Bus Queue by IPython Notebook and check the processing result.
 - Receive a message from a Service Bus Queue.
+
+
+© 2013 Microsoft Corporation. All rights reserved.
+Except where otherwise [noted](http://creativecommons.org/policies#license), content on this site is licensed under a [Creative Commons Attribution-NonCommercial 3.0 License.](http://creativecommons.org/licenses/by-nc/3.0/)
