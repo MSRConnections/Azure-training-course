@@ -1,20 +1,20 @@
-﻿<a name="HOLTitle"></a>
-# Using Windows Azure Service Bus Queue with Python #
+<a name="HOLTitle"></a>
+# Using Windows Azure Service Bus Queues with Python #
 
 ---
 
 <a name="Overview"></a>
 ## Overview ##
 
-In this hands-on lab you will use Python to manage Windows Azure Serice Bus Queue. There is a NCBI BLAST (National Center for Biotechnology Information Basic Local Alignment Search Tool) cloud srevice deployed for you. You can use IPython Notebook to send a task to the Service Bus Queue and the blast cloud service worker role will do the task for you. You will also read a message from the Service Bus Queue by IPython Notebook and process the task locally.
+In this hands-on lab you will use Python to interact with Windows Azure Service Bus Queues. There is a NCBI BLAST (National Center for Biotechnology Information Basic Local Alignment Search Tool) cloud service deployed for you. You will use IPython Notebook to send a task to a Service Bus queue; the BLAST cloud service worker role will receive the task from the queue and process the task for you. You will also read a message from a Service Bus queue from an IPython Notebook and process the task locally.
 
 <a name="Objectives"></a>
 ### Objectives ###
 
 In this hands-on lab, you will learn how to:
 
-- Understand Windows Azure Service Bus Queue.
-- Send a task to a Service Bus Queue by IPython Notebook and check the processing result.
+- Understand Windows Azure Service Bus Queues.
+- Send a task to a Service Bus Queue from an IPython Notebook and check the processing result.
 - Receive a message from a Service Bus Queue.
 
 <a name="Prerequisites"></a>
@@ -23,7 +23,7 @@ In this hands-on lab, you will learn how to:
 The following is required to complete this hands-on lab:
 
 - A Windows Azure subscription - [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
-- You have an IPython Notebook VM - [IPython Notebook on Windows Azure](http://www.windowsazure.com/en-us/develop/python/tutorials/ipython-notebook/)
+- An IPython Notebook VM - [IPython Notebook on Windows Azure](http://www.windowsazure.com/en-us/develop/python/tutorials/ipython-notebook/)
 - NCBI BLAST Windows Azure Sample Cloud Service - [NCBI BLAST Windows Azure Sample](http://azure4research-blast.cloudapp.net/)
 
 ---
@@ -32,8 +32,8 @@ The following is required to complete this hands-on lab:
 
 This hands-on lab includes the following exercises:
 
-1. [Exercise 1: Understand Windows Azure Service Bus Queue and NCBI BLAST.](#Exercise1)
-1. [Exercise 2: Send a task to a Service Bus Queue by IPython Notebook for processing.](#Exercise2)
+1. [Exercise 1: Understand Windows Azure Service Bus Queues and NCBI BLAST.](#Exercise1)
+1. [Exercise 2: Send a task to a Service Bus Queue from an IPython Notebook.](#Exercise2)
 1. [Exercise 3: Receive a message from a Service Bus Queue.](#Exercise2)
 
 Estimated time to complete this lab: **60** minutes.
@@ -42,7 +42,7 @@ Estimated time to complete this lab: **60** minutes.
 
 ### Exercise 1: Understand Windows Azure Service Bus Queue and NCBI BLAST.  ###
 
-#### What is Service Bus Queues? ####
+#### What are Service Bus Queues? ####
 
 Service Bus Queues support a **brokered messaging communication** model. When using queues, components of a distributed application do not communicate directly with each other, they instead exchange messages via a queue, which acts as an intermediary. A message producer (sender) hands off a message to the queue and then continues its processing. Asynchronously, a message consumer (receiver) pulls the message from the queue and processes it. The producer does not have to wait for a reply from the consumer in order to continue to process and send further messages. Queues offer **First In, First Out (FIFO)** message delivery to one or more competing consumers. That is, messages are typically received and processed by the receivers in the order in which they were added to the queue, and each message is received and processed by only one message consumer. 
 
@@ -56,7 +56,7 @@ Service Bus queues are a general-purpose technology that can be used for a wide 
 - Communication between on-premises apps and Windows Azure hosted apps in a hybrid solution.
 - Communication between components of a distributed application running on-premises in different organizations or departments of an organization.
 
-In order to help understand process Service Bus Queues, we also deploy the NCBI BLAST cloud service.
+In order to illustrate how to use Service Bus Queues, we also deploy the NCBI BLAST cloud service.
 
 #### What is NCBI BLAST?####
 
@@ -97,13 +97,13 @@ We have already an [NCBI BLAST web site](http://azure4research-blast.cloudapp.ne
 	
 	_BLAST Create New Task_
 
-1. Then you will navigate to a new page to set some parameters. Select an input file, then click *Queue*
+1. Then you will be taken to a new page to set some input parameters. Select an input file, then click *Queue*
 
 	![BLAST Set Task Information](images/blast-set-task-info.png)
 	
 	_BLAST Set Task Information_
 
-1. Then you will see the task is executing.	
+1. Next you will see that the task is executing.	
 
 	![BLAST Running Task](images/blast-running-task.png)
 	
@@ -135,102 +135,97 @@ We have already an [NCBI BLAST web site](http://azure4research-blast.cloudapp.ne
 	_BLAST Output File Hit Sequence Image_
 
 <a name="#Exercise2"></a>
-### Exercise 2: Send a task to a Service Bus Queue by IPython Notebook for processing.  ###
+### Exercise 2: Send a task to a Service Bus Queue from an IPython Notebook.  ###
 
-Next we are going to use IPython Notebook to send a new task to BLAST Cloud Service and request it to process. You can find the sample code inside **Source\python_service_bus.py**
+Next we are going to use IPython Notebook to send a new task to the BLAST Cloud Service. You can find the sample code inside **Source\python_service_bus.py**
 
 1. First we need to import required libraries:
-
-    ````Python
-        #import libraries
-        from azure.servicebus import *
-        from azure.storage import *
-        import uuid
-        import random
-        import time
-        import json
-    ````
+```Python
+from azure.servicebus import *
+from azure.storage import *
+import uuid
+import random
+import time
+import json
+```
 
     ![IPython Notebook Import Libraries](images/ipy-send-task-imports.png)
 	
     _IPython Notebook Import Libraries_
 
 
-1. Run the following code to define private variables we can use to interact with the Service Bus.
-
-    ````Python
-		#define service namespace, account key and issuer
-        #we have already defined it for you
-        servicenamespace = 'sb-azure4research-blast'
-        accountkey = 'aC7HfbvW8t7+851wyCEI8DinXg2KTS1voDb2yqyUZZ8='
-        issuer = 'owner'
-        queue_name='JobQueue'
-        #create bus_service
-        bus_service = ServiceBusService(service_namespace=servicenamespace, account_key=accountkey, issuer=issuer)
-    ````
+1. Run the following code to define credentials needed to interact with the Service Bus.
+```Python
+#define service namespace, account key and issuer
+#we have already defined it for you
+servicenamespace = 'sb-azure4research-blast'
+accountkey = 'aC7HfbvW8t7+851wyCEI8DinXg2KTS1voDb2yqyUZZ8='
+issuer = 'owner'
+queue_name='JobQueue'
+#create bus_service
+bus_service = ServiceBusService(service_namespace=servicenamespace, account_key=accountkey, issuer=issuer)
+```
 
     ![IPython Notebook Create Service Bus Service](images/ipy-send-task-bus-service.png)
 	
     _IPython Notebook Create Service Bus Service_	
 
 
-1. Now we create a dict in Python and save all properties into the dictionary. Then we will use json library's dumps method to convert the dictionary into a json string. Then we set the message body to be the json string. The code randomly pick a file from 1 to 200 as the input file. In the example, we use *input_63* as the input file.
-
-    ````Python
-        #create a new message
-        msg = Message()
-        id = str(uuid.uuid1()).replace('-','')
-        input_file = 'input_' + str(random.randint(1,200))
-        last_timestamp = int(time.time()*10000) + 621355968000000000
-        name = 'TEST ' + time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime()) + '(' + input_file + ')'
-        data = {'Hash':"",
-                'Id':id,
-                'InputFile': input_file,
-                'InputFiles':"null",
-                'LastMessage':"Queued",
-                'LastTimestamp': last_timestamp,
-                'Name': name,
-                'OutputFile':"",
-                'State':"QUEUED"
-               }
-        s=json.dumps(data);
-        msg.body=json.dumps(data);
-        print msg.body
-    ````
+1. Now we create a Python dictionary (`data`) to hold properties which define the inputs for the NCBI BLAST task that we want to execute. We use the `dumps` method of the `json` module to convert the dictionary into a JSON string and assign the JSON string to the `body` property of the message. The code randomly picks a file from 1 to 200 as the input file. In the example, we use *input_63* as the input file.
+```Python
+#create a new message
+msg = Message()
+id = str(uuid.uuid1()).replace('-','')
+input_file = 'input_' + str(random.randint(1,200))
+last_timestamp = int(time.time()*10000) + 621355968000000000
+name = 'TEST ' + time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime()) + '(' + input_file + ')'
+data = {'Hash': "",
+        'Id': id,
+        'InputFile': input_file,
+        'InputFiles': "null",
+        'LastMessage': "Queued",
+        'LastTimestamp': last_timestamp,
+        'Name': name,
+        'OutputFile': "",
+        'State': "QUEUED"
+       }
+s = json.dumps(data);
+msg.body = json.dumps(data);
+print msg.body
+```
 
     ![IPython Notebook Create Message](images/ipy-send-task-create-message.png)
 	
     _IPython Notebook Create Message_
 
 1. Before we submit the message to a Service Bus queue, we have to insert a new entity into a table first for the BLAST web site to track the status correctly. 
-
-     ````Python
-          #insert the message to table first
-          account = 'blaststore'
-          key = '99serQiW4MXGx4u14SfZTiONYDZ5jn7BRgOcRsQEcY/WCgzJxWwoSCXSTmPQnXwoUJkrQPgDjrzIr5AO9q71/Q=='
-          table_name = 'SearchTask'
-          table_service = TableService(account_name=account, account_key=key)
-          entity = Entity()
-          entity.PartitionKey = data['Id']
-          entity.RowKey= data['Id']
-          entity.Id = data['Id']
-          entity.Name = data['Name']
-          entity.InputFile = data['InputFile']
-          entity.State = data['State']
-          entity.LastMessage = data['LastMessage']
-          entity.LastTimestamp = data['LastTimestamp']
-          table_service.insert_entity(table_name, entity)
-    ````
+```Python
+#insert the message to table first
+account = 'blaststore'
+key = '99serQiW4MXGx4u14SfZTiONYDZ5jn7BRgOcRsQEcY/WCgzJxWwoSCXSTmPQnXwoUJkrQPgDjrzIr5AO9q71/Q=='
+table_name = 'SearchTask'
+table_service = TableService(account_name=account, account_key=key)
+entity = Entity()
+entity.PartitionKey = data['Id']
+entity.RowKey= data['Id']
+entity.Id = data['Id']
+entity.Name = data['Name']
+entity.InputFile = data['InputFile']
+entity.State = data['State']
+entity.LastMessage = data['LastMessage']
+entity.LastTimestamp = data['LastTimestamp']
+table_service.insert_entity(table_name, entity)
+```
 
     ![IPython Notebook Insert Table](images/ipy-send-task-insert-table.png)
 	
     _IPython Notebook Insert Table_
 
 1. Finally we execute the following command to submit a message.
-    ````Python
-         #submit the message to service bus queue
-		 bus_service.send_queue_message(queue_name, msg)
-    ````
+```Python
+#submit the message to service bus queue
+bus_service.send_queue_message(queue_name, msg)
+```
 
     ![IPython Notebook Submit to Queue](images/ipy-send-task-submit-queue.png)
 	
@@ -251,19 +246,18 @@ Next we are going to use IPython Notebook to send a new task to BLAST Cloud Serv
 
 You can use Python to receive a message as well! Messages are received from a queue using the **receive_queue_message method** on the **ServiceBusService** object. 
 
-1. Execute following command to receive a message in IPython Notebook. If there is no message in the queue, IPython Notebook will block until either a message arrives or the thread times out. You can see **Kernel busy** on the top right.
- 
-    ````Python
-        #receive a new message
-		msgrec = bus_service.receive_queue_message(queue_name, False)
-		print msgrec.body 
-    ````
+1. Execute the following command to receive a message in IPython Notebook. If there is no message in the queue, IPython Notebook will block until either a message arrives or the thread times out. You can see **Kernel busy** on the top right.
+```Python
+#receive a new message
+msgrec = bus_service.receive_queue_message(queue_name, False)
+print msgrec.body 
+```
     
     ![IPython Notebook Receive Message](images/ipy-receive-message.png)
 	
     _IPython Notebook Receive Message_
 
-1. On the BLAST web site, click **New Task** twice to create 2 new tasks. Since we set the worker role to process only 1 task at one time, your ipython notebook can receive another message.
+1. On the BLAST web site, click **New Task** twice to create 2 new tasks. Since we set the worker role to process only 1 task at one time, your IPython notebook can receive another message.
 
 	>If there are multiple people using the BLAST service, just do the previous step as many times as needed until you receive a message.
 
@@ -290,13 +284,11 @@ You can use Python to receive a message as well! Messages are received from a qu
 	If the peek_lock parameter is set to True, the receive becomes a two stage operation, which makes it possible to support applications that cannot tolerate missing messages. When Service Bus receives a request, it finds the next message to be consumed, locks it to prevent other consumers receiving it, and then returns it to the application. After the application finishes processing the message (or stores it reliably for future processing), it completes the second stage of the receive process by calling the delete method on the Message object. The delete method will mark the message as being consumed and remove it from the queue.
 
 1. Execute the following code.
-
-	
-    ````Python
-        #receive a new message when peek lock = True
-        msgrec = bus_service.receive_queue_message(queue_name, True)
-        print msgrec.body 
-    ````
+```Python
+#receive a new message when peek lock = True
+msgrec = bus_service.receive_queue_message(queue_name, True)
+print msgrec.body 
+```
     
     ![IPython Notebook Receive Message With Peek Lock](images/ipy-receive-message-peek-lock.png)
 	
