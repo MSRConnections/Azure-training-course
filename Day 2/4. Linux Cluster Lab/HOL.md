@@ -1,5 +1,5 @@
 ﻿<a name="HOLTitle"></a>
-# Creating a virtual machine and running simple data analysis with IPython #
+# Creating a Linux virtual machine cluster and running simulation analysis with IPython Cluster #
 
 ---
 <a name="Overview"></a>
@@ -349,6 +349,9 @@ By completing this hands-on lab you learned the following:
 - Provision Virtual machines with Python.
 - Deploy IPython notebook on your virtual machines.
 - Run Monte Carlo Simulation on IPython in parallel.
+
+If you would like to read more about IPython cluster:  <http://ipython.org/ipython-doc/dev/parallel/parallel_process.html>
+
 
 © 2013 Microsoft Corporation. All rights reserved.
 Except where otherwise [noted](http://creativecommons.org/policies#license), content on this site is licensed under a [Creative Commons Attribution-NonCommercial 3.0 License.](http://creativecommons.org/licenses/by-nc/3.0/)
