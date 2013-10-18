@@ -107,13 +107,21 @@ Next we are going to create a Django website and show some earthquake informatio
 
 	_Download Django_
 	
-1. Launch your commandline and navigate to a local directory under which you will create your Django web site. Use the following command to create a skeleton of a Django application called *DjangoApplication*.
+1. Launch your Command Line Tool on Windows or Terminal on MacOS and navigate to a local directory under which you will create your Django web site. Use the following command to create a skeleton of a Django application called *DjangoApplication*.
 
+	If you are using Mac or Linux, then just run
+	
 	````CommandPrompt
-		python (path to Python27 Scripts folder)/django-admin.py startproject DjangoApplication
+		django-admin.py startproject DjangoApplication
+	````
+	
+	or
+	
+	````CommandPrompt
+		python $(path to scripts folder)\django-admin.py startproject DjangoApplication
 	````
 
-    For example, on Windows that might be:
+    If on Windows, it might be:
 
 	````CommandPrompt
 		python C:\Python27\Scripts\django-admin.py startproject DjangoApplication
@@ -121,7 +129,7 @@ Next we are going to create a Django website and show some earthquake informatio
 
 	After the command is executed, there is output but you can see a new folder *DjangoApplication* is created under your current folder.
 
-	Open the folder and you will see a typical django website structure.
+	On Windows, open the folder and you will see a typical django website structure.
 
 	![Django Website](images/django-application-website.png)
 
@@ -130,6 +138,17 @@ Next we are going to create a Django website and show some earthquake informatio
 	![Django Website](images/django-application-website-2.png)
 
 	_Django Website Application Files_
+	
+	If you are on MacOS
+	
+	![Django Website](images/django-application-website-mac.png)
+
+	_Django Website Top-Level Folder_
+
+	![Django Website](images/django-application-website-mac-2.png)
+
+	_Django Website Application Files_
+
 	
 	There is a file *manage.py* and another folder *DjangoApplication* under the *DjangoApplication* folder. In the internal *DjangoApplication* folder, there are 4 files: *\__init__.py*, *settings.py*, *urls.py*, and *wsgi.py*.
 
@@ -262,7 +281,7 @@ You can use the same Microsoft account you used to login to the Windows Azure po
 
 	_Change Application Key_
 
-1. Connect to the FTP publishing service by FileZilla. You can download and install FileZilla to manage all your folders. FileZilla is a free ftp solution. The client version can be downloaded from [here](https://filezilla-project.org/).
+1. Connect to the FTP publishing service by FileZilla. You can download and install FileZilla to manage all your folders. FileZilla is a free ftp solution. The client version can be downloaded from [here](https://filezilla-project.org/). It has Windows and Mac version. The UI is almost exactly the same. 
 
 	Provide the **Host Name**, **User Name** and **Password** of your deployment credentials. The **Host Name** is available from the Dashboard in the portal under FTP HOST NAME (or FTPS HOST NAME) and will look something like _ftp://waws-prod-blu-001.ftp.azurewebsites.windows.net_. Make sure that the **User Name** is prefixed by the **Web Site** name (e.g. **mydiangowebsite1\trainingwebsiteuser**) 
 
