@@ -1,4 +1,4 @@
-﻿<a name="HOLTitle"></a>
+<a name="HOLTitle"></a>
 # Creating Web Sites with Django and Bing Maps #
 
 ---
@@ -100,7 +100,7 @@ Next we are going to create a Django website and show some earthquake informatio
 
 	_Download Python_
 
-1. Then you need to download the lastest version of [Django](https://www.djangoproject.com/).You also need to download the official release and follow the installation [instuctions](https://docs.djangoproject.com/en/1.5/topics/install/#installing-official-release) to ensure it works on your machine.
+1. Then you need to download the lastest version of [Django](https://www.djangoproject.com/).You also need to download the official release and follow the installation [instructions](https://docs.djangoproject.com/en/1.5/topics/install/#installing-official-release) to ensure it works on your machine.
 
 
 	![Download Django](images/download-django.png)

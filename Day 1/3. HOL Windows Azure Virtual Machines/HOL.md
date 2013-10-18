@@ -1,4 +1,4 @@
-﻿<a name="HOLTitle"></a>
+<a name="HOLTitle"></a>
 # Using Windows Azure Virtual Machines #
 
 ---
@@ -128,6 +128,8 @@ Estimated time to complete this lab: **60** minutes.
 	![Copy File to Remote Desktop](images/vm-windows-copy-file-to-remote.png)
 	
 	_Copy File to Remote Desktop_
+	
+	> If you you are using MacOS, please open the R file and copy the text content, then create a file with the same name and use notepad to paste the content
 
 1. To run the **acpclust.R** file, we have to install some packages to R. In the RStudio's right corner panel, click **Packages** tab, and click **Install Packages** button.
 

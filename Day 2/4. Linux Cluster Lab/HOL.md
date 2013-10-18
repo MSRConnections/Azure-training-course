@@ -1,4 +1,4 @@
-﻿<a name="HOLTitle"></a>
+<a name="HOLTitle"></a>
 # Creating a Linux virtual machine cluster and running simulation analysis with IPython Cluster #
 
 ---
@@ -230,7 +230,7 @@ _IPython Notebook Spectral_
 
 	![Copy files](images/copy-files-remote.png)
 
-	_Create Folder_
+	_Copy Files_
 
 1. Execute **main.py** with following command:
 
