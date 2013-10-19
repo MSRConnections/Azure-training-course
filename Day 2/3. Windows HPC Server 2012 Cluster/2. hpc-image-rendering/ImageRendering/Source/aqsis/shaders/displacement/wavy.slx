@@ -1,0 +1,87 @@
+displacement
+AQSIS_V 1.6.0
+
+
+segment Data
+
+USES 2304
+
+param uniform  float amplitude
+param uniform  float freq
+varying  point Pw
+varying  float x
+varying  float y
+varying  float a
+varying  vector vz
+
+
+segment Init
+	pushif 10
+	pop amplitude
+	pushif 8
+	pop freq
+
+
+segment Code
+	pushv P
+	pushis "world"
+	transform
+	pop Pw
+	pushv Pw
+	xcomp
+	pop x
+	pushv Pw
+	ycomp
+	pop y
+	pushv x
+	pushv y
+	divff
+	atan
+	pop a
+	S_CLEAR
+	pushif 0
+	pushv x
+	lsff
+	S_GET
+	RS_PUSH
+	RS_GET
+	RS_JZ 0
+	pushif 3.14159
+	pushv a
+	subff
+	pop a
+:0
+	RS_POP
+	pushif 1
+	pushif 0
+	pushif 0
+	settv
+	pushis "current"
+	pushis "world"
+	vtransform2
+	pop vz
+	pushv vz
+	pushif 0.6
+	pushv a
+	pushif 0.5
+	pushv freq
+	mulff
+	mulff
+	addff
+	sin
+	pushv amplitude
+	mulff
+	pushv a
+	pushv freq
+	mulff
+	sin
+	pushv amplitude
+	mulff
+	addff
+	mulfp
+	pushv P
+	addpp
+	pop P
+	pushv P
+	calculatenormal
+	pop N

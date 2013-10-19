@@ -1,0 +1,109 @@
+surface
+AQSIS_V 1.6.0
+
+
+segment Data
+
+USES 198916
+
+param uniform  float Ka
+param uniform  float Kd
+param varying  point Pref
+param uniform  string texturename
+varying  color Ct
+varying  point Psh
+varying  float ss
+varying  float tt
+varying  normal Nf
+
+
+segment Init
+	pushif 1
+	pop Ka
+	pushif 1
+	pop Kd
+	pushif 100000
+	negf
+	pushif 100000
+	negf
+	pushif 100000
+	negf
+	settp
+	pop Pref
+	pushis ""
+	pop texturename
+
+
+segment Code
+	S_CLEAR
+	pushif 100000
+	negf
+	pushif 100000
+	negf
+	pushif 100000
+	negf
+	settp
+	pushv Pref
+	nepp
+	S_GET
+	RS_PUSH
+	RS_GET
+	RS_JZ 1
+	pushv Pref
+	pushis "shader"
+	transform
+	pop Psh
+:1
+	RS_INVERSE
+	RS_JZ 0
+	pushv P
+	pushis "shader"
+	transform
+	pop Psh
+:0
+	RS_POP
+	pushv Psh
+	xcomp
+	pop ss
+	pushv Psh
+	ycomp
+	pop tt
+	pushv I
+	pushv N
+	normalize
+	faceforward
+	pop Nf
+	S_CLEAR
+	pushis ""
+	pushv texturename
+	ness
+	S_GET
+	RS_PUSH
+	RS_GET
+	RS_JZ 3
+	pushv tt
+	pushv ss
+	pushif 0
+	pushv texturename
+	pushif 0
+	ctexture2
+	pop Ct
+:3
+	RS_INVERSE
+	RS_JZ 2
+	pushif 1
+	setfc
+	pop Ct
+:2
+	RS_POP
+	pushv Nf
+	diffuse
+	pushv Kd
+	mulfc
+	ambient
+	pushv Ka
+	mulfc
+	addcc
+	pushv Ct
+	mulcc
+	pop Ci

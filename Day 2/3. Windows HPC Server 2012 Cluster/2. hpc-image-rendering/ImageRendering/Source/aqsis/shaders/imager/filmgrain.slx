@@ -1,0 +1,51 @@
+imager
+AQSIS_V 1.6.0
+
+
+segment Data
+
+USES 8830976
+
+varying  color CiHSV
+varying  float CiV
+varying  float MidV
+varying  float grain
+
+
+segment Init
+
+
+segment Code
+	pushv Ci
+	pushis "hsv"
+	ctransform
+	pop CiHSV
+	pushif 2
+	pushv CiHSV
+	comp
+	pop CiV
+	pushif 4
+	pushif 3.14159
+	pushv CiV
+	mulff
+	sin
+	divff
+	pop MidV
+	pushv t
+	pushv s
+	noise2
+	pop grain
+	pushv grain
+	pushv MidV
+	mulff
+	pushif 1
+	subff
+	setfc
+	pushv Ci
+	mulcc
+	pop Ci
+	pushif 1
+	setfc
+	pop Oi
+	pushif 1
+	pop alpha

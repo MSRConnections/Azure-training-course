@@ -1,0 +1,107 @@
+displacement
+AQSIS_V 1.6.0
+
+
+segment Data
+
+USES 51456
+
+param uniform  float Km
+varying  float size
+varying  float mag
+varying  float freq
+varying  float smod
+varying  float tmod
+varying  float cut
+varying  float delta
+varying  float i
+varying  point P2
+
+
+segment Init
+	pushif 0.5
+	pop Km
+
+
+segment Code
+	pushif 1
+	pop size
+	pushif 0
+	pop mag
+	pushif 5
+	pop freq
+	pushif 1
+	pushv freq
+	pushv s
+	mulff
+	mod
+	pop smod
+	pushif 1
+	pushv freq
+	pushv t
+	mulff
+	mod
+	pop tmod
+	pushif 0.25
+	pop cut
+	pushif 0
+	pop delta
+	pushv P
+	pushis "shader"
+	transform
+	pop P2
+	pushif 0
+	pop i
+	RS_PUSH
+:0
+	S_CLEAR
+	pushif 6
+	pushv i
+	lsff
+	S_GET
+	S_JZ 1
+	RS_GET
+	RS_PUSH
+	pushv size
+	pushv size
+	setfp
+	pushv P2
+	mulpp
+	noise3
+	pushif 0.5
+	subff
+	abs
+	divff
+	pushv mag
+	addff
+	pop mag
+	pushif 2
+	pushv size
+	mulff
+	pop size
+	RS_POP
+	pushif 1
+	pushv i
+	addff
+	pop i
+	jmp 0
+:1
+	RS_POP
+	pushv Km
+	setfp
+	pushv mag
+	pushv mag
+	pushv mag
+	mulff
+	mulff
+	setfp
+	pushv N
+	normalize
+	mulpp
+	mulpp
+	pushv P2
+	addpp
+	pop P
+	pushv P
+	calculatenormal
+	pop N

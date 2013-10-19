@@ -1,0 +1,58 @@
+imager
+AQSIS_V 1.6.0
+
+
+segment Data
+
+USES 393472
+
+param uniform  color earth
+param uniform  color skycolor
+varying  float lenx
+varying  float leny
+varying  float resolution[3]
+
+
+segment Init
+	pushif 0.1
+	pushif 0.4
+	pushif 0
+	settc
+	pop earth
+	pushif 1
+	pushif 0.6
+	pushif 0.6
+	settc
+	pop skycolor
+
+
+segment Code
+	pushis "Format"
+	option resolution
+	drop
+	pushif 0
+	ipushv resolution
+	pushv P
+	xcomp
+	divff
+	pop lenx
+	pushif 1
+	ipushv resolution
+	pushv P
+	ycomp
+	divff
+	pop leny
+	pushv leny
+	pushv earth
+	pushv skycolor
+	cmix
+	pushv Oi
+	pushif 1
+	subfc
+	mulcc
+	pushv Ci
+	addcc
+	pop Ci
+	pushif 1
+	setfc
+	pop Oi

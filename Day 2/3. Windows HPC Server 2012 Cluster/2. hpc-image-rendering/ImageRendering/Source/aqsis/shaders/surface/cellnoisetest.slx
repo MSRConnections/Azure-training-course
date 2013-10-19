@@ -1,0 +1,72 @@
+surface
+AQSIS_V 1.6.0
+
+
+segment Data
+
+USES 473094
+
+param uniform  float Ka
+param uniform  float Kd
+param uniform  float Ks
+param uniform  float roughness
+param uniform  color specularcolor
+varying  color Ct
+varying  normal Nf
+
+
+segment Init
+	pushif 1
+	pop Ka
+	pushif 0.5
+	pop Kd
+	pushif 0.5
+	pop Ks
+	pushif 0.1
+	pop roughness
+	pushif 1
+	setfc
+	pop specularcolor
+
+
+segment Code
+	pushv I
+	pushv N
+	normalize
+	faceforward
+	pop Nf
+	pushif 100
+	pushv v
+	mulff
+	pushif 100
+	pushv u
+	mulff
+	ccellnoise2
+	pop Ct
+	pushv Os
+	pop Oi
+	pushv roughness
+	pushv I
+	normalize
+	negp
+	pushv Nf
+	specular
+	pushv Ks
+	setfc
+	pushv specularcolor
+	mulcc
+	mulcc
+	pushv Nf
+	diffuse
+	pushv Kd
+	mulfc
+	ambient
+	pushv Ka
+	mulfc
+	addcc
+	pushv Ct
+	mulcc
+	addcc
+	pushv Os
+	mulcc
+	pop Ci

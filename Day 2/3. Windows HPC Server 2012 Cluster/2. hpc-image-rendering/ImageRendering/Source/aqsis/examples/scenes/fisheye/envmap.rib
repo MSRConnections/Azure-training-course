@@ -1,0 +1,100 @@
+# Minus X
+FrameBegin 1
+	ShadingRate 2
+	PixelSamples 2 2
+	PixelFilter "box" 1 1
+	Format 320 320 1
+	Display "rnx.tif" "file" "rgba" 
+	Projection "perspective" "fov" [93]
+	Clipping 0.1 100000
+	Rotate 90 0 1 0
+	WorldBegin
+		Rotate 45 0 1 0 
+		ReadArchive "lights.rib"
+		ReadArchive "world.rib"
+	WorldEnd 
+FrameEnd 
+# Plus X
+FrameBegin 2
+	ShadingRate 2
+	PixelSamples 2 2
+	PixelFilter "box" 1 1
+	Format 320 320 1
+	Display "rpx.tif" "file" "rgba" 
+	Projection "perspective" "fov" [93]
+	Clipping 0.1 100000
+	Rotate -90 0 1 0
+	WorldBegin
+		Rotate 45 0 1 0 
+		ReadArchive "lights.rib"
+		ReadArchive "world.rib"
+	WorldEnd 
+FrameEnd 
+# Minus Y
+FrameBegin 3
+	ShadingRate 2
+	PixelSamples 2 2
+	PixelFilter "box" 1 1
+	Format 320 320 1
+	Display "rny.tif" "file" "rgba" 
+	Projection "perspective" "fov" [93]
+	Clipping 0.1 100000
+	Rotate -90 1 0 0
+	Translate 0 0.1 0
+	WorldBegin
+		Rotate 45 0 1 0 
+		ReadArchive "lights.rib"
+		ReadArchive "world.rib"
+	WorldEnd 
+FrameEnd 
+# Plus Y
+FrameBegin 4
+	ShadingRate 2
+	PixelSamples 2 2
+	PixelFilter "box" 1 1
+	Format 320 320 1
+	Display "rpy.tif" "file" "rgba" 
+	Projection "perspective" "fov" [93]
+	Clipping 0.1 100000
+	Rotate 90 1 0 0
+	Translate 0.1 0.1 0.1
+	WorldBegin
+		Rotate 45 0 1 0 
+		ReadArchive "lights.rib"
+		ReadArchive "world.rib"
+	WorldEnd 
+FrameEnd 
+# Minus Z
+FrameBegin 5
+	ShadingRate 2
+	PixelSamples 2 2
+	PixelFilter "box" 1 1
+	Format 320 320 1
+	Display "rnz.tif" "file" "rgba" 
+	Projection "perspective" "fov" [93]
+	Clipping 0.1 100000
+	Rotate 180 0 1 0
+	Translate 0.1 0.1 0.1
+	WorldBegin
+		Rotate 45 0 1 0 
+		ReadArchive "lights.rib"
+		ReadArchive "world.rib"
+	WorldEnd 
+FrameEnd 
+# Plus Z
+FrameBegin 6
+	ShadingRate 2
+	PixelSamples 2 2
+	PixelFilter "box" 1 1
+	Format 320 320 1
+	Display "rpz.tif" "file" "rgba" 
+	Projection "perspective" "fov" [93]
+	Clipping 0.1 100000
+	Translate 0.1 0.1 0.1
+	WorldBegin
+		Rotate 45 0 1 0 
+		ReadArchive "lights.rib"
+		ReadArchive "world.rib"
+	WorldEnd 
+FrameEnd 
+

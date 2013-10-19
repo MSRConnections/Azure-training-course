@@ -1,0 +1,17 @@
+#ifndef __AQSIS_RIB_PARAMETERS__
+#define __AQSIS_RIB_PARAMETERS__
+
+//
+// Include our parameter definitions.  These will show up in the
+// "Rendering Properties" tool.
+//
+// You can also run the hscript command "opproperty" (with no
+// arguments) and the Aqsis renderer properties should show up.
+//
+
+#include "RIBaqsis1.6.ds"
+
+// Include the factory settings
+#include "$HFS/houdini/soho/parameters/SOHOparameters"
+
+#endif

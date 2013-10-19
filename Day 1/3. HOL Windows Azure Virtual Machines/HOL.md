@@ -65,6 +65,8 @@ Estimated time to complete this lab: **60** minutes.
 
 1. Next we need to setup the cloud service information. Each virtual machine belongs to one cloud service. You can create a new cloud service or add the vm to an existing cloud service. Here we select *Create a new cloud service* and set the **Cloud Service DNS Name** and set the **Region** to *East Asia*. As for the storage account, you can either choose *Use an automatically generated storage account* or select an existing storage account.
 
+	> Note: Since the training subscription only has 1 storage account, so make sure you select the existing one.
+
 	![Set Cloud Service Information](images/vm-windows-set-cs-info.png)
 	
 	_Set Cloud Service Information_
@@ -320,8 +322,8 @@ _Clustering Example Sample_
 	import matplotlib
 	import matplotlib.pyplot as plt
 	import matplotlib.cm as cm
-	from sklearn.manifold import MDS		
-	NUM_CLUSTERS = 16		
+	from sklearn.manifold import MDS
+	NUM_CLUSTERS = 16
 	####################################
 	# download titanic csv data from github
 	f = urllib.urlopen("https://pythonstore.blob.core.windows.net/data/titanic-data.csv") # YOU MIGHT NEED TO CHANGE THE URL
@@ -347,7 +349,7 @@ _Clustering Example Sample_
 	# Create KMeans
 	kmeans = KMeans(n_clusters=NUM_CLUSTERS, init='k-means++', n_init=10, max_iter=300, tol=0.0001, precompute_distances=True, verbose=0, random_state=None, copy_x=True, n_jobs=1)
 	# Train KMeans
-	kmeans.fit(data)		
+	kmeans.fit(data)
 	# Get the results
 	kmeans_labels = kmeans.labels_
 	kmeans_cluster_centers = kmeans.cluster_centers_
@@ -361,7 +363,7 @@ _Clustering Example Sample_
 	# Reduce to two dimensions for plotting
 	mds = MDS(n_components=2)
 	mds.fit(data)
-	scaled_coordinates = mds.embedding_		
+	scaled_coordinates = mds.embedding_
 	# PLOT ON TWO DIMENSIONS
 	labelled_data_x = (dict(), dict())
 	labelled_data_y = (dict(), dict())
@@ -369,7 +371,7 @@ _Clustering Example Sample_
 	    labelled_data_x[0][label] = []
 	    labelled_data_y[0][label] = []
 	    labelled_data_x[1][label] = []
-	    labelled_data_y[1][label] = []		
+	    labelled_data_y[1][label] = []
 	for i in range(0, len(names)):
 	    label = kmeans_labels[i]
 	    labelled_data_x[survived[i]][label].append(scaled_coordinates[i][0])
@@ -381,11 +383,11 @@ _Clustering Example Sample_
 
 	````Python
 	# PLOTTING
-	colors = cm.rainbow(np.linspace(0, 1, NUM_CLUSTERS))    
+	colors = cm.rainbow(np.linspace(0, 1, NUM_CLUSTERS)) 
 	markers = ['x', '^']
 	for i in kmeans_labels_unique: 
 	    for j in [0, 1]:
-	        plt.scatter(labelled_data_x[j][i], labelled_data_y[j][i], color=colors[i], marker=markers[j], s=40)		    
+	        plt.scatter(labelled_data_x[j][i], labelled_data_y[j][i], color=colors[i], marker=markers[j], s=40)
 	plt.show()
 	````
 1. The result will show:

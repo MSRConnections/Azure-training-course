@@ -1,0 +1,97 @@
+# BEGIN MODEL: teapot01_7-teapot01_8
+AttributeBegin 
+	ConcatTransform [1 0 0 0 0 1 0 0 0 0 1 0 0 100 0 1]
+	Rotate -90 1 0 0
+	AttributeBegin 
+		Attribute "identifier" "name" ["teapot01_7-teapot01_8"]
+		AttributeBegin 
+			Attribute "identifier" "name" ["teapot01_7-teapot01_8dummy_3"]
+			Sides 1
+			Color [0.878431 0.341176 0.560784]
+			Scale 14 14 14
+			Surface "matte" 
+			Geometry "teapot"
+		AttributeEnd 
+	AttributeEnd 
+AttributeEnd 
+# END MODEL: teapot01_7-teapot01_8
+# BEGIN MODEL: box01_9-box01_10
+AttributeBegin 
+	ConcatTransform [1 0 0 0 0 1 0 0 0 0 1 0 0 -100 0 1]
+	AttributeBegin 
+		Attribute "identifier" "name" ["box01_9-box01_10"]
+		Sides 1
+		Color [0.878431 0.341176 0.560784]
+		Surface "matte" 
+		PointsPolygons [4 4 4 4 4 4] [0
+1 2 3 3 2 4 5 6 5 4 7 0 6 7 1 1 7 4 2 0 3 5 6] 
+			"P" [-20 -20 -20  
+			     -20 -20 20 
+			     -20 20 20 
+			     -20 20 -20
+                             20 20 20 
+			     20 20 -20 
+			     20 -20 -20 
+			     20 -20 20]
+	AttributeEnd 
+AttributeEnd 
+# END MODEL: box01_9-box01_10
+# BEGIN MODEL: torus01_5-torus01_6
+AttributeBegin 
+	ConcatTransform [0 0 -1 0 0 1 0 0 1 0 0 0 -100 0 0 1]
+	AttributeBegin 
+		Attribute "identifier" "name" ["torus01_5-torus01_6"]
+		Sides 1
+		Color [0.0313726 0.0313726 0.533333]
+		Surface "matte" 
+		Torus 20 8 0 360 360
+	AttributeEnd 
+AttributeEnd 
+# END MODEL: torus01_5-torus01_6
+# BEGIN MODEL: cone01_3-cone01_4
+AttributeBegin 
+	ConcatTransform [1 0 0 0 0 1 0 0 0 0 1 0 100 -28 0 1]
+	Rotate -90 1 0 0
+	AttributeBegin 
+		Attribute "identifier" "name" ["cone01_3-cone01_4"]
+		Sides 2
+		Color [0.0235294 0.52549 0.0235294]
+		Surface "matte" 
+		Cone 90 22 360
+		Disk 0 22 360
+	AttributeEnd 
+AttributeEnd 
+# END MODEL: cone01_3-cone01_4
+# BEGIN MODEL: plane01_13-plane01_14
+AttributeBegin 
+	ConcatTransform [1 0 0 0 0 1 0 0 0 0 1 0 0 0 -100 1]
+	AttributeBegin
+		Color [0.839216 0.894118 0.6]
+		Surface "matte"
+		Torus 100 8 0 360 360
+	AttributeEnd
+AttributeEnd 
+# END MODEL: plane01_13-plane01_14
+# BEGIN MODEL: cylinder01_11-cylinder01_12
+AttributeBegin 
+	ConcatTransform [0 -1 -2.98023e-008 0 -2.98023e-008 0 1 0 -1 2.98023e-008 0 0 41.7819 -4.73312e-006 108.281 1]
+	AttributeBegin 
+		Attribute "identifier" "name" ["cylinder01_11-cylinder01_12"]
+		Sides 2
+		Color [0.443137 0.52549 0.0235294]
+		Surface "matte" 
+		Cylinder 22 0 80 360
+		Disk 0 22 360
+		Disk 80 22 360
+	AttributeEnd 
+AttributeEnd 
+# END MODEL: cylinder01_11-cylinder01_12
+
+AttributeBegin 
+	ConcatTransform [1 0 0 0 0 1 0 0 0 0 1 0 0 0 100 1]
+	AttributeBegin
+		Surface "matte" 
+		Color [1 0.6 0.6]
+		Torus 100 8 0 360 360
+	AttributeEnd
+AttributeEnd 

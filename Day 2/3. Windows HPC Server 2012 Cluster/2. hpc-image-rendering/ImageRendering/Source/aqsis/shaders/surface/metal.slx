@@ -1,0 +1,51 @@
+surface
+AQSIS_V 1.6.0
+
+
+segment Data
+
+USES 460807
+
+param uniform  float Ka
+param uniform  float Ks
+param uniform  float roughness
+varying  point Nf
+varying  point V
+
+
+segment Init
+	pushif 1
+	pop Ka
+	pushif 1
+	pop Ks
+	pushif 0.1
+	pop roughness
+
+
+segment Code
+	pushv I
+	pushv N
+	normalize
+	faceforward
+	pop Nf
+	pushv I
+	normalize
+	negp
+	pop V
+	pushv Os
+	pop Oi
+	pushv roughness
+	pushv V
+	pushv Nf
+	specular
+	pushv Ks
+	mulfc
+	ambient
+	pushv Ka
+	mulfc
+	addcc
+	pushv Cs
+	pushv Os
+	mulcc
+	mulcc
+	pop Ci

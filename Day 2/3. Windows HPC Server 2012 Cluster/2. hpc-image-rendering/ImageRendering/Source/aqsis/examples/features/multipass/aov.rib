@@ -1,0 +1,36 @@
+Format 480 360 1
+PixelSamples 2 2
+ShadingRate 1
+PixelFilter "gaussian" 2 2
+Shutter 0 1
+Quantize "Cs" 255 0 255 0
+
+FrameBegin 0
+Display "aov.tif" "file" "rgba"
+Display "+aov.tif" "framebuffer" "rgb"
+Display "+aovN.tif" "file" "N" "quantize" [128 255 0 255]
+Display "+aovCs.tif" "file" "Cs"
+Display "+aovs.tif" "file" "s" "quantize" [0 255 0 255]
+Display "+aovmyval.tif" "file" "float myval" "quantize" [0 255 0 255]
+Option "limits" "bucketsize" [32 32]
+Option "statistics" "endofframe" [3]
+
+Projection "perspective" "fov" [32.0]
+
+Translate 0 0 3
+
+WorldBegin
+Surface "myval"
+LightSource "pointlight" 0 "intensity" [100] "from" [0 2 -10]
+LightSource "pointlight" 1 "intensity" [100] "from" [10 0 10]
+
+AttributeBegin
+	Color 1 0 1
+	Translate 0 0 4
+	Sphere 1 -1 1 360
+AttributeEnd
+
+WorldEnd
+
+FrameEnd
+

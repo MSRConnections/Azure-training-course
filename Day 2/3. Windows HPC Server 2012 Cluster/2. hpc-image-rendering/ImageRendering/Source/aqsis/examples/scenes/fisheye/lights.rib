@@ -1,0 +1,27 @@
+AttributeBegin 
+# LIGHT: Omni02 AttributeBegin 
+	Attribute "identifier" "name" ["Omni02"]
+	TransformBegin 
+		Translate -180 -344 0
+		LightSource "pointlight" 1 "intensity" [150000] 
+	TransformEnd 
+AttributeEnd 
+# LIGHT: Omni 1
+AttributeBegin 
+	Attribute "identifier" "name" ["Omni 1"]
+	TransformBegin 
+		Translate 98 283 254
+		LightSource "pointlight" 2 "intensity" [200000] 
+	TransformEnd 
+AttributeEnd 
+# LIGHT: Omni01
+AttributeBegin 
+	Attribute "identifier" "name" ["Omni01"]
+	TransformBegin 
+		Translate 327 0 -123
+		LightSource "pointlight" 3 "intensity" [150000] 
+	TransformEnd 
+AttributeEnd 
+Illuminate 1 1
+Illuminate 2 1
+Illuminate 3 1

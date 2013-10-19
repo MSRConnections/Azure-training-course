@@ -1,0 +1,102 @@
+lightsource
+AQSIS_V 1.6.0
+
+
+segment Data
+
+USES 96
+
+param uniform  float intensity
+param uniform  color lightcolor
+param uniform  point from
+param uniform  point to
+param uniform  float coneangle
+param uniform  float conedeltaangle
+param uniform  float beamdistribution
+varying  float atten
+varying  float cosangle
+uniform  point A
+
+
+segment Init
+	pushif 1
+	pop intensity
+	pushif 1
+	setfc
+	pop lightcolor
+	pushif 0
+	pushif 0
+	pushif 0
+	settp
+	pushis "current"
+	pushis "shader"
+	transform2
+	pop from
+	pushif 1
+	pushif 0
+	pushif 0
+	settp
+	pushis "current"
+	pushis "shader"
+	transform2
+	pop to
+	pushif 30
+	radians
+	pop coneangle
+	pushif 5
+	radians
+	pop conedeltaangle
+	pushif 2
+	pop beamdistribution
+
+
+segment Code
+	pushv from
+	pushv to
+	subpp
+	normalize
+	pop A
+:0
+	S_CLEAR
+	pushv coneangle
+	pushv A
+	pushv from
+	illuminate2
+	S_JZ 1
+	RS_PUSH
+	RS_GET
+	pushv L
+	length
+	pushv A
+	pushv L
+	dotpp
+	divff
+	pop cosangle
+	pushv L
+	pushv L
+	dotpp
+	pushv beamdistribution
+	pushv cosangle
+	pow
+	divff
+	pop atten
+	pushv cosangle
+	pushv conedeltaangle
+	pushv coneangle
+	subff
+	cos
+	pushv coneangle
+	cos
+	smoothstep
+	pushv atten
+	mulff
+	pop atten
+	pushv lightcolor
+	pushv intensity
+	pushv atten
+	mulff
+	mulfc
+	pop Cl
+	RS_POP
+	jmp 0
+:1

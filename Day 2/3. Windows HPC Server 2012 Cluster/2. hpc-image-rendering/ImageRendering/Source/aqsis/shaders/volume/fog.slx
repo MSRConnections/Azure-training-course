@@ -1,0 +1,44 @@
+volume
+AQSIS_V 1.6.0
+
+
+segment Data
+
+USES 458752
+
+param uniform  float distance
+param uniform  color background
+varying  float d
+
+
+segment Init
+	pushif 1
+	pop distance
+	pushif 0
+	setfc
+	pop background
+
+
+segment Code
+	pushv distance
+	pushv I
+	length
+	negf
+	divff
+	exp
+	pushif 1
+	subff
+	pop d
+	pushv d
+	pushv background
+	pushv Ci
+	cmix
+	pop Ci
+	pushv d
+	pushif 1
+	pushif 1
+	pushif 1
+	settc
+	pushv Oi
+	cmix
+	pop Oi

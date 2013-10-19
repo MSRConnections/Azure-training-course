@@ -1,0 +1,91 @@
+surface
+AQSIS_V 1.6.0
+
+
+segment Data
+
+USES 473119
+
+param uniform  float Ka
+param uniform  float Ks
+param uniform  float Kr
+param uniform  float roughness
+param uniform  string texturename
+varying  vector V
+varying  normal Nf
+varying  vector D
+varying  color env
+
+
+segment Init
+	pushif 1
+	pop Ka
+	pushif 1
+	pop Ks
+	pushif 1
+	pop Kr
+	pushif 0.1
+	pop roughness
+	pushis ""
+	pop texturename
+
+
+segment Code
+	pushv I
+	normalize
+	pop V
+	pushv V
+	pushv N
+	normalize
+	faceforward
+	pop Nf
+	pushv Nf
+	pushv V
+	reflect
+	pushis "world"
+	vtransform
+	pop D
+	S_CLEAR
+	pushis ""
+	pushv texturename
+	ness
+	S_GET
+	RS_PUSH
+	RS_GET
+	RS_JZ 1
+	pushv D
+	pushif 0
+	pushv texturename
+	pushif 0
+	cenvironment2
+	pushv Kr
+	mulfc
+	pop env
+:1
+	RS_INVERSE
+	RS_JZ 0
+	pushif 0
+	setfc
+	pop env
+:0
+	RS_POP
+	pushv Os
+	pop Oi
+	pushv env
+	pushv roughness
+	pushv V
+	negp
+	pushv Nf
+	specular
+	pushv Ks
+	mulfc
+	ambient
+	pushv Ka
+	mulfc
+	addcc
+	addcc
+	pushv Cs
+	pushv Os
+	mulcc
+	mulcc
+	pop Ci

@@ -1,0 +1,204 @@
+##RenderMan RIB-Structure 1.0
+#version 3.03
+Orientation "lh"
+Format 480 360 1
+PixelSamples 3 3
+ShadingRate 1.0
+PixelFilter "gaussian" 2 2
+Option "limits" "bucketsize" [32 32]
+Option "searchpath" "shader" ["../../../shaders/light:../../../shaders/displacement:../../../shaders/surface:&"]
+
+FrameBegin 0
+
+Display "detail.tif" "file" "rgba"
+Display "+detail.tif" "framebuffer" "rgb"
+
+# Camera name: "Kamera01"
+Projection "perspective" "fov" [45.0]
+Rotate 180 0 1 0
+ConcatTransform [0.958119 0.00810329 0.286257 0  0.286371 -0.0271113 -0.957735 0  0.0 0.9996 -0.0282964 0  -120.709 15.5811 -408.959 1]
+
+WorldBegin
+# Default-Surface
+Surface "plastic"
+
+# Object "Richtg.01"
+TransformBegin
+ConcatTransform [0.915728 0.401799 0.0 0  -0.0483072 0.110096 0.992746 0  0.398884 -0.909086 0.120227 0  187.832 -296.508 17.9483 1]
+Attribute "light" "shadows" ["off"]
+LightSource "distantlight" 2 "to" [0 0 -1] "intensity" [2]
+TransformEnd
+
+# Object "Richtg.02"
+TransformBegin
+ConcatTransform [-0.227035 -0.973887 0.0 0  -0.196081 0.045711 0.979522 0  -0.953943 0.222386 -0.201339 0  -414.57 -22.0234 -35.3662 1]
+Attribute "light" "shadows" ["off"]
+LightSource "distantlight" 3 "to" [0 0 -1] 
+TransformEnd
+
+ConcatTransform [1.0 0.0 0.0 0  0.0 1.0 0.0 0  0.0 0.0 1.0 0  0.55703 1.20678 0.0 1]
+AttributeBegin
+  Detail [-56.5533 56.5533 -56.5533 56.5533 -56.5533 56.5533]
+  DetailRange [0 0 20 30]
+    Color 0.5 0.5 0.9
+    Sphere 56.5533 -56.5533 56.5533 360
+  DetailRange [20 30 500 600]
+    Color 0.5 0.9 0.5
+    Sphere 56.5533 -56.5533 56.5533 360
+  DetailRange [500 600 1e+38 1e+38]
+    Color 0.9 0.5 0.5
+    Sphere 56.5533 -56.5533 56.5533 360
+AttributeEnd
+
+# Object "Kugel02"
+ConcatTransform [1.0 0.0 0.0 0  0.0 1.0 0.0 0  0.0 0.0 1.0 0  0.55703 299.946 0.0 1]
+AttributeBegin
+  Detail [-56.5533 56.5533 -56.5533 56.5533 -56.5533 56.5533]
+  DetailRange [0 0 20 30]
+    Color 0.5 0.5 0.9
+    Sphere 56.5533 -56.5533 56.5533 360
+  DetailRange [20 30 500 600]
+    Color 0.5 0.9 0.5
+    Sphere 56.5533 -56.5533 56.5533 360
+  DetailRange [500 600 1e+38 1e+38]
+    Color 0.9 0.5 0.5
+    Sphere 56.5533 -56.5533 56.5533 360
+AttributeEnd
+
+# Object "Kugel02"
+ConcatTransform [1.0 0.0 0.0 0  0.0 1.0 0.0 0  0.0 0.0 1.0 0  0.55703 299.946 0.0 1]
+AttributeBegin
+  Detail [-56.5533 56.5533 -56.5533 56.5533 -56.5533 56.5533]
+  DetailRange [0 0 20 30]
+    Color 0.5 0.5 0.9
+    Sphere 56.5533 -56.5533 56.5533 360
+  DetailRange [20 30 500 600]
+    Color 0.5 0.9 0.5
+    Sphere 56.5533 -56.5533 56.5533 360
+  DetailRange [500 600 1e+38 1e+38]
+    Color 0.9 0.5 0.5
+    Sphere 56.5533 -56.5533 56.5533 360
+AttributeEnd
+
+# Object "Kugel03"
+ConcatTransform [1.0 0.0 0.0 0  0.0 1.0 0.0 0  0.0 0.0 1.0 0  0.55703 602.297 0.0 1]
+AttributeBegin
+  Detail [-56.5533 56.5533 -56.5533 56.5533 -56.5533 56.5533]
+  DetailRange [0 0 20 30]
+    Color 0.5 0.5 0.9
+    Sphere 56.5533 -56.5533 56.5533 360
+  DetailRange [20 30 500 600]
+    Color 0.5 0.9 0.5
+    Sphere 56.5533 -56.5533 56.5533 360
+  DetailRange [500 600 1e+38 1e+38]
+    Color 0.9 0.5 0.5
+    Sphere 56.5533 -56.5533 56.5533 360
+AttributeEnd
+
+# Object "Kugel04"
+ConcatTransform [1.0 0.0 0.0 0  0.0 1.0 0.0 0  0.0 0.0 1.0 0  0.55703 893.699 0.0 1]
+AttributeBegin
+  Detail [-56.5533 56.5533 -56.5533 56.5533 -56.5533 56.5533]
+  DetailRange [0 0 20 30]
+    Color 0.5 0.5 0.9
+    Sphere 56.5533 -56.5533 56.5533 360
+  DetailRange [20 30 500 600]
+    Color 0.5 0.9 0.5
+    Sphere 56.5533 -56.5533 56.5533 360
+  DetailRange [500 600 1e+38 1e+38]
+    Color 0.9 0.5 0.5
+    Sphere 56.5533 -56.5533 56.5533 360
+AttributeEnd
+
+# Object "Kugel05"
+ConcatTransform [1.0 0.0 0.0 0  0.0 1.0 0.0 0  0.0 0.0 1.0 0  0.55703 1194.9 0.0 1]
+AttributeBegin
+  Detail [-56.5533 56.5533 -56.5533 56.5533 -56.5533 56.5533]
+  DetailRange [0 0 20 30]
+    Color 0.5 0.5 0.9
+    Sphere 56.5533 -56.5533 56.5533 360
+  DetailRange [20 30 500 600]
+    Color 0.5 0.9 0.5
+    Sphere 56.5533 -56.5533 56.5533 360
+  DetailRange [500 600 1e+38 1e+38]
+    Color 0.9 0.5 0.5
+    Sphere 56.5533 -56.5533 56.5533 360
+AttributeEnd
+
+# Object "Kugel06"
+ConcatTransform [1.0 0.0 0.0 0  0.0 1.0 0.0 0  0.0 0.0 1.0 0  0.55703 1516.28 0.0 1]
+AttributeBegin
+  Detail [-56.5533 56.5533 -56.5533 56.5533 -56.5533 56.5533]
+  DetailRange [0 0 20 30]
+    Color 0.5 0.5 0.9
+    Sphere 56.5533 -56.5533 56.5533 360
+  DetailRange [20 30 500 600]
+    Color 0.5 0.9 0.5
+    Sphere 56.5533 -56.5533 56.5533 360
+  DetailRange [500 600 1e+38 1e+38]
+    Color 0.9 0.5 0.5
+    Sphere 56.5533 -56.5533 56.5533 360
+AttributeEnd
+
+# Object "Kugel03"
+ConcatTransform [1.0 0.0 0.0 0  0.0 1.0 0.0 0  0.0 0.0 1.0 0  0.55703 602.297 0.0 1]
+AttributeBegin
+  Detail [-56.5533 56.5533 -56.5533 56.5533 -56.5533 56.5533]
+  DetailRange [0 0 20 30]
+    Color 0.5 0.5 0.9
+    Sphere 56.5533 -56.5533 56.5533 360
+  DetailRange [20 30 500 600]
+    Color 0.5 0.9 0.5
+    Sphere 56.5533 -56.5533 56.5533 360
+  DetailRange [500 600 1e+38 1e+38]
+    Color 0.9 0.5 0.5
+    Sphere 56.5533 -56.5533 56.5533 360
+AttributeEnd
+
+# Object "Kugel04"
+ConcatTransform [1.0 0.0 0.0 0  0.0 1.0 0.0 0  0.0 0.0 1.0 0  0.55703 893.699 0.0 1]
+AttributeBegin
+  Detail [-56.5533 56.5533 -56.5533 56.5533 -56.5533 56.5533]
+  DetailRange [0 0 20 30]
+    Color 0.5 0.5 0.9
+    Sphere 56.5533 -56.5533 56.5533 360
+  DetailRange [20 30 500 600]
+    Color 0.5 0.9 0.5
+    Sphere 56.5533 -56.5533 56.5533 360
+  DetailRange [500 600 1e+38 1e+38]
+    Color 0.9 0.5 0.5
+    Sphere 56.5533 -56.5533 56.5533 360
+AttributeEnd
+
+# Object "Kugel05"
+ConcatTransform [1.0 0.0 0.0 0  0.0 1.0 0.0 0  0.0 0.0 1.0 0  0.55703 1194.9 0.0 1]
+AttributeBegin
+  Detail [-56.5533 56.5533 -56.5533 56.5533 -56.5533 56.5533]
+  DetailRange [0 0 20 30]
+    Color 0.5 0.5 0.9
+    Sphere 56.5533 -56.5533 56.5533 360
+  DetailRange [20 30 500 600]
+    Color 0.5 0.9 0.5
+    Sphere 56.5533 -56.5533 56.5533 360
+  DetailRange [500 600 1e+38 1e+38]
+    Color 0.9 0.5 0.5
+    Sphere 56.5533 -56.5533 56.5533 360
+AttributeEnd
+
+# Object "Kugel06"
+ConcatTransform [1.0 0.0 0.0 0  0.0 1.0 0.0 0  0.0 0.0 1.0 0  0.55703 1516.28 0.0 1]
+AttributeBegin
+  Detail [-56.5533 56.5533 -56.5533 56.5533 -56.5533 56.5533]
+  DetailRange [0 0 20 30]
+    Color 0.5 0.5 0.9
+    Sphere 56.5533 -56.5533 56.5533 360
+  DetailRange [20 30 500 600]
+    Color 0.5 0.9 0.5
+    Sphere 56.5533 -56.5533 56.5533 360
+  DetailRange [500 600 1e+38 1e+38]
+    Color 0.9 0.5 0.5
+    Sphere 56.5533 -56.5533 56.5533 360
+AttributeEnd
+
+WorldEnd
+FrameEnd

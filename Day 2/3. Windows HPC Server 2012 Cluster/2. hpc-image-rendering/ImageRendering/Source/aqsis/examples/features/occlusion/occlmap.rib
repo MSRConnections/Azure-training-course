@@ -1,0 +1,119 @@
+version 3.03
+Hider "hidden" "string depthfilter" ["midpoint"]
+PixelSamples 1 1
+PixelFilter "box" 1 1
+ScreenWindow -15 15 -15 15
+Format 256 256 1
+Clipping 1 30
+FrameBegin 1
+Display "occlmap.sm" "shadow" "z" "string compression" ["lzw"]
+Transform [0.0 0.0 1.0 0.0 1.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 15.0 1.0]
+WorldBegin
+ReadArchive "world.rib"
+WorldEnd
+FrameEnd
+FrameBegin 2
+Display "occlmap.sm" "shadow" "z" "float append" [1.0] "string compression" ["lzw"]
+Transform [1.0 0.0 0.0 0.0 0.0 -0.831469612303 -0.55557023302 0.0 0.0 0.55557023302 -0.831469612303 0.0 0.0 8.881784197e-016 15.0 1.0]
+WorldBegin
+ReadArchive "world.rib"
+WorldEnd
+FrameEnd
+FrameBegin 3
+Display "occlmap.sm" "shadow" "z" "float append" [1.0] "string compression" ["lzw"]
+Transform [0.821397356799 0.274420083528 0.5 0.0 0.570356364253 -0.395205428378 -0.720073806729 0.0 0.0 0.876644903674 -0.481137935381 0.0 0.0 0.0 15.0 1.0]
+WorldBegin
+ReadArchive "world.rib"
+WorldEnd
+FrameEnd
+FrameBegin 4
+Display "occlmap.sm" "shadow" "z" "float append" [1.0] "string compression" ["lzw"]
+Transform [0.861773760164 -0.0857087293899 -0.5 0.0 -0.507292801342 -0.145599412824 -0.849384968487 0.0 0.0 0.985624078791 -0.168953174898 0.0 1.49880108324e-015 0.0 15.0 1.0]
+WorldBegin
+ReadArchive "world.rib"
+WorldEnd
+FrameEnd
+FrameBegin 5
+Display "occlmap.sm" "shadow" "z" "float append" [1.0] "string compression" ["lzw"]
+Transform [0.65419799021 -0.0975960532258 0.75 0.0 0.756323336679 0.0844177863836 -0.648728485375 0.0 1.38777878078e-017 0.991639373833 0.129040118813 0.0 3.05311331772e-016 0.0 15.0 1.0]
+WorldBegin
+ReadArchive "world.rib"
+WorldEnd
+FrameEnd
+FrameBegin 6
+Display "occlmap.sm" "shadow" "z" "float append" [1.0] "string compression" ["lzw"]
+Transform [0.955013206752 0.159529855921 -0.25 0.0 -0.296563273063 0.513728883896 -0.805066990331 0.0 2.77555756156e-017 0.842990426352 0.537928565033 0.0 -2.22044604925e-016 7.77156117238e-016 15.0 1.0]
+WorldBegin
+ReadArchive "world.rib"
+WorldEnd
+FrameEnd
+FrameBegin 7
+Display "occlmap.sm" "shadow" "z" "float append" [1.0] "string compression" ["lzw"]
+Transform [0.906849568257 -0.339299072431 0.25 0.0 0.421454458456 0.7300746526 -0.537928565033 0.0 -2.77555756156e-017 0.593183901568 0.805066990331 0.0 4.4408920985e-016 2.22044604925e-016 15.0 1.0]
+WorldBegin
+ReadArchive "world.rib"
+WorldEnd
+FrameEnd
+FrameBegin 8
+Display "occlmap.sm" "shadow" "z" "float append" [1.0] "string compression" ["lzw"]
+Transform [0.169562072786 0.639334578662 -0.75 0.0 -0.985519509433 0.109999746655 -0.129040118813 0.0 1.38777878078e-017 0.761019942093 0.648728485375 0.0 2.22044604925e-016 0.0 15.0 1.0]
+WorldBegin
+ReadArchive "world.rib"
+WorldEnd
+FrameEnd
+FrameBegin 9
+Display "occlmap.sm" "shadow" "z" "float append" [1.0] "string compression" ["lzw"]
+Transform [-0.107316855224 -0.472078481383 0.875 0.0 0.994224870231 -0.0509562570378 0.0944476960218 0.0 -6.93889390391e-018 0.880082591172 0.474820632151 0.0 2.77555756156e-016 -8.881784197e-016 15.0 1.0]
+WorldBegin
+ReadArchive "world.rib"
+WorldEnd
+FrameEnd
+FrameBegin 10
+Display "occlmap.sm" "shadow" "z" "float append" [1.0] "string compression" ["lzw"]
+Transform [-0.975238132214 0.18244337608 -0.125 0.0 -0.221157377167 -0.804520923526 0.55121275215 0.0 1.38777878078e-017 0.565208367005 0.824948181322 0.0 -2.22044604925e-016 1.11022302463e-016 15.0 1.0]
+WorldBegin
+ReadArchive "world.rib"
+WorldEnd
+FrameEnd
+FrameBegin 11
+Display "occlmap.sm" "shadow" "z" "float append" [1.0] "string compression" ["lzw"]
+Transform [-0.899226074656 -0.225316370154 0.375 0.0 0.437484247327 -0.463126058429 0.770792960103 0.0 0.0 0.857173720633 0.515027390199 0.0 6.66133814775e-016 8.881784197e-016 15.0 1.0]
+WorldBegin
+ReadArchive "world.rib"
+WorldEnd
+FrameEnd
+FrameBegin 12
+Display "occlmap.sm" "shadow" "z" "float append" [1.0] "string compression" ["lzw"]
+Transform [-0.774661307012 0.0963060715594 -0.625 0.0 -0.632376358998 -0.117974978359 0.765625264122 0.0 0.0 0.988335492159 0.152292333812 0.0 1.19348975147e-015 -1.11022302463e-016 15.0 1.0]
+WorldBegin
+ReadArchive "world.rib"
+WorldEnd
+FrameEnd
+FrameBegin 13
+Display "occlmap.sm" "shadow" "z" "float append" [1.0] "string compression" ["lzw"]
+Transform [-0.774661307012 0.0963060715594 0.625 0.0 0.632376358998 0.117974978359 0.765625264122 0.0 -1.38777878078e-017 0.988335492159 -0.152292333812 0.0 4.16333634234e-016 -1.11022302463e-016 15.0 1.0]
+WorldBegin
+ReadArchive "world.rib"
+WorldEnd
+FrameEnd
+FrameBegin 14
+Display "occlmap.sm" "shadow" "z" "float append" [1.0] "string compression" ["lzw"]
+Transform [-0.899226074656 -0.225316370154 -0.375 0.0 -0.437484247327 0.463126058429 0.770792960103 0.0 0.0 0.857173720633 -0.515027390199 0.0 4.4408920985e-016 -4.4408920985e-016 15.0 1.0]
+WorldBegin
+ReadArchive "world.rib"
+WorldEnd
+FrameEnd
+FrameBegin 15
+Display "occlmap.sm" "shadow" "z" "float append" [1.0] "string compression" ["lzw"]
+Transform [-0.975238132214 0.18244337608 0.125 0.0 0.221157377167 0.804520923526 0.55121275215 0.0 0.0 0.565208367005 -0.824948181322 0.0 0.0 5.55111512313e-017 15.0 1.0]
+WorldBegin
+ReadArchive "world.rib"
+WorldEnd
+FrameEnd
+FrameBegin 16
+Display "occlmap.sm" "shadow" "z" "float append" [1.0] "string compression" ["lzw"]
+Transform [-0.107316855224 -0.472078481383 -0.875 0.0 -0.994224870231 0.0509562570378 0.0944476960218 0.0 0.0 0.880082591172 -0.474820632151 0.0 -1.11022302463e-016 0.0 15.0 1.0]
+WorldBegin
+ReadArchive "world.rib"
+WorldEnd
+FrameEnd

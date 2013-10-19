@@ -1,0 +1,25 @@
+lightsource
+AQSIS_V 1.6.0
+
+
+segment Data
+
+USES 64
+
+param uniform  float intensity
+param uniform  color lightcolor
+
+
+segment Init
+	pushif 1
+	pop intensity
+	pushif 1
+	setfc
+	pop lightcolor
+
+
+segment Code
+	pushv lightcolor
+	pushv intensity
+	mulfc
+	pop Cl

@@ -1,4 +1,4 @@
-﻿# Use Microsoft HPC Pack to Create a Windows Azure Compute Cluster #
+# Use Microsoft HPC Pack to Create a Windows Azure Compute Cluster #
 
 
 
@@ -24,7 +24,7 @@ Here's how you do it:
 
    ![New affinity](new_affinity1.png)
 
-1. Enter the affinity name and select a region.  I prefer the West US region because that data center is relatively new.
+1. Enter the affinity name and select a region.
 
 1. Click the checkmark button to create the new affinity group.
 
@@ -76,6 +76,20 @@ We will create a Windows Server 2012 Datacenter VM from the Windows Server 2012 
 > 
 > Creating a VM in this way accomplishes several important tasks for you automatically.  First, a [virtual hard disk](http://technet.microsoft.com/en-us/library/dd979538.aspx) (VHD) file has been created for you in [blob storage](http://msdn.microsoft.com/en-us/library/windowsazure/ee691964.aspx).  When you create files in the VM, this is where they are actually stored.  Secondly, a cloud service has been created for you so you can reach your VM at http://your-vm-name.cloudapp.net/.
 > - - - - - - - - - - - - - - - - - - - - -
+
+1. If you want other machines can manage your cluster head node, you need to add an endpoint and open port 5800. Click the endpoint tab of the virtual machine.
+
+	![Add Endpoint](create_vm2.png)
+
+1. Click Add, Select "Add Standalone Endpoint".
+
+	![Add Endpoint](create_vm3.png)
+
+1. Input the endpoint name, protocol, public port and private port.
+
+	![Add Endpoint](create_vm4.png)
+
+1. Youd should also do the same steps for port 9893.
    
 ## Connect to the VM with Remote Desktop Connection ##
 
@@ -120,7 +134,7 @@ We need a new Active Directory forest for your compute cluster.  In fact, Micros
 
    Internet Explorer Enhanced Security Configuration places your server and Internet Explorer in a configuration that decreases the exposure of your server to potential attacks that can occur through Web content and application scripts. This is a good thing for servers, but unfortunately it makes IE effectively unusable on the Internet at large.  We have to disable this feature or we won't be able to download HPC Pack from the Microsoft website.  You can learn more about Enhanced Security Configuration [in this Technet article](http://technet.microsoft.com/en-us/library/dd883248.aspx).
    
-1. Once IE ESC is disabled, open Internet Explorer and go to http://www.microsoft.com/en-us/download/details.aspx?id=36054.  Click **Download** and then click **Save** to begin the download.  The file is almost 2GB large, so continue to the next step and install Active Directory while the transfer completes.
+1. Once IE ESC is disabled, open Internet Explorer and go to [http://www.microsoft.com/en-us/download/details.aspx?id=36054](http://www.microsoft.com/en-us/download/details.aspx?id=36054).  Click **Download** and then click **Save** to begin the download.  The file is almost 2GB large, so continue to the next step and install Active Directory while the transfer completes.
    
    ![HPC Pack Download](hpcpack_download.png)
 
@@ -162,6 +176,9 @@ While you're waiting for HPC Pack to download to the VM, we'll go ahead and inst
 1. Click **Install** to begin the installation process.  This will take several minutes, so go grab a coffee or check your e-mail or something.  Note that you may be disconnected from the VM when it restarts.  Don't worry, if you get disconnected just double-click the RDP file we downloaded earlier to reconnect.
 
 1.  Click **Close** to close the installation progress window.
+   
+   ![Close](add_roles8.png)
+ 
 
 ## Promote the Server to a Domain Controller ##
 
@@ -327,7 +344,7 @@ We need a Windows Azure management certificate to authenticate the HPC cluster h
 
    ![MakeCert](makecert3.png)
    
-## Create Cloud and Storage Services for Azure Compute Nodes ##
+## Create Cloud Service Azure Compute Nodes ##
 
 1. Log in to the [Windows Azure Management Portal](https://manage.windowsazure.com).
 
@@ -338,15 +355,6 @@ We need a Windows Azure management certificate to authenticate the HPC cluster h
 1. Enter the URL and click **Create Cloud Service**
 
    ![Nodes](paratools01nodes.png)
-
-1. Again, click on **New** in the bottom panel.
-
-1. Click on **Data Services**, **Storage**, **Quick Create**
-
-1. Enter the URL and click **Create Storage Account**
-
-   ![Nodes](paratools_storage.png)
-
 
 ## Configure Microsoft HPC Pack ##
 
@@ -401,6 +409,7 @@ We need a Windows Azure management certificate to authenticate the HPC cluster h
 1. On the Subscription Information tab, copy your subscription ID and the management certificate fingerprint into their respective boxes and click **Next**.  You can find this information on the **Setting** tab of the Windows Azure Management Portal.  Be careful to copy the subscription ID and certificate fingerprint in full!  You may need to resize the columns in the management portal to see the whole field.
 
    ![Config HPC Pack](config_hpc11.png)
+
    ![Config HPC Pack](config_hpc12.png)
    
 1. In the Service name drop-down box, select the cloud service we created earlier.  Similarly, select the storage service we created earlier in the Storage account name drop-down.  Click **Next**.
@@ -411,6 +420,35 @@ We need a Windows Azure management certificate to authenticate the HPC cluster h
 
 1. Click **Create** to create the node template.
 
+
+## Create nodes ##
+1. We can create some nodes manually. Click _Node Management_ tab and _Add Node_ on the right.
+
+	![Add Node](add-node1.png)  
+
+1.  In the Select Deployent Method tab, select _Add Windows Azure nodes_.
+
+	![Windows Azure nodes](add-node2.png)  
+
+1. Then we choose the Windows Azure node template, number of Windows Azure nodes and the size of the node.
+
+	![Choose Windows Azure Node Type](add-node3.png)
+
+1. Then click Finish. You will see those nodes are not deployed. We can sleect those nodes, right click _Start_.
+
+	![Start Nodes](add-node4.png)
+
+1. In the Start Windows Azure Nodes window, just select the node template and click Start button.
+
+	![Start Nodes](add-node5.png)
+
+1. Then the cluster manager will provision those 3 machines in pre-configurated cloud service.
+
+	![Provision Nodes](add-node6.png)
+	
+1. Let's goto the Windows Azure Management Portal, and we can see hpc worker machines and proxy machines are being deployed in the cloud service.
+	
+	![Deployment on Azure](add-node7.png)
 ## Summary ##
 
 **Congratulations!** You have successfully installed Microsoft HPC Pack on a Windows Azure Virtual Machine and are ready to deploy computing clusters on Windows Azure.

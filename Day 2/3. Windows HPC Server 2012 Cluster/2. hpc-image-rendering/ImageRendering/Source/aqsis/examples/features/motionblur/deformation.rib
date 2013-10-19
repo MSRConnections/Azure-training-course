@@ -1,0 +1,165 @@
+Format 480 360 1
+PixelSamples 4 4
+ShadingRate 2
+PixelFilter "gaussian" 2 2
+Shutter 0 1
+
+FrameBegin 0
+Display "deformation.tif" "file" "rgba"
+Display "+deformation.tif" "framebuffer" "rgba"
+Option "limits" "bucketsize" [32 32]
+Option "statistics" "endofframe" [3]
+
+Projection "perspective" "fov" [32.0]
+
+Translate 0 0 4
+
+WorldBegin
+Surface "matte"
+LightSource "pointlight" 0 "intensity" [50] "from" [0 2 -10]
+LightSource "pointlight" 1 "intensity" [50] "from" [10 0 -10]
+LightSource "pointlight" 1 "intensity" [50] "from" [-10 0 -10]
+
+TransformBegin
+	Translate 0 0.5 3
+	# Row 1
+	TransformBegin
+		Translate 0 0.5 0
+		# Subdivision Surface
+		AttributeBegin
+			Attribute "identifier" "name" ["Subdivision Surface"]
+			Scale 2 2 2
+			Translate -0.75 0 0
+			MotionBegin [0 1]
+				SubdivisionMesh "catmull-clark" [3 3 3 3] [0 1 3  1 2 3  2 0 3  2 1 0] 
+					"P" [1 0.0 0.0  -0.5 1 0.0  -0.5 -1 0.0  0.0 0.0 1] 
+				SubdivisionMesh "catmull-clark" [3 3 3 3] [0 1 3  1 2 3  2 0 3  2 1 0] 
+					"P" [1 0.0 0.0  -0.5 1.5 0.0  -0.5 -1 0.0  0.0 0.0 1] 
+			MotionEnd
+		AttributeEnd
+
+		# Sphere
+		AttributeBegin
+			Attribute "identifier" "name" ["Sphere"]
+			Translate -0.5 0 0
+			MotionBegin [0 1]
+				Sphere 0.5 -0.5 0.5 360
+				Sphere 0.4 -0.4 0.4 270
+			MotionEnd
+		AttributeEnd
+
+		# Cylinder
+		AttributeBegin
+			Attribute "identifier" "name" ["Cylinder"]
+			Translate 0.5 0 1
+			Rotate 90 1 0 0
+			MotionBegin [0 1]
+				Cylinder 0.5 -0.5 0.5 360
+				Cylinder 0.4 -0.2 0.5 270
+			MotionEnd
+		AttributeEnd
+
+		# Cone
+		AttributeBegin
+			Attribute "identifier" "name" ["Cone"]
+			Translate 1.5 -0.5 0
+			Rotate -90 1 0 0
+			MotionBegin [0 1]
+				Cone 1 0.5 360
+				Cone 0.5 0.4 270
+			MotionEnd
+		AttributeEnd
+	TransformEnd
+
+	# Row 2
+	TransformBegin
+		Translate 0.25 -0.5 0
+		# Hyerboloid
+		AttributeBegin
+			Attribute "identifier" "name" ["Hyerboloid"]
+			Translate -1.5 0 0
+			Rotate -90 1 0 0
+			MotionBegin [0 1]
+				Hyperboloid 0 0.5 -0.25 0.5 0 0.25 360
+				Hyperboloid 0 0.3 -0.25 0.3 0 0.25 260
+			MotionEnd
+		AttributeEnd
+
+		# Paraboloid
+		AttributeBegin
+			Attribute "identifier" "name" ["Paraboloid"]
+			Translate -0.75 -0.25 0
+			Rotate -90 1 0 0
+			MotionBegin [0 1]
+				Paraboloid .25 0 .5 360
+				Paraboloid .35 0 .4 230
+			MotionEnd
+		AttributeEnd
+
+		# Disk
+		AttributeBegin
+			Attribute "identifier" "name" ["Disk"]
+			MotionBegin [0 1]
+				Disk 0 0.5 360
+				Disk 0 0.25 270
+			MotionEnd
+		AttributeEnd
+
+		# PointsPolygons
+		AttributeBegin
+			Attribute "identifier" "name" ["PointsPolygons"]
+			Translate 1 0 0
+			Scale 0.75 0.75 1
+			MotionBegin [0 1]
+				PointsPolygons [3 3] [0 1 2  0 2 3] "P" [ -0.5 -0.5 0  -0.5 0.5 0  0.5 0.5 0  0.5 -0.5 0 ]
+				PointsPolygons [3 3] [0 1 2  0 2 3] "P" [  0.0  0.0 0  -0.5 0.5 0  0.5 0.5 0  0.5 -0.5 0 ]
+			MotionEnd
+		AttributeEnd
+	TransformEnd
+
+	#Row 3
+	TransformBegin
+		Translate 0 -1.5 0
+		# Points
+		AttributeBegin
+			Attribute "identifier" "name" ["Points"]
+			Translate -1.5 0 0
+			MotionBegin [0 1]
+				Points "P" [ -0.5 -0.5 0  -0.5 0.5 0  0.5 0.5 0  0.5 -0.5 0 ] "width" [0.1 0.1 0.1 0.1]
+				Points "P" [ -0.5 -0.0 0  -0.0 0.5 0  0.5 0.0 0  0.0 -0.5 0 ] "width" [0.2 0.2 0.2 0.2]
+			MotionEnd
+		AttributeEnd
+	TransformEnd
+
+	TransformBegin
+		Translate 0 -1.5 0
+		# Linear Curves
+		AttributeBegin
+			Attribute "identifier" "name" ["Linear Curves"]
+			Translate -0.5 0 0
+			MotionBegin [0 1]
+				Curves "linear" [ 2 ] "nonperiodic" "P" [ 0 0 0 1 0 0 ] "constantwidth" [ 0.1 ]
+				Curves "linear" [ 2 ] "nonperiodic" "P" [ 0 1 0 1 0 0 ] "constantwidth" [ 0.1 ]
+			MotionEnd
+		AttributeEnd
+	TransformEnd
+
+	TransformBegin
+		Translate 0 -1.5 0
+		# Cubic Curves
+		AttributeBegin
+			Attribute "identifier" "name" ["Cubic Curves"]
+			Translate -0.5 0.2 0
+			MotionBegin [0 1]
+				Curves "cubic" [ 4 ] "nonperiodic" "P" [ 0 0 0 0.333 0 0 0.666 0 0 1 0 0 ] "constantwidth" [ 0.1 ]
+				Curves "cubic" [ 4 ] "nonperiodic" "P" [ 0 -1 0 0.333 -0.5 0 0.666 -0.5 0 1 0 0 ] "constantwidth" [ 0.1 ]
+			MotionEnd
+		AttributeEnd
+	TransformEnd
+
+TransformEnd
+
+WorldEnd
+
+FrameEnd
+
