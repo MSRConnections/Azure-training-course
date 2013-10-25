@@ -9,9 +9,9 @@ from collections import defaultdict
 import time
 
 #put your account name and key here
-account = 'trainingdemostorage'
-key = 'mdJnNXPYS1cC5T4pf+9yva/UJ64sU1giJQ0clXoWHszU6i3sS3CZVmQaHctL1VbE9I7HeOODPv5HXTqVYY52nQ=='
-containername = 'samplecontainer'
+account = '<your storage account>'
+key = '<your access key>'
+containername = '<your containername>'
 
 #get a handle to your account
 blob_service = BlobService(account_name=account, account_key=key)
@@ -64,7 +64,7 @@ table_service = TableService(account_name=account, account_key=key)
 table_name = 'diamondtable';
 
 #delete the table for temporary data
-result = table_service.delete_table(table_name)
+#result = table_service.delete_table(table_name)
 
 # create a new table to save all entities.
 result = table_service.create_table(table_name)
