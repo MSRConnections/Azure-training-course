@@ -153,11 +153,11 @@ All software has been installed on your machine, next we setup to connect to Win
 
 	````CommandPrompt
 	cd [Your Putty Folder]
-	[Your Putty Folder]\pscp.exe -p [username]@[dns name]:/home/[username]/mycert.cer mycert.cer
-	[Your Putty Folder]\pscp.exe -p [username]@[dns name]:/home/[username]/mycert.pem mycert.pem
+	[Your Putty Folder]\pscp.exe -p [username]@[DNSName]:/home/[username]/mycert.cer mycert.cer
+	[Your Putty Folder]\pscp.exe -p [username]@[DNSName]:/home/[username]/mycert.pem mycert.pem
 	````
 
-	Just replace [Your Putty Folder],[username] and [dns name].
+	Just replace [Your Putty Folder],[username] and [DNSName].
 
 	![Donwload cer file](images/download-cer-file.png)
 
@@ -225,7 +225,7 @@ _IPython Notebook Spectral_
 	Then we run following command in Comand line:
 	
 	````CommandPrompt
-	"[You Putty Folder]\pscp.exe" -r [Source\Ex02 filder] * [username]@[dns name]:/home/[username]/Ex02-DeployIPython
+	"[You Putty Folder]\pscp.exe" -r "[Source\Ex02 filder]\*" [username]@[DNSName]:/home/[username]/Ex02-DeployIPython
 	````
 
 	![Copy files](images/copy-files-remote.png)

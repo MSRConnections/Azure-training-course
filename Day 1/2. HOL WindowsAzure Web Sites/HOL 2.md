@@ -100,12 +100,28 @@ Next we are going to create a Django website and show some earthquake informatio
 
 	_Download Python_
 
-1. Then you need to download the lastest version of [Django](https://www.djangoproject.com/).You also need to download the official release and follow the installation [instructions](https://docs.djangoproject.com/en/1.5/topics/install/#installing-official-release) to ensure it works on your machine.
-
+1. Then you need to download the lastest version of [Django](https://www.djangoproject.com/). The latest version is [Django 1.6](https://www.djangoproject.com/download/1.6/tarball/)
 
 	![Download Django](images/download-django.png)
 
 	_Download Django_
+
+	After you have downloaded the package, unzip the package and run the following command to install:
+
+	On Windows, use winzip or winrar to extract the file Django-1.6.tar.gz:
+
+	````CommandPrompt		
+		cd "[The folder where you extract the Django-1.6.tar.gz]"
+		"[Python Install Folder]\python.exe" setup.py install
+	````
+
+	On Linux or Mac, just use tar to unzip the file.
+
+	````Linux		
+		tar xzvf Django-1.6.tar.gz
+		cd Django-1.6
+		sudo python setup.py install
+	````
 	
 1. Launch your Command Line Tool on Windows or Terminal on MacOS and navigate to a local directory under which you will create your Django web site. Use the following command to create a skeleton of a Django application called *DjangoApplication*.
 
