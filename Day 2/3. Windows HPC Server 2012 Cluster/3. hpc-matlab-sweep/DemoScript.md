@@ -1,4 +1,4 @@
-﻿# Parametric Sweep with MATLAB and Microsoft HPC Pack #
+# Parametric Sweep with MATLAB and Microsoft HPC Pack #
 
 In this example we'll show you how to perform a parametric sweep with MATLAB on a compute cluster of Windows Azure nodes.  The basic approach is to compile your MATLAB code (.m files) into a Windows binary executable that accepts the node ID as a command line argument, then use Microsoft HPC Pack to create and launch a parametric sweep job that runs the compiled MATLAB across the cluster.
 
@@ -13,11 +13,8 @@ It has a global minimum at (x, y) = (1, 1) where f(x, y) = 0, but we're going to
 
 ## Compile MATLAB Code Into an Executable ##
 
-1. Download the training materials from https://github.com/jlinford/azuretraining/archive/master.zip to your MATLAB workstation.  
 
-1. Extract master.zip to create the azuretraining-master folder.
-
-1. Open azuretraining-master\hpc-matlab-sweep\sweep in Explorer and double-click **make.m** to open it in the MATLAB file editor.
+1. Open \sweep in Explorer and double-click **make.m** to open it in the MATLAB file editor.
 
    ![Explorer](doc/explorer1.png)
 

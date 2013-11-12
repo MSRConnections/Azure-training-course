@@ -1,4 +1,4 @@
-﻿# Parametric Sweep with R and Python #
+# Parametric Sweep with R and Python #
 
 This example uses a combination of R and Python to download data about baby names in the USA and calculate the percentage of babies per year with a name in the top 100 names of that year.  The calculation is done in parallel with a parametric sweep job.  The output looks something like this:
 
@@ -7,10 +7,6 @@ This example uses a combination of R and Python to download data about baby name
 ## Download Example Code ##
 
 1. Open a Remote Desktop Connection to the head node.  Log in with the username and password you set when you created the VM, **not** the domain user you created before installing HPC Pack.  This will simplify the process later on.
-
-1. Download the training materials from https://github.com/jlinford/azuretraining/archive/master.zip to the head node.  
-
-1. Extract master.zip to create the azuretraining-master folder.  The example files are in azuretraining-master\hpc-r-sweep
 
 
 ## Install the Azure Command Line Interface ##
