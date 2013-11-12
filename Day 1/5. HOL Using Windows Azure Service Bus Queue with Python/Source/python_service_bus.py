@@ -1,4 +1,4 @@
-#The file will send a new task to a sample NCBI BLAST Windows Azure Cloud Service (http://azure4research-blast.cloudapp.net/)
+#The file will send a new task to a sample NCBI BLAST Windows Azure Cloud Service (http://blast2.cloudapp.net/)
 #It is a sample file for "Azure 4 Research" Training.
 
 
@@ -12,8 +12,8 @@ import json
 
 #define service namespace, account key and issuer
 #we have already defined it for you
-servicenamespace = 'sb-azure4research-blast'
-accountkey = 'aC7HfbvW8t7+851wyCEI8DinXg2KTS1voDb2yqyUZZ8='
+servicenamespace = 'blast2-ns'
+accountkey = 'XpHbdRgNEEodWLiKct7Nc6PrXKn9TGN6KYOIFHygxZw='
 issuer = 'owner'
 queue_name='JobQueue'
 
