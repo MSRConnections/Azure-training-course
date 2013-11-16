@@ -23,6 +23,7 @@ In this hands-on lab, you will learn how to:
 The following is required to complete this hands-on lab:
 
 - A Windows Azure subscription - [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
+- If you are a Mac Computer user, please install Windows Remote desktop 8.0 from the  [App Store.](https://itunes.apple.com/us/app/microsoft-remote-desktop/id715768417?mt=12&v0=WWW-NAUS-ITUHOME-NEWAPPLICATIONS&ign-mpt=uo%3D2)
 
 ---
 <a name="Exercises"></a>
@@ -83,7 +84,7 @@ Estimated time to complete this lab: **60** minutes.
 	
 	_Successfully Create Windows Virtual Machine_
 
-1. Click the **Connect** button, you will download an rdp file. Open the rdp file on your windows machine and connect to the vm on Windows Azure we just created.
+1. Click the **Connect** button, you will download an rdp file. Open the rdp file on your windows machine and connect to the vm on Windows Azure we just created.  If you are using a **Mac computer**, please make sure you have Windows Remote Desktop Version 8 or higher installed from the [App Store.](https://itunes.apple.com/us/app/microsoft-remote-desktop/id715768417?mt=12&v0=WWW-NAUS-ITUHOME-NEWAPPLICATIONS&ign-mpt=uo%3D2)
 
 	![Connect Windows Virtual Machine](images/vm-windows-connect-1.png)
 	
