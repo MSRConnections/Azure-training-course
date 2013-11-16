@@ -226,7 +226,7 @@ Image registration is fast, but be sure to wait until it completes before beginn
 
 	_Set Linux Cloud Service Information_
 
-1. We will also need to setup the endpoints information. According to the image description, we will know that the image's publisher, platform, packages and required endpoints. We will add public port 443 mapping to private port 8888 and add 80/4404 to public ports.
+1. We will also need to setup the endpoints information. According to the image description, we will know that the image's publisher, platform, packages and required endpoints. We will add public port 443 mapping to private port 8888 and add 80/4040 to public ports.
 	
 	![Set Linux Endpoints](images/vm-linux-set-endpoints.png)
 
