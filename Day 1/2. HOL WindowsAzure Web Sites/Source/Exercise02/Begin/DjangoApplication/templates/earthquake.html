@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>Earthquake Locations</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+    <script type="text/javascript">
+        var map = null;
+
+        function getMap() {
+            map = new Microsoft.Maps.Map(document.getElementById('myMap'), { credentials: 'get a basic key from www.bingmapsportal.com' });
+        }
+
+        function addPushpins() {
+            //Get data
+            var ll = eval(document.getElementById("mapdata").value);
+            for (var i = 0; i < ll.length; i++) {
+                var pushpin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(ll[i][0], ll[i][1]), null);
+                map.entities.push(pushpin);
+            }
+
+        }
+
+    </script>
+</head>
+<body onload="getMap();">
+    <div id='myMap' style="position: relative; width: 1024px; height: 500px;"></div>
+    <div>
+        <input type="hidden" id="mapdata" value="{{ content }}" />
+        <input type="button" value="Show EarthQuake" onclick="addPushpins();" />
+    </div>
+</body>
+</html>

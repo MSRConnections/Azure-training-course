@@ -86,7 +86,16 @@ Estimated time to complete this lab: **45** minutes.
 	![View Django Site](images/view-django-site.png)
 
 	_View Django Site_
+
+1. Next, you need to reset your website's credential. Web Site credentials are separated from the Microsoft ID associated with your Windows Azure subscription. Web Site credentials are valid for use with all Windows Azure web sites associated with your subscription. If you don't know your deployment credentials you can easily reset them using the management portal. Open the web site **Dashboard** page and click the **Reset deployment credentials** link. Provide a new password and click Ok.
+
 	
+	![Entering the username and password](images/deployment-credentials.png)
+	
+	_Entering the username and password_
+	
+	>**Note:** Don't forget to write your username and password on a paper. If you forget the password, you have to reset the credential again.
+
 
 <a name="#Exercise2"></a>
 
@@ -94,103 +103,30 @@ Estimated time to complete this lab: **45** minutes.
 
 Next we are going to create a Django website and show some earthquake information on a map using Bing Maps. First we need to install Python and Django on your local machine.
 
-1. Download Python from [Python Website](http://www.python.org/) and install Python 2.7.5 to your local machine. 
+1. Open the folder **Azure-training-course\Day 1\2. HOL WindowsAzure Web Sites\Source\Exercise02\Begin**, There is an existing Django project. Let's check all those files.
 
-	![Download Python](images/download-python.png)
-
-	_Download Python_
-
-1. Then you need to download the lastest version of [Django](https://www.djangoproject.com/). The latest version is [Django 1.6](https://www.djangoproject.com/download/1.6/tarball/)
-
-	![Download Django](images/download-django.png)
-
-	_Download Django_
-
-	After you have downloaded the package, unzip the package and run the following command to install:
-
-	On Windows, use winzip or winrar to extract the file Django-1.6.tar.gz:
-
-	````CommandPrompt		
-		cd "[The folder where you extract the Django-1.6.tar.gz]"
-		"[Python Install Folder]\python.exe" setup.py install
-	````
-
-	On Linux or Mac, just use tar to unzip the file.
-
-	````Linux		
-		tar xzvf Django-1.6.tar.gz
-		cd Django-1.6
-		sudo python setup.py install
-	````
+1. There is a file *manage.py* and a folder *DjangoApplication* under the *Begin* folder. manage.py is a command-line utility that lets you interact with this Django project in various ways. We don't need to change anything of the file.
+ 
+1. In the *DjangoApplication* folder, there are 5 files: *\__init__.py*, *settings.py*, *urls.py*, *wsgi.py* and *view.py*. There is a folder *templates* with an html file *earthquake.html* inside. The DjangoApplication/ directory is the actual Python package for your project. Its name is the Python package name you’ll need to use to import anything inside it (e.g. DjangoApplication.urls).
 	
-1. Launch your Command Line Tool on Windows or Terminal on MacOS and navigate to a local directory under which you will create your Django web site. Use the following command to create a skeleton of a Django application called *DjangoApplication*.
-
-	If you are using Mac or Linux, then just run
-	
-	````CommandPrompt
-		django-admin.py startproject DjangoApplication
-	````
-	
-	or
-	
-	````CommandPrompt
-		python $(path to scripts folder)\django-admin.py startproject DjangoApplication
-	````
-
-    If on Windows, it might be:
-
-	````CommandPrompt
-		python C:\Python27\Scripts\django-admin.py startproject DjangoApplication
-	````
-
-	After the command is executed, there is output but you can see a new folder *DjangoApplication* is created under your current folder.
-
-	On Windows, open the folder and you will see a typical django website structure.
-
-	![Django Website](images/django-application-website.png)
-
-	_Django Website Top-Level Folder_
-
-	![Django Website](images/django-application-website-2.png)
-
-	_Django Website Application Files_
-	
-	If you are on MacOS
-	
-	![Django Website](images/django-application-website-mac.png)
-
-	_Django Website Top-Level Folder_
-
-	![Django Website](images/django-application-website-mac-2.png)
-
-	_Django Website Application Files_
-
-	
-	There is a file *manage.py* and another folder *DjangoApplication* under the *DjangoApplication* folder. In the internal *DjangoApplication* folder, there are 4 files: *\__init__.py*, *settings.py*, *urls.py*, and *wsgi.py*.
-
-	Quoting from the [tutorial from the official Django Project documention](https://docs.djangoproject.com/en/1.4/intro/tutorial01/):
-
-	- The outer DjangoApplication/ root directory is just a container for your project. Its name doesn’t matter to Django; you can rename it to anything you like.
-	- manage.py: A command-line utility that lets you interact with this Django project in various ways. You can read all the details about manage.py in django-admin.py and manage.py.
-	- The inner DjangoApplication/ directory is the actual Python package for your project. Its name is the Python package name you’ll need to use to import anything inside it (e.g. DjangoApplication.urls).
 	- DjangoApplication/\__init__.py: An empty file that tells Python that this directory should be considered a Python package. (Read more about packages in the official Python docs if you’re a Python beginner.)
 	- DjangoApplication/settings.py: Settings/configuration for this Django project. Django settings will tell you all about how settings work.
 	- DjangoApplication/urls.py: The URL declarations for this Django project; a “table of contents” of your Django-powered site. You can read more about URLs in URL dispatcher.
 	- DjangoApplication/wsgi.py: An entry-point for WSGI-compatible web servers to serve your project. See How to deploy with WSGI for more details.
+	- DjangoApplication/view.py: The code to load the earthquake.html file from the template and show the earthquake page.
+	- templates\earthquake.html: The html template file to show the earthquake locations.
 
-1. Next let's change some code to show the earthquake information. You can find the final source code from **Source\Exercise02\DjangoApplication**. First we need to create a new folder **templates** under the sub *DjangoApplication* folder and copy the **earthquake.html** into it. The file is under the same folder of **Source\Exercise02\DjangoApplication**.
-
-1. Open file file **settings.py**. Add the following code on the top:
+1. Open file file **settings.py**. Uncommment the following code at the top of the file.
 	
 	````Python	
 		import os	
 	````
 
-	Add **templates** folder into existing TEMPLATE_DIRS section. Ensure you didn't forget to add the comma at the end of the line.
+	Find the TEMPLATE_DIRS section in **settings.py**, uncomment the last line to load template.
 
 	![settings.py](images/python-template-dirs.png)
 
-	_Line to add to existing **TEMPLATE_DIRS** section in settings.py_
+	_settings.py modification_
 
 	````Python	
 		TEMPLATE_DIRS = (
@@ -202,17 +138,17 @@ Next we are going to create a Django website and show some earthquake informatio
 	````
 	_Final **TEMPLATE_DIRS** section after edits_
 
-1. Next we will add the url redirect to **urls.py** file. First, add *from DjangoApplication.view import earthquake* near the top of the file, as shown, to reference a new view called earthquake (that we will create soon). Second, add *('^earthquake/$',earthquake),* to the patterns section so that web routing to our new view will be recognized.
+1. Next we will add the url redirect to **urls.py** file. First, uncomment *from DjangoApplication.view import earthquake* near the top of the file, as shown, to reference a new view called earthquake (that we will create soon). Second, uncomment the line *('^earthquake/$',earthquake),* to the patterns section so that web routing to our new view will be recognized.
 
 	````Python
-		from DjangoApplication.view import earthquake # NEW
+		from DjangoApplication.view import earthquake # uncomment the line to support earthquake view
 
 		urlpatterns = patterns('',
 		    # Examples:
 		    # url(r'^$', 'DjangoApplication.views.home', name='home'),
 		    # url(r'^DjangoApplication/', include('DjangoApplication.DjangoApplication.urls')),
 
-		    url('^earthquake/$',earthquake), # NEW
+		    url('^earthquake/$',earthquake), # uncomment the line to support earthquake view
 
 		    # Uncomment the admin/doc line below to enable admin documentation:
 		    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
@@ -221,31 +157,31 @@ Next we are going to create a Django website and show some earthquake informatio
 		    # url(r'^admin/', include(admin.site.urls)),
 		)	
 	````
-	_Add two lines to urls.py_
+	_Change two lines to urls.py_
 
-1. Next we will create a new **view.py** file and add some python code. The code will download an earthquake csv file from [Earthquake Hazards Program](http://earthquake.usgs.gov) and show 20 recent earthquakes on your Django website using a Bing Map.
+1. Next we will open the file **view.py** and read python code there. The code will download an earthquake csv file from [Earthquake Hazards Program](http://earthquake.usgs.gov) and show 20 recent earthquakes on your Django website using a Bing Map.
 
 	The first part of the code is to load required libraries including django, urllib and csv.
 
 	````Python
-from django.http import HttpResponse
-from django.template.loader import get_template
-from django.template import Template, Context
-from django.http import HttpResponse
-import urllib
-import csv
-import string
+		from django.http import HttpResponse
+		from django.template.loader import get_template
+		from django.template import Template, Context
+		from django.http import HttpResponse
+		import urllib
+		import csv
+		import string
 	````
 
 	Next we define a function **earthquake** that will be invoked when our web page is accessed. In this function, we will load the earthquake information and download the data locally. Finally, it will render the predefined template and show earthquake locations.
 	
 	````Python
-def earthquake(request):
-	    #load the earthquake data from internet
-	    csvgps = urllib.urlopen("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_month.csv")
-	    f = csvgps.read();
-	    with open('csvgps.csv','w') as temp:
-	        temp.write(f)
+		def earthquake(request):
+			    #load the earthquake data from internet
+			    csvgps = urllib.urlopen("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_month.csv")
+			    f = csvgps.read();
+			    with open('csvgps.csv','w') as temp:
+			        temp.write(f)
 	````
 	
 	Continuing the same *earthquake* function, we now use csv library to parse the earthquake latitude, longitude and magnitude from the data file.
@@ -299,18 +235,12 @@ You can use the same Microsoft account you used to login to the Windows Azure po
 
 1. Connect to the FTP publishing service by FileZilla. You can download and install FileZilla to manage all your folders. FileZilla is a free ftp solution. The client version can be downloaded from [here](https://filezilla-project.org/). It has Windows and Mac version. The UI is almost exactly the same. 
 
-	Provide the **Host Name**, **User Name** and **Password** of your deployment credentials. The **Host Name** is available from the Dashboard in the portal under FTP HOST NAME (or FTPS HOST NAME) and will look something like _ftp://waws-prod-blu-001.ftp.azurewebsites.windows.net_. Make sure that the **User Name** is prefixed by the **Web Site** name (e.g. **mydiangowebsite1\trainingwebsiteuser**) 
+	Provide the **Host Name**, **User Name** and **Password** of your deployment credentials. The **Host Name** is available from the Dashboard in the portal under FTP HOST NAME (or FTPS HOST NAME) and will look something like _ftp://waws-prod-blu-001.ftp.azurewebsites.windows.net_. Make sure that the **User Name** is prefixed by the **Web Site** name (e.g. **mydiangowebsite1\trainingwebsiteuser**). The password is you wrote down in the Exercies 1.
 
 	![Use FileZilla](images/use-filezilla.png) 
 
 	_Use FileZilla_
-
-	> **Note:** Web Site credentials are separate from the Microsoft ID associated with your Windows Azure subscription. Web Site credentials are valid for use with all Windows Azure web sites associated with your subscription. If you don't know your deployment credentials you can easily reset them using the management portal. Open the web site **Dashboard** page and click the **Reset deployment credentials** link. Provide a new password and click Ok.
-
-	>
-	>![Entering the username and password](images/deployment-credentials.png)
-	>
-	>_Entering the username and password_
+	
 
 1. Click **Quick Connect** and Upload all files using the FileZilla.Use FileZilla to upload the subfolder **DjangoApplication** to **site/wwwroot** folder. You can overwrite the server files.
 
@@ -325,6 +255,8 @@ You can use the same Microsoft account you used to login to the Windows Azure po
 	![Earthquake Locations](images/earthquake-locations.png)
 
 	_Earthquake Locations_ 
+
+1. The final result is under **Azure-training-course\Day 1\2. HOL WindowsAzure Web Sites\Source\Exercise02\End**. If you meet some issues when viewing the page, just compoare files you uploaded with the files under **End** folder.
 
 ---
 
