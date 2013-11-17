@@ -5,14 +5,14 @@
 <a name="Overview"></a>
 ## Overview ##
 
-In this hands-on lab you will learn to deploy an IPython notebook cluster on Windows Azure. You will also execute the Monte Carlo simulation with IPython Notebook on the cluster you created on Windows Azure.
+In this hands-on lab you will learn to deploy an IPython notebook cluster on Windows Azure. You will also execute the Monte Carlo simulation example with IPython Notebook on the cluster you created on Windows Azure.
 
 <a name="Objectives"></a>
 ### Objectives ###
 
 In this hands-on lab, you will learn how to:
 
-- Provision virtual machines with Python.
+- Provision a Linux virtual machine cluster with Python.
 - Deploy IPython notebook on your virtual machines.
 - Run Monte Carlo Simulation on Ipython Notebook on Windows Azure.
 
@@ -39,7 +39,9 @@ Estimated time to complete this lab: **60** minutes.
 <a name="#Exercise1"></a>
 ### Excercise 1: Build an Environment to manage Windows Azure with Python  ###
 
-First, you will need to deploy required software on your linux machine. You are going to install git, Python 2.7, workerpool and paramiko, then you will connect Windows Azure by Python with some configuration. 
+First, you will need to deploy required software on your linux machine. You are going to install git, Python 2.7, workerpool and paramiko, then you will connect Windows Azure by Python with some configuration. For the lab, we will either provide you with a shared virtual machine to do the exercise or let you provision a Linux virtual machine on Windows Azure to avoid issues with your laptop, etc.  Please remember this can be any Linux /Unix machine including your laptop. It is simply an environment you will use to deploy a cluster on Windows Azure. 
+
+**In the case we provide you with a virtual machine to login, you will skip steps 5, 6, 7, 8 below and start with Azure subscription or Task 2 - Setup Windows Azure Subscription **
 
 <a name="Ex1Task1"></a>
 #### Task 1 - Deploy software on an Ubuntu Linux Server ####
