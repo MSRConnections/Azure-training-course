@@ -74,9 +74,9 @@ First, you will need to deploy required software on your linux machine. You are 
 
 1. Then we can execute following command to install git
 
-    ````Linux
+    <pre>
 	sudo apt-get install git	
-	````
+	</pre>
 	
 	![Install Git](images/install-git.png)
 
@@ -85,9 +85,9 @@ First, you will need to deploy required software on your linux machine. You are 
 
 1. Execute following command to install Python Setup Tools.
 
-    ````Linux
+    <pre>
 	sudo apt-get install python-setuptools
-	````
+	</pre>
 
 	![Install Python](images/install-python.png)
 
@@ -96,11 +96,11 @@ First, you will need to deploy required software on your linux machine. You are 
 
 1. Execute following commands to install Windows Azure SDK for Python
 
-    ````Linux
+    <pre>
 	git clone https://github.com/WindowsAzure/azure-sdk-for-python.git
     cd ~/azure-sdk-for-python/src/
     sudo python setup.py install
-    ````
+    </pre>
  
 	![Install Windows Azure SDK for Python](images/install-wa-sdk-python.png)
 
@@ -110,10 +110,10 @@ First, you will need to deploy required software on your linux machine. You are 
 
 1. Install WorkerPool and Paramiko
 	
-	````Linux
+	<pre>
 	sudo easy_install workerpool
     sudo easy_install paramiko
-	````
+	</pre>
  
 	![Install WorkerPool and Paramiko](images/install-workerpool-paramiko.png)
 
@@ -130,9 +130,9 @@ All software has been installed on your machine, next we setup to connect to Win
 	You actually need to create two certificates, one for the server (a .cer file) and one for the client (a .pem file). To create the .pem file, execute this:
 
 
-    ````Linux
+    <pre>
 	openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem
-    ````
+    </pre>
  
 	![Create Client Certificate File(a .pem file)](images/create-pem-file.png)
 
@@ -140,9 +140,9 @@ All software has been installed on your machine, next we setup to connect to Win
 
 1. To create the .cer certificate, execute this:
 	
-	````Linux
+	<pre>
 	openssl x509 -inform pem -in mycert.pem -outform der -out mycert.cer
-	````
+	</pre>
  	You can use ls to view the file you created.
 
 	![Create Server Certificate File(a .cer file)](images/create-cer-file.png)
@@ -153,11 +153,11 @@ All software has been installed on your machine, next we setup to connect to Win
 
 1. You need to use pscp to download the **mycert.cer** file to local for uploading to windows azure. Execute the following command in the command line:
 
-	````CommandPrompt
+	<pre>
 	cd [Your Putty Folder]
 	[Your Putty Folder]\pscp.exe -p [username]@[DNSName]:/home/[username]/mycert.cer mycert.cer
 	[Your Putty Folder]\pscp.exe -p [username]@[DNSName]:/home/[username]/mycert.pem mycert.pem
-	````
+	</pre>
 
 	Just replace [Your Putty Folder],[username] and [DNSName].
 
@@ -215,10 +215,10 @@ _IPython Notebook Spectral_
 
 1. Next we need to upload all files under **Source\Ex02-DeployIPython**. First create a folder in Putty.
 
-	````Linux
+	<pre>
 	cd ~
 	mkdir Ex02-DeployIPython
-	````
+	</pre>
 
 	![Create Folder](images/create-ex02-folder.png)
 
@@ -226,9 +226,9 @@ _IPython Notebook Spectral_
 	
 	Then we run following command in Comand line:
 	
-	````CommandPrompt
+	<pre>
 	"[You Putty Folder]\pscp.exe" -r "[Source\Ex02 filder]\*" [username]@[DNSName]:/home/[username]/Ex02-DeployIPython
-	````
+	</pre>
 
 	![Copy files](images/copy-files-remote.png)
 
@@ -236,17 +236,17 @@ _IPython Notebook Spectral_
 
 1. Execute **main.py** with following command:
 
-	````Linux
+	<pre>
 	python main.py [start|create|deploy|delete]
-	````
+	</pre>
 	
 	**start** creates VMs and deploy IPython; **create** just creates VMs; **deploy** deploys IPython on existing VMs depending on 'create'; **delete** removes all resources on Windows Azure.
 
 	Now we execute with **start**.
 
-	````Linux
+	<pre>
 	python main.py start
-	````
+	</pre>
 
 	![Execute Toolkit](images/execute-python-1.png)
 
@@ -291,9 +291,9 @@ In this execise, you will run a Monte Carlo simulation code in your IPython note
 
 1. Create a new notebook. Execute the following command in a cell.
 
-	````Python
+	<pre>
 	!wget https://raw.github.com/wenming/BigDataSamples/master/ipythonMLsamples/Cluster%20-%20ParallelMCOptions.ipynb
-	````
+	</pre>
 
 	![Login Load Monte Carlo Simulation](images/load_monte_carlo_simulation.png)
 
@@ -326,9 +326,9 @@ In this execise, you will run a Monte Carlo simulation code in your IPython note
 
 1. We can use SSH to controller and engines to check the CPU load for different machines. Run *top* command to check the most CPU consumption process.
 
-	````Linux
+	<pre>
 		top
-	````
+	</pre>
 
 	During the Monte Carlo is executing, the ipengine consumes almost 100% CPU on all engine machines.
 

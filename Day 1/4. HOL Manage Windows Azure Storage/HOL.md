@@ -1,4 +1,4 @@
-h<a name="HOLTitle"></a>
+<a name="HOLTitle"></a>
 # Manage Windows Azure Storage #
 
 ---
