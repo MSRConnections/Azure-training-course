@@ -1,4 +1,4 @@
-﻿h<a name="HOLTitle"></a>
+h<a name="HOLTitle"></a>
 # Manage Windows Azure Storage #
 
 ---
@@ -47,9 +47,9 @@ Azure Storage Explorer is a useful GUI tool for inspecting and altering the data
 
 	_Azure Storage Explorer Page_
 
-    The latest version is 4.0 Beta, but you can also download the previous released version.
+    The latest version is 5.0 Preview, but you can also download the previous released version.
 
-1. Download *Azure Storage Explorer 4* and install it.
+1. Download *Azure Storage Explorer 4* or better and install it.
 
 	> The Azure Storage Explorer can only be installed on Windows machines.
 
@@ -87,7 +87,7 @@ Azure Storage Explorer is a useful GUI tool for inspecting and altering the data
 
 	_Add Account Information_	
 
-1. A new form will pop up to tell you it takes some time to scan the storage account if it is the first time you add the storage account. Click OK and after several seconds Azure Storage Explorer will be ready to help you viewing the blob, table and queue data in your storage account. 
+1. A new form will pop up to notify you it takes some time to scan the storage account if it is the first time you add the storage account. Click OK and after several seconds Azure Storage Explorer will be ready to help you viewing the blob, table and queue data in your storage account. 
 
 	![New Storage Account Confirmation](images/aze-new-storage-account.png)
 
@@ -179,7 +179,7 @@ _IPython Notebook_
 
 1. Excute the following code to imports all required libraries.
 
-	````Python
+	<pre>
 		#first we import modules we require
 		from azure.storage import *
 		import os
@@ -187,7 +187,7 @@ _IPython Notebook_
 		import numpy
 		from collections import defaultdict
 		import time
-	````
+	</pre>
 
 	![Import Libraries](images/ipy-code-import.png)
 
@@ -195,36 +195,36 @@ _IPython Notebook_
 
 1. Then we set the private variables for the storage account
 
-	````Python
+	<pre>
 		#put your account name and key here
 		account = '[Your Storage Account Name]'
 		key = '[You Storage Accunt Access Key]'		
 		#get a handle to your account
 		blob_service = BlobService(account_name=account, account_key=key)
-	````
+	</pre>
 	![Set Variables](images/ipy-code-key.png)
 
 	_Set Variables_
 
 1. We create a BlobService to manage all blobs in the storage account 
 
-	````Python
+	<pre>
 		#get a handle to your account
 		blob_service = BlobService(account_name=account, account_key=key)
-	````
+	</pre>
 	![Create Blob Service](images/ipy-code-blob-service.png)
 
 	_Create Blob Service_
 
 1. Now we will list all blobs in the current storage account and container.We will print all blobs' name and full urls. 
 
-	````Python
+	<pre>
 		#list all blobs of the container
 		blobs = blob_service.list_blobs(containername)
 		for blob in blobs:
 		    print(blob.name)
 		    print(blob.url)
-     ````
+     </pre>
 
 	![List All Blobs](images/ipy-code-list-blobs.png)
 
@@ -234,13 +234,13 @@ _IPython Notebook_
 
 1. Next we are going to create a new file locally and upload the file to my storage account. We create a text file *sample2.txt* and then write *This is another sample* into it.
 
-	````Python
+	<pre>
 		#create a new file a blob into a container
 		open(r'sample2.txt', 'w').write("This is another sample")		
 		#upload the blob into the container
 		sampleblob2 = open(r'sample2.txt', 'r').read()
 		blob_service.put_blob(containername, 'sample2.txt', sampleblob2, x_ms_blob_type='BlockBlob')		
-     ````
+     </pre>
 
 	![Upload Blob](images/ipy-code-upload-blob.png)
 
@@ -254,13 +254,13 @@ _IPython Notebook_
 
 1. We can also delete the file in the container by following code.
 
-	````Python
+	<pre>
 		#then we can remove sample2.txt
 		os.remove(r'sample2.txt')
 		#delete the blob remotely
 		blob_service.delete_blob(containername, 'sample2.txt')
 		#check the azure storage explorer again, the file is removed.	
-     ````
+     </pre>
 
 	![Delete Blob](images/ipy-code-delete-blob.png)
 
@@ -274,13 +274,13 @@ _IPython Notebook_
 
 1. The let's download the csv file to local and we can draw a scatter figure from the data.
 
-	````Python
-		#we can also download a csv file to local
-		csv_file = 'cut_diamonds.csv'
-		csvblob = blob_service.get_blob(containername, csv_file)
-		with open(csv_file, 'w') as f:
-    f.write(csvblob)	
-     ````
+	<pre>
+	#we can also download a csv file to local
+	csv_file = 'cut_diamonds.csv'
+	csvblob = blob_service.get_blob(containername, csv_file)
+	with open(csv_file, 'w') as f:
+    	f.write(csvblob)	
+     </pre>
 
 	![Download Blob](images/ipy-code-download-blob.png)
 
@@ -289,7 +289,7 @@ _IPython Notebook_
 1. Then we load the data in csv from the csv library and draw a scatter plot based on its carat and price.
 
 
-	````Python
+	<pre>
 		#then we draw a scatter from the csvfile
 		columns = defaultdict(list) #we want a list to append each value in each column to
 		with open(csv_file) as f:
@@ -300,7 +300,7 @@ _IPython Notebook_
 		carat = np.array(columns['Carat'])
 		price = np.array(columns['Price'])
 		scatter(carat,price,marker ='o',color='#ff0000')
-     ````
+     </pre>
 
 	![Scatter](images/ipy-code-scatter.png)
 
@@ -308,13 +308,13 @@ _IPython Notebook_
 
 1. Next we will also manage some table storage operation. Windows Azure Table storage is used to save many entities with different partition key and row key. It can be used as a NoSQL storage repository. First we are going to create a TableService object with the same account name and key name. We will also set the private variable to save a table name.
 
-	````Python
+	<pre>
 		#Next we are going to demostrate the table storage management in Windows Azure
 		#we can add top 100 rows of the cut_diamond csv to a table storage
 		#get a handle to your account
 		table_service = TableService(account_name=account, account_key=key)
 		table_name = 'diamondtable';
-     ````
+     </pre>
 
 	![TableService](images/ipy-code-table-service.png)
 
@@ -323,12 +323,12 @@ _IPython Notebook_
 1. Then we create a new table. First we will delete the table in case the table exists.
 		
 
-	````Python
+	<pre>
 		#delete the table for temporary data
 		result = table_service.delete_table(table_name)		
 		# create a new table to save all entities.
 		result = table_service.create_table(table_name)	
-     ````
+     </pre>
 
 	![Create New Table](images/ipy-code-create-new-table.png)
 
@@ -342,7 +342,7 @@ _IPython Notebook_
 
 1. Now we will create 100 top entities and insert those entities into the new table. We will set each entity's partition key to be the diamond's color and row key is the index.
 
-	````Python
+	<pre>
 		#then we insert the top 100 diamond into the table, we set PartitionKey to be each diamonds' color and RowKey to be the index
 		index = 0
 		with open(csv_file) as f:
@@ -361,7 +361,7 @@ _IPython Notebook_
 		        if index >= 100:
 		            break
 		#we can check the azure storage explore to query all entities that we inserted.	
-     ````
+     </pre>
 
 	![Insert Entities](images/ipy-code-insert-entities.png)
 
@@ -375,7 +375,7 @@ _IPython Notebook_
 
 1. We are also perform query against the table. Now we want to get all diamonds information with D color. The code is followed:
 
-	````Python
+	<pre>
 		#then we insert the top 100 diamond into the table, we set PartitionKey to be each diamonds' color and RowKey to be the index
 		index = 0
 		with open(csv_file) as f:
@@ -394,7 +394,7 @@ _IPython Notebook_
 		        if index >= 100:
 		            break
 		#we can check the azure storage explore to query all entities that we inserted.	
-     ````
+     </pre>
 
 	![Query Table](images/ipy-code-query-table.png)
 
@@ -430,9 +430,9 @@ AzCopy is another tool to manage azure storage account. It can be used to copy f
 
 1. Then we want to use AzCopy to copy all files from the old container to the new container. Execute the following command in commnad line:
 
-	````CommandPrompt
+	<pre>
 		AzCopy https://<sourceaccount>.blob.core.windows.net/<sourcecontainer>/ https://<destaccount>.blob.core.windows.net/<destcontainer>/  /sourcekey:<key> /destkey:<key> /S
-	````
+	</pre>
 
 	Replace all fields according to your configuration. The above command will copy all blobs from the container named "sourcecontainer" in storage account "sourceaccount" to another container named "destcontainer" in storage account "destaccount".
 
