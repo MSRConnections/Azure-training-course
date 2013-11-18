@@ -13,7 +13,7 @@ In this hands-on lab you will create a Windows Virtual Machine. You can install 
 
 In this hands-on lab, you will learn how to:
 
-- Create a virtual machine with Windows Server 2012 and run R job.
+- Create a virtual machine with Windows Server 2012 R2 and run R job.
 - Create a virtual machine from VMDepot and run ipython job.
 - Create a new disk and mount the disk to Windows and Linux VMs.
 
@@ -24,6 +24,7 @@ The following is required to complete this hands-on lab:
 
 - A Windows Azure subscription - [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
 - If you are a Mac Computer user, please install Windows Remote desktop 8.0 from the  [App Store.](https://itunes.apple.com/us/app/microsoft-remote-desktop/id715768417?mt=12&v0=WWW-NAUS-ITUHOME-NEWAPPLICATIONS&ign-mpt=uo%3D2)
+- You **must** use one of the following **browsers**: latest version of **Firefox or Chrome, IE 9, 10, 11.**  Browsers like Safari, 360 may have issues with IPython or RDP download. 
 
 ---
 <a name="Exercises"></a>
@@ -31,14 +32,14 @@ The following is required to complete this hands-on lab:
 
 This hands-on lab includes the following exercises:
 
-1. [Exercise 1: Create a machine with Windows Server 2012 and run R job.](#Exercise1)
+1. [Exercise 1: Create a machine with Windows Server 2012 R2 and run R job.](#Exercise1)
 1. [Exercise 2: Create a machine from VMDepot and run ipython job.](#Exercise2)
 1. [Exercise 3: Create a new disk and mount the disk to Windows and Linux.](#Exercise3)
 
 Estimated time to complete this lab: **60** minutes.
 
 <a name="#Exercise1"></a>
-## Exercise 1: Create a machine with Windows Server 2012 and run R job. ##
+## Exercise 1: Create a machine with Windows Server 2012 R2 and run R job. ##
 
 1. You need to login on [Windows Azure Management Portal]（http://manage.windowsazure.com） to get start.
 
@@ -52,11 +53,11 @@ Estimated time to complete this lab: **60** minutes.
 	
 	_Create New Virtual Machine From Gallery_
 
-1. On the next page, you will see many different images. Click on **Windows Server 2012** or **Windows Server 2012 R2", then click on the **Next** arrow at the lower right corner.
+1. On the next page, you will see many different images. Click on **Windows Server 2012 R2** then click on the **Next** arrow at the lower right corner. Please do not use the Windows Server 2012 image.
  
-	![Select Windows Server 2012 Datacenter](images/vm-windows-create-windows-server.png)	
+	![Select Windows Server 2012 R2 Datacenter](images/vm-windows-create-windows-server.png)	
 	
-	_Select Windows Server 2012 Datacenter_
+	_Select Windows Server 2012 R2 Datacenter_
 
 1. Select the **Version Release Date** and **Size** first, then set the **Virtual Machine Name**, **New User Name** and **Password**, then click **Next**. It is really **important** that you **write down** the password you have chosen here. 
 
@@ -163,7 +164,7 @@ Estimated time to complete this lab: **60** minutes.
 
 	_Run R File_
 
-In this exercise, we created a Windows Server 2012 virtual machine (VM) on Windows Azure, installed R and R studio on that machine. Then we copied a local file to the remote machine used that file as input for running an R job on our VM.
+In this exercise, we created a Windows Server 2012 R2 virtual machine (VM) on Windows Azure, installed R and R studio on that machine. Then we copied a local file to the remote machine used that file as input for running an R job on our VM.
 
 <a name="#Exercise2"></a>
 ## Exercise 2: Create a machine from VM Depot and run IPython examples. ##
@@ -622,7 +623,7 @@ For linux, the steps to add empty disk is exactly the same. The different is the
 
 By completing this hands-on lab you learned the following:
 
-- Create a machine with Windows Server 2012 and run R job.
+- Create a machine with Windows Server 2012 R2 and run R job.
 - Create a machine from VMDepot and run ipython job.
 - Create a new disk and mount the disk to Windows and Linux.
 

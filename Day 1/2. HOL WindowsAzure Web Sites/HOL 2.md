@@ -22,8 +22,9 @@ The following is required to complete this hands-on lab:
 
 - A Windows Azure subscription - [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
 - Install FileZilla from [SourceForge.](https://filezilla-project.org/)  You may also use your favorite FTP client. 
+- You **must** use one of the following **browsers**: Latest version of **Firefox or Chrome, IE 9, 10, 11.**  Browsers like Safari, 360 may have issues with IPython or RDP download. 
 
----
+----
 <a name="Exercises"></a>
 ## Exercises ##
 

@@ -14,7 +14,7 @@ In this hands-on lab, you will learn how to:
 
 - Use Azure Storage Explorer to manage your storage accounts.
 - Use IPython notebook to run storage commands.
-- Use AzCopy to Copy files between different storage accounts.
+- Use AzCopy to Copy files between different storage accounts.(optional)
 
 <a name="Prerequisites"></a>
 ### Prerequisites ###
@@ -22,8 +22,9 @@ In this hands-on lab, you will learn how to:
 The following is required to complete this hands-on lab:
 
 - A Windows Azure subscription - [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
+- You **must** use one of the following **browsers**: Latest version of **Firefox or Chrome, IE 9, 10, 11.**  Browsers like Safari, 360 may have issues with IPython or RDP download.
 
----
+----
 <a name="Exercises"></a>
 ## Exercises ##
 
@@ -150,12 +151,13 @@ Azure Storage Explorer is a useful GUI tool for inspecting and altering the data
 <a name="#Exercise2"></a>
 
 ### Excercise 2: Use IPython notebook to run storage commands.  ###
+Use the IPython notebook  you have already created in the previous exercise **Using Windows Azure Virtual Machines.** for this exercise. You can manage Windows Azure Storage Account in IPython. 
 
-IPython notebook is an interactive Python framework which makes Python project development and management much more easier. You can manage Windows Azure Storage Account in IPython as well. 
+>Note: If you have not completed the Virtual Machines lab, please note that IPython notebook is an interactive Python framework which makes Python project development and management much more easier. 
 
-In order to build an IPython environment on windows azure, you can read  [http://www.windowsazure.com/en-us/develop/python/tutorials/ipython-notebook/](http://www.windowsazure.com/en-us/develop/python/tutorials/ipython-notebook/)
+>Build an IPython environment on windows azure, you can read  [http://www.windowsazure.com/en-us/develop/python/tutorials/ipython-notebook/](http://www.windowsazure.com/en-us/develop/python/tutorials/ipython-notebook/)
 
-After the ipython notebook is deployed, you can open the IPython Notebook in your Explorer:
+After the IPython Notebook is deployed, you can open the IPython Notebook in your Explorer:
 
 ![IPython Notebook](images/ipython_notebook_main.png)
 
@@ -376,25 +378,11 @@ _IPython Notebook_
 1. We are also perform query against the table. Now we want to get all diamonds information with D color. The code is followed:
 
 	<pre>
-		#then we insert the top 100 diamond into the table, we set PartitionKey to be each diamonds' color and RowKey to be the index
-		index = 0
-		with open(csv_file) as f:
-		    reader = csv.DictReader(f) #create a reader which represents rows in a dictionary form
-		    for row in reader: #this will read a row as {column1: value1, column2: value2,...}
-		        entity = Entity()
-		        entity.PartitionKey = row['Color']
-		        entity.RowKey= str(index)
-		        entity.Clarity = row['Clarity']
-		        entity.Cut = row['Cut']
-		        entity.Carat = row['Carat']
-		        entity.Price = row['Price']
-		        table_service.insert_entity(table_name, entity)
-		        print row
-		        index=index+1
-		        if index >= 100:
-		            break
-		#we can check the azure storage explore to query all entities that we inserted.	
-     </pre>
+	#we can also query all table entities with diamonds' color = 'D'
+	diamonds = table_service.query_entities(table_name, "PartitionKey eq 'D'")
+	for d in diamonds:
+    	print(str(d.Cut),str(d.PartitionKey),str(d.Clarity),str(d.Carat),'$'+ str(d.Price))
+    </pre>
 
 	![Query Table](images/ipy-code-query-table.png)
 
@@ -404,7 +392,7 @@ Now we finished all operations. We can easily use IPython Notebook to manage all
 	
 
 <a name="#Exercise3"></a>
-### Excercise 3: Use AzCopy to Copy files between different storage accounts.  ###
+### Excercise 3 (Optional): Use AzCopy to Copy files between different storage accounts.  ###
 
 AzCopy is another tool to manage azure storage account. It can be used to copy files from local to remote storage account or even between different storage accounts. For more inforamtion, please refer to [Windows Azure Storage Team Blog](http://blogs.msdn.com/b/windowsazurestorage/archive/2013/04/01/azcopy-using-cross-account-copy-blob.aspx).
 
