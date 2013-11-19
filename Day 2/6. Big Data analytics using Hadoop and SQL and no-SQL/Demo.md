@@ -60,40 +60,40 @@ Your Windows Azure subscription information is used by the cmdlets to connect to
 
 1. Run the following command to download the publishsettings file.
 
-	````PowerShell
+	<pre>
 		Get-AzurePublishSettingsFile
-	````
+	</pre>
 
 	The command opens an Internet Explorer window and a web page. The URL is *https://manage.Windowsazure.com/publishsettings/index?client=powershell*.
 
 1. When prompted, download and save the publishing profile and note the path and name of the .publishsettings file. This information is required when you run the Import-AzurePublishSettingsFile cmdlet to import the settings. The default location and file name format is:
-	````
-	C:\Users\<UserProfile>\Desktop\[MySubscription-…]-downloadDate-credentials.publishsettings
-	````
+	<pre>
+		C:\Users\<UserProfile>\Desktop\[MySubscription-…]-downloadDate-credentials.publishsettings
+	</pre>
 1. From the Windows Azure PowerShell window, run the following command to import the publishsettings file:
 
-	````PowerShell
+	<pre>
 		Import-AzurePublishSettingsFile <PublishSettings-file>
-	````
+	</pre>
 
 	For example:
 
-	````PowerShell
+	<pre>
 		Import-AzurePublishSettingFile "C:\Users\JohnDole\Desktop\Azure-8-30-2013-credentials.publishsettings"
-	````
+	</pre>
 
 
 1. Once the file is imported, you can use the following command to list your subscriptions:
 
-	````PowerShell
-	Get-AzureSubscription
-	````
+	<pre>
+		Get-AzureSubscription
+	</pre>
 
 1. When you have multiple subscriptions, you can use the following command to make a subscription the current subscription:
 
-	````PowerShell
-	Select-AzureSubscription -SubscriptionName <SubscriptionName>
-	````
+	<pre>
+		Select-AzureSubscription -SubscriptionName <SubscriptionName>
+	</pre>
 
 <a name="#Exercise2"></a>
 ### Excercise 2: Provision an HDInsight cluster ###
@@ -168,9 +168,9 @@ Running a MapReduce job requires the following elements:
 
 The URI scheme for accessing files in Blob storage is:
 
-````
-WASB[S]://<containername>@<storageaccountname>.blob.core.windows.net/<path>
-````
+<pre>
+	WASB[S]://<containername>@<storageaccountname>.blob.core.windows.net/<path>
+</pre>
 
 The URI scheme provides both unencrypted access with the WASB: prefix, and SSL encrypted access with WASBS. We recommend using WASBS wherever possible, even when accessing data that lives inside the same Windows Azure data center.
 
@@ -178,11 +178,11 @@ Because HDInsight uses a Blob Storage container as the default file system, you 
 
 For example, to access the hadoop-examples.jar, you can use one of the following options:
 
-````
-wasb://<conaintername>@<storageaccountname>.blob.core.windows.net/example/jars/hadoop-examples.jar
-wasb:///example/jars/hadoop-examples.jar
-/example/jars/hadoop-examples.jar
-````
+<pre>
+	wasb://<conaintername>@<storageaccountname>.blob.core.windows.net/example/jars/hadoop-examples.jar
+	wasb:///example/jars/hadoop-examples.jar
+	/example/jars/hadoop-examples.jar
+</pre>
 
 The use of the wasb:// prefix in the paths of these files. This is needed to indicate Azure Blob Storage is being used for input and output files. The output directory assumes a default path relative to the wasb:///user/<username> folder.
 
@@ -193,36 +193,37 @@ For more information, see [Using Windows Azure Blob Storage with HDInsight](http
 
 1. Run the following commands to set the variables.
 
-	````PowerShell
-	$subscriptionName = "<SubscriptionName>" 
-	$clusterName = "<HDInsightClusterName>"
-	````
+	<pre>
+		$subscriptionName = "<SubscriptionName>" 
+		$clusterName = "<HDInsightClusterName>"
+	</pre>
 
 1. Run the following commands to create a MapReduce job definition:
 
-	````PowerShell
-	$wordCountJobDefinition = New-AzureHDInsightMapReduceJobDefinition -JarFile "wasb:///example/jars/hadoop-examples.jar" -ClassName "wordcount" -Arguments "wasb:///example/data/gutenberg/davinci.txt", "wasb:///example/data/WordCountOutput"
-	````
+	<pre>
+		$wordCountJobDefinition = New-AzureHDInsightMapReduceJobDefinition -JarFile "wasb:///example/jars/hadoop-examples.jar" -ClassName "wordcount" -Arguments "wasb:///example/data/gutenberg/davinci.txt", "wasb:///example/data/WordCountOutput"
+	</pre>
 
 	The hadoop-examples.jar file comes with the HDInsight cluster distribution. There are two arguments for the MapReduce job. The first one is the source file name, and the second is the output file path. The source file comes with the HDInsight cluster distribution, and the output file path will be created at the run-time.
 
 1. Run the following command to submit the MapReduce job:
 	
-	````PowerShell
-	$wordCountJob = Start-AzureHDInsightJob -Cluster $clusterName  -Subscription $subscriptionName -JobDefinition $wordCountJobDefinition
-	````
+	<pre>
+		$wordCountJob = Start-AzureHDInsightJob -Cluster $clusterName  -Subscription $subscriptionName -JobDefinition $wordCountJobDefinition
+	</pre>
+
 	In addition to the MapReduce job definition, you also provide the HDInsight cluster name where you want to run the MapReduce job.
 
 1. Run the following command to check the completion of the MapReduce job:
-	````PowerShell
-	Wait-AzureHDInsightJob -Subscription $subscriptionName -Job $wordCountJob -WaitTimeoutInSeconds 3600
-	````
+	<pre>
+		Wait-AzureHDInsightJob -Subscription $subscriptionName -Job $wordCountJob -WaitTimeoutInSeconds 3600
+	</pre>
 
 1. Run the following command to check any errors with running the MapReduce job:
 
-	````PowerShell
+	<pre>
 	Get-AzureHDInsightJobOutput -Cluster $clusterName -Subscription $subscriptionName -JobId $wordCountJob.JobId -StandardError
-	````
+	</pre>
 
 	The following screenshot shows the output of a successful run. Otherwise, you will see some error messages.
 
@@ -236,34 +237,37 @@ For more information, see [Using Windows Azure Blob Storage with HDInsight](http
 
 1. Set the three variables in the following commands, and then run them:
 
-	````PowerShell
-	$subscriptionName = "<SubscriptionName>"       
-	$storageAccountName = "<StorageAccountName>"   
-	$containerName = "<ContainerName>"
-	````
+	<pre>
+		$subscriptionName = "<SubscriptionName>"       
+		$storageAccountName = "<StorageAccountName>"   
+		$containerName = "<ContainerName>"
+	</pre>
+	
 	The Windows Azure Storage account is the one you created earlier in the tutorial. The storage account is used to host the Blob container that is used as the default HDInsight cluster file system. The Blob storage container name usually share the same name as the HDInsight cluster unless you specify a different name when you provision the cluster.
 
 1. Run the following commands to create a Windows Azure storage context object:
 
-	````PowerShell
-	Select-AzureSubscription $subscriptionName
-	$storageAccountKey = Get-AzureStorageKey $storageAccountName | %{ $_.Primary }
-	$storageContext = New-AzureStorageContext –StorageAccountName $storageAccountName –StorageAccountKey $storageAccountKey
-	````
+	<pre>
+		Select-AzureSubscription $subscriptionName
+		$storageAccountKey = Get-AzureStorageKey $storageAccountName | %{ $_.Primary }
+		$storageContext = New-AzureStorageContext –StorageAccountName $storageAccountName –StorageAccountKey $storageAccountKey
+	</pre>
+
 	The *Select-AzureSubscription* is used to set the current subscription in case you have multiple subscriptions, and the default subscription is not the one to use.
 
 1. Run the following command to download the MapReduce job output from the Blob container to the workstation:
 
-	````PowerShell
+	<pre>
 		Get-AzureStorageBlobContent -Container $ContainerName -Blob example/data/WordCountOutput/part-r-00000 -Context $storageContext -Force
-	````
-The *example/data/WordCountOutput* folder is the output folder specified when you run the MapReduce job. *part-r-00000* is the default file name for MapReduce job output. The file will be download to the same folder structure on the local folder. For example, in the following screenshot, the current folder is the C root folder. The file will be downloaded to the *C:\example\data\WordCountOutput* folder.
+	</pre>
+
+	The *example/data/WordCountOutput* folder is the output folder specified when you run the MapReduce job. *part-r-00000* is the default file name for MapReduce job output. The file will be download to the same folder structure on the local folder. For example, in the following screenshot, the current folder is the C root folder. The file will be downloaded to the *C:\example\data\WordCountOutput* folder.
 
 1. Run the following command to print the MapReduce job output file:
 
-	````PowerShell
-	cat ./example/data/WordCountOutput/part-r-00000 | findstr "there"
-	````
+	<pre>
+		cat ./example/data/WordCountOutput/part-r-00000 | findstr "there"
+	</pre>
 	
 	![MapReduce Job Output](images/hdi.gettingstarted.mrjoboutput.png)
 	

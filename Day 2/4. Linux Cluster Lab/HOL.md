@@ -207,7 +207,7 @@ _IPython Notebook Spectral_
 
 	You may also need to change the following sections in that files including, **The number of nodes**, **The name of VM nodes**, **Service Name**, **Deployment Name**, **Role Name**, **Media Link Base**, **The password of the Notebook**.
 
-	>For the "Media Link Base", you must set *xxx* in **http://xxx.blob.core.windows.net/vhds/ipythonvm** to your correct storage account. If you don't have any storage account under your subscription, you can just create one. Set the location to "East Asia" if you didn't change the default region in the **configSample.py** file. Now we set the number of nodes to 3, which means 1 controller and 2 engines.
+	>For the "Media Link Base", you must set *<storage_account_name>* in **http://<storage_account_name>.blob.core.windows.net/vhds/ipythonvm** to your correct storage account. If you don't have any storage account under your subscription, you can just create one. Replace <your_region> to your real region like "East Asia" or "East US". Now we set the number of nodes to 3, which means 1 controller and 2 engines.
 
 	>![Create Storage Account](images/create-storage-account.png)
 

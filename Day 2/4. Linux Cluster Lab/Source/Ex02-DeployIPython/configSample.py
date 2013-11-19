@@ -10,10 +10,11 @@
 ##################################
 #         Azure Settings         #
 ##################################
-# the subscription id
-subscription_id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-# the pem file path
-pem_path = "xxx.pem"
+# the subscription id, replace <subscription_id> to your real id
+subscription_id = "<subscription_id>"
+# the pem file path, replace <pem_file_name> to your real pem file name
+pem_path = "<pem_file_name>"
+
 # the number of vms
 # one controller and n - 1 engines
 # default 2
@@ -22,11 +23,20 @@ num_vm = 2
 # service_name should be globally unique
 # service_name should only contain letters, numbers and hyphen, the length should be less than 30
 # suggest: service_name, deployment_name and role_name set to the same
-service_name = "azureipythonnew111"
-deployment_name = "azureipythonnew111"
-role_name = "azureipythonnew111"
-# the blob position where the data will be stored
-media_link_base = "http://xxx.blob.core.windows.net/vhds/ipythonvm"
+service_name = "<service_name>"
+deployment_name = "<deployment_name>"
+role_name = "<role_name>"
+
+# Please replace the <storage_account_name> to real storage account name in your subscription and replace <your_region> to your actual region like "East Asia", "East US" etc.
+
+media_link_base = "http://<storage_account_name>.blob.core.windows.net/vhds/ipythonvm"
+# location of the vm
+location = "<your_region>"
+
+
+########################################################
+####################   Optional   ######################
+########################################################
 
 #########################
 #   notebook password   #
@@ -39,18 +49,11 @@ notebook_passwd = "Test12"
 computer_name = "azurecomputer"
 username = "azure"
 # vm password should contain uppercase letters, lowercase letters and numbers
-password = "Test12"  
-
-
-########################################################
-####################   Optional   ######################
-########################################################
+password = "Test12" 
 
 ##################################
 #         Azure Settings         #
 ##################################
-# location of the vm, default "East Asia"
-location = "East Asia"
 # user could specify the affinity_group, default None
 affinity_group = None
 # media name, default ubuntu12.04
