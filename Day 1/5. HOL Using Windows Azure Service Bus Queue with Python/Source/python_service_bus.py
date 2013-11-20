@@ -43,7 +43,10 @@ msg.body=json.dumps(data);
 
 print msg.body
 
-#insert the message to table first
+# Insert the message to a table
+# The reason to save an entity into a table is because the BLAST website reads all work items and status from the table. 
+# In order to align with the website behavior, we have to insert from the code as well.
+
 account = 'blaststore'
 key = '99serQiW4MXGx4u14SfZTiONYDZ5jn7BRgOcRsQEcY/WCgzJxWwoSCXSTmPQnXwoUJkrQPgDjrzIr5AO9q71/Q=='
 table_name = 'SearchTask'
@@ -60,14 +63,23 @@ entity.LastMessage = data['LastMessage']
 entity.LastTimestamp = data['LastTimestamp']
 table_service.insert_entity(table_name, entity)
 
-#submit the message to service bus queue
+# Submit the message to service bus queue
+# Notes: if the message is processed very fast, we can send the message for multiple times.
 bus_service.send_queue_message(queue_name, msg)
 
-#receive a new message
+#receive a new message, if there is no new message, IPython notebook keeps running
 msgrec = bus_service.receive_queue_message(queue_name, False)
+
+#check the message information
 print msgrec.body 
 
 
-#receive a new message when peek lock = True
+#receive a new message when peek lock = True, if there is no new message, IPython notebook keeps running
 msgrec = bus_service.receive_queue_message(queue_name, True)
+
+#check the message information
 print msgrec.body 
+
+# Goto the website and check whether the message show up again because we don't have code to delete the message explicitly.
+# if we call msg.delete()
+# The message will not be processed again.
