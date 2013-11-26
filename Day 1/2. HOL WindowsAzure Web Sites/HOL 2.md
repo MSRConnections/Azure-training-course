@@ -146,21 +146,21 @@ Estimated time to complete this lab: **45** minutes.
 1. **Next**, we will add the url redirect to **urls.py** file. First, uncomment *from DjangoApplication.view import earthquake* near the top of the file, as shown, to reference a new view called earthquake (that we will create soon). Second, uncomment the line *('^earthquake/$',earthquake),* to the patterns section so that web routing to our new view will be recognized. After this step, Django understands that [yourwebsite].azurewebsites.net/earthquake/* should execute a function called earthquake(second parameter) defined in the view.py file. We will create view.py next.
 
 	<pre>
-		from DjangoApplication.view import earthquake # uncomment the line to support earthquake view
+    from DjangoApplication.view import earthquake # uncomment the line to support earthquake view
 
-		urlpatterns = patterns('',
-		    # Examples:
-		    # url(r'^$', 'DjangoApplication.views.home', name='home'),
-		    # url(r'^DjangoApplication/', include('DjangoApplication.DjangoApplication.urls')),
-
-		    url('^earthquake/$',earthquake), # uncomment the line to support earthquake view
-
-		    # Uncomment the admin/doc line below to enable admin documentation:
-		    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-		
-		    # Uncomment the next line to enable the admin:
-		    # url(r'^admin/', include(admin.site.urls)),
-		)	
+    urlpatterns = patterns('',
+        # Examples:
+        # url(r'^$', 'DjangoApplication.views.home', name='home'),
+        # url(r'^DjangoApplication/', include('DjangoApplication.DjangoApplication.urls')),
+        
+        url('^earthquake/$',earthquake), # uncomment the line to support earthquake view
+        
+        # Uncomment the admin/doc line below to enable admin documentation:
+        # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+        
+        # Uncomment the next line to enable the admin:
+        # url(r'^admin/', include(admin.site.urls)),
+    )	
 	</pre>
 	_Change two lines to urls.py_
 
@@ -169,48 +169,47 @@ Estimated time to complete this lab: **45** minutes.
 	The first part of the code is to load required libraries including django, urllib and csv.
 
 	<pre>
-		from django.http import HttpResponse
-		from django.template.loader import get_template
-		from django.template import Template, Context
-		from django.http import HttpResponse
-		import urllib
-		import csv
-		import string
+	from django.http import HttpResponse
+	from django.template.loader import get_template
+	from django.template import Template, Context
+	from django.http import HttpResponse
+	import urllib
+	import csv
+	import string
 	</pre>
 
 	Next we define a function **earthquake** that will be invoked when our web page is accessed. In this function, we will load the earthquake information and download the data locally. Finally, it will render the predefined template and show earthquake locations.  Please note that Python uses "TAB" for indentation. 
 	
-	<pre> # These lines fetches the most recent data from usgs website and saves it as a csv file locally.
-		def earthquake(request):
-			    #load the earthquake data from internet
-			    csvgps = urllib.urlopen("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_month.csv")
-			    f = csvgps.read();
-			    with open('csvgps.csv','w') as temp:
-			        temp.write(f)
+	<pre># These lines fetches the most recent data from usgs website and saves it as a csv file locally.
+	def earthquake(request):
+	    #load the earthquake data from internet
+	    csvgps = urllib.urlopen("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_month.csv")
+	    f = csvgps.read();
+	    with open('csvgps.csv','w') as temp:
+	        temp.write(f)
 	</pre>
 	
 	Continuing the same *earthquake* function, we now use csv library to parse the earthquake latitude, longitude and magnitude from the data file.
 	
-	<pre> # Uses the CSV reader to read 20 lines from the file.  The data is stored in a 3(date, long, lat) x 20 (earthquakes) matrix.
-	    data = [[0 for col in range(3)] for row in range(20)]
-	    reader = csv.reader(open("csvgps.csv"), delimiter=",")
-	    index = 0
-	    for line in reader:
-	        if index > 0 and index <= 20:
-	            data[index - 1][0] = float(line[1])
-	            data[index - 1][1] = float(line[2])
-	            data[index - 1][2] = float(line[4])
-	        index = index + 1
+	<pre># Uses the CSV reader to read 20 lines from the file.  The data is stored in a 3(date, long, lat) x 20 (earthquakes) matrix.
+    data = [[0 for col in range(3)] for row in range(20)]
+    reader = csv.reader(open("csvgps.csv"), delimiter=",")
+    index = 0
+    for line in reader:
+        if index > 0 and index <= 20:
+            data[index - 1][0] = float(line[1])
+            data[index - 1][1] = float(line[2])
+            data[index - 1][2] = float(line[4])
+        index = index + 1
 	</pre>
 	
 	Finally, to finish up the implementation of the *earthquake* function, the code loads *earthquake.html* as a template and replaces the earthquake information in the page. The data matrix is put into the "content" context.  Then the "content" input is rendered by the HTML.  Please see further explanation in the Bing maps section.
 
-	<pre>
-	    #load the template
-	    t = get_template('earthquake.html')
-	    html = t.render(Context({'content': data})) # Puts the data into the HTML template via "content" input.
+	<pre># load the template
+    t = get_template('earthquake.html')
+    html = t.render(Context({'content': data})) # Puts the data into the HTML template via "content" input.
 	
-	    return HttpResponse(html)
+    return HttpResponse(html)
 	</pre>
 
 1. In order to use Bing Map SDK, we will also need to apply for a key. Just visit the [Bing Maps Portal](http://www.bingmapsportal.com).
