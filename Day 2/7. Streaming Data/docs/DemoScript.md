@@ -1,4 +1,4 @@
-﻿# Processing GPS data with Storm and Kafka on Windows Azure Data Science Core #
+# Processing GPS data with Storm and Kafka on Windows Azure Data Science Core #
 
 In this example, we'll show you how to deploy a [Storm](http://storm-project.net) topology in Windows Azure that reads its data from the [Kafka](http://kafka.apache.org/) messaging system.  We'll use a Kafka client application written in Java to send GPS coordinates from anywhere to the  Kafka cluster.  Our Storm topology will translate those coordinates into JSON objects, use [GeoJSON](http://www.geojson.org/) to identify the country those coordinates belong to, and then keep a running count of how many times that a coordinate lands in a country.  For persistence, the running count is stored in a [Windows Azure Table Storage](http://www.windowsazure.com/en-us/develop/net/how-to-guides/table-services/) service, and the topology periodically dumps a compressed block of coordinates to a [Windows Azure Blob Storage](http://www.windowsazure.com/en-us/develop/net/how-to-guides/blob-storage/) service.  The topology also writes data to [Redis](http://redis.io/) for use by other services, such as the web application we use to display the data in real time.  The web app is written in [Node.js](http://nodejs.org/) and uses [Socket.IO](http://socket.io/) and the [express](http://expressjs.com/) web application framework to read the data from Redis and display it via [D3.js](http://d3js.org/).  
 
@@ -261,5 +261,5 @@ Our example consists of three parts: a web application that presents GPS coordin
    In this case we've bypassed Zookeeper and connected directly to the Kafka server on port 9092.  The **0:** at the start of the connection address indicates that we wish to connect to the Kafka broker with ID 0.
 
 
-© 2013 Microsoft Corporation. All rights reserved.
-Except where otherwise [noted](http://creativecommons.org/policies#license), content on this site is licensed under a [Creative Commons Attribution-NonCommercial 3.0 License.](http://creativecommons.org/licenses/by-nc/3.0/)
+Copyright 2013 Microsoft Corporation. All rights reserved. 
+Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0).
