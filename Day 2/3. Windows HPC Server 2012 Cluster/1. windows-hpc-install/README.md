@@ -55,7 +55,14 @@ A _virtual machine (VM)_ in Windows Azure is a server in the cloud that you can 
 - _Image_ An image is a template that you use to create a new virtual machine. An image doesn’t have specific settings like a running virtual machine, such as the computer name and user account settings. If you use an image to create a virtual machine, an operating system disk is automatically created for the new virtual machine.
 - _Disk_ A disk is a VHD that you can boot and mount as a running version of an operating system. After an image is provisioned, it becomes a disk. A disk is always created when you use an image to create a virtual machine. Any VHD that is attached to virtualized hardware and that is running as part of a service is a disk.
 
-We will create a Windows Server 2012 Datacenter VM from the Windows Server 2012 Datacenter image to serve as the HPC compute cluster's _head node_.  The 
+We will create a Windows Server 2012 Datacenter VM from the Windows Server 2012 Datacenter image to serve as the HPC compute cluster's _head node_. 
+
+> - - - - - - - - - - - - - - - - - - - - -
+> **IMPORTANT**
+> 
+> Windows Server 2012 **R2** is currently **not** supported by HPC Pack. Please use Windows Server 2012 edition for creating the head node. 
+> - - - - - - - - - - - - - - - - - - - - -
+
 
 1. Log in to the [Windows Azure Management Portal](https://manage.windowsazure.com).
 
