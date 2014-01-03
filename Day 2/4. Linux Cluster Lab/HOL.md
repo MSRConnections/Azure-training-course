@@ -98,7 +98,7 @@ First, you will need to deploy required software on your linux machine. You are 
 
     <pre>
 	git clone https://github.com/WindowsAzure/azure-sdk-for-python.git
-    cd ~/azure-sdk-for-python/src/
+    cd ~/azure-sdk-for-python
     sudo python setup.py install
     </pre>
  
