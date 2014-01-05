@@ -14,11 +14,11 @@ It has a global minimum at (x, y) = (1, 1) where f(x, y) = 0, but we're going to
 ## Compile MATLAB Code Into an Executable ##
 
 
-1. Open \sweep in Explorer and double-click **make.m** to open it in the MATLAB file editor.
+1. Go to the \sweep folder in Explorer and double-click **make.m** to open it in the MATLAB file editor.
 
    ![Explorer](doc/explorer1.png)
 
-1. Click the **Run** button to execute the **make** script to produce two executables: banana_sweep.exe and parallel_banana_sweep.exe.  Click **Change Folder** if you are prompted.
+1. Click the **Run** button to execute the **make** script to produce two executables: banana\_sweep.exe and parallel\_banana\_sweep.exe.  Click **Change Folder** if you are prompted.
 
    ![Make](doc/make1.png)
    
@@ -26,14 +26,14 @@ It has a global minimum at (x, y) = (1, 1) where f(x, y) = 0, but we're going to
    
 1. We'll need to transfer several files to the cluster head node, so open a Remote Desktop Connection to the head node from your MATLAB workstation.  Log in to the VM with the username and password you set when you created the VM, **not** the domain user you created before installing HPC Pack.  This will simplify the process later on.
 
-1. On the head node, make a folder named **banana_sweep** to contain the parametric sweep executable and supporting files.
+1. On the head node, make a folder named **banana\_sweep** to contain the parametric sweep executable and supporting files.
 
-1. Transfer **parallel_banana_sweep.exe**, **run_sweep.bat**, **postprocess_parallel_banana_sweep.exe**, and **postprocess_sweep.bat** to the **banana_sweep** folder on the cluster head node.  The easiest way is to simply copy/paste the files from the workstation to the head node.
+1. Transfer **parallel\_banana\_sweep.exe**, **run\_sweep.bat**, **postprocess\_parallel\_banana\_sweep.exe**, and **postprocess\_sweep.bat** to the **banana\_sweep** folder on the cluster head node.  The easiest way is to simply copy/paste the files from the workstation to the head node.
 
    ![Copy](doc/copy.png)
    ![Paste](doc/paste.png)
 
-1. In the same way, transfer the contents of the **AzureBlobCopy** folder from your MATLAB workstation to **banana_sweep** on the cluster head node.  The banana_sweep folder should look like this:
+1. In the same way, transfer the contents of the **AzureBlobCopy** folder from your MATLAB workstation to **banana\_sweep** on the cluster head node.  The banana\_sweep folder should look like this:
 
    ![Paste](doc/banana_sweep_files.png)
 
@@ -41,7 +41,7 @@ It has a global minimum at (x, y) = (1, 1) where f(x, y) = 0, but we're going to
 
    ![Storage Access Keys](doc/access_keys.png)
 
-1. Back on the cluster head node, open **banana_sweep/AzureBlobCopy.exe.config** in notepad.  In that file, replace **accountName** with your storage account name and **storageKey** with your storage account's primary access key.  Your AzureBlobCopy.exe.config file should look something like this:
+1. Back on the cluster head node, open **banana\_sweep/AzureBlobCopy.exe.config** in notepad.  In that file, replace **accountName** with your storage account name and **storageKey** with your storage account's primary access key.  Your AzureBlobCopy.exe.config file should look something like this:
 
         <?xml version="1.0"?>        <configuration>          <appSettings>            <add key="StorageAccountName" value="azuretrainingstorage"/>            <add key="StorageKey" value="ALongAndConvolutedStringOfRandomCharacters"/>          </appSettings>          <startup>            <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0"/>          </startup>        </configuration>
 
@@ -109,7 +109,7 @@ It has a global minimum at (x, y) = (1, 1) where f(x, y) = 0, but we're going to
         cd /D %CCP_PACKAGE_ROOT%\MCRInstaller
         .\install.bat
 
-   When the nodes boot they will use the [hpcsync](http://technet.microsoft.com/en-us/library/gg481752.aspx) command to automatically download and unpack the MCRInstaller.zip package.  By default, hpcsync deploys files to a location on the Windows Azure nodes that is determined in part by the **%CCP_PACKAGE_ROOT%** environment variable. This variable is set on Windows Azure nodes during the provisioning process. The extracted files are placed in a folder that is determined as follows: %CCP_PACKAGE_ROOT%\<packageName>\<uploadTimeStamp>. This is the expected location for SOA services, XLLs, Excel workbooks, and startup scripts that are called from the node template.  However, because we passed "/relativePath:MCRInstaller" to our hpcpack upload command, MCRInstaller.zip will be unpacked to %CCP_PACKAGE_ROOT%\MCRInstaller.  We used relativePath because we cannot easily determine the <uploadTimeStamp> part of the default path.
+   When the nodes boot they will use the [hpcsync](http://technet.microsoft.com/en-us/library/gg481752.aspx) command to automatically download and unpack the MCRInstaller.zip package.  By default, hpcsync deploys files to a location on the Windows Azure nodes that is determined in part by the **%CCP\_PACKAGE\_ROOT%** environment variable. This variable is set on Windows Azure nodes during the provisioning process. The extracted files are placed in a folder that is determined as follows: %CCP\_PACKAGE\_ROOT%\<packageName>\<uploadTimeStamp>. This is the expected location for SOA services, XLLs, Excel workbooks, and startup scripts that are called from the node template.  However, because we passed "/relativePath:MCRInstaller" to our hpcpack upload command, MCRInstaller.zip will be unpacked to %CCP\_PACKAGE\_ROOT%\MCRInstaller.  We used relativePath because we cannot easily determine the <uploadTimeStamp> part of the default path.
    
 1. Open a command prompt, navigate to the folder containing startup.bat, and package the startup script:
 
@@ -138,7 +138,7 @@ It has a global minimum at (x, y) = (1, 1) where f(x, y) = 0, but we're going to
 1.  Once the nodes are online you'll be able run run jobs!  Note that the filesystem on the nodes is inconsistent with that of the head node.  Operating system files, program files, and user files are all stored on the **D:** drive, not the C: drive as you'd expect.
 ## Run the Parametric Sweep Job ##
 
-1. Open a Command Prompt window and navigate to the folder containing the **banana_sweep** folder.  
+1. Open a Command Prompt window and navigate to the folder containing the **banana\_sweep** folder.  
         
 1. Use **hpcpack create** to package the executable:
 
@@ -156,7 +156,7 @@ It has a global minimum at (x, y) = (1, 1) where f(x, y) = 0, but we're going to
    
    ![hpcsync](doc/hpcsync1.png)
 
-   parallel_banana_sweep.exe is now on the compute nodes and can be executed via a parametric sweep job.
+   parallel\_banana\_sweep.exe is now on the compute nodes and can be executed via a parametric sweep job.
 
 1. Open the Cluster Manager on the head node.  On the **Job Management** page, select **New Parametric Sweep Job** from the list on the right.
 
@@ -174,7 +174,7 @@ It has a global minimum at (x, y) = (1, 1) where f(x, y) = 0, but we're going to
 
    ![New sweep job](doc/new_sweepjob4.png)
 
-1. In the command line box, enter **run_sweep.bat 0.5 -4 5 -3 6 8 \***
+1. In the command line box, enter **run\_sweep.bat 0.5 -4 5 -3 6 8 \***
 
    The command line arguments match the function parameters in the MATLAB code except that the last parameter (taskID) is given as an asterisk "*".  The job scheduler replaces the asterisk with sequential integer values in the range specified in the Step 1 section, in this case, the numbers 1, 2, and so on up to 8.  You can use this parameterization any way you like.  In this example, we're simply using it to specify the taskID.  The command line box should look like this:
    
@@ -187,14 +187,14 @@ It has a global minimum at (x, y) = (1, 1) where f(x, y) = 0, but we're going to
    > parameter on the command line.
    * * * *
    
-1. Set the working directory to **%CCP_PACKAGE_ROOT%\banana_sweep**.  This folder was created automatically by hpcsync because we specified the /relativePath parameter when we executed our hpcpack upload command.
+1. Set the working directory to **%CCP\_PACKAGE\_ROOT%\banana\_sweep**.  This folder was created automatically by hpcsync because we specified the /relativePath parameter when we executed our hpcpack upload command.
 
    ![New sweep job](doc/new_sweepjob6.png)
    
    * * * *
-   > **IMPORTANT:** There is a 10GB limit on %CCP_PACKAGE_ROOT%.  
+   > **IMPORTANT:** There is a 10GB limit on %CCP\_PACKAGE\_ROOT%.  
    >
-   >If your job is going to write a lot of data to files in the working directory then you'll need to use a different working directory and write a batch script to copy files from %CCP_PACKAGE_ROOT% before running the job.
+   >If your job is going to write a lot of data to files in the working directory then you'll need to use a different working directory and write a batch script to copy files from %CCP\_PACKAGE\_ROOT% before running the job.
    * * * *
 
 1. Leave the Standard input, Standard output, and Standard error fields empty.
@@ -211,12 +211,12 @@ It has a global minimum at (x, y) = (1, 1) where f(x, y) = 0, but we're going to
    
    ![Activity Log](doc/activity_log2.png)   
    
-1. Each task participating in the parametric sweep generated a MATLAB data file named **bananaX.mat**, where X is the taskID.  run_sweep.bat used AzureBlobCopy.exe to upload the output file to a new container named **output** in the storage account specified in AzureBlobCopy.exe.config.  You can see these output files in the Windows Azure Management Portal:
+1. Each task participating in the parametric sweep generated a MATLAB data file named **bananaX.mat**, where X is the taskID.  run\_sweep.bat used AzureBlobCopy.exe to upload the output file to a new container named **output** in the storage account specified in AzureBlobCopy.exe.config.  You can see these output files in the Windows Azure Management Portal:
 
    ![Output storage](doc/output_storage1.png)
    ![Output storage](doc/output_storage2.png)
 
-1. We need to post-process these data files to get our final answer (the minimum value of the Rosenbrock banana function).  On the head node, open a command line window.  Navigate to the **banana_sweep** folder and execute **postprocess_sweep.bat 8**.  The "8" is because we used 8 nodes.  Each of the output files will be downloaded from your Azure storage account and post-processed with the MATLAB executable.  The final answer is printed on the console:
+1. We need to post-process these data files to get our final answer (the minimum value of the Rosenbrock banana function).  On the head node, open a command line window.  Navigate to the **banana\_sweep** folder and execute **postprocess\_sweep.bat 8**.  The "8" is because we used 8 nodes.  Each of the output files will be downloaded from your Azure storage account and post-processed with the MATLAB executable.  The final answer is printed on the console:
 
    ![Postprocess](doc/postprocess1.png)
 
