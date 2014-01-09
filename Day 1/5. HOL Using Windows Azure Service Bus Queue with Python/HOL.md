@@ -142,13 +142,13 @@ Next we are going to use IPython Notebook to send a new task to BLAST Cloud Serv
 1. First we need to import required libraries:
 
     <pre>
-        #import libraries
-        from azure.servicebus import *
-        from azure.storage import *
-        import uuid
-        import random
-        import time
-        import json
+	#import libraries
+	from azure.servicebus import *
+	from azure.storage import *
+	import uuid
+	import random
+	import time
+	import json
     </pre>
 
     ![IPython Notebook Import Libraries](images/ipy-send-task-imports.png)
@@ -160,14 +160,14 @@ Next we are going to use IPython Notebook to send a new task to BLAST Cloud Serv
 
     <pre>
 
-        #define service namespace, account key and issuer
-        #we have already defined it for you
-        servicenamespace = 'sb-azure4research-blast'
-        accountkey = 'aC7HfbvW8t7+851wyCEI8DinXg2KTS1voDb2yqyUZZ8='
-        issuer = 'owner'
-        queue_name='JobQueue'
-        #create bus_service
-        bus_service = ServiceBusService(service_namespace=servicenamespace, account_key=accountkey, issuer=issuer)
+	#define service namespace, account key and issuer
+	#we have already defined it for you
+	servicenamespace = 'sb-azure4research-blast'
+	accountkey = 'aC7HfbvW8t7+851wyCEI8DinXg2KTS1voDb2yqyUZZ8='
+	issuer = 'owner'
+	queue_name='JobQueue'
+	#create bus_service
+	bus_service = ServiceBusService(service_namespace=servicenamespace, account_key=accountkey, issuer=issuer)
     </pre>
 
     ![IPython Notebook Create Service Bus Service](images/ipy-send-task-bus-service.png)
@@ -178,25 +178,25 @@ Next we are going to use IPython Notebook to send a new task to BLAST Cloud Serv
 1. Now we create a dict in Python and save all properties into the dictionary. Then we will use json library's dumps method to convert the dictionary into a json string. Then we set the message body to be the json string. The code randomly pick a file from 1 to 200 as the input file. In the example, we use *input_63* as the input file.
 
     <pre>
-        #create a new message
-        msg = Message()
-        id = str(uuid.uuid1()).replace('-','')
-        input_file = 'input_' + str(random.randint(1,200))
-        last_timestamp = int(time.time()*10000) + 621355968000000000
-        name = 'TEST ' + time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime()) + '(' + input_file + ')'
-        data = {'Hash':"",
-                'Id':id,
-                'InputFile': input_file,
-                'InputFiles':"null",
-                'LastMessage':"Queued",
-                'LastTimestamp': last_timestamp,
-                'Name': name,
-                'OutputFile':"",
-                'State':"QUEUED"
-               }
-        s=json.dumps(data);
-        msg.body=json.dumps(data);
-        print msg.body
+	#create a new message
+	msg = Message()
+	id = str(uuid.uuid1()).replace('-','')
+	input_file = 'input_' + str(random.randint(1,200))
+	last_timestamp = int(time.time()*10000) + 621355968000000000
+	name = 'TEST ' + time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime()) + '(' + input_file + ')'
+	data = {'Hash':"",
+ 			'Id':id,
+			'InputFile': input_file,
+			'InputFiles':"null",
+			'LastMessage':"Queued",
+			'LastTimestamp': last_timestamp,
+			'Name': name,
+			'OutputFile':"",
+			'State':"QUEUED"
+	}
+	s=json.dumps(data);
+	msg.body=json.dumps(data);
+	print msg.body
     </pre>
 
     ![IPython Notebook Create Message](images/ipy-send-task-create-message.png)
@@ -206,21 +206,21 @@ Next we are going to use IPython Notebook to send a new task to BLAST Cloud Serv
 1. Before we submit the message to a Service Bus queue, we have to insert a new entity into a table first for the BLAST web site to track the status correctly. 
 
      <pre>
-          #insert the message to table first
-          account = 'blaststore'
-          key = '99serQiW4MXGx4u14SfZTiONYDZ5jn7BRgOcRsQEcY/WCgzJxWwoSCXSTmPQnXwoUJkrQPgDjrzIr5AO9q71/Q=='
-          table_name = 'SearchTask'
-          table_service = TableService(account_name=account, account_key=key)
-          entity = Entity()
-          entity.PartitionKey = data['Id']
-          entity.RowKey= data['Id']
-          entity.Id = data['Id']
-          entity.Name = data['Name']
-          entity.InputFile = data['InputFile']
-          entity.State = data['State']
-          entity.LastMessage = data['LastMessage']
-          entity.LastTimestamp = data['LastTimestamp']
-          table_service.insert_entity(table_name, entity)
+	#insert the message to table first
+	account = 'blaststore'
+	key = '99serQiW4MXGx4u14SfZTiONYDZ5jn7BRgOcRsQEcY/WCgzJxWwoSCXSTmPQnXwoUJkrQPgDjrzIr5AO9q71/Q=='
+	table_name = 'SearchTask'
+	table_service = TableService(account_name=account, account_key=key)
+	entity = Entity()
+	entity.PartitionKey = data['Id']
+	entity.RowKey= data['Id']
+	entity.Id = data['Id']
+	entity.Name = data['Name']
+	entity.InputFile = data['InputFile']
+	entity.State = data['State']
+	entity.LastMessage = data['LastMessage']
+	entity.LastTimestamp = data['LastTimestamp']
+	table_service.insert_entity(table_name, entity)
     </pre>
 
     ![IPython Notebook Insert Table](images/ipy-send-task-insert-table.png)
@@ -255,9 +255,9 @@ You can use Python to receive a message as well! Messages are received from a qu
 1. Execute following command to receive a message in IPython Notebook. If there is no message in the queue, IPython Notebook will block until either a message arrives or the thread times out. You can see **Kernel busy** on the top right.
  
     <pre>
-        #receive a new message
-		msgrec = bus_service.receive_queue_message(queue_name, False)
-		print msgrec.body 
+	#receive a new message
+	msgrec = bus_service.receive_queue_message(queue_name, False)
+	print msgrec.body 
     </pre>
     
     ![IPython Notebook Receive Message](images/ipy-receive-message.png)
@@ -294,9 +294,9 @@ You can use Python to receive a message as well! Messages are received from a qu
 
 	
     <pre>
-        #receive a new message when peek lock = True
-        msgrec = bus_service.receive_queue_message(queue_name, True)
-        print msgrec.body 
+	#receive a new message when peek lock = True
+	msgrec = bus_service.receive_queue_message(queue_name, True)
+	print msgrec.body 
     </pre>
     
     ![IPython Notebook Receive Message With Peek Lock](images/ipy-receive-message-peek-lock.png)
