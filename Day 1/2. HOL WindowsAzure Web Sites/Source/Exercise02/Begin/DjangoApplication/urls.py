@@ -10,7 +10,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'DjangoApplication.views.home', name='home'),
     # url(r'^DjangoApplication/', include('DjangoApplication.DjangoApplication.urls')),
 
-    # ('^earthquake/$',earthquake), #uncomment the line to support earthquake view
+    # url('^earthquake/$',earthquake), #uncomment the line to support earthquake view
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
