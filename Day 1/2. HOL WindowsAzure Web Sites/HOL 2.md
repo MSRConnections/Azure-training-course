@@ -88,11 +88,12 @@ Estimated time to complete this lab: **45** minutes.
 
 	_View Django Site_
 
-1. **Next**, you need to reset your website's credential for use with FTP. Web Site credentials are separated from the Microsoft ID associated with your Windows Azure subscription. Web Site credentials are valid for use with all Windows Azure web sites associated with your subscription. It is the administrator password for the site that you are creating, this way you don't have to give co-admin of the website your portal password. If you do forget your deployment credentials you can easily reset them again using the management portal. Open the web site **Dashboard** page and click the **Reset deployment credentials** link. Provide a new password and click Ok.
+1. **Next**, you need to setup your website's credential for use with FTP. If you need to reset the credential later after an initial setup, you will see a reset link instead. Web Site credentials are separated from the Microsoft ID associated with your Windows Azure subscription. Web Site credentials are valid for use with all Windows Azure web sites associated with your subscription. It is the administrator password for the site that you are creating, this way you don't have to give co-admin of the website your portal password. If you do forget your deployment credentials you can easily reset them again using the management portal. Open the web site **Dashboard** page and click the **Reset deployment credentials** link. Provide a new password and click Ok.
 
+	![Entering the username and password](images/setup-credential.png)	
 	![Entering the username and password](images/reset-credential.png)
 	
-	_Click on Reset deployment credential on the right hand side of your web site dashboard_
+	_Click on Setup or if necessary Reset deployment credential on the right hand side of your web site dashboard_
 	
 	![Entering the username and password](images/deployment-credentials.png)
 	
