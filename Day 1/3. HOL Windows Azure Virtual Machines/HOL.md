@@ -99,7 +99,7 @@ Estimated time to complete this lab: **60** minutes.
 	
 	_Remote Desktop Window_
 
-1. Next, let's install R Studio on the Windows Machine and run a few examples. First, open **Internet Explorer** on that machine and download the R install package from [R Website](http://www.r-project.org/). Click the [CRAN mirror](http://cran.r-project.org/mirrors.html) link from the Getting Started area, then select the nearest mirror to start your download of [R for Windows](http://cran.rstudio.com/bin/windows/base/R-3.0.2-win.exe). Please note that the download is from the internet to your VM in the cloud, you will notice that it is much faster than downloading files to your local machine. VMs sitting in Windows Azure typically gives you a much faster interconnect to the rest of the internet than any local machines could achieve. This could potentially speedup your research work.
+1. Next, let's install R and R Studio on the Windows Machine and run a few examples. First, open **Internet Explorer** on that machine and download the R install package from [R Website](http://www.r-project.org/). Click the [CRAN mirror](http://cran.r-project.org/mirrors.html) link from the Getting Started area, then select the nearest mirror to start your download of [R for Windows](http://cran.rstudio.com/bin/windows/base/R-3.0.2-win.exe). Please note that the download is from the internet to your VM in the cloud, you will notice that it is much faster than downloading files to your local machine. VMs sitting in Windows Azure typically gives you a much faster interconnect to the rest of the internet than any local machines could achieve. This could potentially speedup your research work.
 
 	![Download R](images/vm-windows-download-r.png)
 	
@@ -120,21 +120,21 @@ Estimated time to complete this lab: **60** minutes.
 	
 	_Launch R_
 
-1. Use the same steps to install [R Studio](http://download1.rstudio.org/RStudio-0.97.551.exe) and run it.
+1. Use the same steps to install [R Studio](http://download1.rstudio.org/RStudio-0.97.551.exe) and run it.  After installation, you can find R Studio by clicking on the Start Menu and then type in: rstudio to find the program.  Press return to launch R Studio.
 
 
 	![Launch RStudio](images/vm-windows-launch-rstudio.png)
 	
 	_Launch RStudio_
 
-1. Next, let's execute an R job. First we need to move an R file on the remote machine on Windows Azure. You can find an file **acpclust.R** under the folder **Source\Exercise1**. Since Windows Remote Desktop supports Copy/Paste from a local machine to a remote desktop machine, you can use this to get the file onto the Windows Azure machine. To do this, right-click the file **acpclust.R**, click **Copy**, then navigate to the Remote Desktop window's desktop and right-click the desktop, click **Paste**. After a few seconds, you will find the file is copied to the remote machine's desktop. 
- >Note: If you are using a **Mac Computer**, or Linux machine, please create a new text file on the remote machine and paste the content text of the file into notepad or equivalent. You may have to rename the file from acpclust.R.txt to acpclust.R. Simply open a command prompt (start menu, type cmd.exe, enter) and run:  rename acpclust.R.txt acpclust.R. 
+1. Next, let's execute an R job. First we need to move an R file on the remote machine on Windows Azure. You can find an file **acpclust.R** under the folder **Source\Exercise1**. Since Windows Remote Desktop supports Copy/Paste from a local machine to a remote desktop machine, you can use this to get the file onto the Windows Azure machine. To do this, right-click the file **acpclust.R**, click **Copy**, then navigate to the Remote Desktop window's desktop and right-click the desktop, click **Paste**. After a few seconds, you will find the file is copied to the remote machine's desktop.
+ 
+    >Note: If you are using a **Mac Computer**, or Linux machine, please create a new text file on the remote machine and paste the content text of the file into notepad or equivalent. You may have to rename the file from acpclust.R.txt to acpclust.R. Simply open a command prompt (start menu, type cmd.exe, enter) and run:  rename acpclust.R.txt acpclust.R
+ 
+    ![Copy File to Remote Desktop](images/vm-windows-copy-file-to-remote.png)
 
-	![Copy File to Remote Desktop](images/vm-windows-copy-file-to-remote.png)
-	
 	_Copy File to Remote Desktop_
 	
-
 1. To run the **acpclust.R** file, we have to install some additional packages of R. In the RStudio's right corner panel, click **Packages** tab, and click **Install Packages** button.
 
 	![Install R Packages](images/vm-windows-rstudio-install-packages.png)
@@ -196,7 +196,7 @@ In this exercise, we created a Windows Server 2012 R2 virtual machine (VM) on Wi
 
 	_Set Image Storage Account_
 
-1. Then Windows Azure will begin to copy the image from VM Deport to your storage account. It may take 10-15 minutes to finish. Once it completes, you will see the image is inside the image tab.
+1. Then Windows Azure will begin to copy the image from VM Deport to your storage account. It may take 15-30 minutes to finish. Once it completes, you will see the image is inside the image tab.
 
 	![Copy Image from VM Depot](images/vm-linux-vmdepot-copy-image-complete.png)
 
@@ -314,20 +314,20 @@ _Clustering Example Sample_
 	_Clustering New Notebook_
 
 1. In the beginning, the script defines the azure credentials as well as the desired number of clusters for the algorithm to find. The data is loaded from internet and stored in titanic_data.csv. We just upload the csv file to a public windows azure storage account and download it by HTTPs directly.
-
-   <pre>
-   from sklearn.cluster import KMeans
+	<pre>
+	from sklearn.cluster import KMeans
 	import urllib
-    import numpy as np
+	import numpy as np
 	import pandas 
 	import matplotlib
 	import matplotlib.pyplot as plt
 	import matplotlib.cm as cm
+		
 	from sklearn.manifold import MDS
 	NUM_CLUSTERS = 16
 	####################################
 	# download titanic csv data from github
-	f = urllib.urlopen("https://pythonstore.blob.core.windows.net/data/titanic-data.csv") # YOU MIGHT NEED TO CHANGE THE URL
+	f = urllib.urlopen("http://wrfstorage2.blob.core.windows.net/trainingkit/titanic-data.csv") # YOU MIGHT NEED TO CHANGE THE URL
 	titanic_csv = f.read()
 	with open("titanic.csv", "w") as tmp:
 		tmp.write(titanic_csv)
@@ -596,7 +596,7 @@ For linux, the steps to add empty disk is exactly the same. The different is the
 	
 	<pre>
 	/dev/sdc1    /mnt/data    ext4    defaults 0 0
-	<pre>
+	</pre>
 
 	Then press ctrl+x to exit. Confirm saving with “y” and then enter.
 
@@ -614,9 +614,9 @@ For linux, the steps to add empty disk is exactly the same. The different is the
 	df -h
  	</pre>
 
+
 	![Mount -a](images/disk-attach-linux-mount-a.png)
 
----
 
 <a name="summary"></a>
 ## Summary ##
