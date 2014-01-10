@@ -72,7 +72,7 @@ First, you will need to deploy required software on your linux machine. You are 
 
 	_Connect Remote Machine_
 
-1. Then we can execute following command to install git
+1. Then we can execute following command to install git if it is not installed already. You can check by typing git first.
 
     <pre>
 	sudo apt-get install git	
@@ -165,8 +165,11 @@ All software has been installed on your machine, next we setup to connect to Win
 
 	_Donwload cer file_
 
-	>If you get an error about "Cannot create file xxx", please run your command line in administrators mode and run again.
+	>If you get an error about "Cannot create file xxx", please run your command line in administrators mode and run again. If you prefer a GUI tool, you may use FileZilla, in the Host Box enter sftp://your-linuxVM.cloudapp.net
 	
+	![Alternatively, using filezilla to transfer the certificates](images/filezilla-sftp.png)
+	
+	_Alternatively, using filezilla to transfer the certificates to your local machine_
 
 1. After you have downloaded the file *mycert.cer*, you will need to upload the .cer file to Windows Azure via the "Upload" action of the "Settings" tab of the management portal, and you will need to make note of where you saved the .pem file.
 
@@ -199,7 +202,7 @@ _IPython Notebook Spectral_
 
 1. First we need to copy the toolkit under **Source\Ex02-DeployIPython** to local Ubuntu machine, then copy the **mycert.pem** to the same folder of the source.
 
-1. Open the file **configSample.py** in gedit. You need to replace the subscription id with yours and the path to your private key file (**mycert.pem**).
+1. Open the file **configSample.py** in gedit. You need to replace the subscription id with yours and the path to your private key file (**mycert.pem**). If you are not sure about the Region codes they are one of the following: "West US", "East US", "North Europe", "East Asia", please make sure you create both storage and VMs in the same region.
 
 	![Edit configSample.py](images/edit-configSample.png)
 
