@@ -24,6 +24,7 @@ The following is required to complete this hands-on lab:
 
 - A Windows Azure subscription - [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
 - If you are a Mac Computer user, please install Windows Remote desktop 8.0 from the  [App Store.](https://itunes.apple.com/us/app/microsoft-remote-desktop/id715768417?mt=12&v0=WWW-NAUS-ITUHOME-NEWAPPLICATIONS&ign-mpt=uo%3D2)
+- If you are using a **Linux** computer, please install [FreeRDP](http://www.freerdp.com/), or [Remmina](http://remmina.sourceforge.net/downloads.shtml) using apt-get(Ubuntu), o r yum (redhat, CentOS based). 
 - You **must** use one of the following **browsers**: latest version of **Firefox or Chrome, IE 9, 10, 11.**  Browsers like Safari, 360 may have issues with IPython or RDP download. 
 
 ---
