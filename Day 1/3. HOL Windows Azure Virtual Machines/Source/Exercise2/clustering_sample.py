@@ -11,7 +11,7 @@ NUM_CLUSTERS = 16
 
 ####################################
 # download titanic csv data 
-f = urllib.urlopen("https://pythonstore.blob.core.windows.net/data/titanic-data.csv") # YOU MIGHT NEED TO CHANGE THE URL
+f = urllib.urlopen("http://wrfstorage2.blob.core.windows.net/trainingkit/titanic-data.csv") # YOU MIGHT NEED TO CHANGE THE URL
 titanic_csv = f.read()
 with open("titanic.csv", "w") as tmp:
     tmp.write(titanic_csv)
