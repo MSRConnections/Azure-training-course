@@ -1,0 +1,50 @@
+Dallas Utilities: Electricity seasonal use simulation using Power Map and Power View 
+?
+The Microsoft account team in Dallas, TX wanted to create a localized demonstration that would be recognizable to customers in the area.? Taking advantage of publically available residential data and awareness of the extreme summer temperatures in and around Dallas, the team decided to present simulated household energy consumption data using Excel 2013 and Power , believing the combination of the data with the two technologies would peak customers¡¯ interests. 
+Collecting the data and preparing it to use in Power Map
+The Dallas County Appraisal District provides access to property data at this URL: http://dcad.org/. 
+The team used property data from that site to obtain information about the size and specifics of the houses. The next step was to generate simulated monthly kWh consumption data on a per household basis.? National averages on seasonal consumption and the account team's personal household energy consumption were used in the simulation.?They also added random numbers to each household's monthly energy consumption to enhance the variability of the data.
+A sample of households in the cities of Addison and Carrollton were extracted and are provided in the sample data file included at the end of this blog post.
+Constructing demo material 
+For both the Power View and the Power Map Preview demonstrations, calculations were added to the Power Pivot data models for kWh per Square Foot and kWh per USD Market Value.?These values allowed the team to normalize energy consumption across homes of varying size and value and gave additional measures to work with for the demonstration.
+For the Power View presentation, various predefined reports were built up within the Excel workbook.? Animated bubble charts, pie charts, maps, line charts, and column charts were used to illustrate a range of interactive visualizations.? (Monthly average temperature data was also imported into the Power Pivot model in this demo so that energy consumption relative to temperature could be shown.)
+For the Power Map Preview presentation, households were mapped using longitude and latitude.? Columns were presented on these points illustrating square footage or market value of the properties.? The decade of the construction of the homes was used to highlight the various neighborhoods.? A second layer was added to the presentation to show household kWh consumption as a heat map.? This data leveraged the Play option in GeoFlow Preview in order to show how the map of kWh consumption changes over time: The first day of each month was embedded in the Power Pivot data set since the Play option requires a date value so that the customer could see the ebb and flow of energy consumption over the three-year period.? Various neighborhoods were zoomed into to illustrate differences in consumption patterns between them.
+?
+Building the demo
+Give it a try! Here are the steps which you can follow to re-create the key Power Map visualization showing houses in height by SqFeet, colored by Decade Built and their electricity consumption over time using heatmaps  on your own (see below) 
+Download and install Power Map
+Click on the Map button 
+New Tour 
+Latitude and Longitude should already be selected in the Geography and Map level box. You should see data point ziggurats indicated on the map. 
+Next
+Zoom in 
+Select Square Feet field, this will place that filed in the HEIGHT well
+Capture your first scene by clicking on Add Scene.
+
+The visualization will show the houses in their location and height of the columns shows their size. There are some really big houses which are condo complexes. 
+
+Now do the following: 
+Click on the DecadeBuilt field. This will color the columns specific to the decade in which they were built and will refresh the legend. 
+You can adjust the Legend to see that there houses built from 1910s to 2010s in the dataset
+Zoom in again. 
+Capture your second scene by clicking on Add Scene again. 
+
+You can adjust the thickness of the columns by accessing the Layer properties. To do so, click on the Settings icon on top of the Field list. Lower the thickness to 20%. At this point we can spot patterns. There is a neighborhood which was built in the 80s, the columns there are dark beige. That neighborhood is flanked by two neighborhoods built in the sixties, which are red. This mix is interesting because it lends itself well to seasonality comparison. 
+
+Capture the third scene. 
+Now it is time to add the second layer which will show electricity consumption per month and we will transpose that visual using heat maps. 
+
+To get this do the following: 
+Access the Layer Manager by clicking on the left most icon on the top of the Field List task pane
+Make a New Layer by clicking on the icon that has a + sign 
+Make sure  Latitude and Longitude ¨C each layer needs GEOGRAPHY
+Next
+Now select the kWh field
+Change the chart type from Column to HeatMap. You can do this by clicking on the drop down under the TYPE field. 
+Click on PeriodStart field, this will add it to the TIME well 
+Change the time settings by clicking on the icon above the TIME well.  That setting should be changed to Data stays until it is replaced.  
+?
+Click play. You will see that the houses built in the 80ies consume less electricity as seasons change compared to the houses built in the 60ies. 
+You can play your visualization in full screen using Play Tour. 
+
+

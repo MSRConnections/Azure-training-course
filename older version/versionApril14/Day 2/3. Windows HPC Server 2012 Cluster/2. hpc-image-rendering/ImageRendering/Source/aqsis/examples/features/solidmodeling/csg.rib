@@ -1,0 +1,102 @@
+Option "limits" "bucketsize" [32 32]
+
+Orientation "lh"
+Format 480 360 1
+PixelSamples 2 2
+PixelFilter "gaussian" 2 2
+FrameBegin 0
+Display "csg.tif" "file" "rgba"
+Display "+csg.tif" "framebuffer" "rgb"
+Sides 1
+
+# Camera name: "Kamera01"
+Projection "perspective" "fov" [36.0]
+Translate 0 0 40
+Rotate -35 1 0 0
+Rotate 35 0 1 0
+
+WorldBegin
+# Default-Surface
+Surface "matte"
+
+TransformBegin
+Translate 0 30 -30
+LightSource "pointlight" 2 "intensity" [700]
+TransformEnd
+
+TransformBegin
+Translate 30 30 0
+LightSource "pointlight" 3 "intensity" [700]
+TransformEnd
+
+TransformBegin
+Translate 0 0 0
+LightSource "pointlight" 4 "intensity" [30]
+TransformEnd
+
+TransformBegin
+	Color 1 1 1
+	Translate 0 -8.1 0
+	Scale 10 1 10
+	Attribute "identifier" "name" ["Plane"]
+	Polygon "P" [-10 0 -10  -10 0  10   10 0  10   10 0  -10]
+TransformEnd
+
+
+Attribute "identifier" "name" ["CSG object"]
+SolidBegin "intersection"
+	SolidBegin "primitive"
+		Color 1 1 1
+		Polygon "P" [-8 -8 -8   -8  8 -8   8  8 -8   8 -8 -8]  
+		Polygon "P" [-8 -8  8    8 -8  8   8  8  8  -8  8  8]  
+		Polygon "P" [-8 -8 -8   -8 -8  8  -8  8  8  -8  8 -8]  
+		Polygon "P" [ 8 -8 -8    8  8 -8   8  8  8   8 -8  8]  
+		Polygon "P" [-8  8 -8   -8  8  8   8  8  8   8  8 -8]  
+		Polygon "P" [-8 -8 -8    8 -8 -8   8 -8  8  -8 -8  8]  
+	SolidEnd
+	SolidBegin "difference"
+		Rotate 90 1 0 0
+		SolidBegin "primitive"
+			AttributeBegin
+			Surface "plastic" "float Ks" [0.8]
+			Color 0 1 0
+			Sphere 10.0 -10.0 10.0 360
+			AttributeEnd
+		SolidEnd
+
+		SolidBegin "union"
+			Rotate 90.0 1 0 0
+			SolidBegin "primitive"
+				AttributeBegin
+				Color 1 0 0
+				Cylinder 5.0 -20 20 360
+				Disk -20 5 360
+				Disk 20 5 360
+				AttributeEnd
+			SolidEnd
+			SolidBegin "primitive"
+				AttributeBegin
+				Rotate 90.0 0 1 0
+				Color 1 1 0
+				Cylinder 5.0 -20 20 360
+				Disk -20 5 360
+				Disk 20 5 360
+				AttributeEnd
+			SolidEnd
+			SolidBegin "primitive"
+				AttributeBegin
+				Rotate 90.0 1 0 0
+				Color 0 0 1
+				Cylinder 5.0 -20 20 360
+				Disk -20 5 360
+				Disk 20 5 360
+				AttributeEnd
+			SolidEnd
+		SolidEnd
+
+	SolidEnd
+SolidEnd
+
+WorldEnd
+FrameEnd
+

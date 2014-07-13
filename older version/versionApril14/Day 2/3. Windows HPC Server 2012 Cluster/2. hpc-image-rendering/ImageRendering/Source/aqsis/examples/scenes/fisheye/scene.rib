@@ -1,0 +1,40 @@
+##RenderMan RIB
+version 3.03
+
+#ReadArchive "envmap.rib"
+# Convert images to envmap.
+MakeCubeFaceEnvironment "rpx.tif" "rnx.tif" "rpy.tif" "rny.tif" "rpz.tif" "rnz.tif" "rmap.env" 93 "gaussian" 2 2
+
+# Main scene
+FrameBegin 7
+	Option "limits" "bucketsize" [32 32]
+	ShadingRate 1
+	PixelSamples 2 2
+	PixelFilter "gaussian" 2 2
+	Format 480 360 1
+	Display "example.tif" "file" "rgba"
+	Display "+example.tif" "framebuffer" "rgb"
+	Projection "perspective" "fov" [34.5159]
+	Clipping 0.1 100000
+	Translate 0 0 600
+	Rotate -35 1 0 0
+	Rotate 90 0 1 0
+	#Translate -400 -350 -400
+	WorldBegin
+		Rotate 45 0 1 0
+		ReadArchive "lights.rib"
+		ReadArchive "world.rib"
+		# BEGIN MODEL: sphere01_1-sphere01_2
+		AttributeBegin 
+			ConcatTransform [1 0 0 0 0 1 0 0 0 0 1 0 0.369004 0.738007 0 1]
+			AttributeBegin 
+				Attribute "identifier" "name" ["sphere01_1-sphere01_2"]
+				Sides 1
+				Color [1 1 1]
+				Surface "shinymetal" "Ks" [0.5] "texturename" ["rmap.env"]
+				Sphere 38 -38 38 360
+			AttributeEnd 
+		AttributeEnd 
+		# END MODEL: sphere01_1-sphere01_2
+	WorldEnd 
+FrameEnd 

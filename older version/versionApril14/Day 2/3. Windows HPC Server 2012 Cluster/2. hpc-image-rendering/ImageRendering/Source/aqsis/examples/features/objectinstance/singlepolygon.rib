@@ -1,0 +1,91 @@
+##RenderMan RIB-Structure 1.0
+version 3.03
+
+#Created with K-3D Version 0.3.0.85, http://www.k-3d.org
+
+FrameBegin 1
+
+   #Setup Display
+   Option "limits" "bucketsize" [32 32]
+   Display "singlepolygon.tif" "file" "rgba"
+   Display "+singlepolygon.tif" "framebuffer" "rgb"
+   Format 480 360 1
+
+   #Setup viewing transformation
+   Projection "perspective" "fov" [ 45 ]
+   ScreenWindow -0.666667 0.666667 -0.5 0.5
+   Clipping 1 1000
+   Rotate -1.99124e-15 0 0 1
+   Rotate -37 1 0 0
+   Rotate -45 0 1 0
+   Translate 20 -22 16
+
+   WorldBegin
+      TransformBegin
+         Transform [ 1 0 0 0 0 1 0 0 0 0 1 0 -20 20 -30 1 ]
+         LightSource "pointlight" 1 "constant float intensity" [ 3000 ] "constant color lightcolor" [ 1 1 1 ]
+      TransformEnd
+      AttributeBegin
+         ConcatTransform [ 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 ]
+         ObjectBegin 1
+            AttributeBegin
+               Color [ 0.1 0.5 0.5 ]
+               Opacity 0.8 0.8 0.8
+               ConcatTransform [ 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 ]
+               PointsGeneralPolygons [ 1 ] [ 4 ] [ 0 1 2 3 ] "P" [ -2.5 2.5 0 2.5 2.5 0 2.5 -2.5 0 -2.5 -2.5 0 ]
+            AttributeEnd
+         ObjectEnd
+
+       Surface "plastic"
+
+         AttributeBegin
+            Transform [ 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 ]
+            ObjectInstance 1
+         AttributeEnd
+         AttributeBegin
+            Transform [ 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 1 ]
+            ObjectInstance 1
+         AttributeEnd
+         AttributeBegin
+            Transform [ 1 0 0 0 0 1 0 0 0 0 1 0 0 0 2 1 ]
+            ObjectInstance 1
+         AttributeEnd
+         AttributeBegin
+            Transform [ 1 0 0 0 0 1 0 0 0 0 1 0 0 0 3 1 ]
+            ObjectInstance 1
+         AttributeEnd
+         AttributeBegin
+            Transform [ 1 0 0 0 0 1 0 0 0 0 1 0 0 0 4 1 ]
+            ObjectInstance 1
+         AttributeEnd
+         AttributeBegin
+            Transform [ 1 0 0 0 0 1 0 0 0 0 1 0 0 0 5 1 ]
+            ObjectInstance 1
+         AttributeEnd
+         AttributeBegin
+            Transform [ 1 0 0 0 0 1 0 0 0 0 1 0 0 0 6 1 ]
+            ObjectInstance 1
+         AttributeEnd
+         AttributeBegin
+            Transform [ 1 0 0 0 0 1 0 0 0 0 1 0 0 0 7 1 ]
+            ObjectInstance 1
+         AttributeEnd
+         AttributeBegin
+            Transform [ 1 0 0 0 0 1 0 0 0 0 1 0 0 0 8 1 ]
+            ObjectInstance 1
+         AttributeEnd
+         AttributeBegin
+            Transform [ 1 0 0 0 0 1 0 0 0 0 1 0 0 0 9 1 ]
+            ObjectInstance 1
+         AttributeEnd
+         AttributeBegin
+            Transform [ 1 0 0 0 0 1 0 0 0 0 1 0 0 0 10 1 ]
+            ObjectInstance 1
+         AttributeEnd
+         AttributeBegin
+            Transform [ 1 0 0 0 0 1 0 0 0 0 1 0 0 0 10 1 ]
+            ObjectInstance 1
+         AttributeEnd
+      AttributeEnd
+   WorldEnd
+FrameEnd 

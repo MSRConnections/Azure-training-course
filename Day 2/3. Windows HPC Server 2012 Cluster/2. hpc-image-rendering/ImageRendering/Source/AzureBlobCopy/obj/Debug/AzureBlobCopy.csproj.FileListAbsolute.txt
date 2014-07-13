@@ -1,0 +1,6 @@
+D:\Azure-training-course\Day 2\3. Windows HPC Server 2012 Cluster\2. hpc-image-rendering\ImageRendering\Source\aqsis\bin\AzureBlobCopy.exe.config
+D:\Azure-training-course\Day 2\3. Windows HPC Server 2012 Cluster\2. hpc-image-rendering\ImageRendering\Source\aqsis\bin\AzureBlobCopy.exe
+D:\Azure-training-course\Day 2\3. Windows HPC Server 2012 Cluster\2. hpc-image-rendering\ImageRendering\Source\aqsis\bin\AzureBlobCopy.pdb
+D:\Azure-training-course\Day 2\3. Windows HPC Server 2012 Cluster\2. hpc-image-rendering\ImageRendering\Source\AzureBlobCopy\obj\Debug\AzureBlobCopy.csprojResolveAssemblyReference.cache
+D:\Azure-training-course\Day 2\3. Windows HPC Server 2012 Cluster\2. hpc-image-rendering\ImageRendering\Source\AzureBlobCopy\obj\Debug\AzureBlobCopy.exe
+D:\Azure-training-course\Day 2\3. Windows HPC Server 2012 Cluster\2. hpc-image-rendering\ImageRendering\Source\AzureBlobCopy\obj\Debug\AzureBlobCopy.pdb

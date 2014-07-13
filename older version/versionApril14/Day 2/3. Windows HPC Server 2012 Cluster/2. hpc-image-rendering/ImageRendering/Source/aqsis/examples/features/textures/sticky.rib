@@ -1,0 +1,123 @@
+version 3.03
+Display "sticky.tif" "file" "rgba"
+Display "+sticky.tif" "framebuffer" "rgb"
+Format 480 360 1
+ShadingRate 1
+
+Projection "perspective" "fov" 40
+
+Option "limits" "bucketsize" [32 32]
+Option "limits" "eyesplits" 3
+Sides 2
+PixelSamples 2 2
+PixelFilter "gaussian" 2 2
+
+Translate 0 -0.5 10
+
+WorldBegin
+      
+	LightSource "pointlight" 0 "intensity" [100] "from" [0 0 -10]
+
+	Color [1 1 1]
+
+	AttributeBegin
+		Translate -2 0 0
+		Surface "sticky_texture" "string texturename" ["grid.tex"]
+		Patch "bicubic" "P" [
+							-1 -1 -1
+							-0.5 -1 -1
+							0.5 -1 -1
+							1 -1 -1
+
+							-1 -0.5 -1
+							-0.5 -0.5 -1
+							0.5 -0.5 -1
+							1 -0.5 -1
+
+							-1 0.5 -1
+							-0.5 0.5 -1
+							0.5 0.5 -1
+							1 0.5 -1
+
+							-1 1 -1
+							-0.5 1 -1
+							0.5 1 -1
+							1 1 -1
+						]
+	AttributeEnd
+
+	AttributeBegin
+		Translate 2 -1 0
+		Surface "sticky_texture" "string texturename" ["grid.tex"]
+		Patch "bicubic" "P" [
+							-1.5 -1.5 -1
+							-0.5 -1 -1
+							0.5 -1 -1
+							1.5 -1.5 -1
+
+							-1 -0.5 -1
+							-0.5 -0.5 -1
+							0.5 -0.5 -1
+							1 -0.5 -1
+
+							-1 0.5 -1
+							-0.5 0.5 -1
+							0.5 0.5 -1
+							1 0.5 -1
+
+							-1.5 1.5 -1
+							-0.5 1 -1
+							0.5 1 -1
+							1.5 1.5 -1
+						]
+			"vertex point Pref" [
+							-1 -1 -1
+							-0.5 -1 -1
+							0.5 -1 -1
+							1 -1 -1
+
+							-1 -0.5 -1
+							-0.5 -0.5 -1
+							0.5 -0.5 -1
+							1 -0.5 -1
+
+							-1 0.5 -1
+							-0.5 0.5 -1
+							0.5 0.5 -1
+							1 0.5 -1
+
+							-1 1 -1
+							-0.5 1 -1
+							0.5 1 -1
+							1 1 -1
+						]
+	AttributeEnd
+
+	AttributeBegin
+		Translate 2 2 0
+		Surface "sticky_texture" "string texturename" ["grid.tex"]
+		Patch "bicubic" "P" [
+							-1.5 -1.5 -1
+							-0.5 -1 -1
+							0.5 -1 -1
+							1.5 -1.5 -1
+
+							-1 -0.5 -1
+							-0.5 -0.5 -1
+							0.5 -0.5 -1
+							1 -0.5 -1
+
+							-1 0.5 -1
+							-0.5 0.5 -1
+							0.5 0.5 -1
+							1 0.5 -1
+
+							-1.5 1.5 -1
+							-0.5 1 -1
+							0.5 1 -1
+							1.5 1.5 -1
+						]
+	AttributeEnd
+
+WorldEnd
+

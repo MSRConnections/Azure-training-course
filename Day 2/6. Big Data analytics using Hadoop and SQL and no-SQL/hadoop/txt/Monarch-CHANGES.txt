@@ -1,0 +1,44 @@
+Monarch - unreleased
+  TEMPORARY WORKAROUNDS
+    HADOOP-325 - Hadoop core doesn't compile with openjdk 7
+        THis is not the final fix, please do not backport to apache.
+
+  IMPROVEMENTS
+    PROD - 98 - Set the Oozie related core-site.xml settings in winpkg scripts
+  
+    HADOOP-175 UnitTest: org.apache.hadoop.mapred.TestJobStatusPersistency.
+    testJobStoreDisablingWithInvalidPath (Chuan Liu)
+    
+    HADOOP-221 hadoop-env.cmd overwrites the value of *_OPTS set before install
+    (Ganeshan Iyer)
+
+    HADOOP-175 UnitTest: org.apache.hadoop.mapred.TestJobStatusPersistency
+    .testJobStoreDisablingWithInvalidPath (Chuan Liu)
+
+    HADOOP-64 Winutils should keep Administrators privileges intact (Chuan Liu)
+
+    MAPREDUCE-1806 (HADOOP-136) CombineFileInputFormat only works with default file system
+    (Ahmed El Baz)
+
+    HADOOP-8874 (HADOOP-60) Provide API to retrieve valid HADOOP_HOME and bin path.
+    (John Gordon)
+
+    HADOOP-8731 (HADOOP-4) Public distributed cache support for Windows. (Ivan Mitic)
+
+    HADOOP-23 Hadoop does not close output file / does not call 
+    Mapper.cleanup if exception in map (Jianyong Dai)
+
+    HADOOP-185. Azure file system code formatting, fix warnings and some cleanup.
+    (suresh)
+  
+    HADOOP-9040. Fix task-controller to build unless windows ( gkesavan )
+
+    HADOOP-9071. configure ivy log levels for resolve/retrieve ( gkesavan )
+
+    HADOOP-148 Azure FileSystem implementation
+    (Dexter Bradshaw)
+
+    HADOOP-149 ASV public blob support. (Dexter Bradshaw via suresh)
+
+    MISSING JIRA: Metrics sink for SqlServer and WindowsAzureTable.
+    (Bonnie Feinberg)

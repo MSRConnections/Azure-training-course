@@ -1,0 +1,10 @@
+
+AttributeBegin
+  Color 0.5 0.5 0.5
+  Polygon "P" [-10 -10 0  -10 10 0  10 10 0  10 -10 0]
+AttributeEnd
+
+AttributeBegin
+  Geometry "teapot"
+AttributeEnd
+

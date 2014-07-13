@@ -1,6 +1,6 @@
 # Parametric Sweep with MATLAB and Microsoft HPC Pack #
 
-In this example we'll show you how to perform a parametric sweep with MATLAB on a compute cluster of Windows Azure nodes.  The basic approach is to compile your MATLAB code (.m files) into a Windows binary executable that accepts the node ID as a command line argument, then use Microsoft HPC Pack to create and launch a parametric sweep job that runs the compiled MATLAB across the cluster.
+In this example we'll show you how to perform a parametric sweep with MATLAB on a compute cluster of Microsoft Azure nodes.  The basic approach is to compile your MATLAB code (.m files) into a Windows binary executable that accepts the node ID as a command line argument, then use Microsoft HPC Pack to create and launch a parametric sweep job that runs the compiled MATLAB across the cluster.
 
 Our example problem is a simple minimization of the Rosenbrock Banana function:
 
@@ -37,7 +37,7 @@ It has a global minimum at (x, y) = (1, 1) where f(x, y) = 0, but we're going to
 
    ![Paste](doc/banana_sweep_files.png)
 
-1. Go to the [Windows Azure Management Portal](https://manage.windowsazure.com), click on **Storage Accounts**, select your storage account, and click on **Manage Access Keys** in the bar on the bottom.  Copy the primary access key.
+1. Go to the [Microsoft Azure Management Portal](https://manage.windowsazure.com), click on **Storage Accounts**, select your storage account, and click on **Manage Access Keys** in the bar on the bottom.  Copy the primary access key.
 
    ![Storage Access Keys](doc/access_keys.png)
 
@@ -109,7 +109,7 @@ It has a global minimum at (x, y) = (1, 1) where f(x, y) = 0, but we're going to
         cd /D %CCP_PACKAGE_ROOT%\MCRInstaller
         .\install.bat
 
-   When the nodes boot they will use the [hpcsync](http://technet.microsoft.com/en-us/library/gg481752.aspx) command to automatically download and unpack the MCRInstaller.zip package.  By default, hpcsync deploys files to a location on the Windows Azure nodes that is determined in part by the **%CCP\_PACKAGE\_ROOT%** environment variable. This variable is set on Windows Azure nodes during the provisioning process. The extracted files are placed in a folder that is determined as follows: %CCP\_PACKAGE\_ROOT%\<packageName>\<uploadTimeStamp>. This is the expected location for SOA services, XLLs, Excel workbooks, and startup scripts that are called from the node template.  However, because we passed "/relativePath:MCRInstaller" to our hpcpack upload command, MCRInstaller.zip will be unpacked to %CCP\_PACKAGE\_ROOT%\MCRInstaller.  We used relativePath because we cannot easily determine the <uploadTimeStamp> part of the default path.
+   When the nodes boot they will use the [hpcsync](http://technet.microsoft.com/en-us/library/gg481752.aspx) command to automatically download and unpack the MCRInstaller.zip package.  By default, hpcsync deploys files to a location on the Microsoft Azure nodes that is determined in part by the **%CCP\_PACKAGE\_ROOT%** environment variable. This variable is set on Microsoft Azure nodes during the provisioning process. The extracted files are placed in a folder that is determined as follows: %CCP\_PACKAGE\_ROOT%\<packageName>\<uploadTimeStamp>. This is the expected location for SOA services, XLLs, Excel workbooks, and startup scripts that are called from the node template.  However, because we passed "/relativePath:MCRInstaller" to our hpcpack upload command, MCRInstaller.zip will be unpacked to %CCP\_PACKAGE\_ROOT%\MCRInstaller.  We used relativePath because we cannot easily determine the <uploadTimeStamp> part of the default path.
    
 1. Open a command prompt, navigate to the folder containing startup.bat, and package the startup script:
 
@@ -122,8 +122,8 @@ It has a global minimum at (x, y) = (1, 1) where f(x, y) = 0, but we're going to
 1. Open the HPC Pack Cluster Manager.  On the **Configuration** page, select **Node Templates** from the list on the left, select **Default AzureNode Template** from the display in the center, and click **Edit...** under Node Template Actions on the right.
    ![Edit template](doc/edit_template.png)1. On the **Startup Script** Tab, enter **startup.bat** in the Startup script box and click **Save**.
    ![Startup script](doc/startup_script.png)## Add and Start Cluster Nodes ##1. Open the Cluster Manager on the cluster head node.1. On the Node Management page, select **Add Node** under Node Actions on the right.
-1. Select **Add Windows Azure nodes** and click **Next**.
-1. Verify that **Default AzureNode Template** is the selected template, enter **4** for the number of Windows Azure nodes, and select the **Medium** node size.  Click **Next** and click **Finish**.
+1. Select **Add Microsoft Azure nodes** and click **Next**.
+1. Verify that **Default AzureNode Template** is the selected template, enter **4** for the number of Microsoft Azure nodes, and select the **Medium** node size.  Click **Next** and click **Finish**.
 
    ![Node size](doc/node_size.png)
 
@@ -211,7 +211,7 @@ It has a global minimum at (x, y) = (1, 1) where f(x, y) = 0, but we're going to
    
    ![Activity Log](doc/activity_log2.png)   
    
-1. Each task participating in the parametric sweep generated a MATLAB data file named **bananaX.mat**, where X is the taskID.  run\_sweep.bat used AzureBlobCopy.exe to upload the output file to a new container named **output** in the storage account specified in AzureBlobCopy.exe.config.  You can see these output files in the Windows Azure Management Portal:
+1. Each task participating in the parametric sweep generated a MATLAB data file named **bananaX.mat**, where X is the taskID.  run\_sweep.bat used AzureBlobCopy.exe to upload the output file to a new container named **output** in the storage account specified in AzureBlobCopy.exe.config.  You can see these output files in the Microsoft Azure Management Portal:
 
    ![Output storage](doc/output_storage1.png)
    ![Output storage](doc/output_storage2.png)

@@ -1,6 +1,5 @@
-# Processing GPS data with Storm and Kafka on Windows Azure Data Science Core #
-
-In this example, we'll show you how to deploy a [Storm](http://storm-project.net) topology in Windows Azure that reads its data from the [Kafka](http://kafka.apache.org/) messaging system.  We'll use a Kafka client application written in Java to send GPS coordinates from anywhere to the  Kafka cluster.  Our Storm topology will translate those coordinates into JSON objects, use [GeoJSON](http://www.geojson.org/) to identify the country those coordinates belong to, and then keep a running count of how many times that a coordinate lands in a country.  For persistence, the running count is stored in a [Windows Azure Table Storage](http://www.windowsazure.com/en-us/develop/net/how-to-guides/table-services/) service, and the topology periodically dumps a compressed block of coordinates to a [Windows Azure Blob Storage](http://www.windowsazure.com/en-us/develop/net/how-to-guides/blob-storage/) service.  The topology also writes data to [Redis](http://redis.io/) for use by other services, such as the web application we use to display the data in real time.  The web app is written in [Node.js](http://nodejs.org/) and uses [Socket.IO](http://socket.io/) and the [express](http://expressjs.com/) web application framework to read the data from Redis and display it via [D3.js](http://d3js.org/).  
+# Processing Vehicle data with Storm and Kafka on Microsoft Azure Data Science Core #
+In this example, we'll show you how to deploy a [Storm](http://storm-project.net) topology that reads data from the [Kafka](http://kafka.apache.org/) messaging system. You can use the Kafka client application to send vehicle real-time information from anywhere to the Kafka cluster. The Storm topology will translate those coordinates into JSON objects, use [GeoJSON](http://www.geojson.org/) to identify the coordinates on the Bing map, and then keep a running record of vehicle’s speed, temperature, RPM and gear usage rate. For persistence, the real-time data is stored in [Microsoft Azure Table Storage service](http://www.windowsazure.com/en-us/develop/net/how-to-guides/table-services/). The topology also writes data to [Redis](http://redis.io/), which is how this web application gets the data. This web app is written in [Node.js](http://nodejs.org/), uses Socket.IO and the express web application framework to read the data from Redis and display it via [d3js](http://d3js.org/).
 
 
 ## Use Azure Management Portal to Create a Windows Azure Data Analysis VM ##
@@ -67,11 +66,11 @@ In this example, we'll show you how to deploy a [Storm](http://storm-project.net
 
 1. Click the checkmark button and wait for the new VM to be created, provisioned, and started.
 
-1. If your local workstation runs Windows then you'll need to install an SSH client like [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/) to connect to the Azure Data Science Core VM.  If you're using a Mac or Linux client then you already have everything you need.
+1. If your local workstation runs Windows then you'll need to install an SSH client like [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/) to connect to the Azure Data Science Core VM.
 
 1. Use your ssh client to connect to the VM.
-
-   ![SSH to VM](ssh_vm.png)
+   
+    ![SSH to VM](ssh_vm.png)
 
 ## Preinstalled software on the image ##
 
@@ -147,16 +146,28 @@ The image Azure Data Analysis has installed some software that we can directly u
 		source ~/.bashrc
 	````
 
-## Download and Build the Example Code ##
+## Upload and Build the Example Code ##
 
-1. Clone the example repository:
+1. Now we need to upload the source code under the training folder **storm-kafka-demo** to the remote linux machine. You can use any ftp tools or other ssh tools to upload the file from your local machine. Here we use the [pscp](http://www.chiark.greenend.org.uk/~sgtatham/putty/) on windows to upload the source code. (if you are using  Linux or OS X please use your tools.)
 
-        cd $HOME
-        git clone https://github.com/wenming/gpskafkademo.git
+	On the remote linux machine, run the following command to make a new folder:
+
+			cd $HOME
+			mkdir storm-kafka-demo
+
+	On your local machine, open the command line console and run the following command:
+	
+		    cd "[Your Putty Folder]"
+		    pscp.exe -r "[Your training Folder]\storm-kafka-demo\*" [username]@[DNSName]:/home/[username]/storm-kafka-demo
+
+Replace the **[Your Putty Folder]** with the directory where the pscp.exe stored.</br>
+Replace the **[Your training Folder]** with the directory where the training material stored.</br>
+Replace the **[username]** with the username for you remote linux machine.</br>
+Replace the **[DNSName]** with the dns name of you remote linux machine.  
         
 1. Use Leiningen to build the Storm uberjar.  This produces a single, stand-alone file that can be submitted to a Storm cluster or launched as a locally-hosted server.
 
-        cd gpskafkademo
+        cd storm-kafka-demo
         lein uberjar
 
 1. Use Leiningen to build the Kafka client:
@@ -200,15 +211,15 @@ There are several server processes that need to be started before we can launch 
 
         /usr/bin/redis-server > ~/redis-server.log 2>&1 &
         
-1. To make this easier, we've included a convenience script, **start_server_processes.sh** in *gpskafkademo* that will launch the server processes for you.
+1. To make this easier, we've included a convenience script, **start_server_processes.sh** in *storm-kafka-demo* that will launch the server processes for you.
 
 ## Launch the Example ##
 
-Our example consists of three parts: a web application that presents GPS coordinate data, a Storm topology that processes the data, and a Kafka client application that produces the coordinates.  We will start each part of the example in turn.
+The example consists of three parts: a web application that presents vehicle real-time data, a Storm topology that processes the data, and a Kafka client application that produces the real-time data.  We will start each part of the example in turn.
 
 1. Start the web application.  The application is served on **port 80** by default so we need to launch it as root.
 
-        cd $HOME/gpskafkademo/node
+        cd $HOME/storm-kafka-demo/node
         sudo node app.js
         
 	You should see output like this:
@@ -216,35 +227,35 @@ Our example consists of three parts: a web application that presents GPS coordin
         info  - socket.io started
         Listening on port 80
 
-1. Open your web browser and go to the cloud service DNS name you specified when you created the VM.  You should see the web app:
+1. Open a web browser and navigate to the cloud service DNS name and you will see the demo application:
    
    ![Web App](webapp1.png)
    
    Nothing interesting is happening because we have not yet started the data stream.  Leave this browser window open so you can see the effects of the following commands.
 
-1. Open a second SSH connection to the VM (open PuTTY on Windows or a new terminal on Linux or OS X) and launch the Storm topology:
+1. Open a second SSH connection to the VM (open on Windows or a new terminal on Linux or OS X) and launch the Storm topology:
 
-        cd $HOME/gpskafkademo
+        cd $HOME/storm-kafka-demo
         java -cp $(lein classpath) storm.example.KafkaGpsTopology
         
 	You should see a lot of output as the topology starts.  Once it's up and running the output will look like:
    
-    4105 [Thread-25] INFO  storm.kafka.PartitionManager  - Starting Kafka 127.0.0.1:0 from offset 2185373
-    4106 [Thread-25] INFO  backtype.storm.daemon.executor  - Opened spout spout:(6)
-    4109 [Thread-25] INFO  backtype.storm.daemon.executor  - Activating spout spout:(6)
-    4224 [Thread-25] INFO  storm.kafka.PartitionManager  - Committing offset for 127.0.0.1:9092:0
-    4224 [Thread-25] INFO  storm.kafka.PartitionManager  - Comitted offset for 127.0.0.1:9092:0
-    6241 [Thread-25] INFO  storm.kafka.PartitionManager  - Committing offset for 127.0.0.1:9092:0
-    6242 [Thread-25] INFO  storm.kafka.PartitionManager  - Comitted offset for 127.0.0.1:9092:0
+        4105 [Thread-25] INFO  storm.kafka.PartitionManager  - Starting Kafka 127.0.0.1:0 from offset 2185373
+        4106 [Thread-25] INFO  backtype.storm.daemon.executor  - Opened spout spout:(6)
+        4109 [Thread-25] INFO  backtype.storm.daemon.executor  - Activating spout spout:(6)
+        4224 [Thread-25] INFO  storm.kafka.PartitionManager  - Committing offset for 127.0.0.1:9092:0
+        4224 [Thread-25] INFO  storm.kafka.PartitionManager  - Comitted offset for 127.0.0.1:9092:0
+        6241 [Thread-25] INFO  storm.kafka.PartitionManager  - Committing offset for 127.0.0.1:9092:0
+        6242 [Thread-25] INFO  storm.kafka.PartitionManager  - Comitted offset for 127.0.0.1:9092:0
         
    You won't see any change your browser because although the topology has been started there is no data being sent to Kafka for the Storm topology to process.
 
 1. Open a third SSH connection to the VM and start the Kafka client:
 
-        cd $HOME/gpskafkademo/kafka-gps-client
+        cd $HOME/storm-kafka-demo/kafka-gps-client
         java -cp $(lein classpath) kafka.example.KafkaGpsDataProducer localhost
 
-   The client generates random GPS coordinates and sends them to Kafka.  Go back to your web browser and you'll see GPS coordinates being plotted on the globe.  Countries will change color according to the frequency of "hits".
+   The client get the vehicle data and sends them to Kafka.  Go back to your web browser and you'll see vehicle real-time data being plotted on the globe.  The map will display the vehicle's path.
    
    ![Web App](webapp2.png)
    
@@ -253,13 +264,6 @@ Our example consists of three parts: a web application that presents GPS coordin
    - zookeeper_host
    - zookeeper_host:port
    - broker_id:kafka_host:kafka_port
-
-1. You can run this Kafka client from any machine with Java.  To run from your local workstation, download the client JAR file from the web application page and run it as follows:
-
-        java -cp kafka-gps-client-0.0.1-SNAPSHOT-standalo.jar kafka.example.KafkaGpsDataProducer 0:ds-jlinford.cloudapp.net:9092
-
-   In this case we've bypassed Zookeeper and connected directly to the Kafka server on port 9092.  The **0:** at the start of the connection address indicates that we wish to connect to the Kafka broker with ID 0.
-
 
 Copyright 2013 Microsoft Corporation. All rights reserved. 
 Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0).

@@ -1,4 +1,4 @@
-# Use Microsoft HPC Pack to Create a Windows Azure Compute Cluster #
+# Use Microsoft HPC Pack to Create a Microsoft Azure Compute Cluster #
 
 
 
@@ -6,9 +6,9 @@
 
 ## Create an Affinity Group ##
 
-_Affinity groups_ group your Windows Azure services to optimize performance. All services within an affinity group will be located close to each other in the same data center.  
+_Affinity groups_ group your Microsoft Azure services to optimize performance. All services within an affinity group will be located close to each other in the same data center.  
 
-For HPC, it's especially important to use affinity groups because because of how Windows Azure Data Centers are designed.  Basically, Windows Azure Data Centers are built using "containers" full of clusters and racks. Each container has specific services, i.e. Compute and Storage, SQL Azure, Service Bus, Access Control Service, etc. Containers are spread across the data center, so when we subscribe or deploy a service the _Fabric Controller_ (which chooses based on our solution configuration where the services should be deployed) can place our services anywhere in the data center.  This means that even if we choose the same data center for all our Azure services, we cannot guarantee that the services will be physically close together.  Using an Affinity Group tells the Fabric Controller that services should always be close together, thereby reducing latency and increasing performance.
+For HPC, it's especially important to use affinity groups because of how Microsoft Azure Data Centers are designed.  Basically, Microsoft Azure Data Centers are built using "containers" full of clusters and racks. Each container has specific services, i.e. Compute and Storage, SQL Azure, Service Bus, Access Control Service, etc. Containers are spread across the data center, so when we subscribe or deploy a service the _Fabric Controller_ (which chooses based on our solution configuration where the services should be deployed) can place our services anywhere in the data center.  This means that even if we choose the same data center for all our Azure services, we cannot guarantee that the services will be physically close together.  Using an Affinity Group tells the Fabric Controller that services should always be close together, thereby reducing latency and increasing performance.
 
 > - - - - - - - - - - - - - - - - - - - - -
 > **IMPORTANT**
@@ -18,7 +18,7 @@ For HPC, it's especially important to use affinity groups because because of how
 
 Here's how you do it:
 
-1. Log in to the [Windows Azure Management Portal](https://manage.windowsazure.com).
+1. Log in to the [Microsoft Azure Management Portal](https://manage.windowsazure.com).
 
 1. Click the **Settings** tab, click **Affinity Groups** at the top, and click **Add** in the bottom panel.
 
@@ -32,13 +32,13 @@ Here's how you do it:
 
 ## Create a Storage Account ##
 
-A _storage account_ gives your applications access to Windows Azure Blob, Table, and Queue services located in a geographic region. It represents the highest level of the namespace for accessing the storage services and can contain up to 100 TB of blob, queue, and table data.
+A _storage account_ gives your applications access to Microsoft Azure Blob, Table, and Queue services located in a geographic region. It represents the highest level of the namespace for accessing the storage services and can contain up to 100 TB of blob, queue, and table data.
 
 Storage costs are based on storage utilization and the number of storage transactions required to add, update, read, and delete stored data. Storage utilization is calculated based on your average usage of storage for blobs, tables, and queues during a billing period.
 
 Create a storage account in the affinity group:
 
-1. In the Windows Azure Management Portal, click the **Storage** tab and click **New** in the bottom panel.
+1. In the Microsoft Azure Management Portal, click the **Storage** tab and click **New** in the bottom panel.
 
    ![New button](new_storage.png)
 
@@ -50,7 +50,7 @@ Create a storage account in the affinity group:
 
 ## Create a Windows Server 2012 Datacenter Virtual Machine ##
 
-A _virtual machine (VM)_ in Windows Azure is a server in the cloud that you can control and manage. After you create a virtual machine in Windows Azure, you can delete and re-create it whenever you need to, and you can access the virtual machine just like any other server.  Virtual hard disks (.vhd files) are used to create a virtual machine.  You can use the following types of virtual hard disks to create a virtual machine:
+A _virtual machine (VM)_ in Microsoft Azure is a server in the cloud that you can control and manage. After you create a virtual machine in Microsoft Azure, you can delete and re-create it whenever you need to, and you can access the virtual machine just like any other server.  Virtual hard disks (.vhd files) are used to create a virtual machine.  You can use the following types of virtual hard disks to create a virtual machine:
 
 - _Image_ An image is a template that you use to create a new virtual machine. An image doesn’t have specific settings like a running virtual machine, such as the computer name and user account settings. If you use an image to create a virtual machine, an operating system disk is automatically created for the new virtual machine.
 - _Disk_ A disk is a VHD that you can boot and mount as a running version of an operating system. After an image is provisioned, it becomes a disk. A disk is always created when you use an image to create a virtual machine. Any VHD that is attached to virtualized hardware and that is running as part of a service is a disk.
@@ -64,7 +64,7 @@ We will create a Windows Server 2012 Datacenter VM from the Windows Server 2012 
 > - - - - - - - - - - - - - - - - - - - - -
 
 
-1. Log in to the [Windows Azure Management Portal](https://manage.windowsazure.com).
+1. Log in to the [Microsoft Azure Management Portal](https://manage.windowsazure.com).
 
 1. Click on the **Virtual Machines** tab and click on **New** in the bottom panel.
 
@@ -86,17 +86,17 @@ We will create a Windows Server 2012 Datacenter VM from the Windows Server 2012 
 
 1. If you want other machines can manage your cluster head node, you need to add an endpoint and open port 5800. Click the endpoint tab of the virtual machine.
 
-	![Add Endpoint](create_vm2.png)
+    ![Add Endpoint](create_vm2.png)
 
 1. Click Add, Select "Add Standalone Endpoint".
 
-	![Add Endpoint](create_vm3.png)
+    ![Add Endpoint](create_vm3.png)
 
 1. Input the endpoint name, protocol, public port and private port.
 
-	![Add Endpoint](create_vm4.png)
+    ![Add Endpoint](create_vm4.png)
 
-1. Youd should also do the same steps for port 9893.
+1. You should also do the same steps for port 9893.
    
 ## Connect to the VM with Remote Desktop Connection ##
 
@@ -272,7 +272,7 @@ You're almost there, but before we can install Microsoft HPC Pack we need to mak
 
 We're ready to install Microsoft HPC Pack!  The installation must be performed as a domain user, so disconnect from the virtual machine now.
 
-1. Reconnect to the VM and log in with the domain account we created earlier.  The is _not_ the same account we have been using up to this point.  If you're connecting from a Mac, be sure to change the domain to the NetBIOS name of your Active Directory domain.
+1. Reconnect to the VM and log in with the domain account we created earlier.  This is _not_ the same account we have been using up to this point.  If you're connecting from a Mac, be sure to change the domain to the NetBIOS name of your Active Directory domain.
 
    ![Log in as domain user](domainuser_login.png)
 
@@ -304,11 +304,11 @@ We're ready to install Microsoft HPC Pack!  The installation must be performed a
 
    ![Install HPC Pack](install_hpc4.png)
 
-1. Click **Next** on the following tabs until you reach the Customer Experience Improvement Program tab.  Select either option and click **Next**.
+1. Click **Next** on the following tabs until you reach the Customer Experience Improvement Program tab.  Select either option then click **Next**.
 
    ![Install HPC Pack](install_hpc5.png)
    
-1.  Click **Install** on the Install Required Components tab.  If you have followed this tutorial exactly you should see that only the Windows PowerShell prerequisite has bee installed so far.  The installation process will take several minutes.  Take another coffee break!
+1.  Click **Install** on the Install Required Components tab.  If you have followed this tutorial exactly you should see that only the Windows PowerShell prerequisite has been installed so far.  The installation process will take several minutes.  Take another coffee break!
 
    ![Install HPC Pack](install_hpc6.png)
 
@@ -327,7 +327,7 @@ We're ready to install Microsoft HPC Pack!  The installation must be performed a
 
 ## Upload the HPC Pack Management Certificate ##
 
-We need a Windows Azure management certificate to authenticate the HPC cluster head node to Windows Azure so it can provision compute nodes.  The Default Microsoft HPC Azure Management certificate is generated automatically on the head node when HPC Pack is installed. This certificate is self-signed and unique to your installation of HPC Pack, so all we need to do is upload the certificate to the Windows Azure Management Portal.
+We need a Microsoft Azure management certificate to authenticate the HPC cluster head node to Microsoft Azure so it can provision compute nodes.  The Default Microsoft HPC Azure Management certificate is generated automatically on the head node when HPC Pack is installed. This certificate is self-signed and unique to your installation of HPC Pack, so all we need to do is upload the certificate to the Microsoft Azure Management Portal.
 
 1. Navigate to **C:\Program Files\Microsoft HPC Pack 2012\Bin** and locate the **hpccert** file.
 
@@ -343,7 +343,7 @@ We need a Windows Azure management certificate to authenticate the HPC cluster h
 
 1. Click **Finish** to import the certificate.
 
-1. In the VM, log in to the [Windows Azure Management Portal](https://manage.windowsazure.com).
+1. In the VM, log in to the [Microsoft Azure Management Portal](https://manage.windowsazure.com).
 
 1. Click on the **Settings** tab to display management certificates associated with your subscription.
 
@@ -353,7 +353,7 @@ We need a Windows Azure management certificate to authenticate the HPC cluster h
    
 ## Create Cloud Service Azure Compute Nodes ##
 
-1. Log in to the [Windows Azure Management Portal](https://manage.windowsazure.com).
+1. Log in to the [Microsoft Azure Management Portal](https://manage.windowsazure.com).
 
 1. Click on **New** in the bottom panel.
 
@@ -399,7 +399,7 @@ We need a Windows Azure management certificate to authenticate the HPC cluster h
 
    ![Config HPC Pack](config_hpc7.png)
    
-1. Click **OK** To accept the default naming series.
+1. Click **OK** to accept the default naming series.
 
    ![Config HPC Pack](config_hpc8.png)
    
@@ -407,13 +407,13 @@ We need a Windows Azure management certificate to authenticate the HPC cluster h
 
    ![Config HPC Pack](config_hpc9.png)
    
-1. Select **Windows Azure node template** and click **Next**.
+1. Select **Microsoft Azure node template** and click **Next**.
 
    ![Config HPC Pack](config_hpc10.png)
    
 1. Click **Next** to accept the default template name.
 
-1. On the Subscription Information tab, copy your subscription ID and the management certificate fingerprint into their respective boxes and click **Next**.  You can find this information on the **Setting** tab of the Windows Azure Management Portal.  Be careful to copy the subscription ID and certificate fingerprint in full!  You may need to resize the columns in the management portal to see the whole field.
+1. On the Subscription Information tab, copy your subscription ID and the management certificate fingerprint into their respective boxes and click **Next**.  You can find this information on the **Setting** tab of the Microsoft Azure Management Portal.  Be careful to copy the subscription ID and certificate fingerprint in full!  You may need to resize the columns in the management portal to see the whole field.
 
    ![Config HPC Pack](config_hpc11.png)
 
@@ -431,34 +431,34 @@ We need a Windows Azure management certificate to authenticate the HPC cluster h
 ## Create nodes ##
 1. We can create some nodes manually. Click _Node Management_ tab and _Add Node_ on the right.
 
-	![Add Node](add-node1.png)  
+    ![Add Node](add-node1.png)  
 
-1.  In the Select Deployent Method tab, select _Add Windows Azure nodes_.
+1.  In the Select Deployment Method tab, select _Add Microsoft Azure nodes_.
 
-	![Windows Azure nodes](add-node2.png)  
+    ![Microsoft Azure nodes](add-node2.png)  
 
-1. Then we choose the Windows Azure node template, number of Windows Azure nodes and the size of the node.
+1. Then we choose the Microsoft Azure node template, number of Microsoft Azure nodes and the size of the node.
 
-	![Choose Windows Azure Node Type](add-node3.png)
+    ![Choose Microsoft Azure Node Type](add-node3.png)
 
-1. Then click Finish. You will see those nodes are not deployed. We can sleect those nodes, right click _Start_.
+1. Then click Finish. You will see those nodes are not deployed. We can select those nodes, right click _Start_.
 
-	![Start Nodes](add-node4.png)
+    ![Start Nodes](add-node4.png)
 
-1. In the Start Windows Azure Nodes window, just select the node template and click Start button.
+1. In the Start Microsoft Azure Nodes window, just select the node template and click Start button.
 
-	![Start Nodes](add-node5.png)
+    ![Start Nodes](add-node5.png)
 
 1. Then the cluster manager will provision those 3 machines in pre-configurated cloud service.
 
-	![Provision Nodes](add-node6.png)
-	
-1. Let's goto the Windows Azure Management Portal, and we can see hpc worker machines and proxy machines are being deployed in the cloud service.
-	
-	![Deployment on Azure](add-node7.png)
+    ![Provision Nodes](add-node6.png)
+    
+1. Let's go to the Microsoft Azure Management Portal, and we can see hpc worker machines and proxy machines are being deployed in the cloud service.
+    
+    ![Deployment on Azure](add-node7.png)
 ## Summary ##
 
-**Congratulations!** You have successfully installed Microsoft HPC Pack on a Windows Azure Virtual Machine and are ready to deploy computing clusters on Windows Azure.
+**Congratulations!** You have successfully installed Microsoft HPC Pack on a Microsoft Azure Virtual Machine and are ready to deploy computing clusters on Microsoft Azure.
 
 Copyright 2013 Microsoft Corporation. All rights reserved. 
 Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0).

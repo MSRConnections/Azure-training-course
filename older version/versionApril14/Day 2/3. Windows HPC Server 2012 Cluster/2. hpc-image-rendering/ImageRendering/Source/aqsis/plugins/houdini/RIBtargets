@@ -1,0 +1,28 @@
+#
+#  This table contains a list of RIB targets
+#
+#  These choices are used to build the menu of rendering targets for
+#  the RIB output driver.
+#
+#  This file can be overridden by installing a copy somwhere in the
+#  Houdini path.
+#
+#  This document is under CC-3.0 Attribution-Share Alike 3.0
+#	http://creativecommons.org/licenses/by-sa/3.0/
+#  Attribution:  There is no requirement to attribute the author.
+#
+
+"3Delight6.5"	"3Delight 6.5"
+"3Delight8.5"	"3Delight 8.5"
+"_separator_"	"---------"
+"air4.0"	"AIR 4.0"
+"air6.0"	"AIR 6.0"
+"_separator_"	"---------"
+"aqsis1.6"	"Aqsis 1.6"
+"_separator_"	"---------"
+"prman12.5"	"prman 12.5"
+"prman13.0"	"prman 13.0"
+"prman13.5"	"prman 13.5"
+"prman14.0"	"prman 14.0"
+"_separator_"	"---------"
+"rdc3.4"	"RenderDotC 3.4"

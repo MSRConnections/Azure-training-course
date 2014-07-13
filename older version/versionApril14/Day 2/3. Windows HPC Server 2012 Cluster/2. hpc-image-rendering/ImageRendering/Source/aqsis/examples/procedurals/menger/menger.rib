@@ -1,0 +1,20 @@
+Option "limits" "bucketsize" [32 32]
+
+Display "menger.tif" "file" "rgb"
+Display "+menger.tif" "framebuffer" "rgb"
+
+Format 400 400 1
+
+Projection "perspective" "fov" 45
+Translate 0 0 5
+Rotate -30 1 0 0
+Rotate 20 0 1 0
+
+WorldBegin
+	# the argument string for the procedural consists of the fractal the
+	# subdivision level followed by the bounding box:
+	#
+	#   "level  xmin xmax  ymin ymax  zmin zmax"
+	#
+	Procedural "DynamicLoad" ["menger" "4  -1 1  -1 1  -1 1"] [-1 1  -1 1  -1 1]
+WorldEnd

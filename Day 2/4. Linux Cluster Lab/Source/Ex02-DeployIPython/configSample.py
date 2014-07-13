@@ -17,8 +17,8 @@ pem_path = "<pem_file_name>"
 
 # the number of vms
 # one controller and n - 1 engines
-# default 2
-num_vm = 2
+# default 3
+num_vm = 3
 
 # service_name should be globally unique
 # service_name should only contain letters, numbers and hyphen, the length should be less than 30

@@ -1,0 +1,950 @@
+//
+//  Houdini Parameters for Aqsis Renderer.
+//  There should be parameters defined which correspond to the RIB settings.
+//
+//  NOTE:
+//	This file is only partially cleaned up, there are parameters defined
+//	here which aren't defined in RIBaqsis.py.  Please see
+//	$HH/soho/parameters for more examples.
+//
+
+//
+// This document is under CC-3.0 Attribution-Share Alike 3.0
+//       http://creativecommons.org/licenses/by-sa/3.0/
+//  Attribution:  There is no requirement to attribute the author.
+
+#include "$HFS/houdini/soho/parameters/CommonMacros.ds"
+
+#define AQSIS1_6_PATH_MENU(STDPATH)	\
+    menureplace {	\
+	"&"	"Previous Path Value" \
+	"@"	"Default Path Value" \
+	STDPATH	"Standard Path" \
+    }
+#define HELP(tag)	help	tag
+
+#define AQSIS1_6_PATH(NAME, LABEL, STDPATH, DEFVAL)	\
+    name	NAME \
+    label	LABEL \
+    parmtag	{ spare_category "Paths" }  \
+    type	string \
+    size	1 \
+    AQSIS1_6_PATH_MENU(STDPATH) \
+    default	{ DEFVAL } \
+
+#define	AQSIS1_6_PIXEL_FILTER_CHOICES	\
+		"box"			"Box Filter" \
+		"triangle"		"Triangle Filter" \
+		"catmull-rom"	"Catmull-Rom (Cubic)" \
+		"sinc"			"Sinc" \
+		"gaussian"		"Gaussian" \
+		"mitchell"		"Mitchell"
+
+#define AQSIS1_6_DISPLAY_DRIVERS	\
+	    "framebuffer"		"Framebuffer Device" \
+	    "piqsl"				"Piqsl Display" \
+		"exr"				"OpenEXR File" \
+	    "tiff"				"TIFF File" \
+		"bmp"				"BMP File" \
+		"xpm"				"XPM File" \
+		"shadow"			"Shadow Device" \
+	    "zfile"				"Z-File Device" \
+		"legacyframebuffer"	"Legacy Display" \
+		"zframebuffer"		"Z-Frambuffer Display"
+
+#define AQSIS1_6_IMAGE_CHANNELS	\
+	    "rgb"	"RGB" \
+	    "rgba"	"RGBA" \
+	    "rgbaz"	"RGBAZ" \
+	    "r"		"R" \
+	    "g"		"G" \
+	    "b"		"B" \
+	    "a"		"A" \
+	    "z"		"Z"
+
+#define AQSIS1_6_DISABLE_AOV		\
+	    disablewhen "{ ri_aovdisable# == 1 } { ri_aovariable# == \"\" } { ri_aovdisplay# == \"\" } { ri_aovdevice# == \"\" }"
+
+
+{
+    name	aqsis1.6
+    label	"Aqsis Renderer 1.6"
+    parmtag	{ spare_opfilter	"!!SHOP/PROPERTIES!!" }
+
+// Include the common properties.  Includes must start in column 0 in .ds files.
+#include "$HFS/houdini/soho/parameters/CommonControl.ds"
+#include "$HFS/houdini/soho/parameters/CommonView.ds"
+#include "$HFS/houdini/soho/parameters/CommonObject.ds"
+#include "$HFS/houdini/soho/parameters/Instance.ds"
+
+    // Standard RIB features
+    parm {
+	name	ri_pixelsamples
+	label	"Pixel Samples"
+	parmtag	{ spare_category "Sampling" }
+	type	intvector2
+	default	{ 2 2 }
+	HELP("RiPixelSamples")
+    }
+    parm {
+	SOHO_TOGGLE(allowmotionblur, "Allow Motion Blur", "Sampling", 0)
+    }
+    parm {
+	SOHO_PARM(motionstyle, "Motion Blur Style", "Sampling",
+			string, 1, "trailing")
+	menu	{
+	    "leading"	"Leading Blur"
+	    "centered"	"Frame Centered Blur"
+	    "trailing"	"Trailing Blur"
+	}
+    }
+    parm {
+	SOHO_PARM(shutter, "Shutter Time", "Sampling", float, 1, 0.5)
+	range	{ 0 1 }
+    }
+    parm {
+	SOHO_TOGGLE(rib_motion01,
+		"Force shutter/motion block time to (0,1)", "Sampling", 0)
+	help	"This will force the shutter time and motion blocks to have the range (0, 1) regardless of the actual frame time."
+    }
+    parm {
+	SOHO_FLOAT(rib_motionoffset,
+		"Motion Time Offset", "Sampling", 0)
+	help	"This is an offset added to the shutter and motion blocks in the RIB stream"
+    }
+    parm {
+	SOHO_FLOAT(rib_motionscale,
+		"Motion Time Scale", "Sampling", 1)
+	help	"This is a scale applied to the shutter and motion blocks in the RIB stream\nTip: Setting this to $FPS will cause the motion blocks to use frame numbers rather than seconds."
+    }
+    parm {
+	SOHO_INT(xform_motionsamples, "Xform Time Samples", "Sampling", 2)
+    }
+    parm {
+	SOHO_INT(geo_motionsamples, "Geo Time Samples", "Sampling", 1)
+	range	{ 1 10 }
+    }
+    parm {
+	SOHO_TOGGLE(geo_velocityblur, "Geo Velocity Blur", "Sampling", 0)
+    }
+    parm {
+	SOHO_FLOAT(ri_gamma,	"Exposure Gamma",	"Display", 1)
+	HELP("RiGamma")
+    }
+    parm {
+	SOHO_FLOAT(ri_gain,	"Exposure Gain",	"Display", 1)
+	HELP("RiGain")
+    }
+    parm {
+	SOHO_TOGGLE(ri_dof,	"Enable Depth Of Field",	"DOF", 0)
+    }
+    parm {
+	SOHO_FLOAT(fstop,	"F-Stop",			"DOF", 5.6)
+    }
+    parm {
+	SOHO_FLOAT(focus,	"Focus",			"DOF", 10)
+    }
+    multiparm {
+	name	ri_numclippingplanes
+	label	"User Defined Clipping Planes"
+	parmtag	{ spare_category	"View" }
+
+	parm	{
+	    name	"ri_clipnormal#"
+	    label	"Normal #"
+	    type	direction
+	    size	3
+	    default	{ 1 0 0 }
+	}
+	parm	{
+	    name	"ri_clippoint#"
+	    label	"Point #"
+	    type	float
+	    size	3
+	    default	{ 0 0 0 }
+	}
+    }
+    parm {
+	name	ri_color
+	label	"Color (Cs)"
+	parmtag	{ spare_category "Shading" }
+	type	color
+	size	3
+	default	{ 1 1 1 }
+	HELP("RiColor")
+    }
+    parm {
+	name	ri_opacity
+	label	"Opacity (Os)"
+	parmtag	{ spare_category "Shading" }
+	type	color
+	size	3
+	default	{ 1 1 1 }
+	HELP("RiOpacity")
+    }
+    parm {
+	name	ri_matte
+	label	"Matte"
+	parmtag	{ spare_category "Shading" }
+	type	toggle
+	size	1
+	default	{ 0 }
+	HELP("RiMatte")
+    }
+    parm {
+	name	ri_shadinginterpolation
+	label	"Shading Interpolation"
+	parmtag	{ spare_category "Shading" }
+	type	string
+	default	{ "smooth" }
+	menu	{
+	    "constant"	"Constant (flat shaded)"
+	    "smooth"	"Smooth (Gouraud shaded)"
+	}
+    }
+    parm {
+	name	shop_propertiespath
+	label	"Rendering Properties"
+	parmtag	{ spare_category "Shaders" }
+	type	oppath
+	parmtag	{ opfilter	"!!SHOP/PROPERTIES!!" }
+	default	{ "" }
+    }
+    parm {
+	name	shop_surfacepath
+	label	"Surface Shader"
+	parmtag	{ spare_category "Shaders" }
+	type	oppath
+	parmtag	{ opfilter	"!!SHOP/SURFACE!!" }
+	default	{ "" }
+	HELP("RiSurface")
+    }
+    parm {
+	name	shop_displacepath
+	label	"Displacement Shader"
+	parmtag	{ spare_category "Shaders" }
+	type	oppath
+	parmtag	{ opfilter	"!!SHOP/DISPLACEMENT!!" }
+	default	{ "" }
+	HELP("RiDisplacement")
+    }
+    parm {
+	name	ri_dboundspace
+	label	"Displace Space"
+	parmtag	{ spare_category "Shading" }
+	type	oppath
+	parmtag	{ opfilter	"!!OBJ/NULL!!" }
+	menureplace	{
+	    "screen"		"Screen"
+	    "camera"		"Camera"
+	    "world"			"World"
+	    "object"		"Object"
+	    "shader"		"Shader"
+	    "current"		"Current"
+	}
+	default	{ "object" }
+	HELP("Attribute: displacementbound/coordinatesystem")
+    }
+    parm {
+	SOHO_FLOAT(ri_dbound,	"Displacement Bound", "Shading", 0)
+	HELP("Attribute: displacementbound/sphere")
+    }
+    parm {
+	SOHO_FLOAT(ri_shadingquality,	"Shading Quality", "Shading", 1)
+	HELP("RiShadingRate (inverse)")
+    }
+    parm {
+	name	shop_lightpath
+	label	"Light Shader"
+	parmtag	{ spare_category "Shaders" }
+	type	oppath
+	parmtag	{ opfilter	"!!SHOP/LIGHT!!" }
+	default	{ "" }
+	HELP("RiLightSource")
+    }
+    parm {
+	name	shop_interiorpath
+	label	"Interior Shader"
+	parmtag	{ spare_category "Shaders" }
+	type	oppath
+	parmtag	{ opfilter	"!!SHOP/INTERIOR!!" }
+	default	{ "" }
+	HELP("RiInterior")
+    }
+    parm {
+	name	shop_fogpath
+	label	"Atmosphere Shader"
+	parmtag	{ spare_category "Shaders" }
+	type	oppath
+	parmtag	{ opfilter	"!!SHOP/ATMOSPHERE!!" }
+	default	{ "" }
+	HELP("RiAtmosphere")
+    }
+
+    parm {
+	name	ri_display
+	label	"Display"
+	parmtag	{ spare_category	"Display" }
+	parmtag	{ filechooser_mode	"write" }
+	type	file
+	default	{ "ip" }
+	HELP("RiDisplay (name)")
+    }
+    parm {
+	name	ri_device
+	label	"Display Device"
+	parmtag	{ spare_category	"Display" }
+	type	string
+	default	{ "framebuffer" }
+	menureplace {
+	    AQSIS1_6_DISPLAY_DRIVERS
+	}
+	HELP("RiDisplay (type)")
+    }
+    parm {
+	name	ri_channels
+	label	"Display Channels"
+	parmtag	{ spare_category	"Display" }
+	type	string
+	default	{ "rgba" }
+	menureplace {
+	    AQSIS1_6_IMAGE_CHANNELS
+	}
+	HELP("RiDisplay (mode)")
+    }
+    parm {
+	name	ri_quantize
+	label	"Quantize"
+	parmtag	{ spare_category	"Display" }
+	type	float
+	size	4
+	default	{ 255 0 255 0.5 }
+	HELP("RiQuantize(One, Minimum, Maximum, Dither)")
+    }
+
+    // A collection causes all parameters to be added at one time.
+    collection {
+	name	ri_pixelfilter_group
+	label	"Pixel Filter Parameters"
+	parmtag	{ spare_category	"Display" }
+
+	parm {
+	    name	ri_pixelfilter
+	    label	"Pixel Filter"
+	    type	string
+	    default	{ "gaussian" }
+	    menureplace {
+		AQSIS1_6_PIXEL_FILTER_CHOICES
+	    }
+	    HELP("RiPixelFilter (filterfunc)")
+	}
+	parm {
+	    name	ri_pixelfilterwidth
+	    label	"Filter Width"
+	    type	vector2
+	    default	{ 2 2 }
+	    HELP("RiPixelFilter (xwidth/ywidth)")
+	}
+    }
+    // A collection causes all parameters to be added at one time.
+    collection {
+	name	override_resolution
+	label	"Override Res"
+	parmtag	{ spare_category	"Display" }
+	parm	{
+	    name	override_camerares
+	    label	"Override Camera Resolution"
+	    parmtag	{ spare_category	"Display" }
+	    type	toggle
+	    default	{ 0 }
+	    HELP("RiFormat")
+	}
+	parm {
+	    name	res_fraction
+	    label	"Resolution Scale"
+	    parmtag	{ spare_category	"Output" }
+	    type	string
+	    default	{ "specific" }
+	    menu	{
+		"0.1"		"1/10 (One Tenth Resolution)"
+		"0.2"		"1/5 (One Fifth Resolution)"
+		"0.25"		"1/4 (Quarter Resolution)"
+		"0.3333333"	"1/3 (One Third Resolution)"
+		"0.5"		"1/2 (Half Resolution)"
+		"0.6666666"	"2/3 (Two Thirds Resolution)"
+		"0.75"		"3/4 (Three Quarter Resolution)"
+		"specific"	"User Specified Resolution"
+	    }
+	    disablewhen	"{ override_camerares == 0 }"
+	    HELP("RiFormat")
+	}
+	parm {
+	    name	res_override
+	    label	Resolution
+	    parmtag	{ spare_category	"Display" }
+
+	    type	intvector2
+	    default	{ 640 480 }
+	    disablewhen	"{ override_camerares == 0 } { res_fraction != \"specific\" }"
+	    joinnext
+	    HELP("RiFormat")
+	}
+	parm {
+	    name	res_overrideMenu
+	    label	"Choose Resolution"
+	    parmtag	{ spare_category	"Display" }
+	    type	button
+	    nolabel
+	    callback	"opparm . res_override ( `arg(\"$script_value\", 0)` `arg(\"$script_value\", 1)` aspect_override ( `arg(\"$script_value\", 2)` )"
+	    disablewhen	"{ override_camerares == 0 } { res_fraction != \"specific\" }"
+	    menumini	{
+		RESOLUTION_MENU
+	    }
+	    HELP("RiFormat")
+	}
+	parm {
+	    name	aspect_override
+	    label	"Pixel Aspect Ratio"
+	    parmtag	{ spare_category "Display" }
+	    type	float
+	    size	1
+	    default	{ 1 }
+	    range	{ 0.05 2 }
+	    disablewhen	"{ override_camerares == 0 }"
+	    HELP("RiScreenWindow")
+	}
+    }
+    parm {
+	name	ri_hider
+	label	"Hider"
+	parmtag	{ spare_category	"Hider" }
+	type	string
+	default	{ "hidden" }
+	menureplace	{
+	    "null"	"No output"
+	    "hidden"	"Hidden Surface Removal"
+	}
+	HELP("RiHider")
+    }
+
+    parm {
+	name	shop_geometrypath
+	label	"Procedural"
+	parmtag	{ spare_category "Geometry" }
+	type	oppath
+	parmtag	{ opfilter	"!!SHOP/GEOMETRY!!" }
+	default	{ "" }
+	HELP("RiProcedural")
+    }
+    parm {
+	name	ri_archive
+	label	"Archive"
+	parmtag	{ spare_category "Geometry" }
+	parmtag	{ filechooser_mode  "write" }
+	type	file
+	default	{ "" }
+	HELP("RiReadArchive")
+    }
+    parm {
+	SOHO_STRING(ri_orientation, "Orientation", "Geometry", "outside")
+	menu {
+	    "outside"	"Match current coordinate system"
+	    "inside"	"Inverse of current coordinate system"
+	    "rh"	"Right Handed Space (rh)"
+	    "lh"	"Left Handed Space (lh)"
+	}
+	HELP("RiOrientation")
+    }
+    parm {
+	SOHO_TOGGLE(ri_rmbackface, "Backface Removal (RIB)", "Geometry", 0)
+	HELP("RiSides")
+    }
+    parm {
+	SOHO_TOGGLE(ri_orientsurfaces, "Match Houdini's surface orientation (RIB)",
+		"Geometry", 1)
+	HELP("RiReverseOrientation - if enabled, adjust the orientation of some surfaces to match Houdini's.")
+    }
+    parm {
+	SOHO_TOGGLE(ri_renderpoints, "Render As Points (RIB)", "Geometry", 0)
+	HELP("RiPoints")
+    }
+    parm {
+	SOHO_TOGGLE(ri_rendersubd, "Polygons as Subdivision (RIB)", "Geometry", 0)
+	HELP("RiSubdivisionMesh")
+    }
+    parm {
+	SOHO_TOGGLE(ri_enlargesubd, "Enlarge Subdivision Hull", "Geometry", 0)
+	HELP("RiSubdivisionMesh - enlarge poly mesh by one edge connection")
+    }
+    parm {
+	SOHO_TOGGLE(ri_interpolateboundary, "Interpolate Boundary", "Geometry", 0)
+	HELP("RiSubdivisionMesh - interpolateboundary")
+    }
+    parm {
+	SOHO_TOGGLE(ri_facevaryinginterpolateboundary,
+		"Face Varying Interpolate Boundary", "Geometry", 0)
+	HELP("RiSubdivisionMesh - face varying interpolate boundary")
+    }
+    parm {
+	SOHO_TOGGLE(ri_computeN, "Automatically Compute N For Polygons",
+		"Geometry", 1)
+	HELP("RiPointsGeneralPolygons: Automatically generate N attribute for smooth shading")
+    }
+    parm {
+	SOHO_FLOAT (ri_motionfactor, "Motion Factor",		"Geometry", 0)
+	HELP("GeometricApproximation: motionfactor")
+    }
+
+    parm {
+	name	ri_curveinterpolation
+	label	"Curve Interpolation"
+	parmtag	{ spare_category	"Geometry" }
+	type	string
+	default	{ "linear" }
+	menu {
+	    "linear"	"Linear"
+	    "cubic"		"Cubic"
+	}
+	HELP("RiCurves (type)")
+    }
+    parm {
+	name	ri_curvebasis
+	label	"Curve Basis"
+	parmtag	{ spare_category	"Geometry" }
+	type	string
+	default	{ "bezier" }
+	disablewhen	"{ ri_curveinterpolation == linear }"
+	menu {
+	    "bezier"		"Bezier"
+	    "b-spline"		"B-Spline"
+	    "catmull-rom"	"Catmull-Rom"
+	    "hermite"		"Hermite"
+	    "power"			"Power"
+	}
+	HELP("RiBasis (basis)")
+    }
+    parm {
+	name	ri_curvestep
+	label	"Curve Step Size"
+	parmtag	{ spare_category	"Geometry" }
+	type	int
+	default	{ 0 }
+	disablewhen	"{ ri_curveinterpolation == linear }"
+	help	"The step-size will be computed if the value is less than 1"
+	HELP("RiBasis (step)")
+    }
+
+    //
+    // Options ----------------------------------------------------
+    //
+    // Limits
+    //
+    parm {
+	SOHO_PARM(ri_bucketsize, "Bucket Size", "Limits", intvector2, 2, 16 16)
+	HELP("Option: limits/bucketsize")
+    }
+    parm {
+	SOHO_INT(ri_gridsize,	"Grid Size",	"Limits", 256)
+	HELP("Option: limits/gridsize")
+    }
+    parm {
+	SOHO_INT(ri_texturememory,	"Texture Memory",	"Limits", 8192)
+	HELP("Option: limits/texturememory")
+    }
+    parm {
+	SOHO_INT(ri_eyesplits,	"Eye Splits",	"Limits", 10)
+	HELP("Option: limits/proceduralmemory")
+    }
+    parm {
+	SOHO_COLOR(ri_zthreshold,	"Z-Threshold",		"Limits", 1)
+	HELP("Option: limits/zthreshold")
+    }
+
+    //
+    // Searchpath
+    //
+    parm {
+	AQSIS1_6_PATH(ri_shaderpath,	"Shader Path",
+			"", "&$HFS/houdini/ri_shaders")
+	HELP("Option: searchpath/shader")
+    }
+    parm {
+	AQSIS1_6_PATH(ri_texturepath,	"Texture Path",
+			"", "&")
+	HELP("Option: searchpath/texture")
+    }
+    parm {
+	AQSIS1_6_PATH(ri_displaypath,	"Display Path",
+			"", "&")
+	HELP("Option: searchpath/display")
+    }
+    parm {
+	AQSIS1_6_PATH(ri_archivepath,	"Archive Path",
+			"", "&")
+	HELP("Option: searchpath/archive")
+    }
+    parm {
+	AQSIS1_6_PATH(ri_proceduralpath,	"Procedural Path",
+			"", "&")
+	HELP("Option: searchpath/procedural")
+    }
+    parm {
+	AQSIS1_6_PATH(ri_resourcepath,	"Resource Path",
+			"", "&")
+	HELP("Option: searchpath/resource")
+    }
+
+    //
+    // General Render Options
+    parm {
+	SOHO_TOGGLE(render_viewcamera,
+		    "Create Image From Viewing Camera", "Render", 1)
+    }
+    parm {
+	SOHO_TOGGLE(render_any_envmap,
+		    "Auto-Generate Environment Maps", "Render", 1)
+    }
+    parm {
+	SOHO_TOGGLE(render_any_shadowmap, "Auto-Generate Shadow Maps", "Render", 1)
+    }
+    parm {
+	SOHO_TOGGLE(render_envmap,
+		    "Auto-Generate Environment Map", "Render", 0)
+    }
+    parm {
+	SOHO_TOGGLE(ri_doretained, "Use inline archives for geometry", "Geometry", 0)
+	HELP("RiArchiveBegin/RiArchiveEnd")
+    }
+    parm {
+	SOHO_TOGGLE(render_shadowmap, "Auto-Generate Shadow Map", "Render", 0)
+    }
+    parm {
+	name	ri_statistics
+	label	"Render Statistics"
+	parmtag	{ spare_category "Statistics" }
+	type	int
+	default	{ 0 }
+	menu	{
+	    "0"	"No statistics"
+	    "1"	"Run-time and memory footprint"
+	    "2"	"Run-time and detailed memory"
+	    "3"	"Run-time, detailed memory and texture stats"
+	}
+	HELP("Option: statistics/endofframe")
+    }
+    // Attributes ----------------------------------------------------
+    //
+    //
+    // Shading
+    //
+    //
+    // Dicing
+    parm {
+	SOHO_TOGGLE(ri_dicebinary,	"Binary Dicing",	"Dicing", 0)
+	HELP("Attribute: dice/binary")
+    }
+    // General attributes
+    RIB_COMMON_OBJECT_CATEGORIES()
+    COMMON_OBJECT_LIGHTMASK( "Shading" )
+
+    parm {
+	SOHO_FLOAT(ri_backfacetolerance,	"Backface Tolerance",
+			"Attributes",	0.0)
+	HELP("Attribute: sides/backfacetolerance")
+    }
+    parm {
+	name	ri_trimsense
+	label	"Trim Curve Sense"
+	parmtag	{ spare_category "Attributes" }
+	type	string
+	default	{ "inside" }
+	menu	{
+	    "inside"		"Inside"
+	    "outside"		"Outside"
+	}
+	HELP("Attribute: trimcurve/sense")
+    }
+
+    // Include Files
+    parm {
+	SOHO_FILE(ri_objectpreinclude, "Obj pre-include", "Includes", "")
+	parmtag	{ filechooser_mode  "read" }
+	HELP("This file will be included prior to the transform in the attribute block for the object.  If the filename contains spaces, the text will be included verbatim.  Each line in the file will have variables expanded.")
+    }
+    parm {
+	SOHO_FILE(ri_objectpostinclude, "Obj post-include", "Includes", "")
+	parmtag	{ filechooser_mode  "read" }
+	HELP("This file will be included prior to the transform in the attribute block for the object.  If the filename contains spaces, the text will be included verbatim.  Each line in the file will have variables expanded.")
+    }
+    parm {
+	SOHO_FILE(ri_worldpreinclude, "World pre-include", "Includes", "")
+	parmtag	{ filechooser_mode  "read" }
+	help	"This file will be included just prior to the WorldBegin in the RIB stream.  It should be defined on the camera or output driver."
+    }
+    parm {
+	SOHO_FILE(ri_worldinclude, "World include", "Includes", "")
+	parmtag	{ filechooser_mode  "read" }
+	help	"This file will be inlcluded just after the WorldBegin in the RIB stream.  It should be defined on the camera or output driver."
+    }
+    parm {
+	SOHO_FILE(ri_worldpostinclude, "World post-include", "Includes", "")
+	parmtag	{ filechooser_mode  "read" }
+	help	"This file will be inlcluded just before the WorldEnd in the RIB stream, after all objects have been output.  It should be defined on the camera or output driver."
+    }
+
+    // User defined options/attributes
+    multiparm {
+	name	ri_numuseroptions
+	label	"User Defined Options"
+	parmtag	{ spare_category	"Options" }
+
+	parm	{
+	    name	"ri_useropt_name#"
+	    label	"Option Name #"
+	    type	string
+	    default	{ "" }
+	}
+	parm	{
+	    name	"ri_useropt_type#"
+	    label	"Type"
+	    type	string
+	    default	{ "string" }
+	    menu	{
+		"string"	"String value"
+		"float"		"Float value"
+		"vector"	"Vector value"
+		"point"		"Point value"
+		"normal"	"Normal value"
+		"color"		"Color value"
+	    }
+	}
+	parm	{
+	    name	"ri_useropt_string#"
+	    label	"String Value"
+	    type	string
+	    default	{ "" }
+	    disablewhen	"{ ri_useropt_type# != string }"
+	}
+	parm	{
+	    name	"ri_useropt_real#"
+	    label	"Real Value"
+	    type	float
+	    default	{ 0 }
+	    disablewhen	"{ ri_useropt_type# != float }"
+	}
+	parm	{
+	    name	"ri_useropt_color#"
+	    label	"Color Value"
+	    type	color
+	    size	3
+	    default	{ 1 1 1 }
+	    disablewhen	"{ ri_useropt_type# != color }"
+	}
+	parm	{
+	    name	"ri_useropt_vector#"
+	    label	"Vector Value"
+	    type	vector
+	    size	3
+	    default	{ 0 0 0 }
+	    disablewhen	"{ ri_useropt_type# != vector ri_useropt_type# != point ri_useropt_type# != normal }"
+	}
+    }
+    multiparm {
+	name	ri_numuserattrib
+	label	"User Defined Attributes"
+	parmtag	{ spare_category	"Attributes" }
+
+	parm	{
+	    name	"ri_username#"
+	    label	"Attrib Name #"
+	    type	string
+	    default	{ "" }
+	}
+	parm	{
+	    name	"ri_usertype#"
+	    label	"Type"
+	    type	string
+	    default	{ "string" }
+	    menu	{
+		"string"	"String value"
+		"float"		"Float value"
+		"vector"	"Vector value"
+		"point"		"Point value"
+		"normal"	"Normal value"
+		"color"		"Color value"
+	    }
+	}
+	parm	{
+	    name	"ri_userstring#"
+	    label	"String Value"
+	    type	string
+	    default	{ "" }
+	    disablewhen	"{ ri_usertype# != string }"
+	}
+	parm	{
+	    name	"ri_userreal#"
+	    label	"Real Value"
+	    type	float
+	    default	{ 0 }
+	    disablewhen	"{ ri_usertype# != float }"
+	}
+	parm	{
+	    name	"ri_usercolor#"
+	    label	"Color Value"
+	    type	color
+	    size	3
+	    default	{ 1 1 1 }
+	    disablewhen	"{ ri_usertype# != color }"
+	}
+	parm	{
+	    name	"ri_uservector#"
+	    label	"Vector Value"
+	    type	vector
+	    size	3
+	    default	{ 0 0 0 }
+	    disablewhen	"{ ri_usertype# != vector ri_usertype# != point ri_usertype# != normal }"
+	}
+    }
+
+    // Hider & Display driver options
+    // Hider parameters
+    // hidden Hider parameters
+    parm {
+	SOHO_TOGGLE(ri_jitter,		"Jitter",	"Hider", 1)
+	disablewhen	"{ ri_hider != hidden }"
+	HELP("Hider: hidden/jitter")
+	}
+	parm {
+	name	ri_depthfilter
+	label	"Depth Filter Parameters"
+	parmtag	{ spare_category "Hider" }
+	type	string
+	default	{ "min" }
+	menureplace	{
+	    "min"		"Min"
+	    "midpoint"	"Midpoint"
+		"max"		"Max"
+		"average"	"Average"
+	}
+	disablewhen	"{ ri_hider != hidden }"
+	HELP("Hider: hidden/depthfilter")
+	}
+
+    // AOVs
+    multiparm {
+	name	ri_numaov
+	label	"Number of AOVs"
+	parmtag	{ spare_category	"Ri AOV" }
+
+	parm	{
+	    name	"ri_aovdisable#"
+	    label	"Disable Plane #"
+	    type	toggle
+	    default	{ 0 }
+	}
+	parm	{
+	    name	"ri_aovariable#"
+	    label	"Variable #"
+	    type	string
+	    default	{ "" }
+	    menureplace {
+		AQSIS1_6_IMAGE_CHANNELS
+		"deepopac"		"Deep Opacity (deepshad driver)"
+		"varying point P"	"P"
+		"varying color Ci"	"Ci"
+		"varying color Oi"	"Oi"
+		"varying normal N"	"N"
+		"varying float s"	"s"
+		"varying float t"	"t"
+		"varying vector dPdtime"	"dPdtime"
+		"__CPUtime"			"Profile __CPUtime"
+	    }
+	    disablewhen	"{ ri_aovdisable# == 1 }"
+	}
+	parm	{
+	    name	"ri_aovdisplay#"
+	    label	"Display"
+	    type	file
+	    parmtag	{ filechooser_mode  "read_and_write" }
+	    default	{ "" }
+	    disablewhen	"{ ri_aovdisable# == 1 }"
+	}
+	parm	{
+	    name	"ri_aovdevice#"
+	    label	"Display Device"
+	    type	file
+	    parmtag	{ filechooser_mode  "read_and_write" }
+	    default	{ "" }
+	    // Add deepshad to the AOV display drivers
+	    menureplace {
+		"deepshad"	"Deep Shadow"
+		AQSIS1_6_DISPLAY_DRIVERS
+	    }
+	    disablewhen	"{ ri_aovdisable# == 1 }"
+	}
+
+	parm	{
+	    name	"ri_aov#quantize"
+	    label	"Quantize"
+	    type	float
+	    size	4
+	    // Default floating point quantization
+	    default	{ 0 0 0 0 }
+	    AQSIS1_6_DISABLE_AOV
+	    HELP("RiQuantize(One, Minimum, Maximum, Dither)")
+	}
+	parm	{
+	    name	"ri_aovdither#"
+	    label	"Dither"
+	    type	float
+	    size	1
+	    default	{ 0.5 }
+	    AQSIS1_6_DISABLE_AOV
+	}
+	parm	{
+	    name	"ri_aovfilter#"
+	    label	"Filter"
+	    type	string
+	    default	{ "zmin" }
+	    menureplace {
+		AQSIS1_6_PIXEL_FILTER_CHOICES
+		// Additional filter types for AOV's
+		"min"		"Minimum Value"
+		"max"		"Maximum Value"
+		"average"	"Average Value"
+		"zmin"		"Minimum Z Value"
+		"zmax"		"Maximum Z Value"
+	    }
+	    AQSIS1_6_DISABLE_AOV
+	}
+	parm	{
+	    name	"ri_aovfilterwidth#"
+	    label	"Filter Width"
+	    type	vector2
+	    default	{ 1 1 }
+	    AQSIS1_6_DISABLE_AOV
+	}
+    }
+
+// This file will be included if it exists to provide additional
+// collections of parameters which are defined on a per job, site, etc.
+// basis.
+// The file will be searched for in $HOUDINI_PATH/soho, so it should
+// be prefixed with "parameters/"
+#sinclude "parameters/RIBaqsis1.6.user.ds"
+
+#if !defined(USER_DEFINED_AQSIS1_6_OUTPUT_PARMS)
+    // We define a set of parameters (by name).  This parameter set is added
+    // automatically in the target creation script (see
+    // scripts/out/ribcreate_aqsis1.6.cmd)  Note that "aqsis1.6" matches the
+    // "name" defined at the top of the script.
+    parm {
+	name	default_output
+	label	"Default Output"
+	parmtag	{ spare_category	"__spare_parmlist" }
+	// List of the parameters on the output driver by default
+	parmtag	{ spare_parmlist	"ri_display ri_device ri_channels ri_quantize ri_pixelfilter_group override_resolution ri_gamma ri_gain ri_hider ri_jitter ri_depthfilter allowmotionblur xform_motionsamples geo_motionsamples motionstyle ri_pixelsamples ri_dof focus fstop render_viewcamera render_any_shadowmap render_any_envmap ri_texturememory ri_bucketsize ri_eyesplits ri_shaderpath ri_texturepath ri_displaypath ri_archivepath ri_proceduralpath" }
+    }
+#endif
+}
+#undef HELP

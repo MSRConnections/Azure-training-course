@@ -1,4 +1,4 @@
-# Windows Azure Training Materials #
+# Microsoft Azure Training Materials #
 
 See README.md in each subfolder.
 

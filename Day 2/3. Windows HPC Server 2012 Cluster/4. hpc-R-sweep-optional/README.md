@@ -11,15 +11,15 @@ This example uses a combination of R and Python to download data about baby name
 
 ## Install the Azure Command Line Interface ##
 
-1. On the head node, go to http://www.windowsazure.com/en-us/downloads/ and download installer packages for both the **Windows Azure PowerShell** and the **Cross-platform Command Line Interface**.
+1. On the head node, go to http://www.windowsazure.com/en-us/downloads/ and download installer packages for both the **Microsoft Azure PowerShell** and the **Cross-platform Command Line Interface**.
 
    ![Command Line Tools Download](img/install_cmdline1.png)
 
-1. Run the Windows Azure PowerShell installer and install to the default location.
+1. Run the Microsoft Azure PowerShell installer and install to the default location.
 
 1. Run the Cross-platform Command Line Interface installer and install to the default location.
 
-1. Open a PowerShell window and execute the commands below to configure the Windows Azure Command Line Interface:
+1. Open a PowerShell window and execute the commands below to configure the Microsoft Azure Command Line Interface:
 
         cd Downloads
         azure account download
@@ -33,9 +33,9 @@ This example uses a combination of R and Python to download data about baby name
         azure account list
 
 
-## Install and Package the Windows Azure Python SDK ##
+## Install and Package the Microsoft Azure Python SDK ##
 
-1. Go to http://www.windowsazure.com/en-us/downloads/ and select **Python** from the list on the left, then click **Windows** to download the Windows Azure Python SDK installer package.
+1. Go to http://www.windowsazure.com/en-us/downloads/ and select **Python** from the list on the left, then click **Windows** to download the Microsoft Azure Python SDK installer package.
 
    ![Download Python SDK](img/download_pythonsdk1.png)
 
@@ -107,7 +107,7 @@ This example uses a combination of R and Python to download data about baby name
         cd /D %CCP_PACKAGE_ROOT%\RInstaller
         .\install.bat
 
-   When the nodes boot they will use the [hpcsync](http://technet.microsoft.com/en-us/library/gg481752.aspx) command to automatically download and unpack the RInstaller.zip package.  By default, hpcsync deploys files to a location on the Windows Azure nodes that is determined in part by the **%CCP_PACKAGE_ROOT%** environment variable. This variable is set on Windows Azure nodes during the provisioning process. The extracted files are placed in a folder that is determined as follows: %CCP_PACKAGE_ROOT%\<packageName>\<uploadTimeStamp>. This is the expected location for SOA services, XLLs, Excel workbooks, and startup scripts that are called from the node template.  However, because we passed "/relativePath:RInstaller" to our hpcpack upload command, RInstaller.zip will be unpacked to %CCP_PACKAGE_ROOT%\RInstaller.  We used relativePath because we cannot easily determine the <uploadTimeStamp> part of the default path.
+   When the nodes boot they will use the [hpcsync](http://technet.microsoft.com/en-us/library/gg481752.aspx) command to automatically download and unpack the RInstaller.zip package.  By default, hpcsync deploys files to a location on the Microsoft Azure nodes that is determined in part by the **%CCP_PACKAGE_ROOT%** environment variable. This variable is set on Microsoft Azure nodes during the provisioning process. The extracted files are placed in a folder that is determined as follows: %CCP_PACKAGE_ROOT%\<packageName>\<uploadTimeStamp>. This is the expected location for SOA services, XLLs, Excel workbooks, and startup scripts that are called from the node template.  However, because we passed "/relativePath:RInstaller" to our hpcpack upload command, RInstaller.zip will be unpacked to %CCP_PACKAGE_ROOT%\RInstaller.  We used relativePath because we cannot easily determine the <uploadTimeStamp> part of the default path.
    
 1. Open a command prompt, navigate to the folder containing startup.bat, and package the startup script:
 
@@ -121,12 +121,12 @@ This example uses a combination of R and Python to download data about baby name
    ![Edit template](img/edit_template.png)1. On the **Startup Script** Tab, enter **startup.bat** in the Startup script box and click **Save**.
    ![Startup script](img/startup_script.png)
 ## Update or Add and Start Cluster Nodes ##
-If you already have a group of Windows Azure Nodes online you can update them via **clusrun** and **hpcsync**:
+If you already have a group of Microsoft Azure Nodes online you can update them via **clusrun** and **hpcsync**:
         clusrun /nodegroup:AzureNodes hpcsync        clusrun /nodegroup:AzureNodes xcopy /h/i/c/k/e/r/y %CCP_PACKAGE_ROOT%\Python27 C:\Python27
         clusrun /nodegroup:AzureNodes %CCP_PACKAGE_ROOT%\RInstaller\install.bat
 If you don't already have any nodes online you'll need to provision and start new compute nodes.  The node startup script will automatically install R.1. Open the Cluster Manager on the cluster head node.1. On the Node Management page, select **Add Node** under Node Actions on the right.
-1. Select **Add Windows Azure nodes** and click **Next**.
-1. Verify that **Default AzureNode Template** is the selected template, enter **4** for the number of Windows Azure nodes, and select the **Medium** node size.  Click **Next** and click **Finish**.
+1. Select **Add Microsoft Azure nodes** and click **Next**.
+1. Verify that **Default AzureNode Template** is the selected template, enter **4** for the number of Microsoft Azure nodes, and select the **Medium** node size.  Click **Next** and click **Finish**.
 
    ![Node size](img/node_size.png)
 

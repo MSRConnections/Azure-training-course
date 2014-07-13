@@ -1,0 +1,44 @@
+Format 480 360 1
+PixelSamples 4 4
+ShadingRate 1.0
+Option "limits" "bucketsize" [32 32]
+Option "statistics" "endofframe" [1]
+
+FrameBegin 0
+Display "layered.tif" "file" "rgba"
+Display "+layered.tif" "framebuffer" "rgb"
+
+Projection "perspective" "fov" [36.0]
+Rotate 180 0 1 0
+ConcatTransform [1.0 0.0 0.0 0  0.0 0.435544 -0.900167 0  0.0 0.900167 0.435544 0  0.955721 9.27594 -440.36 1]
+
+WorldBegin
+ShaderLayer "surface" "texmap" "layer1" "string texturename" ["grid.tex"]
+ShaderLayer "surface" "matte" "layer2"
+ConnectShaderLayers "surface" "layer1" "Cout" "layer2" "Cs"
+
+TransformBegin
+ConcatTransform [1.0 0.0 0.0 0  0.0 1.0 0.0 0  0.0 0.0 1.0 0  204.187 -437.336 53.0255 1]
+Attribute "light" "shadows" ["off"]
+LightSource "pointlight" 2 "intensity" [150000]
+TransformEnd
+
+TransformBegin
+ConcatTransform [1.0 0.0 0.0 0  0.0 1.0 0.0 0  0.0 0.0 1.0 0  -320.159 -429.109 -87.5622 1]
+Attribute "light" "shadows" ["off"]
+LightSource "pointlight" 3 "intensity" [100000]
+TransformEnd
+
+TransformBegin
+ConcatTransform [1.0 0.0 0.0 0  0.0 1.0 0.0 0  0.0 0.0 1.0 0  121.927 4.77862 516.121 1]
+Attribute "light" "shadows" ["off"]
+LightSource "pointlight" 4 "intensity" [100000]
+TransformEnd
+
+AttributeBegin
+Color 0.560784 0.878431 0.341176
+ConcatTransform [1.0 0.0 0.0 0  0.0 1.0 0.0 0  0.0 0.0 1.0 0  0.0 0.0 0.0 1]
+Sphere 100.0 -100.0 100.0 360
+AttributeEnd
+WorldEnd
+FrameEnd

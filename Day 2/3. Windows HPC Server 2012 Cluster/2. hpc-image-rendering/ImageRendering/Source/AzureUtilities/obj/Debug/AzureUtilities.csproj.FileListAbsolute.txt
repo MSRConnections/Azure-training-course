@@ -1,0 +1,7 @@
+D:\Azure-training-course\Day 2\3. Windows HPC Server 2012 Cluster\2. hpc-image-rendering\ImageRendering\Source\AzureUtilities\bin\Debug\AzureUtilities.dll
+D:\Azure-training-course\Day 2\3. Windows HPC Server 2012 Cluster\2. hpc-image-rendering\ImageRendering\Source\AzureUtilities\bin\Debug\AzureUtilities.pdb
+D:\Azure-training-course\Day 2\3. Windows HPC Server 2012 Cluster\2. hpc-image-rendering\ImageRendering\Source\AzureUtilities\bin\Debug\Microsoft.WindowsAzure.StorageClient.dll
+D:\Azure-training-course\Day 2\3. Windows HPC Server 2012 Cluster\2. hpc-image-rendering\ImageRendering\Source\AzureUtilities\bin\Debug\Microsoft.WindowsAzure.StorageClient.xml
+D:\Azure-training-course\Day 2\3. Windows HPC Server 2012 Cluster\2. hpc-image-rendering\ImageRendering\Source\AzureUtilities\obj\Debug\AzureUtilities.csprojResolveAssemblyReference.cache
+D:\Azure-training-course\Day 2\3. Windows HPC Server 2012 Cluster\2. hpc-image-rendering\ImageRendering\Source\AzureUtilities\obj\Debug\AzureUtilities.dll
+D:\Azure-training-course\Day 2\3. Windows HPC Server 2012 Cluster\2. hpc-image-rendering\ImageRendering\Source\AzureUtilities\obj\Debug\AzureUtilities.pdb
