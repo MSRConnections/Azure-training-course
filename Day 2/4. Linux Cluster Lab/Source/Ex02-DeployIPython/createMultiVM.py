@@ -74,7 +74,8 @@ class MultiVM:
             role_name = self.base_role_name + str(num)
             job = CreateVMJob(service_name, deployment_name, role_name, num)
             job.prepare()
-            pool.put(job)
+            job.run()
+            #pool.put(job)
         pool.shutdown()
         pool.wait()
 

@@ -19,9 +19,7 @@ class SSHDeploy:
         self.profile_dir_server = "/home/%s/.ipython/profile_nbserver/" %(self.username)
         self.profile_dir_client = "/home/%s/.ipython/profile_nbclient/" %(self.username)
         self.hostname = config.service_name + ".cloudapp.net"
-        self.scp_command = "scp -o 'StrictHostKeyChecking no' \
-                        %s@%s:%ssecurity/ipcontroller-engine.json %ssecurity/" \
-                        %(self.username, self.hostname, self.profile_dir_server, self.profile_dir_client)
+        self.scp_command = "sshpass -p '%s' scp -o 'StrictHostKeyChecking no' %s@%s:%ssecurity/ipcontroller-engine.json %ssecurity/" %(self.password, self.username, self.hostname, self.profile_dir_server, self.profile_dir_client)
 
     def create_config(self, profile_dir, user, hostname):
         user_cert = profile_dir + ('%s.pem' % user)
@@ -164,8 +162,10 @@ class SSHDeploy:
                     self.create_ipcontroller_client(self.profile_dir_server)
                     self.create_ipcontroller_engine(self.profile_dir_server)
                     self.exec_multi_command("nohup ipcontroller --profile=nbserver --reuse &", '\n')
-                    self.exec_multi_command("nohup ipython notebook --profile=nbserver &", '\n')
+                    self.exec_multi_command("nohup ipython notebook --profile=nbserver &", '\n')                    
                     self.ssh.close()
+                    #need to sleep for a while while the file is created and client/engine file can be copied to client
+                    #time.sleep(5)
                 else:
                     self.exec_command("ipython profile create nbclient")
                     # Just write the engine_file to the engine
@@ -179,7 +179,7 @@ class SSHDeploy:
             print "Failed: " + self.hostname
             print e
         print "\nIt's ready on: https://%s:%s" %(self.hostname, self.endpoint)
-        print "Happy IPython!"
+        print "Happy IPython Notebook!"
 
 if __name__ == "__main__":
     sshdeploy = SSHDeploy()

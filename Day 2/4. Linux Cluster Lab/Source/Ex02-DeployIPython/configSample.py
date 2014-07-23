@@ -11,9 +11,9 @@
 #         Azure Settings         #
 ##################################
 # the subscription id, replace <subscription_id> to your real id
-subscription_id = "<subscription_id>"
+subscription_id = "531bc0ce-9be2-4ece-9120-8ba16d6e0e55"
 # the pem file path, replace <pem_file_name> to your real pem file name
-pem_path = "<pem_file_name>"
+pem_path = "mycert.pem"
 
 # the number of vms
 # one controller and n - 1 engines
@@ -23,15 +23,15 @@ num_vm = 3
 # service_name should be globally unique
 # service_name should only contain letters, numbers and hyphen, the length should be less than 30
 # suggest: service_name, deployment_name and role_name set to the same
-service_name = "<service_name>"
-deployment_name = "<deployment_name>"
-role_name = "<role_name>"
+service_name = "a4rlinuxtestservice"
+deployment_name = "a4rlinuxtestservice"
+role_name = "a4rlinuxtestservice"
 
 # Please replace the <storage_account_name> to real storage account name in your subscription and replace <your_region> to your actual region like "East Asia", "East US" etc.
 
-media_link_base = "http://<storage_account_name>.blob.core.windows.net/vhds/ipythonvm"
+media_link_base = "http://portalvhdsqh5g5vmg2ddbp.blob.core.windows.net/vhds/ipythonvm"
 # location of the vm
-location = "<your_region>"
+location = "East US"
 
 
 ########################################################
@@ -57,7 +57,8 @@ password = "Test12"
 # user could specify the affinity_group, default None
 affinity_group = None
 # media name, default ubuntu12.04
-media_name = "b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-12_04_2-LTS-amd64-server-20130624-en-us-30GB"
+#media_name = "b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-12_04_2-LTS-amd64-server-20130624-en-us-30GB"
+media_name = "b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-14_04-LTS-amd64-server-20140618.1-en-us-30GB"
 # role size, default Small
 role_size = "Small" 
 

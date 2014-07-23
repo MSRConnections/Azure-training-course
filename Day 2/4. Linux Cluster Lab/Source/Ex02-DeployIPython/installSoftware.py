@@ -42,10 +42,12 @@ class InstallSW:
         self.command_list = [
                 "sudo -S apt-get update",
                 "sudo -S apt-get -y install git",
+#                "sudo -S apt-get -y install python-pip",
+#                "sudo -S pip install ipython[notebook]",
 #                "sudo -S apt-get -y install build-essential",
                 "git clone https://github.com/ipython/ipython.git",
                 # This version is stable for existing test
-                "cd ipython\n git checkout 1aa49a85b4528df2d60650a5840eced3acd21247\n echo %s | sudo -S python setup.py install" %self.password,
+               "cd ipython\n git checkout 1aa49a85b4528df2d60650a5840eced3acd21247\n echo %s | sudo -S python setup.py install" %self.password,
 #                "git clone https://github.com/bipy/qcli.git",
 #                "cd qcli\n echo %s | sudo -S python setup.py install" %self.password,
 #                "git clone https://github.com/qiime/qiime.git",
@@ -57,6 +59,7 @@ class InstallSW:
                 "sudo -S apt-get -y install python-zmq",
                 "sudo -S easy_install Jinja2",
                 "sudo -S apt-get -y install python-matplotlib python-numpy python-scipy",
+                "sudo -S apt-get -y install sshpass",
                 #"sudo -S apt-get -y install qiime",
 #                "sudo -S easy_install nltk cogent scikit-learn",
 #                "wget http://meta.microbesonline.org/fasttree/FastTree",

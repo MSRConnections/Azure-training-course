@@ -74,7 +74,7 @@ class CreateVM:
             self._wait_for_role_instance_status(self.service_name, self.deployment_name, self.role_name, 'ReadyRole')
             return True
         except Exception as e:
-            print e
+            print "createVM '{0:s}' has exception '{1:s}'.".format(self.service_name,e)
             return False
 
     def create_first_VM(self):
@@ -94,7 +94,7 @@ class CreateVM:
                         self.sms.create_hosted_service(service_name = self.service_name, label = self.service_name, location = self.location)
                     self._create_service_certificate(self.service_name, self.SERVICE_CERT_DATA, self.SERVICE_CERT_FORMAT, self.SERVICE_CERT_PASSWORD)
                 else:
-                    print "Host service has existed"
+                    print "Host service exists."
                 return True
             except Exception as e:
                 print e
@@ -124,7 +124,7 @@ class CreateVM:
                 self._wait_for_deployment_status(self.service_name, self.deployment_name, 'Running')
                 return True
             except Exception as e:
-                print e
+                print "create_virtual_machine '{0:s}' has exception '{1:s}'.".format(self.deployment_name,e)
                 return False
             finally:
                 CreateVM.lock.release()
@@ -147,7 +147,7 @@ class CreateVM:
                 self._wait_for_async(result.request_id)
                 return True
             except Exception as e:
-                print e
+                print "add_role_instance '{0:s}' has exception '{1:s}.".format(self.role_name,e)
                 return False
             finally:
                 CreateVM.lock.release()
@@ -165,7 +165,7 @@ class CreateVM:
                     return True
                 self.sms.delete_deployment(self.service_name, self.deployment_name)
                 while self._deployment_exists(self.service_name, self.deployment_name):
-                    print "Try to delete deployment ..."
+                    print "Try to delete deployment {0:s}-{1:s}...".format(self.service_name, self.deployment_name)
                 print 'delete_deployment'
                 return True
             except Exception as e:
@@ -178,7 +178,7 @@ class CreateVM:
         if CreateVM.lock.acquire():
             try:
                 if self._role_exists(self.service_name, self.deployment_name, self.role_name) == False:
-                    print "role\t" + self.role_name + "\tdoes not exsited"
+                    print "role\t" + self.role_name + "\tdoes not exsited."
                     return True
                 result = self.sms.delete_role(self.service_name, self.deployment_name, self.role_name)
                 self._wait_for_async(result.request_id)
