@@ -107,8 +107,8 @@ public class RedisCarBolt extends BaseRichBolt {
 	}
 	public final String storageConnectionString = 
 		    "DefaultEndpointsProtocol=http;" + 
-		    "AccountName=luowei;" + 
-		    "AccountKey=ILvcC337kgfB/PjXo+qc8URVmHw/pxcTZOOSWckAjloemQL05Sq8n9zxF/vele204JPdm7sypsFb/CT5Bvq3Ow==";
+		    "AccountName=[Storage Account Name];" + 
+		    "AccountKey=[Storage Account Key]";
 
   public RedisCarBolt() {
     this.channel = "coordinates";
@@ -174,8 +174,7 @@ public class RedisCarBolt extends BaseRichBolt {
   }
   
   public List<Object> filter(Tuple tuple) {
-    if(tuple != null) {
-
+    if(tuple != null) {	
       try {
         JSONObject json = new JSONObject();
         json.put("speed", tuple.getInteger(0));
