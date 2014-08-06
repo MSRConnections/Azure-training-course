@@ -1,0 +1,15 @@
+{
+  "name": "storm-kafka-gps-example-webserver",
+  "version": "0.0.1",
+  "author": "John C. Linford <jlinford@paratools.com>",
+  "description": "A simple web server to serve the example app",
+  "dependencies" : {
+    "express" :  "3.x",
+    "socket.io" : "*",
+    "redis" : "*",
+    "geojson" : "*"
+  },
+  "engines": {
+    "node": ">=0.6"
+  }
+}
