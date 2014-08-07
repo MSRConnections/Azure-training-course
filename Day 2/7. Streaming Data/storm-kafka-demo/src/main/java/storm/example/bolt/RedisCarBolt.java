@@ -6,6 +6,12 @@ import java.util.Calendar;
 import org.json.JSONObject;
 import org.json.JSONException;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import org.dom4j.Document;
+import org.dom4j.io.SAXReader;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Collections;
@@ -105,10 +111,6 @@ public class RedisCarBolt extends BaseRichBolt {
 	        this.lon = lon;
 	    }	
 	}
-	public final String storageConnectionString = 
-		    "DefaultEndpointsProtocol=http;" + 
-		    "AccountName=[Storage Account Name];" + 
-		    "AccountKey=[Storage Account Key]";
 
   public RedisCarBolt() {
     this.channel = "coordinates";
@@ -185,6 +187,21 @@ public class RedisCarBolt extends BaseRichBolt {
         json.put("lon", tuple.getString(4));
         // Publish a string representation of the JSON object
         // to the Redis topic
+        
+        String storageConnectionString = "";
+		try{
+		String home = System.getProperty("user.home");	   
+		File xmlFile = new File(home + "/storm-kafka-demo/config.xml");
+		FileInputStream fis = new FileInputStream(xmlFile);
+		SAXReader reader = new SAXReader();
+		Document doc = reader.read(fis);
+		storageConnectionString = doc.selectSingleNode("/Configuration/StorageConnectionString").getText();
+		}catch(Exception e)
+		{
+			System.out.print("Exception : " + e.getMessage());
+		}
+		System.out.print(storageConnectionString);
+
 		CloudStorageAccount storageAccount =
     		    CloudStorageAccount.parse(storageConnectionString);
 
