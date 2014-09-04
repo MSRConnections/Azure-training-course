@@ -1,11 +1,11 @@
 <a name="HOLTitle"></a>
-# Manage Windows Azure Storage #
+# Manage Microsoft Azure Storage #
 
 ---
 <a name="Overview"></a>
 ## Overview ##
 
-Windows Azure Storage is designed for cost-effectively storing and retrieving large volumes of data while providing ease of access and durability. It offers non-relational data storage including Blob, Table, Queue and Drive storage. In this lab, you will learn to use different tools to manage Windows Azure Storage Service. 
+Microsoft Azure Storage is designed for cost-effectively storing and retrieving large volumes of data while providing ease of access and durability. It offers non-relational data storage including Blob, Table, Queue and Drive storage. In this lab, you will learn to use different tools to manage Microsoft Azure Storage Service. 
 
 <a name="Objectives"></a>
 ### Objectives ###
@@ -21,7 +21,7 @@ In this hands-on lab, you will learn how to:
 
 The following is required to complete this hands-on lab:
 
-- A Windows Azure subscription - [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
+- A Microsoft Azure subscription - [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
 - You **must** use one of the following **browsers**: Latest version of **Firefox or Chrome, IE 9, 10, 11.**  Browsers like Safari, 360 may have issues with IPython or RDP download.
 
 ----
@@ -40,7 +40,7 @@ Estimated time to complete this lab: **60** minutes.
 <a name="#Exercise1"></a>
 ### Exercise 1: Use Azure Storage Explorer to manage your storage accounts.  ###
 
-Azure Storage Explorer is a useful GUI tool for inspecting and altering the data in your Windows Azure Storage projects including the logs of your cloud-hosted applications. All 3 types of cloud storage can be viewed and edited: blobs, queues, and tables. 
+Azure Storage Explorer is a useful GUI tool for inspecting and altering the data in your Microsoft Azure Storage projects including the logs of your cloud-hosted applications. All 3 types of cloud storage can be viewed and edited: blobs, queues, and tables. 
 
 1. Azure Storage Explorer can be downloaded for free from [CodePlex](http://azurestorageexplorer.codeplex.com/). 
 
@@ -52,17 +52,17 @@ Azure Storage Explorer is a useful GUI tool for inspecting and altering the data
 
 1. Download *Azure Storage Explorer 4* or better and install it.
 
-    > The Azure Storage Explorer can only be installed on Windows machines.
+    The Azure Storage Explorer can only be installed on Windows machines.
 
     ![Install Azure Storage Explorer](images/install-azure-storage-explorer.png)
 
     _Install Azure Storage Explorer_
 
-1. Before you launch the tool, you need to know your storage account's name add access key. You can find your storage account name and acess key in your Windows Azure Management Portal.
+1. Before you launch the tool, you need to know your storage account's name add access key. You can find your storage account name and acess key in your Microsoft Azure Management Portal.
 
-    ![Windows Azure Storage Account](images/wa-storage-account.png)
+    ![Microsoft Azure Storage Account](images/wa-storage-account.png)
 
-    _Windows Azure Storage Account_
+    _Microsoft Azure Storage Account_
     
     Click the "Manage Access Keys" button under the page to display the storage account name and access keys for the currently selected storage account. 
 
@@ -70,7 +70,7 @@ Azure Storage Explorer is a useful GUI tool for inspecting and altering the data
 
     _Manage Access Key_    
 
-    >If there is no storage account under your subscription, you can just click **New** -> **Data Service** -> **Storage** -> **Quick Create** to create one.
+    If there is no storage account under your subscription, you can just click **New** -> **Data Service** -> **Storage** -> **Quick Create** to create one.
     >
     >![Create A Storage Account](images/create-a-storage-account.png)
     >
@@ -122,7 +122,7 @@ Azure Storage Explorer is a useful GUI tool for inspecting and altering the data
     
     _Uploaded Files_
 
-    Files stored in the Blob Storage Service can simply referred to as blobs. You can see basic information about the blob such as its name, when last modified, length and content type. Each storage account in Windows Azure can hold up to 200TB which could consist of many large blobs, or even one 200GB blob.
+    Files stored in the Blob Storage Service can simply referred to as blobs. You can see basic information about the blob such as its name, when last modified, length and content type. Each storage account in Microsoft Azure can hold up to 200TB which could consist of many large blobs, or even one 200GB blob.
 
 1. Double click the file **Sample.txt** and you will find more information. You can find the properties and metadata. Since the file is a text file, Azure Storage Explorer displays its contents.
 
@@ -138,7 +138,7 @@ Azure Storage Explorer is a useful GUI tool for inspecting and altering the data
 
     _The Content of a File_
     
-1. On the top right side, you can also manage the Windows Azure Table and Queue data in your storage account. With Tables, you can add or remove entities along with other Table management features. With Queues, you can push and pop messages along with other Queue management features. For more instructions on interacting with Queue and Table data using Azure Storage Explorer, you can visit [AzureStorageExplorer4UserGuide.pdf](http://www.codeplex.com/Download?ProjectName=azurestorageexplorer&DownloadId=160664).
+1. On the top right side, you can also manage the Microsoft Azure Table and Queue data in your storage account. With Tables, you can add or remove entities along with other Table management features. With Queues, you can push and pop messages along with other Queue management features. For more instructions on interacting with Queue and Table data using Azure Storage Explorer, you can visit [AzureStorageExplorer4UserGuide.pdf](http://www.codeplex.com/Download?ProjectName=azurestorageexplorer&DownloadId=160664).
 
     ![Azure Storage Explorer Queue Management](images/aze-queue-management.png)
 
@@ -151,11 +151,11 @@ Azure Storage Explorer is a useful GUI tool for inspecting and altering the data
 <a name="#Exercise2"></a>
 
 ### Exercise 2: Use IPython notebook to run storage commands.  ###
-Use the IPython notebook you have already created in the previous exercise **Using Windows Azure Virtual Machines.** for this exercise. You can manage Windows Azure Storage Account in IPython. 
+Use the IPython notebook you have already created in the previous exercise **Using Microsoft Azure Virtual Machines.** for this exercise. You can manage Microsoft Azure Storage Account in IPython. 
 
->Note: If you have not completed the Virtual Machines lab, please note that IPython notebook is an interactive Python framework which makes Python project development and management much easier. 
+Note: If you have not completed the Virtual Machines lab, please note that IPython notebook is an interactive Python framework which makes Python project development and management much easier. 
 
->Build an IPython environment on windows azure, you can read  [http://www.windowsazure.com/en-us/develop/python/tutorials/ipython-notebook/](http://www.windowsazure.com/en-us/develop/python/tutorials/ipython-notebook/)
+Build an IPython environment on Microsoft Azure, you can read  [http://www.windowsazure.com/en-us/develop/python/tutorials/ipython-notebook/](http://www.windowsazure.com/en-us/develop/python/tutorials/ipython-notebook/)
 
 After the IPython Notebook is deployed, you can open the IPython Notebook in your Explorer:
 
@@ -177,7 +177,7 @@ _IPython Notebook_
 
     _IPythonStorageManager Code_
 
-1. First we need to set the *account* and *key* variable in the code. We've just learnt how to get those information from Windows Azure Management Portal in [Exercise 1](#Exercise1). Then we will run those code in IPython Notebook.
+1. First we need to set the *account* and *key* variable in the code. We've just learnt how to get those information from Microsoft Azure Management Portal in [Exercise 1](#Exercise1). Then we will run those code in IPython Notebook.
 
 1. Excute the following code to imports all required libraries.
 
@@ -307,10 +307,10 @@ _IPython Notebook_
 
     _The carat and price scatter diagram_
 
-1. Next we will also manage some table storage operation. Windows Azure Table storage is used to save many entities with different partition key and row key. It can be used as a NoSQL storage repository. First we are going to create a TableService object with the same account name and key name. We will also set the private variable to save a table name.
+1. Next we will also manage some table storage operation. Microsoft Azure Table storage is used to save many entities with different partition key and row key. It can be used as a NoSQL storage repository. First we are going to create a TableService object with the same account name and key name. We will also set the private variable to save a table name.
 
     <pre>
-    #Next we are going to demonstrate the table storage management in Windows Azure
+    #Next we are going to demonstrate the table storage management in Microsoft Azure
     #we can add top 100 rows of the cut_diamond csv to a table storage
     #get a handle to your account
     table_service = TableService(account_name=account, account_key=key)
@@ -387,17 +387,17 @@ _IPython Notebook_
 
     _Query Table_
 
-Now we finished all operations. We can easily use IPython Notebook to manage all storage account on Windows Azure.
+Now we finished all operations. We can easily use IPython Notebook to manage all storage account on Microsoft Azure.
     
 
 <a name="#Exercise3"></a>
 ### Exercise 3 (Optional): Use AzCopy to Copy files between different storage accounts.  ###
 
-AzCopy is another tool to manage azure storage account. It can be used to copy files from local to remote storage account or even between different storage accounts. For more information, please refer to [Windows Azure Storage Team Blog](http://blogs.msdn.com/b/windowsazurestorage/archive/2013/04/01/azcopy-using-cross-account-copy-blob.aspx).
+AzCopy is another tool to manage azure storage account. It can be used to copy files from local to remote storage account or even between different storage accounts. For more information, please refer to [Microsoft Azure Storage Team Blog](http://blogs.msdn.com/b/windowsazurestorage/archive/2013/04/01/azcopy-using-cross-account-copy-blob.aspx).
 
 1. AzCopy.exe is distributed as .NET assemblies, we can download the [CTP2](http://go.microsoft.com/fwlink/?LinkId=287086) version and extract to a local folder. It is a command line tool.
 
-1. Create a new storage account under your subscription on Windows Azure Management Portal. Set the storage account name to a different name.
+1. Create a new storage account under your subscription on Microsoft Azure Management Portal. Set the storage account name to a different name.
 
     ![Create A New Storage Account](images/create-another-storage-account.png)
 
