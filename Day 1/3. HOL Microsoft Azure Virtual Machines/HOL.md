@@ -103,10 +103,10 @@ Estimated time to complete this lab: **60** minutes.
     
     _Download R_
 
-    >Note: you might need to disable the **Internet Explorer Enhanced Security Configuration** to avoid adding every website into your security list. In order to disable IES, you can open the **Server Manager**, click **Local Server** -> **IE Enhanced Security Configuration** and set it to Off.
-    >![Turn IE Enhanced Security Off](images/vm-windows-set-ies-off.png)
-    >
-    >_Turn IE Enhanced Security Off_
+    Note: you might need to disable the **Internet Explorer Enhanced Security Configuration** to avoid adding every website into your security list. In order to disable IES, you can open the **Server Manager**, click **Local Server** -> **IE Enhanced Security Configuration** and set it to Off.
+    ![Turn IE Enhanced Security Off](images/vm-windows-set-ies-off.png)
+    
+    _Turn IE Enhanced Security Off_
 
 1. Launch/Run the download R-3.0.2-win.exe and install R. After the installation completes, run RGui which presents an R Console window.
     
@@ -127,7 +127,7 @@ Estimated time to complete this lab: **60** minutes.
 
 1. Next, let's execute an R job. First we need to move an R file on the remote machine on Microsoft Azure. You can find an file **acpclust.R** under the folder **Source\Exercise1**. Since Windows Remote Desktop supports Copy/Paste from a local machine to a remote desktop machine, you can use this to get the file onto the Microsoft Azure machine. To do this, right-click the file **acpclust.R**, click **Copy**, then navigate to the Remote Desktop window's desktop and right-click the desktop, click **Paste**. After a few seconds, you will find the file is copied to the remote machine's desktop.
  
-    >Note: If you are using a **Mac Computer**, or Linux machine, please create a new text file on the remote machine and paste the content text of the file into notepad or equivalent. You may have to rename the file from acpclust.R.txt to acpclust.R. Simply open a command prompt (start menu, type cmd.exe, enter) and run:  rename acpclust.R.txt acpclust.R
+    Note: If you are using a **Mac Computer**, or Linux machine, please create a new text file on the remote machine and paste the content text of the file into notepad or equivalent. You may have to rename the file from acpclust.R.txt to acpclust.R. Simply open a command prompt (start menu, type cmd.exe, enter) and run:  rename acpclust.R.txt acpclust.R
  
     ![Copy File to Remote Desktop](images/vm-windows-copy-file-to-remote.png)
 
@@ -226,7 +226,7 @@ The image registration process is fast, but make sure to wait until it completes
 
     _Set Linux Cloud Service Information_
 
-1. We will also need to setup the endpoints information. According to the image description, we will know that the image's publisher, platform, packages and the required endpoints. Add public port 443 mapped from the VM's private port 8888 and then do a same port mapping for port 22 (ssh), 80 (web), and 4040 (SHARK).
+1. **We will also need to setup the endpoints information. According to the image description, we will know that the image's publisher, platform, packages and the required endpoints. Add public port 443 mapped from the VM's private port 8888 and then do a same port mapping for port 22 (ssh), 80 (web), and 4040 (SHARK).**
     
     ![Set Linux Endpoints](images/vm-linux-set-endpoints.png)
 
@@ -259,13 +259,13 @@ The machine has already installed a lot of useful packages including [IPython](h
 
     ![IPython Notebook Main Page](images/vm-linux-python-login-page.png)
 
-    _IPython Notebook Main Page_
+    **IPython Notebook Main Page**
 
    
-    >Note: If you have trouble reaching the IPython Notebook URL, check the following:
-        - Ensure you typed the _sudo ipython notebook --profile=nbserver_ command correctly
-        - Ensure you are using https (not http)
-        - Ensure you are accessing the correct URL (double-check the cloud service name from the Microsoft Azure Portal)
+    **Note: If you have trouble reaching the IPython Notebook URL, check the following:**
+         Ensure you typed the _sudo ipython notebook --profile=nbserver_ command correctly
+         Ensure you are using https (not http)
+         Ensure you are accessing the correct URL (double-check the cloud service name from the Microsoft Azure Portal)
     
 
 1. Login with the password. The default password is **Elastacloud123**.
