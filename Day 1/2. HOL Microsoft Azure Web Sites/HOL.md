@@ -190,7 +190,7 @@ You can use the same Microsoft account you used to login to the Microsoft Azure 
 
     _Earthquake Locations_ 
 
-    > If you get the following error **No module named azure.storage**, you can upload the folder **Azure-training-course\Day 1\2. HOL Microsoft Azure Web Sites\Source\azure** to **/site/wwwroot** so as to enable the azure sdk for python.
+    If you get the following error **No module named azure.storage**, you can upload the folder **Azure-training-course\Day 1\2. HOL Microsoft Azure Web Sites\Source\azure** to **/site/wwwroot** so as to enable the azure sdk for python.
     
     >![SDK Missing](images/website-sdkerror.png)
 
