@@ -176,7 +176,7 @@ You can use the same Microsoft account you used to login to the Microsoft Azure 
     _Use FileZilla_
     
 
-1. Click **Quick Connect** and Upload all files using the FileZilla. Use FileZilla to upload the subfolder **Azure-training-course\Day 1\2. HOL Microsoft Azure Web Sites\Source\DjangoApplication\DjangoApplication** to **site/wwwroot** folder. You can overwrite the server files.
+1. Click **Quick Connect** and Upload all files using the FileZilla. Use FileZilla to upload the subfolder **Azure-training-course\Day 1\2. HOL Microsoft Azure Web Sites\Source\DjangoApplication\DjangoApplication\DjangoApplication** to **site/wwwroot** folder. You can overwrite the server files.
 
     ![Upload Django Website](images/upload-django-website.png)
 
