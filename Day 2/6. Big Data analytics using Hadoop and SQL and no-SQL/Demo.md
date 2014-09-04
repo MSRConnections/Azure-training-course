@@ -9,8 +9,10 @@ In this tutorial, you will provision an HDInsight cluster using the Microsoft Az
 <a name="Prerequisites"></a>
 ### Prerequisites ###
 
+
 Before you begin this hands on lab, you must have the following:
-- A Microsoft Azure subscription - [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
+
+- A Microsoft Azure subscription - Starting September 2014, accounts associated with Azure training passes will not have HDInsight available. To use HDInsight, you will need a different account such as the free trial subscription - [Sign up for a free trial](http://aka.ms/WATK-FreeTrial)
 - A computer that is running Windows 8, Windows 7, Windows Server 2012, or Windows Server 2008 R2.
 
 ---
