@@ -196,11 +196,13 @@ You can use the same Microsoft account you used to login to the Microsoft Azure 
 
 1. If you are having issues with the ftp server, close Filezilla and try again, make sure you have used the correct user name and password.  Also note that username is in the format of: [YOURWEBSITE/USERNAME] not user name you created via reset deployment credential.
 
-<a name="#Exercise3"></a>
+<a name="#Exercise3"></a> 
 
-#### Excerise 3 - Create a webjob to show all big earthquakes nearby. ####
+#### Excerise 3 - Create a webjob to show all big earthquakes nearby [OPTIONAL] ####
 
 **Next**, we are going to create a webjob to download all big earthquakes from 2000 to now. The magnitude is larger than 6 and we are looking for the circle with 1000 km inside radius and 1200 km outside radius. A .NET executable is running continuously. If you click the pushpin on the map, the job will get the location of the pushpin and check all earthquakes.
+
+If you do not already have Visual Studio installed, you can install the web edition from http://msdn.microsoft.com/en-us/library/dd537667(v=vs.110).aspx  
 
 1. Open the project file under **Azure-training-course\Day 1\2. HOL Microsoft Azure Web Sites\Source\WebJob\WebJob.sln** with Visual Studio 2013. It is a console application to download all earthquake data from [USGS](http://www.usgs.gov/). We will upload the console application to the website and run a background job to get all big earthquakes near a certain location. All code is ready but we need to modify some configurations in the file **app.config**. Double click the file in the solution explore.
 
@@ -228,7 +230,7 @@ You can use the same Microsoft account you used to login to the Microsoft Azure 
 
     _Create a zip file_
 
->if you are using Mac OS or Linux and you don't have a visual studio installed. We have already build the file for you. You can directly open the folder **Azure-training-course\Day 1\2. HOL Microsoft Azure Web Sites\Source\WebJob\WebJob\bin\Debug** and open the file **WebJob.exe.config**. Just do the same modification and create a zip file from the Debug folder.
+<!--->if you are using Mac OS or Linux and you don't have a visual studio installed. We have already build the file for you. You can directly open the folder **Azure-training-course\Day 1\2. HOL Microsoft Azure Web Sites\Source\WebJob\WebJob\bin\Debug** and open the file **WebJob.exe.config**. Just do the same modification and create a zip file from the Debug folder.--->
 
 1. In your website dashboard, click Configuration tab.
 
