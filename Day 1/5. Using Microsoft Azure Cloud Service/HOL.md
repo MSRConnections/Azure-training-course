@@ -158,7 +158,8 @@ We have all source code and packages under **Azure-training-course\Day 1\5. HOL 
         
     _Configuration_
 
-    >if you don't know how to create a storage account and get the storage account name and key, please follow the  hands on lab in 4. HOL Manage Microsoft Azure Storage.
+    ###If you don't know how to create a storage account and get the storage account name and key, please follow the  hands on lab in 4. HOL Manage Microsoft Azure Storage.
+
 
     ![Storage Account](images/get-storage-account-key.png)
         
@@ -202,7 +203,9 @@ We have all source code and packages under **Azure-training-course\Day 1\5. HOL 
     _Main Page_
 
 <a name="#Exercise3"></a>
-### Exercise 3: Manage a Cloud Service.  ###
+### Exercise 3: Manage a Cloud Service. OPTIONAL ### 
+
+This is a follow up exercise to Exercise 3 of the Django lab under Day 1\2. HOL Microsoft Azure Web Sites. Please complete that lab first before continuing. 
 
 The reason why we deploy it to staging environment is because we want to test the system before we formally release it. Next we test the system.
 
