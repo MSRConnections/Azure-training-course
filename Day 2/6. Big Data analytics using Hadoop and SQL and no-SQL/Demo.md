@@ -52,7 +52,7 @@ For more information, see [Install and Configure PowerShell for HDInsight](http:
 
 Your Microsoft Azure subscription information is used by the cmdlets to connect to your account. This information can be obtained from Microsoft Azure in a publishsettings file. The publishsettings file can then be imported as a persistent local config setting that the command-line interface will use for subsequent operations. You only need to import your publishsettings once.
 
->Notes: The publishsettings file contains sensitive information. It is recommended that you delete the file or take additional steps to encrypt the user folder that contains the file. On Windows, modify the folder properties or use BitLocker.
+Notes: The publishsettings file contains sensitive information. It is recommended that you delete the file or take additional steps to encrypt the user folder that contains the file. On Windows, modify the folder properties or use BitLocker.
  
 ####To download and import publishsettings####
 1. Sign in to the [Microsoft Azure Management Portal](https://manage.windowsazure.com/) using the credentials for your Microsoft Azure account.
@@ -227,7 +227,7 @@ For information on using the **CUSTOM CREATE** option, see [Provision HDInsight 
     }
     </pre>
 
-    >Notice the package name is **org.apache.hadoop.examples** and the class name is **WordCount**. You will use the names when you submit the MapReduce job.
+    Notice the package name is **org.apache.hadoop.examples** and the class name is **WordCount**. You will use the names when you submit the MapReduce job.
 
 1. Save the file to any places on your computer with file name **WordCount.java**. Next you need to compile the program. If you are using windows, you can install HDInsight Emulator to compile and test your application. You can find more details from [Get started with the HDInsight Emulator](http://azure.microsoft.com/en-us/documentation/articles/hdinsight-get-started-emulator/). If you are using Linux or Mac, you need to install Java SDK to compile your java code.
 
@@ -237,7 +237,7 @@ For information on using the **CUSTOM CREATE** option, see [Provision HDInsight 
     [JDK_FOLDER]\javac -classpath hadoop-core-1.1.0-SNAPSHOT.jar;commons-cli-1.2.jar WordCount.java
     </pre>
 
-    >Please ensure you add correct folder for [JDK_FOLDER] and **commons-cli-1.2.jar** and **hadoop-core-1.1.0-SNAPSHOT.jar** are in the same folder of your WordCount.java source code.
+    Please ensure you add correct folder for [JDK_FOLDER] and **commons-cli-1.2.jar** and **hadoop-core-1.1.0-SNAPSHOT.jar** are in the same folder of your WordCount.java source code.
     
 1. The compiler creates 3 class files in the current folder. Then we run the following command to create a jar file:
     <pre>
@@ -247,7 +247,7 @@ For information on using the **CUSTOM CREATE** option, see [Provision HDInsight 
     The command creates a WordCount.jar file in the current folder.    
     ![Build Jar file](images/hdi-emulator-compile-java-mapreduce.png)
 
-    > If you are using Windows, you can install HDInsight Emulator to compile and test your application. You can find more details from [Get started with the HDInsight Emulator](http://azure.microsoft.com/en-us/documentation/articles/hdinsight-get-started-emulator/).
+    If you are using Windows, you can install HDInsight Emulator to compile and test your application. You can find more details from [Get started with the HDInsight Emulator](http://azure.microsoft.com/en-us/documentation/articles/hdinsight-get-started-emulator/).
 
 #### Upload data to Azure Blob storage ####
 
@@ -265,7 +265,7 @@ In this tutorial, you can use the storage account you created in [Exercise 2](#E
     $location = "[MicrosoftDataCenter]"  # For example, "East US"
     </pre>
 
-    >The $subscripionName is associated with your Azure subscription. You must name the$storageAccountName_Data and $containerName_Data. For the naming restrictions, see Naming and Referencing Containers, Blobs, and Metadata. 
+    The $subscripionName is associated with your Azure subscription. You must name the$storageAccountName_Data and $containerName_Data. For the naming restrictions, see Naming and Referencing Containers, Blobs, and Metadata. 
 
 1. Run the following commands to select the subscription and verify the storage account and the container:
 
@@ -294,7 +294,7 @@ In this tutorial, you can use the storage account you created in [Exercise 2](#E
     }
     </pre>
 
-    >Notice the source file folder is the txt folder under **Azure-training-course\Day 2\6. Big Data analytics using Hadoop and SQL and no-SQL\hadoop\**, and the destination folder is **WordCount/Input**.
+    Notice the source file folder is the txt folder under **Azure-training-course\Day 2\6. Big Data analytics using Hadoop and SQL and no-SQL\hadoop\**, and the destination folder is **WordCount/Input**.
 
 
 1. Run the following command to list the uploaded files:
@@ -319,7 +319,7 @@ In this tutorial, you can use the storage account you created in [Exercise 2](#E
     </pre>
 
 
-    >Notice the destination folder is WordCount/jars and you should see the jar file listed there.
+    Notice the destination folder is WordCount/jars and you should see the jar file listed there.
 
 
 #### Run the MapReduce job on Azure HDInsight ####
