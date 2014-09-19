@@ -42,7 +42,7 @@ Estimated time to complete this lab: **60** minutes.
 
 Azure Storage Explorer is a useful GUI tool for inspecting and altering the data in your Microsoft Azure Storage projects including the logs of your cloud-hosted applications. All 3 types of cloud storage can be viewed and edited: blobs, queues, and tables. 
 
-1. Azure Storage Explorer can be downloaded for free from [CodePlex](http://azurestorageexplorer.codeplex.com/). 
+1. Azure Storage Explorer version 4 can be downloaded for free from [CodePlex](http://azurestorageexplorer.codeplex.com/releases/view/54430). 
 
     ![Azure Storage Explorer Page](images/azure-storage-explorer-page.png)
 
@@ -50,7 +50,7 @@ Azure Storage Explorer is a useful GUI tool for inspecting and altering the data
 
     The latest version is 5.0 Preview, but you can also download the previous released version.
 
-1. Download *Azure Storage Explorer 4* or better and install it.
+1. Download *Azure Storage Explorer 4* and install it.
 
     The Azure Storage Explorer can only be installed on Windows machines.
 
