@@ -1,4 +1,7 @@
+<a name="Demoscript"></a>
 # Processing Vehicle data with Storm and Kafka on Microsoft Azure Data Science Core #
+
+---
 In this example, we'll show you how to deploy a [Storm](http://storm-project.net) topology that reads data from the [Kafka](http://kafka.apache.org/) messaging system. You can use the Kafka client application to send vehicle real-time information from anywhere to the Kafka cluster. The Storm topology will translate those coordinates into JSON objects, use [GeoJSON](http://www.geojson.org/) to identify the coordinates on the Bing map, and then keep a running record of vehicle’s speed, temperature, RPM and gear usage rate. For persistence, the real-time data is stored in [Microsoft Azure Table Storage service](http://www.windowsazure.com/en-us/develop/net/how-to-guides/table-services/). The topology also writes data to [Redis](http://redis.io/), which is how this web application gets the data. This web app is written in [Node.js](http://nodejs.org/), uses Socket.IO and the express web application framework to read the data from Redis and display it via [d3js](http://d3js.org/).
 
 
@@ -80,7 +83,7 @@ The image Azure Data Analysis has installed some software that we can directly u
 
 1. Initial Installs including git, libzmq, java, g++ etc.
 
-	````Linux	
+	    Linux	
 		sudo apt-get update
 		sudo apt-get install git
 		sudo apt-get install libzmq-dev
@@ -92,49 +95,49 @@ The image Azure Data Analysis has installed some software that we can directly u
 		sudo apt-get install libtool 
 		sudo apt-get install g++
 		sudo apt-get install make
-	```` 
+	 
 
 1. Install Zeromq. Storm uses the [0MQ](http://zeromq.org/) socket library to connect its pieces, so we need to install the latest 0MQ development headers and Java bindings.
 
-	````Linux
+	    Linux
 		git clone https://github.com/zeromq/jzmq.git
 		cd jzmq
 		./autogen.sh 
 		./configure 
 		make
 		sudo make install
-	````
+	
 
 1. Update node, install npm and redis server.
 
-	````Linux 
+	    Linux 
 		sudo add-apt-repository ppa:chris-lea/node.js
 		sudo apt-get update
 		sudo apt-get install nodejs
 		sudo apt-get install redis-server
-	````
+	
 1. Install Maven. Many projects use the [Maven](http://maven.apache.org/) project management tool for build management, dependency management, and packaging.  Maven projects are described in a **pom.xml** file in the top-level of the project.
 
-	````Linux
+	    Linux
 		cd $HOME
 		wget http://www.interior-dsgn.com/apache/maven/maven-3/3.1.0/binaries/apache-maven-3.1.0-bin.tar.gz
 		tar xzf apache-maven-3.1.0-bin.tar.gz 
 		echo 'export PATH=$HOME/apache-maven-3.1.0/bin:$PATH' >> ~/.bashrc
 		source ~/.bashrc
 		mvn --version
-	````
+	
 
 1. Install Leiningen. Some community provided extensions to Storm and Kafka are written in [Clojure](http://clojure.org/), a dynamic programming language that targets the Java Virtual Machine.  Clojure projects are managed via [Leiningen](http://leiningen.org/), which is a software management tool very similar to Maven.  Installing Leiningen is very easy because it's distributed as a single, simple script file.
 
-	````Linux
+	    Linux
 		cd /bin
 		sudo wget https://raw.github.com/technomancy/leiningen/stable/bin/lein
 		sudo chmod +x lein
-	````
+	
 
 1. Install Kafka. Our example uses the Kafka messaging system to accept messages from clients and queue them until they can be processed.  Kafka can achieve very high message throughput and is designed to scale up as needed, so it's a great fit for the cloud.
 
-	````Linux
+		Linux
 		cd $HOME
 		wget http://www.motorlogy.com/apache/incubator/kafka/kafka-0.7.2-incubating/kafka-0.7.2-incubating-src.tgz
 		tar xzf kafka-0.7.2-incubating-src.tgz
@@ -144,7 +147,7 @@ The image Azure Data Analysis has installed some software that we can directly u
 		cd $HOME
 		echo 'export PATH=$HOME/kafka-0.7.2-incubating-src/bin:$PATH' >> ~/.bashrc
 		source ~/.bashrc
-	````
+	
 
 ## Upload and Build the Example Code ##
 
