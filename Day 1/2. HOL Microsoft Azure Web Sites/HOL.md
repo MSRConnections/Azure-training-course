@@ -54,11 +54,11 @@ Estimated time to complete this lab: **45** minutes.
 
     _Creating a new Web Site From Gallery_
 
-1. Click *Web Site* and then *FROM GALLERY*.
+1. Click *Web App and then *FROM GALLERY*.
 
-    ![Creating a new web site](images/new-website-from-gallery.png)
+    ![Creating a new web App](images/new-website-from-gallery.png)
 
-    _Creating a new web site From Gallery_
+    _Creating a new web app From Gallery_
 
 1. Choose *App Frameworks* category and then select Django. Click on the Next arrow.
 
