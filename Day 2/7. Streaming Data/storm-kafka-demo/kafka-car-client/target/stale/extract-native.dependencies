@@ -1,1 +1,0 @@
-([:dependencies ([commons-collections/commons-collections "3.2.1"] [storm/storm-kafka "0.8.0-wip4"] [zookeeper-clj/zookeeper-clj "0.9.3"] [org.clojure/tools.nrepl "0.2.3" :exclusions ([org.clojure/clojure])] [clojure-complete/clojure-complete "0.2.3" :exclusions ([org.clojure/clojure])] [storm/storm "0.8.2"])])

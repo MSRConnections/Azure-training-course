@@ -1,4 +1,0 @@
-<?xml version ="1.0" encoding = "UTF-8"?>
-<Configuration>
-<StorageConnectionString>DefaultEndpointsProtocol=http;AccountName=[Storage Account Name];AccountKey=[Storage Account Key]</StorageConnectionString>
-</Configuration>
