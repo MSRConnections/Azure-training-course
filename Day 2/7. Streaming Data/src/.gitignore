@@ -1,8 +1,0 @@
-classes/
-lib/
-.classpath
-.project
-*.jar
-target
-.lein-deps-sum
-node/node_modules
