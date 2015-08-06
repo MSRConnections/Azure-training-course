@@ -43,3 +43,6 @@ azure_error
 
 # Word 
 ~$*
+
+# OS X hidden files
+.DS_Store
