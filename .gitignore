@@ -46,3 +46,6 @@ azure_error
 
 # OS X hidden files
 .DS_Store
+
+# The Pixelmator files John keeps around in case he needs to update a screen shot.
+*.pxm
