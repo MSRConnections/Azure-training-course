@@ -132,7 +132,7 @@ The template you are going to use, which you can [view here](https://github.com/
 
 1. Click the OK button on the bottom of the Parameters blade. Fix any errors reported.
 
-1. Back in he Custom deployment blade click the **Resource group** button, and in the Resource group blade select the resource group you created in [Exercise 1](#Exercise1). This will automatically fill in the Resource group location in the Custom deployment blade.
+1. Back in the Custom deployment blade click the **Resource group** button, and in the Resource group blade select the resource group you created in [Exercise 1](#Exercise1). This will automatically fill in the Resource group location in the Custom deployment blade.
 
     ![Template Resource Group](images/template-resource-group.png)
 
@@ -150,12 +150,6 @@ The template you are going to use, which you can [view here](https://github.com/
 
      _Starting the deployment_
 
-1. From the Portal Startboard, you'll see the new item being processed.
-
-    ![Startboard with Provisioning](images/template-deployment-provisioning.png)
-
-     _The provisioning working_
-
 1. The provisioning and loading of the SLURM cluster can take ten or more minutes. You can monitor the state of the deployment by looking at the resource group group. If you pinned the resource group you created in [Exercise 1](#Exercise1), double clicking on it will bring up the blade and you can see the events. If you did not pin the resource group, on the left hand side of the portal, select Browse All, Resource groups and double click on your resource group in the Resource group blade. Either way you will end up with the resource group blade as shown below.
 
     ![Deployment status](images/template-status-in-resource.png)
@@ -166,10 +160,15 @@ The template you are going to use, which you can [view here](https://github.com/
 
     ![Deployment status](images/template-group-events.png)
 
-     _Checking the deployment_
+     _Deployment Events_
+
+1. When the deployment finishes, you'll see a notification in the Notification blade and the state of the Last deployment in the resource group blade will switch to Succeeded.
+
+    ![Deployment status](images/template-deployment-succeeded.png)
+
+     _Deployment Succeeded_
 
 In this exercise you learned about Azure templates and where you can find many excellent templates from Microsoft to assist in setting up complicated deployments. You also learned the steps for starting a deployment from one of those templates.
-
 
 <a name="Exercise3"></a>
 ## Exercise 3: Creating the input and output blob storage.
