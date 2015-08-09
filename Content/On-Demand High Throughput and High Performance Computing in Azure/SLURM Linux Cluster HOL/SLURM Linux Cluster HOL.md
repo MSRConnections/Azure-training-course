@@ -416,6 +416,24 @@ In this exercise you learned how to copy files to the master SLURM node and to e
 <a name="Exercise7"></a>
 ## Exercise 7: Verifying the images were converted.
 
+If everything worked correctly the converted grayscale images should be in the output blob storage.
+
+1. Open the Resource group blade for the resource group you created in [Exercise1](#Exercise1). Click on the **storage resource** in the Resource blade like you did in [Exercise3](#Exercise3). Click on the Blobs section to bring up the Blobs blade. In the Blobs blade click on the **output** container.
+
+    ![Blob Listing Blade](images/blob-output-blade.png)
+
+    _Blob Listing Blade_
+
+1. Find one of the larger files in the blob and double click on it. In the blade that comes up for the file, click the **Download** button and view the file.
+
+    ![Blob Item Blade](images/blob-download-blade.png)
+
+    _Blob Item Blade_
+
+1. If the image is gray scale, you have a working SLURM cluster.
+
+In this exercise you learned how to download files from blob storage.
+
 <a name="Exercise8"></a>
 ## Optional Exercise 8: Suspending the SLUM cluster.
 
