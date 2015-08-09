@@ -49,7 +49,7 @@ This hands-on lab includes the following exercises:
 1. [Exercise 6: Copying SLURM project scripts, configuring the SLURM nodes, and executing the SLURM job to convert images.](#Exercise6)
 1. [Exercise 7: Verifying the images were converted.](#Exercise7)
 1. [Optional Exercise 8: Suspending the SLUM cluster.](#Exercise8)
-1. [Optional Exercise 9: Deleting the resource group to remove the SLURM cluster.](#Exercise9)
+1. [Exercise 9: Deleting the resource group to remove the SLURM cluster.](#Exercise9)
 
 Estimated time to complete this lab: **60** minutes.
 
@@ -452,4 +452,16 @@ When virtual machines are running you are being charged. That is not a problem i
 In this exercise you learned how to stop a resource group's virtual machines to save money on your Azure account.
 
 <a name="Exercise9"></a>
-## Optional Exercise 9: Deleting the resource group to remove the SLURM cluster.
+## Exercise 9: Deleting the resource group to remove the SLURM cluster.
+
+Back in [Exercise1](#Exercise1) you learned that resource groups are an outstanding feature of Azure because they let you control the lifecycle of a group of resources such as all the virtual machines in a SLURM cluster. The important point is that when you complete the task you set up the resource group for, you can delete all of the resource easily. Thus saving money on your Azure subscription.
+
+1. Open the Resource group blade for the resource group you created in [Exercise1](#Exercise1). Click on the **Delete** button at the top of the blade to start the delete process.
+
+![Delete Blade](images/delete-blade.png)
+
+_Deleting a Resource Group_
+
+1. You are reqired to type the resource group name into the edit box near the top of the Delete blade. If the name matches, the **Delete** button enables so you can delete the resource group.
+
+1. Click the **Delete** button to remove all traces of this lab from your account.
