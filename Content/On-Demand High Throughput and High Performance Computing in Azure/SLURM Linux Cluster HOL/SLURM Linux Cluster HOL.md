@@ -1,14 +1,6 @@
 <a name="HOLTitle"></a>
 # Creating and Using a SLURM Linux Cluster #
 
-<H1>GIANT NOTE FROM JOHN</H1>
-<span style="color:red">
-The Azure Quick Start Template for [SLURM](https://github.com/Azure/azure-quickstart-templates/tree/master/slurm) is broken and I
-submitted a [patch](https://github.com/Azure/azure-quickstart-templates/pull/455) to fix it but it has not been accepted yet. It should
-be integrated soon. If you want to do the lab, you'll have to deploy the template from the Azure CLI command line. Contact me and I'll walk you through it.
-</span>
----
-
 ---
 
 <a name="Overview"></a>
@@ -112,7 +104,7 @@ The template you are going to use, which you can [view here](https://github.com/
 - Executes a shell script to configure ssh and install and configure SLURM on all three machines
 
 
-1. In a browser tab, navigate to [https://github.com/Azure/azure-quickstart-templates/tree/master/slurm](https://github.com/JohnWintellect/azure-quickstart-templates/tree/LabExample/slurm). In the middle of the page, click the **Deplo to Azure** button. This will load the template into the Azure Portal for you.
+1. In a browser tab, navigate to [https://github.com/Azure/azure-quickstart-templates/tree/master/slurm](https://github.com/Azure/azure-quickstart-templates/tree/master/slurm). In the middle of the page, click the **Deploy to Azure** button. This will load the template into the Azure Portal for you.
 
     ![Deploying from GitHub](images/template-click-deploy-button.png)
 
@@ -126,7 +118,7 @@ The template you are going to use, which you can [view here](https://github.com/
 
 1. For the DNSNAME and NEWSTORAGEACCOUNTNAME, you will have to pick a unique name for the internet, but you will get notified if the names are not unique as you move through the Parameters blade. What a lot of people find convenient is name the DNSNAME "myslurmlab" and name the NEWSTORAGEACCOUNTNAME "myslurmlabstorage". Fill in these two values.
 
-1. With the ADMINUSERNAME and ADMINPASSWORD, pick appropriate values you will remember.
+1. With the ADMINUSERNAME and ADMINPASSWORD, pick appropriate values you will remember as you will need them in [Exercise5](#Exercise5).
 
 1. For VMSIZE, the default of 2 is sufficient for this lab. This number corresponds to the number of nodes you want in the cluster, plus one for the master node.
 
@@ -200,7 +192,7 @@ In this lab you learned how simple it is to create blob storage containers using
 <a name="Exercise4"></a>
 ## Exercise 4: Updating the script files with your Azure information.
 
-With the SLURM cluster initialized and running, you now need to configure the job scripts with the information from your Azure account. In the same directory as this file is a directory called SLURMSource. You will need to edit the files so we will start with copying the directory to a new location. While you can edit these files with graphical editors, it is probably safer to use terminal programs because some graphical editors, especially on OS X can change line endings and break the scripts. If you are used to vi or EMACS, you are in good shape. If you're not comfortable with those editors, OS X and most Linux operating systems come with [Pico](https://en.wikipedia.org/wiki/Pico_(text_editor)), or derivative with is very simple to use.
+With the SLURM cluster initialized and running, you now need to configure the job scripts with the information from your Azure account. In the same directory as this file is a directory called SLURMSource. You will need to edit the files so we will start with copying the directory to a new location. While you can edit these files with graphical editors, it is probably safer to use terminal programs because some graphical editors, especially on OS X can change line endings and break the scripts. If you are used to vi or EMACS, you are in good shape. If you're not comfortable with those editors, OS X and most Linux operating systems come with [Pico](https://en.wikipedia.org/wiki/Pico_(text_editor), or derivative with is very simple to use.
 
 The information we need from Azure are the storage account access keys and connection strings. As all storage is accessible through [Representational State Transfer (REST)](https://en.wikipedia.org/wiki/Representational_state_transfer) Application Programming Interfaces (API), these account keys and connection strings are what uniquely identify your access to the storage. When you created the storage the default access was private so without them, scripts and commands would have no access.
 
@@ -243,11 +235,93 @@ ACCOUNT_KEY = 'jWdpHOyfIdJ+VdTRgJvpWsf0bgrz+8+qrunWbGym/ULY....'
 #######################################################
 ```
 1. Save the slurmdemo.py file and exit your editor.
+1. Leave the terminal running to do the next exercise.
+
+In this lab you learned how to get a storage account's access keys and connection strings.
 
 <a name="Exercise5"></a>
 ## Exercise 5: Copying SLURM project setup script and python job to the master SLURM node.
 
-With all the graphical stuff out of the way, it is time to turn to the terminal so you can connect to and configure the SLURM cluster for work you need to do. In the same directory as this file is a folder called SLURMSource. That contains the setup script, the image copy script, the python code for the job, and the script to start the SLURM processing.
+With most of the graphical stuff out of the way, it is time to turn to the terminal so you can connect to and configure the SLURM cluster for work you need to do. You have already updated a couple of the files, but here's what's in the directory and what they do:
+
+- **copyimages.sh** - Copies the images from the ./Images directory to the input blob storage container you created in [Exercise 3](#Exercise3).
+- **slurmdemo.ph** - The python script that is run on the various SLURM nodes to process the images.
+- **slurmdemo.setup.sh** - The script that sets up the SLURM nodes with the dependencies and packages needed for the python script to run.
+- **slurmdemo.sh** - The SLURM control script that is run on each of the SLURM nodes to do a single unit of the job.
+
+The work you are going to do in this exercise is to get those files up to the master node of the SLURM cluster.
+
+1. The deployment template you used created a publicly addressable Domain Name System (DNS) IP address for the master virtual machine. To find that name, open the Resource group blade you created in [Exercise 1](#Exercise1). When you get that open, click in the **publicips** in the Summary to bring up the Public IP address blade. In there you will find the DNS name field. If you move the mouse to the right of the DNS Name field a button will appear that lets you select and use your operating system copy keystroke to copy this field to the clipboard.
+
+    ![DNS Name](images/copy-dns-name.png)
+
+    _Finding the Public DNS Name for the master SLURM Node_
+
+1. If you closed the terminal window you open from [Exercise4](#Exercise4), open another one and navigate to where you stored your changed files. Before we do a secure copy, we want to check that we can Secure Shell (ssh) into the master node. In your terminal window, enter the following command to initiate a ssh connection, replacing **<master DNS>** with the DNS address found in the previous step, and the admin user you set up in the
+ADMINUSERNAME field of the deployment template in [Exercise2](#Exercise2) by replacing **<admin user>**.
+
+    ```
+    user@machine:~$ ssh -l <admin user> <master DNS>
+    ```
+
+1. After pressing enter, you should see something similar to the following output and after you have correctly entered your ADMINPASSWORD from [Exercise2](#Exercise2).
+
+    ```
+    The authenticity of host 'jrslurmlab.westus.cloudapp.azure.com (104.XX.XXX.XXX)' can't be established.
+    RSA key fingerprint is 92:c2:1c:54:18:9f:ef:b7:97:07:57:XX:XX:XX:XX:XX.
+    Are you sure you want to continue connecting (yes/no)? yes
+    Warning: Permanently added 'jrslurmlab.westus.cloudapp.azure.com,104.XX.XX.XXX' (RSA) to the list of known hosts.
+    <admin user>@jrslurmlab.westus.cloudapp.azure.com's password:
+    Welcome to Ubuntu 15.04 (GNU/Linux 3.19.0-25-generic x86_64)
+
+     * Documentation:  https://help.ubuntu.com/
+
+      System information as of Sun Aug  9 03:33:04 UTC 2015
+
+      System load:  0.09              Processes:           104
+      Usage of /:   4.3% of 28.42GB   Users logged in:     0
+      Memory usage: 5%                IP address for eth0: 10.0.0.254
+      Swap usage:   0%
+
+      Graph this data and manage this system at:
+        https://landscape.canonical.com/
+
+      Get cloud support with Ubuntu Advantage Cloud Guest:
+        http://www.ubuntu.com/business/services/cloud
+
+    12 packages can be updated.
+    2 updates are security updates.
+
+    The programs included with the Ubuntu system are free software;
+    the exact distribution terms for each program are described in the
+    individual files in /usr/share/doc/*/copyright.
+
+    Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+    applicable law.
+
+    To run a command as administrator (user "root"), use "sudo <command>".
+    See "man sudo_root" for details.
+    ```
+
+1. With ssh established, you can now go back to your workstation in the terminal by typing the **exit** command.
+1. To copy the files we need to the master node, we will use secure copy, or scp. Enter the following command in your terminal replacing **<admin user>** with your ADMINUSERNAME. When prompted enter your ADMINPASSWORD.
+
+    ```
+    scp *.py sl*.sh <admin user>@jrslurmlab.westus.cloudapp.azure.com:~
+    ```
+1. If the scp command succeeded you will see output like the following:
+
+    ```
+    user@machine:~$ scp *.py sl*.sh <admin user>@jrslurmlab.westus.cloudapp.azure.com:~
+    <admin user>@jrslurmlab.westus.cloudapp.azure.com's password:
+    slurmdemo.py                                                                       100% 5041     4.9KB/s   00:00
+    slurmdemo.setup.sh                                                                 100% 1863     1.8KB/s   00:00
+    slurmdemo.sh                                                                       100%  468     0.5KB/s   00:00
+    ```
+
+1. Leave the terminal running to do the next exercise.
+
+In this exercise you learned how to use ssh to log into the master node on the SLURM cluster and how to copy files to it.
 
 <a name="Exercise6"></a>
 ## Exercise 6: Configuring the SLURM clusters machines for the job.
