@@ -41,6 +41,7 @@ The following is required to complete this hands-on lab:
 - A Microsoft Azure subscription - [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
 - The account you use must be configured as an [Azure Active Directory organizational account](http://azure.microsoft.com/en-us/services/active-directory/). If you are not sure if you are using a Microsoft Account or an Organizational account, see the lab on setting up your Azure subscription, which provides a walk through and shows how to check.
 - The [Azure CLI](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli/) command line tool for your workstation operating system.
+- The lab is geared to OS X and Linux users. If you are on Windows, a [Cygwin](https://www.cygwin.com/) installation with ssh is necessary.
 
 ---
 <a name="Exercises"></a>
@@ -173,8 +174,31 @@ In this exercise you learned about Azure templates and where you can find many e
 <a name="Exercise3"></a>
 ## Exercise 3: Creating the input and output blob storage.
 
+The python script you will be running on the SLURM cluster requires two blob storage container. As these two blob containers are specific to the experiment, not the common deployment, you will have to set them up separately. The "input" container contains the images that will be read and process. The "output" container will contain the converted images. We need to get those set up before we configure anything else.
+
+1. From the Resource group blade, look for the storage account you named in the [Exercise 2](#Exercise2) deployment setup. Click on it in the resource group blade to bring up the Storage account blade.
+
+    ![Storage account blade](images/storage-storage-account.png)
+
+    _Storage Account Blade_
+
+1. In the Storage account blade and click on **Blobs** to bring up the Blobs blade. You'll notice that you already have one blob container, vhd, because the deployment template created on to hold the three virtual machine disks for the virtual machines.
+
+    ![Blobs blade](images/storage-blob-blade.png)
+
+    _Blobs Blade_
+
+1. In the Blobs blade, click the **Add** button to bring up the Add a container blade. For the **Name field** enter input and click the **OK** button at the bottom of the blade. The Access type should be left at Private to protect your data. Add a second blob called output. The screen shot below shows what the Blobs blade will look like after adding the two blob containers.
+
+    ![Blobs blade](images/storage-blobs-created.png)
+
+    _Blobs Blade_
+
+In this lab you learned how simple it is to create blob storage containers using the Azure portal.
+
 <a name="Exercise4"></a>
 ## Exercise 4: Copying SLURM project setup script and python job to the master SLURM node.
+
 
 <a name="Exercise5"></a>
 ## Exercise 5: Configuring the SLURM clusters machines for the job.
