@@ -16,7 +16,7 @@ your local workstation into your Azure virtual machines with the cross platform 
 
 In this hands-on lab, you will learn how to:
 
-- Create a Resource Group to hold your SLURM cluster
+- Create a resource group to hold your SLURM cluster
 - Deploy preconfigured virtual machines using the Azure Quick Start Templates
 - Copy local resources to the SLURM cluster
 - Copy files into blob storage
@@ -24,6 +24,8 @@ In this hands-on lab, you will learn how to:
 - Kick off a SLURM job
 - View the status of a SLURM job
 - Retrieve the results of the job from blob storage
+- Suspending virtual machines
+- Deleting a resource group to remove all traces
 
 <a name="Prerequisites"></a>
 ### Prerequisites ###
@@ -114,7 +116,7 @@ The template you are going to use, which you can [view here](https://github.com/
 
      _Filling in the template parameters_
 
-1. For the DNSNAME and NEWSTORAGEACCOUNTNAME, you will have to pick a unique name for the internet, but you will get notified if the names are not unique as you move through the Parameters blade. What a lot of people find convenient is name the DNSNAME "myslurmlab" and name the NEWSTORAGEACCOUNTNAME "myslurmlabstorage". Fill in these two values.
+1. For the DNSNAME and NEWSTORAGEACCOUNTNAME, you will have to pick a unique name for the internet, but you will get notified if the names are not unique as you move through the Parameters blade. What a lot of people find convenient is name the DNSNAME and name the NEWSTORAGEACCOUNTNAME the DNS name with "storage" appended. Fill in these two values.
 
 1. With the ADMINUSERNAME and ADMINPASSWORD, pick appropriate values you will remember as you will need them in [Exercise5](#Exercise5).
 
@@ -465,3 +467,21 @@ _Deleting a Resource Group_
 1. You are reqired to type the resource group name into the edit box near the top of the Delete blade. If the name matches, the **Delete** button enables so you can delete the resource group.
 
 1. Click the **Delete** button to remove all traces of this lab from your account.
+
+### Summary ###
+
+In this hands-on lab, you learned how to:
+
+- Create a resource group to hold your SLURM cluster
+- Deploy preconfigured virtual machines using the Azure Quick Start Templates
+- Copy local resources to the SLURM cluster
+- Copy files into blob storage
+- Use ssh to remote into the master machine of the SLURM cluster
+- Kick off a SLURM job
+- View the status of a SLURM job
+- Retrieve the results of the job from blob storage
+- Suspending virtual machines
+- Deleting a resource group to remove all traces
+
+
+Copyright 2015 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in http://www.apache.org/licenses/LICENSE-2.0.
