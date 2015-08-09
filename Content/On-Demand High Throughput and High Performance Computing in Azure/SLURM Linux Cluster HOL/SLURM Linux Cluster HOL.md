@@ -437,5 +437,19 @@ In this exercise you learned how to download files from blob storage.
 <a name="Exercise8"></a>
 ## Optional Exercise 8: Suspending the SLUM cluster.
 
+When virtual machines are running you are being charged. That is not a problem if you are performing a huge experiment for your research, but if the virtual machines are idling that is wasted money. It's always a great idea to stop any virtual machines when not in use. You will be charged for the storage, but the cost is nothing compared to them running. In the Azure portal you can manually suspend virtual machines.
+
+1. Open the Resource group blade for the resource group you created in [Exercise1](#Exercise1). Click on the **worker1** virtual machine in the Summary section to bring up the Virtual machine blade.
+
+    ![Virtual Machine Stop](images/virtual-machine-stop.png)
+
+    _Stopping a Virtual Machine_
+
+1. In the previous screen shot the **Stop** button is highlighted. If you do this for each virtual machine in the cluster, you'll stop them and reduce your costs. Go ahead and do that now, starting with **worker1**, moving to **worker0**, and ending with **master**.
+
+1. While it is doable from the Azure portal to turn off the machine, as well as start them with the **Start** button to start each one, that's not very efficient.  Using a script written to call the Azure CLI to find and start the VMs in a resouce group would be much easier to work with in the real world. Check out the [Azure CLI](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli/) documentation on executing the commands to accomplish that task
+
+In this exercise you learned how to stop a resource group's virtual machines to save money on your Azure account.
+
 <a name="Exercise9"></a>
 ## Optional Exercise 9: Deleting the resource group to remove the SLURM cluster.
