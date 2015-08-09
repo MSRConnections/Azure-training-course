@@ -65,13 +65,13 @@ All resources in Azure have to be contained in a resource group. While you can c
 
 1. You need to log into the [Microsoft Azure Portal](https://portal.azure.com) to get started.
 
-    ![Login to Microsoft Azure Management Portal](images/windows-azure-portal-signin.png)
+    ![Login to Microsoft Azure Management Portal](Images/windows-azure-portal-signin.png)
 
     _Microsoft Azure Management Portal_
 
 1. From the Azure Portal, click **+NEW -> Management -> Resource Group** to bring up the Resource group blade
 
-    ![Resource group blade](images/create-resource-group-blade.png)
+    ![Resource group blade](Images/create-resource-group-blade.png)
 
     _Resource group blade_
 
@@ -81,7 +81,7 @@ All resources in Azure have to be contained in a resource group. While you can c
 
 1. Resource group creation is quick and when the group is created you will see the new Resource group blade appear in the portal. In the screen shot below, the resource group named is "SLURMLabResourceGroup".
 
-    ![Empty Resource group blade](images/empty-resource-group-blade.png)
+    ![Empty Resource group blade](Images/empty-resource-group-blade.png)
 
     _Empty Resource group blade_
 
@@ -106,13 +106,13 @@ The template you are going to use, which you can [view here](https://github.com/
 
 1. In a browser tab, navigate to [https://github.com/Azure/azure-quickstart-templates/tree/master/slurm](https://github.com/Azure/azure-quickstart-templates/tree/master/slurm). In the middle of the page, click the **Deploy to Azure** button. This will load the template into the Azure Portal for you.
 
-    ![Deploying from GitHub](images/template-click-deploy-button.png)
+    ![Deploying from GitHub](Images/template-click-deploy-button.png)
 
      _Deploying from GitHub_
 
 1. In the Azure Portal, you now will be prompted for the various parameters for the template.
 
-    ![Template Parameters](images/template-parameters.png)
+    ![Template Parameters](Images/template-parameters.png)
 
      _Filling in the template parameters_
 
@@ -128,37 +128,37 @@ The template you are going to use, which you can [view here](https://github.com/
 
 1. Back in the Custom deployment blade click the **Resource group** button, and in the Resource group blade select the resource group you created in [Exercise 1](#Exercise1). This will automatically fill in the Resource group location in the Custom deployment blade.
 
-    ![Template Resource Group](images/template-resource-group.png)
+    ![Template Resource Group](Images/template-resource-group.png)
 
      _Selecting the resource group_
 
 1. The last item before clicking the Create button is to review the legal terms. Click on the Legal terms and once you have read the terms, click the **Buy** button on the bottom of the Buy blade.
 
-    ![Template Legal Blade](images/template-legal-buy.png)
+    ![Template Legal Blade](Images/template-legal-buy.png)
 
      _Agreeing to the legal terms_
 
 1. In the bottom of the Custom deployment blade, click the **Create** button to start the deployment process. If there are any errors, fix those errors and click the **Create** button again. You should leave the Pin to Startboard checked so you can quickly access this deployment.
 
-    ![Template Create Blade](images/template-deploy-create.png)
+    ![Template Create Blade](Images/template-deploy-create.png)
 
      _Starting the deployment_
 
 1. The provisioning and loading of the SLURM cluster can take ten or more minutes. You can monitor the state of the deployment by looking at the resource group group. If you pinned the resource group you created in [Exercise 1](#Exercise1), double clicking on it will bring up the blade and you can see the events. If you did not pin the resource group, on the left hand side of the portal, select Browse All, Resource groups and double click on your resource group in the Resource group blade. Either way you will end up with the resource group blade as shown below.
 
-    ![Deployment status](images/template-status-in-resource.png)
+    ![Deployment status](Images/template-status-in-resource.png)
 
      _Checking the deployment_
 
  1. As a deployment is occurring, you can monitor all the steps Azure takes by double clicking on the Monitor graph in the resource group blade. The graphic below shows the
 
-    ![Deployment status](images/template-group-events.png)
+    ![Deployment status](Images/template-group-events.png)
 
      _Deployment Events_
 
 1. When the deployment finishes, you'll see a notification in the Notification blade and the state of the Last deployment in the resource group blade will switch to Succeeded.
 
-    ![Deployment status](images/template-deployment-succeeded.png)
+    ![Deployment status](Images/template-deployment-succeeded.png)
 
      _Deployment Succeeded_
 
@@ -167,23 +167,23 @@ In this exercise you learned about Azure templates and where you can find many e
 <a name="Exercise3"></a>
 ## Exercise 3: Creating the input and output blob storage.
 
-The python script you will be running on the SLURM cluster requires two blob storage container. As these two blob containers are specific to the experiment, not the common deployment, you will have to set them up separately. The "input" container contains the images that will be read and process. The "output" container will contain the converted images. We need to get those set up before we configure anything else.
+The python script you will be running on the SLURM cluster requires two blob storage container. As these two blob containers are specific to the experiment, not the common deployment, you will have to set them up separately. The "input" container contains the Images that will be read and process. The "output" container will contain the converted Images. We need to get those set up before we configure anything else.
 
 1. From the Resource group blade, look for the storage account you named in the [Exercise 2](#Exercise2) deployment setup. Click on it in the resource group blade to bring up the Storage account blade.
 
-    ![Storage account blade](images/storage-storage-account.png)
+    ![Storage account blade](Images/storage-storage-account.png)
 
     _Storage Account Blade_
 
 1. In the Storage account blade and click on **Blobs** to bring up the Blobs blade. You'll notice that you already have one blob container, vhd, because the deployment template created on to hold the three virtual machine disks for the virtual machines.
 
-    ![Blobs blade](images/storage-blob-blade.png)
+    ![Blobs blade](Images/storage-blob-blade.png)
 
     _Blobs Blade_
 
 1. In the Blobs blade, click the **Add** button to bring up the Add a container blade. For the **Name field** enter input and click the **OK** button at the bottom of the blade. The Access type should be left at Private to protect your data. Add a second blob called output. The screen shot below shows what the Blobs blade will look like after adding the two blob containers.
 
-    ![Blobs blade](images/storage-blobs-created.png)
+    ![Blobs blade](Images/storage-blobs-created.png)
 
     _Created Blobs_
 
@@ -200,7 +200,7 @@ The information we need from Azure are the storage account access keys and conne
 
 1. In the Storage account blade, click on the key icon to bring up the Access keys blade as shown below. Leave the web browser with the Access keys blade open as you go work on the files.
 
-    ![Access Keys](images/access-keys-from-storage.png)
+    ![Access Keys](Images/access-keys-from-storage.png)
 
     _Access Keys_
 
@@ -212,7 +212,7 @@ The information we need from Azure are the storage account access keys and conne
 
 1. Back in the Azure Portal, Access keys blade you have open, click the select all button next to Connection strings, KEY1, and press your operating system copy to the clipboard keystroke.
 
-    ![Connection Key 1](images/access-keys-connection-string.png)
+    ![Connection Key 1](Images/access-keys-connection-string.png)
 
     _Selecting and Copying the Key 1 Connection String_
 
@@ -328,7 +328,7 @@ The work you are going to do in this exercise is to get those files up to the ma
 
 1. The deployment template you used created a publicly addressable Domain Name System (DNS) IP address for the master virtual machine. To find that name, open the Resource group blade you created in [Exercise 1](#Exercise1). When you get that open, click in the **publicips** in the Summary to bring up the Public IP address blade. In there you will find the DNS name field. If you move the mouse to the right of the DNS Name field a button will appear that lets you select and use your operating system copy keystroke to copy this field to the clipboard.
 
-    ![DNS Name](images/copy-dns-name.png)
+    ![DNS Name](Images/copy-dns-name.png)
 
     _Finding the Public DNS Name for the master SLURM Node_
 
@@ -422,13 +422,13 @@ If everything worked correctly the converted grayscale images should be in the o
 
 1. Open the Resource group blade for the resource group you created in [Exercise1](#Exercise1). Click on the **storage resource** in the Resource blade like you did in [Exercise3](#Exercise3). Click on the Blobs section to bring up the Blobs blade. In the Blobs blade click on the **output** container.
 
-    ![Blob Listing Blade](images/blob-output-blade.png)
+    ![Blob Listing Blade](Images/blob-output-blade.png)
 
     _Blob Listing Blade_
 
 1. Find one of the larger files in the blob and double click on it. In the blade that comes up for the file, click the **Download** button and view the file.
 
-    ![Blob Item Blade](images/blob-download-blade.png)
+    ![Blob Item Blade](Images/blob-download-blade.png)
 
     _Blob Item Blade_
 
@@ -443,7 +443,7 @@ When virtual machines are running you are being charged. That is not a problem i
 
 1. Open the Resource group blade for the resource group you created in [Exercise1](#Exercise1). Click on the **worker1** virtual machine in the Summary section to bring up the Virtual machine blade.
 
-    ![Virtual Machine Stop](images/virtual-machine-stop.png)
+    ![Virtual Machine Stop](Images/virtual-machine-stop.png)
 
     _Stopping a Virtual Machine_
 
@@ -460,7 +460,7 @@ Back in [Exercise1](#Exercise1) you learned that resource groups are an outstand
 
 1. Open the Resource group blade for the resource group you created in [Exercise1](#Exercise1). Click on the **Delete** button at the top of the blade to start the delete process.
 
-![Delete Blade](images/delete-blade.png)
+![Delete Blade](Images/delete-blade.png)
 
 _Deleting a Resource Group_
 
