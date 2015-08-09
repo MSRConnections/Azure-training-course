@@ -52,13 +52,14 @@ This hands-on lab includes the following exercises:
 1. [Exercise 1: Create the resource group to hold the SLURM cluster and resources.](#Exercise1)
 1. [Exercise 2: Creating the SLURM Ubuntu cluster from an Azure Quickstart resource template.](#Exercise2)
 1. [Exercise 3: Creating the input and output blob storage.](#Exercise3)
-1. [Exercise 4: Copying SLURM project setup script and python job to the master SLURM node.](#Exercise4)
-1. [Exercise 5: Configuring the SLURM clusters machines for the job.](#Exercise5)
-1. [Exercise 6: Copying the images to be converted to blob storage.](#Exercise6)
-1. [Exercise 7: Running the image conversion on the SLUM cluster.](#Exercise7)
-1. [Exercise 8: Retrieving the converted images from blob storage.](#Exercise8)
-1. [Optional Exercise 10: Suspending the SLUM cluster.](#Exercise9)
-1. [Optional Exercise 11: Deleting the resource group to remove the SLURM cluster.](#Exercise10)
+1. [Exercise 4: Updating the script files with your Azure information.](#Exercise4)
+1. [Exercise 5: Copying SLURM project setup script and python job to the master SLURM node.](#Exercise5)
+1. [Exercise 6: Configuring the SLURM clusters machines for the job.](#Exercise6)
+1. [Exercise 7: Copying the images to be converted to blob storage.](#Exercise7)
+1. [Exercise 8: Running the image conversion on the SLUM cluster.](#Exercise8)
+1. [Exercise 9: Retrieving the converted images from blob storage.](#Exercise9)
+1. [Optional Exercise 10: Suspending the SLUM cluster.](#Exercise10)
+1. [Optional Exercise 11: Deleting the resource group to remove the SLURM cluster.](#Exercise11)
 
 Estimated time to complete this lab: **60** minutes.
 
@@ -192,28 +193,76 @@ The python script you will be running on the SLURM cluster requires two blob sto
 
     ![Blobs blade](images/storage-blobs-created.png)
 
-    _Blobs Blade_
+    _Created Blobs_
 
 In this lab you learned how simple it is to create blob storage containers using the Azure portal.
 
 <a name="Exercise4"></a>
-## Exercise 4: Copying SLURM project setup script and python job to the master SLURM node.
+## Exercise 4: Updating the script files with your Azure information.
 
+With the SLURM cluster initialized and running, you now need to configure the job scripts with the information from your Azure account. In the same directory as this file is a directory called SLURMSource. You will need to edit the files so we will start with copying the directory to a new location. While you can edit these files with graphical editors, it is probably safer to use terminal programs because some graphical editors, especially on OS X can change line endings and break the scripts. If you are used to vi or EMACS, you are in good shape. If you're not comfortable with those editors, OS X and most Linux operating systems come with [Pico](https://en.wikipedia.org/wiki/Pico_(text_editor)), or derivative with is very simple to use.
+
+The information we need from Azure are the storage account access keys and connection strings. As all storage is accessible through [Representational State Transfer (REST)](https://en.wikipedia.org/wiki/Representational_state_transfer) Application Programming Interfaces (API), these account keys and connection strings are what uniquely identify your access to the storage. When you created the storage the default access was private so without them, scripts and commands would have no access.
+
+1. To find the account and keys for the storage account, bring up the Resource group blade you created in [Exercise 1](#Exercise1). In the blade, click on the storage account like you did in [Exercise 4](#Exercise4) to bring up the Storage account blade.
+1. In the Storage account blade, click on the key icon to bring up the Access keys blade as shown below. Leave the web browser with the Access keys blade open as you go work on the files.
+
+    ![Access Keys](images/access-keys-from-storage.png)
+
+    _Access Keys_
+
+1. Copy the SLURMSource directory to a new location on your workstation.
+1. Open your terminal window tool of choice and change the directory to where you copied the files.
+1. In your terminal editor, open copyimages.sh. This file will copy some sample images to your input storage blob for processing.
+1. Back in the Azure Portal, Access keys blade you have open, click the select all button next to Connection strings, KEY1, and press your operating system copy to the clipboard keystroke.
+
+    ![Connection Key 1](images/access-keys-connection-string.png)
+
+    _Selecting and Copying the Key 1 Connection String_
+
+1. Go back to your opened copyimages.sh file and change the text **<Your Container Key Here>** in the file. Make sure that the string starts and ends with quote marks. Save the file and close the editor.
+1. Open slurmdemo.py file and look for the following section near the top of the file
+```
+########################################################
+# Update these two variables to those for your account.
+#######################################################
+ACCOUNT_NAME = '<account name>'
+ACCOUNT_KEY = '<account key>'
+#######################################################
+```
+1. Switch back to the Azure Portal Access key blade and click the select all button next to the **STORAGE ACCOUNT NAME** edit box and copy the selected text to the clipboard.
+1. In the editor, replace **<account name>** with the account name you just copied. Make sure the account name is surrounded by single quotes.
+1. Back in the Azure portal Access key blade, click the button next to **Access keys, KEY1** and copy that key to the clipboard.
+1. In the editor, replace **<account key>** with the account key you just copied. Make sure the account key is surrounded by single quotes. The final output will look like the following:
+```
+########################################################
+# Update these two variables to those for your account.
+#######################################################
+ACCOUNT_NAME = 'jrslurmlabstorage'
+ACCOUNT_KEY = 'jWdpHOyfIdJ+VdTRgJvpWsf0bgrz+8+qrunWbGym/ULY....'
+#######################################################
+```
+1. Save the slurmdemo.py file and exit your editor.
 
 <a name="Exercise5"></a>
-## Exercise 5: Configuring the SLURM clusters machines for the job.
+## Exercise 5: Copying SLURM project setup script and python job to the master SLURM node.
+
+With all the graphical stuff out of the way, it is time to turn to the terminal so you can connect to and configure the SLURM cluster for work you need to do. In the same directory as this file is a folder called SLURMSource. That contains the setup script, the image copy script, the python code for the job, and the script to start the SLURM processing.
 
 <a name="Exercise6"></a>
-## Exercise 6: Copying the images to be converted to blob storage.
+## Exercise 6: Configuring the SLURM clusters machines for the job.
 
 <a name="Exercise7"></a>
-## Exercise 7: Running the image conversion on the SLUM cluster.
+## Exercise 7: Copying the images to be converted to blob storage.
 
 <a name="Exercise8"></a>
-## Exercise 8: Retrieving the converted images from blob storage.
+## Exercise 8: Running the image conversion on the SLUM cluster.
 
 <a name="Exercise9"></a>
-## Optional Exercise 9: Suspending the SLUM cluster.
+## Exercise 9: Retrieving the converted images from blob storage.
 
 <a name="Exercise10"></a>
-## Optional Exercise 10: Deleting the resource group to remove the SLURM cluster.
+## Optional Exercise 10: Suspending the SLUM cluster.
+
+<a name="Exercise11"></a>
+## Optional Exercise 11: Deleting the resource group to remove the SLURM cluster.

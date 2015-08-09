@@ -1,3 +1,4 @@
+azure config mode arm
 cd Images
 for f in *.jpg
 do
