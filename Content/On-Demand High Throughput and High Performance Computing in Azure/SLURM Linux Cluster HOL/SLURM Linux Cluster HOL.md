@@ -192,7 +192,7 @@ In this lab you learned how simple it is to create blob storage containers using
 <a name="Exercise4"></a>
 ## Exercise 4: Updating the script files with your Azure information.
 
-With the SLURM cluster initialized and running, you now need to configure the job scripts with the information from your Azure account. In the same directory as this file is a directory called SLURMSource. You will need to edit the files so we will start with copying the directory to a new location. While you can edit these files with graphical editors, it is probably safer to use terminal programs because some graphical editors, especially on OS X, can change line endings and break the scripts. If you are used to vi or EMACS, you are in good shape. If you're not comfortable with those editors, OS X and most Linux operating systems come with [Pico](https://en.wikipedia.org/wiki/Pico_(text_editor), or derivatives which are very simple to use.
+With the SLURM cluster initialized and running, you now need to configure the job scripts with the information from your Azure account. In the same directory as this file is a directory called SLURMSource. You will need to edit the files so we will start with copying the directory to a new location. While you can edit these files with graphical editors, it is probably safer to use terminal programs because some graphical editors, especially on OS X, can change line endings and break the scripts. If you are used to vi or EMACS, you are in good shape. If you're not comfortable with those editors, OS X and most Linux operating systems come with [Pico](https://en.wikipedia.org/wiki/Pico_(text_editor), or derivatives _nano_ or _rnano_ which are very simple to use.
 
 The information we need from Azure are the storage account access keys and connection strings. As all storage is accessible through [Representational State Transfer (REST)](https://en.wikipedia.org/wiki/Representational_state_transfer) Application Programming Interfaces (API), these account keys and connection strings are what uniquely identify your access to the storage. When you created the storage the default access was private so without them, scripts and commands would have no access.
 
@@ -208,7 +208,7 @@ The information we need from Azure are the storage account access keys and conne
 
 1. Open your terminal window tool of choice and change the directory to where you copied the files.
 
-1. In your terminal editor, open **copyimages.sh**. This file will copy the sample images to your input storage blob for processing.
+1. In your editor, open **copyimages.sh**. This script file is intended to copy the sample images to your input storage blob for processing.
 
 1. Back in the Azure Portal, Access keys blade you have open, click the select all button next to Connection strings, KEY1, and press your operating system copy to the clipboard keystroke.
 
@@ -216,7 +216,17 @@ The information we need from Azure are the storage account access keys and conne
 
     _Selecting and Copying the Key 1 Connection String_
 
-1. Go back to your opened **copyimages.sh** file and change the text **<Your Container Key Here>** in the file. Make sure that the string starts and ends with quote marks. Save the file and close the editor.
+1. Go back to your opened **copyimages.sh** file in your editor and change the text **<Your Container Key Here>** in the file with the copied key. Make sure that the string starts and ends with quote marks. Save the file and close the editor.
+
+    ```
+    azure config mode arm
+    cd Images
+    for f in *.jpg
+    do
+    	azure storage blob upload -c "DefaultEndpointsProtocol=https;AccountName=..." "${f##*/}" input "${f##*/}"
+    done
+    cd ..
+    ```
 
 1. Open slurmdemo.py file and look for the following section near the top of the file
 
@@ -247,7 +257,11 @@ The information we need from Azure are the storage account access keys and conne
 
 1. Save the slurmdemo.py file and exit your editor.
 
-1. Open slurmdemo.setup.sh in your editor. Search for all instances of **<admin account>** and replace them with the ADMINUSERNAME property you specified in the template for [Exercise 1](#Exercise1). There are six total places in the file. Save the file and exit the editor.
+1. Open slurmdemo.setup.sh in your editor. Search for all instances of **<admin account>** and replace them with the ADMINUSERNAME property you specified in the template for [Exercise 2](#Exercise2). There are six total places in the file. Save the file and exit the editor.
+
+    ![Changing slurmdemo.setup.sh](Images/access-keys-edit-setup.png)
+
+    _Changing slurmdemo.setup.sh to Use Your ADMINUSERNAME_
 
 1. Leave the terminal running to do the next exercise.
 
