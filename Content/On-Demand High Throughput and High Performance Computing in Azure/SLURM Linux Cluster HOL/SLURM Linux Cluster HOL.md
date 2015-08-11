@@ -116,9 +116,9 @@ The template you are going to use, which you can [view here](https://github.com/
 
      _Filling in the template parameters_
 
-1. For the DNSNAME and NEWSTORAGEACCOUNTNAME, you will have to pick a unique name for the internet, but you will get notified if the names are not unique as you move through the Parameters blade. What a lot of people find convenient is name the DNSNAME and name the NEWSTORAGEACCOUNTNAME the DNS name with "storage" appended. Fill in these two values.
+1. For the DNSNAME and NEWSTORAGEACCOUNTNAME, you will have to pick a unique name for the internet, but you will get notified if the names are not unique as you move through the Parameters blade. What a lot of people find convenient is name the DNSNAME and name the NEWSTORAGEACCOUNTNAME the DNS name with "storage" appended. Fill in these two values. **Remember, all storage account name must always be lowercase and cannot include the dash ("-") character.**
 
-1. With the ADMINUSERNAME and ADMINPASSWORD, pick appropriate values you will remember as you will need them in [Exercise 5](#Exercise5).
+1. With the ADMINUSERNAME and ADMINPASSWORD, pick appropriate values you will remember as you will need them in [Exercise 5](#Exercise5). Do note that there is not a huge amount of checking that goes on in  the template for invalid user accounts or passwords. For example, if you set ADMINUSERNAME to something illegal like _admin_, the deployment will fail with a cryptic error message. Also, passwords longer than 32 characters are also not handled correctly. Microsoft is aware that the error checking with templates needs to improve and is working on it. For ADMINUSERNAME either use the default or your given name and keep the ADMINPASSWORD length to less than 16 characters to be safe.
 
 1. For VMSIZE, the default of 2 is sufficient for this lab. This number corresponds to the number of virtual machine nodes you want in the cluster. This count is for the worker nodes and there will be an additional machine for the master node.
 
