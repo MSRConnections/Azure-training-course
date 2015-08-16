@@ -33,8 +33,8 @@ In this hands-on lab, you will learn how to:
 The following is required to complete this hands-on lab:
 
 - A Microsoft Azure subscription - [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
-- The account you use must be configured as an [Azure Active Directory organizational account](http://azure.microsoft.com/en-us/services/active-directory/). If you are not sure if you are using a Microsoft Account or an Organizational account, see the lab on setting up your Azure subscription, which provides a walk through and shows how to check.
 - The [Azure CLI](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli/) command line tool for your workstation operating system.
+- You have completed the "Azure Storage and Azure CLI hands-on-lab"
 - The lab is geared to OS X and Linux users. If you are on Windows, a [Cygwin](https://www.cygwin.com/) installation with ssh is necessary.
 
 ---
