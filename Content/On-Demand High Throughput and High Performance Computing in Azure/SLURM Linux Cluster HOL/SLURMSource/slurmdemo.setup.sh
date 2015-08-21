@@ -43,7 +43,7 @@ do
   scp slurmdemo.py <admin account>@$node:~
   scp slurmdemo.sh <admin account>@$node:~
 
-  ssh <admin account>@$node 'wget https://raw.githubusercontent.com/Azure/azure-batch-samples/master/Python/Storage/blobxfer.py
+  ssh <admin account>@$node 'wget https://raw.githubusercontent.com/Azure/azure-batch-samples/master/Python/Storage/blobxfer.py'
 
 done
 
