@@ -6,10 +6,7 @@
 <a name="Overview"></a>
 ## Overview ##
 
-In this lab you will create a Simple Linux Utility for Resource Management ([SLURM](https://computing.llnl.gov/linux/slurm/overview.html))
-cluster of Ubuntu computers running on Azure. With this cluster you will perform an embarrassingly parallel task of converting color images to greyscale.
-You will learn how easy it is to configure many virtual machines at once using Azure resource manager templates and the steps for getting resources from
-your local workstation into your Azure virtual machines with the cross platform [Azure CLI](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli/) command line tools as well as working with blob storage containers.
+In this lab, you will create a Simple Linux Utility for Resource Management ([SLURM](https://computing.llnl.gov/linux/slurm/overview.html)) cluster of Ubuntu computers running on Azure and use it to parallelize the task of converting color images to grayscale. You will learn how easy it is to configure many virtual machines at once using Azure resource manager templates and learn how to get resources from your local workstation into your Azure virtual machines with the cross-platform [Azure CLI](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli/) command-line tools. In addition, you will gain first-hand experience working with blob storage containers.
 
 <a name="Objectives"></a>
 ### Objectives ###
@@ -24,19 +21,19 @@ In this hands-on lab, you will learn how to:
 - Kick off a SLURM job
 - View the status of a SLURM job
 - Retrieve the results of the job from blob storage
-- Suspending virtual machines
-- Deleting a resource group to remove all traces
+- Suspend virtual machines
+- Delete a resource group to remove all traces
 
 <a name="Prerequisites"></a>
 ### Prerequisites ###
 
-The following is required to complete this hands-on lab:
+The following are required to complete this hands-on lab:
 
 - A Microsoft Azure subscription - [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
-- You have completed the "Azure Storage and Azure CLI hands-on-lab"
-- For OS X and Linux users the following item:
-    - The [Azure CLI](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli/) command line tool for your workstation operating system.
-- For Windows Users, you will need to install the following items:
+- Completion of the "Azure Storage and Azure CLI" hands-on lab
+- For OS X and Linux users:
+    - The [Azure CLI](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli/) command-line tool for your workstation operating system.
+- For Windows Users:
 	- [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html). Install the latest full package that includes PuTTY and the PSCP programs. Your best option is to use the install program to get these tools on your system. When you run the installer, note the directory where the tools are installed. You will need that directory to run the tools. The default installation location is "C:\Program Files (x86)\PuTTY".
 	- The latest [Azure PowerShell module](http://go.microsoft.com/fwlink/p/?linkid=320376&clcid=0x409). Accept all the defaults when installing.
 
@@ -47,21 +44,21 @@ The following is required to complete this hands-on lab:
 
 This hands-on lab includes the following exercises:
 
-1. [Exercise 1: Create the resource group to hold the SLURM cluster and resources.](#Exercise1)
-1. [Exercise 2: Creating the SLURM Ubuntu cluster from an Azure Quickstart resource template.](#Exercise2)
-1. [Exercise 3: Creating the input and output blob storage.](#Exercise3)
-1. [Exercise 4: Updating the script files with your Azure information.](#Exercise4)
-1. [Exercise 5: Copying the images to be converted to blob storage.](#Exercise5)
-1. [Exercise 6: OS X and Linux: Copying SLURM project scripts, configuring the SLURM nodes, and executing the SLURM job to convert images.](#Exercise6)
-1. [Exercise 7: Windows: Copying SLURM project scripts, configuring the SLURM nodes, and executing the SLURM job to convert images.](#Exercise7)
-1. [Exercise 8: Verifying the images were converted.](#Exercise8)
-1. [Optional Exercise 9: Suspending the SLUM cluster.](#Exercise9)
-1. [Exercise 10: Deleting the resource group to remove the SLURM cluster.](#Exercise10)
+1. [Exercise 1: Create the resource group to hold the SLURM cluster and resources](#Exercise1)
+1. [Exercise 2: Create the SLURM Ubuntu cluster from an Azure Quickstart resource template](#Exercise2)
+1. [Exercise 3: Create the input and output blob storage](#Exercise3)
+1. [Exercise 4: Update the script files with your Azure information](#Exercise4)
+1. [Exercise 5: Copy the images to be converted to blob storage](#Exercise5)
+1. [Exercise 6: OS X and Linux: Copy SLURM project scripts, configure the SLURM nodes, and execute the SLURM job to convert images](#Exercise6)
+1. [Exercise 7: Windows: Copy SLURM project scripts, configure the SLURM nodes, and execute the SLURM job to convert images](#Exercise7)
+1. [Exercise 8: Verify that the images were converted](#Exercise8)
+1. [Optional Exercise 9: Suspend the SLUM cluster](#Exercise9)
+1. [Exercise 10: Delete the resource group to remove the SLURM cluster](#Exercise10)
 
 Estimated time to complete this lab: **60** minutes.
 
 <a name="Exercise1"></a>
-## Exercise 1: Create the resource group to hold the SLURM cluster and resources.
+## Exercise 1: Create the resource group to hold the SLURM cluster and resources
 This exercise will create the resource group you will use to store the SLURM cluster of virtual Ubuntu machines along with their required Azure items like Network Interface Cards, IP addresses, and storage. resource groups are a great feature of Microsoft Azure that allow you to group logical resources such as virtual machines, networks, databases, and any other Azure resource together as a logical group which serves as the lifecycle boundary for every resource contained within it.
 
 With this grouping you can apply security rights to users with Role Based Access Control (RBAC). This allows you to have multiple people using a single Azure account but preventing different groups using the account from interfering with one another's deployments and resources. For advanced usage, you can script resource group creation and management with the Azure CLI command line tools to automate deployments.
@@ -93,7 +90,7 @@ All resources in Azure have to be contained in a resource group. While you can c
 In this lab, you learned about and created an empty resource group that will be used to hold all resources for the SLURM cluster created in created in this lab.
 
 <a name="Exercise2"></a>
-## Exercise 2: Creating the SLURM Ubuntu cluster from an Azure Quickstart resource template.
+## Exercise 2: Create the SLURM Ubuntu cluster from an Azure Quickstart resource template
 The Azure Resource Manager is a fantastic feature that allows you to provision applications with a declarative template. This template will contain the complete description of everything in your application from virtual machines, to databases, to web sites, NICs, public IP address, and even let you tell the deployment engine, when you create a virtual machine, run this script or PowerShell Desired State Configuration (DSC) when the machine starts. The idea is that you can use the same template repeatedly and consistently during every stage of your application or research lifecycle.
 
 Say you are working on a High Performance Computing (HPC) experiment and if you create and maintain the resources in a template you can easily share the complete configuration of your environment with colleagues along with the data. Now it's easier than ever for others to spin up the environment, which means more time researching and less time configuring. To learn more about Azure Resource Manager templates you can read the [documentation](https://azure.microsoft.com/en-us/documentation/articles/resource-group-template-deploy/).
@@ -170,7 +167,7 @@ The template you are going to use, which you can [view here](https://github.com/
 In this exercise you learned about Azure templates and where you can find many excellent templates from Microsoft to assist in setting up complicated deployments. You also learned the steps for starting a deployment from one of those templates.
 
 <a name="Exercise3"></a>
-## Exercise 3: Creating the input and output blob storage.
+## Exercise 3: Create the input and output blob storage
 
 The python script you will be running on the SLURM cluster requires two blob storage container. As these two blob containers are unique to the experiment, not the common deployment, you will have to set them up separately. The "input" container contains the Images that will be read and process. The "output" container will contain the converted Images. You need to get those set up before you configure anything else.
 
@@ -195,7 +192,7 @@ The python script you will be running on the SLURM cluster requires two blob sto
 In this lab you learned how simple it is to create blob storage containers using the Azure portal.
 
 <a name="Exercise4"></a>
-## Exercise 4: Updating the script files with your Azure information.
+## Exercise 4: Update the script files with your Azure information
 
 With the SLURM cluster initialized and running, you now need to configure the job scripts with the information from your Azure account. In the same directory as this file is a directory called SLURMSource. You will need to edit the files so you will start with copying the directory to a new location. On OS X or Linux, it is probably safer to use terminal programs instead of graphical editors, especially on OS X, can change line endings and break the scripts. If you are used to vi or EMACS, you are in good shape. If you're not comfortable with those editors, OS X and most Linux operating systems come with [Pico](https://en.wikipedia.org/wiki/Pico_%28text_editor%29), or derivatives _nano_ or _rnano_ which are very simple to use. If you are on Windows, notepad works file.
 
@@ -288,7 +285,7 @@ The information you need from Azure are the storage account access keys and conn
 In this lab you learned how to get a storage account's access keys and connection strings.
 
 <a name="Exercise5"></a>
-## Exercise 5: Copying the images to be converted to blob storage.
+## Exercise 5: Copy the images to be converted to blob storage
 
  With the scripts all configured for your particular Azure instance, you need to copy the images to be processed into the input queue you set up in [Exercise 2](#Exercise2). So you don't have to copy them up manually, the OS X and Linux **copyimages.sh** or for Windows **CopyImages.ps1** file will copy all files from the Images directory for you using the Azure CLI or Azure PowerShell, respectively. You should look at what the file you are going to execute does to do the copy operation.
 
@@ -379,7 +376,7 @@ In this lab you learned how to get a storage account's access keys and connectio
 In this exercise you learned how to batch copy files into Azure blob storage using a combination of shell scripting and Azure CLI commands.
 
 <a name="Exercise6"></a>
-## Exercise 6: OS X and Linux: Copying SLURM project scripts, configuring the SLURM nodes, and executing the SLURM job to convert images.
+## Exercise 6: OS X and Linux: Copy SLURM project scripts, configure the SLURM nodes, and execute the SLURM job to convert images
 
 This section is for OS X and Linux operating systems. If you are doing this lab on Windows, jump to [Exercise 7](#Exercise7)
 
@@ -486,7 +483,7 @@ ADMINUSERNAME field of the deployment template in [Exercise 2](#Exercise2) by re
 In this exercise you learned how to copy files to the master SLURM node and to execute the SLURM job.
 
 <a name="Exercise7"></a>
-## Exercise 7: Windows: Copying SLURM project scripts, configuring the SLURM nodes, and executing the SLURM job to convert images.
+## Exercise 7: Windows: Copy SLURM project scripts, configure the SLURM nodes, and execute the SLURM job to convert images
 
 This section is for Windows operating systems. If you are doing this lab on OS X or Linux, jump to [Exercise 8](#Exercise8)
 
@@ -647,7 +644,7 @@ ADMINUSERNAME field of the deployment template in [Exercise 2](#Exercise2). Afte
 In this exercise you learned how to copy files to the master SLURM node and to execute the SLURM job.
 
 <a name="Exercise8"></a>
-## Exercise 8: Verifying the images were converted.
+## Exercise 8: Verify that the images were converted
 
 If everything worked correctly the converted grayscale images should be in the output blob storage.
 
@@ -668,7 +665,7 @@ If everything worked correctly the converted grayscale images should be in the o
 In this exercise you learned how to download files from blob storage.
 
 <a name="Exercise9"></a>
-## Optional Exercise 9: Suspending the SLUM cluster.
+## Exercise 9 (Optional): Suspend the SLUM cluster
 
 When virtual machines are running you are being charged. That is not a problem if you are performing a huge experiment for your research, but if the virtual machines are idling that is wasted money. It's always a great idea to stop any virtual machines when not in use. You will be charged for the storage, but the cost is nothing compared to them running. In the Azure portal you can manually suspend virtual machines.
 
@@ -685,7 +682,7 @@ When virtual machines are running you are being charged. That is not a problem i
 In this exercise you learned how to stop a resource group's virtual machines to save money on your Azure account.
 
 <a name="Exercise10"></a>
-## Exercise 10: Deleting the resource group to remove the SLURM cluster.
+## Exercise 10: Delete the resource group to remove the SLURM cluster
 
 Back in [Exercise1](#Exercise1) you learned that resource groups are an outstanding feature of Azure because they let you control the lifecycle of a group of resources such as all the virtual machines in a SLURM cluster. The important point is that when you complete the task you set up the resource group for, you can delete all of the resource easily. Thus saving money on your Azure subscription.
 
@@ -711,8 +708,8 @@ In this hands-on lab, you learned how to:
 - Kick off a SLURM job
 - View the status of a SLURM job
 - Retrieve the results of the job from blob storage
-- Suspending virtual machines
-- Deleting a resource group to remove all traces
+- Suspend virtual machines
+- Delete a resource group to remove all traces
 
 
 Copyright 2015 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in http://www.apache.org/licenses/LICENSE-2.0.
