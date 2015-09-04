@@ -34,7 +34,7 @@ The following are required to complete this hands-on lab:
 - For OS X and Linux users:
     - The [Azure CLI](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli/) command-line tool for your workstation operating system.
 - For Windows Users:
-	- [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html). Install the latest full package that includes PuTTY and the PSCP programs. Your best option is to use the install program to get these tools on your system. When you run the installer, note the directory where the tools are installed. You will need that directory to run the tools. The default installation location is "C:\Program Files (x86)\PuTTY".
+	- [Putty](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html). Install the latest full package that includes PuTTY and the PSCP programs. Your best option is to use the install program to get these tools on your system. When you run the installer, note the directory where the tools are installed. You will need that directory to run the tools. The default installation location is "C:\Program Files (x86)\PuTTY".
 	- The latest [Azure PowerShell module](http://go.microsoft.com/fwlink/p/?linkid=320376&clcid=0x409). Accept all the defaults when installing.
 
 ---
@@ -115,19 +115,31 @@ For simplicity, this exercise will use password access when using Secure Shell (
 
     _Browsing for Your New HDInsight Cluster_
 
-1. (Linux and OS X Users) With the HDInsight cluster ready to process data, you will first have to log into to execute Hive job for this exercise. Open a terminal window so you can run the ssh command to do the connection. You will need the username and password for the SSH user you created earlier. The connection string is in the form <username>@<hdinsight cluster name>-ssh.azurehdinsight.net. Thus if your SSH username was happyuser and your HDInsight cluster was MyResearchCluster, the ssh parameter would be happyuser@MyResearchCluster-ssh.azurehdinsight.net
+1. (Linux and OS X Users) With the HDInsight cluster ready to process data, you will first have to log into to execute Hive job for this exercise. Open a terminal window so you can run the ssh command to do the connection. You will need the username and password for the SSH user you created earlier. The connection string is in the form &lt;username&gt;@&lt;hdinsight cluster name&gt;-ssh.azurehdinsight.net. Thus if your SSH username was happyuser and your HDInsight cluster was MyResearchCluster, the ssh parameter would be happyuser@MyResearchCluster-ssh.azurehdinsight.net
 
     Enter the following command in your terminal window replacing the items in brackets with your SSH username and password.
 
     <pre>
-    ssh &ltusername&gt@&lthdinsight cluster name&gt-ssh.azurehdinsight.net
+    ssh &lt;username&gt@&lt;hdinsight cluster name&gt-ssh.azurehdinsight.net
     </pre>
 
-1. (Windows Users) Open PuTTY and in the **Host Name (or IP address)** field enter the following. Click the open button and enter your SSH username and password when prompted.
+1. (Windows Users) If you installed PuTTY with the installer, press the Windows key and type "putty" to start it. If you installed PuTTY by copying the files, use Explorer to find and run putty.exe. In the **Host Name (or IP address)** field enter &lt;username&gt@&lt;hdinsight cluster name&gt-ssh.azurehdinsight.net substituting your SSH username and HDInsight cluster. Click the **Open** button to start the connection.
 
     <pre>
-    &ltusername&gt@&lthdinsight cluster name&gt-ssh.azurehdinsight.net
+    &lt;username&gt;@&lt;hdinsight cluster name&gt;-ssh.azurehdinsight.net
     </pre>
+
+    ![Putty Host Name (or IP address) field](Images/ex1-putty-host.png)
+
+    _Putty Host Name (or IP address) field_
+
+1. (Windows Users) Because this is the first time you are connecting to the master node, PuTTY will display a warning dialog. Since the virtual machines are ones you created, it is safe to click **Yes**, but you can click **No** if you don't want to cache the RSA2 fingerprint.
+
+    ![PuTTY Security Alert](Images/ex1-putty-warning.png)
+
+    _PuTTY Security Alert_
+
+1. (Windows Users) After you click **Yes** or **No**, a console window will appear and you will be prompted to **login as**. Enter the name of the ssh user you created earlier. After pressing the Enter key, type the password of your SSH user followed by the Enter key.
 
 1. If your entered your username and password correctly, you will see something like the following:
 
@@ -280,6 +292,8 @@ For simplicity, this exercise will use password access when using Secure Shell (
     Time taken: 0.58 seconds, Fetched: 3 row(s)
     </pre>
 
+1. To exit your SSH session, type the exit command in the terminal window or PuTTY console window. Close all terminal or PuTTY windows.
+
 Now that you know how to set up a HDInsight cluster, you can use that cluster to perform more advanced operations. You will next explore how to perform map and reduce operations using Python programs.
 
 <a name="Exercise2"></a>
@@ -356,7 +370,7 @@ EXPLAIN MAP REDUCE AND WHY TO USE PYTHON!
         main()
     </pre>
 
-    The reducer program reads in "word <tab> 1" line, looks up the word in the groups, and adds the number of instances found to the total instances, and writing the data to standard output.
+    The reducer program reads in "word &lt;tab&gt; 1" line, looks up the word in the groups, and adds the number of instances found to the total instances, and writing the data to standard output.
 
 1. (OS X and Linux Users) The two Python scripts are provided for you in the directory called HadoopSource, which is in the same location as this PDF file. You need to get those two files to your HDInsight cluster you created in Exercise 1. Open a Terminal window and change to that directory. For example, if you copied these files to your Documents directory and put them in a directory called A4R, you would issue the following command
 
@@ -367,30 +381,32 @@ EXPLAIN MAP REDUCE AND WHY TO USE PYTHON!
 1. (OS X and Linux Users) Using the **username** and **password** for the SSH account you created earlier, execute the secure copy command to copy the mapper.py and reduce.py files to your HDInsight cluster.
 
     <pre>
-    scp &#42.py &ltusername&gt@&lthdinsight cluster name&gt-ssh.azurehdinsight.net:
+    scp &#42.py &lt;username&gt;@&lthdinsight cluster name&gt-ssh.azurehdinsight.net:
     </pre>
 
     If the copy worked you will see output like the following.
 
     <pre>
-    $ scp &#42.py &ltusername&gt@&lthdinsight cluster name&gt-ssh.azurehdinsight.net:
+    $ scp &#42.py &lt;username&gt;@&lt;hdinsight cluster name&gt;-ssh.azurehdinsight.net:
     Ubuntu 12.04.5 LTS
-    &ltusername&gt@&lthdinsight cluster name&gt-ssh.azurehdinsight.net's password:
+    &lt;username&gt;@&lt;hdinsight cluster name&gt;-ssh.azurehdinsight.net's password:
     mapper.py                                                                     100%  534     0.5KB/s   00:00
     reducer.py                                                                    100% 1184     1.2KB/s   00:00
     </pre>
 
-1. (Windows Users) DO THIS!
-
 1. (OS X and Linux Users) To SSH into your HDInsight cluster, enter the following command in your terminal window replacing the items in brackets with your SSH **username** and **password**.
 
     <pre>
-    ssh &ltusername&gt@&lthdinsight cluster name&gt-ssh.azurehdinsight.net
+    ssh &lt;username&gt;@&lt;hdinsight cluster name&gt;-ssh.azurehdinsight.net
     </pre>
 
-1. (Windows Users) DO THIS!
+1. (Windows Users) To SSH into your HDInsight cluster, start the PuTTY application as you in Exercise 1. In the **Host Name (or IP address field).** in the PuTTY user interface, enter the following replacing the items in brackets with your SSH **username** and **password**.
 
-1. Now that you are logged into your HDInsight cluster, to start your the Hadoop job, enter the following command line. You may want to copy and paste this command line from he PDF as there
+    <pre>
+    &lt;username&gt;@&lt;hdinsight cluster name&gt;-ssh.azurehdinsight.net
+    </pre> 
+
+1. Now that you are logged into your HDInsight cluster, to start your the Hadoop job, enter the following command line. You may want to copy and paste this command line from he PDF as here are many odd characters. OS X and Linux terminals support pasting directly. For Windows users, you can paste copied text into the PuTTY console by right clicking in it. 
 
     <pre>
     hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-streaming.jar -files mapper.py,reducer.py -mapper mapper.py -reducer reducer.py -input wasb:///example/data/gutenberg/davinci.txt -output wasb:///example/wordcountout
@@ -487,8 +503,8 @@ EXPLAIN MAP REDUCE AND WHY TO USE PYTHON!
 
     <pre>
     Found 2 items
-    -rw-r--r--   1 sshuser supergroup          0 2015-09-04 21:22 /example/wordcountout/&#95;SUCCESS
-    -rw-r--r--   1 sshuser supergroup     337623 2015-09-04 21:22 /example/wordcountout/part-00000
+    -rw-r--r--   1 &lt;ssh user&gt; supergroup          0 2015-09-04 21:22 /example/wordcountout/&#95;SUCCESS
+    -rw-r--r--   1 &lt;ssh user&gt; supergroup     337623 2015-09-04 21:22 /example/wordcountout/part-00000
     </pre>
 
     The &#95;SUCCESS file, which is zero bytes, indicates the job was a success. The part-00000 file contains the list of words and their counts. To look at that file, use the following command.
@@ -520,7 +536,7 @@ EXPLAIN MAP REDUCE AND WHY TO USE PYTHON!
     If you want to run the job again with a changed mapper.py, you will have to either change the output directory specified in the hadoop command to start processing, or you could delete the output directory with the following command.
 
     <pre>
-    fs -rm -f /example/wordcountout
+    hadoop fs -rm -r /example/wordcountout
     </pre>
 
 
