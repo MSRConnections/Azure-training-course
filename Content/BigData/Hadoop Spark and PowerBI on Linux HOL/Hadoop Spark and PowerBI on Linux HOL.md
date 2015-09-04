@@ -44,6 +44,7 @@ The following are required to complete this hands-on lab:
 This hands-on lab includes the following exercises:
 
 1. [Exercise 1: Using Hadoop with Hive in HDInsight on Linux](#Exercise1)
+1. [Exercise 2: Creating and Running Python programs for HDInsight on Linux](#Exercise1)
 
 Estimated time to complete this lab: **60** minutes.
 
@@ -177,7 +178,7 @@ For simplicity, this exercise will use password access when using Secure Shell (
     CREATE EXTERNAL TABLE log4jLogs(t1 string, t2 string, t3 string, t4 string, t5 string, t6 string, t7 string)
     ROW FORMAT DELIMITED FIELDS TERMINATED BY ' '
     STORED AS TEXTFILE LOCATION 'wasb:///example/data/';
-    SELECT t4 AS sev, COUNT(*) AS cnt FROM log4jLogs WHERE t4 = '[ERROR]' GROUP BY t4;
+    SELECT t4 AS sev, COUNT(&#42) AS cnt FROM log4jLogs WHERE t4 = '[ERROR]' GROUP BY t4;
     </pre>
 
     The DROP TABLE line removes any existing table named log4jLogs if it exists.
@@ -200,7 +201,7 @@ For simplicity, this exercise will use password access when using Secure Shell (
     hive&gt STORED AS TEXTFILE LOCATION 'wasb:///example/data/';
     OK
     Time taken: 0.986 seconds
-    hive&lt SELECT t4 AS sev, COUNT(*) AS cnt FROM log4jLogs WHERE t4 = '[ERROR]' GROUP BY t4;
+    hive&lt SELECT t4 AS sev, COUNT(&#42) AS cnt FROM log4jLogs WHERE t4 = '[ERROR]' GROUP BY t4;
     Query ID = sshuser_20150901021919_f1135622-b9eb-4e4d-9863-b18310242ce2
     Total jobs = 1
     Launching Job 1 out of 1=
@@ -280,6 +281,248 @@ For simplicity, this exercise will use password access when using Secure Shell (
     </pre>
 
 Now that you know how to set up a HDInsight cluster, you can use that cluster to perform more advanced operations. You will next explore how to perform map and reduce operations using Python programs.
+
+<a name="Exercise2"></a>
+## Exercise 2: Creating and Running Python programs for HDInsight on Linux
+
+EXPLAIN MAP REDUCE AND WHY TO USE PYTHON!
+
+1. Before you jump into running the Python programs it would be a good idea to read over the code for the mapper as shown below:
+
+    <pre>
+    #!/usr/bin/env python
+
+    # Use the sys module
+    import sys
+
+    # 'file' in this case is STDIN
+    def read_input(file):
+        # Split each line into words
+        for line in file:
+            yield line.split()
+
+    def main(separator='\t'):
+        # Read the data using read_input
+        data = read_input(sys.stdin)
+        # Process each words returned from read_input
+        for words in data:
+            # Process each word
+            for word in words:
+                # Write to STDOUT
+                print '%s%s%d' % (word, separator, 1)
+
+    if __name__ == "__main__":
+        main()
+    </pre>
+
+    The idea behind the mapper is to read a file from standard input (STDIN), and to output each of the words in that file on it's own line with a tab character and the value 1. That prepares the data for the reducer.
+
+1. Read over the reducer below to see how it works.
+
+    <pre>
+    #!/usr/bin/env python
+
+    # import modules
+    from itertools import groupby
+    from operator import itemgetter
+    import sys
+
+    # 'file' in this case is STDIN
+    def read_mapper_output(file, separator='\t'):
+        # Go through each line
+        for line in file:
+            # Strip out the separator character
+            yield line.rstrip().split(separator, 1)
+
+    def main(separator='\t'):
+        # Read the data using read_mapper_output
+        data = read_mapper_output(sys.stdin, separator=separator)
+        # Group words and counts into 'group'
+        #   Since MapReduce is a distributed process, each word
+        #   may have multiple counts. 'group' will have all counts
+        #   which can be retrieved using the word as the key.
+        for current_word, group in groupby(data, itemgetter(0)):
+            try:
+                # For each word, pull the count(s) for the word
+                #   from 'group' and create a total count
+                total_count = sum(int(count) for current_word, count in group)
+                # Write to stdout
+                print "%s%s%d" % (current_word, separator, total_count)
+            except ValueError:
+                # Count was not a number, so do nothing
+                pass
+
+    if __name__ == "__main__":
+        main()
+    </pre>
+
+    The reducer program reads in "word <tab> 1" line, looks up the word in the groups, and adds the number of instances found to the total instances, and writing the data to standard output.
+
+1. (OS X and Linux Users) The two Python scripts are provided for you in the directory called HadoopSource, which is in the same location as this PDF file. You need to get those two files to your HDInsight cluster you created in Exercise 1. Open a Terminal window and change to that directory. For example, if you copied these files to your Documents directory and put them in a directory called A4R, you would issue the following command
+
+    <pre>
+    cd ~/Documents/A4R/BigData/Hadoop\ Spark\ and\ PowerBI\ on\ Linux\ HOL /HadoopSource
+    </pre>
+
+1. (OS X and Linux Users) Using the **username** and **password** for the SSH account you created earlier, execute the secure copy command to copy the mapper.py and reduce.py files to your HDInsight cluster.
+
+    <pre>
+    scp &#42.py &ltusername&gt@&lthdinsight cluster name&gt-ssh.azurehdinsight.net:
+    </pre>
+
+    If the copy worked you will see output like the following.
+
+    <pre>
+    $ scp &#42.py &ltusername&gt@&lthdinsight cluster name&gt-ssh.azurehdinsight.net:
+    Ubuntu 12.04.5 LTS
+    &ltusername&gt@&lthdinsight cluster name&gt-ssh.azurehdinsight.net's password:
+    mapper.py                                                                     100%  534     0.5KB/s   00:00
+    reducer.py                                                                    100% 1184     1.2KB/s   00:00
+    </pre>
+
+1. (Windows Users) DO THIS!
+
+1. (OS X and Linux Users) To SSH into your HDInsight cluster, enter the following command in your terminal window replacing the items in brackets with your SSH **username** and **password**.
+
+    <pre>
+    ssh &ltusername&gt@&lthdinsight cluster name&gt-ssh.azurehdinsight.net
+    </pre>
+
+1. (Windows Users) DO THIS!
+
+1. Now that you are logged into your HDInsight cluster, to start your the Hadoop job, enter the following command line. You may want to copy and paste this command line from he PDF as there
+
+    <pre>
+    hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-streaming.jar -files mapper.py,reducer.py -mapper mapper.py -reducer reducer.py -input wasb:///example/data/gutenberg/davinci.txt -output wasb:///example/wordcountout
+    </pre>
+
+    EXPLAIN!!!
+
+    If you entered the command line correctly, the output will look like the following.
+
+    <pre>
+    packageJobJar: [] [/usr/hdp/2.2.7.1-10/hadoop-mapreduce/hadoop-streaming-2.6.0.2.2.7.1-10.jar] /tmp/streamjob5681672609917350730.jar tmpDir=null
+    15/09/04 21:21:42 INFO impl.TimelineClientImpl: Timeline service address: http://headnode0.rn0vf3xrnsiuzm4gijgsmkdzgf.dx.internal.cloudapp.net:8188/ws/v1/timeline/
+    15/09/04 21:21:43 INFO client.AHSProxy: Connecting to Application History server at headnode0.rn0vf3xrnsiuzm4gijgsmkdzgf.dx.internal.cloudapp.net/10.0.0.14:10200
+    15/09/04 21:21:43 INFO impl.TimelineClientImpl: Timeline service address: http://headnode0.rn0vf3xrnsiuzm4gijgsmkdzgf.dx.internal.cloudapp.net:8188/ws/v1/timeline/
+    15/09/04 21:21:43 INFO client.AHSProxy: Connecting to Application History server at headnode0.rn0vf3xrnsiuzm4gijgsmkdzgf.dx.internal.cloudapp.net/10.0.0.14:10200
+    15/09/04 21:21:44 INFO client.ConfiguredRMFailoverProxyProvider: Failing over to rm2
+    15/09/04 21:21:45 INFO mapred.FileInputFormat: Total input paths to process : 1
+    15/09/04 21:21:46 INFO mapreduce.JobSubmitter: number of splits:2
+    15/09/04 21:21:46 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1441381294264_0004
+    15/09/04 21:21:47 INFO impl.YarnClientImpl: Submitted application application_1441381294264_0004
+    15/09/04 21:21:47 INFO mapreduce.Job: The url to track the job: http://headnode1.rn0vf3xrnsiuzm4gijgsmkdzgf.dx.internal.cloudapp.net:8088/proxy/application_1441381294264_0004/
+    15/09/04 21:21:47 INFO mapreduce.Job: Running job: job_1441381294264_0004
+    ^[15/09/04 21:21:56 INFO mapreduce.Job: Job job_1441381294264_0004 running in uber mode : false
+    15/09/04 21:21:56 INFO mapreduce.Job:  map 0% reduce 0%
+    15/09/04 21:22:05 INFO mapreduce.Job:  map 100% reduce 0%
+    15/09/04 21:22:13 INFO mapreduce.Job:  map 100% reduce 100%
+    15/09/04 21:22:15 INFO mapreduce.Job: Job job_1441381294264_0004 completed successfully
+    15/09/04 21:22:16 INFO mapreduce.Job: Counters: 49
+    	File System Counters
+    		FILE: Number of bytes read=2387804
+    		FILE: Number of bytes written=5157441
+    		FILE: Number of read operations=0
+    		FILE: Number of large read operations=0
+    		FILE: Number of write operations=0
+    		WASB: Number of bytes read=1484685
+    		WASB: Number of bytes written=337623
+    		WASB: Number of read operations=0
+    		WASB: Number of large read operations=0
+    		WASB: Number of write operations=0
+    	Job Counters
+    		Launched map tasks=2
+    		Launched reduce tasks=1
+    		Rack-local map tasks=2
+    		Total time spent by all maps in occupied slots (ms)=13117
+    		Total time spent by all reduces in occupied slots (ms)=5842
+    		Total time spent by all map tasks (ms)=13117
+    		Total time spent by all reduce tasks (ms)=5842
+    		Total vcore-seconds taken by all map tasks=13117
+    		Total vcore-seconds taken by all reduce tasks=5842
+    		Total megabyte-seconds taken by all map tasks=120886272
+    		Total megabyte-seconds taken by all reduce tasks=53839872
+    	Map-Reduce Framework
+    		Map input records=32118
+    		Map output records=251357
+    		Map output bytes=1885084
+    		Map output materialized bytes=2387810
+    		Input split bytes=280
+    		Combine input records=0
+    		Combine output records=0
+    		Reduce input groups=32956
+    		Reduce shuffle bytes=2387810
+    		Reduce input records=251357
+    		Reduce output records=32956
+    		Spilled Records=502714
+    		Shuffled Maps =2
+    		Failed Shuffles=0
+    		Merged Map outputs=2
+    		GC time elapsed (ms)=20
+    		CPU time spent (ms)=9890
+    		Physical memory (bytes) snapshot=5183492096
+    		Virtual memory (bytes) snapshot=29558329344
+    		Total committed heap usage (bytes)=25414336512
+    	Shuffle Errors
+    		BAD_ID=0
+    		CONNECTION=0
+    		IO_ERROR=0
+    		WRONG_LENGTH=0
+    		WRONG_MAP=0
+    		WRONG_REDUCE=0
+    	File Input Format Counters
+    		Bytes Read=1484265
+    	File Output Format Counters
+    		Bytes Written=337623
+    15/09/04 21:22:16 INFO streaming.StreamJob: Output directory: wasb:///example/wordcountout
+    </pre>
+
+1. To see the files that Hadoop created after finishing the job, run the following command in your SSH session.
+
+    <pre>
+    hadoop fs -ls /example/wordcountout
+    </pre>
+
+    The output will show two files created.
+
+    <pre>
+    Found 2 items
+    -rw-r--r--   1 sshuser supergroup          0 2015-09-04 21:22 /example/wordcountout/&#95;SUCCESS
+    -rw-r--r--   1 sshuser supergroup     337623 2015-09-04 21:22 /example/wordcountout/part-00000
+    </pre>
+
+    The &#95;SUCCESS file, which is zero bytes, indicates the job was a success. The part-00000 file contains the list of words and their counts. To look at that file, use the following command.
+
+    <pre>
+    hadoop fs -cat /example/wordcountout/part-00000
+    </pre>
+
+    You will see a lot of output looking showing words and their counts. A small snipped is below.
+
+    <pre>
+    yourself	26
+    yourself,	3
+    yourself.	3
+    yourself;	2
+    yourselves	2
+    yourselves;	1
+    youth	9
+    youth,	3
+    youth--devoted	1
+    youth.	2
+    youth.]	1
+    youth;	1
+    youthful	3
+    </pre>
+
+    As you can see the word breaker in mapper.py does not handle words that contain punctuation characters. It might be a good exercise for you to consider how you would change the code to strip off extra punctuation marks when harvesting words.
+
+    If you want to run the job again with a changed mapper.py, you will have to either change the output directory specified in the hadoop command to start processing, or you could delete the output directory with the following command.
+
+    <pre>
+    fs -rm -f /example/wordcountout
+    </pre>
+
 
 ---
 Copyright 2015 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in http://www.apache.org/licenses/LICENSE-2.0.
