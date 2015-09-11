@@ -1,5 +1,5 @@
 <a name="HOLTitle"></a>
-# Using Azure Stream Analytics to Analyze IoT Data #
+# Azure Internet of Things (IoT) Using Event Hubs and Stream Analytics #
 
 ---
 
@@ -35,12 +35,12 @@ The following is required to complete this hands-on lab:
 
 This hands-on lab includes the following exercises:
 
-[Exercise 1: Create an event hub](#Exercise1)
-[Exercise 2: Create a shared-access signature token](#Exercise2)
-[Exercise 3: Send events to the event hub](#Exercise3)
-[Exercise 4: Create a Stream Analytics job](#Exercise4)
-[Exercise 5: Prepare queries and test with sample data](#Exercise5)
-[Exercise 6: Analyze a live data stream](#Exercise6)
+- [Exercise 1: Create an event hub](#Exercise1)
+- [Exercise 2: Create a shared-access signature token](#Exercise2)
+- [Exercise 3: Send events to the event hub](#Exercise3)
+- [Exercise 4: Create a Stream Analytics job](#Exercise4)
+- [Exercise 5: Prepare queries and test with sample data](#Exercise5)
+- [Exercise 6: Analyze a live data stream](#Exercise6)
 
 Estimated time to complete this lab: **60** minutes.
 
@@ -361,24 +361,6 @@ To flag potentially fraudulent withdrawals from ATMs, you will query for transac
 
     _Customizing the output_
 
-1. tk.
-
-    ![tk](images/tk.png)
-
-    _tk_
-
-1. tk.
-
-    ![tk](images/tk.png)
-
-    _tk_
-
-1. tk.
-
-    ![tk](images/tk.png)
-
-    _tk_
-
 1. Now it's time to query the test data for potentially fraudulent transactions — transactions involving the same ATM card but different ATM machines that take place within 60 seconds of each other. *This is the query you will use in the next exercise against a live data stream*.
 
 	Enter the following query and click **Rerun** to execute it:
@@ -513,7 +495,7 @@ In this exercise, you'll configure the Stream Analytics job to store output in s
 
 Currently, the data output from your Stream Analytics job is stored in a blob. In real life, you might prefer to view the output in a more convenient form, such as in a chart that's updated in real time. You could accomplish that by writing an application that monitors the blob and charts the data, or, better yet, by directing the output to an event hub and writing an application that subscribes to events from the event hub.
 
-Microsoft recognizes that not everyone wants to write applications, and has provided an alternative in the form of [Microsoft Power BI](https://powerbi.microsoft.com/). With Power BI, you can create dashboards that render output from Stream Analytics jobs without writing any code. However, at this time, you can only connect Stream Analytics to Power BI if you log into Azure with a school or work account. You're using a Microsoft account for these labs, so that precludes using Power BI for now. Stay tuned for this to be rectified and for Stream Analytics to become an even more powerful tool in the hands of data scientists.
+Microsoft recognizes that not everyone wants to write applications, and has provided an alternative in the form of [Microsoft Power BI](https://powerbi.microsoft.com/). With Power BI, you can create dashboards that render output from Stream Analytics jobs without writing any code. The connection between Azure and Power BI is currently offered only as a preview and is subject to certain limitations, but soon the two will be making beautiful music together in the hands of data scientists.
 
 ---
 
