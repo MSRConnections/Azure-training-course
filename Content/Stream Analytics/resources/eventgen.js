@@ -1,8 +1,6 @@
 ///////////////// KEY VARS /////////////////
-//var uri = "[Event hub URI]/messages";
-//var sas = "[SAS token]"
-var uri = "https://a4rlabs.servicebus.windows.net/ioteventhub/messages";
-var sas = "SharedAccessSignature sr=https%3a%2f%2fa4rlabs.servicebus.windows.net%2fioteventhub&sig=Jn9LiBywyO9BoWWwCQtgPMbhF4OH2YdMIxyga5NouRg%3d&se=1443571200&skn=SendPolicy";
+var uri = "[Event hub URI]/messages";
+var sas = "[SAS token]"
 ///////////////////////////////////////////
 
 var request = require("request");
