@@ -1,25 +1,25 @@
 <a name="HOLTitle"></a>
-# Using Microsoft Azure Storage #
+# Microsoft Azure Storage and the Azure CLI #
 
 ---
 <a name="Overview"></a>
 ## Overview ##
 
-Microsoft Azure Storage is a set of services that allows you to store large volumes of data in a cost-effective manner and in a way that makes the data readily and reliably available to applications that consume it. Data committed to Azure Storage can be stored in blobs, tables, queues, or files. [Azure blobs](http://azure.microsoft.com/en-us/services/storage/blobs/) are ideal for storing images, videos, and other other unstructured data, and are frequently used to provide input to other Azure services such as Azure Machine Learning. [Azure tables](http://azure.microsoft.com/en-us/services/storage/tables/) provide NoSQL storage for semi-structured data. [Azure queues](http://azure.microsoft.com/en-us/services/storage/queues/) support queued message transfers between applications (or parts of applications) and can be used to make applications more scalable and robust through decoupling. Finally, [Azure Files](http://azure.microsoft.com/en-us/services/storage/files), which are currently in preview, use the Server Message Block (SMB) 2.1 protocol to share files in the cloud.
+Microsoft Azure Storage is a set of services that allows you to store large volumes of data in a cost-effective manner and in a way that makes the data readily and reliably available to services and applications that consume it. Data committed to Azure Storage can be stored in blobs, tables, queues, or files. [Azure blobs](http://azure.microsoft.com/en-us/services/storage/blobs/) are ideal for storing images, videos, and other other unstructured data, and are frequently used for input to and output from other Azure services such as [Azure Machine Learning](http://azure.microsoft.com/en-us/services/machine-learning/) and [Azure Stream Analytics](http://azure.microsoft.com/en-us/services/stream-analytics/). [Azure tables](http://azure.microsoft.com/en-us/services/storage/tables/) provide NoSQL storage for semi-structured data. [Azure queues](http://azure.microsoft.com/en-us/services/storage/queues/) support queued message transfers between applications (or parts of applications) and can be used to make applications more scalable and robust by eliminating hard dependencies. Finally, [Azure Files](http://azure.microsoft.com/en-us/services/storage/files), which are currently in preview, use the Server Message Block (SMB) 2.1 protocol to share files in the cloud.
 
-Data stored in Microsoft Azure Storage can be accessed over HTTP or HTTPS using straightforward REST APIs, or it can be accessed using rich client libraries available for many popular languages and platforms, including .NET, Java, Android, Node.js, PHP, Ruby, and Python.
+Data stored in Microsoft Azure Storage can be accessed over HTTP or HTTPS using straightforward and secure REST APIs, or it can be accessed using rich client libraries available for many popular languages and platforms, including .NET, Java, Android, Node.js, PHP, Ruby, and Python.
 
-In this lab, you'll learn how to work with Azure Storage blobs. You'll also get familiar with some of the tools used to manage them. The knowledge you gain will be used in later labs featuring Azure services that rely on blob storage for input and output. 
+In this lab, you'll learn how to work with Azure storage accounts, storage containers, and storage blobs. You'll also get familiar with some of the tools used to manage them, including the Azure [Preview Portal](https://portal.azure.com) and the [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli/), or *Azure CLI*, which works on a variety of operating systems and is arguably the most important tool (other than the portal) for working with Microsoft Azure. The knowledge you gain will be used in later labs featuring Azure services that rely on blob storage for input and output. 
 
 <a name="Objectives"></a>
 ### Objectives ###
 
 In this hands-on lab, you will learn how to:
 
-- Create storage accounts using the Azure Management Portal
-- Create blobs using the Azure Cross-Platform Command-Line Interface (CLI)
-- Automate common storage tasks by scripting CLI commands
-- Use AzCopy to copy files between different storage accounts
+- [Exercise 1: Create storage accounts using the Preview Portal](#Exercise1)
+- [Exercise 2: Create blobs using the Azure CLI](#Exercise2)
+- [Exercise 3: Automate common storage tasks by scripting CLI commands](#Exercise3)
+- [Exercise 4: Use AzCopy to copy files between different storage accounts on Windows devices](#Exercise4)
 
 <a name="Prerequisites"></a>
 ### Prerequisites ###
