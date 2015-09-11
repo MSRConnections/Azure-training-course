@@ -1,18 +1,18 @@
 <a name="HOLTitle"></a>
-# Hadoop, Spark, and Power BI on Linux #
+# Hadoop, and Spark on Linux #
 
 ---
 
 <a name="Overview"></a>
 ## Overview ##
 
-In 2014, Gartner, Inc., an information research company, predicted that in 2015 there would be [4.9 billion connected "things"](http://www.gartner.com/newsroom/id/2905717) will be in use. When you consider all those "things" are running serious amounts of software producing reams of data, you begin to understand the true implications of **BIG DATA**. All of this data is being collected in collected in ever-escalating volumes, at increasingly high velocities, and for a widening variety of unstructured formats and variable semantic contexts. No longer is data isolated to a SQL table, but can be anything from a sensor reading, to a tweet from Twitter, to GPS data, to almost anything you can imagine. The key to the future is being able to analyze that data.
+In 2014, Gartner, Inc., an information research company, predicted that in 2015 there would be [4.9 billion connected "things"](http://www.gartner.com/newsroom/id/2905717) will be in use on the internet. When you consider all those "things" are running serious amounts of software producing reams of data, you begin to understand the true implications of **BIG DATA**. All of this data is being collected in collected in ever-escalating volumes, at increasingly high velocities, and for a widening variety of unstructured formats and variable semantic contexts. No longer is data isolated to a SQL table, but can be anything from a sensor reading, to a tweet from Twitter, to GPS data, to almost anything you can imagine. The key to the future is being able to analyze that huge amount of data.
 
-An increasingly common tool used to analyze big data is [Apache Hadoop](https://hadoop.apache.org/). In a nutshell, Hadoop "...is a framework that allows for the distributed processing of large data sets across clusters of computers using simple programming models." On Azure, HDInsight is the Azure implementation of Hadoop, Spark, HBase, and Storm with tools such as Ambari, Storm, Spark Pig, Hive, and many more, to perform advanced big data analysis. HDInsight can spin up Hadoop clusters for you using either Linux or Windows as the underlying operating system.
+An increasingly common tool used to analyze big data is [Apache Hadoop](https://hadoop.apache.org/). In a nutshell, Hadoop "...is a framework that allows for the distributed processing of large data sets across clusters of computers using simple programming models." On Azure, HDInsight is the Azure implementation of Hadoop, Spark, HBase, and Storm with tools such as Ambari, Storm, Spark Pig, Hive, and many more, to perform advanced big data analysis. HDInsight can spin up Hadoop clusters for you using either Linux or Windows as the underlying operating system and you can access those Hadoop clusters from any operating system as the client.
 
-Even if you are experienced running your own Hadoop clusters on hardware, this lab is still valuable because it shows you the steps and techniques for running and managing HDInsight on Azure. Once your HDInsight Hadoop cluster is provisioned and running, most operations will be identical to running on you own hardware. The main difference is that the Hadoop implementation in Azure uses Azure blob storage as the Hadoop Distributed File System (HDFS).
+Even if you are experienced running your own Hadoop and Spark clusters on hardware, this lab is still valuable because it shows you the steps and techniques for running and managing HDInsight on Azure. Once your HDInsight Hadoop cluster is provisioned and running, most operations will be identical to running on you own hardware. The main difference is that the Hadoop implementation in Azure uses Azure blob storage as the Hadoop Distributed File System (HDFS).
 
-This hands on lab exercises are focused on using HDInsight with Hadoop running on Linux clusters. There's another parallel lab that does these same steps using Hadoop Windows clusters.
+This hands on lab exercises are focused on using HDInsight with Hadoop and Spark running on Linux clusters. There's another parallel lab that does these same steps using Hadoop Windows clusters.
 
 <a name="Objectives"></a>
 ### Objectives ###
@@ -22,7 +22,6 @@ In this hands-on lab, you will learn how to:
 - Create a HDInsight Linux cluster and use Hive to submit jobs
 - Use Python to perform map and reduce operations on a HDInsight Linux cluster
 - Provision Apache Spark on HDInsight and run interactive queries
-- Use [Microsoft PowerBI](http://www.powerbi.com/) to create interactive views
 
 <a name="Prerequisites"></a>
 ### Prerequisites ###
@@ -45,6 +44,7 @@ This hands-on lab includes the following exercises:
 1. [Exercise 2: Creating and Running Python programs for HDInsight on Linux](#Exercise1)
 1. [Exercise 3: Removing your HDInsight Cluster](#Exercise3)
 1. [Exercise 4: Creating and Running Spark Cluster with Zeppelin and Jupyter](#Exercise4)
+1. [Exercise 5: Removing your HDInsight Spark Cluster](#Exercise5)
 
 Estimated time to complete this lab: **60** minutes.
 
@@ -186,22 +186,22 @@ For simplicity, this exercise will use password access when using Secure Shell (
 1. Once at the hive prompt, enter the following statements to create a new table named **log4jlogs** by using sample data already available on your cluster.
 
     <pre>
-    DROP TABLE log4jLogs;
-    CREATE EXTERNAL TABLE log4jLogs(t1 string, t2 string, t3 string, t4 string, t5 string, t6 string, t7 string)
-    ROW FORMAT DELIMITED FIELDS TERMINATED BY ' '
-    STORED AS TEXTFILE LOCATION 'wasb:///example/data/';
-    SELECT t4 AS sev, COUNT(&#42) AS cnt FROM log4jLogs WHERE t4 = '[ERROR]' GROUP BY t4;
+	DROP TABLE log4jLogs;
+	CREATE EXTERNAL TABLE log4jLogs(t1 string, t2 string, t3 string, t4 string, t5 string, t6 string, t7 string)
+	ROW FORMAT DELIMITED FIELDS TERMINATED BY ' '
+	STORED AS TEXTFILE LOCATION 'wasb:///example/data/';
+	SELECT t4 AS sev, COUNT(&#42) AS cnt FROM log4jLogs WHERE t4 = '[ERROR]' GROUP BY t4;
     </pre>
 
-    The DROP TABLE line removes any existing table named log4jLogs if it exists.
+    The **DROP TABLE** line removes any existing table named log4jLogs if it exists.
 
-    CREATE EXTERNAL TABLE creates a new "external" table in the Hive. External tables store only the table definitions in Hive; the data is left in the original location.
+    **CREATE EXTERNAL TABLE** creates a new "external" table in the Hive. External tables store only the table definitions in Hive; the data is left in the original location.
 
-    To tell Hive what format the data is in, the ROW FORMAT says each row is separated by spaces.
+    To tell Hive what format the data is in, the **ROW FORMAT** says each row is separated by spaces.
 
-    STORED AS TEXTFILE LOCATION ; tells Hive where the data is stored and that it is a text file. The wasb:// is the default file system built into HDInsight and stands for Windows Azure Storage Blob.
+    **STORED AS TEXTFILE LOCATION** tells Hive where the data is stored and that it is a text file. The wasb:// is the default file system built into HDInsight and stands for Windows Azure Storage Blob.
 
-    Finally, SELECT counts all the rows where column t4 contains the value [ERROR].
+    Finally, **SELECT** counts all the rows where column t4 contains the value [ERROR].
 
     You will see output like the following when all commands are entered.
     <pre>
@@ -242,11 +242,11 @@ For simplicity, this exercise will use password access when using Secure Shell (
     INSERT OVERWRITE TABLE errorLogs SELECT t1, t2, t3, t4, t5, t6, t7 FROM log4jLogs WHERE t4 = '[ERROR]';
     </pre>
 
-    CREATE TABLE IF NOT EXISTS creates a table if it does not already exist. Because the EXTERNAL keyword is not specified, this is an internal table that is stored in the Hive data warehouse and is managed completely by Hive. Unlike external tables, dropping an internal table deletes the underlying data as well.
+    **CREATE TABLE IF NOT EXISTS** creates a table if it does not already exist. Because the EXTERNAL keyword is not specified, this is an internal table that is stored in the Hive data warehouse and is managed completely by Hive. Unlike external tables, dropping an internal table deletes the underlying data as well.
 
-    STORED AS ORC says to store the data in Optimized Row Columnar (ORC) format; a highly optimized and efficient format for storing Hive data.
+    **STORED AS ORC** says to store the data in Optimized Row Columnar (ORC) format; a highly optimized and efficient format for storing Hive data.
 
-    INSERT OVERWRITE...SELECT selects rows from the log4jLogs table that contain [ERROR], and then inserts the data into the errorLogs table.
+    **INSERT OVERWRITE...SELECT** selects rows from the log4jLogs table that contain [ERROR], and then inserts the data into the errorLogs table.
 
     You will see output like the following when all commands are entered.
 
@@ -393,7 +393,7 @@ In this exercise, which is based on a sample from[ Michael Noll](http://www.mich
 1. (OS X and Linux Users) The two Python scripts are provided for you in the directory called HadoopSource, which is in the same location as this PDF file. You need to get those two files to your HDInsight cluster you created in Exercise 1. Open a Terminal window and change to that directory. For example, if you copied these files to your Documents directory and put them in a directory called A4R, you would issue the following command
 
     <pre>
-    cd ~/Documents/A4R/BigData/Hadoop\ Spark\ and\ PowerBI\ on\ Linux\ HOL /HadoopSource
+    cd ~/Documents/A4R/BigData/Hadoop\ and Spark\ on\ Linux\ HOL /HadoopSource
     </pre>
 
 1. (OS X and Linux Users) Using the **username** and **password** for the SSH account you created earlier, execute the secure copy command to copy the mapper.py and reduce.py files to your HDInsight cluster.
@@ -606,7 +606,7 @@ With it so easy to create and delete HDInsight clusters there's no stopping you 
 
 Hadoop is an excellent tool for big data analysis, but Azure HDInsight is not content with offering you only a single big data analysis tool. For this exercise you are going to work with [Apache Spark](http://spark.apache.org/), a big data analysis tool that supports in-memory processing to boost the performance of big-data analytic applications. Spark excels at ease of use and is built for speed, performing some operations 100 times faster than Hadoop in memory and 10 timees faster on disk. The in-memory computation capabilities are excellent for interactive algorithms in machine learning and graph computations. Like HDInsight's Hadoop implementation, HDInsight Spark is geared to working with your Azure Blob Storage.
 
-In this exercise you are going to spin up an Azure HDInsight Spark cluster and process data in both [Zeppelin](https://zeppelin.incubator.apache.org/) and [Jupyter](https://jupyter.org/) notbooks. Both of these interactive data and scientific computing technologies are built right in with HDInsight and it's Spark clusters. After setting up the HDInsight Spark cluster, you are going to analyze and graph some sample data, which is heating, ventilating,, and air conditioning (HVAC) data for a group of buildings. This will give you an excellent idea how to work with an HDInsight Spark cluster using zeppelin and Jupyter.
+In this exercise you are going to spin up an Azure HDInsight Spark cluster and process data in both [Zeppelin](https://zeppelin.incubator.apache.org/) and [Jupyter](https://jupyter.org/) notbooks. Both of these interactive data and scientific computing technologies are built right in with HDInsight and it's Spark clusters. After setting up the HDInsight Spark cluster, you are going to analyze and graph some sample data, which is heating, ventilating,, and air conditioning (HVAC) data for a group of buildings. This will give you an excellent idea how to work with an HDInsight Spark cluster using Zeppelin and Jupyter.
 
 1. Log into the [Azure Portal](https://portal.azure.com) with your Microsoft ID.
 
@@ -728,7 +728,7 @@ _The Spark Cluster Node Pricing Tiers_
 	hvac.registerTempTable("hvac")
 	</pre>
 
-1. In a Zepellin notebook, you work in paragraphs. In the screen shot below, the empty paragraph is shown. Paste the above code into that paragraph.
+1. In a Zeppelin notebook, you work in paragraphs. In the screen shot below, the empty paragraph is shown. Paste the above code into that paragraph.
 
 	![The Empty Zeppelin Paragraph](Images/ex4-empty-zeppelin-paragraph.png)
 
@@ -754,9 +754,9 @@ _The Spark Cluster Node Pricing Tiers_
 
 1. The **READY** text will turn to **PENDING** and the paragraph executing code will gray out. The run is complete when the text for the paragrah turns to **FINISHED**. Additionally, a new paragraph will appear in the notebook. If you would like, you can give a title to the paragraph by clicking the **Settings** button in the paragraph options and choosing **Show title**. If you do change the title, remember to press Enter to complete the change.
 
-	![A Finished Run and the Zeppellin Settings Button](Images/ex4-zeppelin-paragraph-settings.png)
+	![A Finished Run and the Zeppelin Settings Button](Images/ex4-zeppelin-paragraph-settings.png)
 
-	_A Finished Run and the Zeppellin Settings Button_
+	_A Finished Run and the Zeppelin Settings Button_
 
 1. With the data in your HDInsight Spark cluster, you can start running Spark SQL statements on the hvac table. The first line of the code tells Spark to use the built in Spark SQL interpreter. You can see the default interpreters by clicking on the **Interpreter** link at the top of the page. Copy the following code to the clipboard and paste it into the new paragraph on your notebook. Once pasted, click the **Run** button for the paragraph or use the SHIFT+ENTER corresponding keystroke.
 
@@ -810,8 +810,144 @@ _The Spark Cluster Node Pricing Tiers_
 
 	_Controlling the Graph Settings_
 
-In this exercise you got to see how easy it is to work with an HDInsight Spark cluster using Zeppelin notebooks to do interactive analysis. These are excellent ways to start exploring new datasets and perform quick analysis to get an idea what a dataset has in them. For more indepth analysis, it is time to turn to Jupyter python notebooks.
+1. As you have seen Zeppelin notebooks make it very easy to do interactive data analysis and spelunking of big data on Spark. Another very popular option for research and analysis is [Jupyter](https://jupyter.org/), which is another notebook-based approach, but with very broad support for over 40 programming languages and excels at numerical simulation, statistical modeling, machine learning, and much more. To start a Jupyter notebook for your HDInsight Spark cluster, broswse for your HDInsight Spark cluster in the Azure Portal by clicking the **BROWSE ALL** button and clicking on your cluster in the **All resources** blade to bring up your cluster's blade. Click on the **Cluster Dashboards** button to bring up the Cluster Dashboards blade. Click on the **Jupyter Notebook** button. This will open a new browser tab or window, depending on the browser.
 
+	![Opening a Jupyter Notebook](Images/ex4-jupyter-button.png)
+
+	_Opening a Jupyter Notebook_
+
+1. The new window or tab will prompt you for the **user name** and **password** you specified when you created the HDInsight Spark cluster. Enter those when requested. Once logged in you will see the default Jupyter workspace. With the **Files** tab selected, click on the **New** button on the right hand side and in the popup menu, selcect **Python 2**.
+
+	![Creating a New Jupyter Notebook](Images/ex4-new-jupyter-notebook.png)
+
+	_Creating a New Jupyter Notebook_
+
+1. The default name for a new Jupyter notebook is Untitled, which you will want to change. Click on the text **Untitled** at the top of the notebook and in the popup enter a name such as HVAC Experiment. When finished, click the **OK** button.
+
+	![Renaming a Jupyter Notebook](Images/ex4-rename-jupyter-notebook.png)
+
+	_Renaming a New Jupyter Notebook_
+
+1. The following Python code imports several necessary libraries and sets up the Spark SQL context so you can execute Spark SQL commands using the **sqlContext** variable. Copy and paste this code into the edit block on your noteboo.
+
+	<pre>
+	from pyspark import SparkContext
+	from pyspark.sql import SQLContext
+	from pyspark.sql.types import *
+
+	# Create Spark and SQL contexts
+	sc = SparkContext('spark://headnodehost:7077', 'pyspark')
+	sqlContext = SQLContext(sc)
+	</pre>
+
+	To run this code, click the run button in the toolbar.
+
+	![Running code in a Jupyter Notebook](Images/ex4-jupyter-run-code-first-part.png)
+
+	_Running code in a Jupyter Notebook_
+
+1. When code us running in a Jupyter notebook the circle next to the Python 2 text in the upper right hand corner will become a solid circle, instead of the hollow circle indicating nothing is running.
+
+	![Jupyter Notebook Indicating Code Is Running](Images/ex4-jupyter-running-icon.png)
+
+	_Jupyter Notebook Indicating Code Is Running_
+
+1. After the code finishes running, you will have another code entry box in your Jupyter notebook. Copy the following code into the new entry box. This code uses the Spark SQL interpreter to load the HVAC data file, create a schema, and runs a query against the data.
+
+	<pre>
+	# Load the data
+	hvacText = sc.textFile("wasb:///HdiSamples/SensorSampleData/hvac/HVAC.csv")
+
+	# Create the schema
+	hvacSchema = StructType([StructField("date", StringType(), False),StructField("time", StringType(), False),StructField("targettemp", IntegerType(), False),StructField("actualtemp", IntegerType(), False),StructField("buildingID", StringType(), False)])
+
+	# Parse the data in hvacText
+	hvac = hvacText.map(lambda s: s.split(",")).filter(lambda s: s[0] != "Date").map(lambda s:(str(s[0]), str(s[1]), int(s[2]), int(s[3]), str(s[6]) ))
+
+	# Create a data frame
+	hvacdf = sqlContext.createDataFrame(hvac,hvacSchema)
+
+	# Register the data fram as a table to run queries against
+	hvacdf.registerAsTable("hvac")
+
+	# Run queries against the table and display the data
+	data = sqlContext.sql("select buildingID, (targettemp - actualtemp) as temp_diff, date from hvac where date = \"6/1/13\"")
+	data.show()
+	</pre>
+
+1. After pasting the code, either click the **Run** button to execute the code or use the SHIFT+ENTER keystroke which does the same thing. When the code finishes running, you'll see the following output.
+
+	<pre>
+	buildingID temp_diff date  
+	4          8         6/1/13
+	3          2         6/1/13
+	7          -10       6/1/13
+	12         3         6/1/13
+	7          9         6/1/13
+	7          5         6/1/13
+	3          11        6/1/13
+	8          -7        6/1/13
+	17         14        6/1/13
+	16         -3        6/1/13
+	8          -8        6/1/13
+	1          -1        6/1/13
+	12         11        6/1/13
+	3          14        6/1/13
+	6          -4        6/1/13
+	1          4         6/1/13
+	19         4         6/1/13
+	19         12        6/1/13
+	9          -9        6/1/13
+	15         -10       6/1/13
+	</pre>
+
+In this exercise you got to see how easy it is to work with an HDInsight Spark cluster using Zeppelin and Jupyter notebooks to do interactive analysis. These are excellent ways to start exploring new datasets and perform quick analysis to get an idea what a dataset has in them. As you did before, once you are finished running jobs on your HDInsight Spark cluster you will want to remove it so you are not billed for it.
+
+<a name="Exercise5"></a>
+## Exercise 5: Removing your HDInsight Spark Cluster
+
+As explained back in [Exercise 3](#Exercise3), when you are finished with an HDInsight Spark cluster you do not want to keep it running because you are charged for that time on your subscription. Because it is so easy to create HDInsight clusters you will probably script creation and deletion using the Azure CLI or Azure PowerShell. Because you are done with the HDInsight Spark cluster from the last exercise, you will want to delete it.
+
+1. The first step to remove a HDInsight cluster is to log into the [Azure Portal](https://portal.azure.com).
+
+1. Click the **BROWSE ALL** link on the left hand side of the Portal and in the **Browse** blade, select **Resource groups**.
+
+    ![Browsing Resource Groups](Images/ex3-browse-resource-groups.png)
+
+    _Browsing Resource Groups_  
+
+1. In the Resource groups blade, select the resource group you created in Exercise 1.
+
+    ![Resource Group Blade](Images/ex5-resource-group-blade.png)
+
+    _Resource Group Blade_  
+
+1. In the individual resource group blade, click the Delete button.
+
+    ![Individual Resource Group Delete Button](Images/ex5-delete-button.png)
+
+    _Individual Resource Group Delete Button_  
+
+1. To actually delete the resource group, you will have to type in the name of the resource group into the **TYPE THE RESOURCE GROUP NAME** field. This ensures you truly want to delete this resource group. After typing the name in, click the now enabled **Delete** button at the bottom of the blade.
+
+    ![Confirm Delete Blade](Images/ex5-confirm-delete.png)
+
+    _Confirm Delete Blade_  
+
+    After ten or so minutes your HDInsight cluster will be deleted along with all resources associated in the resource group.
+
+<a name="Summary"></a>
+## Summary ##
+
+Here is a quick summary of the key items you learned in this lab:
+
+In this hands-on lab, you will learn how to:
+
+- HDInsight is Microsoft Azure's implementation of Hadoop, Spark, and supporting big data tools
+- The Azure Portal makes it easy to create and configure both Windows and Linux-based Hadoop clusters
+- HDInsight with a Hadoop cluster can perform map and reduce operations with Python easily
+- HDInsight treats Linux and OS X as first class citizens and does not need Windows anywhere
+- Great interactive, and well used, tools such as Zeppelin and Jupyter are fully supported by HDInsight.
 
 ---
 Copyright 2015 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in http://www.apache.org/licenses/LICENSE-2.0.
