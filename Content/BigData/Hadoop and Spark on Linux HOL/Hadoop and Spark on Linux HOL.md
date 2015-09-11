@@ -6,20 +6,20 @@
 <a name="Overview"></a>
 ## Overview ##
 
-In 2014, Gartner, Inc., an information research company, predicted that in 2015 there would be [4.9 billion connected "things"](http://www.gartner.com/newsroom/id/2905717) will be in use on the internet. When you consider all those "things" are running serious amounts of software producing reams of data, you begin to understand the true implications of **BIG DATA**. All of this data is being collected in collected in ever-escalating volumes, at increasingly high velocities, and for a widening variety of unstructured formats and variable semantic contexts. No longer is data isolated to a SQL table, but can be anything from a sensor reading, to a tweet from Twitter, to GPS data, to almost anything you can imagine. The key to the future is being able to analyze that huge amount of data.
+In 2014, Gartner, Inc., a leading information research company, predicted that in 2015 there would be [4.9 billion connected "things"](http://www.gartner.com/newsroom/id/2905717) in use. When you consider that all those "things" are running serious amounts of software producing equally serious amounts of data, you begin to understand the true implications of **BIG DATA**. Data is being collected in ever-escalating volumes, at increasingly high velocities, and in a widening variety of formats, and it's being used in increasingly diverse semantic contexts. "Data" used to be something stored in a table in a SQL database, but today it can be a sensor reading, a tweet from Twitter, a GPS location, or almost anything else you can imagine. The challenge for information scientists is to make sense of that data.
 
-An increasingly common tool used to analyze big data is [Apache Hadoop](https://hadoop.apache.org/). In a nutshell, Hadoop "...is a framework that allows for the distributed processing of large data sets across clusters of computers using simple programming models." On Azure, HDInsight is the Azure implementation of Hadoop, Spark, HBase, and Storm with tools such as Ambari, Storm, Spark Pig, Hive, and many more, to perform advanced big data analysis. HDInsight can spin up Hadoop clusters for you using either Linux or Windows as the underlying operating system and you can access those Hadoop clusters from any operating system as the client.
+An increasingly popular tool for analyzing big data is [Apache Hadoop](https://hadoop.apache.org/). In a nutshell, Hadoop "...is a framework that allows for the distributed processing of large data sets across clusters of computers using simple programming models." HDInsight is the Azure implementation of Hadoop, Spark, HBase, and Storm with tools such as Ambari, Storm, Spark Pig, and Hive thrown in to perform advanced big data analysis. HDInsight can spin up Hadoop clusters for you using either Linux or Windows as the underlying operating system.
 
-Even if you are experienced running your own Hadoop and Spark clusters on hardware, this lab is still valuable because it shows you the steps and techniques for running and managing HDInsight on Azure. Once your HDInsight Hadoop cluster is provisioned and running, most operations will be identical to running on you own hardware. The main difference is that the Hadoop implementation in Azure uses Azure blob storage as the Hadoop Distributed File System (HDFS).
+Even if you are experienced running your own hardware Hadoop clusters, you will find this lab valuable because it acquaints you with the process of running and managing HDInsight on Azure. Once your HDInsight Hadoop cluster is provisioned and running, most of the operations you perform on it are identical to the ones you perform on you own hardware. The primary difference is that the Hadoop implementation in Azure uses Azure blob storage as the Hadoop Distributed File System (HDFS).
 
-This hands on lab exercises are focused on using HDInsight with Hadoop and Spark running on Linux clusters. There's another parallel lab that does these same steps using Hadoop Windows clusters.
+This hands-on lab focuses on using HDInsight with Hadoop running on Linux clusters. There's another parallel lab that does these same steps using Hadoop Windows clusters.
 
 <a name="Objectives"></a>
 ### Objectives ###
 
 In this hands-on lab, you will learn how to:
 
-- Create a HDInsight Linux cluster and use Hive to submit jobs
+- Create an HDInsight Linux cluster and use Hive to submit jobs
 - Use Python to perform map and reduce operations on a HDInsight Linux cluster
 - Provision Apache Spark on HDInsight and run interactive queries
 
