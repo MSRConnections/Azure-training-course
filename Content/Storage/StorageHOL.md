@@ -150,7 +150,7 @@ The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en
     azure account download
     </pre>
 
-1. Your default browser will open and inform you that a publishSettings file is being generated and downloaded. (Note that if there are multiple Azure subscriptions associated with your account, you'll first be asked which subscription you wish to download information for. *Choose the subscription that you wish to be charged for actions performed with the CLI*.) If your browser doesn't automatically save the downloaded file, save it and note the location where it was saved.
+1. Your default browser will open and inform you that a publishSettings file is being generated and downloaded. (Note that if there are multiple Azure subscriptions associated with your account, you may be asked which subscription you wish to download information for. If so, *choose the subscription that you used to perform the steps in Exercise 1*. This is the one that will be charged for the work you do in the CLI, and the one in which the storage account you created will be visible.) If your browser doesn't automatically save the downloaded file, save it and note the location where it was saved.
 
     ![Downloading the publishSettings file](images/pp-publishsettings-download.png)
 
@@ -169,15 +169,13 @@ The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en
 	info:    account import command OK	
 	</pre>
 
-1. **TODO: Is this step necessary? I don't think so, but I'm leaving it in until the issue is closed** The next step is to select the default subscription — the one that will be charged for the work you perform with the CLI. This is particularly important if there are multiple Azure subscriptions associated with your account, which is more common than you might think.
-
-    To view the subscriptions associated with the account you imported, execute the following command:
+1. The next step is to make sure that if there are multiple subscriptions associated with your account, the one you used in Exercise 1 is set as the default. To view the subscriptions associated with the account you imported, execute the following command:
 
     <pre>
     azure account list
     </pre>
 
-    Now use this command to set one subscription as the default, replacing *[subscription]* with the subscription ID:
+    If only one subscription is listed, move on to the next step. If two or more subscriptions are listed, execute the following command, replacing *[subscription]* with the ID of the subscription you used in Exercise 1:
 
     <pre>
     azure account set [subscription]
