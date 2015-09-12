@@ -8,11 +8,11 @@
 
 In 2014, Gartner, Inc., a leading information research company, predicted that in 2015 there would be [4.9 billion connected "things"](http://www.gartner.com/newsroom/id/2905717) in use. When you consider that all those "things" are running serious amounts of software producing equally serious amounts of data, you begin to understand the true implications of **BIG DATA**. Data is being collected in ever-escalating volumes, at increasingly high velocities, and in a widening variety of formats, and it's being used in increasingly diverse semantic contexts. "Data" used to be something stored in a table in a SQL database, but today it can be a sensor reading, a tweet from Twitter, a GPS location, or almost anything else you can imagine. The challenge for information scientists is to make sense of that data.
 
-An increasingly popular tool for analyzing big data is [Apache Hadoop](https://hadoop.apache.org/). In a nutshell, Hadoop "...is a framework that allows for the distributed processing of large data sets across clusters of computers using simple programming models." HDInsight is the Azure implementation of Hadoop, Spark, HBase, and Storm with tools such as Ambari, Storm, Spark Pig, and Hive thrown in to perform advanced big data analysis. HDInsight can spin up Hadoop clusters for you using either Linux or Windows as the underlying operating system.
+An increasingly popular tool for analyzing big data is [Apache Hadoop](https://hadoop.apache.org/). In a nutshell, Hadoop "...is a framework that allows for the distributed processing of large data sets across clusters of computers using simple programming models." Hadoop is frequently combined with other open-source frameworks such as [Apache Spark](http://spark.apache.org/), [Apache HBase](http://hbase.apache.org/), and [Apache Storm](https://storm.apache.org/) to increase its capabilities and performance. [Azure HDInsight](http://azure.microsoft.com/en-us/services/hdinsight/) is the Azure implementation of Hadoop, Spark, HBase, and Storm, with tools such as Ambari, Storm, Spark Pig, and Hive thrown in to provide a comprehensive and high-performance solution for advanced big-data analytics. HDInsight can spin up Hadoop clusters for you using either Linux or Windows as the underlying operating system, and it integrates with popular business-intelligence tools such as Microsoft Excel, SQL Server Analysis Services, and SQL Server Reporting Services.
 
-Even if you are experienced running your own hardware Hadoop clusters, you will find this lab valuable because it acquaints you with the process of running and managing HDInsight on Azure. Once your HDInsight Hadoop cluster is provisioned and running, most of the operations you perform on it are identical to the ones you perform on you own hardware. The primary difference is that the Hadoop implementation in Azure uses Azure blob storage as the Hadoop Distributed File System (HDFS).
+Even if you are experienced running your own hardware Hadoop clusters, you will find this lab valuable because it acquaints you with the process of running and managing Hadoop clusters provisioned by HDInsight. Once your HDInsight Hadoop cluster is running, most of the operations you perform on it are identical to the ones you would perform on you own hardware. The primary difference is that Azure's Hadoop implementation uses Azure blob storage as backing for the Hadoop Distributed File System (HDFS).
 
-This hands-on lab focuses on using HDInsight with Hadoop running on Linux clusters. There's another parallel lab that does these same steps using Hadoop Windows clusters.
+This hands-on lab focuses on using HDInsight with Hadoop running on Linux clusters. If you would prefer to experiment with HDInsight on Windows clusters, a separate but parallel hands-on lab is provided for doing just that.
 
 <a name="Objectives"></a>
 ### Objectives ###
@@ -20,7 +20,7 @@ This hands-on lab focuses on using HDInsight with Hadoop running on Linux cluste
 In this hands-on lab, you will learn how to:
 
 - Create an HDInsight Linux cluster and use Hive to submit jobs
-- Use Python to perform map and reduce operations on a HDInsight Linux cluster
+- Use Python to perform map-and-reduce operations on an HDInsight Linux cluster
 - Provision Apache Spark on HDInsight and run interactive queries
 
 <a name="Prerequisites"></a>
@@ -41,59 +41,68 @@ The following are required to complete this hands-on lab:
 This hands-on lab includes the following exercises:
 
 1. [Exercise 1: Using Hadoop with Hive in HDInsight on Linux](#Exercise1)
-1. [Exercise 2: Creating and Running Python programs for HDInsight on Linux](#Exercise1)
-1. [Exercise 3: Removing your HDInsight Cluster](#Exercise3)
-1. [Exercise 4: Creating and Running Spark Cluster with Zeppelin and Jupyter](#Exercise4)
-1. [Exercise 5: Removing your HDInsight Spark Cluster](#Exercise5)
+1. [Exercise 2: Creating and running Python programs for HDInsight on Linux](#Exercise1)
+1. [Exercise 3: Removing your HDInsight cluster](#Exercise3)
+1. [Exercise 4: Creating and running a Spark cluster with Zeppelin and Jupyter](#Exercise4)
+1. [Exercise 5: Removing your HDInsight Spark cluster](#Exercise5)
 
 Estimated time to complete this lab: **60** minutes.
 
 <a name="Exercise1"></a>
 ## Exercise 1: Using Hadoop with Hive in HDInsight on Linux
 
-This exercise shows the steps to start up and use a HDInsight cluster on Linux. Once the cluster is running you will use [Apache Hive](https://cwiki.apache.org/confluence/display/Hive?src=sidebar) to query sample data supplied with the default Hadoop installation.
+This exercise walks you through the steps required to start up and use an HDInsight cluster on Linux. Once the cluster is provisioned and running, you will use [Apache Hive](https://cwiki.apache.org/confluence/display/Hive?src=sidebar) to query a set of sample data supplied with the default Hadoop installation.
 
-The focus here is to demonstrate the basic steps to set up your HDInsight cluster so you will not go into the advanced configuration options. If you have prior experience with Hadoop and want advanced configuration, you can read about those options at [Provision Hadoop clusters in HDInsight.](https://azure.microsoft.com/en-us/documentation/articles/hdinsight-provision-clusters/).
+The goal here is to demonstrate the basic steps required to set up an HDInsight cluster so you will have no need for advanced configuration options. If you have prior experience with Hadoop and want to learn more about advanced configuration options, you can read about them at [Provision Hadoop clusters in HDInsight.](https://azure.microsoft.com/en-us/documentation/articles/hdinsight-provision-clusters/).
 
-For simplicity, this exercise will use password access when using Secure Shell (SSH) to the Linux cluster. In the real world, you will want to use SSH keys to do the access. For Linux, Unix, and OS X users, the [documentation](https://azure.microsoft.com/en-us/documentation/articles/hdinsight-hadoop-linux-use-ssh-unix/) shows you how to set them up. For Windows users, you can see the steps for your operating system in the [documentation](https://azure.microsoft.com/en-us/documentation/articles/hdinsight-hadoop-linux-use-ssh-windows/).
+For simplicity, this exercise will use password access when using Secure Shell (SSH) to the Linux cluster. In the real world, you will probably want to use SSH keys for access. For Linux, Unix, and OS X users, the [documentation](https://azure.microsoft.com/en-us/documentation/articles/hdinsight-hadoop-linux-use-ssh-unix/) shows you how to set them up. For Windows users, consult the documentation [here](https://azure.microsoft.com/en-us/documentation/articles/hdinsight-hadoop-linux-use-ssh-windows/).
 
 1. Log into the [Azure Portal](https://portal.azure.com) with your Microsoft ID.
 
-1. To start the creation process, click on the **+NEW** in the upper left hand corner of the Portal. In the **Create** blade, click on the **Data + Analytics** link. That will bring up the **Data + Analytics** blade where click the HDInsight item.
+1. To start the creation process, click **+ NEW** in the upper-left hand corner. In the "Create" blade, click **Data + Analytics**. This will bring up the "Data + Analytics" blade. Click **HDInsight** in that blade.
 
-    ![Starting the Creation of a HDInsight Cluster](Images/ex1-data-analytics-hdinsight.png)
+    ![First step in creating an HDInsight cluster](Images/ex1-data-analytics-hdinsight.png)
 
-    _Starting the Creation of a HDInsight Cluster_
+    _First step in creating an HDInsight cluster_
 
-1. In the **New HDInsight Cluster** blade you have to fill out various fields. The first field, **Cluster Name** is the unique Domain Name System (DNS) for the cluster so you can access it from a SSH session. Note that when you move to another field, the name is validated that it is available. Make sure to remember this name as you will need it to log into the HDInsight cluster. In the **Cluster Type** field, the dropdown list lets you pick other types of cluster. For this exercise, select **Hadoop**. The third field is the operating system for all the nodes in the cluster. For this lab, pick **Ubuntu**. The screen below shows the Ubuntu version that may be different than the one you see. The Azure team is always updating base virtual machines. When you do create a specific HDInsight cluster your nodes will not be upgraded unless you upgrade the cluster yourself. The fourth field to fill out is specifying which Azure subscription you want to assign the HDInsight cluster to. If you have multiple subscriptions, pick the appropriate one by clicking on **Subscription** and selecting it.
+1. In the "New HDInsight Cluster" blade, you're required to fill out various fields. The first one, **Cluster Name**, specifies the unique Domain Name System (DNS) name for the cluster so you can access it from an SSH session. When you move to another field, the name is validated and you're notified if the name isn't available. Remember this name, because you will need it to log into the HDInsight cluster.
 
-    ![The Cluster Name, Type, and Operating System](Images/ex1-cluster-name-type.png)
+	The drop-down list in the **Cluster Type** field specifies the type of cluster to create. For this exercise, select **Hadoop**.
 
-    _The Cluster Name, Type, and Operating System_
+	The **Cluster Operating System** field specifies the operating system used on all the nodes in the cluster. Select **Ubuntu**. Note that the Ubuntu version shown in the screen shot below might not be available because the Azure team is constantly updating base virtual machines. Also be aware that once you create an HDInsight cluster, its nodes won't be upgraded to newer operating systems unless you upgrade them yourself.
 
-1. Resource groups are a fantastic feature of Azure where you can keep everything associated with any kind of Azure deployment organized together. With this grouping you can apply Role-Based Access Security (RBAC) so if multiple people are using the Azure account you can create HDInsight deployments for different people and set them up so the individuals only can see and access their assigned resource. Another advantage of resource groups is that everything in them shares the same lifetime. If you are finished with the experiment you are running in the resource group and no longer need it, you can delete every part of it at once. Before resource groups, to delete the HDInsight cluster you are going to great in this lab, you had to manually field the virtual machines, networks, storage accounts, and so on to remove them. You can read more about resource groups in the [documentation](https://azure.microsoft.com/en-us/documentation/articles/resource-group-overview/). The important point to remember is that when creating anything new in Azure, you want to specifically assign it to a resource group other than the Default.
+	The **Subscription** field specifies which Azure subscription charges for the HDInsight cluster should be directed to. If there are multiple subscriptions associated with your account, pick the one you want to charge to by clicking on **Subscription** and selecting it.
 
-    In the **Resource Group** part of the **New HDInsight Cluster** blade. click on the **Or Create New** link. That will change the section to ask you for the name of the new resource group. The name you enter must be unique in your subscription, but not across Azure itself. In the edit box now in the section, type in the name of the resource group. As you are typing the portal verifies the name is unique. Look for the green check mark before proceeding.
+    ![Specifying the cluster's name, type, and operating system](Images/ex1-cluster-name-type.png)
 
-    ![Creating a New Resource Group](Images/ex1-create-resource-group.png)
+    _Specifying the cluster's name, type, and operating system_
 
-    _Creating a New Resource Group_
+1. Resource groups are a fantastic feature of Azure. They allow you to keep everything associated with an Azure deployment organized into a single cohesive unit. With each grouping, you can apply Role-Based Access Security (RBAC) to prevent multiple people using the same account from accessing other people's resources. Another advantage of resource groups is that the resources inside them share the same lifetime. When you're finished with an experiment, you can delete the resource group and thereby delete all the resources inside it. Before resource groups were introduced, deleting an HDInsight cluster was a tedious process that required you to individually delete the virtual machines, networks, storage accounts, and other resources that comprised it. You can read more about resource groups in the [documentation](https://azure.microsoft.com/en-us/documentation/articles/resource-group-overview/). The important point to remember is that when you create anything new in Azure, it's generally advisable to assign it to a resource group other than the default.
 
-1. After specifying the new resource group, the next information to fill out are the credentials. In the **Credentials** section, click on **Configure required settings** to bring up the **Cluster Credentials** blade. You need to set up two credentials sets in this blade. The first is the is for the HDInsight cluster and used for submitting jobs to the cluster and to log into cluster dashboards. The second is for remote access to the cluster itself over the internet. As mentioned in the overview, this hands on lab will use password access over SSH, but for better security on real world clusters, you will want to use public keys. See the links in the overview section on how to set that up.
+    In the resource-group section of the "New HDInsight Cluster" blade, click **Create New**. Then enter a name for the new resource group. The name you enter must be unique to your subscription, but it doesn't have to be unique across Azure. As you type, the portal verifies that the name is unique. Look for the green check mark before proceeding.
 
-    In the **Cluster credentials** blade, enter the username and password for the cluster followed by a username and password for the SSH remote access. The passwords must be at least 10 characters in length and contain at least one digit, one non-alphanumeric character, and one upper or lowercase letter. Securely store these two account information as you will need it later in this exercise. When finished and all password check boxes show green checkmarks, click the Select button at the bottom of the blade.
+    ![Creating a new resource group](Images/ex1-create-resource-group.png)
+
+    _Creating a new resource group_
+
+1. After specifying the new resource group, the next step is to provide a pair of login credentials. In the "Credentials" section, click **Configure required settings** to bring up the "Cluster Credentials" blade. You need to enter two sets of credentials. The first is for the HDInsight cluster and is used to submit jobs to the cluster as well as to log in to cluster dashboards. The second is for remote access to the cluster via the Internet. As mentioned in the introduction to this exercise, this hands-on lab uses password access over SSH, but for strengthened security on real-world clusters, you will want to use public keys instead.
+
+    In the "Cluster Credentials" blade, enter a user name and password for the cluster, followed by a user name and password for remote access. The passwords must be at least 10 characters in length and contain at least one digit, one non-alphanumeric character, and one uppercase or lowercase letter. Save these user names and passwords in a secure location, because you will need them later in this exercise. When you are finished, confirm that all the password boxes show green check marks, and then click the **Select** button at the bottom of the blade.
 
     ![The Cluster Credentials Blade](Images/ex1-cluster-credentials.png)
 
     _The Cluster Credentials Blade_
 
-1. Click on the **Data Source** section in the **New HDInsight Cluster** blade. You have the choice to use an existing storage container or create a new one. If you already have your data in blob storage and are creating the HDInsight cluster to access that data, you can supply the access key by clicking on the **Selection Method** dropdown and select **Acccess Key**. When you set up an existing data source, the HDInsight cluster will reside in the same data center as the specified storage account. This is to provide faster access to the data you are processing. When setting up an HDInsight cluster before you have loaded your data, like you are doing in this hands-on lab, you will want to create a new storage account to separate the account from existing data as well as get the storage account created in the new resource group, which you created earlier in this exercise. Click on the **Or Create New** under the **Select storage account** section. Remember, the name you specify must be all lowercase. If you want the default blob container to be different than the default of being named after your Cluster name, you can change that as well. When finished with creating your new storage account in the **Data Source** blade, click the **Select** button on the bottom.
+1. Click the "Data Source" section of the **New HDInsight Cluster** blade. You can use an existing storage account as the data source by selecting **Access key** under **Selection method**. When you use an existing data source, the HDInsight cluster will reside in the same data center as the specified storage account to provide faster access to the data you are processing. When setting up an HDInsight cluster whose data isn't already loaded into blob storage, which is the case in this hands-on lab, you will want to create a new storage account to separate the account from existing data as well as to place the storage account in the resource group you created earlier in this exercise.
 
-    For nearly all Hadoop file operations, the Azure blob storage implementation will be seamless if you are coming from your own Hadoop clusters. One small difference is that native Hadoop Distributed File System (HDFS) commands, which are platform dependent, such as fschk and dfsadmin, are different when applied to blob storage.
+	Enter a name for the account in the **Create a new storage account** box. Remember that the name you specify must be all lowercase. If you want the default blob container to be different than the one created from your cluster name, you can change that as well. When you're finished, click the **Select** button at the bottom of the blade.
+
 
     ![The Data Source Blade](Images/ex1-data-source.png)
 
     _The Data Source Blade_
+
+    For nearly all Hadoop file operations, the Azure blob storage implementation will be seamless if you are coming from your own Hadoop clusters. One small difference is that native Hadoop Distributed File System (HDFS) commands that are platform-dependent — commands such as fschk and dfsadmin — are different when applied to blob storage.
 
 1. Click on the **Node Pricing Tiers** section to bring up the **Node Pricing Tiers** blade. Here is where you can configure the number of nodes and the types of virtual machines you want to run. For this exercise the defaults are fine, but you can reduce the number of nodes to two if you would like. Additionally, you can change the types of virtual machines used for worker and head nodes. Obviously selecting higher performing virtual machine types will cost you more money per hour. What is extremely nice about the **Node Pricing Tiers** blade is that you can see exactly how much the setup you are looking at will cost per hour. This gives you total control of how much you spend to perform a particular Hadoop job. Once you have set the number and types of nodes you want, click the select button at the bottom of the blade.
 
@@ -297,7 +306,7 @@ For simplicity, this exercise will use password access when using Secure Shell (
 Now that you know how to set up a HDInsight cluster, you can use that cluster to perform more advanced operations. You will next explore how to perform map and reduce operations using Python programs.
 
 <a name="Exercise2"></a>
-## Exercise 2: Creating and Running Python programs for HDInsight on Linux
+## Exercise 2: Creating and running Python programs for HDInsight on Linux
 
 One of the most important algorithms introduced in the last fifteen years was Google's [MapReduce](http://research.google.com/archive/mapreduce.html) as it is the key to processing large data sets. As dealing with large data is the forte of HDInsight and Hadoop, MapReduce is at the heart of everything you do. In a nutshell, the MapReduce are two functions, the **Map** function is what "transforms" some data into a result. The **Reduce** function reduces the results of a map to a scalar value. A great demonstration of MapReduce comes from an answer from Frank Krueger on the [StackOverflow](http://stackoverflow.com/a/28991) website:
 
@@ -567,7 +576,7 @@ In this exercise, which is based on a sample from[ Michael Noll](http://www.mich
 This exercise showed how to do streaming Map-Reduce jobs with HDInsight using a very common programming language, Python. You have just scratched the surface of what you can do with HDInsight and it's Hadoop components. Your next step is to turn off the HDInsight cluster so you are not billed for it running when it is not doing any work.
 
 <a name="Exercise3"></a>
-## Exercise 3: Removing your HDInsight Cluster
+## Exercise 3: Removing your HDInsight cluster
 
 After you have finished your HDInsight job and have no other work to perform for a long period of time, you will want to shut your HDInsight cluster down. Because it's so cheap to run HDInsight clusters most people only shut them down if they are not going to use it over a week or more period. Fortunately, it is easy to shutdown a HDInsight cluster because as you learned in Exercise 1, resource groups allow you to quickly and easily remove everything associated with that resource group, including HDInsight itself, storage accounts, and so on. You might be thinking that instead of removing a HDInsight cluster, "I want to suspend it."" When this hands-on lab was written, Azure does not support suspending HDInsight clusters. That is a very [common request](http://feedback.azure.com/forums/217335-hdinsight/suggestions/5663773-start-stop-cluster-hdinsight) but with it so easy to spin up a complete cluster, both with the Azure Portal as well as with Azure CLI, the Azure team responsible for HDInsight views deleting as stopping.
 
@@ -602,7 +611,7 @@ After you have finished your HDInsight job and have no other work to perform for
 With it so easy to create and delete HDInsight clusters there's no stopping you from analyzing tons of data. HDInsight offers much more than Hadoop and it is time to look at using Apache Spark.
 
 <a name="Exercise4"></a>
-## Exercise 4: Creating and Running Spark Cluster with Zeppelin and Jupyter
+## Exercise 4: Creating and running a Spark cluster with Zeppelin and Jupyter
 
 Hadoop is an excellent tool for big data analysis, but Azure HDInsight is not content with offering you only a single big data analysis tool. For this exercise you are going to work with [Apache Spark](http://spark.apache.org/), a big data analysis tool that supports in-memory processing to boost the performance of big-data analytic applications. Spark excels at ease of use and is built for speed, performing some operations 100 times faster than Hadoop in memory and 10 timees faster on disk. The in-memory computation capabilities are excellent for interactive algorithms in machine learning and graph computations. Like HDInsight's Hadoop implementation, HDInsight Spark is geared to working with your Azure Blob Storage.
 
@@ -904,50 +913,49 @@ _The Spark Cluster Node Pricing Tiers_
 In this exercise you got to see how easy it is to work with an HDInsight Spark cluster using Zeppelin and Jupyter notebooks to do interactive analysis. These are excellent ways to start exploring new datasets and perform quick analysis to get an idea what a dataset has in them. As you did before, once you are finished running jobs on your HDInsight Spark cluster you will want to remove it so you are not billed for it.
 
 <a name="Exercise5"></a>
-## Exercise 5: Removing your HDInsight Spark Cluster
+## Exercise 5: Removing your HDInsight Spark cluster
 
-As explained back in [Exercise 3](#Exercise3), when you are finished with an HDInsight Spark cluster you do not want to keep it running because you are charged for that time on your subscription. Because it is so easy to create HDInsight clusters you will probably script creation and deletion using the Azure CLI or Azure PowerShell. Because you are done with the HDInsight Spark cluster from the last exercise, you will want to delete it.
+As explained in [Exercise 3](#Exercise3), when you are finished with an HDInsight Spark cluster, you should remove it because you are charged for it while it exists, regardless of whether it's doing any work. In this exercise, you will delete the cluster used in the previous exercise. Note that because it's so easy to create and delete clusters, these tasks are frequently scripted using the Azure CLI or Azure PowerShell.
 
-1. The first step to remove a HDInsight cluster is to log into the [Azure Portal](https://portal.azure.com).
+1. The first step in removing an HDInsight cluster is to log into the [Azure Portal](https://portal.azure.com).
 
-1. Click the **BROWSE ALL** link on the left hand side of the Portal and in the **Browse** blade, select **Resource groups**.
+1. Click **BROWSE ALL** on the left-hand side and in the "Browse" blade, select **Resource groups**.
 
-    ![Browsing Resource Groups](Images/ex3-browse-resource-groups.png)
+    ![Browsing resource groups](Images/ex3-browse-resource-groups.png)
 
-    _Browsing Resource Groups_  
+    _Browsing resource groups_  
 
-1. In the Resource groups blade, select the resource group you created in Exercise 1.
+1. In the "Resource groups" blade, select the resource group you created in Exercise 1.
 
-    ![Resource Group Blade](Images/ex5-resource-group-blade.png)
+    ![Selecting a resource group](Images/ex5-resource-group-blade.png)
 
-    _Resource Group Blade_  
+    _Selecting a resource group_  
 
-1. In the individual resource group blade, click the Delete button.
+1. In the blade for the resource group, click the **Delete** button.
 
-    ![Individual Resource Group Delete Button](Images/ex5-delete-button.png)
+    ![Deleting a resource group](Images/ex5-delete-button.png)
 
-    _Individual Resource Group Delete Button_  
+    _Deleting a resource group_  
 
-1. To actually delete the resource group, you will have to type in the name of the resource group into the **TYPE THE RESOURCE GROUP NAME** field. This ensures you truly want to delete this resource group. After typing the name in, click the now enabled **Delete** button at the bottom of the blade.
+1. As a safeguard against accidental deletion, you must type the resource group's name into the **TYPE THE RESOURCE GROUP NAME** field to delete it. After typing in the name, click the **Delete** button at the bottom of the blade.
 
-    ![Confirm Delete Blade](Images/ex5-confirm-delete.png)
+    ![Finalizing the deletion of a resource group](Images/ex5-confirm-delete.png)
 
-    _Confirm Delete Blade_  
+    _Finalizing the deletion of a resource group_  
 
-    After ten or so minutes your HDInsight cluster will be deleted along with all resources associated in the resource group.
+    After 10 minutes or so, your HDInsight cluster will be deleted along with all the resources in the resource group.
 
 <a name="Summary"></a>
 ## Summary ##
 
 Here is a quick summary of the key items you learned in this lab:
 
-In this hands-on lab, you will learn how to:
-
-- HDInsight is Microsoft Azure's implementation of Hadoop, Spark, and supporting big data tools
+- HDInsight is Microsoft Azure's implementation of Hadoop, Spark, and supporting big-data tools
 - The Azure Portal makes it easy to create and configure both Windows and Linux-based Hadoop clusters
-- HDInsight with a Hadoop cluster can perform map and reduce operations with Python easily
+- HDInsight with a Hadoop cluster can perform map-and-reduce operations with Python easily
 - HDInsight treats Linux and OS X as first class citizens and does not need Windows anywhere
-- Great interactive, and well used, tools such as Zeppelin and Jupyter are fully supported by HDInsight.
+- HDInisght fully supports popular interactive tools such as Zeppelin and Jupyter
 
 ---
+
 Copyright 2015 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in http://www.apache.org/licenses/LICENSE-2.0.
