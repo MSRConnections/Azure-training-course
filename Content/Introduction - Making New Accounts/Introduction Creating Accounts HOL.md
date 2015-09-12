@@ -8,7 +8,7 @@
 
 Signing up for an free-trial Azure account is simple and allows you to get started exploring Azure in a couple of minutes. In the Azure for Research initiative, the Azure accounts you are given only work with a [Microsoft account](http://windows.microsoft.com/en-us/windows-live/sign-in-what-is-microsoft-account). If your organization or school is using [Azure Active Directory](https://azure.microsoft.com/en-us/documentation/articles/active-directory-whatis/) (AAD) through [Office 365](https://products.office.com/en-us/business/explore-office-365-for-business) or [Office 365 in Education](https://products.office.com/en-US/student/office-in-education?tab=schools&legRedir=true&CorrelationId=acc65b7c-0893-48f2-818d-f4bb41ab7ff7) and you already have an Azure account established through one of them, you cannot use that account.
 
-Like any modern cloud-based service, Azure is growing all the time, with new features and services being added regularly. The entry point to Azure is through the Microsoft Azure Portal, of which there are two. The modern portal is the one you will use for most of the labs, but it is still under construction, so it is sometimes referred to as the [Preview Portal](https://portal.azure.com). The original portal, called the [Classic Portal](https://manage.windowsazure.com), still has features that have not been ported over to the Preview Portal. Each of the hands-on labs contains explicit instructions showing which portal (and which features) to use. In this lab, you will set up a free Azure account and learn how to switch between portals.
+Like any modern cloud-based service, Azure is growing all the time, with new features and services being added regularly. The entry point to Azure is through the Microsoft Azure Portal, of which there are two. The modern portal is the one you will use for most of the labs, but it is still under construction, so it is sometimes referred to as the [Preview Portal](https://portal.azure.com). The original portal, called the [Classic Portal](https://manage.windowsazure.com), still has a few features that have not been ported over to the Preview Portal. Each of the hands-on labs contains explicit instructions showing which portal (and which features) to use. In this lab, you will set up a free Azure account and learn how to switch between portals.
 
 <a name="Objectives"></a>
 ### Objectives ###
@@ -24,8 +24,14 @@ In this hands-on lab, you will learn how to:
 
 The following is required to complete this hands-on lab:
 
-- A free Microsoft account. If you do not have one, create one on the [Microsoft sign-up page](https://signup.live.com/).
-- That you know the user name and password of your Microsoft account. If you forget them, go to the login page at [https://login.live.com/](https://login.live.com/) and click "Can't access your account" to reset a user name or password.
+- A free Microsoft account that has not had an Azure subscription associated with the account.
+    - If you do not have one, create one on the [Microsoft sign-up page](https://signup.live.com/).
+    - If your school or work uses Office 365 or Office 365 in Education **DO NOT** use your school/work email address as your account. The Microsoft Azure Pass promo codes only work with pure Microsoft Accounts. In the Microsoft account sign up page, make sure to click on the **Get new email address** link so your **User name** will end in either "@outlook.com" or "@hotmail.com".
+    
+    ![Get new email address link](Images/account-creation-get-new-email.png)
+    
+- If you forget the username and password to your Microsoft Account, go to the login page at [https://login.live.com/](https://login.live.com/) and click "Can't access your account" to reset a user name or password.
+- A Microsoft promo code. If you do not have one, please see the instructor.
 
 ---
 <a name="Exercises"></a>
@@ -41,31 +47,57 @@ Estimated time to complete this lab: **10** minutes.
 <a name="Exercise1"></a>
 ## Exercise 1: Create an Azure trial subscription ##
 
-In this exercise you will sign up for a free Azure 30-day trial subscription that gives you $200 USD worth of of credit.
+In this exercise you will sign up for free Azure Pass with $550 USD of credit (converted to your local currency) and a one month duration. There is no credit card requirement for this offer.
 
-1. Open your Web browser and navigate to [https://azure.microsoft.com/en-us/pricing/free-trial/](https://azure.microsoft.com/en-us/pricing/free-trial/). In the middle-left of the screen, click the **Try it now** button.
+1. Open your Web browser and navigate to [https://microsoftazurepass.com](https://microsoftazurepass.com). In the middle-left of the screen, select your **country** from the dropdown and enter your promo code. Once entered, click the **Submit** button.
 
-    ![Try it now](Images/sign-up-trial.png)
+    ![Selecting the Country, Entering the Promo Code, and Submitting](Images/ex1-country-code-submit.png)
 
-    _Getting started with a free trial_
+    _Selecting the Country, Entering the Promo Code, and Submitting_
 
-1. On the "Sign up" page, fill in the required information. Do note that your credit card will **NOT** be charged for this trial. Be sure to check the **I agree** box at the bottom of the page, and then click the **Sign up** button.
+1. If your promo code was accepted, the next page will ask you to sign in. Click the sign in button.
 
-    ![Sign-Up Information](Images/sign-up-azure.png)
+    ![Click the Sign In Button](Images/ex1-click-sign-in.png)
 
-    _Signing up for a free trial_
+    _Click the Sign In Button_
+    
+1. The sign in page defaults to work or school accounts. Click on the link that says **Sign in with a Microsoft account**.
 
-1. Once you have finished signing up, you will be logged in and taken to the Preview Portal:
+    ![The Sign In with a Microsoft Account Link](Images/ex1-click-sign-msft-account.png)
 
-     ![The Preview Portal](Images/sign-up-portal.png)
+    _The Sign In with a Microsoft Account Link_
+    
+1. In the Microsoft Account sign in page, enter your **user name** and **password** for your Microsoft account.
 
-     _The Preview Portal_
+    ![Entering Your Microsoft Account Information](Images/ex1-msft-account-login.png)
 
-1. When you visit either of the Azure portals, you will occasionally be asked to sign in. Be aware that the sign-in may default to your work or school account if you have such an account. To log in with your Microsoft account when the sign-in page says "Sign in with your work or school account," click **Sign in with a Microsoft account** to expedite the sign-in process.
+    _Entering Your Microsoft Account Information_
+    
+1. If your login was successful you will return to the Azure Pass site and you will be asked to verify your first and last names and Microsoft account. Verify those and click the **Submit** button.
+    
+    ![Verifying Your Microsoft Account Information](Images/ex1-verify-account-info.png)
 
-     ![Signing in](Images/sign-up-login.png)
+    _Verifying Your Microsoft Account Information_
 
-     _Signing in with a Microsoft account_
+1. You will be asked to activate the account and shown the offer details. Click the **Activate** button to start your free account.
+
+    ![Activating Your Azure Subscription](Images/ex1-activate-subscription.png)
+
+    _Activating Your Azure Subscription_
+
+1. Depending on the browser you are using a new window or a new browser tab will appear. On that page, it will ask for your phone number and require you to agree to the Azure subscription agreement, offer details, and the privacy statement. Click the **Sign up** button and **do not close the window** as it takes up to four minutes to create the Azure subscription.
+
+    ![Completing the Azure Account Sign Up Process](Images/ex1-sign-up-button.png)
+
+    _Completing the Azure Account Sign Up Process_
+
+1. The page will indicate the subscription setup process is complete by saying "Your subscription is ready for you!" Do not click on the Start managing my service button. Close this browser window.
+
+1. Open up a new browser window and go to the Azure Preview Portal: [https://portal.azure.com](https://portal.azure.com). If you did not terminate your browser application, your credentials are cached in memory so you will be logged in directly. If you did end your browser, you will be prompted to log in if you did not check "Keep me signed in". When you are prompted to sign in be aware that the sign-in may default to your work or school account if you have such an account. To log in with your Microsoft account when the sign-in page says "Sign in with your work or school account," click **Sign in with a Microsoft account** to expedite the sign-in process.
+
+     ![Signing in with a Microsoft Account](Images/ex1-login-choose-msft-account.png)
+
+     _Signing in with a Microsoft Account_
 
 Now you have a valid Azure account to use for the rest of the labs.
 
@@ -94,7 +126,7 @@ Now you know how to switch between the two portals.
 
 In this hands-on lab, you learned how to:
 
-- Sign up for an Azure subscription
+- Sign up for an Azure promo code subscription
 - Log into Azure with your Microsoft account
 - Switch between the Preview Portal and the Classic Portal
 
