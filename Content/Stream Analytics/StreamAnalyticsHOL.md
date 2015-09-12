@@ -18,9 +18,9 @@ In this lab, you'll create an Azure Stream Analytics job and use it to analyze d
 In this hands-on lab, you will learn how to:
 
 - Create an Azure event hub and use it as a Stream Analytics input
-- Create a Stream Analytics job and perform queries on data streams
-- Direct Stream Analytics output to Azure blobs or Microsoft Power BI
-- Build a simple Power BI dashboard to monitor Stream Analytics output
+- Create a Stream Analytics job and test queries on sample data streams
+- Create a Stream Analytics job and perform queries on live data streams
+- Direct Stream Analytics output to Azure blobs
 
 <a name="Prerequisites"></a>
 ### Prerequisites ###
@@ -42,7 +42,7 @@ This hands-on lab includes the following exercises:
 - [Exercise 5: Prepare queries and test with sample data](#Exercise5)
 - [Exercise 6: Analyze a live data stream](#Exercise6)
 
-Estimated time to complete this lab: **60** minutes.
+Estimated time to complete this lab: **90** minutes.
 
 <a name="Exercise1"></a>
 ## Exercise1: Create an event hub ##
@@ -163,13 +163,19 @@ In this exercise, you will send events to the event hub you created in [Exercise
 
 If Node.js is already installed on the computer you're using for this lab, you can skip Step 1 of this exercise and **go directly to Step 2**. Otherwise, you need to install Node.js.
 
-> You already have Node.js installed if you completed the **Azure Storage and CLI** lab because the Azure CLI requires Node.js.
+> You already have Node.js installed if you completed the **Azure Storage and the Azure CLI** lab because the Azure CLI requires Node.js.
 
 1. You'll find detailed instructions for installing Node.js on Linux, OS X, and Windows at [https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/) in the section entitled "Installing and using Node.js and npm." If you don't already have Node.js installed, **install it now**.
 
 1. Open a Node.js terminal window and change to the "resources" subdirectory of this lab (the directory where eventgen.js is located).
  
-1. Execute the following command to run eventgen.js:
+1. eventgen.js relies on a popular Node.js module named "request" to transmit HTTPS requests. Execute the following command to install the module:
+
+	<pre>
+	npm install request -g
+	</pre> 
+
+1. Now execute the following command to run eventgen.js:
 
 	<pre>
 	node eventgen.js
@@ -487,7 +493,7 @@ In this exercise, you'll configure the Stream Analytics job to store output in s
 
     _Downloading the blob containing the job output_
 
-1. Open the downloaded JSON file in your favorite text editor. Each object (row) in the output represents a potentially fraudulent transaction. The number of rows and the content of each row will vary from machine to machine as well as from one run to another.
+1. Open the downloaded JSON file in your favorite text editor. Each object (row) in the output represents a potentially fraudulent transaction. Note that **the number of rows and the content of each row will vary from machine to machine as well as from one run to another**.
 
     ![JSON job output](images/output-blob.png)
 
@@ -496,6 +502,20 @@ In this exercise, you'll configure the Stream Analytics job to store output in s
 Currently, the data output from your Stream Analytics job is stored in a blob. In real life, you might prefer to view the output in a more convenient form, such as in a chart that's updated in real time. You could accomplish that by writing an application that monitors the blob and charts the data, or, better yet, by directing the output to an event hub and writing an application that subscribes to events from the event hub.
 
 Microsoft recognizes that not everyone wants to write applications, and has provided an alternative in the form of [Microsoft Power BI](https://powerbi.microsoft.com/). With Power BI, you can create dashboards that render output from Stream Analytics jobs without writing any code. The connection between Azure and Power BI is currently offered only as a preview and is subject to certain limitations, but soon the two will be making beautiful music together in the hands of data scientists.
+
+<a name="Summary"></a>
+## Summary ##
+
+Azure Stream Analytics is a powerful tool for analyzing live data streams from IoT devices or anything else that's capable of transmitting data. In this lab, you got a first-hand look at Stream Analytics as well as Azure event hubs. Among other things, you learned how to:
+
+- Create an Azure event hub and use it as a Stream Analytics input
+- Create a shared access signature that allows event hubs to be called securely using REST APIs
+- Create a Stream Analytics job and test queries on sample data streams
+- Create a Stream Analytics job and perform queries on live data streams
+- Create a rule that detects anomalies in streaming data
+- Use that rule to record anomalies in Azure blobs
+
+One drawback to hard-coding rules into Stream Analytics is that rules don't "learn" from the data streams, which can lead to false positives in anomaly detection. If this concerns you, read the article entitled [Anomaly Detection – Using Machine Learning to Detect Abnormalities in Time Series Data](http://blogs.technet.com/b/machinelearning/archive/2014/11/05/anomaly-detection-using-machine-learning-to-detect-abnormalities-in-time-series-data.aspx) in the Azure team's Machine Learning blog. In it, they present an anomaly detection service accessible through a REST API that uses Azure Machine Learning to learn from the data presented to it. Imagine combining the power of Stream Analytics to extract information from real-time data streams with the power of Azure Machine Learning to learn from that information and refine the analytics on the fly. This is precisely the type of solution that Microsoft Azure empowers you to build!
 
 ---
 
