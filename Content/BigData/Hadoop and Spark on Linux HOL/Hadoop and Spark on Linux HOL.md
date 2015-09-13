@@ -311,27 +311,25 @@ Now that you know how to set up a HDInsight cluster, you can use that cluster to
 <a name="Exercise2"></a>
 ## Exercise 2: Creating and running Python programs for HDInsight on Linux
 
-One of the most important algorithms introduced in the last fifteen years was Google's [MapReduce](http://research.google.com/archive/mapreduce.html) as it is the key to processing large data sets. As dealing with large data is the forte of HDInsight and Hadoop, MapReduce is at the heart of everything you do. In a nutshell, the MapReduce are two functions, the **Map** function is what "transforms" some data into a result. The **Reduce** function reduces the results of a map to a scalar value. A great demonstration of MapReduce comes from an answer from Frank Krueger on the [StackOverflow](http://stackoverflow.com/a/28991) website:
+One of the most important algorithms introduced in the last fifteen years was Google's [MapReduce](http://research.google.com/archive/mapreduce.html), which is key to processing large data sets. In HDInsight and Hadoop, MapReduce is at the heart of everything you do. MapReduce is a two-stage algorithm that encapsulates a pair of functions: the **Map** function, which "transforms" a set of input data to produce a result, and the **Reduce** function, which reduces the results of a map to a scalar value. A great explanation of MapReduce can be found in an answer from Frank Krueger on the [StackOverflow](http://stackoverflow.com/a/28991) Web site:
 
 1. Take a bunch of data
 1. Perform some kind of transformation that converts every datum to another kind of datum
-1. Combine those new data into yet simpler data
+1. Transform the new data into yet simpler data
 
-Step 2 is Map. Step 3 is Reduce.
-
-For example,
+Step 2 is Map. Step 3 is Reduce. For example:
 
 1. Get time between two impulses on a pair of pressure meters on the road
 1. Map those times into speeds based upon the distance of the meters
 1. Reduce those speeds to an average speed
 
-What makes MapReduce so important is that the different parts can be done in parallel and is independent of the data source. The parallelism allows you to handle massive amounts of data, hence the HDInsight cluster, and the data source independence means you are not locked into a particular data tool such as MySQL or Microsoft's SQL Server.
+What makes MapReduce so important is that MapReduce operations can be executed in parallel and independently of the data source. The parallelism facilitates handling massive amounts of data, hence the HDInsight cluster, and the data-source independence means you are not locked into a particular data tool such as MySQL or Microsoft's SQL Server.
 
-HDInsight, with the underlying Hadoop implementation, allows you to write MapReduce functions in the traditional Java, Python, C#, and even with [Apache Pig](http://pig.apache.org/). For this exercise you will use Python as it is a very common language used in scientific data processing. Python through its interpreted nature, dynamic typing, and ease of development is a great choice for rapid prototyping and development.
+HDInsight, with the underlying Hadoop implementation, allows you to write MapReduce functions in Java, Python, C#, and even with [Apache Pig](http://pig.apache.org/). For this exercise, you will use Python since it is widely used in the data-processing community. Python, due to its interpreted nature and dynamic typing, is a great choice for rapid prototyping and development.
 
-In this exercise, which is based on a sample from[ Michael Noll](http://www.michael-noll.com/tutorials/writing-an-hadoop-mapreduce-program-in-python/), reads in a large text file and counts how often words appear in the input.
+In this exercise, which is based on a sample from[ Michael Noll](http://www.michael-noll.com/tutorials/writing-an-hadoop-mapreduce-program-in-python/), you will read a large text file and count how often words appear in it.
 
-1. Before you jump into running the Python programs it would be a good idea to read over the code for the mapper as shown below:
+1. Before you jump into running the Python programs, you should read over the code for the mapper as shown below:
 
     <pre>
     #!/usr/bin/env python
@@ -581,48 +579,50 @@ This exercise showed how to do streaming Map-Reduce jobs with HDInsight using a 
 <a name="Exercise3"></a>
 ## Exercise 3: Removing your HDInsight cluster
 
-After you have finished your HDInsight job and have no other work to perform for a long period of time, you will want to shut your HDInsight cluster down. Because it's so cheap to run HDInsight clusters most people only shut them down if they are not going to use it over a week or more period. Fortunately, it is easy to shutdown a HDInsight cluster because as you learned in Exercise 1, resource groups allow you to quickly and easily remove everything associated with that resource group, including HDInsight itself, storage accounts, and so on. You might be thinking that instead of removing a HDInsight cluster, "I want to suspend it."" When this hands-on lab was written, Azure does not support suspending HDInsight clusters. That is a very [common request](http://feedback.azure.com/forums/217335-hdinsight/suggestions/5663773-start-stop-cluster-hdinsight) but with it so easy to spin up a complete cluster, both with the Azure Portal as well as with Azure CLI, the Azure team responsible for HDInsight views deleting as stopping.
+As long as the HDInsight clusters you create exist in Azure, you are charged for them. Even when the clusters aren't actively processing data, minor charges are being occurred. Therefore, it behooves you to shut them down when they're no longer needed. Currently, there is no concept of suspending a cluster in Azure, so your only option is to delete it. In practice, researchers usually delete a cluster if it's not going to be used for a week or more.
 
-1. The first step to remove a HDInsight cluster is to log into the [Azure Portal](https://portal.azure.com).
+Thanks to resource groups, it is easy to remove an HDInsight cluster. As you learned in Exercise 1, deleting a resource group deletes everything in that resource group, including HDInsight clusters and all the accompanying resources. In this exercise, you will delete the HDInsight cluster that you created in Exercise 1.
 
-1. Click the **BROWSE ALL** link on the left hand side of the Portal and in the **Browse** blade, select **Resource groups**.
+1. The first step in removing an HDInsight cluster is to log into the [Azure Portal](https://portal.azure.com).
 
-    ![Browsing Resource Groups](Images/ex3-browse-resource-groups.png)
+1. Click **BROWSE ALL** on the left-hand side and in the "Browse" blade, select **Resource groups**.
 
-    _Browsing Resource Groups_  
+    ![Browsing resource groups](Images/ex3-browse-resource-groups.png)
 
-1. In the Resource groups blade, select the resource group you created in Exercise 1.
+    _Browsing resource groups_  
 
-    ![Resource Group Blade](Images/ex3-resource-group-blade.png)
+1. In the "Resource groups" blade, select the resource group you created in Exercise 1.
 
-    _Resource Group Blade_  
+    ![Selecting a resource group](Images/ex3-resource-group-blade.png)
 
-1. In the individual resource group blade, click the Delete button.
+    _Selecting a resource group_  
 
-    ![Individual Resource Group Delete Button](Images/ex3-delete-button.png)
+1. In the blade for the resource group, click the **Delete** button.
 
-    _Individual Resource Group Delete Button_  
+    ![Deleting a resource group](Images/ex3-delete-button.png)
 
-1. To actually delete the resource group, you will have to type in the name of the resource group into the **TYPE THE RESOURCE GROUP NAME** field. This ensures you truly want to delete this resource group. After typing the name in, click the now enabled **Delete** button at the bottom of the blade.
+    _Deleting a resource group_  
 
-    ![Confirm Delete Blade](Images/ex3-confirm-delete.png)
+1. As a safeguard against accidental deletion, you must type the resource group's name into the **TYPE THE RESOURCE GROUP NAME** field to delete it. After typing in the name, click the **Delete** button at the bottom of the blade.
 
-    _Confirm Delete Blade_  
+    ![Finalizing the deletion of a resource group](Images/ex3-confirm-delete.png)
 
-    After ten or so minutes your HDInsight cluster will be deleted along with all resources associated in the resource group.
+    _Finalizing the deletion of a resource group_  
 
-With it so easy to create and delete HDInsight clusters there's no stopping you from analyzing tons of data. HDInsight offers much more than Hadoop and it is time to look at using Apache Spark.
+    After 10 minutes or so, your HDInsight cluster will be deleted along with all the resources in the resource group.
+
+Hadoop is a powerful tool for analyzing large volumes of data, but HDInsight doesn't stop there. In the next exercise, you'll create and use an HDInsight cluster that uses Apache Spark.
 
 <a name="Exercise4"></a>
 ## Exercise 4: Creating and running a Spark cluster with Zeppelin and Jupyter
 
-Hadoop is an excellent tool for big data analysis, but Azure HDInsight is not content with offering you only a single big data analysis tool. For this exercise you are going to work with [Apache Spark](http://spark.apache.org/), a big data analysis tool that supports in-memory processing to boost the performance of big-data analytic applications. Spark excels at ease of use and is built for speed, performing some operations 100 times faster than Hadoop in memory and 10 timees faster on disk. The in-memory computation capabilities are excellent for interactive algorithms in machine learning and graph computations. Like HDInsight's Hadoop implementation, HDInsight Spark is geared to working with your Azure Blob Storage.
+Hadoop is an excellent tool for big-data analysis, but Azure HDInsight is not content with offering you only a single analysis tool. In this exercise, you will work with [Apache Spark](http://spark.apache.org/), a big-data analysis tool that uses in-memory processing to boost performance. Spark is renowned for its ease of use and is built for speed, performing some operations 100 times faster than Hadoop in memory and 10 times faster on disk. The in-memory computation capabilities are excellent for interactive algorithms in machine learning and graph computations. Like HDInsight's Hadoop implementation, HDInsight Spark is built to work with Azure blob storage.
 
-In this exercise you are going to spin up an Azure HDInsight Spark cluster and process data in both [Zeppelin](https://zeppelin.incubator.apache.org/) and [Jupyter](https://jupyter.org/) notbooks. Both of these interactive data and scientific computing technologies are built right in with HDInsight and it's Spark clusters. After setting up the HDInsight Spark cluster, you are going to analyze and graph some sample data, which is heating, ventilating,, and air conditioning (HVAC) data for a group of buildings. This will give you an excellent idea how to work with an HDInsight Spark cluster using Zeppelin and Jupyter.
+In this exercise, you will spin up an Azure HDInsight Spark cluster and process data in [Zeppelin](https://zeppelin.incubator.apache.org/) and [Jupyter](https://jupyter.org/) notebooks. Both are built in to HDInsight Spark clusters. After setting up the cluster, you will analyze and graph heating, ventilating, and air-conditioning (HVAC) data for a group of buildings. You'll get first-hand experience working with HDInsight Spark clusters using Zeppelin and Jupyter, and see just how easy it is to put them to work on real-world data sets.
 
 1. Log into the [Azure Portal](https://portal.azure.com) with your Microsoft ID.
 
-1. To start the creation process, click on the **+NEW** in the upper left hand corner of the Portal. In the **Create** blade, click on the **Data + Analytics** link. That will bring up the **Data + Analytics** blade where click the HDInsight item.
+1. To start the creation process, click **+ NEW** in the upper-left corner of the Portal. In the "Create" blade, click the **Data + Analytics** link. Then click **HDInsight** in "Data + Analytics" blade.
 
     ![Starting the Creation of a HDInsight Cluster](Images/ex1-data-analytics-hdinsight.png)
 
