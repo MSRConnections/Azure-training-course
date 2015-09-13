@@ -20,7 +20,7 @@ This hands-on lab focuses on using HDInsight with Hadoop running on Linux cluste
 In this hands-on lab, you will learn how to:
 
 - Create an HDInsight Linux cluster and use Hive to submit jobs
-- Use Python to perform map-and-reduce operations on an HDInsight Linux cluster
+- Use Python to perform map and reduce operations on an HDInsight Linux cluster
 - Provision Apache Spark on HDInsight and run interactive queries
 
 <a name="Prerequisites"></a>
@@ -53,7 +53,7 @@ Estimated time to complete this lab: **60** minutes.
 
 This exercise walks you through the steps required to start up and use an HDInsight cluster on Linux. Once the cluster is provisioned and running, you will use [Apache Hive](https://cwiki.apache.org/confluence/display/Hive?src=sidebar) to query a set of sample data supplied with the default Hadoop installation.
 
-The goal here is to demonstrate the basic steps required to set up an HDInsight cluster so you will have no need for advanced configuration options. If you have prior experience with Hadoop and want to learn more about advanced configuration options, you can read about them at [Provision Hadoop clusters in HDInsight.](https://azure.microsoft.com/en-us/documentation/articles/hdinsight-provision-clusters/).
+The goal is to demonstrate the basic steps required to set up an HDInsight cluster so you will have no need for advanced configuration options. If you have prior experience with Hadoop and want to learn more about advanced configuration options, you can read about them at [Provision Hadoop clusters in HDInsight.](https://azure.microsoft.com/en-us/documentation/articles/hdinsight-provision-clusters/).
 
 For simplicity, this exercise will use password access when using Secure Shell (SSH) to the Linux cluster. In the real world, you will probably want to use SSH keys for access. For Linux, Unix, and OS X users, the [documentation](https://azure.microsoft.com/en-us/documentation/articles/hdinsight-hadoop-linux-use-ssh-unix/) shows you how to set them up. For Windows users, consult the documentation [here](https://azure.microsoft.com/en-us/documentation/articles/hdinsight-hadoop-linux-use-ssh-windows/).
 
@@ -65,7 +65,7 @@ For simplicity, this exercise will use password access when using Secure Shell (
 
     _First step in creating an HDInsight cluster_
 
-1. In the "New HDInsight Cluster" blade, you're required to fill out various fields. The first one, **Cluster Name**, specifies the unique Domain Name System (DNS) name for the cluster so you can access it from an SSH session. When you move to another field, the name is validated and you're notified if the name isn't available. Remember this name, because you will need it to log into the HDInsight cluster.
+1. In the "New HDInsight Cluster" blade, you're required to fill out various fields. The first one, **Cluster Name**, specifies the unique Domain Name System (DNS) name for the cluster so you can access it from an SSH session. When you move to another field, the name is validated and you're notified if the name isn't available. Remember this name, because you will need it to log in to the HDInsight cluster.
 
 	The drop-down list in the **Cluster Type** field specifies the type of cluster to create. For this exercise, select **Hadoop**.
 
@@ -104,53 +104,55 @@ For simplicity, this exercise will use password access when using Secure Shell (
 
     For nearly all Hadoop file operations, the Azure blob storage implementation will be seamless if you are coming from your own Hadoop clusters. One small difference is that native Hadoop Distributed File System (HDFS) commands that are platform-dependent — commands such as fschk and dfsadmin — are different when applied to blob storage.
 
-1. Click on the **Node Pricing Tiers** section to bring up the **Node Pricing Tiers** blade. Here is where you can configure the number of nodes and the types of virtual machines you want to run. For this exercise the defaults are fine, but you can reduce the number of nodes to two if you would like. Additionally, you can change the types of virtual machines used for worker and head nodes. Obviously selecting higher performing virtual machine types will cost you more money per hour. What is extremely nice about the **Node Pricing Tiers** blade is that you can see exactly how much the setup you are looking at will cost per hour. This gives you total control of how much you spend to perform a particular Hadoop job. Once you have set the number and types of nodes you want, click the select button at the bottom of the blade.
+1. Click **Node Pricing Tiers** to bring up the "Node Pricing Tiers" blade. Here you can configure the number of nodes and the types of virtual machines you want to run. For this exercise, the defaults are fine, but feel free to reduce the number of nodes to two if you would like. Additionally, you can change the types of virtual machines used for worker nodes and head nodes. Obviously, selecting higher-performance virtual machines will cost you more per hour. At the bottom of the blade, you can see exactly how much the setup you are considering will cost per hour. Once you have set the number and types of nodes you want, click the **Select** button at the bottom.
 
-    _The screen shot below shows a total cost calculation valid at the time the screen shot was taken. Your cost may be different. To read more about the current HDInsight prices, read the [HDInsight Pricing](http://azure.microsoft.com/en-us/pricing/details/hdinsight/) page._
+    _The screen shot below shows a total cost calculation valid at the time the screen shot was taken. Your cost may be different. To Learn about the current HDInsight prices, read the [HDInsight Pricing](http://azure.microsoft.com/en-us/pricing/details/hdinsight/) page._
 
-    ![The Node Pricing Tiers Blade](Images/ex1-node-pricing.png)
+    ![Node pricing tiers](Images/ex1-node-pricing.png)
 
-    _The Node Pricing Tiers_
+    _Node pricing tiers_
 
-1. If you are interested, you can look at the Optional Configuration settings for HDInsight Clusters by clicking on the **Optional Configuration** section, but for this hands-on lab, do not change anything. When all sections are filled out click the **Create** button at the bottom of the **New HDInsight Cluster** blade to start creation. Depending on the number of nodes and types of virtual machines you chose for HDInsight cluster, your deployment can take anywhere from 10-20 minutes.
+1. If you're interested, you can view additional configuration settings for HDInsight clusters by clicking **Optional Configuration**, but for this lab, do not change anything. Now that all the sections are filled out, click the **Create** button at the bottom of the "New HDInsight Cluster" blade to start the process of creating the cluster. Depending on the number of nodes and types of virtual machines you chose, deployment can take anywhere from 10 to 20 minutes.
 
-    ![The Filled Out New HDInsight Cluster Blade](Images/ex1-create-button.png)
+    ![Creating the new cluster](Images/ex1-create-button.png)
 
-    _The Filled Out New HDInsight Cluster Blade_
+    _Creating the new cluster_
 
-1. Once the deployment finishes, you can look at the new HDInsight cluster in the portal by selecting **Browse All** and in the **All resources** blade, clicking on your HDInsight cluster. Look for the Hadoop elephant logo.
+1. Once the deployment is finished, you can view the new HDInsight cluster in the portal by selecting **Browse All** and in the "All resources" blade, clicking on your HDInsight cluster. Look for the Hadoop elephant logo.
 
-    ![Browsing for Your New HDInsight Cluster](Images/ex1-browse-hdinsight.png)
+    ![Browsing for the new HDInsight cluster](Images/ex1-browse-hdinsight.png)
 
-    _Browsing for Your New HDInsight Cluster_
+    _Browsing for the new HDInsight cluster_
 
-1. (Linux and OS X Users) With the HDInsight cluster ready to process data, you will first have to log into to execute Hive job for this exercise. Open a terminal window so you can run the ssh command to do the connection. You will need the username and password for the SSH user you created earlier. The connection string is in the form &lt;username&gt;@&lt;hdinsight cluster name&gt;-ssh.azurehdinsight.net. Thus if your SSH username was happyuser and your HDInsight cluster was MyResearchCluster, the ssh parameter would be happyuser@MyResearchCluster-ssh.azurehdinsight.net
+1. With the HDInsight cluster now ready to go, you need to log in and execute a Hive job to prepare the cluster. **If you're a Windows user, skip to Step 12**. Otherwise, proceed to the next step.
 
-    Enter the following command in your terminal window replacing the items in brackets with your SSH username and password.
+1. Open a terminal window so you can use the ssh command to establish a connection. You will need the user name and password for the SSH user you created earlier. Execute the following command in the terminal window, replacing the items in brackets with your SSH user name and HDInsight cluster name.
 
     <pre>
     ssh &lt;username&gt@&lt;hdinsight cluster name&gt-ssh.azurehdinsight.net
     </pre>
 
-1. (Windows Users) If you installed PuTTY with the installer, press the Windows key and type "putty" to start it. If you installed PuTTY by copying the files, use Explorer to find and run putty.exe. In the **Host Name (or IP address)** field enter &lt;username&gt@&lt;hdinsight cluster name&gt-ssh.azurehdinsight.net substituting your SSH username and HDInsight cluster. Click the **Open** button to start the connection.
+	**Now skip to Step 16**. Steps 13 through 15 are for Windows users only.
+
+1. If you installed PuTTY with the installer, press the Windows key and type "putty" to start it. If you installed PuTTY by copying files, use Explorer to find and run putty.exe. In the **Host Name (or IP address)** field, enter &lt;username&gt;@&lt;hdinsight cluster name&gt;-ssh.azurehdinsight.net, substituting your SSH username and HDInsight cluster name for the parameters in angle brackets. Then click the **Open** button to open a connection.
 
     <pre>
     &lt;username&gt;@&lt;hdinsight cluster name&gt;-ssh.azurehdinsight.net
     </pre>
 
-    ![Putty Host Name (or IP address) field](Images/ex1-putty-host.png)
+    ![Establishing a connection with PuTTY](Images/ex1-putty-host.png)
 
-    _Putty Host Name (or IP address) field_
+    _Establishing a connection with PuTTY_
 
-1. (Windows Users) Because this is the first time you are connecting to the master node, PuTTY will display a warning dialog. Since the virtual machines are ones you created, it is safe to click **Yes**, but you can click **No** if you don't want to cache the RSA2 fingerprint.
+1. Because this is the first time you are connecting to the master node, PuTTY will display a warning dialog. Since the virtual machines are ones you created, it is safe to click **Yes**, but you can click **No** if you don't want to cache the RSA2 fingerprint.
 
-    ![PuTTY Security Alert](Images/ex1-putty-warning.png)
+    ![PuTTY security alert](Images/ex1-putty-warning.png)
 
-    _PuTTY Security Alert_
+    _PuTTY security alert_
 
-1. (Windows Users) After you click **Yes** or **No**, a console window will appear and you will be prompted to **login as**. Enter the name of the ssh user you created earlier. After pressing the Enter key, type the password of your SSH user followed by the Enter key.
+1. After you click **Yes** or **No**, a console window will appear and you will be prompted to **login as**. Enter the name of the SSH user you created earlier. Press the Enter key, and then type your SSH password and press Enter key again.
 
-1. If your entered your username and password correctly, you will see something like the following:
+1. If your entered your user name and password correctly, you will see something like the following:
 
     <pre>
     The authenticity of host <hdinsight cluster name>-ssh.azurehdinsight.net (138.91.XXX.XXX)' can't be established.
@@ -184,15 +186,15 @@ For simplicity, this exercise will use password access when using Secure Shell (
 
     </pre>
 
-1. In your terminal or PuTTY window you need to start the Hive command line interface by typing the following command:
+1. In your terminal or PuTTY window, start the Hive command-line interface by running the following command:
 
     <pre>
     hive
     </pre>
 
-    It might take a few minutes for hive to initialize, but when you see the **hive>** prompt it is ready for use.
+    It might take a few minutes for Hive to initialize, but when you see the **hive>** prompt, it is ready for use.
 
-1. Once at the hive prompt, enter the following statements to create a new table named **log4jlogs** by using sample data already available on your cluster.
+1. At the Hive prompt, enter the following statements to create a new table named "log4jlogs" using sample data already present on your cluster.
 
     <pre>
 	DROP TABLE log4jLogs;
@@ -202,17 +204,18 @@ For simplicity, this exercise will use password access when using Secure Shell (
 	SELECT t4 AS sev, COUNT(&#42) AS cnt FROM log4jLogs WHERE t4 = '[ERROR]' GROUP BY t4;
     </pre>
 
-    The **DROP TABLE** line removes any existing table named log4jLogs if it exists.
+    The **DROP TABLE** command removes any existing table named "log4jLogs."
 
     **CREATE EXTERNAL TABLE** creates a new "external" table in the Hive. External tables store only the table definitions in Hive; the data is left in the original location.
 
-    To tell Hive what format the data is in, the **ROW FORMAT** says each row is separated by spaces.
+    To tell Hive what format the data is in, **ROW FORMAT** says each row is separated by spaces.
 
-    **STORED AS TEXTFILE LOCATION** tells Hive where the data is stored and that it is a text file. The wasb:// is the default file system built into HDInsight and stands for Windows Azure Storage Blob.
+    **STORED AS TEXTFILE LOCATION** tells Hive where the data is stored and that it is a text file. wasb:// is the default file system built into HDInsight and stands for "Windows Azure Storage Blob."
 
     Finally, **SELECT** counts all the rows where column t4 contains the value [ERROR].
 
-    You will see output like the following when all commands are entered.
+    You will see output like the following when all the commands are entered:
+
     <pre>
     hive&gt DROP TABLE log4jLogs;
     OK
@@ -244,20 +247,20 @@ For simplicity, this exercise will use password access when using Secure Shell (
 
     Note that the output contains [ERROR] 3, as there are three rows that contain this value.
 
-1. Execute the following statements to create a new "internal" table named **errorLogs**
+1. Execute the following statements to create a new "internal" table named "errorLogs:"
 
     <pre>
     CREATE TABLE IF NOT EXISTS errorLogs (t1 string, t2 string, t3 string, t4 string, t5 string, t6 string, t7 string) STORED AS ORC;
     INSERT OVERWRITE TABLE errorLogs SELECT t1, t2, t3, t4, t5, t6, t7 FROM log4jLogs WHERE t4 = '[ERROR]';
     </pre>
 
-    **CREATE TABLE IF NOT EXISTS** creates a table if it does not already exist. Because the EXTERNAL keyword is not specified, this is an internal table that is stored in the Hive data warehouse and is managed completely by Hive. Unlike external tables, dropping an internal table deletes the underlying data as well.
+    **CREATE TABLE IF NOT EXISTS** creates a table if it does not already exist. Because the EXTERNAL keyword is not specified, this is an internal table that is stored in the Hive data warehouse and is managed completely by Hive. Unlike dropping an external table, dropping an internal table deletes the underlying data as well.
 
-    **STORED AS ORC** says to store the data in Optimized Row Columnar (ORC) format; a highly optimized and efficient format for storing Hive data.
+    **STORED AS ORC** says to store the data in Optimized Row Columnar (ORC) format. This is a highly optimized and efficient format for storing Hive data.
 
-    **INSERT OVERWRITE...SELECT** selects rows from the log4jLogs table that contain [ERROR], and then inserts the data into the errorLogs table.
+    **INSERT OVERWRITE...SELECT** selects rows from the "log4jLogs" table that contain [ERROR], and then inserts the data into the "errorLogs" table.
 
-    You will see output like the following when all commands are entered.
+    You will see output like the following when all commands are entered:
 
     <pre>
     hive&gt CREATE TABLE IF NOT EXISTS errorLogs (t1 string, t2 string, t3 string, t4 string, t5 string, t6 string, t7 string) STORED AS ORC;
@@ -284,7 +287,7 @@ For simplicity, this exercise will use password access when using Secure Shell (
     Time taken: 19.272 seconds
     </pre>
 
-1. The final step is to verify only rows containing [ERROR] in column t4 were stored in the **errorLogs** table. To do that, use the following command to return all rows from **errorLogs**
+1. The final step is to verify that only rows containing [ERROR] in column t4 were stored in the "errorLogs" table. To do that, use the following command to return all rows from "errorLogs:"
 
     <pre>
     SELECT * from errorLogs;
@@ -303,7 +306,7 @@ For simplicity, this exercise will use password access when using Secure Shell (
 
 1. To exit your SSH session, type the exit command in the terminal window or PuTTY console window. Close all terminal or PuTTY windows.
 
-Now that you know how to set up a HDInsight cluster, you can use that cluster to perform more advanced operations. You will next explore how to perform map and reduce operations using Python programs.
+Now that you know how to set up a HDInsight cluster, you can use that cluster to perform more advanced operations. In the next exercise, you will learn how to perform map and reduce operations using Python programs.
 
 <a name="Exercise2"></a>
 ## Exercise 2: Creating and running Python programs for HDInsight on Linux
@@ -952,7 +955,7 @@ Here is a quick summary of the key items you learned in this lab:
 
 - HDInsight is Microsoft Azure's implementation of Hadoop, Spark, and supporting big-data tools
 - The Azure Portal makes it easy to create and configure both Windows and Linux-based Hadoop clusters
-- HDInsight with a Hadoop cluster can perform map-and-reduce operations with Python easily
+- HDInsight with a Hadoop cluster can perform map and reduce operations with Python easily
 - HDInsight treats Linux and OS X as first class citizens and does not need Windows anywhere
 - HDInisght fully supports popular interactive tools such as Zeppelin and Jupyter
 
