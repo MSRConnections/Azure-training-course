@@ -660,7 +660,7 @@ In this exercise, you will spin up an Azure HDInsight Spark cluster and process 
 
     ![The Spark Cluster Node Pricing Tiers Blade](Images/ex4-node-pricing.png)
 
-_The Spark Cluster Node Pricing Tiers_
+    _The Spark Cluster Node Pricing Tiers_
 
 1. The last section of the **New HDInsight Cluster** is the **Optional Configuration** blade, but for this exercise you do not need to change anything. Feel free to look at what you can configure if you are interested. When all sections of the **New HDInsight Cluster** blade are filled out click the **Create** button at the bottom of the **New HDInsight Cluster** blade to start creation. Depending on the number of nodes and types of virtual machines you chose for HDInsight cluster, your deployment can take anywhere from 5-10 minutes.
 
@@ -821,6 +821,29 @@ _The Spark Cluster Node Pricing Tiers_
 	![Controlling the Graph Settings](Images/ex4-controlling-zeppelin-settings.png)
 
 	_Controlling the Graph Settings_
+    
+1. So far you have seen everything using Spark SQL for data analysis but it does support many other languages, such as Scala, a functional programming language that is getting a lot of traction in the big data world. In fact, Spark is written in Scala. With the HVAC data you have it might be interesting to see what buildings are the hottest and coolest. Once way to do that would be to sum up all the temperature differences over all reporting periods and look for the one that is the lowest, which indicates the building trends cooler than the target temperature, and the highest, indicating trending hotter than the target temperature. With that data you could look at how you could explore various heating and cooling options for the buildings to get the actual temperatures more in line with the target temperatures.
+
+    The following code shows two different ways with Scala to pull data from your Spark cluster. The part uses SQL to query the HVAC table created earlier to sum all temperature differences for each building. The second and third line use Scala to sort the data and grab the first row. The fourth and fifth lines register the temporary table as a full Spark table so you can run SQL queries against it and in this case, sort descending and grabbing the top item. Finally, it displays the data. 
+    
+    <pre>
+    // Pull the sum of all temp differences into a DataFrame
+    val temp = sql("select buildingID, SUM(targettemp-actualtemp) as sumTemp from hvac group by buildingID")
+    
+    // The pure Scala way of manipulating the data to get the coolest building.
+    val tempSorted = temp.sort("sumTemp")
+    val coolestBuilding = tempSorted.first()
+    
+    // Add this as a table and do the SQL way of getting the hottest building.
+    temp.registerTempTable("test")
+    val hottestBuilding = sql("select * from test order by sumTemp DESC limit 1")
+    
+    // Display the data in a rudimentary way. :)
+    coolestBuilding.toString()
+    hottestBuilding.show()
+    </pre>
+    
+    In a new editing element on the Zeppelin page, paste the code above and run the code. Which buildings are the hottest and coolest?
 
 1. As you have seen Zeppelin notebooks make it very easy to do interactive data analysis and spelunking of big data on Spark. Another very popular option for research and analysis is [Jupyter](https://jupyter.org/), which is another notebook-based approach, but with very broad support for over 40 programming languages and excels at numerical simulation, statistical modeling, machine learning, and much more. To start a Jupyter notebook for your HDInsight Spark cluster, broswse for your HDInsight Spark cluster in the Azure Portal by clicking the **BROWSE ALL** button and clicking on your cluster in the **All resources** blade to bring up your cluster's blade. Click on the **Cluster Dashboards** button to bring up the Cluster Dashboards blade. Click on the **Jupyter Notebook** button. This will open a new browser tab or window, depending on the browser.
 
