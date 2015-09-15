@@ -1,5 +1,5 @@
 <a name="HOLTitle"></a>
-# Hadoop, and Spark on Linux #
+# Hadoop and Spark on Linux #
 
 ---
 
