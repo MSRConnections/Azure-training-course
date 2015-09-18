@@ -112,45 +112,65 @@ You have created an event hub that can ingest events and be used as the source o
 
 Applications, devices, or gateways can send events to event hubs using the [Azure Event Hubs REST API](https://msdn.microsoft.com/en-us/library/azure/Dn790674.aspx). Each request transmitted via this API must include a valid [shared-access signature (SAS)](https://azure.microsoft.com/en-us/documentation/articles/service-bus-shared-access-signature-authentication/) token in the Authorization header. SAS tokens are generated from the event hub's URL and the primary key associated with the policy used to communicate with the event hub — for example, the policy named "SendPolicy" that you created in the previous exercise.
 
-In this exercise, you will generate a shared-access signature token for the event hub created in [Exercise 1](#Exercise1) and copy it, along with the event hub URL, into a Node.js application that will later be used to send events to the event hub.
+In this exercise, you will generate a shared-access signature token for the event hub created in [Exercise 1](#Exercise1) and copy it, along with the event hub URL, into a Node.js application that will be used to send events to the event hub in Exercise 3.
 
-1. Neither the Classic Portal nor the Preview Portal currently provides an interface for generating SAS tokens. However, you can generate tokens programmatically, or you can use third-party tools or Web sites to generate them. One such site can be found at [http://eventhubssasgenerator.azurewebsites.net/](http://eventhubssasgenerator.azurewebsites.net/).
+1. Neither the Classic Portal nor the Preview Portal currently provides an interface for generating SAS tokens. Therefore, you will generate a token using a Node.js utility named sas.js provided with this lab. Begin by opening a terminal window.
 
-	Go to [http://eventhubssasgenerator.azurewebsites.net/](http://eventhubssasgenerator.azurewebsites.net/) in your browser and fill in the form with information regarding the event hub and access policy that you created in [Exercise 1](#Exercise1). Enter the following values into the form fields:
+1. Verify that Node.js is installed on your computer by executing the following command in the terminal window:
 
-	- **Service Namespace**: The name of the namespace you created in [Exercise 1](#Exercise1)
-	- **Service Path**: The name of the event hub you created in [Exercise 1](#Exercise1)
-	- **Key Name / Policy**: The name of the access policy you created in [Exercise 1](#Exercise1)
-	- **Policy Key**: The primary key for the access policy — the one you pasted into your favorite text editor for later retrieval in [Exercise 1](#Exercise1)
-	- **Expiration Date/Time**: A date a few days into the future
+	<pre>
+	node -v
+	</pre>
 
-	When you're finished, click the **Generate SAS Token** button.
+	If Node.js is installed, you'll be told what version is installed (but probably shown a different version number than the one shown here):
 
-    ![Generating an SAS token](images/new-sas-token.png)
+	<pre>
+	v0.12.2
+	</pre>
 
-    _Generating an SAS token_
+	If you don't see similar output, or if the **node** command didn't run at all, then you need to install Node.js. You'll find detailed instructions for installing it on Linux, OS X, and Windows at [https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/) in the section entitled "Installing and using Node.js and npm." **If you don't already have Node.js installed, install it now**.
 
-1. Copy the SAS token (the long string that begins with "SharedAccessSignature" and ends with "skn=SendPolicy") to the clipboard.
+	> You already have Node.js installed if you completed the **Azure Storage and the Azure CLI** lab because the Azure CLI requires Node.js.
+
+1. In the terminal window, navigate to this lab's "resources" directory. Then execute the following command:
+
+	<pre>
+	node sas.js
+	</pre>
+
+	> It is very important that you run this command in the lab's "resources" directory, because the "resources" directory contains subdirectories that in turn contain components required by sas.js.
+
+1. When prompted, enter the event-hub URL you saved in Exercise 1, Step 9. Then press Enter.
+
+1. When prompted, enter the name of the policy you created for the Azure event hub in Exercise 1, Step 6. Then press Enter.
+
+1. When prompted, enter the key that you copied to the clipboard in Exercise 1, Step 7. Then press Enter.
+
+1. The SAS token, which is highlighted with the red box below, will be output to the terminal window. Copy it to the clipboard. 
+
+    ![Generating a SAS token](images/sas-generator.png)
+
+    _Generating a SAS token_
 
 1. Find the file named eventgen.js in the "resources" subdirectory of this lab and open it in your favorite text editor. Then find the section at the top of the file labeled "KEY VARS:"
 
 	<pre>
 	///////////////// KEY VARS /////////////////
-	var uri = "[Event hub URI]/messages";
-	var sas = "[SAS token]";
+	var sas = "Token";
+	var uri = "URL";
 	///////////////////////////////////////////
 	</pre>
 
-1. Replace *[Event hub URI]* with the event-hub URI you saved in [Exercise 1](#Exercise1).
+1. Replace *Token* with the SAS token you copied to the clipboard in Step 7. **Important:** The SAS token must **not include line breaks**. It needs to appear on this line as one contiguous string, and it must begin and end with quotation marks. In addition, the line must end with a semicolon.
 
-1. Replace *[SAS token]* with the SAS token you copied to the clipboard in Step 2.
+1. Replace *URL* with the event-hub URL you saved in exercise 1, Step 9.
 
 1. Save the modified eventgen.js file. The modified "KEY VARS" section should look something like this:
 
 	<pre>
 	///////////////// KEY VARS /////////////////
-	var uri = "https://a4rlabs.servicebus.windows.net/ioteventhub/messages";
-	var sas = "SharedAccessSignature sr=https%3a%2f%2fa4rlabs.servicebus.windows.net%2fioteventhub&sig=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%3d&se=XXXXXXXXXX&skn=SendPolicy";
+	var sas = "SharedAccessSignature sr=https%3a%2f%2fa4rlabs.servicebus.windows.net%2fioteventhub&sig=CzaMvUeDClmmQazuJ6IgZYlLqiOx45lEOMNW4i0yewI%3D&se=X1443477127924&skn=SendPolicy";
+	var uri = "https://a4rlabs.servicebus.windows.net/ioteventhub";
 	///////////////////////////////////////////
 	</pre>
 
@@ -161,27 +181,15 @@ Now that you've modified eventgen.js with information specific to your event hub
 
 In this exercise, you will send events to the event hub you created in [Exercise 1](#Exercise1). To do that, you'll use Node.js to run eventgen.js, which in turn transmits secure requests to the event hub using the [Azure Event Hubs REST API](https://msdn.microsoft.com/en-us/library/azure/Dn790674.aspx). eventgen.js generates simulated events representing ATM withdrawals. Each event contains relevant information such as the card number used for the withdrawal, the time and amount of the withdrawal, and a unique identifier for the ATM machine used.
 
-If Node.js is already installed on the computer you're using for this lab, you can skip Step 1 of this exercise and **go directly to Step 2**. Otherwise, you need to install Node.js.
+1. Open a terminal window and navigate to the "resources" directory of this lab.
 
-> You already have Node.js installed if you completed the **Azure Storage and the Azure CLI** lab because the Azure CLI requires Node.js.
-
-1. You'll find detailed instructions for installing Node.js on Linux, OS X, and Windows at [https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/) in the section entitled "Installing and using Node.js and npm." If you don't already have Node.js installed, **install it now**.
-
-1. Open a Node.js terminal window and change to the "resources" subdirectory of this lab (the directory where eventgen.js is located).
- 
-1. eventgen.js relies on a popular Node.js module named "request" to transmit HTTPS requests. Execute the following command to install the module:
-
-	<pre>
-	npm install request -g
-	</pre> 
-
-1. Now execute the following command to run eventgen.js:
+1. Now execute the following command:
 
 	<pre>
 	node eventgen.js
 	</pre>
 
-	You should see output similar to the following. Each line represents one event sent to the event hub, and events will probably roll by at a rate of about 2 to 3 per second. (Rates will vary depending on your connection speed.) Confirm that each request returns the HTTP status code 201. This indicates that the event hub received and accepted the request.
+	You should see output similar to the following. Each line represents one event sent to the event hub, and events will probably roll by at a rate of about 2 to 3 per second. (Rates will vary depending on your connection speed.) **Confirm that each request returns the HTTP status code 201**. This indicates that the event hub received and accepted the request.
 
 	<pre>
 	[1000] Event sent (status code: 201)
@@ -196,7 +204,9 @@ If Node.js is already installed on the computer you're using for this lab, you c
 	[1009] Event sent (status code: 201)
 	</pre>
 
-1. After 10 to 20 events have been sent, press Ctrl+C (or whatever key combination your operating system supports for terminating an application running in a terminal window) to stop the flow of events. **Leave the Node.js terminal window open so you can return to it later.**
+	> It is very important that you run this command in the lab's "resources" directory, because the "resources" directory contains subdirectories that in turn contain components required by eventgen.js.
+
+1. After 10 to 20 events have been sent, press Ctrl+C (or whatever key combination your operating system supports for terminating an application running in a terminal window) to stop the flow of events. **Leave the terminal window open so you can return to it later.**
 
 1. Return to the Azure [Classic Portal](https://manage.windowsazure.com) and open the dashboard for the event hub you created in [Exercise 1](#Exercise1). Wait a few minutes, and then click the **Refresh Metrics** button in the upper-right corner of the chart at the top of the page (the button highlighted in red below). Confirm that the chart shows that several messages have been received.
 

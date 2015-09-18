@@ -1,9 +1,10 @@
 ///////////////// KEY VARS /////////////////
-var uri = "[Event hub URI]/messages";
-var sas = "[SAS token]"
+var sas = "Token"
+var uri = "URL";
 ///////////////////////////////////////////
 
 var request = require("request");
+uri = uri + "/messages";
 
 var probability = 0.01;     // Probability of fraudulent transaction
 var transactions = 0;       // Number of transactions executed
