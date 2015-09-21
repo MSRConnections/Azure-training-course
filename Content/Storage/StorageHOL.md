@@ -5,7 +5,7 @@
 <a name="Overview"></a>
 ## Overview ##
 
-Microsoft Azure Storage is a set of services that allows you to store large volumes of data in a cost-effective manner and in a way that makes the data readily and reliably available to services and applications that consume it. Data committed to Azure Storage can be stored in blobs, tables, queues, or files. [Azure blobs](http://azure.microsoft.com/en-us/services/storage/blobs/) are ideal for storing images, videos, and other other unstructured data, and are frequently used for input to and output from other Azure services such as [Azure Machine Learning](http://azure.microsoft.com/en-us/services/machine-learning/) and [Azure Stream Analytics](http://azure.microsoft.com/en-us/services/stream-analytics/). [Azure tables](http://azure.microsoft.com/en-us/services/storage/tables/) provide NoSQL storage for semi-structured data. [Azure queues](http://azure.microsoft.com/en-us/services/storage/queues/) support queued message transfers between applications (or parts of applications) and can be used to make applications more scalable and robust by eliminating hard dependencies. Finally, [Azure Files](http://azure.microsoft.com/en-us/services/storage/files), which are currently in preview, use the Server Message Block (SMB) 2.1 protocol to share files in the cloud.
+Microsoft Azure Storage is a set of services that allows you to store large volumes of data in a cost-effective manner and in a way that makes the data readily and reliably available to services and applications that consume it. Data committed to Azure Storage can be stored in blobs, tables, queues, or files. [Azure blobs](http://azure.microsoft.com/en-us/services/storage/blobs/) are ideal for storing images, videos, and other other unstructured data, and are frequently used to provide input to and capture output from other Azure services such as [Azure Machine Learning](http://azure.microsoft.com/en-us/services/machine-learning/) and [Azure Stream Analytics](http://azure.microsoft.com/en-us/services/stream-analytics/). [Azure tables](http://azure.microsoft.com/en-us/services/storage/tables/) provide NoSQL storage for semi-structured data. [Azure queues](http://azure.microsoft.com/en-us/services/storage/queues/) support queued message transfers between applications (or parts of applications) and can be used to make applications more scalable and robust by eliminating hard dependencies between tham. Finally, [Azure Files](http://azure.microsoft.com/en-us/services/storage/files), which are currently in preview, use the Server Message Block (SMB) 2.1 protocol to share files in the cloud.
 
 Data stored in Microsoft Azure Storage can be accessed over HTTP or HTTPS using straightforward and secure REST APIs, or it can be accessed using rich client libraries available for many popular languages and platforms, including .NET, Java, Android, Node.js, PHP, Ruby, and Python.
 
@@ -59,15 +59,15 @@ The [Azure Portal](https://portal.azure.com) allows you to perform basic storage
 
 	_Selecting a deployment model_
 
-1. Enter a name for the new storage account in **Storage** field. The name is important, because it forms one part of the URL through which storage items created under this account will be accessed. Storage account names can be 3 to 24 characters in length and can only contain numbers and lowercase letters. In addition, the name you enter must be unique within Azure; if someone else has chosen the same name, you'll be notified that the name isn't available. Once you have a name that Azure will accept (as indicated by the green check mark in the text field), click **Create** to create the new storage account.
+1. Enter a name for the new storage account in **Storage** field. The name is important, because it forms one part of the URL through which storage items created under this account will be accessed. Storage account names can be 3 to 24 characters in length and can only contain numbers and lowercase letters. In addition, the name you enter must be unique within Azure; if someone else has chosen the same name, you'll be notified that the name isn't available.
+
+	Once you have a name that Azure will accept (as indicated by the green check mark in the text field), click **location** and choose the region nearest you. Then click the **Create** button to create the new storage account.
  
     ![Naming a storage account](images/pp-name-storage-account.png)
 
     _Naming a storage account_
 
-	> You accepted the defaults for storage-account settings such as **Resource Group** and **Location**. The latter allows you store data in data centers closer to you or your customers. The former allows you to place the storage account in a resource group.
-		
-	> Resource groups are a relatively recent addition to Azure and are a powerful construct for grouping resources such as storage accounts, databases, and virtual machines together so that they can be managed as a group. Imagine that you created a complex application consisting of multiple storage accounts, a cluster of VMs, a SQL database, and perhaps a Stream Analytics solution and a pair of event hubs. Now you want to create a new instance of the application using a different account. By assembling all these resources into a resource group under the purview of the Azure Resource Manager, you can take advantage of [Azure deployment templates](https://azure.microsoft.com/en-us/documentation/articles/arm-template-deployment/) to script the creation of the entire application. In addition, you can delete the application — and all the resources that comprise it — by deleting the resource group.
+	> You accepted the defaults for most storage-account settings, including **Resource Group**. Resource groups are a relatively recent addition to Azure and are a powerful construct for grouping resources such as storage accounts, databases, and virtual machines together so that they can be managed as a group. Imagine that you created a complex application consisting of multiple storage accounts, a cluster of VMs, a SQL database, and perhaps a Stream Analytics solution and a pair of event hubs. Now you want to create a new instance of the application using a different account. By assembling all these resources into a resource group under the purview of the Azure Resource Manager, you can take advantage of [Azure deployment templates](https://azure.microsoft.com/en-us/documentation/articles/arm-template-deployment/) to script the creation of the entire application. In addition, you can delete the application — and all the resources that comprise it — by deleting the resource group.
 	
 	> You will take advantage of resource groups and deployment templates in subsequent labs. For now, just realize that any time you create a storage account or other Azure resource, you have the option of including it in a resource group.
 
@@ -225,7 +225,7 @@ The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en
 
 	_Blob storage schema_
 
-	You can create containers using the Azure Portal, or you can create them using the Azure CLI. Let's use the latter to create a container named "images." Execute the following command in the Azure CLI, replacing *[accountname]* with the name of the storage account and *[accountkey]* with the key you copied to the clipboard in the previous step.
+	You can create containers using the Azure CLI. Let's create a container named "images." Execute the following command, replacing *[accountname]* with the name of the storage account and *[accountkey]* with the key you copied to the clipboard in the previous step.
 
     <pre>
     azure storage container create -a [accountname] -k [accountkey] -p blob images
@@ -292,10 +292,16 @@ The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en
 
 	_Image blob downloaded from Azure storage_
 
-1. You can see how the storage account name and the container name form parts of the URL through which a blob is accessed. But what if you wanted to create a hierarchy of containers? What if, for example, you wanted "images/banner.jpg" in the URL to be "images/azure/banner.jpg"? You can't create nested containers, but you *can* include forward slashes in blob names to simulate container hierarchies. To demonstrate, run the following command in the CLI, once more providing the storage account's name and key and the local path to an image file:
+1. You can also see the blob that you uploaded in the Azure Portal. To see it, return to the [Azure Portal](https://portal.azure.com) in your browser. Then find the storage account you created, open the "images" container, and verify that banner.jpg appears in the list of blobs.
+
+    ![Image blob uploaded to Azure storage](images/pp-uploaded-blob.png)
+
+	_Image blob uploaded to Azure storage_
+
+1. From Step 15, you can see how the storage account name and the container name form parts of the URL through which a blob is accessed. But what if you wanted to create a hierarchy of containers? What if, for example, you wanted "images/banner.jpg" in the URL to be "images/azure/banner.jpg"? You can't create nested containers, but you *can* include forward slashes in blob names to simulate container hierarchies. To demonstrate, run the following command in the CLI, once more providing the storage account's name and key:
 
     <pre>
-    azure storage blob upload -a [accountname] -k [accountkey] [path] images azure/banner.jpg
+    azure storage blob upload -a [accountname] -k [accountkey] azure-banner.jpg images azure/banner.jpg
     </pre>
 
 1. Now enter the following URL in your browser and confirm that the image blob appears:
@@ -313,7 +319,7 @@ The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en
 <a name="#Exercise3"></a>
 ### Exercise 3: Automate storage tasks by scripting CLI commands  ###
 
-One benefit of using the Azure CLI is that you can combine it with a scripting engine to automate time-consuming tasks. For example, what if you wanted to upload a directory full of images from your PC to blob storage? Rather than upload them one at a time with discrete CLI commands, you could write a shell script that enumerates the files in that directory and invokes an **azure storage blob upload** command on each one. 
+One benefit of using the Azure CLI is that you can combine it with a scripting engine to automate time-consuming tasks. For example, what if you wanted to upload a directory full of images from your PC to blob storage? Rather than upload them one at a time with discrete CLI commands, you could write a script that enumerates the files in that directory and invokes an **azure storage blob upload** command on each one. 
 
 In this exercise, you'll write and test a pair of scripts that automate common Azure Storage tasks. Linux and OS X users will use Bash scripts, while Windows users will use PowerShell scripts.
 
@@ -366,7 +372,7 @@ In this exercise, you'll write and test a pair of scripts that automate common A
 1. Execute the following command to upload all the images in the "images" subdirectory as blobs to Azure Storage:
 
 	<pre>
-    powershell .\copyimages.ps1
+    .\copyimages.ps1
 	</pre>
 
 1. Open the [Azure Portal](https://portal.azure.com/) in your browser. Click **BROWSE ALL**, and then **Storage accounts (classic)**. Then click the storage account you created in Exercise 1.
@@ -421,7 +427,7 @@ In this exercise, you'll write and test a pair of scripts that automate common A
 	The equivalent PowerShell command is:
 
 	<pre>
-	powershell .\renameblob.ps1 images CIMG6945.jpg CIMG1234.jpg images\CIMG6945.jpg
+	.\renameblob.ps1 images CIMG6945.jpg CIMG1234.jpg images\CIMG6945.jpg
 	</pre>
 
 1. Return to the [Azure Portal](https://portal.azure.com/), open the "images" container, and confirm that the blob was renamed.
