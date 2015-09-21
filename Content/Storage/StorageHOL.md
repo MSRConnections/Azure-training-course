@@ -67,15 +67,27 @@ The [Azure Portal](https://portal.azure.com) allows you to perform basic storage
 
     _Naming a storage account_
 
-	> You accepted the defaults for most storage-account settings, including **Resource Group**. Resource groups are a relatively recent addition to Azure and are a powerful construct for grouping resources such as storage accounts, databases, and virtual machines together so that they can be managed as a group. Imagine that you created a complex application consisting of multiple storage accounts, a cluster of VMs, a SQL database, and perhaps a Stream Analytics solution and a pair of event hubs. Now you want to create a new instance of the application using a different account. By assembling all these resources into a resource group under the purview of the Azure Resource Manager, you can take advantage of [Azure deployment templates](https://azure.microsoft.com/en-us/documentation/articles/arm-template-deployment/) to script the creation of the entire application. In addition, you can delete the application — and all the resources that comprise it — by deleting the resource group.
+	> You accepted the defaults for most storage-account settings, including **Resource Group**. Resource groups are a relatively recent addition to Azure and are a powerful construct for grouping resources such as storage accounts, databases, and virtual machines together so that they can be managed as a group. Imagine that you created a complex application consisting of multiple storage accounts, a cluster of VMs, a SQL database, and perhaps a Stream Analytics solution and a pair of event hubs. Now you want to create a new instance of the application using a different account. By assembling all these resources into a resource group, you can take advantage of [Azure deployment templates](https://azure.microsoft.com/en-us/documentation/articles/arm-template-deployment/) to script the creation of the entire application. In addition, you can delete the application — and all the resources that comprise it — by deleting the resource group.
 	
-	> You will take advantage of resource groups and deployment templates in subsequent labs. For now, just realize that any time you create a storage account or other Azure resource, you have the option of including it in a resource group.
+	> You will take advantage of resource groups and deployment templates in subsequent labs. For now, just realize that any time you create a storage account or other Azure resource, you have the option of including it in a new or existing resource group.
 
-1. After a few moments, the new storage account will appear. Click **Containers** to view a list of containers associated with this account.
+1. After a few moments, the new storage account will appear. Click the keys icon to open the "Manage Keys" blade.
 
-    ![The new storage account](images/pp-storage-account-details.png)
+    ![The new storage account](images/pp-view-keys.png)
 
     _The new storage account_
+
+1. This blade shows the access keys associated with the account. You'll use the primary access key a lot when using the Azure CLI, because any CLI command that accesses storage will require an account name and an account key for authentication. If you would like, go ahead and save the primary key in a location where you can easily access it later in this lab. You can click the button to the right of **PRIMARY ACCESS KEY** to copy it to the clipboard.
+
+    ![The storage account's access keys](images/pp-manage-keys.png)
+
+    _The storage account's access keys_
+
+1. Return to the blade for the storage account and click **Containers** to view a list of containers associated with this account.
+
+    ![Viewing storage containers](images/pp-view-storage-containers.png)
+
+    _Viewing storage containers_
 
 1. The storage account currently has no containers. Before you create a blob, you must create a container to store it in. Currently, neither containers nor blobs can be created using the Azure Preview Portal. Therefore, you'll turn to the go-to tool for performing tasks that the portal cannot: the Azure Cross-Platform Command-Line Interface.
 
@@ -325,11 +337,11 @@ In this exercise, you'll write and test a pair of scripts that automate common A
 
 > There are free Bash shells available for Windows, too, including [Cygwin](https://www.cygwin.com/) and [Git for Windows](https://git-for-windows.github.io/). If you use Windows and care to install a Bash shell (or already have one installed), feel free to skip the PowerShell steps below and follow the instructions for Linux and OS X users.
 
-1. At a command prompt, navigate to the directory containing this lab. In that directory, you'll find a subdirectory named "resources" containing a number of JPG images.
-
 1. If you're using Windows, **skip to Step 5**. The next few steps are for students running Linux, OS X, and other operating systems that support Bash scripts.
 
-1. In the lab directory — the one containing the "resources" subdirectory — use your favorite editor to create a text file named copyimages.sh containing the following statements. Be sure to replace *[accountname]* with the name of your storage account, and *[accountkey]* with the key you copied to the clipboard in [Exercise 2](#Exercise2):
+1. Go to a command prompt and navigate to the directory containing this lab. In that directory, you'll find a subdirectory named "resources" containing a number of JPG images.
+
+1. In the lab directory — the one containing the "resources" subdirectory — use your favorite editor to create a text file named copyimages.sh containing the following statements. Replace *[accountname]* with the name of your storage account, and *[accountkey]* with the storage account's primary access key:
 
 	<pre>
 	cd resources 
@@ -350,13 +362,13 @@ In this exercise, you'll write and test a pair of scripts that automate common A
 
 1. To script Azure commands with PowerShell, you first need to [install and configure Azure PowerShell](https://azure.microsoft.com/en-us/documentation/articles/powershell-install-configure/). If Azure PowerShell is not installed on your system, take the time to install it now.
 
-1. Once you have installed Azure PowerShell, you will need to configure PowerShell itself to allow script execution. (For security reasons, PowerShell by default does not allow PowerShell scripts to execute.) Start Azure PowerShell **as an administrator** and execute the following command:
+1. Once you have installed Azure PowerShell, you will need to configure it to allow script execution. (For security reasons, PowerShell by default does not allow PowerShell scripts to execute.) Start Azure PowerShell **as an administrator** and execute the following command:
 
 	<pre>
 	Set-ExecutionPolicy RemoteSigned
 	</pre>
  
-1. Now close the Azure PowerShell window and open another one, this time **not** running as an administrator. In the Azure PowerShell window, go to the directory for this lab — the one containing the "resources" subdirectory — and create a text file named copyimages.ps1 containing the statements below, once more replacing *[accountname]* and *[accountkey]* with your storage account's name and key:
+1. Now close the Azure PowerShell window and open another one, this time **not** running as an administrator. At the Azure PowerShell command prompt, navigate to the directory for this lab — the one containing the "resources" subdirectory, which holds a collection of JPG images — and create a text file named copyimages.ps1 containing the statements below. Replace *[accountname]* and *[accountkey]* with your storage account's name and primary access key:
 
 	<pre>
 	cd resources
@@ -407,7 +419,7 @@ In this exercise, you'll write and test a pair of scripts that automate common A
 	azure storage blob upload -a [accountname] -k [accountkey] "$4" $1 "$3"
 	</pre>
 
-1. If you are a Windows user and prefer PowerShell scripts instead, create a new text file named renameblob.ps1 containing the following statements. As usual, replace [accountname] and [accountkey] with your storage account's name and key:
+1. If you are a Windows user and prefer PowerShell scripts instead, create a new text file named renameblob.ps1 containing the following statements. As usual, replace *[accountname]* and *[accountkey]* with your storage account's name and primary access key:
 
 	<pre>
 	param([string]$container, [string]$oldname, [string]$newname, [string]$path)
@@ -422,13 +434,17 @@ In this exercise, you'll write and test a pair of scripts that automate common A
 	sh renameblob.sh images Desktop_Cortana_Pillar3.jpg Cortana.jpg resources/Desktop_Cortana_Pillar3.jpg
 	</pre>
 
-	The equivalent PowerShell command is:
+	The equivalent Azure PowerShell command is:
 
 	<pre>
 	.\renameblob.ps1 images Desktop_Cortana_Pillar3.jpg Cortana.jpg resources/Desktop_Cortana_Pillar3.jpg
 	</pre>
 
-1. Return to the [Azure Portal](https://portal.azure.com/), open the "images" container, and confirm that the blob named Desktop\_Cortana\_Pillar3.jpg was renamed to Cortana.jpg. (If the blade showing the contents of the "images" container is still open in the portal, you will need to click the blade's Refresh button to see the change.)
+1. Return to the [Azure Portal](https://portal.azure.com/), open the "images" container, and confirm that the blob named Desktop\_Cortana\_Pillar3.jpg was renamed to Cortana.jpg. (If the blade showing the contents of the "images" container is still open in the portal, you will need to click the blade's **Refresh** button to see the change.)
+
+    ![The renamed blob](images/pp-renamed-blob.png)
+
+    _The renamed blob_
 
 There's much more you can do when scripting the Azure CLI than these simple examples demonstrate. For example, you can pipe the output from **azure** commands to other commands such as **grep** and **awk**, and you can use the -v (or --verbose) switch to output JSON data. For more information and some cool examples, see [How to script the Azure CLI for Mac, Linux, and Windows](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli/#how-to-script-the-azure-cli-for-mac-linux-and-windows) on the Azure Web site.
 
