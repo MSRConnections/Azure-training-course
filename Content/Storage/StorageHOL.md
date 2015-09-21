@@ -325,16 +325,14 @@ In this exercise, you'll write and test a pair of scripts that automate common A
 
 > There are free Bash shells available for Windows, too, including [Cygwin](https://www.cygwin.com/) and [Git for Windows](https://git-for-windows.github.io/). If you use Windows and care to install a Bash shell (or already have one installed), feel free to skip the PowerShell steps below and follow the instructions for Linux and OS X users.
 
-1. Create a directory in your local file system; give it any name you'd like.
+1. At a command prompt, navigate to the directory containing this lab. In that directory, you'll find a subdirectory named "resources" containing a number of JPG images.
 
-1. In the directory you just created, create a subdirectory named "images". Copy 5 to 10 JPG files with the file-name extension .jpg into the "images" subdirectory.
+1. If you're using Windows, **skip to Step 5**. The next few steps are for students running Linux, OS X, and other operating systems that support Bash scripts.
 
-1. If you're using Windows, **skip to Step 6**. The next few steps are for students running Linux, OS X, and other operating systems that support Bash scripts.
-
-1. Open a Bash shell and go to the directory containing the "images" subdirectory. Use your favorite text editor to create a file named copyimages.sh containing the following statements. Be sure to replace *[accountname]* with the name of your storage account, and *[accountkey]* with the key you copied to the clipboard in [Exercise 2](#Exercise2):
+1. In the lab directory — the one containing the "resources" subdirectory — use your favorite editor to create a text file named copyimages.sh containing the following statements. Be sure to replace *[accountname]* with the name of your storage account, and *[accountkey]* with the key you copied to the clipboard in [Exercise 2](#Exercise2):
 
 	<pre>
-	cd images 
+	cd resources 
 	for f in *.jpg 
 	do 
 	    azure storage blob upload -a [accountname] -k [accountkey] "${f##*/}" images "${f##*/}" 
@@ -342,13 +340,13 @@ In this exercise, you'll write and test a pair of scripts that automate common A
 	cd .. 
 	</pre>
 
-1. In the Bash shell, execute the following command to run copyimages.sh:
+1. Execute the following command to run copyimages.sh:
 
 	<pre>
 	sh copyimages.sh
 	</pre>
 
-	**Now skip to Step 10**. Steps 6 through 9 are for PowerShell users only.
+	**Now skip to Step 9**. Steps 5 through 8 are for PowerShell users only.
 
 1. To script Azure commands with PowerShell, you first need to [install and configure Azure PowerShell](https://azure.microsoft.com/en-us/documentation/articles/powershell-install-configure/). If Azure PowerShell is not installed on your system, take the time to install it now.
 
@@ -358,10 +356,10 @@ In this exercise, you'll write and test a pair of scripts that automate common A
 	Set-ExecutionPolicy RemoteSigned
 	</pre>
  
-1. Now close the Azure PowerShell window and open another one, this time **not** running as an administrator. In the PowerShell window, go to the directory containing the "images" subdirectory and create a text file named copyimages.ps1 containing the statements below, once more replacing *[accountname]* and *[accountkey]* with your storage account's name and key:
+1. Now close the Azure PowerShell window and open another one, this time **not** running as an administrator. In the Azure PowerShell window, go to the directory for this lab — the one containing the "resources" subdirectory — and create a text file named copyimages.ps1 containing the statements below, once more replacing *[accountname]* and *[accountkey]* with your storage account's name and key:
 
 	<pre>
-	cd images
+	cd resources
 	$context = New-AzureStorageContext -StorageAccountName [accountname] -StorageAccountKey [accountkey]
 	foreach ($file in Get-ChildItem *.jpg) {
 	    Set-AzureStorageBlobContent -Blob $file.Name -Container "images" -File $file.Name -Context $context -Force
@@ -369,7 +367,7 @@ In this exercise, you'll write and test a pair of scripts that automate common A
 	cd ..
 	</pre>
 
-1. Execute the following command to upload all the images in the "images" subdirectory as blobs to Azure Storage:
+1. Execute the following command to upload all the images in the "resources" subdirectory as blobs to Azure Storage:
 
 	<pre>
     .\copyimages.ps1
@@ -393,13 +391,13 @@ In this exercise, you'll write and test a pair of scripts that automate common A
 
     _Viewing the blobs in a container_
 
-1. Verify that all the .jpg files in your local "images" subdirectory were uploaded to the "images" container as blobs.
+1. Verify that all the .jpg files in the "resources" subdirectory were uploaded to the "images" container as blobs.
 
     ![Blobs uploaded to the images container](images/pp-uploaded-images.png "Blobs uploaded to the images container")
 
     _Blobs uploaded to the images container_
 
-1. Now return to the shell command prompt and make sure you're in the directory that holds the "images" subdirectory.
+1. Now return to the command prompt and make sure you're in the directory for this lab.
 
 1. Next, you're going to create a script that renames a blob. Technically, you can't rename a blob, but you *can* delete a blob and upload a new blob with the new name. If you prefer Bash scripts, create a new text file named renameblob.sh containing the following statements. As usual, replace *[accountname]* and *[accountkey]* with your storage account's name and key:
 
@@ -409,7 +407,7 @@ In this exercise, you'll write and test a pair of scripts that automate common A
 	azure storage blob upload -a [accountname] -k [accountkey] "$4" $1 "$3"
 	</pre>
 
-1. If you are a Windows user and prefer PowerShell scripts instead, create a new text file named renameblob.ps1 containing the following statements:
+1. If you are a Windows user and prefer PowerShell scripts instead, create a new text file named renameblob.ps1 containing the following statements. As usual, replace [accountname] and [accountkey] with your storage account's name and key:
 
 	<pre>
 	param([string]$container, [string]$oldname, [string]$newname, [string]$path)
@@ -418,19 +416,19 @@ In this exercise, you'll write and test a pair of scripts that automate common A
 	Set-AzureStorageBlobContent -Blob $newname -Container $container -File $path -Context $context -Force
 	</pre>
 
-1. Use the script you just created to rename one of the blobs in the "images" container. For example, if the existing blob is named CIMG6945.jpg and you want to rename it to CIMG1234.jpg, and if the path to the image you uploaded to the blob is "images/CIMG6945.jpg", use the following command to execute the Bash script:
+1. Now use the script you just created to rename one of the blobs in the "images" container. Use the following command to execute the Bash script:
 
 	<pre>
-	sh renameblob.sh images CIMG6945.jpg CIMG1234.jpg images/CIMG6945.jpg
+	sh renameblob.sh images Desktop_Cortana_Pillar3.jpg Cortana.jpg resources/Desktop_Cortana_Pillar3.jpg
 	</pre>
 
 	The equivalent PowerShell command is:
 
 	<pre>
-	.\renameblob.ps1 images CIMG6945.jpg CIMG1234.jpg images\CIMG6945.jpg
+	.\renameblob.ps1 images Desktop_Cortana_Pillar3.jpg Cortana.jpg resources/Desktop_Cortana_Pillar3.jpg
 	</pre>
 
-1. Return to the [Azure Portal](https://portal.azure.com/), open the "images" container, and confirm that the blob was renamed.
+1. Return to the [Azure Portal](https://portal.azure.com/), open the "images" container, and confirm that the blob named Desktop\_Cortana\_Pillar3.jpg was renamed to Cortana.jpg. (If the blade showing the contents of the "images" container is still open in the portal, you will need to click the blade's Refresh button to see the change.)
 
 There's much more you can do when scripting the Azure CLI than these simple examples demonstrate. For example, you can pipe the output from **azure** commands to other commands such as **grep** and **awk**, and you can use the -v (or --verbose) switch to output JSON data. For more information and some cool examples, see [How to script the Azure CLI for Mac, Linux, and Windows](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli/#how-to-script-the-azure-cli-for-mac-linux-and-windows) on the Azure Web site.
 
