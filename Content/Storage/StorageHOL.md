@@ -35,8 +35,9 @@ The following is required to complete this hands-on lab:
 This hands-on lab includes the following exercises:
 
 - [Exercise 1: Use the Azure Portal to create a storage account](#Exercise1)
-- [Exercise 2: Use the Azure CLI to create a container and upload blobs](#Exercise2)
-- [Exercise 3: Automate storage tasks by scripting CLI commands](#Exercise3)
+- [Exercise 2: Install and configure the Azure CLI](#Exercise2)
+- [Exercise 3: Use the Azure CLI to create a container and upload blobs](#Exercise3)
+- [Exercise 4: Automate storage tasks by scripting CLI commands](#Exercise4)
 
 Estimated time to complete this lab: **60** minutes.
 
@@ -71,13 +72,13 @@ The [Azure Portal](https://portal.azure.com) allows you to perform basic storage
 	
 	> You will take advantage of resource groups and deployment templates in subsequent labs. For now, just realize that any time you create a storage account or other Azure resource, you have the option of including it in a new or existing resource group.
 
-1. After a few moments, the new storage account will appear. Click the keys icon to open the "Manage Keys" blade.
+1. After a few moments, a blade for the new storage account will appear. Click the key icon to open the "Manage keys" blade.
 
     ![The new storage account](images/pp-view-keys.png)
 
     _The new storage account_
 
-1. This blade shows the access keys associated with the account. You'll use the primary access key a lot when using the Azure CLI, because any CLI command that accesses storage will require an account name and an account key for authentication. If you would like, go ahead and save the primary key in a location where you can easily access it later in this lab. You can click the button to the right of **PRIMARY ACCESS KEY** to copy it to the clipboard.
+1. This blade shows the access keys associated with the account. You'll use the primary access key a lot when using the Azure CLI, because any CLI command that accesses storage will require an account name and an account key for authentication. Go ahead and save the primary key in a location where you can easily access it later in this lab. You can click the button to the right of **PRIMARY ACCESS KEY** to copy it to the clipboard, and then paste it into your favorite text editor or wherever else is convenient.
 
     ![The storage account's access keys](images/pp-manage-keys.png)
 
@@ -96,9 +97,9 @@ The [Azure Portal](https://portal.azure.com) allows you to perform basic storage
     _The empty storage account_
 
 <a name="#Exercise2"></a>
-### Exercise 2: Use the Azure CLI to create a container and upload blobs ###
+### Exercise 2: Install and configure the Azure CLI ###
 
-The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli/) (CLI) is an open-source tool that provides a set of cross-platform commands for working with Microsoft Azure. The CLI provides most of the same functionality as the Azure Portal. It also offers features the portal does not, such as the ability to upload blobs to Azure Storage. In this exercise, you will install the Azure CLI and use it to create a container and upload some blobs.
+The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli/) (CLI) is an open-source tool that provides a set of cross-platform commands for working with Microsoft Azure. The CLI provides most of the same functionality as the Azure Portal. It also offers features the portal does not, such as the ability to upload blobs to Azure Storage. In this exercise, you will install and configure the Azure CLI.
 
 1. The Azure CLI is a Node.js application, and it is installed with the Node.js package manager (npm). To determine whether Node.js and npm are installed on your computer, open a command-prompt window and execute the following command:
 
@@ -176,7 +177,7 @@ The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en
     azure account download
     </pre>
 
-1. Your default browser will open and inform you that a publishSettings file is being generated and downloaded. (Note that if there are multiple Azure subscriptions associated with your account, you may be asked which subscription you wish to download information for. If so, *choose the subscription that you used to perform the steps in Exercise 1*. This is the one that will be charged for the work you do in the CLI, and the one in which the storage account you created will be visible.) If your browser doesn't automatically save the downloaded file, save it and note the location where it was saved.
+1. Your default browser will open and inform you that a publishSettings file is being generated and downloaded. (Note that if there are multiple Azure subscriptions associated with your account, you may be asked which subscription you wish to download information for. If so, **choose the subscription that you used to perform the steps in Exercise 1**. This is the one that will be charged for the work you do in the CLI, and the one for which the storage account you created will be visible.) If your browser doesn't automatically save the downloaded file, save it and note the location in the file system where it was saved.
 
     ![Downloading the publishSettings file](images/pp-publishsettings-download.png)
 
@@ -213,7 +214,7 @@ The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en
     azure storage account list
     </pre>
 
-1. In order to use a storage account from the CLI, you must know the storage account's name, and you must have the storage account's access key. You can get that key from the Azure Portal, or you can get it from the  CLI. To display a list of keys associated with the storage account, run the following command, replacing *[accountname]* with the name of the storage account you created in Exercise 1:
+1. In order to use a storage account from the CLI, you must know the storage account's name, and you must have the storage account's access key. You can get that key from the Azure Portal, (as you did in Exercise 1), or you can get it from the  CLI. To display a list of keys associated with the storage account, run the following command, replacing *[accountname]* with the name of the storage account you created in Exercise 1:
 
     <pre>
     azure storage account keys list [accountname]
@@ -229,15 +230,21 @@ The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en
 	info:    storage account keys list command OK
     </pre>
 
-	**Copy the primary key listed in the output to the clipboard** so you can use it again later.
+	The keys listed here are the same ones you saw in the "Manage Keys" blade in Exercise 1.
+	If you haven't already made a copy of the primary access key, do it now so you can easily retrieve it later.
 
-1. Before you can create a blob, you must create a container to store it in. A container is similar to a folder in a file system. A storage account can have an unlimited number of containers, and a container can store an unlimited number of blobs. Container names must be from 3 to 63 characters in length and may contain numbers, dashes, and lowercase letters. Dashes cannot be consecutive, and a container name cannot start with a dash. The following diagram illustrates the blob storage schema:
+<a name="#Exercise3"></a>
+### Exercise 3: Use the Azure CLI to create a container and upload blobs ###
 
-    ![Blob storage schema](images/blob-storage-schema.jpg)
+Before you can create a blob, you must create a container to store it in. A container is similar to a folder in a file system. A storage account can have an unlimited number of containers, and a container can store an unlimited number of blobs. Container names must be from 3 to 63 characters in length and may contain numbers, dashes, and lowercase letters. Dashes cannot be consecutive, and a container name cannot start with a dash. The following diagram illustrates the blob storage schema:
 
-	_Blob storage schema_
+![Blob storage schema](images/blob-storage-schema.jpg)
 
-	You can create containers using the Azure CLI. Let's create a container named "images." Execute the following command, replacing *[accountname]* with the name of the storage account and *[accountkey]* with the key you copied to the clipboard in the previous step.
+_Blob storage schema_
+
+In this exercise, you will create a container named "images" in the storage account you created  in [Exercise 1](#Exercise1). Then you will upload blobs to it and learn how to access those blobs in the portal.
+
+1. At your system's command prompt, execute the following command, replacing *[accountname]* with the name of your storage account and *[accountkey]* with the account's primary access key.
 
     <pre>
     azure storage container create -a [accountname] -k [accountkey] -p blob images
@@ -262,11 +269,11 @@ The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en
 	info:    storage container create command OK
 	</pre>
 
-	Notice the line in the output that reads "publicAccessLevel: 'Blob'". By default, the containers you create are private, which means that the container and its contents can only be accessed by the owner of the storage account (or anyone who has the container's key). However, the "-p blob" switch you included in the command that created the container allows anonymous read access to blobs in that container. This is generally the way you configure a container that holds images and other public assets for Web sites. 
+	Notice the line in the output that reads "publicAccessLevel: 'Blob'". By default, the containers you create are private, which means that the container and its contents can only be accessed by the owner of the storage account (or anyone who has the container's access key). However, the "-p blob" switch you included in the command that created the container allows anonymous read access to blobs in that container. This is generally the way you configure a container that holds images and other public assets for Web sites. 
 
 1. The next step is to create a blob by uploading a file to the "images" container. The file you will upload is named azure-banner.jpg and is provided for you with this lab. At the command prompt, navigate to this lab's "resources" directory, making it the current directory.
 
-1. Execute the following command, replacing *[accountname]* with the storage account name, and *[accountkey]* with the storage account key to create a blob named "banner.jpg:"
+1. Execute the following command, replacing *[accountname]* with the storage account's name and *[accountkey]* with the storage account's key to create a blob named "banner.jpg:"
 
     <pre>
     azure storage blob upload -a [accountname] -k [accountkey] azure-banner.jpg images banner.jpg
@@ -304,13 +311,37 @@ The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en
 
 	_Image blob downloaded from Azure storage_
 
-1. You can also see the blob that you uploaded in the Azure Portal. To see it, return to the [Azure Portal](https://portal.azure.com) in your browser. Then find the storage account you created, open the "images" container, and verify that banner.jpg appears in the list of blobs.
+1. You can also see the blob that you uploaded in the Azure Portal. To see it, return to the [Azure Portal](https://portal.azure.com) in your browser. Click **BROWSE ALL**, and then **Storage accounts (classic)**. Then click the storage account you created in Exercise 1.
+
+    ![Viewing storage accounts](images/pp-view-storage-account.png)
+
+    _Viewing storage accounts_
+
+1. Click **Containers** to view the containers associated with this storage account.
+
+    ![Viewing storage containers](images/pp-view-storage-containers.png)
+
+    _Viewing storage containers_
+
+1. Click the "images" container to view its contents.
+
+    ![Viewing the blobs in the "images" container](images/pp-view-images-container.png)
+
+    _Viewing the blobs in the "images" container_
+
+1. Verify that banner.jpg appears in the list of blobs. Then click it to open the "Blob properties" blade.
 
     ![Image blob uploaded to Azure storage](images/pp-uploaded-blob.png)
 
 	_Image blob uploaded to Azure storage_
 
-1. From Step 15, you can see how the storage account name and the container name form parts of the URL through which a blob is accessed. But what if you wanted to create a hierarchy of containers? What if, for example, you wanted "images/banner.jpg" in the URL to be "images/azure/banner.jpg"? You can't create nested containers, but you *can* include forward slashes in blob names to simulate container hierarchies. To demonstrate, run the following command in the CLI, once more providing the storage account's name and key:
+1. Click the **Download** button at the top of the blade to download and open banner.jpg. Confirm that you see the same image you saw before.
+
+    ![Downloading a blob](images/pp-blob-properties.png)
+
+	_Downloading a blob_
+
+1. In Step 4, you saw that the storage account name and the container name form parts of the URL through which a blob is accessed. But what if you wanted to create a hierarchy of containers? What if, for example, you wanted "images/banner.jpg" in the URL to be "images/azure/banner.jpg"? You can't create nested containers, but you *can* include forward slashes in blob names to simulate container hierarchies. To demonstrate, run the following command in the CLI, once more providing the storage account's name and key:
 
     <pre>
     azure storage blob upload -a [accountname] -k [accountkey] azure-banner.jpg images azure/banner.jpg
@@ -328,8 +359,8 @@ The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en
     azure storage blob delete -a [accountname] -k [accountkey] images azure/banner.jpg
     </pre>
 
-<a name="#Exercise3"></a>
-### Exercise 3: Automate storage tasks by scripting CLI commands  ###
+<a name="#Exercise4"></a>
+### Exercise 4: Automate storage tasks by scripting CLI commands  ###
 
 One benefit of using the Azure CLI is that you can combine it with a scripting engine to automate time-consuming tasks. For example, what if you wanted to upload a directory full of images from your PC to blob storage? Rather than upload them one at a time with discrete CLI commands, you could write a script that enumerates the files in that directory and invokes an **azure storage blob upload** command on each one. 
 
@@ -385,25 +416,7 @@ In this exercise, you'll write and test a pair of scripts that automate common A
     .\copyimages.ps1
 	</pre>
 
-1. Open the [Azure Portal](https://portal.azure.com/) in your browser. Click **BROWSE ALL**, and then **Storage accounts (classic)**. Then click the storage account you created in Exercise 1.
-
-    ![Viewing storage accounts](images/pp-view-storage-account.png)
-
-    _Viewing storage accounts_
-
-1. Click **Containers** to view the containers associated with this storage account.
-
-    ![Viewing storage containers](images/pp-view-storage-containers.png)
-
-    _Viewing storage containers_
-
-1. Click the "images" container to view its contents.
-
-    ![Viewing the blobs in a container](images/pp-view-images-container.png)
-
-    _Viewing the blobs in a container_
-
-1. Verify that all the .jpg files in the "resources" subdirectory were uploaded to the "images" container as blobs.
+1. Return to the [Azure Portal](https://portal.azure.com/) and open your storage account's "images" container. Verify that all the .jpg files in the "resources" subdirectory were uploaded to the container. (Note that if the blade showing the contents of the "images" container was left open in the portal, you will need to click the **Refresh** button to see the changes.)
 
     ![Blobs uploaded to the images container](images/pp-uploaded-images.png "Blobs uploaded to the images container")
 
@@ -440,7 +453,7 @@ In this exercise, you'll write and test a pair of scripts that automate common A
 	.\renameblob.ps1 images Desktop_Cortana_Pillar3.jpg Cortana.jpg resources/Desktop_Cortana_Pillar3.jpg
 	</pre>
 
-1. Return to the [Azure Portal](https://portal.azure.com/), open the "images" container, and confirm that the blob named Desktop\_Cortana\_Pillar3.jpg was renamed to Cortana.jpg. (If the blade showing the contents of the "images" container is still open in the portal, you will need to click the blade's **Refresh** button to see the change.)
+1. Return to the [Azure Portal](https://portal.azure.com/), open the "images" container, and confirm that the blob named Desktop\_Cortana\_Pillar3.jpg was renamed to Cortana.jpg. (If the blade showing the contents of the "images" container was left open, you will need to click **Refresh** button to see the change.)
 
     ![The renamed blob](images/pp-renamed-blob.png)
 
