@@ -10,7 +10,7 @@ Azure Stream Analytics is a cloud-based service for ingesting high-velocity data
 
 Scenarios for the application of real-time data analytics are legion and include fraud protection, identity-theft protection, optimizing the allocation of resources (think of an Uber-like transportation service that sends drivers to areas of increasing demand *before* that demand peaks out), click-stream analysis on Web sites, and countless others. Having the ability to process data *as it comes in* rather than waiting until after it has been aggregated offers a competitive advantage to businesses that are agile enough to make adjustments on the fly.
 
-In this lab, you'll create an Azure Stream Analytics job and use it to analyze data streaming in from simulated Internet of Things (IoT) devices. And you'll see how utterly simple it is to monitor real-time data streams for information that makes your business more competitive.
+In this lab, you'll create an Azure Stream Analytics job and use it to analyze data streaming in from simulated Internet of Things (IoT) devices. And you'll see how utterly simple it is to monitor real-time data streams for information of significance to your research or business.
 
 <a name="Objectives"></a>
 ### Objectives ###
@@ -122,7 +122,7 @@ In this exercise, you will generate a shared-access signature token for the even
 	node -v
 	</pre>
 
-	If Node.js is installed, you'll see the Node.js version number.	If you don't see a version number, or if the **node** command didn't run at all, then you need to install Node.js. You'll find detailed instructions for installing it in Exercise 2 of the lab titled "Azure Storage and the Azre CLI." **If you don't already have Node.js installed, install it now**.
+	If Node.js is installed, you'll see the Node.js version number.	If you don't see a version number, or if the **node** command didn't run at all, then you need to install Node.js. You'll find detailed instructions for installing it in Exercise 2 of the lab entitled "Azure Storage and the Azure CLI." **If you don't already have Node.js installed, install it now**.
 
 	> You already have Node.js installed if you completed the **Azure Storage and the Azure CLI** lab because the Azure CLI requires Node.js.
 
@@ -132,7 +132,7 @@ In this exercise, you will generate a shared-access signature token for the even
 	node sas.js
 	</pre>
 
-	> It is very important that you run this command from the lab's "resources" directory, because that directory contains subdirectories that in turn contain components required by sas.js.
+	> It is very important that you run this command from the lab's "resources" directory, because that directory contains subdirectories that contain components required by sas.js.
 
 1. When prompted, enter the event-hub URL you saved in Exercise 1, Step 9. Then press Enter.
 
@@ -175,7 +175,7 @@ Now that you've modified eventgen.js with information specific to your event hub
 
 In this exercise, you will send events to the event hub you created in [Exercise 1](#Exercise1). To do that, you'll use Node.js to run eventgen.js, which in turn transmits secure requests to the event hub using the [Azure Event Hubs REST API](https://msdn.microsoft.com/en-us/library/azure/Dn790674.aspx). eventgen.js generates simulated events representing ATM withdrawals. Each event contains relevant information such as the card number used for the withdrawal, the time and amount of the withdrawal, and a unique identifier for the ATM machine used.
 
-1. At a command prompt, navigate to the "resources" directory of this lab.
+1. At the command prompt, navigate to the "resources" directory of this lab if you aren't there already.
 
 1. Now execute the following command:
 
@@ -198,7 +198,7 @@ In this exercise, you will send events to the event hub you created in [Exercise
 	[1009] Event sent (status code: 201)
 	</pre>
 
-	> It is very important that you run this command in the lab's "resources" directory, because the "resources" directory contains subdirectories that in turn contain components required by eventgen.js.
+	> It is very important that you run this command in the lab's "resources" directory, because the "resources" directory contains subdirectories that contain components required by eventgen.js.
 
 1. After 10 to 20 events have been sent, press Ctrl+C (or whatever key combination your operating system supports for terminating an application running in a terminal window) to stop the flow of events. **Leave the terminal window open so you can return to it later.**
 
@@ -210,7 +210,7 @@ In this exercise, you will send events to the event hub you created in [Exercise
 
 	> The dashboard doesn't show events in real time. An event typically doesn't appear in the chart until 5 to 10 minutes after it is received. While you're waiting, take a few moments to peruse the code in eventgen.js. In particular, notice the Authorization header sent in each request, and the URL that the request is directed to.
 
-If you'd rather not wait for the events to appear in the dashboard, feel free to move on to the next exercise. But if you are unable to sample data in the Stream Analytics job in the next exercise, return to the event-hub dashboard and verify that the event hub received the events.
+If you'd rather not wait for the events to appear in the dashboard, feel free to move on to the next exercise. But if you are unable to generate sample data in the Stream Analytics job in the next exercise, return to the event-hub dashboard and verify that the event hub received the events.
 
 <a name="Exercise4"></a>
 ## Exercise 4: Create a Stream Analytics job ##
@@ -225,7 +225,7 @@ You now have software that sends events to an Azure event hub, and an event hub 
 
     _Azure Stream Analytics_
 
-1. Type "A4R-Analytics" into the **JOB NAME** box. Optionally select the region nearest you in the **REGION** box. Under **REGIONAL MONITORING STORAGE ACCOUNT**, either select an existing storage account or select **Create new storage account** from the drop-down list and enter a name for the new storage account. (If you choose to create a new storage account, recall that storage-account names can be 3 to 24 characters in length, can only contain numbers and lowercase letters, and must be globally unique. A green check mark next to the name indicates that it meets all these criteria.) When you're done, click **CREATE STREAM ANALYTICS JOB** in the lower-right corner.
+1. Type "A4R-Analytics" into the **JOB NAME** box. Optionally select the region nearest you in the **REGION** box. Under **REGIONAL MONITORING STORAGE ACCOUNT**, either select an existing storage account or select **Create new storage account** from the drop-down list and enter a name for the new storage account. (If you choose to create a new storage account, recall that storage-account names can be 3 to 24 characters in length, can only contain numbers and lowercase letters, and must be unique within Azure. A green check mark next to the name indicates that it meets all these criteria.) When you're done, click **CREATE STREAM ANALYTICS JOB** in the lower-right corner.
 
     ![Creating a Stream Analytics job](images/new-stream-analytics-job.png)
 
@@ -273,7 +273,7 @@ You now have software that sends events to an Azure event hub, and an event hub 
 
     _Specifying a serialization format_
 
-1. After a few moments, the new input — "Withdrawals" — appears in the list of inputs for the Stream Analytics job. Go back to the Node.js window you left open at the end of the previous exercise and run eventgen.js again by executing the following command:
+1. After a few moments, the new input — "Withdrawals" — appears in the list of inputs for the Stream Analytics job. Go back to the terminal window you left open at the end of the previous exercise and run eventgen.js again by executing the following command:
 
 	<pre>
 	node eventgen.js
@@ -334,7 +334,7 @@ To flag potentially fraudulent withdrawals from ATMs, you will query for transac
 	SELECT * FROM Withdrawals
 	</pre>
 
-	> Where did the name "Withdrawals" come from? That's the alias you assigned to the event-hub input in the previous exercise. If you named it differently, you'll need to replace "Withdrawals" with the input name you used.
+	> Where did the name "Withdrawals" come from? That's the alias you assigned to the event-hub input in the previous exercise. If you named it differently, you'll need to replace "Withdrawals" with the alias name you used.
 
     ![Testing a query](images/query-all.png)
 
@@ -459,7 +459,9 @@ In this exercise, you'll configure the Stream Analytics job to store output in s
 	node eventgen.js
 	</pre>
 
-1. Wait 5 to 10 minutes to give the job time to start and eventgen.js time to transmit several hundred or more events. Then terminate eventgen.js and return to the browser window.
+1. Wait 5 to 10 minutes to give the job time to start and eventgen.js time to transmit several hundred events. Then terminate eventgen.js and return to the browser window.
+
+	> If you'd like, you can open several terminal windows and run eventgen.js in each one to increase the volume of events.
 
 1. Click the **STOP** button at the bottom of the page to stop the Stream Analytics job. Then click **YES** when asked if you're sure you want to stop the job.
 
