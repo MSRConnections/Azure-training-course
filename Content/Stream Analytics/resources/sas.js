@@ -3,7 +3,7 @@ var sas = require('shared-access-signature');
 ask("Azure Event Hub URL", function (url) {
     ask("Policy name", function (policy) {
         ask("Policy key", function (key) {
-            var expiry = new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000); // 1 year hence
+            var expiry = (new Date().getTime() / 1000) + (365 * 24 * 60 * 60); // 1 year hence
             var signature = sas.generateServiceBusSignature(url, policy, key, expiry);
             console.log("");
             console.log(signature);
