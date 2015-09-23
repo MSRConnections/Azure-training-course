@@ -1,6 +1,6 @@
 ///////////////// KEY VARS /////////////////
-var sas = "Token"
-var uri = "URL";
+//var sas = "Token";
+//var uri = "URL";
 ///////////////////////////////////////////
 
 var request = require("request");
@@ -49,7 +49,13 @@ function send() {
         }
         else {
             console.log("[" + transaction.transactionId + "] Event sent (status code: " + response.statusCode + ")");
-            send(); // Call recursively if request was successful
+
+            if (response.statusCode < 400) {
+                send(); // Call recursively if request was successful
+            }
+            else {
+                console.log("*** Event failed with status code " + response.statusCode + " ***");
+            }
         }
     });
 }

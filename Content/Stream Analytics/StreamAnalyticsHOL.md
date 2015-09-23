@@ -19,7 +19,7 @@ In this hands-on lab, you will learn how to:
 
 - Create an Azure event hub and use it as a Stream Analytics input
 - Create a Stream Analytics job and test queries on sample data streams
-- Create a Stream Analytics job and perform queries on live data streams
+- Run a Stream Analytics job and perform queries on live data streams
 - Direct Stream Analytics output to Azure blobs
 
 <a name="Prerequisites"></a>
@@ -49,21 +49,21 @@ Estimated time to complete this lab: **90** minutes.
 
 Azure Stream Analytics supports two types of input: input from Azure blobs, and input from Azure event hubs. Of the two, the latter is typically more interesting because in the IoT world, data is easily transmitted to Azure event hubs through field gateways (for devices that are not IP-capable) or cloud gateways (for devices that *are* IP-capable), and a single Azure event hub can handle millions of events per second transmitted from devices spread throughout the world.
 
-In this exercise, you'll create an Azure event hub to provide input to Azure Stream Analytics and configure it to so that it can be accessed safely and securely by IoT devices. 
+In this exercise, you'll create an Azure event hub to provide input to Azure Stream Analytics and configure it to so that it can be accessed safely and securely by IoT devices and gateways. 
 
-1. You can't (yet) create an event hub using the Preview Portal, so you'll create it instead using the Classic Portal. Go to [https://manage.windowsazure.com](https://manage.windowsazure.com) to open the Classic Portal, and click **Service Bus** in the ribbon on the left. Then click **CREATE A NEW NAMESPACE** to create a new service-bus namespace. (If you have already created one or more namespaces, click **+ NEW** in the lower-left corner of the page to create another one.)
+1. You can't (yet) create an event hub using the Azure Preview Portal, so you'll create it instead using the Classic Portal. Go to [https://manage.windowsazure.com](https://manage.windowsazure.com) to open the Classic Portal, and click **Service Bus** in the ribbon on the left. Then click **CREATE A NEW NAMESPACE** to create a new service-bus namespace. (If you have already created one or more namespaces, click **+ NEW** in the lower-left corner of the page to create another one.)
 
     ![Azure Service Bus](images/service-bus-screen.png)
 
     _Azure Service Bus_
 
-1. Type a namespace name into the **NAMESPACE NAME** box. The name must be globally unique, so you'll have to use something other than the name in the screen shot below. (A green check mark will appear in the box when the name you've entered is one that Azure will accept.) Optionally choose the region closest to you from the **REGION** drop-down. Then click the check mark in the lower-right corner of the dialog.
+1. Type a namespace name into the **NAMESPACE NAME** box. The name must be unique within Azure, so you'll have to use something other than the name in the screen shot below. (A green check mark will appear in the box when the name you've entered is one that Azure will accept.) Optionally choose the region closest to you from the **REGION** drop-down. Then click the check mark in the lower-right corner of the dialog.
 
     ![New service-bus namespace](images/new-service-bus-namespace.png)
 
     _Creating a service-bus namespace_
 
-1. Click the **+ NEW** button in the lower-left corner of the page. Then click **EVENT HUB**, followed by **QUICK CREATE**. Type "IoTEventHub" into the **EVENT HUB NAME** box (the name doesn't have to be globally unique). Optionally select the region closest to you, and make sure the namespace you created in the previous step is selected in the **NAMESPACE** box. Then click **CREATE A NEW EVENT HUB** in the lower-right corner.
+1. Click the **+ NEW** button in the lower-left corner of the page. Then click **EVENT HUB**, followed by **QUICK CREATE**. Type "IoTEventHub" into the **EVENT HUB NAME** box (the name doesn't have to be unique within Azure). Optionally select the region closest to you, and make sure the namespace you created in the previous step is selected in the **NAMESPACE** box. Then click **CREATE A NEW EVENT HUB** in the lower-right corner.
 
     ![New event hub](images/new-event-hub.png)
 
@@ -110,41 +110,35 @@ You have created an event hub that can ingest events and be used as the source o
 <a name="Exercise2"></a>
 ## Exercise 2: Create a shared-access signature token ##
 
-Applications, devices, or gateways can send events to event hubs using the [Azure Event Hubs REST API](https://msdn.microsoft.com/en-us/library/azure/Dn790674.aspx). Each request transmitted via this API must include a valid [shared-access signature (SAS)](https://azure.microsoft.com/en-us/documentation/articles/service-bus-shared-access-signature-authentication/) token in the Authorization header. SAS tokens are generated from the event hub's URL and the primary key associated with the policy used to communicate with the event hub — for example, the policy named "SendPolicy" that you created in the previous exercise.
+Applications, devices, or gateways can send events to event hubs using the [Azure Event Hubs REST API](https://msdn.microsoft.com/en-us/library/azure/Dn790674.aspx). Each request transmitted via this API must include a valid [shared-access signature (SAS)](https://azure.microsoft.com/en-us/documentation/articles/service-bus-shared-access-signature-authentication/) token in the Authorization header. SAS tokens are generated from the event hub's URL and the primary key associated with the policy used to communicate with the event hub — in this case, the policy named "SendPolicy" that you created in the previous exercise.
 
 In this exercise, you will generate a shared-access signature token for the event hub created in [Exercise 1](#Exercise1) and copy it, along with the event hub URL, into a Node.js application that will be used to send events to the event hub in Exercise 3.
 
 1. Neither the Classic Portal nor the Preview Portal currently provides an interface for generating SAS tokens. Therefore, you will generate a token using a Node.js utility named sas.js provided with this lab. Begin by opening a terminal window.
 
-1. Verify that Node.js is installed on your computer by executing the following command in the terminal window:
+1. Verify that Node.js is installed on your computer by executing the following command:
 
 	<pre>
 	node -v
 	</pre>
 
-	If Node.js is installed, you'll be told what version is installed (but probably shown a different version number than the one shown here):
-
-	<pre>
-	v0.12.2
-	</pre>
-
-	If you don't see similar output, or if the **node** command didn't run at all, then you need to install Node.js. You'll find detailed instructions for installing it on Linux, OS X, and Windows at [https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/) in the section entitled "Installing and using Node.js and npm." **If you don't already have Node.js installed, install it now**.
+	If Node.js is installed, you'll see the Node.js version number.	If you don't see a version number, or if the **node** command didn't run at all, then you need to install Node.js. You'll find detailed instructions for installing it in Exercise 2 of the lab titled "Azure Storage and the Azre CLI." **If you don't already have Node.js installed, install it now**.
 
 	> You already have Node.js installed if you completed the **Azure Storage and the Azure CLI** lab because the Azure CLI requires Node.js.
 
-1. In the terminal window, navigate to this lab's "resources" directory. Then execute the following command:
+1. At the command prompt, navigate to this lab's "resources" directory. Then execute the following command:
 
 	<pre>
 	node sas.js
 	</pre>
 
-	> It is very important that you run this command in the lab's "resources" directory, because the "resources" directory contains subdirectories that in turn contain components required by sas.js.
+	> It is very important that you run this command from the lab's "resources" directory, because that directory contains subdirectories that in turn contain components required by sas.js.
 
 1. When prompted, enter the event-hub URL you saved in Exercise 1, Step 9. Then press Enter.
 
-1. When prompted, enter the name of the policy you created for the Azure event hub in Exercise 1, Step 6. Then press Enter.
+1. When prompted, enter the name ("SendPolicy") of the policy you created for the Azure event hub in Exercise 1, Step 6. Then press Enter.
 
-1. When prompted, enter the key that you copied to the clipboard in Exercise 1, Step 7. Then press Enter.
+1. When prompted, enter the key that you saved in Exercise 1, Step 7. Then press Enter.
 
 1. The SAS token, which is highlighted with the red box below, will be output to the terminal window. Copy it to the clipboard. 
 
@@ -152,7 +146,7 @@ In this exercise, you will generate a shared-access signature token for the even
 
     _Generating a SAS token_
 
-1. Find the file named eventgen.js in the "resources" subdirectory of this lab and open it in your favorite text editor. Then find the section at the top of the file labeled "KEY VARS:"
+1. Find the file named eventgen.js in the "resources" directory of this lab and open it in your favorite text editor. Then find the section at the top of the file labeled "KEY VARS:"
 
 	<pre>
 	///////////////// KEY VARS /////////////////
@@ -181,7 +175,7 @@ Now that you've modified eventgen.js with information specific to your event hub
 
 In this exercise, you will send events to the event hub you created in [Exercise 1](#Exercise1). To do that, you'll use Node.js to run eventgen.js, which in turn transmits secure requests to the event hub using the [Azure Event Hubs REST API](https://msdn.microsoft.com/en-us/library/azure/Dn790674.aspx). eventgen.js generates simulated events representing ATM withdrawals. Each event contains relevant information such as the card number used for the withdrawal, the time and amount of the withdrawal, and a unique identifier for the ATM machine used.
 
-1. Open a terminal window and navigate to the "resources" directory of this lab.
+1. At a command prompt, navigate to the "resources" directory of this lab.
 
 1. Now execute the following command:
 
@@ -208,7 +202,7 @@ In this exercise, you will send events to the event hub you created in [Exercise
 
 1. After 10 to 20 events have been sent, press Ctrl+C (or whatever key combination your operating system supports for terminating an application running in a terminal window) to stop the flow of events. **Leave the terminal window open so you can return to it later.**
 
-1. Return to the Azure [Classic Portal](https://manage.windowsazure.com) and open the dashboard for the event hub you created in [Exercise 1](#Exercise1). Wait a few minutes, and then click the **Refresh Metrics** button in the upper-right corner of the chart at the top of the page (the button highlighted in red below). Confirm that the chart shows that several messages have been received.
+1. Return to the [Classic Portal](https://manage.windowsazure.com) and open the dashboard for the event hub you created in [Exercise 1](#Exercise1). Wait a few minutes, and then click the **Refresh Metrics** button in the upper-right corner of the chart at the top of the page (the button highlighted in red below). Confirm that the chart shows that several messages have been received.
 
     ![Messages received](images/incoming-messages.png)
 
@@ -269,9 +263,9 @@ You now have software that sends events to an Azure event hub, and an event hub 
 
 1. Enter "Withdrawals" as a friendly alias for the input in the **INPUT ALIAS** box. In the **CHOOSE A NAMESPACE** and **CHOOSE AN EVENTHUB** boxes, select the namespace and event hub that you created in [Exercise 1](#Exercise1). Leave **EVENT HUB POLICY NAME** set to **RootManageSharedAccessKey** (that's a default policy that's created automatically when you create an event hub; it grants permission to manage the event hub, send events, and receive events) and **CHOOSE A CONSUMER GROUP** set to **$Default**. Then click the right-arrow in the lower-right corner.
 
-    ![Specifying an event hub](images/add-input-dialog-3.png)
+    ![Specifying event-hub settings](images/add-input-dialog-3.png)
 
-    _Specifying an event hub_
+    _Specifying event-hub settings_
 
 1. Make sure **JSON** is selected under **EVENT SERIALIZATION FORMAT** (the Node.js application that sends events to the event hub indeed sends JSON data), and **UTF8** is selected under **ENCODING**. Then click the check mark in the lower-right corner to finish adding the input.
 
@@ -328,7 +322,7 @@ Now that your job is set up, there's much more you can do with Stream Analytics 
 
 To flag potentially fraudulent withdrawals from ATMs, you will query for transactions performed with the same ATM card at different ATM machines within a specified time window (60 seconds). In real life, you would probably use a larger time window and perhaps even factor in the distance between ATM machines. However, a narrower time window is useful in a lab environment because it allows you to perform meaningful experiments in minutes rather than hours.
 
-1. Begin by clicking **QUERY** at the top of the A4R-Analytics page.
+1. Begin by returning to the Stream Analytics job in the portal and clicking **QUERY** at the top of the page.
 
     ![Navigating to the Query page](images/query-tab.png)
 
@@ -340,13 +334,13 @@ To flag potentially fraudulent withdrawals from ATMs, you will query for transac
 	SELECT * FROM Withdrawals
 	</pre>
 
-	> Where did the name "Withdrawals" come from? That's the name you assigned to the event-hub input in the previous exercise. If you named it differently, you'll need to replace "Withdrawals" with the input name you used.
+	> Where did the name "Withdrawals" come from? That's the alias you assigned to the event-hub input in the previous exercise. If you named it differently, you'll need to replace "Withdrawals" with the input name you used.
 
     ![Testing a query](images/query-all.png)
 
     _Testing a query_
 
-1. In the ensuing dialog, click **BROWSE FOR FILE**. Select the file named Withdrawals.json provided in the "resources" folder of this lab. Then OK the selection by clicking the check mark in the dialog's lower-right corner.
+1. In the ensuing dialog, click **BROWSE FOR FILE**. Select the file named Withdrawals.json provided in the "resources" directory of this lab. Then OK the selection by clicking the check mark in the dialog's lower-right corner.
 
 	> The reason you're using a file provided for you (rather than the one you captured in the previous exercise) is to make sure everyone who is doing this exercise gets the same results. eventgen.js uses JavaScript's Math.random() function to randomize results, and Math.random() does not produce repeatable sequences of pseudo-random numbers.
 
@@ -392,7 +386,9 @@ To flag potentially fraudulent withdrawals from ATMs, you will query for transac
 	WHERE W1.DeviceID != W2.DeviceID
 	</pre>
 
-1. This time the output should contain just three rows, each representing two transactions performed with one ATM card at two different locations:
+	> TIMESTAMP BY is an important element of the Stream Analytics Query Language. If it was omitted from the query above, you would be querying for transactions that arrived *at the event hub* within 60 seconds of each other, regardless of when the transactions were actually performed. TIMESTAMP BY allows you to specify a field in the input stream to serve as the basis for comparisons performed with functions such as DATEDIFF.
+
+1. This time the output should contain just three rows, each representing two transactions performed with one ATM card at two different locations within 60 seconds of each other:
 
     ![Potentially fraudulent transactions](images/query-results-3.png)
 
@@ -431,7 +427,7 @@ In this exercise, you'll configure the Stream Analytics job to store output in s
 
     _Specifying the output type_
 
-1. Type "Flagged-Withdrawals" into the **OUTPUT ALIAS** box. Select the storage account you want to use for the output blobs (feel free to create a new account if you prefer). Make sure **Create a new container** is selected to create a new blob container, and type "a4r-analytics" into the **CONTAINER** box. Type "withdrawals/{date}/{time}" into the **PATH PREFIX PATTERN** box. Then click the right-arrow in the lower-right corner.
+1. Type "Flagged-Withdrawals" into the **OUTPUT ALIAS** box. Select the storage account you want to use for the output blobs (feel free to create a new account if you prefer). Make sure **Create a new container** is selected to create a new blob container to hold the output, and type "a4r-analytics" into the **CONTAINER** box. Type "withdrawals/{date}/{time}" into the **PATH PREFIX PATTERN** box. Then click the right-arrow in the lower-right corner.
 
 	> Each time you run a Stream Analytics job configured with a blob output, a new blob with a unique name is created. The purpose of **PATH PREFIX PATTERN** is to allow you to embed meaningful information, such as the time and date the job was executed, in the blob's name.  
 
@@ -457,7 +453,7 @@ In this exercise, you'll configure the Stream Analytics job to store output in s
 
     _Starting the output_
 
-1. Return to the Node.js window in which you ran eventgen.js and execute the following command to run it again:
+1. Return to the terminal window in which you ran eventgen.js and execute the following command to run it again:
 
 	<pre>
 	node eventgen.js
@@ -497,7 +493,7 @@ In this exercise, you'll configure the Stream Analytics job to store output in s
 
 1. Click the **DOWNLOAD** button at the bottom of the page to download the blob containing the output from the Stream Analytics job.
 
-	> If there are no blobs in the container, you probably didn't run the job long enough. If that's the case, repeat steps 6 through 14 of this exercise. The longer the job runs, the more likely it is that potentially fraudulent transactions will occur. If there are no such transactions — that is, if the job produced no output — then no blob is created.
+	> If there are no blobs in the container, wait a few minutes and check the container again. Sometimes a blob created by a Stream Analytics job appears immediately, and at other times, it may take 10 minutes or more to show up.
 
     ![Downloading the output](images/a4r-analytics-blobs.png)
 
@@ -521,8 +517,8 @@ Azure Stream Analytics is a powerful tool for analyzing live data streams from I
 - Create an Azure event hub and use it as a Stream Analytics input
 - Create a shared access signature that allows event hubs to be called securely using REST APIs
 - Create a Stream Analytics job and test queries on sample data streams
-- Create a Stream Analytics job and perform queries on live data streams
-- Create a rule that detects anomalies in streaming data
+- Run a Stream Analytics job and perform queries on live data streams
+- Create a rule (query) that detects anomalies in streaming data
 - Use that rule to record anomalies in Azure blobs
 
 One drawback to hard-coding rules into Stream Analytics is that rules don't "learn" from the data streams, which can lead to false positives in anomaly detection. If this concerns you, read the article entitled [Anomaly Detection – Using Machine Learning to Detect Abnormalities in Time Series Data](http://blogs.technet.com/b/machinelearning/archive/2014/11/05/anomaly-detection-using-machine-learning-to-detect-abnormalities-in-time-series-data.aspx) in the Azure team's Machine Learning blog. In it, they present an anomaly detection service accessible through a REST API that uses Azure Machine Learning to learn from the data presented to it. Imagine combining the power of Stream Analytics to extract information from real-time data streams with the power of Azure Machine Learning to learn from that information and refine the analytics on the fly. This is precisely the type of solution that Microsoft Azure empowers you to build!
