@@ -48,51 +48,57 @@ The [Azure Portal](https://portal.azure.com) allows you to perform basic storage
 
 1. Go to the [Azure Portal](https://portal.azure.com/) and sign in using the Microsoft credentials associated with your subscription.
  
-1. The first step in using Azure Storage is to create one or more storage accounts. To create a storage account, click **+ NEW** in the ribbon on the left. Then click **Data + Storage** in the "Create" blade, followed by **Storage account** in the "Data + Storage" blade.
+1. The first step in using Azure Storage is to create one or more storage accounts. To create a storage account, click the **+** sign in the ribbon on the left. Then click **Storage account**.
 
-    ![Creating a storage account](images/pp-new-storage-account.png)
+    ![Creating a storage account](images/new-storage-account.png)
 
     _Creating a storage account_
 
-1. Make sure **Classic** is selected as the deployment model, and then click the **Create** button.
+1. Select **Resource Manager** in the drop-down list under **Select a deployment model**, and then click the **Create** button.
 
-	![Selecting a deployment model](images/pp-deployment-model.png)
+	![Selecting a deployment model](images/deployment-model.png)
 
 	_Selecting a deployment model_
 
-1. Enter a name for the new storage account in **Storage** field. The name is important, because it forms one part of the URL through which storage items created under this account will be accessed. Storage account names can be 3 to 24 characters in length and can only contain numbers and lowercase letters. In addition, the name you enter must be unique within Azure; if someone else has chosen the same name, you'll be notified that the name isn't available.
+1. Enter a name for the new storage account in **Name** field. The name is important, because it forms one part of the URL through which storage items created under this account will be accessed. Storage account names can be 3 to 24 characters in length and can only contain numbers and lowercase letters. In addition, the name you enter must be unique within Azure; if someone else has chosen the same name, you'll be notified that the name isn't available.
 
-	Once you have a name that Azure will accept (as indicated by the green check mark in the text field), click **location** and choose the region nearest you. Then click the **Create** button to create the new storage account.
+	Once you have a name that Azure will accept (as indicated by the green check mark in the text field), type "A4R-Labs" (without quotation marks) into the **Resource group** field, and click **Location** and choose the region nearest you. Then click the **Create** button to create the new storage account.
  
-    ![Naming a storage account](images/pp-name-storage-account.png)
+    ![Specifying parameters for a new storage account](images/name-storage-account.png)
 
-    _Naming a storage account_
+    _Specifying parameters for a new storage account_
 
-	> You accepted the defaults for most storage-account settings, including **Resource Group**. Resource groups are a relatively recent addition to Azure and are a powerful construct for grouping resources such as storage accounts, databases, and virtual machines together so that they can be managed as a group. Imagine that you created a complex application consisting of multiple storage accounts, a cluster of VMs, a SQL database, and perhaps a Stream Analytics solution and a pair of event hubs. Now you want to create a new instance of the application using a different account. By assembling all these resources into a resource group, you can take advantage of [Azure deployment templates](https://azure.microsoft.com/en-us/documentation/articles/arm-template-deployment/) to script the creation of the entire application. In addition, you can delete the application — and all the resources that comprise it — by deleting the resource group.
+	> Resource groups are a relatively recent addition to Azure and are a powerful construct for grouping resources such as storage accounts, databases, and virtual machines together so that they can be managed as a group. Imagine that you created a complex application consisting of multiple storage accounts, a cluster of VMs, a SQL database, and perhaps a Stream Analytics solution and a pair of event hubs. Now you want to create a new instance of the application using a different account. By assembling all these resources into a resource group, you can take advantage of [Azure deployment templates](https://azure.microsoft.com/en-us/documentation/articles/arm-template-deployment/) to script the creation of the entire application. In addition, you can use role-based security to restrict access to resources in a resource group, and you can delete the application — and all the resources that comprise it — by deleting the resource group.
 	
-	> You will take advantage of resource groups and deployment templates in subsequent labs. For now, just realize that any time you create a storage account or other Azure resource, you have the option of including it in a new or existing resource group.
+	> You will take advantage of resource groups and deployment templates in subsequent labs. For now, the fact that you placed your new storage account into a resource group named "A4R-Labs" means that you can later place other Azure resources into that group, and if you ever want to delete all of them, you can simply delete the resource group.
 
-1. After a few moments, a blade for the new storage account will appear. Click the key icon to open the "Manage keys" blade.
+1. After a few moments (it generally takes just a few seconds, but can sometimes take several minutes), a tile representing the new storage account will appear on your dashboard. Click the tile to open a blade for the storage account.
+ 
+    ![Tile representing the new storage account](images/storage-account-tile.png)
 
-    ![The new storage account](images/pp-view-keys.png)
+    _Tile representing the new storage account_
 
-    _The new storage account_
+1. In the blade for the storage account, click the key icon to open the "Access keys" blade.
 
-1. This blade shows the access keys associated with the account. You'll use the primary access key a lot when using the Azure CLI, because any CLI command that accesses storage will require an account name and an account key for authentication. Go ahead and save the primary key in a location where you can easily access it later in this lab. You can click the button to the right of **PRIMARY ACCESS KEY** to copy it to the clipboard, and then paste it into your favorite text editor or wherever else is convenient.
+    ![Viewing access keys](images/view-keys.png)
 
-    ![The storage account's access keys](images/pp-manage-keys.png)
+    _Viewing access keys_
+
+1. This blade shows the access keys associated with the account. You'll use the primary access key a lot when using the Azure CLI, because any CLI command that accesses storage will require an account name and an account key for authentication. Go ahead and save the primary key in a location where you can easily access it later in this lab. You can click the button to the right of the first **KEY1** to copy it to the clipboard, and then paste it into your favorite text editor or wherever else is convenient.
+
+    ![The storage account's access keys](images/access-keys.png)
 
     _The storage account's access keys_
 
-1. Return to the blade for the storage account and click **Containers** to view a list of containers associated with this account.
+1. Return to the blade for the storage account and click **Blob service** to view a list of containers associated with this account.
 
-    ![Viewing storage containers](images/pp-view-storage-containers.png)
+    ![Viewing storage containers](images/view-containers.png)
 
     _Viewing storage containers_
 
 1. The storage account currently has no containers. Before you create a blob, you must create a container to store it in. Currently, neither containers nor blobs can be created using the Azure Preview Portal. Therefore, you'll turn to the go-to tool for performing tasks that the portal cannot: the Azure Cross-Platform Command-Line Interface.
 
-    ![The empty storage account](images/pp-no-containers.png)
+    ![The empty storage account](images/no-containers.png)
 
     _The empty storage account_
 
@@ -179,7 +185,7 @@ The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en
 
 1. Your default browser will open and inform you that a publishSettings file is being generated and downloaded. (Note that if there are multiple Azure subscriptions associated with your account, you may be asked which subscription you wish to download information for. If so, **choose the subscription that you used to perform the steps in Exercise 1**. This is the one that will be charged for the work you do in the CLI, and the one for which the storage account you created will be visible.) If your browser doesn't automatically save the downloaded file, save it and note the location in the file system where it was saved.
 
-    ![Downloading the publishSettings file](images/pp-publishsettings-download.png)
+    ![Downloading the publishSettings file](images/publishsettings-download.png)
 
 	_Downloading the publishSettings file_
 
@@ -244,7 +250,7 @@ _Blob storage schema_
 
 In this exercise, you will create a container named "images" in the storage account you created  in [Exercise 1](#Exercise1). Then you will upload blobs to it and learn how to access those blobs in the portal.
 
-1. At your system's command prompt, execute the following command, replacing *[accountname]* with the name of your storage account and *[accountkey]* with the account's primary access key.
+1. At a command prompt, execute the following command, replacing *[accountname]* with the name of your storage account and *[accountkey]* with the account's primary access key.
 
     <pre>
     azure storage container create -a [accountname] -k [accountkey] -p blob images
@@ -271,7 +277,7 @@ In this exercise, you will create a container named "images" in the storage acco
 
 	Notice the line in the output that reads "publicAccessLevel: 'Blob'". By default, the containers you create are private, which means that the container and its contents can only be accessed by the owner of the storage account (or anyone who has the container's access key). However, the "-p blob" switch you included in the command that created the container allows anonymous read access to blobs in that container. This is generally the way you configure a container that holds images and other public assets for Web sites. 
 
-1. The next step is to create a blob by uploading a file to the "images" container. The file you will upload is named azure-banner.jpg and is provided for you with this lab. At the command prompt, navigate to this lab's "resources" directory, making it the current directory.
+1. The next step is to create a blob by uploading a file to the "images" container. The file you will upload is named azure-banner.jpg and is provided for you in the "resources" directory of this lab. At the command prompt, navigate to this lab's "resources" directory.
 
 1. Execute the following command, replacing *[accountname]* with the storage account's name and *[accountkey]* with the storage account's key to create a blob named "banner.jpg:"
 
@@ -311,33 +317,33 @@ In this exercise, you will create a container named "images" in the storage acco
 
 	_Image blob downloaded from Azure storage_
 
-1. You can also see the blob that you uploaded in the Azure Portal. To see it, return to the [Azure Portal](https://portal.azure.com) in your browser. Click **BROWSE ALL**, and then **Storage accounts (classic)**. Then click the storage account you created in Exercise 1.
+1. You can also see the blob that you uploaded in the Azure Portal. To see it, return to the [Azure Portal](https://portal.azure.com) in your browser. Click **Storage accounts** in the ribbon on the left. Then click the storage account you created in Exercise 1.
 
-    ![Viewing storage accounts](images/pp-view-storage-account.png)
+    ![Viewing storage accounts](images/view-storage-account.png)
 
     _Viewing storage accounts_
 
-1. Click **Containers** to view the containers associated with this storage account.
+1. Click **Blob service** to view the containers associated with this storage account.
 
-    ![Viewing storage containers](images/pp-view-storage-containers.png)
+    ![Viewing storage containers](images/view-containers.png)
 
     _Viewing storage containers_
 
 1. Click the "images" container to view its contents.
 
-    ![Viewing the blobs in the "images" container](images/pp-view-images-container.png)
+    ![Viewing the blobs in the "images" container](images/view-images-container.png)
 
     _Viewing the blobs in the "images" container_
 
 1. Verify that banner.jpg appears in the list of blobs. Then click it to open the "Blob properties" blade.
 
-    ![Image blob uploaded to Azure storage](images/pp-uploaded-blob.png)
+    ![Image blob uploaded to Azure storage](images/uploaded-blob.png)
 
 	_Image blob uploaded to Azure storage_
 
 1. Click the **Download** button at the top of the blade to download and open banner.jpg. Confirm that you see the same image you saw before.
 
-    ![Downloading a blob](images/pp-blob-properties.png)
+    ![Downloading a blob](images/download-blob.png)
 
 	_Downloading a blob_
 
