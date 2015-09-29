@@ -12,7 +12,7 @@ An increasingly popular tool for analyzing big data is [Apache Hadoop](https://h
 
 Even if you are experienced running your own hardware Hadoop clusters, you will find this lab valuable because it acquaints you with the process of running and managing Hadoop clusters provisioned by HDInsight. Once your HDInsight Hadoop cluster is running, most of the operations you perform on it are identical to the ones you would perform on you own hardware. The primary difference is that Azure's Hadoop implementation uses Azure blob storage as backing for the Hadoop Distributed File System (HDFS).
 
-This hands-on lab focuses on using HDInsight with Hadoop running on Linux clusters. 
+This hands-on lab focuses on using HDInsight with Hadoop running on Linux clusters.
 
 <a name="Objectives"></a>
 ### Objectives ###
@@ -56,13 +56,13 @@ For simplicity, this exercise will use password access when using Secure Shell (
 
 1. Log into the [Azure Portal](https://portal.azure.com) with your Microsoft ID.
 
-1. To start the creation process, click **+ NEW** in the upper-left hand corner. In the "Create" blade, click **Data + Analytics**. This will bring up the "Data + Analytics" blade. Click **HDInsight** in that blade.
+1. To start the creation process, click **+ NEW** in the upper-left hand corner. In the **New** blade, click **Data + Analytics**. This will bring up the "Data + Analytics" blade. Click **HDInsight** in that blade.
 
     ![First step in creating an HDInsight cluster](Images/ex1-data-analytics-hdinsight.png)
 
     _First step in creating an HDInsight cluster_
 
-1. In the "New HDInsight Cluster" blade, you're required to fill out various fields. The first one, **Cluster Name**, specifies the unique Domain Name System (DNS) name for the cluster so you can access it from an SSH session. When you move to another field, the name is validated and you're notified if the name isn't available. Remember this name, because you will need it to log in to the HDInsight cluster.
+1. In the **New HDInsight Cluster** blade, you are required to fill out various fields. The first one, **Cluster Name**, specifies the unique Domain Name System (DNS) name for the cluster so you can access it from an SSH session. When you move to another field, the name is validated and you're notified if the name isn't available. Remember this name, because you will need it to log in to the HDInsight cluster.
 
 	The drop-down list in the **Cluster Type** field specifies the type of cluster to create. For this exercise, select **Hadoop**.
 
@@ -94,16 +94,13 @@ For simplicity, this exercise will use password access when using Secure Shell (
 
 	Enter a name for the account in the **Create a new storage account** box. Remember that the name you specify must be all lowercase. If you want the default blob container to be different than the one created from your cluster name, you can change that as well. When you're finished, click the **Select** button at the bottom of the blade.
 
-
     ![The Data Source Blade](Images/ex1-data-source.png)
 
     _The Data Source Blade_
 
     For nearly all Hadoop file operations, the Azure blob storage implementation will be seamless if you are coming from your own Hadoop clusters. One small difference is that native Hadoop Distributed File System (HDFS) commands that are platform-dependent — commands such as fschk and dfsadmin — are different when applied to blob storage.
 
-1. Click **Node Pricing Tiers** to bring up the "Node Pricing Tiers" blade. Here you can configure the number of nodes and the types of virtual machines you want to run. For this exercise, the defaults are fine, but feel free to reduce the number of nodes to two if you would like. Additionally, you can change the types of virtual machines used for worker nodes and head nodes. Obviously, selecting higher-performance virtual machines will cost you more per hour. At the bottom of the blade, you can see exactly how much the setup you are considering will cost per hour. Once you have set the number and types of nodes you want, click the **Select** button at the bottom.
-
-    _The screen shot below shows a total cost calculation valid at the time the screen shot was taken. Your cost may be different. To Learn about the current HDInsight prices, read the [HDInsight Pricing](http://azure.microsoft.com/en-us/pricing/details/hdinsight/) page._
+1. Click **Node Pricing Tiers** to bring up the "Node Pricing Tiers" blade. Here you can configure the number of nodes and the types of virtual machines you want to run. For this exercise, reduce the number of nodes to two. Additionally, you can change the types of virtual machines used for worker nodes and head nodes. Obviously, selecting higher-performance virtual machines will cost you more per hour. At the bottom of the blade, you can see exactly how much the setup you are considering will cost per hour. Once you have set the number and types of nodes you want, click the **Select** button at the bottom.
 
     ![Node pricing tiers](Images/ex1-node-pricing.png)
 
@@ -115,49 +112,57 @@ For simplicity, this exercise will use password access when using Secure Shell (
 
     _Creating the new cluster_
 
-1. Once the deployment is finished, you can view the new HDInsight cluster in the portal by selecting **Browse All** and in the "All resources" blade, clicking on your HDInsight cluster. Look for the Hadoop elephant logo.
+1. You can view the state of new HDInsight cluster in the portal by selecting **Resource groups** in the left hand navigation bar, and in the **Resource groups** blade, clicking on the resource group you created as part of this exercise.
 
-    ![Browsing for the new HDInsight cluster](Images/ex1-browse-hdinsight.png)
+    ![Browsing for the new HDInsight resource group](Images/ex1-browse-resource-group.png)
 
-    _Browsing for the new HDInsight cluster_
+    _Browsing for the new HDInsight resource group_
+
+	![The cluster is still in the Deploying state](Images/ex1-deploying-state.png)
+
+	_The cluster is still in the Deploying state_
+
+	![The cluster succeeded](Images/ex1-deployment--succeeded.png)
+
+	_The deployment succeeded_
 
 1. With the HDInsight cluster now ready to go, you need to log in and execute a Hive job to prepare the cluster. **If you're a Windows user, skip to Step 12**. Otherwise, proceed to the next step.
 
-1. Open a terminal window so you can use the ssh command to establish a connection. You will need the user name and password for the SSH user you created earlier. Execute the following command in the terminal window, replacing the items in brackets with your SSH user name and HDInsight cluster name.
+1. (Linux OS X Users) Open a terminal window so you can use the ssh command to establish a connection. You will need the user name and password for the SSH user you created earlier. Execute the following command in the terminal window, replacing _username_ with your username and hdinisghtclustername with the name of your HDInsight cluster.
 
     <pre>
-    ssh &lt;username&gt@&lt;hdinsight cluster name&gt-ssh.azurehdinsight.net
+    ssh <i>username</i>@<i>hdinsightclustername</i>-ssh.azurehdinsight.net
     </pre>
 
-	**Now skip to Step 16**. Steps 13 through 15 are for Windows users only.
+	**Now skip to Step 16**. Steps 12 through 15 are for Windows users only.
 
-1. If you installed PuTTY with the installer, press the Windows key and type "putty" to start it. If you installed PuTTY by copying files, use Explorer to find and run putty.exe. In the **Host Name (or IP address)** field, enter &lt;username&gt;@&lt;hdinsight cluster name&gt;-ssh.azurehdinsight.net, substituting your SSH username and HDInsight cluster name for the parameters in angle brackets. Then click the **Open** button to open a connection.
+1. (Windows Users) If you installed PuTTY with the installer, press the Windows key and type "putty" to start it. If you installed PuTTY by copying files, use Explorer to find and run putty.exe. In the **Host Name (or IP address)** field, enter _username_@_hdinsightclustername_-ssh.azurehdinsight.net, substituting your SSH username and HDInsight cluster name for _username_ and _hdinsightclustername_, respectively. Then click the **Open** button to open a connection.
 
     <pre>
-    &lt;username&gt;@&lt;hdinsight cluster name&gt;-ssh.azurehdinsight.net
+    <i>username</i>@<i>hdinsightclustername</i>-ssh.azurehdinsight.net
     </pre>
 
     ![Establishing a connection with PuTTY](Images/ex1-putty-host.png)
 
     _Establishing a connection with PuTTY_
 
-1. Because this is the first time you are connecting to the master node, PuTTY will display a warning dialog. Since the virtual machines are ones you created, it is safe to click **Yes**, but you can click **No** if you don't want to cache the RSA2 fingerprint.
+1. (Windows Users) Because this is the first time you are connecting to the master node, PuTTY will display a warning dialog. Since the virtual machines are ones you created, it is safe to click **Yes**, but you can click **No** if you don't want to cache the RSA2 fingerprint.
 
     ![PuTTY security alert](Images/ex1-putty-warning.png)
 
     _PuTTY security alert_
 
-1. After you click **Yes** or **No**, a console window will appear and you will be prompted to **login as**. Enter the name of the SSH user you created earlier. Press the Enter key, and then type your SSH password and press Enter key again.
+1. (Windows Users) After you click **Yes** or **No**, a console window will appear and you will be prompted to **login as**. Enter the name of the SSH user you created earlier. Press the Enter key, and then type your SSH password and press Enter key again.
 
-1. If your entered your user name and password correctly, you will see something like the following:
+1. (Windows Users) If your entered your user name and password correctly, you will see something like the following:
 
     <pre>
-    The authenticity of host <hdinsight cluster name>-ssh.azurehdinsight.net (138.91.XXX.XXX)' can't be established.
+    The authenticity of host <i>hdinsightclustername</i>-ssh.azurehdinsight.net (138.91.XXX.XXX)' can't be established.
     RSA key fingerprint is 34:8d:4e:58:6d:d2:ff:db:1b:10:6f:XX:XX:XX:XX:XX.
     Are you sure you want to continue connecting (yes/no)? yes
-    Warning: Permanently added '&lthdinsight cluster name&gt-ssh.azurehdinsight.net,138.91.XXX.XXX' (RSA) to the list of known hosts.
+    Warning: Permanently added '<i>hdinsightclustername</i>-ssh.azurehdinsight.net,138.91.XXX.XXX' (RSA) to the list of known hosts.
     Ubuntu 12.04.5 LTS
-    &ltusername&gt@&lthdinsight cluster name&gt-ssh.azurehdinsight.net's password:
+    <i>username</i>@<i>hdinsightclustername</i>-ssh.azurehdinsight.net's password:
     Welcome to Ubuntu 12.04.5 LTS (GNU/Linux 3.13.0-61-generic x86_64)
 
     Documentation:  https://help.ubuntu.com/
@@ -179,8 +184,7 @@ For simplicity, this exercise will use password access when using Secure Shell (
     To run a command as administrator (user "root"), use "sudo <command>".
     See "man sudo_root" for details.
 
-    &ltusername&gt@headnode0:~$
-
+    <i>username</i>@headnode0:~$
     </pre>
 
 1. In your terminal or PuTTY window, start the Hive command-line interface by running the following command:
@@ -400,35 +404,60 @@ In this exercise, which is based on a sample from[ Michael Noll](http://www.mich
 1. (OS X and Linux Users) The two Python scripts are provided for you in the directory called HadoopSource, which is in the same location as this PDF file. You need to get those two files to your HDInsight cluster you created in Exercise 1. Open a Terminal window and change to that directory. For example, if you copied these files to your Documents directory and put them in a directory called A4R, you would issue the following command
 
     <pre>
-    cd ~/Documents/A4R/BigData/Hadoop\ and Spark\ on\ Linux\ HOL /HadoopSource
+    cd ~/Documents/A4R/BigData/Hadoop\ on\ Linux\ HOL /HadoopSource
     </pre>
 
-1. (OS X and Linux Users) Using the **username** and **password** for the SSH account you created earlier, execute the secure copy command to copy the mapper.py and reduce.py files to your HDInsight cluster.
+1. (OS X and Linux Users) Using the **username**, **password**, and **cluster name** for the SSH account you created earlier, execute the secure copy command to copy the mapper.py and reduce.py files to your HDInsight cluster by replacing _username_ and _hdinsightclusername_ with the appropriate values.
 
     <pre>
-    scp &#42.py &lt;username&gt;@&lthdinsight cluster name&gt-ssh.azurehdinsight.net:
+    scp &#42.py <i>username</i>@<i>hdinsightclustername</i>-ssh.azurehdinsight.net:
     </pre>
 
     If the copy worked you will see output like the following.
 
     <pre>
-    $ scp &#42.py &lt;username&gt;@&lt;hdinsight cluster name&gt;-ssh.azurehdinsight.net:
+    $ scp &#42.py <i>username</i>@<i>hdinsightclustername</i>-ssh.azurehdinsight.net:
     Ubuntu 12.04.5 LTS
-    &lt;username&gt;@&lt;hdinsight cluster name&gt;-ssh.azurehdinsight.net's password:
+    <i>username</i>@<i>hdinsightclustername</i>-ssh.azurehdinsight.net's password:
     mapper.py                                                                     100%  534     0.5KB/s   00:00
     reducer.py                                                                    100% 1184     1.2KB/s   00:00
     </pre>
 
-1. (OS X and Linux Users) To SSH into your HDInsight cluster, enter the following command in your terminal window replacing the items in brackets with your SSH **username** and **password**.
+1. (OS X and Linux Users) To SSH into your HDInsight cluster, enter the following command in your terminal window replacing the italic items with your SSH **username** and **cluster name**.
 
     <pre>
-    ssh &lt;username&gt;@&lt;hdinsight cluster name&gt;-ssh.azurehdinsight.net
+    ssh <i>username</i>@<i>hdinsightclustername</i>-ssh.azurehdinsight.net
     </pre>
 
-1. (Windows Users) To SSH into your HDInsight cluster, start the PuTTY application as you in Exercise 1. In the **Host Name (or IP address field).** in the PuTTY user interface, enter the following replacing the items in brackets with your SSH **username** and **password**.
+1. (Windows Users) Start a new PowerShell window. Enter the following command the new window, replacing with your _username_ and _hdinsightclustername_ with the appropriate values for your HDInsight cluster. When you press enter to execute the putty secure copy command, you will be prompt you for the ssh password. Note that this command assumes you installed PuTTY into the default location. If you did not, sustitute the path where you installed it.
 
     <pre>
-    &lt;username&gt;@&lt;hdinsight cluster name&gt;-ssh.azurehdinsight.net
+    &amp; 'C:\Program Files (x86)\PuTTY\pscp.exe' &#42.py <i>username</i>@<i>hdinsightclustername</i>-ssh.azurehdinsight.net:
+    </pre>
+
+    If the pscp command succeeded, you will see output similar to the following. You will be asked if you want to cache the RSA2 fingerprint. You can answer y or n as appropriate.
+
+    <pre>
+    The server's host key is not cached in the registry. You
+    have no guarantee that the server is the computer you
+    think it is.
+    The server's rsa2 key fingerprint is:
+    ssh-rsa 2048 XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX
+    If you trust this host, enter "y" to add the key to
+    PuTTY's cache and carry on connecting.
+    If you want to carry on connecting just once, without
+    adding the key to the cache, enter "n".
+    If you do not trust this host, press Return to abandon the
+    connection.
+    Store key in cache? (y/n) n
+    <i>username</i>@<i>hdinsightclustername</i>-ssh.azurehdinsight.net's password:
+    mapper.py               | 0 kB |   5.1 kB/s | ETA: 00:00:00 | 100%
+    reducer.sh              | 1 kB |   0.5 kB/s | ETA: 00:00:00 | 100%
+
+1. (Windows Users) To SSH into your HDInsight cluster, start the PuTTY application as you in Exercise 1. In the **Host Name (or IP address field).** in the PuTTY user interface, enter the following replacing the italic items with your SSH **username** and **cluster name** and **password**.
+
+    <pre>
+    <i>username</i>@<i>hdinsightclustername</i>-ssh.azurehdinsight.net
     </pre>
 
 1. Now that you are logged into your HDInsight cluster, to start your the Hadoop job, enter the following command line. You may want to copy and paste this command line from he PDF as here are many odd characters. OS X and Linux terminals support pasting directly. For Windows users, you can paste copied text into the PuTTY console by right clicking in it.
@@ -582,17 +611,11 @@ Thanks to resource groups, it is easy to remove an HDInsight cluster. As you lea
 
 1. The first step in removing an HDInsight cluster is to log into the [Azure Portal](https://portal.azure.com).
 
-1. Click **BROWSE ALL** on the left-hand side and in the "Browse" blade, select **Resource groups**.
+1. Click **Resource group** on the left-hand side menu and in the **Resource group blade**, click the resource group you created in [Exercise 1]([#Exercise1]).
 
-    ![Browsing resource groups](Images/ex3-browse-resource-groups.png)
+	![Browsing for your HDInsight resource group](Images/ex1-browse-resource-group.png)
 
-    _Browsing resource groups_  
-
-1. In the "Resource groups" blade, select the resource group you created in Exercise 1.
-
-    ![Selecting a resource group](Images/ex3-resource-group-blade.png)
-
-    _Selecting a resource group_  
+	_Browsing for your HDInsight resource group_
 
 1. In the blade for the resource group, click the **Delete** button.
 
@@ -608,7 +631,7 @@ Thanks to resource groups, it is easy to remove an HDInsight cluster. As you lea
 
     After 10 minutes or so, your HDInsight cluster will be deleted along with all the resources in the resource group.
 
-Hadoop is a powerful tool for analyzing large volumes of data, but HDInsight doesn't stop there. In the next exercise, you'll create and use an HDInsight cluster that uses Apache Spark.
+Hadoop is a powerful tool for analyzing large volumes of data, but HDInsight doesn't stop there. In another lab in this section, you will create and use an HDInsight cluster that uses Apache Spark.
 
 <a name="Summary"></a>
 ## Summary ##
