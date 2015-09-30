@@ -48,7 +48,7 @@ The [Azure Portal](https://portal.azure.com) allows you to perform basic storage
 
 1. Go to the [Azure Portal](https://portal.azure.com/) and sign in using the Microsoft credentials associated with your subscription.
  
-1. The first step in using Azure Storage is to create one or more storage accounts. To create a storage account, click the **+** sign in the ribbon on the left. Then click **Storage account**.
+1. The first step in using Azure Storage is to create one or more storage accounts. To create a storage account, click **+ NEW** in the ribbon on the left. Then click **Data + Storage**, followed by **Storage account**.
 
     ![Creating a storage account](images/new-storage-account.png)
 
@@ -60,6 +60,10 @@ The [Azure Portal](https://portal.azure.com) allows you to perform basic storage
 
 	_Selecting a deployment model_
 
+	> The default demployment model, **Classic**, creates a "classic" storage account that doesn't fall under the purview of the [Azure Resource Manager](https://azure.microsoft.com/en-us/documentation/articles/resource-group-overview/). Specifying **Resource Manager** as the deployment model provides you with more flexibility later on by ensuring that the account is explicitly added to a resource group, and it makes the storage account a first-class citizen in the Azure environment. For more information, see [Understanding Resource Manager deployment and classic deployment](https://azure.microsoft.com/en-us/documentation/articles/resource-manager-deployment-model/).
+
+	> Resource groups are a relatively recent addition to Azure and are a powerful construct for grouping resources such as storage accounts, databases, and virtual machines together so that they can be managed as a group. Imagine that you created a complex application consisting of multiple storage accounts, a cluster of VMs, a SQL database, and perhaps a Stream Analytics solution and a pair of event hubs. Now you want to create a new instance of the application using a different account. By assembling all these resources into a resource group, you can take advantage of [Azure deployment templates](https://azure.microsoft.com/en-us/documentation/articles/arm-template-deployment/) to script the creation of the entire application. In addition, you can use role-based security to restrict access to resources in a resource group, and you can delete the application — and all the resources that comprise it — by deleting the resource group. You will take advantage of resource groups and deployment templates in subsequent labs.
+
 1. Enter a name for the new storage account in **Name** field. The name is important, because it forms one part of the URL through which storage items created under this account will be accessed. Storage account names can be 3 to 24 characters in length and can only contain numbers and lowercase letters. In addition, the name you enter must be unique within Azure; if someone else has chosen the same name, you'll be notified that the name isn't available.
 
 	Once you have a name that Azure will accept (as indicated by the green check mark in the text field), type "A4R-Labs" (without quotation marks) into the **Resource group** field, and click **Location** and choose the region nearest you. Then click the **Create** button to create the new storage account.
@@ -67,10 +71,6 @@ The [Azure Portal](https://portal.azure.com) allows you to perform basic storage
     ![Specifying parameters for a new storage account](images/name-storage-account.png)
 
     _Specifying parameters for a new storage account_
-
-	> Resource groups are a relatively recent addition to Azure and are a powerful construct for grouping resources such as storage accounts, databases, and virtual machines together so that they can be managed as a group. Imagine that you created a complex application consisting of multiple storage accounts, a cluster of VMs, a SQL database, and perhaps a Stream Analytics solution and a pair of event hubs. Now you want to create a new instance of the application using a different account. By assembling all these resources into a resource group, you can take advantage of [Azure deployment templates](https://azure.microsoft.com/en-us/documentation/articles/arm-template-deployment/) to script the creation of the entire application. In addition, you can use role-based security to restrict access to resources in a resource group, and you can delete the application — and all the resources that comprise it — by deleting the resource group.
-	
-	> You will take advantage of resource groups and deployment templates in subsequent labs. For now, the fact that you placed your new storage account into a resource group named "A4R-Labs" means that you can later place other Azure resources into that group, and if you ever want to delete all of them, you can simply delete the resource group.
 
 1. After a few moments (it generally takes just a few seconds, but can sometimes take several minutes), a tile representing the new storage account will appear on your dashboard. Click the tile to open a blade for the storage account.
  
@@ -287,7 +287,7 @@ In this exercise, you will create a container named "images" in the storage acco
     azure storage blob upload -a <i>accountname</i> -k <i>accountkey</i> azure-banner.jpg images banner.jpg
     </pre>
 
-	> In this command, "azure-banner.jpg" is the name of and path to the file you wish to upload (no path name is required since it's in the current directory), "images" is the container you're uploading to, and "banner.jpg" is the name you wish to assign to the blob.
+	> In this command, "azure-banner.jpg" is the name of and path to the file you wish to upload (no path name is required since it's in the current directory), "images" is the container you're uploading to, and "banner.jpg" is the name assigned to the blob.
 
 	If the blob is successfully uploaded, you will receive the following confirmation from the CLI:
 
