@@ -83,7 +83,7 @@ All resources in Azure have to be contained in a resource group. When you create
 
 	> If there are any errors, such as spaces in the resource-group name, the fields containing the errors will be flagged with red excalamation points. Hover the mouse over an exclamation point to get help resolving the error.
 
-1. Resource group creation is quick. Once the group is created, it will appear in the portal. In the screen shot below, the resource group named is "SLURMLabResourceGroup".
+1. Resource group creation is quick. To browse to your new resource group, click **Resource group** on the left side of the portal and click on the named resource group in the **Resource groups** blade. In the screen shot below, the resource group named is "SLURMLabResourceGroup".
 
     ![Empty Resource group blade](Images/empty-resource-group-blade.png)
 
@@ -150,7 +150,7 @@ Let's get started!
 
      _Starting the deployment_
 
-1. The provisioning and loading of the SLURM cluster can take 10 minutes or more. You can monitor the status of the deployment by looking at the resource group. If you pinned the resource group you created in [Exercise 1](#Exercise1), you can double-click it to open it in a blade and see what's happening. If you did not pin the resource group, on the left-hand side of the portal, select **Browse All** followed by **Resource groups** and double-click the resource group. Either way, you will see a blade like the one shown below.
+1. The provisioning and loading of the SLURM cluster can take 10 minutes or more. You can monitor the status of the deployment by looking at the resource group. If you pinned the resource group you created in [Exercise 1](#Exercise1), you can double-click it to open it in a blade and see what's happening. If you did not pin the resource group, on the left-hand side of the portal, select **Resource group** followed by resource group name you created in in [Exercise 1](#Exercise1). Either way, you will see a blade like the one shown below.
 
     ![Checking the deployment](Images/template-status-in-resource.png)
 
@@ -181,19 +181,25 @@ The Python script you will be running on the SLURM cluster to generate grayscale
 
     _Storage account blade_
 
-1. In the storage account's blade, click on **Blobs** to bring up the "Blobs" blade. You'll notice that you already have one container named "vhd." That container was created by the deployment template to hold the virtual hard disks (VHDs) for the three virtual machines.
+1. In the storage account's blade, click on **Blobs** to bring up the "Blobs Service" blade. You'll notice that you already have one container named "vhd." That container was created by the deployment template to hold the virtual hard disks (VHDs) for the three virtual machines.
 
     ![Blobs blade](Images/storage-blob-blade.png)
 
     _Blobs blade_
 
-1. In the "Blobs" blade, click the **Add** button to bring up the "Add a container" blade. For the **Name** field, enter "input" and click the **OK** button at the bottom of the blade. Leave **Access type** set to Private to protect your data. Now add a second blob container named "output". The screen shot below shows what the blade will look like after adding the two containers.
+1. In the "Blobs" blade, click the **Containers** area to bring up the "Containers" blade. Click on the **Add** button to bring up the "New container" blade. the **Name** field, enter "input" and click the **Create** button at the bottom of the blade. Leave **Access type** set to Private to protect your data. Now add a second blob container named "output".
+
+    ![Creating a new container](Images/create-new-blob-container.png)
+
+    _Creating a new container_
+
+    The screen shot below shows what the blade will look like after adding the two containers.
 
     ![Input and output containers](Images/storage-blobs-created.png)
 
     _Input and output containers_
 
-That's it! You now have containers to hold the input and output. The next step is to update the scripts that you will use to process the images. 
+That's it! You now have containers to hold the input and output. The next step is to update the scripts that you will use to process the images.
 
 <a name="Exercise4"></a>
 ## Exercise 4: Update the script files with your Azure information
@@ -214,7 +220,7 @@ The information you need from Azure is the access keys and connection strings fo
 
 1. If you are on OS X or Linux, open your terminal-window tool of choice. On Windows, start PowerShell from the Windows menu.
 
-1. In your terminal program or PowerShell window, change to the directory where you copied the SLURMSource files. 
+1. In your terminal program or PowerShell window, change to the directory where you copied the SLURMSource files.
 
 1. **If you are running OS X or Linux**: In your editor, open copyimages.sh. This script copies the sample images to the input container.
 
@@ -241,7 +247,7 @@ The information you need from Azure is the access keys and connection strings fo
 1. On Windows, replace **<Your Container Key Here\>** in copyimages.ps1 with the connection string on the clipboard, as shown below. **Make sure that the string starts and ends with quotation marks**. Then save the file and close the editor.
 
     <pre>
-	Import-Module Azure	
+	Import-Module Azure
 	Set-Location .\Images
 	$context = New-AzureStorageContext -ConnectionString "DefaultEndpointsProtocol=https;..."
 	dir *.* | ForEach-Object { Set-AzureStorageBlobContent -Container "input" -Blob $_.Name -File $_.Name -Context $context -Force }
@@ -266,7 +272,7 @@ The information you need from Azure is the access keys and connection strings fo
 1. Back in the Azure portal Access key blade, click the button next to the primary access key to copy that key to the clipboard.
 
 1. In the editor, replace **<account key\>** with the key you just copied. Make sure the account key is surrounded by single quotes. The final output will look like the following:
-    
+
 	<pre>
     ########################################################
     # Update these two variables to those for your account.
@@ -294,7 +300,7 @@ You've updated the script files with the necessary information. Now it's time to
 With the scripts now customized for your particular Azure instance, you need to upload the images to be processed into the input container you set up in [Exercise 2](#Exercise2). So that you don't have to upload them manually, OS X and Linux and Linux users can use copyimages.sh to copy the files, and Windows users can use CopyImages.ps1.
 
 1. **For OS X and Linux users**: In your terminal window, execute the following command:
-    
+
 	<pre>
     sh copyimages.sh
     </pre>
@@ -349,7 +355,7 @@ With the scripts now customized for your particular Azure instance, you need to 
     </pre>
 
 1. **For Windows users**: In a PowerShell window, execute the following command:
-	
+
 	<pre>
 	.\CopyImages.ps1
 	</pre>
@@ -357,9 +363,9 @@ With the scripts now customized for your particular Azure instance, you need to 
 	If you entered the connection string properly when you modified the script, you will see output similar to the following:
 
 	<pre>
-	
+
 	   Container Uri: https://jrslurmlabstorage.blob.core.windows.net/input
-	
+
 	Name                                          BlobType  Length ContentType              LastModified                 Sn
 	                                                                                                                     ap
 	                                                                                                                     sh
@@ -401,10 +407,10 @@ The goal of this exercise to get the slurmdemo.* files uploaded to the master no
 
     _Finding the public DNS name for the master SLURM Node_
 
-1. If you closed the terminal window you opened in [Exercise 4](#Exercise4), open another one and navigate to the directory containing the scripts you modified in the same exercise. Before you do a secure copy, you want to check that you can Secure Shell (ssh) into the master node. In your terminal window, enter the following command to initiate an ssh connection, replacing **<master DNS\>** with the DNS name on the clipboard, and replacing **<admin user\>** with the admin user you set up in the ADMINUSERNAME field of the deployment template in [Exercise 2](#Exercise2).
+1. If you closed the terminal window you opened in [Exercise 4](#Exercise4), open another one and navigate to the directory containing the scripts you modified in the same exercise. Before you do a secure copy, you want to check that you can Secure Shell (ssh) into the master node. In your terminal window, enter the following command to initiate an ssh connection, replacing **_masterDNS_** with the DNS name on the clipboard, and replacing **_adminuser_** with the admin user you set up in the ADMINUSERNAME field of the deployment template in [Exercise 2](#Exercise2).
 
     <pre>
-    ssh -l &lt;admin user&gt; &lt;master DNS&gt;
+    ssh -l <i>adminuser</i> <i>masterDNS</i>
     </pre>
 
 	After pressing Enter, and after entering your ADMINPASSWORD from [Exercise 2](#Exercise2), you should see something similar to the following:
@@ -448,16 +454,16 @@ The goal of this exercise to get the slurmdemo.* files uploaded to the master no
 
 1. Type an **exit** command in your terminal to return to your workstation.
 
-1. To copy files to the master node, you will use secure copy, or scp. Enter the following command in your terminal, replacing **<admin user\>** with your ADMINUSERNAME and **<master DNS\>** with your public DNS address. When prompted, enter your ADMINPASSWORD.
+1. To copy files to the master node, you will use secure copy, or scp. Enter the following command in your terminal, replacing **_adminuser_** with your ADMINUSERNAME and **_masterDNS_** with your public DNS address. When prompted, enter your ADMINPASSWORD.
 
     <pre>
-    scp *.py sl*.sh &lt;admin user&gt;@&lt;master DNS&gt;:~
+    scp *.py sl*.sh <i>adminuser</i>@<i>master DNS</i>:~
     </pre>
 
 1. If the scp command succeeded, you will see output similar to the following:
 
     <pre>
-    user@machine:~$ scp *.py sl*.sh &lt;admin user&gt;@jrslurmlab.westus.cloudapp.azure.com:~
+    user@machine:~$ scp *.py sl*.sh <i>admin user</i>@jrslurmlab.westus.cloudapp.azure.com:~
     XXXXXXXXXX@jrslurmlab.westus.cloudapp.azure.com's password:
     slurmdemo.py                                                                       100% 5041     4.9KB/s   00:00
     slurmdemo.setup.sh                                                                 100% 1863     1.8KB/s   00:00
@@ -467,8 +473,8 @@ The goal of this exercise to get the slurmdemo.* files uploaded to the master no
 1. With the SLURM job files now copied to the master node, it is time to set up the nodes with the packages and languages necessary to run this particular job. To do that, you must log back into the master node and execute the setup script that configures every node in the cluster. Log in with the following command, using the same user name and password as before:
 
     <pre>
-    ssh -l &lt;admin user&gt; &lt;master DNS&gt;
-    </pre> 
+    ssh -l &lt;admin user&gt; &lt;masterDNS&gt;
+    </pre>
 
 1. The configuration script you want to run is in the file named slurmdemo.setup.sh. Execute the command below to run the script. It takes 10 minutes or so to run, so as it runs, take time to examine the script to see the steps required to configure a SLURM cluster and think about how you could modify it to fit other needs.
 
@@ -477,7 +483,7 @@ The goal of this exercise to get the slurmdemo.* files uploaded to the master no
     </pre>
 
 1. Once all nodes are configured, it is time to run the SLURM job. Still logged into the master node, execute the following command to kick everything off.
-    
+
     <pre>
     python slurmdemo.py
     </pre>
@@ -557,7 +563,7 @@ The goal of this exercise to get the slurmdemo.* files uploaded to the master no
 
 1. With an ssh connection established, leave PuTTY running because you will need it in a future step.
 
-1. To copy the files you need to the master node, you will use PuTTY's secure copy, or pscp.exe. In a PowerShell window, navigate to the directory containing the scripts you modified in [Exercise 4](#Exercise4). To ensure you can run pscp.exe, you will first simply run the program in the PowerShell window. Type the full path to where you installed PuTTY followed by "\pscp.exe", as shown below. Note that the default location is **C:\Program Files (x86)\Putty**. 
+1. To copy the files you need to the master node, you will use PuTTY's secure copy, or pscp.exe. In a PowerShell window, navigate to the directory containing the scripts you modified in [Exercise 4](#Exercise4). To ensure you can run pscp.exe, you will first simply run the program in the PowerShell window. Type the full path to where you installed PuTTY followed by "\pscp.exe", as shown below. Note that the default location is **C:\Program Files (x86)\Putty**.
 
     <pre>
     & 'C:\Program Files (x86)\PuTTY\pscp.exe'
@@ -596,10 +602,10 @@ The goal of this exercise to get the slurmdemo.* files uploaded to the master no
       -scp      force use of SCP protocol
     </pre>
 
-3. Enter the following command in your terminal, replacing **<admin user\>** with your ADMINUSERNAME and **<master DNS\>** with your public DNS address. When prompted, enter your ADMINPASSWORD.
+3. Enter the following command in your terminal, replacing **_adminuser_** with your ADMINUSERNAME and **_masterDNS_** with your public DNS address. When prompted, enter your ADMINPASSWORD.
 
     <pre>
-     & 'D:\Program Files (x86)\PuTTY\pscp.exe' *.py sl*.sh &lt;admin user&gt;@&lt;master DNS&gt;:/home/azureuser
+     & 'C:\Program Files (x86)\PuTTY\pscp.exe' *.py sl*.sh <i>adminuser</i>@<i>masterDNS</i>:/home/azureuser
     </pre>
 
 1. If the pscp command succeeded, you will see output similar to the following. You will be asked if you want to cache the RSA2 fingerprint. You can answer **y** or **n** as appropriate.
@@ -629,9 +635,9 @@ The goal of this exercise to get the slurmdemo.* files uploaded to the master no
     sudo apt-get install dos2unix
     dos2unix -k -o slurm*
     </pre>
- 
+
 1. With the SLURM job files copied to the master node and the line endings fixed, it is time to set up the nodes with the packages and and languages necessary to run this particular job. To do that, you must return to the master node and execute the setup script that configures every node in the cluster.
- 
+
 	Switch back to the PuTTY ssh session, which is still connected to the master node. The configuration script you want is in slurmdemo.setup.sh. Execute the command below. It takes 10 minutes or so to run, so as it runs, take time to examine the script to see the steps required to configure a SLURM cluster and think about how you could modify it to fit other needs.
 
     <pre>
@@ -680,7 +686,7 @@ When virtual machines are running, you are being charged — even if the VMs are
 
     _Stopping a virtual machine_
 
-1. Repeat this process for the virtual machines named "worker0" and "master." 
+1. Repeat this process for the virtual machines named "worker0" and "master."
 
 You can stop and start virtual machines in the Azure portal, but if you have a lot of VMs, that's not very efficient. In the real world, you might prefer to use an Azure CLI script to enumerate all the VMs in a resource group and start or stop them all. For more information on scripting the Azure CLI, refer to the section entitled "How to script the Azure CLI for Mac, Linux, and Windows" in [Install and Configure the Azure CLI](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli/).
 
@@ -694,7 +700,7 @@ In this exercise, you'll delete the resource group you created in [Exercise 1](#
 1. In the Azure portal, open the blade for the resource group you created in [Exercise 1](#Exercise1). Click the **Delete** button at the top of the blade.
 
 	![Deleting a resource group](Images/delete-blade.png)
-	
+
 	_Deleting a resource group_
 
 1. For safety, you are required to type in the resource group's name. (Once deleted, a resource group cannot be recovered.) Type the name of the resource group you wish to delete.
