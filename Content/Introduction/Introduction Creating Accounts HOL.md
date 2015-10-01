@@ -67,7 +67,7 @@ Your Azure pass subscription benefit must be used with a new Microsoft Account, 
         - In the popup menu, select **Safety > InPrivate Browsing**.
         - The upper left corner of the window will change to show you are running in private node ![IE InPrivate](Images/ie-inprivate.png).
 
-1. In your newly opened private browsing window, go to the Microsoft Account sign-up page at [https://signup.live.com](https://signup.live.com/). Before you fill anything out, slick on the **Get a new email address** link under the username.
+1. In your newly opened private browsing window, go to the Microsoft Account sign-up page at [https://signup.live.com](https://signup.live.com/). Before you fill anything out, click on the **Get a new email address** link under the username.
 
     ![Get new email address link](Images/account-creation-get-new-email.png)
 
