@@ -1,5 +1,5 @@
 <a name="HOLTitle"></a>
-# Spark Big Data Processing with Zepellin and Jupyter #
+# Spark Big-Data Processing with Zeppelin and Jupyter #
 
 ---
 
@@ -8,7 +8,7 @@
 
 In 2014, Gartner, Inc., a leading information research company, predicted that in 2015 there would be [4.9 billion connected "things"](http://www.gartner.com/newsroom/id/2905717) in use. When you consider that all those "things" are running serious amounts of software producing equally serious amounts of data, you begin to understand the true implications of **BIG DATA**. Data is being collected in ever-escalating volumes, at increasingly high velocities, and in a widening variety of formats, and it's being used in increasingly diverse semantic contexts. "Data" used to be something stored in a table in a SQL database, but today it can be a sensor reading, a tweet from Twitter, a GPS location, or almost anything else you can imagine. The challenge for information scientists is to make sense of that data.
 
-Traditionally, [Apache Hadoop](https://hadoop.apache.org/) was the choice for big data analysis. It is a wonderful tool, but because it is inherently disk-based it can be slow. A new tool that is getting a lot of attention in the big data world is [Apache Spark](http://spark.apache.org/), because it's memory-based so can process data up to 100 times faster. Additonally, it offers more graphical tools such as [Apache Zeppelin](https://zeppelin.incubator.apache.org/) and [Jupyter](https://jupyter.org/).
+Traditionally, [Apache Hadoop](https://hadoop.apache.org/) was the choice for big-data analysis. It enjoys tremendous mindshare in the research community, but because it is inherently disk-based, it is comparatively slow. A new tool that is garnering a lot of attention is [Apache Spark](http://spark.apache.org/). Because Spark is memory-based, it can process data up to 100 times faster than Hadoop. Additionally, it offers seamless integration with graphical tools such as [Apache Zeppelin](https://zeppelin.incubator.apache.org/) and [Jupyter](https://jupyter.org/).
 
 <a name="Objectives"></a>
 ### Objectives ###
@@ -31,16 +31,16 @@ The following are required to complete this hands-on lab:
 
 This hands-on lab includes the following exercises:
 
-1. [Exercise 1: Creating and a Spark cluster on HDInsights](#Exercise1)
-1. [Exercise 2: Running a Spark cluster on HDInsights](#Exercise2)
-1. [Exercise 3: Removing your HDInsight Spark cluster](#Exercise3)
+1. [Exercise 1: Creating a Spark cluster on HDInsight](#Exercise1)
+1. [Exercise 2: Running a Spark cluster on HDInsight](#Exercise2)
+1. [Exercise 3: Removing an HDInsight Spark cluster](#Exercise3)
 
 Estimated time to complete this lab: **60** minutes.
 
 <a name="Exercise1"></a>
-## Exercise 1: Creating and a Spark cluster on HDInsights
+## Exercise 1: Creating a Spark cluster on HDInsight
 
-Hadoop is an excellent tool for big-data analysis, but Azure HDInsight is not content with offering you only a single analysis tool. In this exercise, you will learn how to start a HDInsight cluster running [Apache Spark](http://spark.apache.org/), a big-data analysis tool that uses in-memory processing to boost performance. Spark is renowned for its ease of use and is built for speed, performing some operations 100 times faster than Hadoop in memory and 10 times faster on disk. The in-memory computation capabilities are excellent for interactive algorithms in machine learning and graph computations. Like HDInsight's Hadoop implementation, HDInsight Spark is built to work with Azure blob storage.
+Hadoop is an excellent tool for big-data analysis, but it's not the only choice that Azure HDInsight offers you. In this exercise, you will learn how to create an HDInsight cluster running [Apache Spark](http://spark.apache.org/), a big-data analysis tool that uses in-memory processing to boost performance. Spark is renowned for its ease of use and is built for speed, performing some operations 100 times faster than Hadoop in memory and 10 times faster on disk. The in-memory computation capabilities are excellent for interactive algorithms in machine learning and graph computations. Like HDInsight's Hadoop implementation, HDInsight Spark is built to work with Azure blob storage.
 
 1. Log into the [Azure Portal](https://portal.azure.com) with your Microsoft ID.
 
@@ -105,9 +105,9 @@ Hadoop is an excellent tool for big-data analysis, but Azure HDInsight is not co
 In this exercise you learned how easy it is to spin up a Spark cluster on Azure. In the next exercise you are going to use Zeppelin and Jupyter to see how to process data.
 
 <a name="Exercise2"></a>
-## Exercise 2: Running a Spark cluster on HDInsights
+## Exercise 2: Running a Spark cluster on HDInsight
 
-In this exercise, you will process data in [Zeppelin](https://zeppelin.incubator.apache.org/) and [Jupyter](https://jupyter.org/) notebooks in your HDInsight Spark cluster. Both are built in to HDInsight Spark clusters. You will analyze and graph heating, ventilating, and air-conditioning (HVAC) data for a group of buildings. You'll get first-hand experience working with HDInsight Spark clusters using Zeppelin and Jupyter, and see just how easy it is to put them to work on real-world data sets.
+In this exercise, you will process data in [Zeppelin](https://zeppelin.incubator.apache.org/) and [Jupyter](https://jupyter.org/) notebooks. Zeppelin and Jupyter are built in to HDInsight Spark clusters, so no installtion is required. You will analyze and graph heating, ventilating, and air-conditioning (HVAC) data for a group of buildings. You'll get first-hand experience working with HDInsight Spark clusters using Zeppelin and Jupyter, and see just how easy it is to put them to work on real-world data sets.
 
 1. If the resource group containing your HDInsight Spark cluster is not open, click on **Resource groups** on the left side menu in the Portal. In the **Resource groups** blade, click on the resource group you created in this step. This will bring up the blade for your resource group.
 
@@ -393,7 +393,7 @@ In this exercise, you will process data in [Zeppelin](https://zeppelin.incubator
 In this exercise you got to see how easy it is to work with an HDInsight Spark cluster using Zeppelin and Jupyter notebooks to do interactive analysis. These are excellent ways to start exploring new datasets and perform quick analysis to get an idea what a dataset has in them. As you did before, once you are finished running jobs on your HDInsight Spark cluster you will want to remove it so you are not billed for it.
 
 <a name="Exercise3"></a>
-## Exercise 3: Removing your HDInsight Spark cluster
+## Exercise 3: Removing an HDInsight Spark cluster
 
 As explained in [Exercise 1](#Exercise1), when you are finished with an HDInsight Spark cluster, you should remove it because you are charged for it while it exists, regardless of whether it's doing any work. In this exercise, you will delete the cluster used in the previous exercise. Note that because it's so easy to create and delete clusters, these tasks are frequently scripted using the Azure CLI or Azure PowerShell.
 
