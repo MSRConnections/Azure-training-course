@@ -1,5 +1,5 @@
 <a name="HOLTitle"></a>
-# Spark Big-Data Processing with Zeppelin and Jupyter #
+# Data Analytics with Apache Spark for Azure HDInsight #
 
 ---
 
@@ -8,7 +8,7 @@
 
 In 2014, Gartner, Inc., a leading information research company, predicted that in 2015 there would be [4.9 billion connected "things"](http://www.gartner.com/newsroom/id/2905717) in use. When you consider that all those "things" are running serious amounts of software producing equally serious amounts of data, you begin to understand the true implications of **BIG DATA**. Data is being collected in ever-escalating volumes, at increasingly high velocities, and in a widening variety of formats, and it's being used in increasingly diverse semantic contexts. "Data" used to be something stored in a table in a SQL database, but today it can be a sensor reading, a tweet from Twitter, a GPS location, or almost anything else you can imagine. The challenge for information scientists is to make sense of that data.
 
-Traditionally, [Apache Hadoop](https://hadoop.apache.org/) was the choice for big-data analysis. It enjoys unparalleled mindshare in the research community, but because it is inherently disk-based, it is comparatively slow. A new tool that is garnering a lot of attention is [Apache Spark](http://spark.apache.org/). Spark is an open-source framework for large-scale data-analytics applications. Because it is memory-based, Spark can process data up to 100 times faster than Hadoop. Azure HDInsight reduces the complexity of deploying Spark clusters to a few button clicks, with no hardware to buy and no software to configure. Additionally, Spark clusters created with Azure HDInsight come complete with the popular notebooking tools [Apache Zeppelin](https://zeppelin.incubator.apache.org/) and [Jupyter](https://jupyter.org/) and offer seamless integration with third-party business-intelligence tools such as Microsoft Power BI.
+Traditionally, [Apache Hadoop](https://hadoop.apache.org/) was the choice for big-data analysis. Hadoop enjoys tremendous mindshare in the research community, but because it is inherently disk-based, it is comparatively slow. A new tool that is garnering a lot of attention is [Apache Spark](http://spark.apache.org/). Spark is an open-source framework for large-scale data-analytics applications. Because it is memory-based, Spark can process data up to 100 times faster than Hadoop. Azure HDInsight reduces the complexity of deploying Spark clusters to a few button clicks, with no hardware to buy and no software to install and configure. Additionally, Spark clusters created with Azure HDInsight come complete with the popular notebooking tools [Apache Zeppelin](https://zeppelin.incubator.apache.org/) and [Jupyter](https://jupyter.org/) and offer seamless integration with third-party business-intelligence tools such as Microsoft Power BI.
 
 In this lab, you will experience Apache Spark for Azure HDInsight first-hand. After creating a Spark cluster, you will analyze a data set and use Zeppelin and Jupyter to visualize the results.
 
@@ -45,69 +45,77 @@ Estimated time to complete this lab: **60** minutes.
 <a name="Exercise1"></a>
 ## Exercise 1: Creating a Spark cluster on HDInsight
 
-Hadoop is an excellent tool for big-data analysis, but it's not the only choice that Azure HDInsight offers you. In this exercise, you will learn how to create an HDInsight cluster running [Apache Spark](http://spark.apache.org/), a big-data analysis tool that uses in-memory processing to boost performance. Spark is renowned for its ease of use and is built for speed, performing some operations 100 times faster than Hadoop in memory and 10 times faster on disk. The in-memory computation capabilities are excellent for interactive algorithms in machine learning and graph computations. Like HDInsight's Hadoop implementation, HDInsight Spark is built to work with Azure blob storage.
+Hadoop is a well-established tool for big-data analysis, but it's not the only choice that Azure HDInsight offers you. In this exercise, you will learn how to create an HDInsight cluster running [Apache Spark](http://spark.apache.org/). Spark is renowned for its ease of use and is built for speed, performing some operations 100 times faster than Hadoop in memory and 10 times faster on disk. The in-memory computation capabilities are excellent for interactive algorithms in machine learning and graph computations. Like HDInsight's Hadoop implementation, HDInsight Spark is architected to work seamlessly with Azure blob storage.
 
 1. Log into the [Azure Portal](https://portal.azure.com) with your Microsoft ID.
 
-1. To start the creation process, click **+ NEW** in the upper-left corner of the Portal. In the **New** blade, click the **Data + Analytics** link. Then click **HDInsight** in **Data + Analytics** blade.
+1. Click **+ NEW** in the upper-left corner. Then click **Data + Analytics**, followed by **HDInsight** to display the "New HDInsight Cluster" blade.
 
-    ![Starting the Creation of a HDInsight Cluster](Images/ex1-data-analytics-hdinsight.png)
+    ![Creating an HDInsight cluster](Images/ex1-data-analytics-hdinsight.png)
 
-    _Starting the Creation of a HDInsight Cluster_
+    _Creating an HDInsight cluster_
 
-1. In the **New HDInsight Cluster** blade you have to fill out various fields. The first field, **Cluster Name** is the unique Domain Name System (DNS) for the cluster so you can access it through your web browser. Note that when you move to another field, the name is validated that it is available. Make sure to remember this name as you will need it to log into the HDInsight cluster. In the **Cluster Type** field, the dropdown list lets you pick other types of cluster. For this exercise, select **Spark**. The third field is the operating system for all the nodes in the cluster. At the time this lab was written, HDInsight Spark clusters only run on Windows Server operating systems under the hood. The fourth field to fill out is specifying which Azure subscription you want to assign the HDInsight cluster to. If you have multiple subscriptions, pick the appropriate one by clicking on **Subscription** and selecting it.
+1. The "New HDInsight Cluster" blade accepts several parameters regarding the cluster that's about to be created. **Cluster Name** specifies a unique Domain Name System (DNS) name for the cluster so it can be accessed through a browser. Enter a name, and make sure a green check mark appears next to it indicating that the name is valid. Be sure to **remember this name**, because you will need it to log into the HDInsight cluster in Exercise 2.
+ 
+	**Cluster Type** allows you to choose between various types of clusters (Hadoop, HBase, and so on). For this lab, select **Spark (PREVIEW)** from the list of cluster types.
 
-    ![The Spark Cluster Name and Type](Images/ex1-spark-cluster-name.png)
+	**Cluster Operating System** specifies the operating system for all the nodes in the cluster. At the time of this writing, HDInsight Spark clusters only run on Windows Server, so you can accept the default for this field.
 
-    _The Spark Cluster Name and Type_
+	**Subscription** specifies which Azure subscription you want to assign the HDInsight cluster to. If you have multiple subscriptions, select the appropriate one from the drop-down list.
 
-1. Resource groups are a fantastic feature of Azure. They allow you to keep everything associated with an Azure deployment organized into a single cohesive unit. With each grouping, you can apply Role-Based Access Security (RBAC) to prevent multiple people using the same account from accessing other people's resources. Another advantage of resource groups is that the resources inside them share the same lifetime. When you're finished with an experiment, you can delete the resource group and thereby delete all the resources inside it. Before resource groups were introduced, deleting an HDInsight cluster was a tedious process that required you to individually delete the virtual machines, networks, storage accounts, and other resources that comprised it. You can read more about resource groups in the [documentation](https://azure.microsoft.com/en-us/documentation/articles/resource-group-overview/). The important point to remember is that when you create anything new in Azure, it's generally advisable to assign it to a resource group other than the default.
+    ![Specifying the cluster's name and type](Images/ex1-spark-cluster-name.png)
 
-	In the **Resource Group** part of the **New HDInsight Cluster** blade. click on the **Or Create New** link. That will change the section to ask you for the name of the new resource group. The name you enter must be unique in your subscription, but not across Azure itself. In the edit box now in the section, type in the name of the resource group. As you are typing the portal verifies the name is unique. Look for the green check mark before proceeding.
+    _Specifying the cluster's name and type_
 
-    ![Creating a New Resource Group](Images/ex1-create-resource-group.png)
+1. In the **Resource Group** section of the "New HDInsight Cluster" blade, click **Create New** and enter a resource-group name. The name you enter must be unique to your subscription, but it doesn't have to be unique across Azure. Look for the green check mark next to the name before proceeding.
 
-    _Creating a New Resource Group_
+	> Resource groups are a relatively recent addition to Azure. They allow you to keep everything associated with an Azure deployment organized into a single cohesive unit. With each grouping, you can apply Role-Based Access Control (RBAC) to prevent multiple people using the same account from accessing other people's resources. Another advantage of resource groups is that the resources inside  share the same lifetime. When you're finished with an experiment, you can delete the resource group and thereby delete all the resources inside it. Before resource groups were introduced, deleting an HDInsight cluster was a tedious process that required you to individually delete the virtual machines, networks, storage accounts, and other resources comprising it. You can read more about resource groups in the [documentation](https://azure.microsoft.com/en-us/documentation/articles/resource-group-overview/). When you create anything new in Azure, it's generally advisable to assign it to a resource group.
 
-1. After specifying the new resource group, the next information to fill out are the credentials for accessing the . In the **Credentials** section, click on **Configure required settings** to bring up the **Cluster Credentials** blade. You need to set up one set of credentials for accessing the Spark web interface. In the **Cluster credentials** blade, enter the username and password for the cluster followed by a username and password for the web remote access. The passwords must be at least 10 characters in length and contain at least one digit, one non-alphanumeric character, and one upper or lowercase letter. Securely store this account information as you will need it later in this exercise. When finished and all password check boxes show green checkmarks, click the **Select** button at the bottom of the blade. While it is not required for this exercise, if you wanted to access the Spark cluster directly through Remote Desktop, the Windows operating system way to access remote machines, you could enable that account in this blade.
+    ![Creating a new resource group](Images/ex1-create-resource-group.png)
 
-    ![The Spark Cluster Credentials Blade](Images/ex1-cluster-credentials.png)
+    _Creating a new resource group_
 
-    _The Spark Cluster Credentials Blade_
+1. The next step is to provide credentials for logging in to the cluster. Click **Credentials** to bring up the "Cluster Credentials" blade. Then enter a password. The password must be at least 10 characters in length and contain at least one digit, one non-alphanumeric character, and one uppercase or lowercase letter. Remember these credentials because you will need them later. When both password boxes show green check marks, click the **Select** button at the bottom of the blade.
+ 
+	> If you wanted to access the Spark cluster directly through Remote Desktop, you could enable that in this blade. You won't be using Remote Desktop to access the cluster in this lab, so you can leave **Enable Remote Desktop** set to **NO**.
 
-1. Click on the **Data Source** section in the **New HDInsight Cluster** blade. You have the choice to use an existing blob storage account or create a new one when creating HDInsight clusters. For this exercise you will want to create a new storage account. Click on the **Create New** under the **Select storage account** section. Remember, the name you specify must be all lowercase. If you want the default blob container to be different than the default of being named after your Cluster name, you can change that as well. When finished with creating your new storage account in the **Data Source** blade, click the **Select** button on the bottom.
+    ![Entering cluster credentials](Images/ex1-cluster-credentials.png)
 
-    For nearly all Hadoop file operations, the Azure blob storage implementation will be seamless if you are coming from your own Hadoop clusters. One small difference is that native Hadoop Distributed File System (HDFS) commands, which are platform dependent, such as fschk and dfsadmin, are different when applied to blob storage.
+    _Entering cluster credentials_
 
-    ![The Spark Cluster Data Source Blade](Images/ex1-data-source.png)
+1. When creating an HDInsight cluster, you have the choice of using an existing storage account or creating a new one. For this exercise, you want to create a new storage account. Click **Data Source** in the "New HDInsight Cluster" blade. Then click **Create New** under **Select storage account** and enter a name for the new storage account. Remember, the name must be all lowercase, and it must be unique within Azure. Then enter a container name into the **Choose Default Container** field. This is the container that the cluster will use for blob storage. Optionally select the region nearest you under **Location**, and then click the **Select** button at the bottom of the blade.
 
-    _The Spark Cluster Data Source Blade_
+    > For nearly all Hadoop file operations, the Azure blob storage implementation is seamless if you are coming from your own Hadoop clusters. One small caveat is that native Hadoop Distributed File System (HDFS) commands such as **fschk** and **dfsadmin**, which are platform-dependent, work differently when applied to blob storage.
 
-1. Click on the **Node Pricing Tiers** section to bring up the **Node Pricing Tiers** blade. Here is where you can configure the number of nodes and the types of virtual machines you want to run. For this exercise you can set the number of Worker nodes to 2. You have total control over the size and number of nodes so you can find the right balance between the amount of processing you need and the cost of the cluster. After changing the number of nodes, click **Select** at the bottom of the blade.
+    ![Specifying the data source](Images/ex1-data-source.png)
 
-    ![The Spark Cluster Node Pricing Tiers Blade](Images/ex1-node-pricing.png)
+    _Specifying the data source_
 
-    _The Spark Cluster Node Pricing Tiers_
+1. Click **Node Pricing Tiers** to bring up the "Node Pricing Tiers" blade. Here, you specify the number of nodes in the cluster and the type of virtual machines you want to run. You have complete control over the size of the cluster so you can strike the right balance between processing power and cost. Set the number of worker nodes to 2. Then click the **Select** button at the bottom of the blade.
 
-1. The last section of the **New HDInsight Cluster** is the **Optional Configuration** blade, but for this exercise you do not need to change anything. Feel free to look at what you can configure if you are interested. An important setting in the **Optional Configuration** section is if you are using Azure blob storage from a different account, here is where you can specify the Azure Storage Keys. When all sections of the **New HDInsight Cluster** blade are filled out click the **Create** button at the bottom of the **New HDInsight Cluster** blade to start creation. Depending on the number of nodes and types of virtual machines you chose for HDInsight cluster, your deployment can take anywhere from 10-15 minutes.
+    ![Specifying the size of the cluster](Images/ex1-node-pricing.png)
 
-    ![The Filled Out New HDInsight Cluster Blade for a Spark Cluster](Images/ex1-create-button.png)
+    _Specifying the size of the cluster_
 
-    _The Filled Out New HDInsight Cluster Blade for a Spark Cluster_
+1. The final section of the "New HDInsight Cluster" blade is **Optional Configuration**, but you don't need to change anything there. Feel free to look it if you are interested. Among other things, you can use this section to enter access keys so your cluster can access blobs in other storage accounts. Now that the "New HDInsight Cluster" blade is filled out, click the **Create** button at the bottom of the blade to start deploying the cluster. The deployment should take approximately 10 to 20 minutes.
 
-1. To monitor your HDInsight Spark cluster creation and deployment click on **Resource groups** on the left side menu in the Portal. In the **Resource groups** blade, click on the resource group you created in this step. This will bring up the blade for your resource group.
+    ![Deploying a Spark cluster](Images/ex1-create-button.png)
 
-	![Browsing Resource Groups](Images/ex1-browsing-resource-groups.png)
+    _Deploying a Spark cluster_
 
-	_Browsing Resource Groups_
+1. To monitor the deployment, click **Resource groups** in the upper-left corner of the portal. In the "Resource groups" blade, click on the resource group whose name you entered in Step 4. This will bring up the blade for your resource group.
 
-1. The **last deployment** section of your resource group blade will show the current status and date. If it is still deploying, it will say **(Deploying)** when the deployment is finished, it will say **(Succeeded)** as in the screen shot below.
+	![Browsing resource groups](Images/ex1-browsing-resource-groups.png)
 
-	![Successful Cluster Deployment](Images/ex1-successful-deployment.png)
+	_Browsing resource groups_
 
-	_Successful Cluster Deployment_
+1. The "Last deployment" section of the resource-group blade shows the date and deployment status. Once the cluster has been deployed, the status will change from **(Deploying)** to **(Succeeded)**. Wait for the deployment to finish, and then proceed to the next exercise.
 
-In this exercise you learned how easy it is to spin up a Spark cluster on Azure. In the next exercise you are going to use Zeppelin and Jupyter to see how to process data.
+	![Successful cluster deployment](Images/ex1-successful-deployment.png)
+
+	_Successful cluster deployment_
+
+In this exercise, you learned how easy it is to spin up a Spark cluster on Azure, and about some of the options you can choose from when creating a cluster. In the next exercise, you will employ the cluster along with Zeppelin and Jupyter to process data.
 
 <a name="Exercise2"></a>
 ## Exercise 2: Running a Spark cluster on HDInsight
