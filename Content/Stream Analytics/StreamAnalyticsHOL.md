@@ -202,7 +202,7 @@ In this exercise, you will send events to the event hub you created in [Exercise
 
 1. After 10 to 20 events have been sent, press Ctrl+C (or whatever key combination your operating system supports for terminating an application running in a terminal window) to stop the flow of events. **Leave the terminal window open so you can return to it later.**
 
-1. Return to the [Classic Portal](https://manage.windowsazure.com) and open the dashboard for the event hub you created in [Exercise 1](#Exercise1). Wait a few minutes, and then click the **Refresh Metrics** button in the upper-right corner of the chart at the top of the page (the button highlighted in red below). Confirm that the chart shows that several messages have been received.
+1. Return to the [Classic Portal](https://manage.windowsazure.com) and open the dashboard for the event hub you created in [Exercise 1](#Exercise1). Wait a few minutes, and then click the **Refresh Metrics** button in the upper-right corner of the chart at the top of the page (the button highlighted in red below). Confirm that the chart shows several messages have been received.
 
     ![Messages received](images/incoming-messages.png)
 

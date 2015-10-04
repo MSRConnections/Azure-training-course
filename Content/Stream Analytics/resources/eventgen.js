@@ -1,6 +1,6 @@
 ///////////////// KEY VARS /////////////////
-//var sas = "Token";
-//var uri = "URL";
+var sas = "Token";
+var uri = "URL";
 ///////////////////////////////////////////
 
 var request = require("request");
