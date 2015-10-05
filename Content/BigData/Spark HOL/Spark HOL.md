@@ -18,7 +18,7 @@ In this lab, you will experience Apache Spark for Azure HDInsight first-hand. Af
 In this hands-on lab, you will learn how to:
 
 - Provision an Apache Spark cluster on HDInsight
-- Run interactive queries on a Spark cluster
+- Run interactive queries on data loaded into a Spark cluster
 - Use Zeppelin and Jupyter to visualize query results
 - Delete a Spark cluster to avoid incurring unnecessary charges
 
@@ -37,8 +37,9 @@ The following are required to complete this hands-on lab:
 This hands-on lab includes the following exercises:
 
 1. [Exercise 1: Creating a Spark cluster on HDInsight](#Exercise1)
-1. [Exercise 2: Running a Spark cluster on HDInsight](#Exercise2)
-1. [Exercise 3: Removing an HDInsight Spark cluster](#Exercise3)
+1. [Exercise 2: Using Zeppelin to Analyze Data on a Spark cluster](#Exercise2)
+1. [Exercise 3: Using Jupyter to Analyze Data on a Spark cluster](#Exercise3)
+1. [Exercise 4: Removing an HDInsight Spark cluster](#Exercise4)
 
 Estimated time to complete this lab: **60** minutes.
 
@@ -69,7 +70,7 @@ Hadoop is a well-established tool for big-data analysis, but it's not the only c
 
 1. In the **Resource Group** section of the "New HDInsight Cluster" blade, click **Create New** and enter a resource-group name. The name you enter must be unique to your subscription, but it doesn't have to be unique across Azure. Look for the green check mark next to the name before proceeding.
 
-	> Resource groups are a relatively recent addition to Azure. They allow you to keep everything associated with an Azure deployment organized into a single cohesive unit. With each grouping, you can apply Role-Based Access Control (RBAC) to prevent multiple people using the same account from accessing other people's resources. Another advantage of resource groups is that the resources inside  share the same lifetime. When you're finished with an experiment, you can delete the resource group and thereby delete all the resources inside it. Before resource groups were introduced, deleting an HDInsight cluster was a tedious process that required you to individually delete the virtual machines, networks, storage accounts, and other resources comprising it. You can read more about resource groups in the [documentation](https://azure.microsoft.com/en-us/documentation/articles/resource-group-overview/). When you create anything new in Azure, it's generally advisable to assign it to a resource group.
+	> Resource groups are a relatively recent addition to Azure. They allow you to keep everything associated with an Azure deployment organized into a single cohesive unit. With each grouping, you can use Role-Based Access Control (RBAC) to prevent multiple people using the same account from accessing other people's resources. Another advantage of resource groups is that the resources inside  share the same lifetime. When you're finished with an experiment, you can delete the resource group and thereby delete all the resources inside it. Before resource groups were introduced, deleting an HDInsight cluster was a tedious process that required you to individually delete the virtual machines, networks, storage accounts, and other resources comprising it. You can read more about resource groups in the [documentation](https://azure.microsoft.com/en-us/documentation/articles/resource-group-overview/). When you create anything new in Azure, it's generally advisable to assign it to a resource group.
 
     ![Creating a new resource group](Images/ex1-create-resource-group.png)
 
@@ -97,13 +98,13 @@ Hadoop is a well-established tool for big-data analysis, but it's not the only c
 
     _Specifying the size of the cluster_
 
-1. The final section of the "New HDInsight Cluster" blade is **Optional Configuration**, but you don't need to change anything there. Feel free to look it if you are interested. Among other things, you can use this section to enter access keys so your cluster can access blobs in other storage accounts. Now that the "New HDInsight Cluster" blade is filled out, click the **Create** button at the bottom of the blade to start deploying the cluster. The deployment should take approximately 10 to 20 minutes.
+1. The final section of the "New HDInsight Cluster" blade is **Optional Configuration**, but you don't need to change anything there. Feel free to look at it if you are interested. Among other things, you can use this section to enter access keys so your cluster can access blobs in other storage accounts. Now that the "New HDInsight Cluster" blade is filled out, click the **Create** button at the bottom of the blade to start deploying the cluster. The deployment should take approximately 10 to 20 minutes.
 
     ![Deploying a Spark cluster](Images/ex1-create-button.png)
 
     _Deploying a Spark cluster_
 
-1. To monitor the deployment, click **Resource groups** in the upper-left corner of the portal. In the "Resource groups" blade, click on the resource group whose name you entered in Step 4. This will bring up the blade for your resource group.
+1. To monitor the deployment, click **Resource groups** in the upper-left corner of the portal. In the "Resource groups" blade, click the resource group whose name you entered in Step 4. This will bring up the blade for your resource group.
 
 	![Browsing resource groups](Images/ex1-browsing-resource-groups.png)
 
@@ -115,76 +116,76 @@ Hadoop is a well-established tool for big-data analysis, but it's not the only c
 
 	_Successful cluster deployment_
 
-In this exercise, you learned how easy it is to spin up a Spark cluster on Azure, and about some of the options you can choose from when creating a cluster. In the next exercise, you will employ the cluster along with Zeppelin and Jupyter to process data.
+In this exercise, you learned how easy it is to spin up a Spark cluster on Azure, and about some of the options you can choose from when creating a cluster. In the next exercise, you will employ Zeppelin to analyze a data set and visualize the results.
 
 <a name="Exercise2"></a>
-## Exercise 2: Running a Spark cluster on HDInsight
+## Exercise 2: Using Zeppelin to Analyze Data on a Spark cluster
 
-In this exercise, you will process data in [Zeppelin](https://zeppelin.incubator.apache.org/) and [Jupyter](https://jupyter.org/) notebooks. Zeppelin and Jupyter are built in to HDInsight Spark clusters, so no installtion is required. You will analyze and graph heating, ventilating, and air-conditioning (HVAC) data for a group of buildings. You'll get first-hand experience working with HDInsight Spark clusters using Zeppelin and Jupyter, and see just how easy it is to put them to work on real-world data sets.
+In this exercise, you will process data in a [Zeppelin](https://zeppelin.incubator.apache.org/) notebook. Zeppelin is built in to HDInsight Spark clusters, so no installtion is required. You will analyze and graph heating, ventilating, and air-conditioning (HVAC) data for a group of buildings. You'll get first-hand experience working with HDInsight Spark clusters using Zeppelin, and see just how easy it is to put it to work on real-world data sets.
 
-1. If the resource group containing your HDInsight Spark cluster is not open, click on **Resource groups** on the left side menu in the Portal. In the **Resource groups** blade, click on the resource group you created in this step. This will bring up the blade for your resource group.
+1. If the resource group containing your HDInsight Spark cluster is not open, click **Resource groups** in the portal. In the "Resource groups" blade, click the resource group you created in Exercise 1. This will bring up the blade for your resource group.
 
-	![Browsing Resource Groups](Images/ex1-browsing-resource-groups.png)
+	![Browsing resource groups](Images/ex1-browsing-resource-groups.png)
 
-	_Browsing Resource Groups_
+	_Browsing resource groups_
 
-1. To open the HDInsight Spark cluster blade, click on the **Haddop elephant icon** in your resource group.
+1. Click the **Hadoop elephant icon** in your resource group.
 
-	![Selecting the Spark Cluster from the Resource Group](Images/ex2-spark-in-resource-group.png)
+	![Selecting the Spark cluster from the resource group](Images/ex2-spark-in-resource-group.png)
 
-	_Selecting the Spark Cluster from the Resource Group_
+	_Selecting the Spark cluster from the resource group_
 
-1. In your HDInsight Spark cluster blade active, click on the Cluster Dashboards buttons under the **Quick Links** section.
+1. In the blade for your HDInsight Spark cluster, click **Cluster Dashboards** in the "Quick Links" section.
 
-	![The Spark Cluster Dashboards Button](Images/ex2-spark-dashboards-button.png)
+	![Opening the cluster dashboards](Images/ex2-spark-dashboards-button.png)
 
-	_The Spark Cluster Dashboards Button_
+	_Opening the cluster dashboards_
 
-1. In the **Cluster Dashboards** blade, click on the **Zeppelin Notebook** button.
+1. In the "Cluster Dashboards" blade, click **Zeppelin Notebook**.
 
-	![The Zeppelin Notebook Button](Images/ex2-zeppelin-button.png)
+	![Opening a Zeppelin notebook](Images/ex2-zeppelin-button.png)
 
-	_The Zeppelin Notebook Button_
+	_Opening a Zeppelin notebook_
 
-1. Clicking on the Zeppelin button will bring up a new browser tab, or window depending on which browser you use, and you will be prompted for the user name and password. Enter the **user name** and **password** you specified when creating the HDInsight Spark cluster.
+1. A new browser tab or window will open and prompt you for a user name and password. Enter the user name and password you specified when you created the HDInsight Spark cluster in Exercise 1, Step 5. Then click the **Log In** button.
 
 	**_Note that your login prompt may look different depending on the browser you are using._**
 
-	![Login Prompt for the Zeppelin Notebook](Images/ex2-login-prompt.png)
+	![Login prompt for the Zeppelin notebook](Images/ex2-login-prompt.png)
 
-	_Login Prompt for the Zeppelin Notebook_
+	_Login prompt for the Zeppelin notebook_
 
-1. When you log into an HDInsight Spark cluster, you will need to perform multiple logins so the gateway and proxy servers in Spark get initialized with your user name and password. The initial page you see when logging in shows the steps. For **Step 1**, click on the link in parenthesis. This will open another tab or window in your browser and prompt you to enter your cluster account **user name** and **password** again. As explained in the initial page, you will see a 502 web server error after logging in. Once you have logged in you can close this tab, or page.
+1. When you log into Zeppelin in an HDInsight Spark cluster, you have to enter your user name and password multiple times to satisfy Spark's gateway and proxy servers. In the page that opened when you clicked **Log In** in the previous step, click **(link)**. This will open another browser tab or window and prompt you for your user name and password again. Log in a second time. Don't be alarmed by the 502 error; it's expected. You can then close this page in your browser.
 
-	![Zeppelin Notebook Step 1 Login Instructions](Images/ex2-zepellin-login-step-one.png)
+	![The next step in logging in](Images/ex2-zepellin-login-step-one.png)
 
-	_Zeppelin Notebook Step 1 Login Instructions_
+	_The next step in logging in_
 
-1. Back in the initial login page, click on the link labeled **Zeppelin portal** in Step 2. Again, you will be prompted for the cluster account **user name** and **password** on another browser tab, or window.
+1. Return to the dashboard page and click **(Zeppelin portal)**. Once more, you will be prompted for the cluster's user name and password. Log in for the third time.
 
-	![Zeppelin Notebook Step 2 Login Instructions](Images/ex2-zepellin-login-step-two.png)
+	![The final step in logging in](Images/ex2-zepellin-login-step-two.png)
 
-	_Zeppelin Notebook Step 2 Login Instructions_
+	_The final step in logging in_
 
-1. Whenever you want to use Zeppelin, make sure to check the upper right hand corner that the green light is showing **Connected**. If not, go through the initial two login instructions again.
+1. Verify that a green light accompanied by the word "Connected" appears in the upper-right corner of the page. If it doesn't, repeat Steps 6 and 7.
 
-	![Correctly Connected to Zeppelin](Images/ex2-correctly-connected-zeppelin.png)
+	![Connected to Zeppelin](Images/ex2-correctly-connected-zeppelin.png)
 
-	_Correctly Connected to Zeppelin_
+	_Connected to Zeppelin_
 
-1. With the login to Zeppelin successful, you will want to create a new Notebook by clicking on the **Create new note** link. That will create a new Zeppelin note named "Note XXXXXXXXX" (where the X's are random characters). Click on the new Note created link to open the note.
+1. With the login to Zeppelin successful, the next step is to create a new note. Click **Create new note**. This will create a new Zeppelin note named "Note XXXXXXXXX" (where the X's are random characters). Click the link informing you that a new note was created to open the note.
 
-	![Correctly Connected to Zeppelin](Images/ex2-create-new-zeppelin-notebook.png)
+	![Creating a new note](Images/ex2-create-new-zeppelin-notebook.png)
 
-	_Correctly Connected to Zeppelin_
+	_Creating a new note_
 
-1. Once in the new note, click on the Note name and change it to something appropriate like Research or another name you want. To commit the name, press the Entery key.
+1. Click on the notebook name and change it to something appropriate, such as "Research." To commit the name, press the ENTER key.
 
-	![Renaming the New Zeppelin Notebook](Images/ex2-rename-zeppelin-note.png)
+	![Renaming the Zeppelin notebook](Images/ex2-rename-zeppelin-note.png)
 
-	_Renaming the New Zeppelin Notebook_
+	_Renaming the Zeppelin notebook_
 
-1. The first step to working with the HVAC data is to get it loaded into a temporary table in the HDInsight Spark cluster. The sample data you are going to use is provided by Microsoft in an associated storage account for the cluster, \HdiSamples\SensorSampleData\hvac. Below is the sample code you will need to copy so in the next step you can paste it into your Zepellin notebook.
+1. The first step in analyzing data is loading it into a temporary table in the HDInsight Spark cluster. The sample data you will use is provided by Microsoft in a storage account associated with this cluster, but you'll have to write some code to load it from storage. Begin by copying the following statements to the clipboard:
 
 	<pre>
 	// Create an RDD using the default Spark context, sc
@@ -207,37 +208,37 @@ In this exercise, you will process data in [Zeppelin](https://zeppelin.incubator
 	hvac.registerTempTable("hvac")
 	</pre>
 
-1. In a Zeppelin notebook, you work in paragraphs. In the screen shot below, the empty paragraph is shown. Paste the above code into that paragraph.
+1. In a Zeppelin notebook, you work in paragraphs. Click the empty paragraph in the notebook in preparation for pasting the code you copied to the clipboard in the previous exercise.
 
-	![The Empty Zeppelin Paragraph](Images/ex2-empty-zeppelin-paragraph.png)
+	![The empty Zeppelin paragraph](Images/ex2-empty-zeppelin-paragraph.png)
 
-	_The Empty Zeppelin Paragraph_
+	_The empty Zeppelin paragraph_
 
-	If the you cannot place the cursor into the paragraph and type, that means the paragraph or notebook is set to read only, which can accidentally happen. To enable editing, click the arrow button next to the paragraph so it looks like the arrows are pointing in to the center.
+	If you cannot place the cursor into the paragraph and type, that means the paragraph or notebook is set to read-only. To enable editing, click the second button from the left (the one with four arrows pointing to the center).
 
-	![Setting a Paragraph to Edit Mode](Images/ex2-set-to-edit-mode.png)
+	![Setting a paragraph to edit mode](Images/ex2-set-to-edit-mode.png)
 
-	_Setting a Paragraph to Edit Mode_
+	_Setting a paragraph to edit mode_
 
-	After you paste in the code, it will look like the following.
+	Now paste in the code from the clipboard. The paragraph should now look like this:
 
-	![The Pasted in Code](Images/ex2-zeppellin-import-data-code.png)
+	![Code pasted into the paragraph](Images/ex2-zeppellin-import-data-code.png)
 
-	_The Pasted in Code_
+	_Code pasted into the paragraph_
 
-1. With the code pasted, you want to run it to get the data imported into your HDInsight Spark cluster. To run the paragraph, either press the SHIFT+ENTER key combination, or select run from the paragraph options.
+1. Now you're ready to run the code to import the HVAC data into your cluster. To run the paragraph, either press SHIFT+ENTER, or click the **Run** button highlighted below.
 
-	![The Zeppelin Paragraph Run Button](Images/ex2-zeppelin-run-button.png)
+	![Running the paragraph](Images/ex2-zeppelin-run-button.png)
 
-	_The Zeppelin Paragraph Run Button_
+	_Running the paragraph_
 
-1. The **READY** text will turn to **PENDING** and the paragraph executing code will gray out. The run is complete when the text for the paragrah turns to **FINISHED**. Additionally, a new paragraph will appear in the notebook. If you would like, you can give a title to the paragraph by clicking the **Settings** button in the paragraph options and choosing **Show title**. If you do change the title, remember to press Enter to complete the change.
+1. The word "READY" will turn to "PENDING" and the paragraph will gray out. The run is complete when "PENDING" changes to "FINISHED." Additionally, a new paragraph will appear in the notebook. If you would like, you can give a title to the paragraph by clicking the **Settings** button in the paragraph options and choosing **Show title**. If you do change the title, remember to press Enter to complete the change.
 
-	![A Finished Run and the Zeppelin Settings Button](Images/ex2-zeppelin-paragraph-settings.png)
+	![A finished run](Images/ex2-zeppelin-paragraph-settings.png)
 
-	_A Finished Run and the Zeppelin Settings Button_
+	_A finished run_
 
-1. With the data in your HDInsight Spark cluster, you can start running Spark SQL statements on the hvac table. The first line of the code tells Spark to use the built in Spark SQL interpreter. You can see the default interpreters by clicking on the **Interpreter** link at the top of the page. Copy the following code to the clipboard and paste it into the new paragraph on your notebook. Once pasted, click the **Run** button for the paragraph or use the SHIFT+ENTER corresponding keystroke.
+1. With the data now loaded into a temporary table named "hvac," you can run Spark SQL queries on it. Copy the following code to the clipboard and paste it into the new paragraph in your notebook. Then click the **Run** button or press SHIFT+ENTER.
 
 	<pre>
 	%sql
@@ -246,25 +247,27 @@ In this exercise, you will process data in [Zeppelin](https://zeppelin.incubator
 	where date = "6/1/13"
 	</pre>
 
-1. The Spark SQL script created a three column table, with the Building ID, the temperature difference, and the data. The default output is the table itself. What makes Zeppellin wonderful is how you can easily work with the data in an interactive way. Clicking on the bar graph icon will graph the data. The default graphing sums up the temperature differences in each building. This is why building 2 shows a -58.0 difference.
+	> The first line of the code tells Spark to use the built-in Spark SQL interpreter. You can see all the provided interpreters by clicking the **Interpreter** link at the top of the page.
 
-	![The Default Bar Graph](Images/ex2-default-sql-graph.png)
+1. The query you just executed created a table containing columns for the building ID, the difference between the target temperature and the actual temperature for that building, and the date the data was recorded. The default output is the table itself. But part of Zeppelin's appeal is that it allows you to visualize data in various ways. To demonstrate, click the bar-graph icon. The resulting graph shows the temperature differences in each building. The graph indicates that the actual temperature in building 2 was 58 degrees less than the target temperature, which is deceptive because it's actually the sum of all temperature differences recorded for that building. 
 
-	_The Default Bar Graph_
+	![Bar graph showing temperature differences in each building](Images/ex2-default-sql-graph.png)
 
-1. A much better graph would be one that shows the average temperature difference between the target and actual temperature for each building. Click on the **Settings** link to expand the display to show you the Keys, Groups, and Values boxes. In the Values box, click on the temp_diff text and change from SUM to AVG to convert to an average.
+	_Bar graph showing temperature differences in each building_
 
-	![Changing the Settings to Report Average Temperature Difference](Images/ex2-settings-change-value-to-avg.png)
+1. A more useful graph would be one that shows the *average* difference between target temperature and actual temperature for each building. Click **Settings** to reveal boxes labeled Keys, Groups, and Values. In the Values box, click **temp_diff SUM** and change SUM to AVG to compute an average.
 
-	_Changing the Settings to Report Average Temperature Difference_
+	![Modifying graph settings](Images/ex2-settings-change-value-to-avg.png)
 
-	After collapsing the settings, the graph will show the average differences. It sure looks like there's a problem in building 14!
+	_Modifying graph settings_
 
-	![The Average Temperature Difference by Building Graph](Images/ex2-average-temp-diff-graph.png)
+	The new graph shows the *average* difference between target temperature and actual temperature in each building:
 
-	_The Average Temperature Difference by Building Graph_
+	![Bar graph showing average temperature differences](Images/ex2-average-temp-diff-graph.png)
 
-1. Spark paired with a Zeppelin notebook is an outstanding interactive way to explore your big data issues. For example, Spark SQL allows you to use variables in the query. In the code below, it defines a variable, **Temp**, in the query. When you run the query, you will see an edit box on the screen where you can enter the temperature you would like for the maximum value. Copy this code and past it into the new paragraph in your notebook. Click the **Run** button on the paragraph to execute the code.
+	_Bar graph showing average temperature differences_
+
+1. Spark SQL allows you to work with data interactively by including variables in your queries. To demonstrate, copy the query below into a new paragraph in your notebook, and then run the query. Because the query includes a variable named "Temp" (short for "Temperature"), you will be prompted to enter a value for it.
 
 	<pre>
 	%sql
@@ -273,25 +276,27 @@ In this exercise, you will process data in [Zeppelin](https://zeppelin.incubator
 	where targettemp > "${Temp}" 	
 	</pre>
 
-	![Ready to Enter the Temperature Variable](Images/ex2-temp-query-code-pasted.png)
+	![Prompting for a variable value](Images/ex2-temp-query-code-pasted.png)
 
-	_Ready to Enter the Temperature Variable_
+	_Prompting for a variable value_
 
-1. In the Temp field, enter 65 so your query will return all the temperatures greater than 65 degrees. Press the ENTER key to have Zeppelin process the query. The default in any Spark SQL query is to return the raw data. Click on the bar graph button under the Temp entry field. The initial graph uses the first field as the key, and the sum of the second field as the value. In this case that is the Building ID and the sum of the dates.
+1. In the **Temp** field, enter 65 so the result set will only include buildings in which the target temperature is greater than 65 degrees. Press the ENTER key to execute the query. Then click the bar-graph icon under the **Temp** field to graph the results. By default, the resulting graph uses the first field as the key, and the sum of the second field as the value. The latter isn't very useful because in this case, the second field holds a set of dates.
 
-	![Initial Query Graph](Images/ex2-temp-query-initial-graph.png)
+	![Graph showing building numbers and date sums](Images/ex2-temp-query-initial-graph.png)
 
-	_Initial Query Graph_
+	_Graph showing building numbers and date sums_
 
-1. To make this graph more usable, click on the Settings button, and set the **buildingID** field as the key, grouped by the **targettemp** field, and the average of the temp-diff field as the values. You can click on the fields in the **All fields** area and drag them down to the appropriate box. The graph at the bottom will update on each change. When you get all the settings changed, you will see that the HVAC systems are running below the target temperature on cool days and above the target temperature on warmer days.
+1. To make this graph more useful, click **Settings**. Then drag **buildingID** from "All fields" at the top to the Keys box, **targettemp** to the Groups box, and **temp\_diff** to the Values box. Change SUM to AVG for the **temp_diff** field. The resulting graph reveals that the HVAC systems are running below the target temperature on cooler days and above the target temperature on warmer days.
 
-	![Controlling the Graph Settings](Images/ex2-controlling-zeppelin-settings.png)
+	![Graph showing average temperature differences grouped by target temperature](Images/ex2-controlling-zeppelin-settings.png)
 
-	_Controlling the Graph Settings_
+	_Graph showing average temperature differences grouped by target temperature_
 
-1. So far you have seen everything using Spark SQL for data analysis but it does support many other languages, such as Scala, a functional programming language that is getting a lot of traction in the big data world. In fact, Spark is written in Scala. With the HVAC data you have it might be interesting to see what buildings are the hottest and coolest. Once way to do that would be to sum up all the temperature differences over all reporting periods and look for the one that is the lowest, which indicates the building trends cooler than the target temperature, and the highest, indicating trending hotter than the target temperature. With that data you could look at how you could explore various heating and cooling options for the buildings to get the actual temperatures more in line with the target temperatures.
+1. Spark SQL is one way to query data loaded into Spark, but it's not the only way. Spark supports several other languages, including Scala, a functional programming language that is getting a lot of traction in the big-data world. In fact, Spark is written in Scala.
 
-    The following code shows two different ways with Scala to pull data from your Spark cluster. The part uses SQL to query the HVAC table created earlier to sum all temperature differences for each building. The second and third line use Scala to sort the data and grab the first row. The fourth and fifth lines register the temporary table as a full Spark table so you can run SQL queries against it and in this case, sort descending and grabbing the top item. Finally, it displays the data.
+	Suppose you wanted to determine which buildings are the hottest and coldest. One way to do that would be to sum up all the temperature differences recorded for each building and look for the values that are highest and lowest. You could then explore various heating and cooling options for the buildings to get the actual temperatures more in line with the target temperatures.
+
+    The following code shows one way to go about that with Scala. The first line executes a SQL query from Scala to query the "hvac" table created earlier and sum temperature differences for each building. The second and third lines use Scala to sort the data and grab the first row. The fourth and fifth lines register the resulting data set as a Spark table and run a SQL query against it, sorting items in descending order and grabbing the top item. The final two lines display the results.
 
     <pre>
     // Pull the sum of all temp differences into a DataFrame
@@ -310,27 +315,34 @@ In this exercise, you will process data in [Zeppelin](https://zeppelin.incubator
     hottestBuilding.show()
     </pre>
 
-    In a new editing element on the Zeppelin page, paste the code above and run the code. Which buildings are the hottest and coolest?
+    In a new editing element on the Zeppelin page, paste the code above and run it. Which buildings are the hottest and coldest?
 
-1. As you have seen Zeppelin notebooks make it very easy to do interactive data analysis and spelunking of big data on Spark. Another very popular option for research and analysis is [Jupyter](https://jupyter.org/), which is another notebook-based approach, but with very broad support for over 40 programming languages and excels at numerical simulation, statistical modeling, machine learning, and much more. To start a Jupyter notebook for your HDInsight Spark cluster, broswse for your HDInsight Spark cluster in the Azure Portal by clicking the **BROWSE ALL** button and clicking on your cluster in the **All resources** blade to bring up your cluster's blade. Click on the **Cluster Dashboards** button to bring up the Cluster Dashboards blade. Click on the **Jupyter Notebook** button. This will open a new browser tab or window, depending on the browser.
+For more information about Zeppelin, visit the [Zeppelin Web site](https://zeppelin.incubator.apache.org/), where you'll find documentation and numerous examples regarding its use.
 
-	![Opening a Jupyter Notebook](Images/ex2-jupyter-button.png)
+<a name="Exercise3"></a>
+## Exercise 3: Using Jupyter to Analyze Data on a Spark cluster
 
-	_Opening a Jupyter Notebook_
+Zeppelin notebooks make it very easy to do interactive data analysis in Spark. Another popular tool is [Jupyter](https://jupyter.org/), which also uses a notebook paradigm, but boasts support for more than 40 programming languages including Python, R, and Scala. Jupyter excels at numerical simulation, statistical modeling, machine learning, and more. In this exercise, you will use a Jupyter notebook and a Python script to query the HVAC sample data provided with your cluster.
 
-1. The new window or tab will prompt you for the **user name** and **password** you specified when you created the HDInsight Spark cluster. Enter those when requested. Once logged in you will see the default Jupyter workspace. With the **Files** tab selected, click on the **New** button on the right hand side and in the popup menu, selcect **Python 2**.
+1. To start a Jupyter notebook for your HDInsight Spark cluster, browse for the cluster in the Azure Portal by clicking **BROWSE ALL** and clicking on your cluster in the "All resources" blade. Then click **Cluster Dashboards** to display the "Cluster Dashboards" blade, and click **Jupyter Notebook**. This will open a new browser tab or window, depending on the browser.
 
-	![Creating a New Jupyter Notebook](Images/ex2-new-jupyter-notebook.png)
+	![Opening a Jupyter notebook](Images/ex2-jupyter-button.png)
 
-	_Creating a New Jupyter Notebook_
+	_Opening a Jupyter notebook_
 
-1. The default name for a new Jupyter notebook is Untitled, which you will want to change. Click on the text **Untitled** at the top of the notebook and in the popup enter a name such as HVAC Experiment. When finished, click the **OK** button.
+1. Log in using the user name and password you specified for your cluster in Exercise 1. Once logged in, you will see the default Jupyter workspace. With the **Files** tab selected, click the **New** button on the right-hand side and select **Python 2** from the menu.
 
-	![Renaming a Jupyter Notebook](Images/ex2-rename-jupyter-notebook.png)
+	![Creating a new Jupyter notebook](Images/ex2-new-jupyter-notebook.png)
 
-	_Renaming a New Jupyter Notebook_
+	_Creating a new Jupyter notebook_
 
-1. The following Python code imports several necessary libraries and sets up the Spark SQL context so you can execute Spark SQL commands using the **sqlContext** variable. Copy and paste this code into the edit block on your noteboo.
+1. The default name for a new Jupyter notebook is "Untitled," which you will want to change. Click "Untitled" and enter a name such as "HVAC Experiment." When you're done, click the **OK** button.
+
+	![Renaming a Jupyter notebook](Images/ex2-rename-jupyter-notebook.png)
+
+	_Renaming a Jupyter notebook_
+
+1. The following Python code imports several required libraries and initializes a Spark SQL context so you can execute Spark SQL commands using the **sqlContext** variable. Copy this code into the edit box in your notebook.
 
 	<pre>
 	from pyspark import SparkContext
@@ -342,19 +354,19 @@ In this exercise, you will process data in [Zeppelin](https://zeppelin.incubator
 	sqlContext = SQLContext(sc)
 	</pre>
 
-	To run this code, click the run button in the toolbar.
+1. Click the **Run** button in the toolbar to run the code.
 
-	![Running code in a Jupyter Notebook](Images/ex2-jupyter-run-code-first-part.png)
+	![Running code in a Jupyter notebook](Images/ex2-jupyter-run-code-first-part.png)
 
-	_Running code in a Jupyter Notebook_
+	_Running code in a Jupyter notebook_
 
-1. When code us running in a Jupyter notebook the circle next to the Python 2 text in the upper right hand corner will become a solid circle, instead of the hollow circle indicating nothing is running.
+1. When code is running in a Jupyter notebook, the circle in the upper-right corner changes from hollow to filled. Wait for the run to finish (that is, for the circle to become hollow again).
 
-	![Jupyter Notebook Indicating Code Is Running](Images/ex2-jupyter-running-icon.png)
+	![The running-code indicator](Images/ex2-jupyter-running-icon.png)
 
-	_Jupyter Notebook Indicating Code Is Running_
+	_The running-code indicator_
 
-1. After the code finishes running, you will have another code entry box in your Jupyter notebook. Copy the following code into the new entry box. This code uses the Spark SQL interpreter to load the HVAC data file, create a schema, and runs a query against the data.
+1. After the code finishes running, a new code-entry box will appear. Copy the following code into the box. This code uses the Spark SQL interpreter to load the HVAC data file, create a schema, and run a query against the data:
 
 	<pre>
 	# Load the data
@@ -377,7 +389,7 @@ In this exercise, you will process data in [Zeppelin](https://zeppelin.incubator
 	data.show()
 	</pre>
 
-1. After pasting the code, either click the **Run** button to execute the code or use the SHIFT+ENTER keystroke which does the same thing. When the code finishes running, you'll see the following output.
+1. After pasting the code, either click the **Run** button or press SHIFT+ENTER to execute the code. When the code finishes running, you'll see the following output:
 
 	<pre>
 	buildingID temp_diff date  
@@ -403,34 +415,34 @@ In this exercise, you will process data in [Zeppelin](https://zeppelin.incubator
 	15         -10       6/1/13
 	</pre>
 
-In this exercise you got to see how easy it is to work with an HDInsight Spark cluster using Zeppelin and Jupyter notebooks to do interactive analysis. These are excellent ways to start exploring new datasets and perform quick analysis to get an idea what a dataset has in them. As you did before, once you are finished running jobs on your HDInsight Spark cluster you will want to remove it so you are not billed for it.
+The fact that Jupyter is preinstalled in Spark clusters created with Azure HDInsight means that you can get a notebook up and running with minimal effort. If you're new to Jupyter and want to learn more about its features and capabilities, visit the [Jupyter Web site](http://jupyter.org/) and check out the documentation and examples.
 
-<a name="Exercise3"></a>
-## Exercise 3: Removing an HDInsight Spark cluster
+<a name="Exercise4"></a>
+## Exercise 4: Removing an HDInsight Spark cluster
 
-As explained in [Exercise 1](#Exercise1), when you are finished with an HDInsight Spark cluster, you should remove it because you are charged for it while it exists, regardless of whether it's doing any work. In this exercise, you will delete the cluster used in the previous exercise. Note that because it's so easy to create and delete clusters, these tasks are frequently scripted using the Azure CLI or Azure PowerShell.
+When you are finished with an HDInsight Spark cluster, you should remove it because you are charged for it while it exists, regardless of whether it's doing any work. In this exercise, you will delete the cluster used in the previous exercises. Note that because it's so easy to create and delete clusters, these tasks are frequently scripted using the Azure CLI or Azure PowerShell.
 
 1. The first step in removing an HDInsight cluster is to log into the [Azure Portal](https://portal.azure.com).
 
-1. If the resource group containing your HDInsight Spark cluster is not open, click on **Resource groups** on the left side menu in the Portal. In the **Resource groups** blade, click on the resource group you created in this step. This will bring up the blade for your resource group.
+1. If the resource group containing your HDInsight Spark cluster is not open, click **Resource groups** in the main menu on the left side of the page. In the "Resource groups" blade, click the resource group you created in Exercise 1. This will bring up the blade for your resource group.
 
-	![Browsing Resource Groups](Images/ex1-browsing-resource-groups.png)
+	![Browsing resource groups](Images/ex1-browsing-resource-groups.png)
 
-	_Browsing Resource Groups_
+	_Browsing resource groups_
 
-1. In the blade for the resource group, click the **Delete** button.
+1. In the blade for your resource group, click the **Delete** button.
 
     ![Deleting a resource group](Images/ex3-delete-button.png)
 
     _Deleting a resource group_  
 
-1. As a safeguard against accidental deletion, you must type the resource group's name into the **TYPE THE RESOURCE GROUP NAME** field to delete it. After typing in the name, click the **Delete** button at the bottom of the blade.
+1. As a safeguard against accidental deletion, you must type the resource group's name to delete it. Type in the name, and then click the **Delete** button at the bottom of the blade.
 
-    ![Finalizing the deletion of a resource group](Images/ex3-confirm-delete.png)
+    ![Confirming deletion of a resource group](Images/ex3-confirm-delete.png)
 
-    _Finalizing the deletion of a resource group_  
+    _Confirming deletion of a resource group_  
 
-    After 10 minutes or so, your HDInsight cluster will be deleted along with all the resources in the resource group.
+    After 10 minutes or so, the cluster and all of its associated resources will be deleted.
 
 <a name="Summary"></a>
 ## Summary ##
@@ -438,8 +450,10 @@ As explained in [Exercise 1](#Exercise1), when you are finished with an HDInsigh
 Here is a quick summary of the key items you learned in this lab:
 
 - HDInsight is Microsoft Azure's implementation of Hadoop, Spark, and supporting big-data tools
-- The Azure Portal makes it easy to create and configure HDInsight Spark clusters
-- HDInisght fully supports popular interactive tools such as Zeppelin and Jupyter
+- The Azure Portal makes it easy to create, configure, and delete HDInsight Spark clusters
+- HDInsight Spark clusters come with Zeppelin and Jupyter preinstalled
+- Zeppelin and Jupyter notebooks provide powerful means for querying and visualizing data
+- HDInsight Spark clusters should be deleted when they're no longer needed to avoid incurring unwanted charges
 
 ---
 
