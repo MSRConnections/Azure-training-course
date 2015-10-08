@@ -1,9 +1,10 @@
 ///////////////// KEY VARS /////////////////
-var uri = "[Event hub URI]/messages";
-var sas = "[SAS token]"
+var sas = "Token";
+var uri = "URL";
 ///////////////////////////////////////////
 
 var request = require("request");
+uri = uri + "/messages";
 
 var probability = 0.01;     // Probability of fraudulent transaction
 var transactions = 0;       // Number of transactions executed
@@ -48,7 +49,13 @@ function send() {
         }
         else {
             console.log("[" + transaction.transactionId + "] Event sent (status code: " + response.statusCode + ")");
-            send(); // Call recursively if request was successful
+
+            if (response.statusCode < 400) {
+                send(); // Call recursively if request was successful
+            }
+            else {
+                console.log("*** Event failed with status code " + response.statusCode + " ***");
+            }
         }
     });
 }
