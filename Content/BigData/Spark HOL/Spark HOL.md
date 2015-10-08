@@ -10,7 +10,7 @@ In 2014, Gartner, Inc., a leading information research company, predicted that i
 
 Traditionally, [Apache Hadoop](https://hadoop.apache.org/) was the choice for big-data analysis. Hadoop enjoys tremendous mindshare in the research community, but because it is inherently disk-based, it is comparatively slow. A new tool that is garnering a lot of attention is [Apache Spark](http://spark.apache.org/). Spark is an open-source framework for large-scale data-analytics applications. Because it is memory-based, Spark can process data up to 100 times faster than Hadoop. Azure HDInsight reduces the complexity of deploying Spark clusters to a few button clicks, with no hardware to buy and no software to install and configure. Additionally, Spark clusters created with Azure HDInsight come complete with the popular notebooking tools [Apache Zeppelin](https://zeppelin.incubator.apache.org/) and [Jupyter](https://jupyter.org/) and offer seamless integration with third-party business-intelligence tools such as Microsoft Power BI.
 
-In this lab, you will experience Apache Spark for Azure HDInsight first-hand. After creating a Spark cluster, you will analyze a data set and use Zeppelin and Jupyter to visualize the results.
+In this lab, you will experience Apache Spark for Azure HDInsight first-hand. After creating a Spark cluster, you will analyze a data set and use Zeppelin and Jupyter to visualize the results. The goal for this hands-on-lab is that you learn the steps to creating and running your own Azure HDInsight clusters. For this lab, we will work with some simple heating, air-conditioning, and ventation (HVAC) data to see the entire process.
 
 <a name="Objectives"></a>
 ### Objectives ###
