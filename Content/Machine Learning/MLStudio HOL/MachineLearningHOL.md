@@ -70,6 +70,8 @@ The first step in employing Azure Machine Learning is to log in.
     ![Choosing the login type](Images/logging-in-choose-account.png)
 
     _Choosing the login type_
+    
+1. When you first log into Azure ML, a pop up dialog offers you a chance to take a tour. If you have never used Azure ML, the seven to ten minute tour is quite good and shows you all aspects of the service. For this lab we will walk through the creating your own custom experiment so it is not necessary to do the tour first. Each time you log into Azure ML, you are prompted to take the tour so you can come back to it later. Do note that when you do the full tour, the use your Azure ML instance to create a new predictive experiment. When the demo pauses and shows "running" in the upper right corner, it is doing real ML processing. For this lab, just click the **Not now** button in the dialog to continue the lab. 
 
 Now that you're logged in, the next step is to import some data and begin building a model around it.
 
