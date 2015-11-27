@@ -90,7 +90,7 @@ The [Azure Portal](https://portal.azure.com) allows you to perform basic storage
 
     _The storage account's access keys_
 
-1. Return to the blade for the storage account and click **Blob service** to view a list of containers associated with this account.
+1. Return to the blade for the storage account and click **Blobs** to view a list of containers associated with this account.
 
     ![Viewing storage containers](images/view-containers.png)
 
@@ -145,7 +145,7 @@ The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en
 	info:
 	info:    Microsoft Azure: Microsoft's Cloud Platform
 	info:
-	info:    Tool version 0.9.6
+	info:    Tool version 0.9.12
 	help:
 	help:    Display help for a given command
 	help:      help [options] [command]
@@ -177,32 +177,32 @@ The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en
 	help:      -v, --version  output the application version
 	</pre>
 
-1. Before you can do much with the Azure CLI, you must connect it to an Azure subscription. One way to do that is to download and then import a publishSettings file containing a certificate that Azure can use to authenticate you. Begin the process by executing the command below. **It is recommended that you open your default browser and tell it to delete all cookies first.**
+1. Before you can do much with the Azure CLI, you must connect it to an Azure subscription. One way to do that is to log in using your Microsoft account. To begin the login process, execute the following command, substituting your Microsoft account user name for *username*:
 
     <pre>
-    azure account download
+    azure login <i>username</i>
     </pre>
 
-1. Your default browser will open and inform you that a publishSettings file is being generated and downloaded. (Note that if there are multiple Azure subscriptions associated with your account, you may be asked which subscription you wish to download information for. If so, **choose the subscription that you used to perform the steps in Exercise 1**. This is the one that will be charged for the work you do in the CLI, and the one for which the storage account you created will be visible.) If your browser doesn't automatically save the downloaded file, save it and note the location in the file system where it was saved.
-
-	> Most browsers allow you to specify where a downloaded file is saved. Some, such as Microsoft Edge, do not. If you're not sure where the publishSettings file was saved and you're running Windows, check the Downloads folder.
-
-    ![Downloading the publishSettings file](images/publishsettings-download.png)
-
-	_Downloading the publishSettings file_
-
-1. Next, import the publishSettings file that you just downloaded by executing the following command, replacing *publishsettings* with the name of and path to the publishSettings file:
-
-    <pre>
-    azure account import <i>publishsettings</i>
-    </pre>
-
-	Confirm that the CLI responds with the following output:
+	The CLI will respond by displaying a message containing an alphanumeric code and a login URL:
 
 	<pre>
-	info:    Executing command account import
-	info:    account import command OK	
+	info:    Executing command login
+	info:    To sign in, use a web browser to open the page https://aka.ms/devicelogin. Enter the code A6X33J44Q to authenticate. If you're signing in as an Azure AD application, use the --username and --password parameters.
 	</pre>
+
+1. Go to [https://aka.ms/devicelogin](https://aka.ms/devicelogin) and type in the code obtained in the previous step. Then click **Continue**.
+
+    ![Entering the access code](images/access-code.png)
+
+    _Entering the access code_
+
+	> If you have multiple Microsoft accounts, you will be asked which one you wish to use to log in. Select the account that you used to set up your Azure subscription for this lab, and if prompted, enter the password for the account.
+
+1. If the login is successful, you will be told that you have signed in and invited to close the browser window. Close your browser and return to the CLI.
+
+    ![Successful login](images/successful-login.png)
+
+    _Successful login_
 
 1. The next step is to make sure that if there are multiple subscriptions associated with your account, the one you used in Exercise 1 is set as the default. To view the subscriptions associated with the account you imported, execute the following command:
 
@@ -210,13 +210,19 @@ The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en
     azure account list
     </pre>
 
-    If only one subscription is listed, move on to the next step. If two or more subscriptions are listed, execute the following command, replacing *subscription* with the ID of the subscription you used in Exercise 1:
+    If only one subscription is listed, move on to the next step. If two or more subscriptions are listed, execute the following command, replacing *subscription* with the name or ID of the subscription you used in Exercise 1:
 
     <pre>
     azure account set <i>subscription</i>
     </pre>
 
-1. Now use the following command to list all of your storage accounts and confirm that the account you created in [Exercise 1](#Exercise1) is present:
+1. Next, execute the following command to switch the CLI to Azure Resource Manager mode. This is necessary because the storage account you created in Exercise 1 is a Resource-Manager account:
+
+	<pre>
+	azure config mode arm
+	</pre>
+
+1. Now use the following command to list all of the Resource-Manager storage accounts associated with your subscription and confirm that the account you created in [Exercise 1](#Exercise1) is present:
 
     <pre>
     azure storage account list
@@ -225,7 +231,7 @@ The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en
 1. In order to use a storage account from the CLI, you must know the storage account's name, and you must have the storage account's access key. You can get that key from the Azure Portal, (as you did in Exercise 1), or you can get it from the  CLI. To display a list of keys associated with the storage account, run the following command, replacing *accountname* with the name of the storage account you created in Exercise 1:
 
     <pre>
-    azure storage account keys list <i>accountname</i>
+    azure storage account keys list <i>accountname</i> -g a4r-labs
     </pre>
 
 	The CLI will respond something like this:
@@ -327,7 +333,7 @@ In this exercise, you will create a container named "images" in the storage acco
 
     _Viewing storage accounts_
 
-1. Click **Blob service** to view the containers associated with this storage account.
+1. Click **Blobs** to view the containers in this storage account.
 
     ![Viewing storage containers](images/view-containers.png)
 
