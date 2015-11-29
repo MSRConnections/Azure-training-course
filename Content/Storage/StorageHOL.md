@@ -329,7 +329,7 @@ In this exercise, you will create a container named "images" in the storage acco
 
 	_Image blob downloaded from Azure storage_
 
-1. You can also see the blob that you uploaded in the Azure Portal. To see it, return to the [Azure Portal](https://portal.azure.com) in your browser. Click **Storage accounts** in the ribbon on the left. Then click the storage account you created in Exercise 1.
+1. You can also see the blob that you uploaded in the Azure Portal. To see it, return to the [Azure Portal](https://portal.azure.com) in your browser. Click **Storage accounts** in the ribbon on the left. Then click the storage account you created in Exercise 1. (If **Storage accounts** doesn't appear in the ribbon, click **Resource groups** instead and navigate to the storage account through the "A4R-Labs" resource group.)
 
     ![Viewing storage accounts](images/view-storage-account.png)
 
@@ -482,11 +482,11 @@ There's much more you can do when scripting the Azure CLI than these simple exam
 <a name="#Exercise5"></a>
 ### Exercise 5: Delete the resource group ###
 
-When you created a storage account in Exercise 1, you made that storage account part of a resource group named "A4R-Labs." One of the benefits of using resource groups is that deleting a resource group deletes everything in the group, including storage accounts. Deleting a resource group is a convenient way to delete complex Azure deployments without having to delete individual resources one by one. 
+When you created a storage account in Exercise 1, you made it part of a resource group named "A4R-Labs." One of the benefits of using resource groups is that deleting a resource group deletes all the resources inside it, including storage accounts. Deleting a resource group is a convenient way to delete complex Azure deployments without having to delete individual resources one by one. 
 
-In this exercise, you'll use the Azure Portal to delete the storage account you created in Exercise 1, and along with it the containers and blobs you created in Exercises 2 and 3.
+In this exercise, you'll use the Azure Portal to delete the storage account you created in Exercise 1, and along with it the containers and blobs you created in Exercises 3 and 4.
 
-1. Open the [Azure Portal](https://portal.azure.com) in your browser and click **Resource Groups** in the ribbon on the left. Then, in the "Resource groups" blade, click the resource group you wish to delete ("A4R-Labs"). Finally, click **Delete** in the blade for the resource group.
+1. Open the [Azure Portal](https://portal.azure.com) in your browser and click **Resource groups** in the ribbon on the left. Then, in the "Resource groups" blade, click the resource group you wish to delete ("A4R-Labs"). Finally, click **Delete** in the blade for the resource group.
 
     ![Deleting a resource group](images/delete-resource-group.png)
 
