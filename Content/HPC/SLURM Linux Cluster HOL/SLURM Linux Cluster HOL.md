@@ -138,7 +138,7 @@ Let's get started!
 
      _Selecting the resource group_
 
-1. The final step before clicking **Create** is to review the legal terms. Click **Legal terms** and once you have read the terms, click the **Buy** button on the bottom of the "Buy" blade. Note that all the templates provided by Microsoft are free, but there is a cost for running the machines. Other vendors may charge for the template itself.
+1. The final step before clicking **Create** is to review the legal terms. Click **Legal terms** and once you have read the terms, click the **Create** button on the bottom of the "Buy" blade. Note that all the templates provided by Microsoft are free, but there is a cost for running the machines. Other vendors may charge for the template itself.
 
     ![Agreeing to the legal terms](Images/template-legal-buy.png)
 

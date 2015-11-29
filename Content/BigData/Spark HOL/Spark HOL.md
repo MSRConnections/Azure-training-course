@@ -62,6 +62,8 @@ Hadoop is a well-established tool for big-data analysis, but it's not the only c
 
 	**Cluster Operating System** specifies the operating system for all the nodes in the cluster. At the time of this writing, HDInsight Spark clusters only run on Windows Server, so you can accept the default for this field.
 
+	**Version** specifies the Spark to run on all the nodes. Choose the latest version offered.
+
 	**Subscription** specifies which Azure subscription you want to assign the HDInsight cluster to. If you have multiple subscriptions, select the appropriate one from the drop-down list.
 
     ![Specifying the cluster's name and type](Images/ex1-spark-cluster-name.png)
@@ -155,35 +157,30 @@ In this exercise, you will process data in a [Zeppelin](https://zeppelin.incubat
 
 	_Login prompt for the Zeppelin notebook_
 
-1. When you log into Zeppelin in an HDInsight Spark cluster, you have to enter your user name and password multiple times to satisfy Spark's gateway and proxy servers. In the page that opened when you clicked **Log In** in the previous step, click **(link)**. This will open another browser tab or window and prompt you for your user name and password again. Log in a second time. Don't be alarmed by the 502 error; it's expected. You can then close this page in your browser.
-
-	![The next step in logging in](Images/ex2-zepellin-login-step-one.png)
-
-	_The next step in logging in_
-
-1. Return to the dashboard page and click **(Zeppelin portal)**. Once more, you will be prompted for the cluster's user name and password. Log in for the third time.
-
-	![The final step in logging in](Images/ex2-zepellin-login-step-two.png)
-
-	_The final step in logging in_
-
-1. Verify that a green light accompanied by the word "Connected" appears in the upper-right corner of the page. If it doesn't, repeat Steps 6 and 7.
-
-	![Connected to Zeppelin](Images/ex2-correctly-connected-zeppelin.png)
-
-	_Connected to Zeppelin_
-
-1. With the login to Zeppelin successful, the next step is to create a new note. Click **Create new note**. This will create a new Zeppelin note named "Note XXXXXXXXX" (where the X's are random characters). Click the link informing you that a new note was created to open the note.
+1. With the login to Zeppelin successful, the next step is to create a new note. Click **Create new note**. This will start the process to create a new note.
 
 	![Creating a new note](Images/ex2-create-new-zeppelin-notebook.png)
 
 	_Creating a new note_
+    
+1. A dialog will pop up asking you to name the note. Name it to something appropriate, such as "Research" and click the **Create Note** button.
+
+	![Namingthe Zeppelin noteb](Images/ex2-name-zeppelin-note.png)
+
+	_Naming the Zeppelin noteb_
+
 
 1. Click on the notebook name and change it to something appropriate, such as "Research." To commit the name, press the ENTER key.
 
 	![Renaming the Zeppelin notebook](Images/ex2-rename-zeppelin-note.png)
 
 	_Renaming the Zeppelin notebook_
+    
+1. After naming your note, click on its name in the Zeppelin window to open it.
+
+    ![Opening a Zeppelin note](Images/ex2-click-open-note.png)
+    
+    _Opening a Zeppelin note_
 
 1. The first step in analyzing data is loading it into a temporary table in the HDInsight Spark cluster. The sample data you will use is provided by Microsoft in a storage account associated with this cluster, but you'll have to write some code to load it from storage. Begin by copying the following statements to the clipboard:
 
@@ -232,7 +229,7 @@ In this exercise, you will process data in a [Zeppelin](https://zeppelin.incubat
 
 	_Running the paragraph_
 
-1. The word "READY" will turn to "PENDING" and the paragraph will gray out. The run is complete when "PENDING" changes to "FINISHED." Additionally, a new paragraph will appear in the notebook. If you would like, you can give a title to the paragraph by clicking the **Settings** button in the paragraph options and choosing **Show title**. If you do change the title, remember to press Enter to complete the change.
+1. The word "READY" will turn to "RUNNING xx%" and the paragraph will gray out. The run is complete when "RUNNING xx%" changes to "FINISHED." Additionally, a new paragraph will appear in the notebook. If you would like, you can give a title to the paragraph by clicking the **Settings** button in the paragraph options and choosing **Show title**. If you do change the title, remember to press Enter to complete the change.
 
 	![A finished run](Images/ex2-zeppelin-paragraph-settings.png)
 
@@ -247,7 +244,7 @@ In this exercise, you will process data in a [Zeppelin](https://zeppelin.incubat
 	where date = "6/1/13"
 	</pre>
 
-	> The first line of the code tells Spark to use the built-in Spark SQL interpreter. You can see all the provided interpreters by clicking the **Interpreter** link at the top of the page.
+	> The first line of the code tells Spark to use the built-in Spark SQL interpreter. You can see all the provided interpreters by clicking the **Interpreter** link at the top of the page. Note that if there are extra spaces in front of the percent sign, Zeppelin will report an error. 
 
 1. The query you just executed created a table containing columns for the building ID, the difference between the target temperature and the actual temperature for that building, and the date the data was recorded. The default output is the table itself. But part of Zeppelin's appeal is that it allows you to visualize data in various ways. To demonstrate, click the bar-graph icon. The resulting graph shows the temperature differences in each building. The graph indicates that the actual temperature in building 2 was 58 degrees less than the target temperature, which is deceptive because it's actually the sum of all temperature differences recorded for that building. 
 
@@ -322,15 +319,15 @@ For more information about Zeppelin, visit the [Zeppelin Web site](https://zeppe
 <a name="Exercise3"></a>
 ## Exercise 3: Using Jupyter to Analyze Data on a Spark cluster
 
-Zeppelin notebooks make it very easy to do interactive data analysis in Spark. Another popular tool is [Jupyter](https://jupyter.org/), which also uses a notebook paradigm, but boasts support for more than 40 programming languages including Python, R, and Scala. Jupyter excels at numerical simulation, statistical modeling, machine learning, and more. In this exercise, you will use a Jupyter notebook and a Python script to query the HVAC sample data provided with your cluster.
+Zeppelin notes make it very easy to do interactive data analysis in Spark. Another popular tool is [Jupyter](https://jupyter.org/), which also uses a notebook paradigm, but boasts support for more than 40 programming languages including Python, R, and Scala. Jupyter excels at numerical simulation, statistical modeling, machine learning, and more. In this exercise, you will use a Jupyter notebook and a Python script to query the HVAC sample data provided with your cluster.
 
-1. To start a Jupyter notebook for your HDInsight Spark cluster, browse for the cluster in the Azure Portal by clicking **BROWSE ALL** and clicking on your cluster in the "All resources" blade. Then click **Cluster Dashboards** to display the "Cluster Dashboards" blade, and click **Jupyter Notebook**. This will open a new browser tab or window, depending on the browser.
+1. To start a Jupyter notebook for your HDInsight Spark cluster, browse for the cluster in the Azure Portal by clicking **Resource groups** and clicking on your resource group created earlier, and in the resource group blade, clicking on the Hadoop elephant. In the Spark cluster blade. click **Cluster Dashboards** to display the "Cluster Dashboards" blade, and click **Jupyter Notebook**. This will open a new browser tab or window, depending on the browser.
 
 	![Opening a Jupyter notebook](Images/ex2-jupyter-button.png)
 
 	_Opening a Jupyter notebook_
 
-1. Log in using the user name and password you specified for your cluster in Exercise 1. Once logged in, you will see the default Jupyter workspace. With the **Files** tab selected, click the **New** button on the right-hand side and select **Python 2** from the menu.
+1. If prompted, log in using the user name and password you specified for your cluster in Exercise 1. Once logged in, you will see the default Jupyter workspace. With the **Files** tab selected, click the **New** button on the right-hand side and select **Python 2** from the menu.
 
 	![Creating a new Jupyter notebook](Images/ex2-new-jupyter-notebook.png)
 

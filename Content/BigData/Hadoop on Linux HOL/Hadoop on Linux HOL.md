@@ -67,6 +67,8 @@ For simplicity, this exercise will use password access when using Secure Shell (
 	The drop-down list in the **Cluster Type** field specifies the type of cluster to create. For this exercise, select **Hadoop**.
 
 	The **Cluster Operating System** field specifies the operating system used on all the nodes in the cluster. Select **Ubuntu**. Note that the Ubuntu version shown in the screen shot below might not be available because the Azure team is constantly updating base virtual machines. Also be aware that once you create an HDInsight cluster, its nodes won't be upgraded to newer operating systems unless you upgrade them yourself.
+    
+    The **Version** field lets you choose the version of Hadoop you are interested in using. For this lab, choose the latest version.
 
 	The **Subscription** field specifies which Azure subscription charges for the HDInsight cluster should be directed to. If there are multiple subscriptions associated with your account, pick the one you want to charge to by clicking on **Subscription** and selecting it.
 

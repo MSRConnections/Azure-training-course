@@ -10,6 +10,8 @@ Machine learning, which facilitates the analysis of large volumes of data by emp
 
 Azure Machine Learning is a cloud-based predictive-analysis service that offers a streamlined experience for data scientists of all skill levels. It's accompanied by the Azure Machine Learning Studio (ML Studio), which is a browser-based tool that allows you to build models using simple drag-and-drop gestures. It comes with a library of time-saving experiments and features best-in-class algorithms developed and tested in the real world by Microsoft businesses such as Bing. And its built-in support for [R](https://www.r-project.org/) and [Python](https://www.python.org/) means you can build custom scripts  to further automate your model. Once you've built and trained your model in the ML Studio, a couple of button clicks exposes the model as a Web service that is consumable by your programming language of choice, or shares it with the community by placing it in the product gallery. On its own, Azure Machine Learning can ingest as much as 10 GB of input data, but if that's not enough, it can also read from Hive or Azure SQL Databases.
 
+The Azure Machine Learning team have put together an outstanding "cheat sheet" that helps you decide which machine learning algoritm to use for many situations. You can download that cheat sheet at [http://aka.ms/MLCheatSheet](http://aka.ms/MLCheatSheet)
+
 In this lab, you will use Azure Machine Learning to model automobile prices and extract predictive data from the model. You will employ the following steps to build this experiment in Machine Learning Studio and to create, train, and score your model:
 
 1. Create a model
@@ -70,6 +72,8 @@ The first step in employing Azure Machine Learning is to log in.
     ![Choosing the login type](Images/logging-in-choose-account.png)
 
     _Choosing the login type_
+    
+1. When you first log into Azure ML, a pop up dialog offers you a chance to take a tour. If you have never used Azure ML, the seven to ten minute tour is quite good and shows you all aspects of the service. For this lab we will walk through the creating your own custom experiment so it is not necessary to do the tour first. Each time you log into Azure ML, you are prompted to take the tour so you can come back to it later. Do note that when you do the full tour, the use your Azure ML instance to create a new predictive experiment. When the demo pauses and shows "running" in the upper right corner, it is doing real ML processing. For this lab, just click the **Not now** button in the dialog to continue the lab. 
 
 Now that you're logged in, the next step is to import some data and begin building a model around it.
 
