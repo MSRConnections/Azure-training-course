@@ -217,8 +217,6 @@ If you'd rather not wait for the events to appear in the dashboard, feel free to
 
 You now have software that sends events to an Azure event hub, and an event hub that ingests the data. In this exercise, you'll use the Microsoft Azure [Classic Portal](https://manage.windowsazure.com) to create a Stream Analytics job and connect it to the event hub. You'll also capture the raw data being presented to Stream Analytics by the event hub and examine its structure.
 
-> Just as the Azure Preview Portal currently has no support for event hubs, it also lacks support for Stream Analytics. This will change in the future, but for now, you'll use the Classic Portal to explore Azure Stream Analytics.
-
 1. Open the [Classic Portal](https://manage.windowsazure.com) in your browser if it isn't already open. Click **STREAM ANALYTICS** in the ribbon on the left, and then click **CREATE A NEW STREAM ANALYTICS JOB**.
 
     ![Azure Stream Analytics](images/stream-analytics-screen.png)
@@ -260,6 +258,8 @@ You now have software that sends events to an Azure event hub, and an event hub 
     ![Specifying a data-stream type](images/add-input-dialog-2.png)
 
     _Specifying a data-stream type_
+
+	> IoT hubs are a relatively recent addition to Azure; their primary purpose is to enable two-way communications between IoT devices. You chose **Event Hub** because you're connecting simulated IoT devices to a Stream Analytics job, not to other devices. 
 
 1. Enter "Withdrawals" as a friendly alias for the input in the **INPUT ALIAS** box. In the **CHOOSE A NAMESPACE** and **CHOOSE AN EVENTHUB** boxes, select the namespace and event hub that you created in [Exercise 1](#Exercise1). Leave **EVENT HUB POLICY NAME** set to **RootManageSharedAccessKey** (that's a default policy that's created automatically when you create an event hub; it grants permission to manage the event hub, send events, and receive events) and **CHOOSE A CONSUMER GROUP** set to **$Default**. Then click the right-arrow in the lower-right corner.
 
@@ -394,7 +394,7 @@ To flag potentially fraudulent withdrawals from ATMs, you will query for transac
 
     _Potentially fraudulent transactions_
 
-1. Click the **SAVE** button at the bottom of the page to save the query.
+1. Click the **SAVE** button at the bottom of the page to save the query. Then click **YES** when asked to confirm.
 
     ![Saving the query](images/query-save.png)
 

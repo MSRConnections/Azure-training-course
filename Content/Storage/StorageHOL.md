@@ -20,6 +20,7 @@ In this hands-on lab, you will learn how to:
 - Create storage containers using the Azure CLI
 - Create blobs using the Azure CLI
 - Automate common storage tasks by scripting CLI commands
+- Delete storage accounts using the Azure Resource Manager
 
 <a name="Prerequisites"></a>
 ### Prerequisites ###
@@ -38,6 +39,7 @@ This hands-on lab includes the following exercises:
 - [Exercise 2: Install and configure the Azure CLI](#Exercise2)
 - [Exercise 3: Use the Azure CLI to create a container and upload blobs](#Exercise3)
 - [Exercise 4: Automate storage tasks by scripting CLI commands](#Exercise4)
+- [Exercise 5: Delete the resource group](#Exercise5)
 
 Estimated time to complete this lab: **60** minutes.
 
@@ -90,13 +92,13 @@ The [Azure Portal](https://portal.azure.com) allows you to perform basic storage
 
     _The storage account's access keys_
 
-1. Return to the blade for the storage account and click **Blob service** to view a list of containers associated with this account.
+1. Return to the blade for the storage account and click **Blobs** to view a list of containers associated with this account.
 
     ![Viewing storage containers](images/view-containers.png)
 
     _Viewing storage containers_
 
-1. The storage account currently has no containers. Before you create a blob, you must create a container to store it in. Currently, neither containers nor blobs can be created using the Azure Preview Portal. Therefore, you'll turn to the go-to tool for performing tasks that the portal cannot: the Azure Cross-Platform Command-Line Interface.
+1. The storage account currently has no containers. Before you create a blob, you must create a container to store it in. You can create containers in the Azure Preview Portal, but you can't create blobs. In this lab, you will create containers and blobs with the Azure Cross-Platform Command-Line Interface.
 
     ![The empty storage account](images/no-containers.png)
 
@@ -107,7 +109,7 @@ The [Azure Portal](https://portal.azure.com) allows you to perform basic storage
 
 The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli/) (CLI) is an open-source tool that provides a set of cross-platform commands for working with Microsoft Azure. The CLI provides most of the same functionality as the Azure Portal. It also offers features the portal does not, such as the ability to upload blobs to Azure Storage. In this exercise, you will install and configure the Azure CLI.
 
-1. The Azure CLI is a Node.js application, and it is installed with the Node.js package manager (npm). To determine whether Node.js and npm are installed on your computer, open a command-prompt window and execute the following command:
+1. The Azure CLI is a Node.js application, and it is installed with the Node.js package manager (npm). To determine whether Node.js and npm are installed on your computer, open a command-prompt or terminal window and execute the following command:
 
 	<pre>
 	npm -v
@@ -145,7 +147,7 @@ The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en
 	info:
 	info:    Microsoft Azure: Microsoft's Cloud Platform
 	info:
-	info:    Tool version 0.9.6
+	info:    Tool version 0.9.12
 	help:
 	help:    Display help for a given command
 	help:      help [options] [command]
@@ -177,32 +179,32 @@ The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en
 	help:      -v, --version  output the application version
 	</pre>
 
-1. Before you can do much with the Azure CLI, you must connect it to an Azure subscription. One way to do that is to download and then import a publishSettings file containing a certificate that Azure can use to authenticate you. Begin the process by executing the command below. **It is recommended that you open your default browser and tell it to delete all cookies first.**
+1. Before you can do much with the Azure CLI, you must connect it to an Azure subscription. One way to do that is to log in using your Microsoft account. To begin the login process, execute the following command, substituting your Microsoft account user name for *username*:
 
     <pre>
-    azure account download
+    azure login <i>username</i>
     </pre>
 
-1. Your default browser will open and inform you that a publishSettings file is being generated and downloaded. (Note that if there are multiple Azure subscriptions associated with your account, you may be asked which subscription you wish to download information for. If so, **choose the subscription that you used to perform the steps in Exercise 1**. This is the one that will be charged for the work you do in the CLI, and the one for which the storage account you created will be visible.) If your browser doesn't automatically save the downloaded file, save it and note the location in the file system where it was saved.
-
-	> Most browsers allow you to specify where a downloaded file is saved. Some, such as Microsoft Edge, do not. If you're not sure where the publishSettings file was saved and you're running Windows, check the Downloads folder.
-
-    ![Downloading the publishSettings file](images/publishsettings-download.png)
-
-	_Downloading the publishSettings file_
-
-1. Next, import the publishSettings file that you just downloaded by executing the following command, replacing *publishsettings* with the name of and path to the publishSettings file:
-
-    <pre>
-    azure account import <i>publishsettings</i>
-    </pre>
-
-	Confirm that the CLI responds with the following output:
+	The CLI will respond by displaying a message containing an alphanumeric code and a login URL:
 
 	<pre>
-	info:    Executing command account import
-	info:    account import command OK	
+	info:    Executing command login
+	info:    To sign in, use a web browser to open the page https://aka.ms/devicelogin. Enter the code A6X33J44Q to authenticate. If you're signing in as an Azure AD application, use the --username and --password parameters.
 	</pre>
+
+1. Go to [https://aka.ms/devicelogin](https://aka.ms/devicelogin) and type in the code obtained in the previous step. Then click **Continue**.
+
+    ![Entering the access code](images/access-code.png)
+
+    _Entering the access code_
+
+	> If you have multiple Microsoft accounts, you will be asked which one you wish to use to log in. Select the account that you used to set up your Azure subscription for this lab, and if prompted, enter the password for the account.
+
+1. If the login is successful, you will be told that you have signed in and invited to close the browser window. Close your browser and return to the CLI.
+
+    ![Successful login](images/successful-login.png)
+
+    _Successful login_
 
 1. The next step is to make sure that if there are multiple subscriptions associated with your account, the one you used in Exercise 1 is set as the default. To view the subscriptions associated with the account you imported, execute the following command:
 
@@ -210,22 +212,28 @@ The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en
     azure account list
     </pre>
 
-    If only one subscription is listed, move on to the next step. If two or more subscriptions are listed, execute the following command, replacing *subscription* with the ID of the subscription you used in Exercise 1:
+    If only one subscription is listed, move on to the next step. If two or more subscriptions are listed, execute the following command, replacing *subscription* with the name or ID of the subscription you used in Exercise 1:
 
     <pre>
     azure account set <i>subscription</i>
     </pre>
 
-1. Now use the following command to list all of your storage accounts and confirm that the account you created in [Exercise 1](#Exercise1) is present:
+1. Next, execute the following command to switch the CLI to Azure Resource Manager mode. This is necessary because the storage account you created in Exercise 1 is a Resource-Manager account:
+
+	<pre>
+	azure config mode arm
+	</pre>
+
+1. Now use the following command to list all of the Resource-Manager storage accounts associated with your subscription and confirm that the account you created in [Exercise 1](#Exercise1) is present:
 
     <pre>
     azure storage account list
     </pre>
 
-1. In order to use a storage account from the CLI, you must know the storage account's name, and you must have the storage account's access key. You can get that key from the Azure Portal, (as you did in Exercise 1), or you can get it from the  CLI. To display a list of keys associated with the storage account, run the following command, replacing *accountname* with the name of the storage account you created in Exercise 1:
+1. In order to use a storage account from the CLI, you must know the storage account's name, and you must have the storage account's access key. You can get that key from the Azure Portal, (as you did in Exercise 1), or you can get it from the  CLI. To display a list of keys associated with the storage account, run the following command, replacing *accountname* with the name of the storage account and *resourcegroup* with the resource group you created in Exercise 1:
 
     <pre>
-    azure storage account keys list <i>accountname</i>
+    azure storage account keys list <i>accountname</i> -g <i>resourcegroup</i>
     </pre>
 
 	The CLI will respond something like this:
@@ -252,10 +260,10 @@ _Blob storage schema_
 
 In this exercise, you will create a container named "images" in the storage account you created  in [Exercise 1](#Exercise1). Then you will upload blobs to it and learn how to access those blobs in the portal.
 
-1. At a command prompt, execute the following command, replacing *accountname* with the name of your storage account and *accountkey* with the account's primary access key:
+1. At a command prompt or terminal window, execute the following command, replacing *accountname* with the name of your storage account and *accountkey* (surrounded by double quote marks) with the account's primary access key:
 
     <pre>
-    azure storage container create -a <i>accountname</i> -k <i>accountkey</i> -p blob images
+    azure storage container create -a <i>accountname</i> -k "<i>accountkey</i>" -p blob images
     </pre>
 
 	The CLI should respond with output similar to the following:
@@ -281,10 +289,10 @@ In this exercise, you will create a container named "images" in the storage acco
 
 1. The next step is to create a blob by uploading a file to the "images" container. The file you will upload is named azure-banner.jpg and is provided for you in the "resources" subdirectory of this lab. At the command prompt, navigate to this lab's "resources" subdirectory.
 
-1. Execute the following command, replacing *accountname* with the storage account's name and *accountkey* with the storage account's key to create a blob named "banner.jpg" in the "images" container:
+1. Execute the following command, replacing *accountname* with the storage account's name and *accountkey* (surrounded by double quotes) with the storage account's key to create a blob named "banner.jpg" in the "images" container:
 
     <pre>
-    azure storage blob upload -a <i>accountname</i> -k <i>accountkey</i> azure-banner.jpg images banner.jpg
+    azure storage blob upload -a <i>accountname</i> -k "<i>accountkey</i>" azure-banner.jpg images banner.jpg
     </pre>
 
 	> In this command, "azure-banner.jpg" is the name of and path to the file you wish to upload (no path name is required since it's in the current directory), "images" is the container you're uploading to, and "banner.jpg" is the name assigned to the blob.
@@ -321,13 +329,13 @@ In this exercise, you will create a container named "images" in the storage acco
 
 	_Image blob downloaded from Azure storage_
 
-1. You can also see the blob that you uploaded in the Azure Portal. To see it, return to the [Azure Portal](https://portal.azure.com) in your browser. Click **Storage accounts** in the ribbon on the left. Then click the storage account you created in Exercise 1.
+1. You can also see the blob that you uploaded in the Azure Portal. To see it, return to the [Azure Portal](https://portal.azure.com) in your browser. Click **Storage accounts** in the ribbon on the left. Then click the storage account you created in Exercise 1. (If **Storage accounts** doesn't appear in the ribbon, click **Resource groups** instead and navigate to the storage account through the "A4R-Labs" resource group.)
 
     ![Viewing storage accounts](images/view-storage-account.png)
 
     _Viewing storage accounts_
 
-1. Click **Blob service** to view the containers associated with this storage account.
+1. Click **Blobs** to view the containers in this storage account.
 
     ![Viewing storage containers](images/view-containers.png)
 
@@ -354,7 +362,7 @@ In this exercise, you will create a container named "images" in the storage acco
 1. In Step 4, you saw that the storage account name and the container name form parts of the URL through which a blob is accessed. But what if you wanted to create a hierarchy of containers? What if, for example, you wanted "images/banner.jpg" in the URL to be "images/azure/banner.jpg"? You can't create nested containers, but you *can* include forward slashes in blob names to simulate container hierarchies. To demonstrate, run the following command in the CLI, once more providing the storage account's name and key:
 
     <pre>
-    azure storage blob upload -a <i>accountname</i> -k <i>accountkey</i> azure-banner.jpg images azure/banner.jpg
+    azure storage blob upload -a <i>accountname</i> -k "<i>accountkey</i>" azure-banner.jpg images azure/banner.jpg
     </pre>
 
 1. Now enter the following URL in your browser and confirm that the image blob appears:
@@ -366,7 +374,7 @@ In this exercise, you will create a container named "images" in the storage acco
 1. Finish up by executing the following command to delete the blob you just created:
 
     <pre>
-    azure storage blob delete -a <i>accountname</i> -k <i>accountkey</i> images azure/banner.jpg
+    azure storage blob delete -a <i>accountname</i> -k "<i>accountkey</i>" images azure/banner.jpg
     </pre>
 
 <a name="#Exercise4"></a>
@@ -380,7 +388,7 @@ In this exercise, you'll write and test a pair of scripts that automate common A
 
 1. If you're using Windows, **skip to Step 5**. The next few steps are for users running Linux, OS X, and other operating systems that support Bash scripts.
 
-1. Go to a command prompt and navigate to the directory containing this lab. In that directory, you'll find a subdirectory named "resources" containing a number of JPG images.
+1. Go to a terminal window and navigate to the directory containing this lab. In that directory, you'll find a subdirectory named "resources" containing a number of JPG images.
 
 1. In the lab directory — the one containing the "resources" subdirectory — use your favorite editor to create a text file named copyimages.sh containing the following statements. Replace *accountname* with the name of your storage account, and *accountkey* with the storage account's primary access key:
 
@@ -388,7 +396,7 @@ In this exercise, you'll write and test a pair of scripts that automate common A
 	cd resources 
 	for f in *.jpg 
 	do 
-	    azure storage blob upload -a <i>accountname</i> -k <i>accountkey</i> "${f##*/}" images "${f##*/}" 
+	    azure storage blob upload -a <i>accountname</i> -k "<i>accountkey</i>" "${f##*/}" images "${f##*/}" 
 	done 
 	cd .. 
 	</pre>
@@ -396,7 +404,7 @@ In this exercise, you'll write and test a pair of scripts that automate common A
 1. Execute the following command to run copyimages.sh:
 
 	<pre>
-	sh copyimages.sh
+	bash copyimages.sh
 	</pre>
 
 	**Now skip to Step 9**. Steps 5 through 8 are for PowerShell users only.
@@ -413,7 +421,7 @@ In this exercise, you'll write and test a pair of scripts that automate common A
 
 	<pre>
 	cd resources
-	$context = New-AzureStorageContext -StorageAccountName <i>accountname</i> -StorageAccountKey <i>accountkey</i>
+	$context = New-AzureStorageContext -StorageAccountName <i>accountname</i> -StorageAccountKey "<i>accountkey</i>"
 	foreach ($file in Get-ChildItem *.jpg) {
 	    Set-AzureStorageBlobContent -Blob $file.Name -Container "images" -File $file.Name -Context $context -Force
 	}
@@ -438,8 +446,8 @@ In this exercise, you'll write and test a pair of scripts that automate common A
 
 	<pre>
 	# syntax: renameblob.sh [container] [old-blob-name] [new-blob-name] [path]
-	azure storage blob delete -a <i>accountname</i> -k <i>accountkey</i> $1 "$2"
-	azure storage blob upload -a <i>accountname</i> -k <i>accountkey</i> "$4" $1 "$3"
+	azure storage blob delete -a <i>accountname</i> -k "<i>accountkey</i>" $1 "$2"
+	azure storage blob upload -a <i>accountname</i> -k "<i>accountkey</i>" "$4" $1 "$3"
 	</pre>
 
 1. If you are a Windows user and prefer PowerShell scripts instead, create a new text file named renameblob.ps1 containing the following statements. As usual, replace *accountname* and *accountkey* with your storage account's name and primary access key:
@@ -454,7 +462,7 @@ In this exercise, you'll write and test a pair of scripts that automate common A
 1. Now use the script you just created to rename one of the blobs in the "images" container. Use the following command to execute the Bash script:
 
 	<pre>
-	sh renameblob.sh images Desktop_Cortana_Pillar3.jpg Cortana.jpg resources/Desktop_Cortana_Pillar3.jpg
+	bash renameblob.sh images Desktop_Cortana_Pillar3.jpg Cortana.jpg resources/Desktop_Cortana_Pillar3.jpg
 	</pre>
 
 	The equivalent Azure PowerShell command is:
@@ -471,6 +479,28 @@ In this exercise, you'll write and test a pair of scripts that automate common A
 
 There's much more you can do when scripting the Azure CLI than these simple examples demonstrate. For example, you can pipe the output from **azure** commands to other commands such as **grep** and **awk**, and you can use the -v (or --verbose) switch to output JSON data. For more information and some cool examples, see [How to script the Azure CLI for Mac, Linux, and Windows](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli/#how-to-script-the-azure-cli-for-mac-linux-and-windows) on the Azure Web site.
 
+<a name="#Exercise5"></a>
+### Exercise 5: Delete the resource group ###
+
+When you created a storage account in Exercise 1, you made it part of a resource group named "A4R-Labs." One of the benefits of using resource groups is that deleting a resource group deletes all the resources inside it, including storage accounts. Deleting a resource group is a convenient way to delete complex Azure deployments without having to delete individual resources one by one. 
+
+In this exercise, you'll use the Azure Portal to delete the storage account you created in Exercise 1, and along with it the containers and blobs you created in Exercises 3 and 4.
+
+1. Open the [Azure Portal](https://portal.azure.com) in your browser and click **Resource groups** in the ribbon on the left. Then, in the "Resource groups" blade, click the resource group you wish to delete ("A4R-Labs"). Finally, click **Delete** in the blade for the resource group.
+
+    ![Deleting a resource group](images/delete-resource-group.png)
+
+    _Deleting a resource group_
+
+1. Because deleting a resource group is a permanent action that can't be undone, you must confirm that you want to delete it. Do so by typing the name of the resource group into the box labeled 
+**TYPE THE RESOURCE GROUP NAME**. Then click **Delete** to delete the resource group and everything inside it.
+
+    ![Confirming resource-group deletion](images/confirm-delete-resource-group.png)
+
+    _Confirming resource-group deletion_
+
+1. After a few minutes, you will be notified that the resource group was deleted. If the deleted resource group still appears in the "Resource groups" blade, click that blade's **Refresh** button to update the list of resource groups. The deleted resource group should go away.  
+
 <a name="summary"></a>
 ## Summary ##
 
@@ -481,6 +511,7 @@ Here's a quick summary of the important concepts that you learned in this lab:
 - Azure Storage blobs can contain any type of data, just like files in a file system
 - The Azure Cross-Platform Command-Line Interface (CLI) is a cross-platform tool that supports many features the Azure Portal does not, such as the ability to upload blobs
 - The Azure CLI can be combined with scripting languages to simplify storage tasks that require multiple commands
+- Storage accounts and other resources that are placed inside a resource group can easily be deleted by deleting the resource group itself
 
 Now that you're familiar with storage accounts, containers, and blobs, as well as some of the tools for managing them, you'll put your knowledge to work in subsequent labs. Knowing the basics of Azure Storage is an essential first step in working with Azure data services.
 
