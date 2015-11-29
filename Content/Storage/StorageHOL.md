@@ -493,7 +493,7 @@ In this exercise, you'll use the Azure Portal to delete the storage account you 
     _Deleting a resource group_
 
 1. Because deleting a resource group is a permanent action that can't be undone, you must confirm that you want to delete it. Do so by typing the name of the resource group into the box labeled 
-"TYPE THE RESOURCE GROUP NAME." Then click **Delete** to delete the resource group and everything inside it.
+**TYPE THE RESOURCE GROUP NAME**. Then click **Delete** to delete the resource group and everything inside it.
 
     ![Confirming resource-group deletion](images/confirm-delete-resource-group.png)
 
