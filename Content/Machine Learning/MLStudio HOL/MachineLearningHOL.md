@@ -129,6 +129,8 @@ No dataset is perfect; most require some amount of preprocessing before they can
 
 1. At the top of the modules pallet, type "project columns" into the search box to find the [Project Columns](https://msdn.microsoft.com/library/azure/1ec722fa-b623-4e26-a44e-a50c6d726223/) module. Drag that box over to the experiment canvas and connect it to the output port of the of the "Automobile price data (Raw)" dataset by dragging an arrow downward from the output port. The Project Columns module allows you to specify which columns of data to include or exclude in the model.
 
+    _A key concept to understand about Azure ML are connectors. In this step you a "connecting" the raw data module to a project columns module. That means that the data flows from one module to the next. Some modules, such as Train Model have multiple connectors going in, one for the untrained model and one for the data set, for example. If you want to know what a connector does, move you mouse over the connector to see a quick tip popup. If you want more information, right click on the module and select help from the popup menu._
+
     ![Connecting the dataset output to the Project Columns input](Images/preprocess-data-to-project.png)
 
     _Connecting the dataset output to the Project Columns input_
