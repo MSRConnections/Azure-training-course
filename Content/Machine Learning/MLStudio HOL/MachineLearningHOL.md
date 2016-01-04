@@ -133,6 +133,8 @@ No dataset is perfect; most require some amount of preprocessing before they can
 
 1. At the top of the modules pallet, type "project columns" into the search box to find the [Project Columns](https://msdn.microsoft.com/library/azure/1ec722fa-b623-4e26-a44e-a50c6d726223/) module. Drag that box over to the experiment canvas and connect it to the output port of the of the "Automobile price data (Raw)" dataset by dragging an arrow downward from the output port. The Project Columns module allows you to specify which columns of data to include or exclude in the model.
 
+    _A key concept to understand about Azure ML are connectors. In this step you a "connecting" the raw data module to a project columns module. That means that the data flows from one module to the next. Some modules, such as Train Model have multiple connectors going in, one for the untrained model and one for the data set, for example. If you want to know what a connector does, move you mouse over the connector to see a quick tip popup. If you want more information, right click on the module and select help from the popup menu._
+
     ![Connecting the dataset output to the Project Columns input](Images/preprocess-data-to-project.png)
 
     _Connecting the dataset output to the Project Columns input_
@@ -144,6 +146,8 @@ No dataset is perfect; most require some amount of preprocessing before they can
     _Launch column selector_
 
 1. Select **All columns** in the drop-down list labeled "Begin With." This tells the Project Columns modules to pass through all the columns (except those you're about to exclude). In the next row, select **Exclude** and **column names**, and then click inside the text box. A list of columns appears. Select **normalized-losses** to add that column to the text box. Now click the check mark to close the column selector.
+
+    _Note that in FireFox it can take up to a minute for the column name to automatically pop up. This does not happen in other browsers. Either wait for the popup or type the complete column name **normalized-losses** to work around the issue._
 
     ![Selecting columns for the model](Images/preprocess-select-columns-dialog.png)
 
@@ -320,7 +324,9 @@ Now that the model is adequately refined (90% is indicative of a reasonably stro
 
 Once you have a trained model, you can deploy it as a Web service in order to interact with it programmatically. That way, you can use your favorite programming language to pump data in and get results back.
 
-Before deploying as a Web service, you need to streamline your experiment for scoring. This involves creating a _scoring experiment_ from your trained model, removing unnecessary modules that were needed for training but are not needed for scoring, and adding Web-service input and output modules. Fortunately, Azure Machine Learning Studio can do this for you.
+Before deploying as a Web service, you need to streamline your experiment for scoring. This involves creating a _scoring experiment_ from your trained model, removing unnecessary modules needed for training but are not needed for scoring, and adding Web-service input and output modules. Fortunately, Azure Machine Learning Studio can do this for you.
+
+A very common question about hosting and using Azure ML web services is: how much do they cost? You can find the current pricing information in the [Machine Learning Pricing](https://azure.microsoft.com/en-us/pricing/details/machine-learning/) page.
 
 1. Even though you have already run your model, there's a bug in ML Studio whereby visualizing the data sometimes disables one of the Web-service menu items. To work around this, click the **RUN** button to rerun your model.
 
@@ -496,4 +502,4 @@ There's much more than you can do with Azure Machine Learning, but this is a sta
 
 ----
 
-Copyright 2015 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in http://www.apache.org/licenses/LICENSE-2.0.
+Copyright 2016 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in http://www.apache.org/licenses/LICENSE-2.0.
