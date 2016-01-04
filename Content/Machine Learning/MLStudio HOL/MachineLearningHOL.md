@@ -141,6 +141,8 @@ No dataset is perfect; most require some amount of preprocessing before they can
 
 1. Select **All columns** in the drop-down list labeled "Begin With." This tells the Project Columns modules to pass through all the columns (except those you're about to exclude). In the next row, select **Exclude** and **column names**, and then click inside the text box. A list of columns appears. Select **normalized-losses** to add that column to the text box. Now click the check mark to close the column selector.
 
+    _Note that in FireFox it can take up to a minute for the column name to automatically pop up. This does not happen in other browsers. Either wait for the popup or type the complete column name **normalized-losses** to work around the issue._
+
     ![Selecting columns for the model](Images/preprocess-select-columns-dialog.png)
 
     _Selecting columns for the model_
