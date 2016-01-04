@@ -486,5 +486,5 @@ Now that you're familiar with storage accounts, containers, and blobs, as well a
 
 ---
 
-Copyright 2015 Microsoft Corporation. All rights reserved. 
+Copyright 2016 Microsoft Corporation. All rights reserved. 
 Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0).
