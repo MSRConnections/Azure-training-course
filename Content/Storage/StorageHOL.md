@@ -125,7 +125,7 @@ The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en
 	npm install -g azure-cli
 	</pre>
 
-	> As noted in [Install the Azure CLI](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/), if you're running Linux, you might have to prefix the **npm** command with the **sudo** command in order for npm to work.
+	> As noted in [Install the Azure CLI](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/), if you're running OS X or Linux, you might have to prefix the **npm** command with the **sudo su** command in order for **npm** to work. The **sudo su** will execute the **npm** command with higher privileges so it can create the appropriate directories. After you execute **sudo su npm install -g azure-cli**, you should use the **exit** command to drop out of the higher privileges shell. If you do not, and continue with this lab, you may see odd problems such as in OS X giving errors about "keychain operations."   
 
 1. Once the Azure CLI is installed, you can use the **azure** command from your operating system's command line to perform Azure-related tasks. To see a list of commands available, and to verify that the Azure CLI is properly installed, execute the following command:
 
