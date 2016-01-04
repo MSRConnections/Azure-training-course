@@ -318,7 +318,9 @@ Now that the model is adequately refined (90% is indicative of a reasonably stro
 
 Once you have a trained model, you can deploy it as a Web service in order to interact with it programmatically. That way, you can use your favorite programming language to pump data in and get results back.
 
-Before deploying as a Web service, you need to streamline your experiment for scoring. This involves creating a _scoring experiment_ from your trained model, removing unnecessary modules that were needed for training but are not needed for scoring, and adding Web-service input and output modules. Fortunately, Azure Machine Learning Studio can do this for you.
+Before deploying as a Web service, you need to streamline your experiment for scoring. This involves creating a _scoring experiment_ from your trained model, removing unnecessary modules needed for training but are not needed for scoring, and adding Web-service input and output modules. Fortunately, Azure Machine Learning Studio can do this for you.
+
+A very common question about hosting and using Azure ML web services is: how much do they cost? You can find the current pricing information in the [Machine Learning Pricing](https://azure.microsoft.com/en-us/pricing/details/machine-learning/) page.
 
 1. Even though you have already run your model, there's a bug in ML Studio whereby visualizing the data sometimes disables one of the Web-service menu items. To work around this, click the **RUN** button to rerun your model.
 
