@@ -7,7 +7,7 @@
 
 Microsoft Azure Storage is a set of services that allows you to store large volumes of data in a cost-effective manner and in a way that makes the data readily and reliably available to services and applications that consume it. Data committed to Azure Storage can be stored in blobs, tables, queues, or files. [Azure blobs](http://azure.microsoft.com/en-us/services/storage/blobs/) are ideal for storing images, videos, and other other unstructured data, and are frequently used to provide input to and capture output from other Azure services such as [Azure Machine Learning](http://azure.microsoft.com/en-us/services/machine-learning/) and [Azure Stream Analytics](http://azure.microsoft.com/en-us/services/stream-analytics/). [Azure tables](http://azure.microsoft.com/en-us/services/storage/tables/) provide NoSQL storage for semi-structured data. [Azure queues](http://azure.microsoft.com/en-us/services/storage/queues/) support queued message transfers between applications (or parts of applications) and can be used to make applications more scalable and robust by eliminating hard dependencies between tham. Finally, [Azure Files](http://azure.microsoft.com/en-us/services/storage/files), which are currently in preview, use the Server Message Block (SMB) 2.1 protocol to share files in the cloud.
 
-Data stored in Microsoft Azure Storage can be accessed over HTTP or HTTPS using straightforward REST APIs, or it can be accessed using rich client libraries available for many popular languages and platforms, including .NET, Java, Android, Node.js, PHP, Ruby, and Python.
+Data stored in Microsoft Azure Storage can be accessed over HTTP or HTTPS using straightforward REST APIs, or it can be accessed using rich client libraries available for many popular languages and platforms, including .NET, Java, Android, Node.js, PHP, Ruby, and Python. The [Azure Portal](https://portal.azure.com) offers partial support for Azure Storage, but richer functionality is available from third-party tools, many of which are free and some of which work cross-platform.
 
 In this lab, you'll learn how to work with Azure storage accounts, storage containers, and storage blobs. You'll also get familiar with some of the tools used to manage them, including the [Azure Portal](https://portal.azure.com) and the [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli/), or *Azure CLI*, which works on a variety of operating systems and is arguably the most important tool (other than the Azure Portal) at your disposal for working with Microsoft Azure. The knowledge you gain will be used in later labs featuring Azure services that rely on blob storage for input and output. 
 
@@ -18,7 +18,8 @@ In this hands-on lab, you will learn how to:
 
 - Create storage accounts using the Azure Portal
 - Create storage containers using the Azure CLI
-- Create blobs using the Azure CLI
+- Upload blobs to storage using the Azure CLI
+- Download blobs from storage using the Azure Portal
 - Automate common storage tasks by scripting CLI commands
 - Delete storage accounts using the Azure Resource Manager
 
@@ -46,7 +47,7 @@ Estimated time to complete this lab: **60** minutes.
 <a name="#Exercise1"></a>
 ### Exercise 1: Use the Azure Portal to create a storage account ###
 
-The [Azure Portal](https://portal.azure.com) allows you to perform basic storage operations such as creating storage accounts and managing the access keys associated with those accounts. In this exercise, you'll use the portal to create a storage account.
+The [Azure Portal](https://portal.azure.com) allows you to perform basic storage operations such as creating storage accounts, viewing what's stored under those accounts, and managing the access keys associated with the accounts. In this exercise, you'll use the portal to create a storage account.
 
 1. Go to the [Azure Portal](https://portal.azure.com/) and sign in using the Microsoft credentials associated with your subscription.
  
@@ -64,7 +65,7 @@ The [Azure Portal](https://portal.azure.com) allows you to perform basic storage
 
 	> The default demployment model, **Classic**, creates a "classic" storage account that doesn't fall under the purview of the [Azure Resource Manager](https://azure.microsoft.com/en-us/documentation/articles/resource-group-overview/). Specifying **Resource Manager** as the deployment model provides you with more flexibility later on by ensuring that the account is explicitly added to a resource group, and it makes the storage account a first-class citizen in the Azure environment. For more information, see [Understanding Resource Manager deployment and classic deployment](https://azure.microsoft.com/en-us/documentation/articles/resource-manager-deployment-model/).
 
-	> Resource groups are a relatively recent addition to Azure and are a powerful construct for grouping resources such as storage accounts, databases, and virtual machines together so that they can be managed as a group. Imagine that you created a complex application consisting of multiple storage accounts, a cluster of VMs, a SQL database, and perhaps a Stream Analytics solution and a pair of event hubs. Now you want to create a new instance of the application using a different account. By assembling all these resources into a resource group, you can take advantage of [Azure deployment templates](https://azure.microsoft.com/en-us/documentation/articles/arm-template-deployment/) to script the creation of the entire application. In addition, you can use role-based security to restrict access to resources in a resource group, and you can delete the application — and all the resources that comprise it — by deleting the resource group. You will take advantage of resource groups and deployment templates in subsequent labs.
+	> Resource groups are a relatively recent addition to Azure and are a powerful construct for grouping resources such as storage accounts, databases, and virtual machines together so that they can be managed as a group. Imagine that you created a complex application consisting of multiple storage accounts, a cluster of VMs, a SQL database, and perhaps a Stream Analytics solution and a pair of event hubs. Now you want to create a new instance of the application using a different account. By assembling all these resources into a resource group, you can take advantage of [Azure deployment templates](https://azure.microsoft.com/en-us/documentation/articles/arm-template-deployment/) to script the creation of the entire application. In addition, you can use role-based security to restrict access to resources in a resource group, and you can delete the application — and all the resources that comprise it — by deleting the resource group. You will learn more about resource groups and deployment templates in subsequent labs.
 
 1. Enter a name for the new storage account in **Name** field. The name is important, because it forms one part of the URL through which storage items created under this account will be accessed. Storage account names can be 3 to 24 characters in length and can only contain numbers and lowercase letters. In addition, the name you enter must be unique within Azure; if someone else has chosen the same name, you'll be notified that the name isn't available.
 
@@ -98,7 +99,7 @@ The [Azure Portal](https://portal.azure.com) allows you to perform basic storage
 
     _Viewing storage containers_
 
-1. The storage account currently has no containers. Before you create a blob, you must create a container to store it in. You can create containers in the Azure Preview Portal, but you can't create blobs. In this lab, you will create containers and blobs with the Azure Cross-Platform Command-Line Interface.
+1. The storage account currently has no containers. Before you create a blob, you must create a container to store it in. You can create containers in the Azure Portal, but you can't create blobs. In this lab, you will create containers and blobs with the Azure Cross-Platform Command-Line Interface.
 
     ![The empty storage account](images/no-containers.png)
 
@@ -127,7 +128,7 @@ The [Azure Cross-Platform Command-Line Interface](https://azure.microsoft.com/en
 	npm install -g azure-cli
 	</pre>
 
-	> As noted in [Install the Azure CLI](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/), if you're running OS X or Linux, you might have to prefix the **npm** command with the **sudo su** command in order for **npm** to work. The **sudo su** will execute the **npm** command with higher privileges so it can create the appropriate directories. After you execute **sudo su npm install -g azure-cli**, you should use the **exit** command to drop out of the higher privileges shell. If you do not, and continue with this lab, you may see odd problems such as in OS X giving errors about "keychain operations."   
+	> As noted in [Install the Azure CLI](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/), if you're running Linux or OS X, you might have to prefix the **npm** command with the **sudo** command in order for npm to work.
 
 1. Once the Azure CLI is installed, you can use the **azure** command from your operating system's command line to perform Azure-related tasks. To see a list of commands available, and to verify that the Azure CLI is properly installed, execute the following command:
 
@@ -482,7 +483,7 @@ There's much more you can do when scripting the Azure CLI than these simple exam
 <a name="#Exercise5"></a>
 ### Exercise 5: Delete the resource group ###
 
-When you created a storage account in Exercise 1, you made it part of a resource group named "A4R-Labs." One of the benefits of using resource groups is that deleting a resource group deletes all the resources inside it, including storage accounts. Deleting a resource group is a convenient way to delete complex Azure deployments without having to delete individual resources one by one. 
+When you created a storage account in Exercise 1, you made it part of a resource group named "A4R-Labs." One of the benefits of using resource groups is that deleting a resource group deletes all the resources inside it, including storage accounts and blobs. Deleting a resource group is a convenient way to delete complex Azure deployments without having to delete individual resources one by one. 
 
 In this exercise, you'll use the Azure Portal to delete the storage account you created in Exercise 1, and along with it the containers and blobs you created in Exercises 3 and 4.
 
@@ -517,5 +518,5 @@ Now that you're familiar with storage accounts, containers, and blobs, as well a
 
 ---
 
-Copyright 2016 Microsoft Corporation. All rights reserved. 
+Copyright 2015 Microsoft Corporation. All rights reserved. 
 Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0).

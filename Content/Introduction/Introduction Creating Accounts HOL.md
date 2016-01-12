@@ -8,7 +8,7 @@
 
 Signing up for an free-trial Azure account is simple and allows you to get started exploring Azure in a couple of minutes. In the Azure for Research initiative, the Azure accounts you are given only work with a [Microsoft account](http://windows.microsoft.com/en-us/windows-live/sign-in-what-is-microsoft-account). To ensure there are no issues with existing accounts, you are going to create a brand new Microsoft Account in order to access your Azure benefits.
 
-Like any modern cloud-based service, Azure is growing all the time, with new features and services being added regularly. The entry point to Azure is through the Microsoft Azure Portal, of which there are two. The modern portal is the one you will use for most of the labs, but it is still under construction, so it is sometimes referred to as the [Preview Portal](https://portal.azure.com). The original portal, called the [Classic Portal](https://www.manage.windowsazure.com), still has a few features that have not been ported over to the Preview Portal. Each of the hands-on labs contains explicit instructions showing which portal (and which features) to use. In this lab, you will set up a free Azure account and learn how to switch between portals.
+Like any modern cloud-based service, Azure is growing all the time, with new features and services being added regularly. The entry point to Azure is through the Azure Portal, of which there are two. The modern portal, which will henceforth be referred to as the [Azure Portal](https://portal.azure.com), is the one you will use for most of the labs. The original portal, called the [Classic Portal](https://www.manage.windowsazure.com), still has a few features that have not been ported over to the modern portal. Each of the hands-on labs contains explicit instructions showing which portal (and which features) to use. In this lab, you will set up a free Azure account and learn how to switch between portals.
 
 <a name="Objectives"></a>
 ### Objectives ###
@@ -18,7 +18,7 @@ In this hands-on lab, you will learn how to:
 - Sign up for a new Microsoft Account.
 - Sign up for an Azure subscription
 - Log into Azure with your Microsoft account
-- Switch between the Preview Portal and the Classic Portal
+- Switch between the Azure Portal and the Classic Portal
 
 <a name="Prerequisites"></a>
 ### Prerequisites ###
@@ -67,9 +67,9 @@ Your Azure pass subscription benefit must be used with a new Microsoft Account, 
         - In the popup menu, select **Safety > InPrivate Browsing**.
         - The upper left corner of the window will change to show you are running in private node ![IE InPrivate](Images/ie-inprivate.png).
 
-1. In your newly opened private browsing window, go to the Microsoft Account sign-up page at [https://signup.live.com](https://signup.live.com/). Before you fill anything out, click on the **Get a new email address** link under the username.
+1. In your newly opened private browsing window, go to the Microsoft Account sign-up page at [https://signup.live.com](https://signup.live.com/). Before you fill anything out, click on the **Get a new email address** link under the user name.
 
-    ![Get new email address link](Images/account-creation-get-new-email.png)
+    !["Get a new email address" link](Images/account-creation-get-new-email.png)
 
     The username will change to indicate it is ending with **@outlook.com**.
 
@@ -82,78 +82,74 @@ With a new Microsoft Account created, you can now proceed to sign up for your fr
 <a name="Exercise2"></a>
 ## Exercise 2: Create an Azure trial subscription ##
 
-In this exercise you will sign up for free Azure Pass with $500 USD of credit (converted to your local currency) and a one month duration. There is no credit card requirement for this offer.
+In this exercise, you will sign up for free Azure Pass with $500 USD of credit (converted to your local currency) and a one-month duration. There is no credit card requirement for this offer.
 
 1. Open your Web browser and navigate to [https://www.microsoftazurepass.com](https://www.microsoftazurepass.com). In the middle-left of the screen, select your **country** from the dropdown and enter your promo code. Once entered, click the **Submit** button.
 
-    ![Selecting the Country, Entering the Promo Code, and Submitting](Images/ex1-country-code-submit.png)
+    ![Selecting the country, entering the promo code, and submitting](Images/ex1-country-code-submit.png)
 
-    _Selecting the Country, Entering the Promo Code, and Submitting_
+    _Selecting the country, entering the promo code, and submitting_
 
-1. If your promo code was accepted, the next page will ask you to sign in. Click the sign in button.
+1. If your promo code was accepted, the next page will ask you to sign in. Click the **Sign in** button.
 
-    ![Click the Sign In Button](Images/ex1-click-sign-in.png)
+    ![Signing in](Images/ex1-click-sign-in.png)
 
-    _Click the Sign In Button_
+    _Signing in_
 
 1. The sign in page defaults to work or school accounts. Click on the link that says **Sign in with a Microsoft account**.
 
-    ![The Sign In with a Microsoft Account Link](Images/ex1-click-sign-msft-account.png)
+    ![The "Sign in with a Microsoft account" link](Images/ex1-click-sign-msft-account.png)
 
-    _The Sign In with a Microsoft Account Link_
+    _The "Sign in with a Microsoft account" link_
 
-1. In the Microsoft Account sign in page, enter your **user name** and **password** for your Microsoft account.
+1. In the Microsoft account sign in page, enter the user name and password for your Microsoft account.
 
-    ![Entering Your Microsoft Account Information](Images/ex1-msft-account-login.png)
+    ![Entering your Microsoft account information](Images/ex1-msft-account-login.png)
 
-    _Entering Your Microsoft Account Information_
+    _Entering your Microsoft account information_
 
 1. If your login was successful you will return to the Azure Pass site and you will be asked to verify your first and last names and Microsoft account. Verify those and click the **Submit** button.
 
-    ![Verifying Your Microsoft Account Information](Images/ex1-verify-account-info.png)
+    ![Verifying your Microsoft account information](Images/ex1-verify-account-info.png)
 
-    _Verifying Your Microsoft Account Information_
+    _Verifying your Microsoft account information_
 
-1. You will be asked to activate the account and shown the offer details. Click the **Activate** button to start your free account.
+1. You will be asked to activate the account and shown details about the offer. Click the **Activate** button to activate your free account.
 
-    ![Activating Your Azure Subscription](Images/ex1-activate-subscription.png)
+    ![Activating your Azure subscription](Images/ex1-activate-subscription.png)
 
-    _Activating Your Azure Subscription_
+    _Activating your Azure subscription_
 
-1. Depending on the browser you are using a new window or a new browser tab will appear. On that page, it will ask for your phone number and require you to agree to the Azure subscription agreement, offer details, and the privacy statement. Click the **Sign up** button and **do not close the window** as it takes up to four minutes to create the Azure subscription.
+1. Depending on the browser you are using, a new window or a new browser tab will appear. On that page, it will ask for your phone number and require you to agree to the Azure subscription agreement, offer details, and privacy statement. Click the **Sign up** button and **do not close the window** as it takes up to four minutes to create the Azure subscription.
 
-    ![Completing the Azure Account Sign Up Process](Images/ex1-sign-up-button.png)
+    ![Completing the sign-up process](Images/ex1-sign-up-button.png)
 
-    _Completing the Azure Account Sign Up Process_
+    _Completing the sign-up process_
 
 1. The page will indicate the subscription setup process is complete by saying "Your subscription is ready for you!" Do not click on the Start managing my service button. Close this browser window.
 
-1. Open up a new browser window and go to the Azure Preview Portal: [https://portal.azure.com](https://portal.azure.com). If you did not terminate your browser application, your credentials are cached in memory so you will be logged in directly. If you did end your browser, you will be prompted to log in if you did not check "Keep me signed in". When you are prompted to sign in be aware that the sign-in may default to your work or school account if you have such an account. To log in with your Microsoft account when the sign-in page says "Sign in with your work or school account," click **Sign in with a Microsoft account** to expedite the sign-in process.
+1. Open up a new browser window and go to the Azure Portal at [https://portal.azure.com](https://portal.azure.com). If you did not close your browser, your credentials are cached in memory so you will be logged in directly. If you did end your browser session, you will be prompted to log in if you did not check **Keep me signed in**. When you are prompted to sign in, be aware that the sign-in may default to your work or school account if you have such an account. To log in with your Microsoft account when the sign-in page says "Sign in with your work or school account," click **Sign in with a Microsoft account** to expedite the sign-in process.
 
-     ![Signing in with a Microsoft Account](Images/ex1-login-choose-msft-account.png)
+     ![Signing in with a Microsoft account](Images/ex1-login-choose-msft-account.png)
 
-     _Signing in with a Microsoft Account_
+     _Signing in with a Microsoft account_
 
 Now you have a valid Azure account to use for the rest of the labs.
 
 <a name="Exercise3"></a>
 ## Exercise 3: Access the Azure portals ##
 
-In this exercise, you will learn how to switch between the two portals. You can always reach the Preview Portal directly by going to [https://portal.azure.com](https://portal.azure.com). For the Classic Portal, the address is [https://manage.windowsazure.com](https://manage.windowsazure.com).
+In this exercise, you will learn how to switch between the two Azure portals. You can always reach the Azure Portal directly by going to [https://portal.azure.com](https://portal.azure.com). For the Classic Portal, the address is [https://manage.windowsazure.com](https://manage.windowsazure.com).
 
-1. If you are not in the Preview Portal, go to [https://portal.azure.com](https://portal.azure.com). If you are asked to log in, enter the user name and password for the trial subscription you set up in [Exercise 2](#Exercise2).
+1. If you are not in the Azure Portal, go to [https://portal.azure.com](https://portal.azure.com). If you are asked to log in, enter the user name and password for the trial subscription you set up in [Exercise 2](#Exercise2).
 
-1. To switch from the Preview Portal to the Classic Portal, click on your name in the upper-right corner of the page and in the ensuing menu, chose **Azure portal**.
+1. To switch from the Azure Portal to the Classic Portal, go to [https://manage.windowsazure.com](https://manage.windowsazure.com).
 
-    ![Switching to the Classic Portal](Images/switch-portal-2-classic.png)
+1. To quickly switch from the Classic Portal to the Azure Portal, click on your name in the upper-right corner of the page and choose **Switch to the new Azure Portal**.
 
-    _Switching from Preview Portal to Classic Portal_
+    ![Switching from the Classic Portal to the Azure Portal](Images/switch-classic-2-portal.png)
 
-1. To switch from the Classic Portal to the Preview Portal, click on your name in the upper-right corner of the page and choose **Switch to Azure Preview Portal**.
-
-    ![Switching to the Plassic Portal](Images/switch-classic-2-portal.png)
-
-    _Switching from Classic Portal to Preview Portal_
+    _Switching from the Classic Portal to the Azure Portal_
 
 Now you know how to switch between the two portals.
 
@@ -161,10 +157,12 @@ Now you know how to switch between the two portals.
 
 In this hands-on lab, you learned how to:
 
-- Create a new Microsoft Account.
-- Sign up for an Azure promo code subscription
+- Create a new Microsoft Account
+- Sign up for an Azure Pass subscription
 - Log into Azure with your Microsoft account
-- Switch between the Preview Portal and the Classic Portal
+- Switch between the Azure Portal and the Classic Portal
+
+The portal will be your home for everything Azure and your gateway for using the cloud to aid your research.
 
 ---
 

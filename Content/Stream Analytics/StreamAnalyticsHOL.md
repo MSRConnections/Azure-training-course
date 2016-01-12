@@ -51,7 +51,7 @@ Azure Stream Analytics supports two types of input: input from Azure blobs, and 
 
 In this exercise, you'll create an Azure event hub to provide input to Azure Stream Analytics and configure it to so that it can be accessed safely and securely by IoT devices and gateways. 
 
-1. You can't (yet) create an event hub using the Azure Preview Portal, so you'll create it instead using the Classic Portal. Go to [https://manage.windowsazure.com](https://manage.windowsazure.com) to open the Classic Portal, and click **Service Bus** in the ribbon on the left. Then click **CREATE A NEW NAMESPACE** to create a new service-bus namespace. (If you have already created one or more namespaces, click **+ NEW** in the lower-left corner of the page to create another one.)
+1. You can't (yet) create an event hub using the Azure Portal, so you'll create it instead using the Classic Portal. Go to [https://manage.windowsazure.com](https://manage.windowsazure.com) to open the Classic Portal, and click **Service Bus** in the ribbon on the left. Then click **CREATE A NEW NAMESPACE** to create a new service-bus namespace. (If you have already created one or more namespaces, click **+ NEW** in the lower-left corner of the page to create another one.)
 
     ![Azure Service Bus](images/service-bus-screen.png)
 
@@ -81,7 +81,7 @@ In this exercise, you'll create an Azure event hub to provide input to Azure Str
 
     _IoTEventHub dashboard_
 
-1. In order to transmit events to the event hub from an application or device, you need to create a shared-access policy that includes Send permission. In the **shared access policies** section of the IoTEventHub configuration page, create a new policy named "SendPolicy" and check the **Send** box in the drop-down list under **PERMISSIONS**. Then click the **Save** button at the bottom of the page to save the new policy.
+1. In order to transmit events to the event hub from an application or device, you need to create a shared-access policy that includes Send permission. In the **shared access policies** section of the IoTEventHub configuration page, create a new policy named "SendPolicy" (without the quotation marks) and check the **Send** box in the drop-down list under **PERMISSIONS**. Then click the **Save** button at the bottom of the page to save the new policy.
 
     ![Creating a send policy](images/new-shared-access-policy.png)
 
@@ -114,7 +114,7 @@ Applications, devices, or gateways can send events to event hubs using the [Azur
 
 In this exercise, you will generate a shared-access signature token for the event hub created in [Exercise 1](#Exercise1) and copy it, along with the event hub URL, into a Node.js application that will be used to send events to the event hub in Exercise 3.
 
-1. Neither the Classic Portal nor the Preview Portal currently provides an interface for generating SAS tokens. Therefore, you will generate a token using a Node.js utility named sas.js provided with this lab. Begin by opening a terminal window.
+1. Neither the Classic Portal nor the Azure Portal currently provides an interface for generating SAS tokens. Therefore, you will generate a token using a Node.js utility named sas.js provided with this lab. Begin by opening a terminal window.
 
 1. Verify that Node.js is installed on your computer by executing the following command:
 
@@ -136,7 +136,7 @@ In this exercise, you will generate a shared-access signature token for the even
 
 1. When prompted, enter the event-hub URL you saved in Exercise 1, Step 9. Then press Enter.
 
-1. When prompted, enter the name ("SendPolicy") of the policy you created for the Azure event hub in Exercise 1, Step 6. Then press Enter.
+1. When prompted, enter the name of the policy (SendPolicy) you created for the Azure event hub in Exercise 1, Step 6. Then press Enter.
 
 1. When prompted, enter the key that you saved in Exercise 1, Step 7. Then press Enter.
 

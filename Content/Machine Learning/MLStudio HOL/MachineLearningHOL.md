@@ -10,7 +10,7 @@ Machine learning, which facilitates the analysis of large volumes of data by emp
 
 Azure Machine Learning is a cloud-based predictive-analysis service that offers a streamlined experience for data scientists of all skill levels. It's accompanied by the Azure Machine Learning Studio (ML Studio), which is a browser-based tool that allows you to build models using simple drag-and-drop gestures. It comes with a library of time-saving experiments and features best-in-class algorithms developed and tested in the real world by Microsoft businesses such as Bing. And its built-in support for [R](https://www.r-project.org/) and [Python](https://www.python.org/) means you can build custom scripts  to further automate your model. Once you've built and trained your model in the ML Studio, a couple of button clicks exposes the model as a Web service that is consumable by your programming language of choice, or shares it with the community by placing it in the product gallery. On its own, Azure Machine Learning can ingest as much as 10 GB of input data, but if that's not enough, it can also read from Hive or Azure SQL Databases.
 
-The Azure Machine Learning team have put together an outstanding "cheat sheet" that helps you decide which machine learning algoritm to use for many situations. You can download that cheat sheet at [http://aka.ms/MLCheatSheet](http://aka.ms/MLCheatSheet)
+The Azure Machine Learning team have put together a "cheat sheet" that helps you decide which machine learning algoritm to use for many situations. You can download it from [http://aka.ms/MLCheatSheet](http://aka.ms/MLCheatSheet)
 
 In this lab, you will use Azure Machine Learning to model automobile prices and extract predictive data from the model. You will employ the following steps to build this experiment in Machine Learning Studio and to create, train, and score your model:
 
@@ -82,7 +82,7 @@ Now that you're logged in, the next step is to import some data and begin buildi
 
 In this exercise, you will create an experiment and add a dataset to it.
 
-> When working with the Azure Machine Learning Studio, get in the habit of saving your experiments often, as in after each step of this lab. That way, if you encounter a problem, you will not have to replicate steps to get caught up. Also, be aware that due to a known issue in ML Studio, you will **lose your work if you click the Back button without saving your experiment first.**
+> When working with the Azure Machine Learning Studio, get in the habit of saving your experiments often, as in after each step of this lab. That way, if you encounter a problem, you will not have to replicate steps to get caught up. Also, be aware that due to a known issue in ML Studio, you may **lose your work if you click the Back button without saving your experiment first.**
 
 Azure Machine Learning Studio comes with several sample datasets. In this lab, you will utilize the sample dataset named "Automobile price data (Raw)." This dataset includes entries for a number of individual automobiles, including make, model, technical specifications, and price.
 
@@ -131,9 +131,9 @@ In this exercise, you learned how to create a new ML experiment and add a datase
 
 No dataset is perfect; most require some amount of preprocessing before they can be analyzed. When you visualized the data, you may have noticed that some rows of automobile data contained missing values. These missing values need to be cleaned up before analysis begins. In this example, you will simply remove any rows that have missing values. In addition, the "normalized-losses" column has a lot of missing values, so you'll exclude that column from the model.
 
-1. At the top of the modules pallet, type "project columns" into the search box to find the [Project Columns](https://msdn.microsoft.com/library/azure/1ec722fa-b623-4e26-a44e-a50c6d726223/) module. Drag that box over to the experiment canvas and connect it to the output port of the of the "Automobile price data (Raw)" dataset by dragging an arrow downward from the output port. The Project Columns module allows you to specify which columns of data to include or exclude in the model.
+1. At the top of the modules pallet, type "project columns" into the search box to find the [Project Columns](https://msdn.microsoft.com/library/azure/1ec722fa-b623-4e26-a44e-a50c6d726223/) module. Drag that box over to the experiment canvas and connect it to the output port of the "Automobile price data (Raw)" dataset by dragging an arrow downward from the output port. The Project Columns module allows you to specify which columns of data to include or exclude in the model.
 
-    _A key concept to understand about Azure ML are connectors. In this step you a "connecting" the raw data module to a project columns module. That means that the data flows from one module to the next. Some modules, such as Train Model have multiple connectors going in, one for the untrained model and one for the data set, for example. If you want to know what a connector does, move you mouse over the connector to see a quick tip popup. If you want more information, right click on the module and select help from the popup menu._
+     > A key concept to understand about Azure ML is that of ports and connectors. In this step, you connected the output port of the raw data module to the input port of the Project Columns module. The data flows from one module to the next through the connector. Some modules, such as the Train Model, support multiple inputs and therefore have multiple input ports. If you want to know what a port does, hover over it with the mouse and a tip will pop up. If you want more information, right-click on the module and select **Help** from the popup menu.
 
     ![Connecting the dataset output to the Project Columns input](Images/preprocess-data-to-project.png)
 
@@ -147,7 +147,7 @@ No dataset is perfect; most require some amount of preprocessing before they can
 
 1. Select **All columns** in the drop-down list labeled "Begin With." This tells the Project Columns modules to pass through all the columns (except those you're about to exclude). In the next row, select **Exclude** and **column names**, and then click inside the text box. A list of columns appears. Select **normalized-losses** to add that column to the text box. Now click the check mark to close the column selector.
 
-    _Note that in FireFox it can take up to a minute for the column name to automatically pop up. This does not happen in other browsers. Either wait for the popup or type the complete column name **normalized-losses** to work around the issue._
+    > Note that in Firefox it can take up to a minute for the column name to pop up. This does not happen in other browsers. Either wait for the popup or type the complete column name (normalized-losses) to work around the issue.
 
     ![Selecting columns for the model](Images/preprocess-select-columns-dialog.png)
 
@@ -159,7 +159,7 @@ No dataset is perfect; most require some amount of preprocessing before they can
 
     _Final column selection_
 
-1. You are building a real model in this lab, but it is a relatively simple one. In larger and more complex experiments containing many modules, it's easy to lose track of what each module does and why. A nice feature of Azure Machine Learning Studio is that if you double-click a module on the experiment canvas, you can annotate it with comments. Double-click the Project Columns module and type the comment "Exclude normalized-losses" in the text box that pops up. To display the comment, click the down arrow in the Project Columns box. If you wish to change the comment, you can right-click the module and select **Edit Comment** from the menu that pops up.
+1. You are building a real model in this lab, but it is a relatively simple one. In larger and more complex experiments containing many modules, it's easy to lose track of what each module does and why. A nice feature of Azure Machine Learning Studio is that if you double-click a module on the experiment canvas, you can annotate it with comments. Double-click the Project Columns module and type "Exclude normalized-losses" in the text box that pops up. To display the comment, click the down arrow in the Project Columns box. If you wish to change the comment, you can right-click the module and select **Edit Comment** from the menu that pops up.
 
     ![Adding and viewing comments](Images/preprocess-seeing-box-comments.png)
 
@@ -236,7 +236,7 @@ Before you can train and test the model, you must select a learning algorithm fo
 
 The goal is to predict the price of an automobile, so you will use a regression model. In this exercise, you will train a simple linear-regression model, and in the next exercise, you will test the results.
 
-1. You can use one dataset for training and testing by splitting it into separate datasets. Select and drag the [Split](https://msdn.microsoft.com/en-us/library/azure/dn905969.aspx) module to the canvas and connect it to the output of the last Project Columns module. Set "Fraction of rows in the first output dataset" to 0.8. This will use 80% of the data to train the model, and hold back 20% for testing. For this lab leave "Random seed" set to 0. This parameter controls the seeding of the pseudo-random number generator and allows you to produce different random samples by entering different values.
+1. You can use one dataset for training and testing by splitting it into separate datasets. Select and drag the [Split](https://msdn.microsoft.com/en-us/library/azure/dn905969.aspx) module to the canvas and connect it to the output of the last Project Columns module. Set **Fraction of rows in the first output dataset** to 0.8. This will use 80% of the data to train the model, and hold back 20% for testing. For this lab leave **Random seed** set to 0. This parameter controls the seeding of the pseudo-random number generator and allows you to produce different random samples by entering different values.
 
     ![Splitting the data](Images/choose-split-percentage.png)
 
