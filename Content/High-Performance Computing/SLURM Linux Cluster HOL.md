@@ -176,13 +176,13 @@ You will run a Python script on the cluster to generate grayscale images from co
 
 1. Click the **...** button to the right of the field labeled "Files." In the ensuing dialog, navigate to this lab's "resources\ColorImages" subdirectory and select all the files in that subdirectory. Then close the dialog and click  the **Upload** button.
 
-    ![Uploading files to blob storage](images/upload-files-dialog.png)
+    ![Uploading files to blob storage](Images/upload-files-dialog.png)
 
     _Uploading files to blob storage_
 
 1. Confirm that all 49 files were uploaded to the "input" container.
 
-    ![Uploaded images](images/uploaded-images.png)
+    ![Uploaded images](Images/uploaded-images.png)
 
     _Uploaded images_
 

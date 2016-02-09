@@ -214,7 +214,7 @@ You can also download blobs using the Azure Portal. In this exercise, you'll use
 
 1. Click the **Download** button at the top of the blade to download azure-banner.jpg.
 
-    ![Downloading a blob](images/download-blob2.png)
+    ![Downloading a blob](images/download-blob.png)
 
 	_Downloading a blob_
 
