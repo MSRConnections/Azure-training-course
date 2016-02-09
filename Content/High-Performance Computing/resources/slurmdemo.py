@@ -16,13 +16,13 @@ from azure.storage.sharedaccesssignature import (
     QueryStringConstants,
     ResourceType,
 )
-from azure.storage import BlobService
+from azure.storage.blob import BlobService
 
 ########################################################
 # Update these two variables to those for your account.
 #######################################################
-ACCOUNT_NAME = '<account name>'
-ACCOUNT_KEY = '<account key>'
+ACCOUNT_NAME = 'account_name'
+ACCOUNT_KEY = 'account_key'
 #######################################################
 
 INPUT_CONTAINER = 'input'

@@ -36,14 +36,14 @@ wget 'https://raw.githubusercontent.com/Azure/azure-batch-samples/master/Python/
 for node in $(sinfo -o "%n" -h|grep -v `hostname`)
 do
 
-  ssh <admin account>@$node sudo apt-get -y install python-pip
-  ssh <admin account>@$node sudo apt-get -y install imagemagick
-  ssh <admin account>@$node pip install azure
+  ssh adminuser@$node sudo apt-get -y install python-pip
+  ssh adminuser@$node sudo apt-get -y install imagemagick
+  ssh adminuser@$node pip install azure
 
-  scp slurmdemo.py <admin account>@$node:~
-  scp slurmdemo.sh <admin account>@$node:~
+  scp slurmdemo.py adminuser@$node:~
+  scp slurmdemo.sh adminuser@$node:~
 
-  ssh <admin account>@$node 'wget https://raw.githubusercontent.com/Azure/azure-batch-samples/master/Python/Storage/blobxfer.py'
+  ssh adminuser@$node 'wget https://raw.githubusercontent.com/Azure/azure-batch-samples/master/Python/Storage/blobxfer.py'
 
 done
 
