@@ -213,7 +213,7 @@ You can use any text editor that you're comfortable with. There is no need to be
 
 1. Copy the script files from this labs's "resources" subdirectory to a local directory on your computer. Then navigate to the directory you copied the files to.
 
-1. Open slurmdemo.py (the copy, not the original) in a text editor and find the following section near the top of the file:
+1. Open **slurmdemo.py** (the copy, not the original) in a text editor and find the following section near the top of the file:
 
 	<pre>
     ########################################################
@@ -243,7 +243,7 @@ You can use any text editor that you're comfortable with. There is no need to be
 
 1. Save your changes to slurmdemo.py and close the text editor.
 
-1. In the directory that you copied the scripts to, open slurmdemo.setup.sh in your text editor. Search for all instances of *adminuser* and replace them with the ADMINUSERNAME property you specified in the template in [Exercise 2](#Exercise2). There are six instances that need to be replaced.
+1. In the directory that you copied the scripts to, open **slurmdemo.setup.sh** in your text editor. Search for all instances of *adminuser* and replace them with the ADMINUSERNAME property you specified in the template in [Exercise 2](#Exercise2). **There are six instances that need to be replaced**.
 
 1. Save your changes to slurmdemo.setup.sh and close the text editor.
 

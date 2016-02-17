@@ -122,11 +122,13 @@ In this exercise, you will generate a shared-access signature token for the even
 	node -v
 	</pre>
 
-	If Node.js is installed, you'll see the Node.js version number.	In that's case, skip the next step and **go straight to Step 4**.
+	If Node.js is installed, you'll see the Node.js version number.	In that's case, skip the next step and **go to Step 4**.
 
 1. If you don't see a version number, or if the **node** command didn't run at all, then you need to install Node.js. To install Node.js on Windows or OS X, visit the [Node.js Web site](http://nodejs.org) and follow the instructions there for downloading and installing Node.js.
 
 	Installing Node.js on Linux is more challenging because how you do it depends on which distribution and version of Linux you're running. Navigate to [https://nodejs.org/en/download/package-manager/](https://nodejs.org/en/download/package-manager/) and you'll find an article on the Node.js Web site that offers helpful instructions for many Linux distributions.
+
+	> Once Node.js is installed, you will probably need to open a new Bash, Terminal, or Command Prompt window in order to execute Node.js commands.
 
 1. At the command prompt, navigate to this lab's "resources" directory. Then execute the following command:
 
@@ -157,7 +159,7 @@ In this exercise, you will generate a shared-access signature token for the even
 	///////////////////////////////////////////
 	</pre>
 
-1. Replace *Token* with the SAS token you copied to the clipboard in Step 7. **Important:** The SAS token must **not include line breaks**. It needs to appear on this line as one contiguous string, and it must begin and end with quotation marks. In addition, the line must end with a semicolon.
+1. Replace *Token* with the SAS token you copied to the clipboard in Step 8. **Important:** The SAS token must **not include line breaks**. It needs to appear on this line as one contiguous string, and it must begin and end with quotation marks. In addition, the line must end with a semicolon.
 
 1. Replace *URL* with the event-hub URL you saved in exercise 1, Step 9.
 

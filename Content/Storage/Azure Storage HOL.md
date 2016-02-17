@@ -107,7 +107,7 @@ The [Microsoft Azure Storage Explorer](http://storageexplorer.com/) is a free to
 
 1. Open your browser and navigate to [http://storageexplorer.com/](http://storageexplorer.com/).
 
-1. Click the **Download for Windows**, **Download for Mac**, or **Download for Linux** button, depending on which type of computer you're using.
+1. Click **Download for Windows**, **Download for Mac**, or **Download for Linux**, depending on which type of computer you're using.
 
     ![Downloading the Microsoft Azure Storage Explorer](images/download-storage-explorer.png)
 
