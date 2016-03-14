@@ -80,7 +80,7 @@ Now that you're logged in, the next step is to import some data and begin buildi
 
 In this exercise, you will create an Azure Machine Learning experiment and add a dataset to it.
 
-> When working with the Azure Machine Learning Studio, get in the habit of saving your experiments often — for example, after each step of this lab. That way, if you encounter a problem, you will not have to replicate steps to get caught up. Also, be aware that due to a known issue in ML Studio, you may **lose your work if you click the browser's Back button without saving your experiment first.**
+> When working with the Azure Machine Learning Studio, get in the habit of saving your experiments often — for example, after each step of this lab. That way, if you encounter a problem, you will not have to replicate steps to get caught up. Also, be aware that you **may lose your work if you click the browser's Back button without saving your experiment first.**
 
 Azure Machine Learning Studio comes with several sample datasets. In this lab, you will utilize the sample dataset named "Automobile price data (Raw)." This dataset includes entries for a number of individual automobiles, including make, model, technical specifications, and price.
 
@@ -143,7 +143,7 @@ No dataset is perfect; most require some amount of preprocessing before they can
 
     _Launching the column selector_
 
-1. Select **All columns** in the drop-down list labeled **Begin With**. This tells the Project Columns module to pass through all the columns (except those you're about to exclude). In the next row, select **Exclude** and **column names**, and then click inside the text box. A list of columns appears. Select **normalized-losses** to add that column to the text box. Now click the check mark to close the column selector.
+1. Select **WITH RULES** in the leftmost column if it isn't already selected, and then select **ALL COLUMNS** under **Begin With**. This tells the Project Columns module to pass through all the columns (except those you're about to exclude). In the next row, select **Exclude** and **column names**, and then click the box to the right of **column names**. When a list of columns appears, select **normalized-losses** to add that column to the text box. Now click the check mark to close the column selector.
 
     > In some browsers, it can take up to a minute for the column names to appear. If they don't appear for you, simply type the column name (normalized-losses) into the box. The list of column names will sometimes appear when you begin typing.
 
@@ -209,7 +209,7 @@ Later, you can always come back and refine the model by selecting different feat
 
 1. Select the module you just added and click **Launch column selector** in the Properties pane.
 
-1. In the column selector, select **No columns**, and then select **Include** and **column names** in the filter row. This directs the module to pass through only the columns that are specified. Then click the box to the right of **column names** and select the columns pictured below. Finish up by clicking the check mark in the lower-right corner.
+1. Select **WITH RULES** in the leftmost column if it isn't already selected, and then select **NO COLUMNS** under **Begin With**. Then select **Include** and **column names** in the filter row. This directs the module to pass through only the columns that are specified. Now click the box to the right of **column names** and select the columns pictured below. Finish up by clicking the check mark in the lower-right corner.
 
     ![Selecting columns for the experiment](Images/define-select-project-columns.png)
 
