@@ -6,7 +6,7 @@
 <a name="Overview"></a>
 ## Overview ##
 
-Machine learning, which facilitates the analysis of large volumes of data by employing algorithms that iteratively learn from that data, is one of the fastest growing areas of computer science. Its uses range from credit-card fraud detection and self-driving cars to optical character recognition (OCR) and online shopping recommendations. It makes us smarter by making computers smarter. And its usefulness will only increase as more and more data becomes available and our desire to perform predictive analysis from that data grows, too.
+Machine learning, which facilitates predictive analysis from large volumes of data by employing algorithms that iteratively learn from that data, is one of the fastest growing areas of computer science. Its uses range from credit-card fraud detection and self-driving cars to optical character recognition (OCR) and online shopping recommendations. It makes us smarter by making computers smarter. And its usefulness will only increase as more and more data becomes available and our desire to perform predictive analysis from that data grows, too.
 
 Azure Machine Learning is a cloud-based predictive-analytics service that offers a streamlined experience for data scientists of all skill levels. It's accompanied by the Azure Machine Learning Studio (ML Studio), which is a browser-based tool that allows you to build models using simple drag-and-drop gestures. It comes with a library of time-saving experiments and features best-in-class algorithms developed and tested in the real world by Microsoft businesses such as Bing. And its built-in support for [R](https://www.r-project.org/) and [Python](https://www.python.org/) means you can build custom scripts  to customize your model. Once you've built and trained your model in the ML Studio, you can easily expose it as a Web service that is consumable using a variety of programming languages, or share it with the community by placing it in the [Cortana Analytics Gallery](https://gallery.cortanaanalytics.com/).
 
@@ -127,7 +127,7 @@ In this exercise, you learned how to create a new ML experiment and add a sample
 <a name="Exercise3"></a>
 ## Exercise 3: Preprocess the data
 
-No dataset is perfect; most require some amount of preprocessing before they can be analyzed. When you visualized the data, you may have noticed that some rows of automobile data were missing values. These missing values need to be cleaned up before analysis begins. In this example, you will simply remove any rows that have missing values. In addition, the "normalized-losses" column has a lot of missing values, so you'll exclude that column from the model.
+No dataset is perfect. Most require some amount of preprocessing before they can be used to train a model. When you visualized the data, you may have noticed that some rows of automobile data were missing values. These missing values need to be cleaned up before training begins. In this example, you will remove any rows that have missing values. In addition, the "normalized-losses" column has a lot of missing values, so you'll exclude that column from the model.
 
 1. At the top of the modules pallete, type "project columns" into the search box to find the Project Columns module. Drag the module over to the experiment canvas and connect it to the output port of the "Automobile price data (Raw)" dataset by dragging an arrow downward from the output port. The Project Columns module allows you to specify which columns of data to include or exclude in the model.
 
@@ -250,11 +250,17 @@ The goal in this lab is to predict the price of an automobile, so you will use a
 
     _Adding the Linear Regression module_
 
-1.	Find the Train Model module and add it to the experiment. Then select the module, click **Launch column selector** in the Properties pane, and type in "price" (without the quotation marks) to select the "price" column. This is the value that your model is going to predict. Finish up by clicking the check mark in the column-selector dialog.
+1.	Find the Train Model module and add it to the experiment. Then select the module and click **Launch column selector** in the Properties pane.
 
     ![Training the model on price](Images/choose-train-model-price.png)
 
     _Training the model on price_
+
+1. Make sure **WITH RULES** is selected on the left and **Include** and **column names** are selected in the drop-down lists. Then add the "price" column to the box on the right. This is the value that your model is going to predict. Finish up by clicking the check mark in the column-selector dialog.
+
+    ![Specifying the output variable](Images/select-price.png)
+
+    _Specifying the output variable_
 
 1. Connect the output port of the Linear Regression module to the left input port of the Train Model module. Then connect the left output port of the Split Data module to the right input port of the Train Model module.
 

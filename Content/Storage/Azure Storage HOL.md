@@ -58,31 +58,25 @@ The [Azure Portal](https://portal.azure.com) allows you to perform basic storage
 
     _Creating a storage account_
 
-1. Select **Resource Manager** in the drop-down list under **Select a deployment model**, and then click the **Create** button.
+1. In the ensuing "Create storage account" blade, enter a name for the new storage account in **Name** field. The name is important, because it forms one part of the URL through which blobs created under this account can be accessed.
 
-	![Selecting a deployment model](images/deployment-model.png)
+	> Storage account names can be 3 to 24 characters in length and can only contain numbers and lowercase letters. In addition, the name you enter must be unique within Azure; if someone else has chosen the same name, you'll be notified that the name isn't available with a red exclamation mark in the **Name** field.
 
-	_Selecting a deployment model_
-
-	> The other deployment model, **Classic**, creates a "classic" storage account that doesn't fall under the purview of the [Azure Resource Manager](https://azure.microsoft.com/en-us/documentation/articles/resource-group-overview/). Specifying **Resource Manager** as the deployment model provides you with more flexibility later on by ensuring that the account is explicitly added to a resource group, and it makes the storage account a first-class citizen in the Azure environment. For more information, see [Understanding Resource Manager deployment and classic deployment](https://azure.microsoft.com/en-us/documentation/articles/resource-manager-deployment-model/).
+	Once you have a name that Azure will accept (as indicated by the green check mark in the **Name** field), make sure **Resource Manager** is selected as the deployment model and **+ New** is selected under **Resource group**. Then type "A4R-Labs" (without quotation marks) into the **New resource group name** box.
 
 	> Resource groups are a relatively recent addition to Azure and are a powerful construct for grouping resources such as storage accounts, databases, and virtual machines together so they can be managed as a unit. Imagine that you created a complex application consisting of multiple storage accounts, a cluster of VMs, a SQL database, and perhaps a Stream Analytics solution and a pair of event hubs. Now you want to create a new instance of the application using a different account. By assembling all these resources into a resource group, you can take advantage of [Azure deployment templates](https://azure.microsoft.com/en-us/documentation/articles/arm-template-deployment/) to script the creation of the entire application. In addition, you can use role-based security to restrict access to resources in a resource group, and you can delete the application — and all of the resources that comprise it — by deleting the resource group. You will learn more about resource groups and deployment templates in subsequent labs.
 
-1. Enter a name for the new storage account in **Name** field. The name is important, because it forms one part of the URL through which blobs created under this account can be accessed.
+	> The other deployment model, **Classic**, creates a "classic" storage account that doesn't fall under the purview of the [Azure Resource Manager](https://azure.microsoft.com/en-us/documentation/articles/resource-group-overview/). Specifying **Resource Manager** as the deployment model provides you with more flexibility later on by ensuring that the account is explicitly added to a resource group, and it makes the storage account a first-class citizen in the Azure environment. For more information, see [Understanding Resource Manager deployment and classic deployment](https://azure.microsoft.com/en-us/documentation/articles/resource-manager-deployment-model/).
 
-	> Storage account names can be 3 to 24 characters in length and can only contain numbers and lowercase letters. In addition, the name you enter must be unique within Azure; if someone else has chosen the same name, you'll be notified that the name isn't available.
+	Finish up by selecting the location nearest you in the **Location** box and checking **Pin to dashboard** so a tile will be created for the storage account on your dashboard. Then click the **Create** button at the bottom of the blade to create the new storage account.
 
-	Once you have a name that Azure will accept (as indicated by the green check mark in the **Name** field), type "A4R-Labs" (without quotation marks) into the **Resource group** field, and click **Location** and choose the region nearest you. Then click the **Create** button to create the new storage account.
- 
-    ![Creating a new storage account](images/name-storage-account.png)
+	> You accepted the default replication type, which is Locally Redundant Storage, or LRS. Other replication types offer greater durability but are also more expensive. For example, Globally Redundant Storage (GRS) ensures that data stored under this account will be replicated in a secondary location that is in a different region than the primary location.  Regardless of which account type you choose, realize that Azure *always* creates at least three high-reliability backups of your data. Even if you choose LRS, it is highly unlikely that you will ever lose your data.
+    
+	![Specifying parameters for a new storage account](images/create-storage-account.png)
 
-    _Creating a new storage account_
+    _Specifying parameters for a new storage account_
 
-	> You accepted the default storage-account type, which is Standard-RAGRS. RAGRS stands for "Read-Access Geo-Redundant Storage" and means that data stored under this account will be replicated in a secondary location that is in a different region than the primary location, and that the data can be read directly from the secondary location. RAGRS maximizes the durability of your data, but it's more expensive than Locally Redundant Storage (LRS) and Geo-Redundant Storage (GRS). You can specify the account type when creating the account, and you can change it after the account is created through the Azure Portal. For more information about storage replication options, see [https://azure.microsoft.com/en-us/documentation/articles/storage-redundancy/](https://azure.microsoft.com/en-us/documentation/articles/storage-redundancy/).
-
-	> Regardless of which account type you choose, realize that Azure *always* creates at least three high-reliability backups of your data. Even if you choose LRS, the least expensive storage option, it is highly unlikely that you will ever lose your data.
-
-1. After a few moments (it generally takes just a few seconds, but can sometimes take several minutes), a tile representing the new storage account will appear on your dashboard. Click the tile to open a blade for the storage account.
+1. After a few moments (it generally takes just a few seconds, but can sometimes take a few minutes), a tile representing the new storage account will appear on your dashboard. Click the tile to open a blade for the storage account.
  
     ![Tile representing the new storage account](images/storage-account-tile.png)
 

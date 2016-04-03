@@ -63,7 +63,7 @@ In this exercise, you will create a resource group to contain the SLURM cluster 
 
 1. Enter a name for the resource group that you wish to create — for example, "SLURMLabResourceGroup" (without quotation marks). Resource-group names do not have to be globally unique as storage-account names do, but they must be unique to a subscription.
 
-	After entering the name, click **Resource group location** and choose the location nearest you. Leave **Pin to dashboard** checked so the resource group appears on your dashboard in the Azure Portal. Once you're finished, click the **Create** button at the bottom of the blade.
+	After entering the name, click **Resource group location** and choose the location nearest you. Check the **Pin to dashboard** box so the resource group appears on your dashboard in the Azure Portal. Once you're finished, click the **Create** button at the bottom of the blade.
 
 	> If there are any input errors, such as spaces in the resource-group name, the fields containing the errors will be flagged with red excalamation points. Hover the mouse over an exclamation point for help resolving the error.
 
