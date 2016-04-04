@@ -28,7 +28,7 @@ In this hands-on lab, you will learn how to:
 The following are required to complete this hands-on lab:
 
 - A Microsoft Azure subscription - [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
-- Windows Users need to install	[PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html), an open-source SSH client for Windows. Install the latest full package that includes PuTTY and PSCP. The easiest way to do this is to download and run the MSI installer. When you run the installer, note the directory where the tools are installed. The default location is "C:\Program Files (x86)\PuTTY".
+- Windows users need to install	[PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html), an open-source SSH client for Windows. Install the latest full package that includes PuTTY and PSCP. The easiest way to do this is to download and run the MSI installer. When you run the installer, note the directory where the tools are installed. The default location is "C:\Program Files (x86)\PuTTY".
 
 ---
 <a name="Exercises"></a>

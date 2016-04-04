@@ -116,7 +116,7 @@ def run(cli, showoutput=False):
 def worker(blobname):
     print("work on {blobname}".format(blobname=blobname))
     # downloading the file
-    cli = "python ./blobxfer.py {accountname} {inputcontainer} . --saskey '{saskey}' --remoteresource {blobname} --download".format(
+    cli = "python ./blobxfer-0.9.9.10.py {accountname} {inputcontainer} . --saskey '{saskey}' --remoteresource {blobname} --download".format(
         accountname=os.environ[SLURMDEMO_INPUTACCOUNT],
         inputcontainer=os.environ[SLURMDEMO_INPUTCONTAINER],
         saskey=os.environ[SLURMDEMO_INPUTSIG],
@@ -133,7 +133,7 @@ def worker(blobname):
     run(cli)
 
     # uploading it
-    cli = "python ./blobxfer.py {accountname} {outputcontainer} {outputfile} --saskey '{saskey}' --upload".format(
+    cli = "python ./blobxfer-0.9.9.10.py {accountname} {outputcontainer} {outputfile} --saskey '{saskey}' --upload".format(
         accountname=os.environ[SLURMDEMO_INPUTACCOUNT],
         outputcontainer=os.environ[SLURMDEMO_OUTPUTCONTAINER],
         saskey=os.environ[SLURMDEMO_OUTPUTSIG],

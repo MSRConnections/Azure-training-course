@@ -31,7 +31,7 @@ sudo apt-get install -y imagemagick
 # install the azure package for Python.
 pip install azure
 # Get the blob copy utility for Python.
-wget 'https://raw.githubusercontent.com/Azure/azure-batch-samples/master/Python/Storage/blobxfer.py'
+wget 'https://raw.githubusercontent.com/Wintellect/blobxfer/master/blobxfer-0.9.9.10.py'
 
 for node in $(sinfo -o "%n" -h|grep -v `hostname`)
 do
@@ -43,7 +43,7 @@ do
   scp slurmdemo.py adminuser@$node:~
   scp slurmdemo.sh adminuser@$node:~
 
-  ssh adminuser@$node 'wget https://raw.githubusercontent.com/Azure/azure-batch-samples/master/Python/Storage/blobxfer.py'
+  ssh adminuser@$node 'https://raw.githubusercontent.com/Wintellect/blobxfer/master/blobxfer-0.9.9.10.py'
 
 done
 
