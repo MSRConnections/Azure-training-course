@@ -11,7 +11,7 @@ In order to gain actionable insights into big-data sources, new tools need to be
 
 [Apache Spark](http://spark.apache.org/) is an open-source parallel-processing platform that makes use of in-memory processing to run large-scale data analytics jobs. Spark’s combined use of in-memory and disk data storage delivers performance improvements that allow it to process some tasks up to 100x faster than Hadoop. With Microsoft Azure, deploying Apache Spark clusters becomes significantly simpler and gets you working on your data analysis that much sooner.
 
-In this lab, you will experience [Apache Spark for Azure HDInsight](https://azure.microsoft.com/en-us/services/hdinsight/apache-spark/) first-hand. After provisioning a Spark cluster, you will use the [Azure Storage Explorer](http://storageexplorer.com/) to upload several Jupyter notebooks into the Azure Blob Storage container that the Spark cluster uses as its default HDFS storage volume. You will then use these Jupyter notebooks to learn how researchers can leverage Spark to first explore and then gain insights into large datasets. Then you will use Spark to create a predictive machine-learning model. The goal is to learn how to create and utilize your own Spark clusters, experience the ease with which they are provisioned and used in Azure, and, if you're new to Spark, get a working introduction to Spark data analytics.
+In this lab, you will experience [Apache Spark for Azure HDInsight](https://azure.microsoft.com/en-us/services/hdinsight/apache-spark/) first-hand. After provisioning a Spark cluster, you will use the [Azure Storage Explorer](http://storageexplorer.com/) to upload several Jupyter notebooks to the cluster. You will then use these notebooks to explore, visualize, and build a machine-learning model around actual food inspection data — more than 100,000 rows of it — collected by the city of Chicago. The goal is to learn how to create and utilize your own Spark clusters, experience the ease with which they are provisioned and used in Azure, and, if you're new to Spark, get a working introduction to Spark data analytics.
 
 <a name="Objectives"></a>
 ### Objectives ###
@@ -39,7 +39,7 @@ The following are required to complete this hands-on lab:
 This hands-on lab includes the following exercises:
 
 1.  [Exercise 1: Create a Spark cluster on HDInsight](#Exercise1)
-1.  [Exercise 2: Upload data to be accessed via HDFS](#Exercise2)
+1.  [Exercise 2: Upload Jupyter notebooks to the cluster](#Exercise2)
 1.  [Exercise 3: Work with Jupyter notebooks](#Exercise3)
 1.  [Exercise 4: Interactively explore data in Spark](#Exercise4)
 1.  [Exercise 5: Use Jupyter to develop a machine-learning model](#Exercise5)
@@ -134,7 +134,7 @@ In this exercise, you will create an HDInsight cluster running [Apache Spark](ht
 In this exercise, you learned how to provision an HDInsight Spark cluster on Azure, and about some of the options you can choose from when doing so.
 
 <a name="Exercise2"></a>
-## Exercise 2: Upload Data to be Accessed Via HDFS ##
+## Exercise 2: Upload Jupyter notebooks to the cluster ##
 
 You will be using Jupyter notebooks to do the data-exploration and machine-learning portions of this lab. The notebooks have been prepared for you ahead of time, and need to be uploaded into your cluster’s storage. In this exercise, you’ll use the cross-platform [Microsoft Azure Storage Explorer](http://storageexplorer.com/) to upload the notebooks. If you did the Azure Storage lab earlier, Storage Explorer is already installed on your computer. If you haven't done that lab, follow the instructions in Exercise 2 of the Azure Storage lab to download and install the Microsoft Azure Storage Explorer.
 
@@ -169,7 +169,7 @@ The notebooks are uploaded and ready to go. Let's put them to work.
 <a name="Exercise3"></a>
 ## Exercise 3: Work with Jupyter Notebooks ##
 
-[Jupyter notebooks](http://jupyter.org/) are web applications that allow you to create shareable, interactive documents containing text, equations, code, and data visualizations. The Jupyter notebook platform supports the ability to use different programming languages by allowing different interpreters – called *kernels* – to be installed. Jupyter notebooks are proving to be quite useful for data scientists to use to explore and manipulate data sets in order to gain insights and share results. Spark clusters on HDInsight include Jupyter notebooks along with the Spark and PySpark kernels (Scala and Python, respectively) that you can use with your data. In this exercise, you will see how you can access Jupyter notebooks from your Spark cluster and get familiar with some of the basic tools that they provide.
+[Jupyter notebooks](http://jupyter.org/) are web applications that allow you to create shareable, interactive documents containing text, equations, code, and data visualizations. The Jupyter notebook platform supports the ability to use different programming languages by allowing different interpreters – called *kernels* – to be installed. Jupyter notebooks are proving to be extraordinarily useful for data scientists exploring and manipulating data sets in order to gain insights and share results. Spark clusters on HDInsight include Jupyter notebooks along with the Spark and PySpark kernels (Scala and Python, respectively) that you can use with your data. In this exercise, you will learn how to access Jupyter notebooks from your Spark cluster and acquire basic skills for using them.
 
 1.  In the Azure Portal, click the tile for your cluster to open its management blade.
 
@@ -197,14 +197,16 @@ The notebooks are uploaded and ready to go. Let's put them to work.
     ![Opening the lab notebook](Images/ex3-open-lab-notebook.png)
     _Opening the lab notebook_
 
-1.  Jupyter notebooks consist of a series of cells into which you can insert commands, HTML, or Markdown text. The notebook you opened includes the remaining instructions for this exercise. Please follow the instructions, and return to this document once you have completed all the steps.
+1.  Jupyter notebooks consist of a series of cells into which you can insert commands, HTML, or Markdown text. The notebook you opened contains the remaining instructions for this exercise. Please follow the instructions, and return to this document once you have completed all the steps.
 
 When you have completed the steps specified in the notebook, close the notebook's browser window.
 
 <a name="Exercise4"></a>
 ## Exercise 4: Interactively explore data in Spark ##
 
-You have seen how you can access Spark notebooks through your Azure HDInsight Spark cluster. In this exercise, you will see how you can use these notebooks to interactively explore data.
+One of the ways in which researchers and data scientists use Jupyter notebooks in Spark is to explore datasets in order to understand their content and structure. Notebooks can also be used to visualize data, as well as apply structure to it. DataFrames are particularly helpful in this regard because they make it simple to apply schemas to raw data. DataFrames can also be used to create temporary tables that can be queried using [Apache Hive SQL](http://hortonworks.com/blog/hive-cheat-sheet-for-sql-users/), also known as HiveQL or simply HQL. Libraries such as *matplotlib*, which is already provisioned on your Spark cluster, provide support for graphing, charting, and visualizing datasets and query results. Put them all together and you have a powerful set of tools for exploring and analyzing datasets large and small.
+
+You have already learned how to access and run Spark notebooks on your Azure HDInsight Spark cluster. In this exercise, you will take the learning a level deeper by using DataFrames, HiveQL, and matplotlib to explore actual food inspection data compiled by the city of Chicago. In addition to analyzing the contents of the data, you will apply structure to it, query it, and graph it to discover key relationships.
 
 1.  Go back to the browser window showing the Jupyter notebooks stored in your cluster. If necessary, open the Azure Portal and follow the steps from the previous exercise to find the notebooks.
 
@@ -220,9 +222,9 @@ When you have completed the steps specified in the notebook, close the notebook�
 <a name="Exercise5"></a>
 ## Exercise 5: Use Jupyter to develop a machine-learning model ##
 
-In the previous exercise, you interactively explored some data and obtained key insights by looking at it in different ways. However, sometimes the amount of data and the complexity of the interactions makes these relationships difficult to identify and employ. One alternative you can pursue is to leverage machine-learning algorithms. These algorithms are designed to spot patterns and relationships in data.
+In the previous exercise, you interactively explored a set of food-inspection data and obtained key insights by looking at it in different ways. However, sometimes the sheer volume and complexity of the data makes relationships difficult to identify. One solution is machine learning, a technique that algorithmically finds patterns in data and exploits those patterns to perform predictive analytics.
 
-Your Azure HDInsight Spark cluster includes several machine-learning libraries that you can use. In this exercise, you will see how to continue analyzing your data with these tools.
+Your Azure HDInsight Spark cluster includes several libraries from which you build sophisticated machine-learning models. In this exercise, you will use some of these tools to build, train, and score a machine-learning model using the food inspection data featured in the previous exercise. In that model, you will use a popular classification algorithm to predict which restaurants will be successful and which ones won't based on certain features of the input data.
 
 1.  Go back to the browser window that displays the Jupyter notebooks stored in your cluster. If necessary, open the Azure portal and follow the steps from the previous exercise.
 
