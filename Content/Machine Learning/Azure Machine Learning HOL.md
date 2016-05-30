@@ -10,7 +10,7 @@ Machine learning, which facilitates predictive analysis from large volumes of da
 
 Azure Machine Learning is a cloud-based predictive-analytics service that offers a streamlined experience for data scientists of all skill levels. It's accompanied by the Azure Machine Learning Studio (ML Studio), which is a browser-based tool that allows you to build models using simple drag-and-drop gestures. It comes with a library of time-saving experiments and features best-in-class algorithms developed and tested in the real world by Microsoft businesses such as Bing. And its built-in support for [R](https://www.r-project.org/) and [Python](https://www.python.org/) means you can build custom scripts  to customize your model. Once you've built and trained your model in the ML Studio, you can easily expose it as a Web service that is consumable using a variety of programming languages, or share it with the community by placing it in the [Cortana Intelligence Gallery](https://gallery.cortanaintelligence.com/).
 
-In this lab, you will use Azure Machine Learning to model automobile features and prices and generate price predictions from feature inputs. You will employ the following steps to build the experiment in the Azure Machine Learning Studio and to create, train, and score your model:
+In this lab, you will use Azure Machine Learning to model automobile features and prices and generate price predictions from feature inputs. You will employ the following steps to build the experiment in the Azure Machine Learning Studio and to create, train, and score your model to predict automobile price:
 
 1. Create a model
     - Get the data
