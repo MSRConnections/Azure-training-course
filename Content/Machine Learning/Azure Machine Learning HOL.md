@@ -49,8 +49,8 @@ This hands-on lab includes the following exercises:
 1. [Exercise 2: Load a dataset](#Exercise2)
 1. [Exercise 3: Preprocess the data](#Exercise3)
 1. [Exercise 4: Define the features](#Exercise4)
-1. [Exercise 5: Select and apply a learning algorithm](#Exercise5)
-1. [Exercise 6: Predict automobile prices](#Exercise6)
+1. [Exercise 5: Select a learning algorithm and train the model](#Exercise5)
+1. [Exercise 6: Score the model](#Exercise6)
 1. [Exercise 7: Deploy as a Web service](#Exercise7)
 1. [Exercise 8 (Optional): Compare two models](#Exercise8)
 
@@ -129,9 +129,9 @@ In this exercise, you learned how to create a new ML experiment and add a sample
 
 No dataset is perfect. Most require some amount of preprocessing before they can be used to train a model. When you visualized the data, you may have noticed that some rows of automobile data were missing values. These missing values need to be cleaned up before training begins. In this example, you will remove any rows that have missing values. In addition, the "normalized-losses" column has a lot of missing values, so you'll exclude that column from the model.
 
-1. At the top of the modules pallete, type "select columns" into the search box to find the Select Columns in Dataset module. Drag the module over to the experiment canvas and connect it to the output port of the "Automobile price data (Raw)" dataset by dragging an arrow downward from the output port. The Select Columns in Dataset module allows you to specify which columns of data to include or exclude in the model.
+1. At the top of the modules pallete, type "select columns" (without quotation marks) into the search box to find the Select Columns in Dataset module. Drag the module over to the experiment canvas and connect it to the output port of the "Automobile price data (Raw)" dataset by dragging an arrow downward from the output port. The Select Columns in Dataset module allows you to specify which columns of data to include or exclude in the model.
 
-     > A key concept to understand in Azure ML Studio is that of ports and connectors. In this step, you connected the output port of the raw data module to the input port of the Project Columns module. The data flows from one module to the next through the connector. Some modules, such as the Train Model, support multiple inputs and therefore have multiple input ports. If you want to know what a port does, hover over it with the mouse and a tooltip will pop up. If you want more information, right-click on the module and select **Help** from the popup menu.
+     > A key concept to understand in Azure ML Studio is that of ports and connectors. In this step, you connected the output port of the raw data module to the input port of the Select Columns in Dataset module. The data flows from one module to the next through the connector. Some modules, such as the Train Model, support multiple inputs and therefore have multiple input ports. If you want to know what a port does, hover over it with the mouse and a tooltip will pop up. If you want more information, right-click on the module and select **Help** from the popup menu.
 
     ![Connecting the dataset to the Select Columns in Dataset module](Images/select-columns-in-dataset.png)
 
@@ -143,22 +143,17 @@ No dataset is perfect. Most require some amount of preprocessing before they can
 
     _Launching the column selector_
 
-1. Select **WITH RULES** in the leftmost column if it isn't already selected, and then select **ALL COLUMNS** under **Begin With**. This tells the Project Columns module to pass through all the columns (except those you're about to exclude). In the next row, select **Exclude** and **column names**, and then click the box to the right of **column names**. When a list of columns appears, select **normalized-losses** to add that column to the text box. Now click the check mark to close the column selector.
+1. Select **WITH RULES** in the leftmost column if it isn't already selected, and then select **ALL COLUMNS** under **Begin With**. This tells the Select Columns module to pass through all the columns (except those you're about to exclude). In the next row, select **Exclude** and **column names**, and then click the box to the right of **column names**. When a list of columns appears, select **normalized-losses** to add that column to the text box. Now click the check mark to close the column selector.
 
     > In some browsers, it can take up to a minute for the column names to appear. If they don't appear for you, simply type the column name (normalized-losses) into the box. The list of column names will sometimes appear when you begin typing.
 
     ![Selecting columns for the model](Images/preprocess-select-columns-dialog.png)
-
-    _Selecting columns for the model_
-	> IMORTANT: The Select Columns in Dataset module used to be called Project Columns. The screenshots in the remainder of this lab refer to the Select Columns in Dataset as Project Columns. These will be updated in the future.
-
     
 1. The Properties pane indicates that the Select Columns module will pass through all columns from the dataset except "normalized-losses." Confirm that your Select Columns module is configured to do the same.
 
     ![Final column selection](Images/preprocess-final-project-properties.png)
 
     _Final column selection_
-
 
 1. You are building a real model in this lab, but it is a relatively simple one. In larger and more complex experiments containing many modules, it's easy to lose track of what each module does and why. A nice feature of Azure Machine Learning Studio is that if you double-click a module on the experiment canvas, you can annotate it with comments. Double-click the Select Columns module and type "Exclude normalized-losses" in the text box that pops up. To display the comment, click the down-arrow in the Select Columns box. If you wish to change the comment, simply right-click the module and select **Edit Comment** from the menu that pops up.
 
@@ -229,11 +224,11 @@ Later, you can always come back and refine the model by selecting different feat
 You're getting close! Now comes perhaps the most important part of the process: selecting a learning algorithm to use in the experiment.
 
 <a name="Exercise5"></a>
-## Exercise 5: Select and apply a learning algorithm
+## Exercise 5: Select a learning algorithm and train the model
 
 Now that the data is ready and the features are selected, constructing a robust predictive model requires training and testing the model. You will use part of the dataset to train the model, and another part of it to measure how adept the model is at predicting automobile prices.
 
-Before you can train and test the model, you must select a learning algorithm to use. _Classification_ and _regression_ are two types of supervised machine-learning algorithms. Classification is used to make a prediction from a defined set of values, such as the make of a car (for example, Honda or BMW). Regression is used to make a prediction from a continuous set of values, such as a person's age or the price of an automobile. Azure Machine Learning offers several types of classification and regression algorithms for you to choose from, as well as algorithms of other types.
+Before you can train the model, you must select a learning algorithm to use. _Classification_ and _regression_ are two types of supervised machine-learning algorithms. Classification is used to make a prediction from a defined set of values, such as the make of a car (for example, Honda or BMW). Regression is used to make a prediction from a continuous set of values, such as a person's age or the price of an automobile. Azure Machine Learning offers several types of classification and regression algorithms for you to choose from, as well as algorithms of other types.
 
 > The Azure Machine Learning team has put together a "cheat sheet" to help you decide which machine-learning algorithm to choose based on the intended purpose of your model. You can download it from [http://aka.ms/MLCheatSheet](http://aka.ms/MLCheatSheet)
 
@@ -278,7 +273,7 @@ The goal in this lab is to predict the price of an automobile, so you will use a
 Now comes the fun part: testing the model to see how well it's able to predict automobile prices!
 
 <a name="Exercise6"></a>
-## Exercise 6: Predict automobile prices
+## Exercise 6: Score the model
 
 With a model that was trained on 80% of the data, you can use the remaining 20% of the data to score the model and judge how well it functions.
 
@@ -503,8 +498,8 @@ In this hands-on lab, you learned how to:
 
 - Log in to the Azure Machine Learning Studio
 - Import a sample dataset and prepare it for analysis
-- Define the features of a model and select an algorithm
-- Train and test the model
+- Define the features of a model and select a learning algorithm
+- Train and score the model
 - Deploy the model as a Web service
 
 There's much more than you can do with Azure Machine Learning, but this is a start. Feel free to experiment with it on your own and explore the exciting world of predictive analysis with a tool that is not only productive, but fun!
