@@ -84,7 +84,7 @@ In this exercise, you will create an Azure Machine Learning experiment and add a
 
 Azure Machine Learning Studio comes with several sample datasets. In this lab, you will utilize the sample dataset named "Automobile price data (Raw)." This dataset includes entries for a number of individual automobiles, including make, model, technical specifications, and price.
 
-1. Start a new experiment by clicking **Blank Experiment**.
+1. Start a new experiment by clicking **New** at the bottom left followed by **Blank Experiment**.
 
     ![Creating a blank Experiment](Images/data-blank-experiment.png)
 
@@ -129,17 +129,17 @@ In this exercise, you learned how to create a new ML experiment and add a sample
 
 No dataset is perfect. Most require some amount of preprocessing before they can be used to train a model. When you visualized the data, you may have noticed that some rows of automobile data were missing values. These missing values need to be cleaned up before training begins. In this example, you will remove any rows that have missing values. In addition, the "normalized-losses" column has a lot of missing values, so you'll exclude that column from the model.
 
-1. At the top of the modules pallete, type "project columns" into the search box to find the Project Columns module. Drag the module over to the experiment canvas and connect it to the output port of the "Automobile price data (Raw)" dataset by dragging an arrow downward from the output port. The Project Columns module allows you to specify which columns of data to include or exclude in the model.
+1. At the top of the modules pallete, type "select columns" into the search box to find the Select Columns in Dataset module. Drag the module over to the experiment canvas and connect it to the output port of the "Automobile price data (Raw)" dataset by dragging an arrow downward from the output port. The Select Columns in Dataset module allows you to specify which columns of data to include or exclude in the model.
 
      > A key concept to understand in Azure ML Studio is that of ports and connectors. In this step, you connected the output port of the raw data module to the input port of the Project Columns module. The data flows from one module to the next through the connector. Some modules, such as the Train Model, support multiple inputs and therefore have multiple input ports. If you want to know what a port does, hover over it with the mouse and a tooltip will pop up. If you want more information, right-click on the module and select **Help** from the popup menu.
 
-    ![Connecting the dataset to the Project Columns module](Images/preprocess-data-to-project.png)
+    ![Connecting the dataset to the Select Columns in Dataset module](Images/select-columns-in-dataset.png)
 
-    _Connecting the dataset to the Project Columns module_
+    _Connecting the dataset to the Select Columns in Dataset module_
 
-1. Select the Project Columns module on the experiment canvas and click the **Launch column selector** button in the Properties pane on the right.
+1. Select the Select Columns in Dataset module on the experiment canvas and click the **Launch column selector** button in the Properties pane on the right.
 
-    ![Launching the column selector](Images/preprocess-launch-column-selector.png)
+    ![Launching the column selector](Images/launch-column-selector.png)
 
     _Launching the column selector_
 
@@ -150,20 +150,23 @@ No dataset is perfect. Most require some amount of preprocessing before they can
     ![Selecting columns for the model](Images/preprocess-select-columns-dialog.png)
 
     _Selecting columns for the model_
+	> IMORTANT: The Select Columns in Dataset module used to be called Project Columns. The screenshots in the remainder of this lab refer to the Select Columns in Dataset as Project Columns. These will be updated in the future.
 
-1. The Properties pane indicates that the Project Columns module will pass through all columns from the dataset except "normalized-losses." Confirm that your Project Columns module is configured to do the same.
+    
+1. The Properties pane indicates that the Select Columns module will pass through all columns from the dataset except "normalized-losses." Confirm that your Select Columns module is configured to do the same.
 
     ![Final column selection](Images/preprocess-final-project-properties.png)
 
     _Final column selection_
 
-1. You are building a real model in this lab, but it is a relatively simple one. In larger and more complex experiments containing many modules, it's easy to lose track of what each module does and why. A nice feature of Azure Machine Learning Studio is that if you double-click a module on the experiment canvas, you can annotate it with comments. Double-click the Project Columns module and type "Exclude normalized-losses" in the text box that pops up. To display the comment, click the down-arrow in the Project Columns box. If you wish to change the comment, simply right-click the module and select **Edit Comment** from the menu that pops up.
+
+1. You are building a real model in this lab, but it is a relatively simple one. In larger and more complex experiments containing many modules, it's easy to lose track of what each module does and why. A nice feature of Azure Machine Learning Studio is that if you double-click a module on the experiment canvas, you can annotate it with comments. Double-click the Select Columns module and type "Exclude normalized-losses" in the text box that pops up. To display the comment, click the down-arrow in the Select Columns box. If you wish to change the comment, simply right-click the module and select **Edit Comment** from the menu that pops up.
 
     ![Adding and viewing comments](Images/preprocess-seeing-box-comments.png)
 
     _Adding and viewing comments_
 
-1. Now it's time to remove rows containing blank values. Type "clean" into the search box and drag the Clean Missing Data module to the experiment canvas and connect it to the output of the Project Columns module. In the Properties pane, select **Remove entire row** from the list under **Cleaning mode** to clean the data by removing rows that have at least one missing value.
+1. Now it's time to remove rows containing blank values. Type "clean" into the search box and drag the Clean Missing Data module to the experiment canvas and connect it to the output of the Select Columns module. In the Properties pane, select **Remove entire row** from the list under **Cleaning mode** to clean the data by removing rows that have at least one missing value.
 
     ![Removing rows with missing values](Images/preprocess-clean-missing-properties.png)
 
@@ -175,7 +178,7 @@ No dataset is perfect. Most require some amount of preprocessing before they can
 
 1. Click the **RUN** button at the bottom of the canvas to run the experiment.
 
-1. When the experiment finishes running, the Project Columns and Clean Missing Data modules will be tagged with a green check mark to indicate that they executed successfully. In addition, the status in the upper-right corner will change to "Finished running".
+1. When the experiment finishes running, the Select Columns and Clean Missing Data modules will be tagged with a green check mark to indicate that they executed successfully. In addition, the status in the upper-right corner will change to "Finished running".
 
     ![Outcome of a successful run](Images/preprocess-finished-run.png)
 
@@ -205,7 +208,7 @@ It is time to build a model that uses a subset of the features in the dataset. Y
 
 Later, you can always come back and refine the model by selecting different features.
 
-1. Drag another Project Columns module to the experiment canvas and connect it to the left output port of the Clean Missing Data module. Double-click the new Project Columns module and type "Select features for prediction" as the comment.
+1. Drag another Select Columns module to the experiment canvas and connect it to the left output port of the Clean Missing Data module. Double-click the new Select Columns module and type "Select features for prediction" as the comment.
 
 1. Select the module you just added and click **Launch column selector** in the Properties pane.
 
@@ -236,13 +239,13 @@ Before you can train and test the model, you must select a learning algorithm to
 
 The goal in this lab is to predict the price of an automobile, so you will use a regression model. In this exercise, you will train a simple linear-regression model, and in the next exercise, you will test the results.
 
-1. You can use a single dataset for training and testing by splitting its output. Find the Split Data module in the modules palette and drag it over to the canvas. Then connect the output of the last Project Columns module to the Split Data module. Set **Fraction of rows in the first output dataset** to 0.8. This will use 80% of the data to train the model, and hold back 20% for testing. Leave **Random seed** set to 0. This parameter controls the seeding of the pseudo-random number generator and allows you to produce different random samples by entering different values.
+1. You can use a single dataset for training and testing by splitting its output. Find the Split Data module in the modules palette and drag it over to the canvas. Then connect the output of the last Select Columns module to the Split Data module. Set **Fraction of rows in the first output dataset** to 0.8. This will use 80% of the data to train the model, and hold back 20% for testing. Leave **Random seed** set to 0. This parameter controls the seeding of the pseudo-random number generator and allows you to produce different random samples by entering different values.
 
     ![Splitting the data](Images/choose-split-percentage.png)
 
     _Splitting the data_
 
-1. Click the **RUN** button to allow the Project Columns and Split Data modules to pass column definitions to the modules you will be adding next.
+1. Click the **RUN** button to allow the Select Columns and Split Data modules to pass column definitions to the modules you will be adding next.
 
 1. To specify a learning algorithm, type "linear regression" into the search box in the modules palette. Then drag the Linear Regression module onto the canvas.
 
