@@ -43,7 +43,7 @@ do
   scp slurmdemo.py adminuser@$node:~
   scp slurmdemo.sh adminuser@$node:~
 
-  ssh adminuser@$node 'https://raw.githubusercontent.com/Wintellect/blobxfer/master/blobxfer-0.9.9.10.py'
+  ssh adminuser@$node wget 'https://raw.githubusercontent.com/Wintellect/blobxfer/master/blobxfer-0.9.9.10.py'
 
 done
 
