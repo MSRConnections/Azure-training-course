@@ -491,9 +491,9 @@ A common question regarding hosting and using Azure ML web services is: how much
 
 When you build a predictive model, it is often useful to try different algorithms and compare the results to see which algorithm delivers the best results. The Evaluate Model module is very effective in comparing the metrics between two different algorithms.
 
-1. If time permits and you're so inclined, compare the results of the linear-regression model to a model that uses a different algorithm — for example, Bayesian linear regression. Which model performs better?
+1. If time permits and you're so inclined, compare the results of the linear-regression model to a model that uses a different algorithm — for example, Boosted Decision Tree regression. Which model performs better?
 
-    ![Comparing two models](Images/compare-two-models.png)
+    ![Comparing two models](Images/compare-ml-models.png)
 
     _Comparing two models_
 
