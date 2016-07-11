@@ -1,0 +1,32 @@
+// here we define the schema for the imported posts.tsv file
+@posts =
+    EXTRACT id          		int,
+            [type]      		string,
+			acceptedanswerid	int?,
+			parentquestionid	int?,
+			creationdate		string,
+            score       		int,
+		   	views				int,
+			ownerid				int,
+            title       		string,
+			body				string,
+			tags				string,
+			answers				int,
+			comments			int
+    FROM "posts.tsv"
+    USING Extractors.Tsv();
+
+// here we transform the imported data using various aggregate functions
+@results =
+    SELECT
+        ownerid AS userid,
+        SUM(score) AS totalscore,
+		COUNT(*) AS totalposts
+    FROM @posts
+GROUP BY ownerid;
+
+// finally we output the transformed data for further analysis or visualization
+OUTPUT @results
+    TO "totalscores.csv"
+    ORDER BY totalscore DESC
+    USING Outputters.Csv();
