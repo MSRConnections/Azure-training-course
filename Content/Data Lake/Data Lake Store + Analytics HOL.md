@@ -60,7 +60,7 @@ In this exercise, you will create a new Azure Data Lake Store in your Azure subs
 
     _Adding a new Data Lake Store_
 
-1. In the "New Data Lake Store" blade, enter a unique name for your Data Lake Store in all lowercase. The name must be unique within Azure since it becomes part of the store's DNS name. Make sure **Create new** is selected under **Resource Group**, and then enter a resource-group names such as "DataLakeResourceGroup" (without quotation marks). Choose the location nearest you, and then click **Create**.
+1. In the "New Data Lake Store" blade, enter a unique name for your Data Lake Store in all lowercase. The name must be unique within Azure since it becomes part of the store's DNS name. Make sure **Create new** is selected under **Resource Group**, and then enter a resource-group name such as "DataLakeResourceGroup" (without quotation marks). Choose the location nearest you, and then click **Create**.
 
 	> If there are any input errors, such as spaces in the resource-group name, the offending fields will be flagged with red excalamation points. Hover the mouse cursor over an exclamation point for help resolving the error.
 
@@ -85,9 +85,7 @@ Now that you have created a Data Lake Store, the next step is to create a Data L
 <a name="Exercise2"></a>
 ## Exercise 2: Create an Azure Data Lake Analytics account
 
-Azure Data Lake formally separates the concepts of data storage and data query. This allows storage (in the form of Azure Data Lake Store) to provide access to a range of data analysis tools, and also allows analytics (in the form of Azure Data Lake Analytics) to operate against a range of possible data sources. Of course, Azure Data Lake Store and Azure Data Lake Analytics work very well together.
-
-In this exercise, you will create an Azure Data Lake Analytics account and associate it with the Data Lake Store you created in the previous exercise.
+Azure Data Lake formally separates the concepts of storing data and querying data. This allows Azure Data Lake Analytics to operate against a range of possible data sources contained in an Azure Data Lake Store. In this exercise, you will create an Azure Data Lake Analytics account and associate it with the Data Lake Store you created in the previous exercise.
 
 1. In the portal, click **+ New -> Data + Analytics -> Data Lake Analytics (preview)**.
 
@@ -95,7 +93,7 @@ In this exercise, you will create an Azure Data Lake Analytics account and assoc
 
     _Adding a new Data Lake Analytics account_
 
-1. In the "New Data Lake Analytics" blade, enter a name for the new account. Once more, the name must be unique across Azure. Then select **Use existing** under **Resource Group** and select the resource group that you created in Exercise 1. Finally, click **Data Lake Store** and select the Data Lake Store you created in Exercise 1 to associate the Data Lake Analytics account with your Data Lake Store. 
+1. In the "New Data Lake Analytics" blade, enter a name for the new account. Once more, the name must be unique across Azure because it becomes part of a DNS name. Then select **Use existing** under **Resource Group** and select the resource group that you created in Exercise 1. Finally, click **Data Lake Store** and select the Data Lake Store you created in Exercise 1 to associate the Data Lake Analytics account with your Data Lake Store. 
 
 	When you're finished, click the **Create** button at the bottom of the "New Data Lake Analytics" blade.
 
@@ -103,57 +101,92 @@ In this exercise, you will create an Azure Data Lake Analytics account and assoc
 
     _Creating a Data Lake Analytics account_
 
-1. Open the resource group that holds the Data Lake Store and the Data Lake Analytics account. Click the Data Lake Analytics account and wait for "(Deploying)" to change to "(Succeeded)." Once more, it helps to refresh the page every now and then to make sure the information displayed there is up to date.
+1. Return to the resource group that holds the Data Lake Store and the Data Lake Analytics account. Click the Data Lake Analytics account and wait for "(Deploying)" to change to "(Succeeded)." Once more, it helps to refresh the page every now and then to make sure the information displayed there is up to date.
 
 You now have Azure Data Lake storage and query capability set up in your Azure subscription. Now let's add some data to query against.
 
 <a name="Exercise3"></a>
 ## Exercise 3: Import data into Azure Data Lake Store
 
-To jumpstart your exploration of Azure Data Lake, we've provided some sample public domain data to query against. This data consists of questions and related answers from the popular, academia-focused site http://academia.stackexchange.com. But before you can query against it, you'll first need to import the data into your Azure Data Lake Store account.
+This lab's "resources" directory holds several files containing sample data. This data exists in the public domain and consists of questions and answers from the popular academia-focused site http://academia.stackexchange.com. In this exercise, you will import some of the sample data into your Azure Data Lake Store account so you can execute queries against it.
 
-1. In your browser, log in to the [Azure Portal](https://portal.azure.com) if you're not already there.
+1. In the portal, open the Azure Data Lake Store that you created in Exercise 1. When the blade opens, select **Data Explorer** near the top.
 
-1. Once in the portal, select your Azure Data Lake Store account and when the blade opens, select **Data Explorer** near the top.
+    ![Opening Data Explorer](Images/data-explorer.png)
 
-    ![Data Explorer](Images/data-explorer.png)
+    _Opening Data Explorer_
 
-    _Navigate to Data Explorer_
+1. A new blade will open. At the top, click **Upload**.
 
-1. A new blade will open; near the top, select **Upload**.
+    ![Opening the upload blade](Images/data-explorer-upload.png)
 
-    ![Data Explorer - Upload](Images/data-explorer-upload.png)
-
-    _Upload from Data Explorer_
+    _Opening the upload blade_
     
-1. In the **Upload files** blade, click on the folder icon and select the [posts.tsv](resources\posts.tsv) file, then click **Start upload**. This file is 60 MB in size so the   upload will take a few minutes, depending on your Internet connection.
+1. In the "Upload files" blade, click the folder icon and select the **posts.tsv** file in this lab's "resources" directory. Then click **Start upload**. The file is 60 MB in length, so the upload will take a few minutes.
 
-    ![Data Explorer - Upload tab-separated files.tsv](Images/data-explorer-upload-tsv.png)
+    ![Uploading posts.tsv](Images/data-explorer-upload-tsv.png)
 
-    _Upload tab-separated files from Data Explorer_
+    _Uploading posts.tsv_
 
-    Do the same for the [comments.tsv](resources\comments.tsv) file, then close out of the **Upload files** blade. Your Data Explorer view should now look like this:
+1. Repeat this process to upload **comments.tsv**, which is also located in the "resources" directory. Then close the **Upload files** blade and return to the blade for your Data Lake Store. Confirm that both of the sample data files you uploaded appear there:
 
     ![Data Explorer - Uploads complete](Images/data-explorer-uploads-complete.png)
 
     _Data Explorer with completed uploads_
     
-    Click on **posts.tsv**, and notice that the newly opened blade shows a preview of the first several rows of the file. We'll dig further into the contents in the next section of the lab. 
+1. Click **posts.tsv** to open a "File Preview" blade showing the contents of the file.
+
+The file preview only shows a portion of the data file. The next step is to query the data. For that, Azure Data Lake provides U-SQL. 
 
 <a name="Exercise4"></a>
 ## Exercise 4: Run a simple U-SQL job in Azure Data Lake Analytics
 
-Now that you've got some data in your Azure Data Lake Store let's see how to query against that data using U-SQL, the powerful query language built into Azure Data Lake Analytics. U-SQL is a new language built by Microsoft that combines traditional SQL Data Definition Language (DDL) and Data Manipulation Language (DML) constructs with expressions, functions, and operators based on the popular C# language.
+[U-SQL](http://usql.io/) is a new language created by Microsoft that combines traditional SQL Data Definition Language (DDL) and Data Manipulation Language (DML) constructs with expressions, functions, and operators based on the popular C# programming language. It marries the benefits of SQL with the power of expressive code. And it is supported natively in Azure Data Lake. In this exercise, you will use U-SQL to perform some simple queries on the data you imported in Exercise 3.
 
-1. In your browser, log in to the [Azure Portal](https://portal.azure.com) if you're not already there.
+1. In the portal, open the Azure Data Lake Analytics account that you created in [Exercise 2](#Exercise2). In the ensuing blade, click **New Job** to create a new U-SQL job.
 
-1. Next, select your Azure Data Lake Analytics account and when the blade opens, select **New Job** near the top.
+    ![Creating a new U-SQL job](Images/new-analytics-job.png)
 
-    ![New Analytics Job](Images/new-analytics-job.png)
+    _Creating a new U-SQL job_
 
-    _Create a new Analytics job_
+1. In the "New U-SQL Job" blade, paste the following query into the empty query field:
 
-1. A new blade opens for you to specify a job name, priority, degree of parallelism, and query text. Copy and paste the query from [simple-query.usql](resources\simple-query.usql) into the query text field; leave the remaining fields as-is. When finished it should look like this:
+	<pre>
+	// here we define the schema for the imported posts.tsv file
+	@posts =
+	    EXTRACT id          		int,
+	            [type]      		string,
+				acceptedanswerid	int?,
+				parentquestionid	int?,
+				creationdate		string,
+	            score       		int,
+			   	views				int,
+				ownerid				int,
+	            title       		string,
+				body				string,
+				tags				string,
+				answers				int,
+				comments			int
+	    FROM "posts.tsv"
+	    USING Extractors.Tsv();
+	
+	// here we transform the imported data using various aggregate functions
+	@results =
+	    SELECT
+	        ownerid AS userid,
+	        SUM(score) AS totalscore,
+			COUNT(*) AS totalposts
+	    FROM @posts
+	GROUP BY ownerid;
+	
+	// finally we output the transformed data for further analysis or visualization
+	OUTPUT @results
+	    TO "totalscores.csv"
+	    ORDER BY totalscore DESC
+	    USING Outputters.Csv();
+	</pre>
+
+	Here's how the blade will look after the query is entered:
 
     ![Simple Query](Images/simple-query.png)
 
@@ -161,19 +194,23 @@ Now that you've got some data in your Azure Data Lake Store let's see how to que
 
     Notice the three main parts of the query:
 
-    1. First we extract data from an existing data source, in this case we're using a single tab-delimited file and using the schema-on-read functionality of U-SQL to schematize it only when needed
-    2. Next we transform the input data into a shape suitable to our needs; these transformations can be simple or a complex, multi-step process.
-    3. Finally we output the resulting data as a named rowset, which we can use for further analysis or visualization.
+    - First we extract data from an existing data source, in this case we're using a single tab-delimited file and using the schema-on-read functionality of U-SQL to schematize it only when needed
+    - Next we transform the input data into a shape suitable to our needs; these transformations can be simple or a complex, multi-step process.
+    - Finally we output the resulting data as a named rowset, which we can use for further analysis or visualization.
 
-    Once you add the query text, click the **Submit Job** button near the top. A new blade will open to show progress of the job as the Data Lake Analytics engine prepares, queues, and then executes the logic defined in your query. Once the "Finalizing" step is green you'll know the job is complete; at that point, close out of the Data Lake Analytics blades. It's time to review the results of your first U-SQL query!
+1. Click the **Submit Job** button at the top of the blade. A new blade will open to show what is happening as the Data Lake Analytics engine prepares, queues, and executes your query. The job is complete when the "Finalizing" step turns green.
 
-1. Re-open your Data Lake Store blade and again click on **Data Explorer** near the top. You should now see a few new folders (you can ignore these for now) as well as a new "totalscores.csv" file:
+    ![The completed job](Images/finished-job.png)
+
+    _The completed job_
+
+1. Return to the blade for your Data Lake Store and click **Data Explorer** at the top of the blade. Then click **totalscores.csv** to view the query results and verify that it contains three columns of data.
 
     ![Total Scores CSV file](Images/total-scores-csv.png)
 
     _Total scores CSV query results_
 
-    Click "totalscores.csv" and verify that it contains three columns of data (corresponding to our query output). Later we'll see how to join multiple data sources together for more complex queries, as well as how to visualize these results in more interesting ways.
+Later, you will learn how to join multiple data sources and perform more complex queries, as well as how to visualize the results in more interesting ways.
 
 <a name="Exercise5"></a>
 ## Exercise 5: Setup an Azure SQL Database for federated query with U-SQL
