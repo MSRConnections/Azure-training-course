@@ -6,7 +6,9 @@
 <a name="Overview"></a>
 ## Overview ##
 
-Azure Data Lake enables you to capture data of any size, type, and ingestion speed in one single place for operational and exploratory analytics. It consists of two primary elements, Data Lake Store and Data Lake Analytics. Azure Data Lake Store is an enterprise-wide hyper-scale repository for big data analytic workloads. Azure Data Lake Analytics is an easy-to-learn data query and analytics engine based on a new query language called U-SQL, which combines elements of traditional SQL syntax with powerful expression support and programmatic extensibility. This lab will introduce you to Data Lake Store and Data Lake Analytics and walk you through a handful of typical user scenarios for each.
+[Azure Data Lake](https://azure.microsoft.com/en-us/solutions/data-lake/) enables you to capture data of any size, type, and velocity in one place in order to explore, analyze, and process the data in a platform-agnostic manner using tools and languages you already know. It works with existing IT investments for identity, management, and security. It also integrates seamlessly with operational stores and data warehouses.
+
+Data Lake consists of two primary elements: Data Lake Store and Data Lake Analytics. Azure Data Lake Store is an enterprise-wide hyper-scale repository for big-data analytical workloads. Azure Data Lake Analytics is an easy-to-learn query and analytics engine based on a new query language called U-SQL, which combines elements of traditional SQL syntax with powerful expression support and programmatic extensibility. This lab will introduce you to Data Lake Store and Data Lake Analytics and walk you through a handful of typical user scenarios for each.
 
 <a name="Objectives"></a>
 ### Objectives ###
@@ -25,10 +27,8 @@ In this hands-on lab, you will learn how to:
 The following are required to complete this hands-on lab:
 
 - A Microsoft Azure subscription - [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
-- Azure Cross-Platform Command Line Interface (CLI) - [download and install instructions here](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/)
-- Enable Data Lake Store in your new Azure subscription - [follow the instructions here](https://azure.microsoft.com/en-us/documentation/articles/data-lake-store-get-started-portal/#signup)
-- (you may also need to enable Data Lake Analytics in your Azure subscription, using a similar procedure to above)
-- Power BI desktop - [optional and Windows only... download and install here](https://powerbi.microsoft.com/en-us/desktop/)
+- [Azure Cross-Platform Command Line Interface (CLI)](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/)
+- [Power BI desktop](https://powerbi.microsoft.com/en-us/desktop/) (Windows users only)
 
 ---
 
@@ -37,7 +37,7 @@ The following are required to complete this hands-on lab:
 
 This hands-on lab includes the following exercises:
 
-- [Exercise 1: Create an Azure Data Lake Store account](#Exercise1)
+- [Exercise 1: Create an Azure Data Lake Store](#Exercise1)
 - [Exercise 2: Create an Azure Data Lake Analytics account](#Exercise2)
 - [Exercise 3: Import data into Azure Data Lake Store](#Exercise3)
 - [Exercise 4: Run a simple U-SQL job in Azure Data Lake Analytics](#Exercise4)
@@ -45,75 +45,67 @@ This hands-on lab includes the following exercises:
 - [Exercise 6: Run a more complex U-SQL job using a federated SQL Database](#Exercise6)
 - [Exercise 7: Visualize Azure Data Lake query results using Power BI (optional)](#Exercise7)
 
-Estimated time to complete this lab: **60-75** minutes.
+Estimated time to complete this lab: **60** minutes.
 
 <a name="Exercise1"></a>
-## Exercise 1: Create an Azure Data Lake Store account
+## Exercise 1: Create an Azure Data Lake Store
 
-In this exercise, you will create a new Azure Data Lake Store account in your Azure subscription. Later we'll import data into this account, query against it using a query language called U-SQL, and visualize the results. 
+In this exercise, you will create a new Azure Data Lake Store in your Azure subscription. Later, you will import data into the store, query it with U-SQL, and visualize the results. 
 
-1. In your browser, log in to the [Azure Portal](https://portal.azure.com) if you're not already there.
+1. In your browser, navigate to the [Azure Portal](https://portal.azure.com). If you're asked to sign in, do so using your Microsoft account.
 
-1. In the portal, click **+ NEW -> Data + Storage -> Data Lake Store (preview)** to display the "New Data Lake Store" blade.
+1. In the portal, click **+ New -> Data + Storage -> Data Lake Store (preview)**.
 
-    ![Adding a new Data Lake Store account](Images/create-data-lake-store-account.png)
+    ![Adding a new Data Lake Store](Images/new-data-lake-store.png)
 
-    _Adding a new Data Lake Store account_
+    _Adding a new Data Lake Store_
 
-1. The blade will present you with a handful of options for configuring your new account.
+1. In the "New Data Lake Store" blade, enter a unique name for your Data Lake Store in all lowercase. The name must be unique within Azure since it becomes part of the store's DNS name. Make sure **Create new** is selected under **Resource Group**, and then enter a resource-group names such as "DataLakeResourceGroup" (without quotation marks). Choose the location nearest you, and then click **Create**.
 
-    ![New Data Lake Store blade](Images/create-data-lake-store-blade.png)
+	> If there are any input errors, such as spaces in the resource-group name, the offending fields will be flagged with red excalamation points. Hover the mouse cursor over an exclamation point for help resolving the error.
 
-    _New Data Lake Store blade_
+    ![Creating a Data Lake Store](Images/create-data-lake-store.png)
 
-    Choose a unique name (it must be unique across all of Azure; the portal will prompt you if you choose a name already in use). Ensure your new Azure subscription is selected.
+    _Creating a Data Lake Store_
 
-    Enter a name for the resource group that you wish to associate with your new Data Lake Store — for example, "DataLakeHOL" (without quotation marks). Resource group names do not have to be globally unique as storage account names do, but they must be unique to a subscription. You also have the option of choosing an existing resource group, if you happen to have one.
+1. Click **Resource groups** in the ribbon on the left, and then click the resource group whose name you specified in the previous step.
 
-	Next choose an Azure data center location (one near you is a good choice). Leave **Pin to dashboard** checked so the newly created Data Lake Store appears on your dashboard in the Azure Portal. Once you're finished, click the **Create** button at the bottom of the blade.
+    ![Opening the resource group](Images/open-resource-group.png)
 
-	> If there are any input errors, such as spaces in the resource-group name, the fields containing the errors will be flagged with red excalamation points. Hover the mouse over an exclamation point for help resolving the error.
+    _Opening the resource group_
 
-    After a few moments, the new Data Lake Store account tile will appear in the Azure Portal home screen.
+1. When "(Deploying)" changes to succeeded, the Data Lake Store has been created. Deployment typically takes a minute or less. You may have to refresh the page in your browser to ascertain that the deployment has finished.
 
+    ![Deployment succeeded](Images/successful-deployment.png)
 
-You've created a Data Lake Store, now you need a Data Lake Analytics account to run queries against the store. We'll create that next.
+    _Deployment succeeded_
+
+Now that you have created a Data Lake Store, the next step is to create a Data Lake Analytics account so you can run queries against the store.
 
 <a name="Exercise2"></a>
 ## Exercise 2: Create an Azure Data Lake Analytics account
 
-The concepts of data storage and data query are formally separated in Azure Data Lake; this allows storage (in the form of Azure Data Lake Store) to provide access to a range of data analysis tools, and also allows analytics (in the form of Azure Data Lake Analytics) to operate against a range of possible data sources. Of course, Azure Data Lake Store and Azure Data Lake Analytics work very well together.
+Azure Data Lake formally separates the concepts of data storage and data query. This allows storage (in the form of Azure Data Lake Store) to provide access to a range of data analysis tools, and also allows analytics (in the form of Azure Data Lake Analytics) to operate against a range of possible data sources. Of course, Azure Data Lake Store and Azure Data Lake Analytics work very well together.
 
-In this exercise you'll create an Azure Data Lake Analytics account and associate it with the Data Lake Store you created in the previous exercise.
+In this exercise, you will create an Azure Data Lake Analytics account and associate it with the Data Lake Store you created in the previous exercise.
 
-1. In your browser, log in to the [Azure Portal](https://portal.azure.com) if you're not already there.
+1. In the portal, click **+ New -> Data + Analytics -> Data Lake Analytics (preview)**.
 
-1. In the portal, click **+ NEW -> Data + Analytics -> Data Lake Analytics (preview)** to display the "New Data Lake Analytics Account" blade.
-
-    ![Adding a new Data Lake Analytics account](Images/create-data-lake-analytics-account.png)
+    ![Adding a new Data Lake Analytics account](Images/new-data-lake-analytics.png)
 
     _Adding a new Data Lake Analytics account_
 
-1. The blade will present you with a handful of options for configuring your new account.
+1. In the "New Data Lake Analytics" blade, enter a name for the new account. Once more, the name must be unique across Azure. Then select **Use existing** under **Resource Group** and select the resource group that you created in Exercise 1. Finally, click **Data Lake Store** and select the Data Lake Store you created in Exercise 1 to associate the Data Lake Analytics account with your Data Lake Store. 
 
-    ![New Data Lake Analytics blade](Images/create-data-lake-analytics-blade.png)
+	When you're finished, click the **Create** button at the bottom of the "New Data Lake Analytics" blade.
 
-    _New Data Lake Analytics blade_
+    ![Creating a Data Lake Analytics account](Images/create-data-lake-analytics.png)
 
-    Choose a unique name (it must be unique across all of Azure; the portal will prompt you if you choose a name already in use). Ensure your new Azure subscription is selected.
+    _Creating a Data Lake Analytics account_
 
-    If you're following this lab in sequence, choose the resource group you created in [Exercise 1](#Exercise1). Otherwise, enter a name for the resource group that you wish to associate with your new Data Lake Analytics account — for example, "DataLakeHOL" (without quotation marks). Resource group names do not have to be globally unique as storage account names do, but they must be unique to a subscription.
+1. Open the resource group that holds the Data Lake Store and the Data Lake Analytics account. Click the Data Lake Analytics account and wait for "(Deploying)" to change to "(Succeeded)." Once more, it helps to refresh the page every now and then to make sure the information displayed there is up to date.
 
-    Finally, click the **Data Lake Store** option; this will open another blade for associating a Data Lake Store account with your new Data Lake Analytics account (at least one such association must exist). Choose the Data Lake Store account you created in [Exercise 1](#Exercise1).
-
-	Leave **Pin to dashboard** checked so the newly created Data Lake Store appears on your dashboard in the Azure Portal. Once you're finished, click the **Create** button at the bottom of the blade.
-
-	> If there are any input errors, such as spaces in the resource-group name, the fields containing the errors will be flagged with red excalamation points. Hover the mouse over an exclamation point for help resolving the error.
-
-    After a few moments, the new Data Lake Analytics account tile will appear in the Azure Portal home screen.
-
-
-You now have Azure Data Lake storage and query capability set up in your Azure subscription. Now let's add some data we can query against.
+You now have Azure Data Lake storage and query capability set up in your Azure subscription. Now let's add some data to query against.
 
 <a name="Exercise3"></a>
 ## Exercise 3: Import data into Azure Data Lake Store
