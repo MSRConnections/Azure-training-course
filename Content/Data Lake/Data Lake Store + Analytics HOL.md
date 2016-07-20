@@ -192,11 +192,7 @@ The file preview only shows a portion of the data file. The next step is to quer
 
     _A simple U-SQL query_
 
-    Notice the three main parts of the query:
-
-    - First we extract data from an existing data source, in this case we're using a single tab-delimited file and using the schema-on-read functionality of U-SQL to schematize it only when needed
-    - Next we transform the input data into a shape suitable to our needs; these transformations can be simple or a complex, multi-step process.
-    - Finally we output the resulting data as a named rowset, which we can use for further analysis or visualization.
+    The query contains three main parts. The **EXTRACT** statement extracts data from an existing data source, in this case the tab-delimited **posts.tsv** file you uploaded to the Data Lake Store. The **SELECT** statement transforms the input data into a shape suitable to the task at hand. Finally, the **OUTPUT** statement outputs the result as a named rowset, which can be used for further analysis or visualization.
 
 1. Click the **Submit Job** button at the top of the blade. A new blade will open to show what is happening as the Data Lake Analytics engine prepares, queues, and executes your query. The job is complete when the "Finalizing" step turns green.
 
