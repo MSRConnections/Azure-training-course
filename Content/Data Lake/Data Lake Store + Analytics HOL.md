@@ -40,8 +40,8 @@ This hands-on lab includes the following exercises:
 - [Exercise 1: Create an Azure Data Lake Store](#Exercise1)
 - [Exercise 2: Create an Azure Data Lake Analytics account](#Exercise2)
 - [Exercise 3: Import data into Azure Data Lake Store](#Exercise3)
-- [Exercise 4: Run a simple U-SQL job in Azure Data Lake Analytics](#Exercise4)
-- [Exercise 5: Setup an Azure SQL Database for federated query with U-SQL](#Exercise5)
+- [Exercise 4: Query a TSV file with U-SQL](#Exercise4)
+- [Exercise 5: Query an Azure SQL Database with U-SQL](#Exercise5)
 - [Exercise 6: Run a more complex U-SQL job using a federated SQL Database](#Exercise6)
 - [Exercise 7: Visualize Azure Data Lake query results using Power BI (optional)](#Exercise7)
 
@@ -93,7 +93,7 @@ Azure Data Lake formally separates the concepts of storing data and querying dat
 
     _Adding a new Data Lake Analytics account_
 
-1. In the "New Data Lake Analytics" blade, enter a name for the new account. Once more, the name must be unique across Azure because it becomes part of a DNS name. Then select **Use existing** under **Resource Group** and select the resource group that you created in Exercise 1. Finally, click **Data Lake Store** and select the Data Lake Store you created in Exercise 1 to associate the Data Lake Analytics account with your Data Lake Store. 
+1. In the "New Data Lake Analytics" blade, enter a name for the new account. Once more, the name must be unique across Azure because it becomes part of a DNS name. Select **Use existing** under **Resource Group** and select the resource group that you created in Exercise 1. Then select the same location you selected for the Data Lake Store in Exercise 1. Finally, click **Data Lake Store** and select the Data Lake Store you created in Exercise 1 to associate the Data Lake Analytics account with your Data Lake Store. 
 
 	When you're finished, click the **Create** button at the bottom of the "New Data Lake Analytics" blade.
 
@@ -139,9 +139,9 @@ This lab's "resources" directory holds several files containing sample data. Thi
 The file preview only shows a portion of the data file. The next step is to query the data. For that, Azure Data Lake provides U-SQL. 
 
 <a name="Exercise4"></a>
-## Exercise 4: Run a simple U-SQL job in Azure Data Lake Analytics
+## Exercise 4: Query a TSV file with U-SQL
 
-[U-SQL](http://usql.io/) is a new language created by Microsoft that combines traditional SQL Data Definition Language (DDL) and Data Manipulation Language (DML) constructs with expressions, functions, and operators based on the popular C# programming language. It marries the benefits of SQL with the power of expressive code. And it is supported natively in Azure Data Lake. In this exercise, you will use U-SQL to perform some simple queries on the data you imported in Exercise 3.
+[U-SQL](http://usql.io/) is a new language created by Microsoft that combines traditional SQL Data Definition Language (DDL) and Data Manipulation Language (DML) constructs with expressions, functions, and operators based on the popular C# programming language. It marries the benefits of SQL with the power of expressive code. And it is supported natively in Azure Data Lake. In this exercise, you will use U-SQL to query the data you imported in Exercise 3.
 
 1. In the portal, open the Azure Data Lake Analytics account that you created in [Exercise 2](#Exercise2). In the ensuing blade, click **New Job** to create a new U-SQL job.
 
@@ -209,78 +209,100 @@ The file preview only shows a portion of the data file. The next step is to quer
 Later, you will learn how to join multiple data sources and perform more complex queries, as well as how to visualize the results in more interesting ways.
 
 <a name="Exercise5"></a>
-## Exercise 5: Setup an Azure SQL Database for federated query with U-SQL
+## Exercise 5: Query an Azure SQL Database with U-SQL
 
-So far you've issued a simple query against a single file in Azure Data Lake Store. To make things more interesting we're going to next create a small SQL Database in your Azure subscription, and then set that up as a federated data source in Data Lake Analytics. This will allow you to not only query that SQL Database with U-SQL, but also join data from the SQL Database to data already residing in your Data Lake Store. From this you can start to see the power of Azure Data Lake as a truly heterogenous and distributed storage and analytics engine.
+In the previous exercise, you issued a simple query against a single file in an Azure Data Lake Store. To make things more interesting, you are next going to create a small SQL Database in your Azure subscription, and then configure it to serve as a federated data source in Data Lake Analytics. This will allow you to not only query that SQL Database with U-SQL, but also join data from the SQL Database to data already residing in your Data Lake Store. With this, you can start to see the power of Azure Data Lake as a distributed storage and analytics engine.
 
-You'll need to perform a number of small setup tasks to enable federated queries: 
+Enable federated queries will require a series of steps: 
 
 - Create an Azure storage account in your Azure subscription
-- Upload a SQL Database backup file (a .bacpac file) to this new storage account
-- Create a new SQL Database in your Azure subscription and restore the .bacpac file from Azure storage during the creation of this instance
-- Configure your Data Lake Analytics account to query against your new SQL Database
+- Upload a SQL Database backup file (a .bacpac file) to the new storage account
+- Create a new SQL Database in your Azure subscription and restore it from the .bacpac file
+- Configure your Data Lake Analytics account to query against the SQL Database
 
 Let's get started!
 
-1. In your browser, log in to the [Azure Portal](https://portal.azure.com) if you're not already there.
+1. In the Azure Portal, click **+ New -> Data + Storage -> Storage account**.
 
-1. In the portal, click **+ NEW -> Data + Storage -> Storage Account** to display the "Create storage account" blade.
+    ![Adding a storage account](Images/new-storage-account.png)
 
-    ![Adding a new Storage account](Images/create-storage-account.png)
+    _Adding a storage account_
 
-    _Adding a new Azure Storage account_
+1. In the ensuing "Create storage account" blade, enter a name for the new storage account in **Name** field. Storage account names can be 3 to 24 characters in length and can only contain numbers and lowercase letters. In addition, the name you enter must be unique within Azure. If someone else has chosen the same name, you'll be notified that the name isn't available with a red exclamation mark in the **Name** field.
 
-1. The blade will present you with a handful of options for configuring your new account.
+	Once you have a name that Azure will accept (as indicated by the green check mark in the **Name** field), make sure **Resource manager** is selected as the deployment model and **General purpose** is selected as the account kind. Then select **Locally-redundant storage (LRS)** as the replication type.
 
-    ![New Storage Account blade](Images/create-storage-account-blade.png)
-
-    _New Storage account blade_
-
-    Choose a unique name (it must be unique across all of Azure; the portal will prompt you if you choose a name already in use). Ensure your new Azure subscription is selected.
-
-    If you're following this lab in sequence, choose the resource group you created in [Exercise 1](#Exercise1). Otherwise, enter a name for the resource group that you wish to associate with your new Storage account — for example, "DataLakeHOL" (without quotation marks). Resource group names do not have to be globally unique, but they must be unique to your subscription.
-
-    Leave the remainder of the options with their defaults.
-
-	Leave **Pin to dashboard** checked so the newly created Storage account appears on your dashboard in the Azure Portal. Once you're finished, click the **Create** button at the bottom of the blade.
-
-	> If there are any input errors, such as spaces in the resource-group name, the fields containing the errors will be flagged with red excalamation points. Hover the mouse over an exclamation point for help resolving the error.
-
-    After a few moments, the new Storage account tile will appear in the Azure Portal home screen. Now you need to create a container within your new Storage account to hold your database backup. Click on the tile to open the blade for the new Storage account, then click on the "Blobs" icon under "Services". This will open a new **Blob service** blade; click the **+Container** button, enter the name "bacpacs" (no quotes) for your new blob container, and then click **Create**:
-
-    ![Blob service](Images/blob-service.png)
-
-    _Blob storage service_
-
-    One final thing while you're here; in the main Storage account blade, click on **Settings -> Access keys**:
-
-    ![Storage access keys](Images/access-keys.png)
-
-    _Storage access keys_
+	Select **Use existing** under **Resource group** and select the resource group that you created in Exercise 1. Then select the location that you selected for the Data Lake Store in Exercise 1. Finish up by clicking the **Create** button at the bottom of the blade to create the new storage account.
     
-    On the **Access keys** blade copy "key1" to your clipboard for use in the next step below (you might also want to copy it to a text editor for temporary safekeeping):
+	![Specifying parameters for a new storage account](images/create-storage-account.png)
 
-    ![Copy access key](Images/copy-access-key.png)
+    _Specifying parameters for a new storage account_
 
-    _Copy access key_
+1. Once the storage account has been created, click **Resource groups** in the ribbon on the left, and then click the resource group that you created in Exercise 1.
 
-1. Now you need to upload the [database backup file](resources\academics-stackexchange-users.bacpac) to your new Storage account. You'll do that using the cross-platform Azure command line interface, commonly referred to as the "azure xplat cli".
+    ![Opening the resource group](Images/open-resource-group.png)
 
-    Open your command shell (Bash, Terminal, command prompt, etc.) and type "azure login" (no quotes). Copy the code given to you, navigate to https://aka.ms/devicelogin, enter the code and then the username and password associated with your Azure subscription. Upon successful authentication your command line session will be connected to your Azure subscription.
+    _Opening the resource group_
 
-    In the command shell, navigate to the lab "resources" folder on your local file system and run the following command:
+1. Now you need to create a container in the storage account to hold your database backup. To begin, click **Blobs** in the storage account's blade.
 
-    > azure storage blob upload -a "YOUR-STORAGE-ACCOUNT-NAME" -k "YOUR-STORAGE-ACCOUNT-KEY" -f "academics-stackexchange-users.bacpac" --container "bacpacs" -b "academics-stackexchange-users.bacpac"
+    ![Opening blob storage](Images/open-blob-storage.png)
 
-    Be sure to substitute the name of your Storage account and the key you copied to your clipboard from the previous step. **Keep the shell open when you're done; you'll need it later on.**
+    _Opening blob storage_
 
-    Return to the main Storage account blade in the Azure portal. Again, click on "Blobs" under "Services", and then click on the "bacpacs" container entry. You should now see a new blob in the container, called "academics-stackexchange-users.bacpac":
+1. Click **+ Container** at the top of the blade.
+
+    ![Adding a container](Images/add-container.png)
+
+    _Adding a container_
+
+1. Enter the name "bacpacs" (without quotation marks) for your new blob container, and then click **Create**:
+
+    ![Naming the new container](Images/new-container.png)
+
+    _Naming the new container_
+
+1. Return to the storage account's blade and click the keys icons:
+
+    ![Viewing the storage account's access keys](Images/open-access-keys.png)
+
+    _Viewing the storage account's access keys_
+    
+1. In the "Access keys" blade, click the **Copy** button to the right of **key1** to copy the storage account's primary access key to the clipboard. Then paste the access key into your favorite text editor so you can easily access it again in a few moments.
+
+    ![Copying the storage account's access key](Images/copy-access-key.png)
+
+    _Copying the storage account's access key_
+
+1. Now you need to upload the database backup file (academics-stackexchange-users.bacpac, provided for you in this labs "resources" directory) to the new storage account. You'll do that using the cross-platform Azure command line interface, commonly referred to as the "Azure CLI".
+
+	TODO: Install the CLI.
+
+1. Open a command shell (Bash, Terminal, command prompt, etc.) and execute the following command:
+ 
+	<pre>
+	azure login
+	</pre>
+
+	Copy the code presented to you. Then open a browser window and navigate to https://aka.ms/devicelogin and enter the code. If prompted to log in, do so using your Microsoft account. Upon successful authentication, your command-line session will be connected to your Azure subscription.
+
+1. TODO: List subscriptions and set Azure Pass to the default if it isn't already the default.
+
+1. In the command shell, navigate to this lab "resources" directory and execute the following command:
+
+	<pre>
+    azure storage blob upload -a "<i>storage_account_name</i>" -k "<i>storage_account_key</i>" -f "academics-stackexchange-users.bacpac" --container "bacpacs" -b "academics-stackexchange-users.bacpac"
+	</pre>
+
+    Substitute the name of the storage account you created in Step 2 for *storage_account_name*, and the access key you copied in Step 8 for *storage_account_key*. **Keep the shell open when you're done; you will need it later on.**
+
+1. Return to the Azure Portal and to the blade for the storage account. Click **Blobs**, and then click the **bacpacs** container. Verify that the container now contains a blob named **academics-stackexchange-users.bacpac**:
 
     ![New bacpac blob](Images/new-bacpac-blob.png)
 
     _New bacpac blob in Azure storage_
 
-1. Now you'll add a new SQL Database server; in the next step you'll create the actual database running within that server. In the Azure portal, navigate to **Browse -> SQL servers**:
+1. The next step is to add a new SQL Database server. In the Azure portal, navigate to **Browse -> SQL servers**:
 
     ![SQL Servers](Images/sql-servers.png)
 
