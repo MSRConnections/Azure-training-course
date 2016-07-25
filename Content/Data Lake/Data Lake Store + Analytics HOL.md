@@ -302,31 +302,27 @@ Let's get started!
 
     _New bacpac blob in Azure storage_
 
-1. The next step is to add a new SQL Database server. In the Azure portal, navigate to **Browse -> SQL servers**:
+1. The next step is to add a new SQL database server. In the Azure portal, click **Browse -> SQL servers**:
 
-    ![SQL Servers](Images/sql-servers.png)
+    ![Listing SQL servers](Images/sql-servers.png)
 
-    _SQL Servers_
+    _Listing SQL servers_
 
-    On the newly opened blade click **+ Add** to open the "SQL Server (logical server only)" blade:
+1. Click **+ Add** in the "SQL servers" blade:
 
-    ![Create SQL server](Images/create-sql-server.png)
+    ![Adding a SQL server](Images/add-sql-server.png)
 
-    _Create a new SQL server_
+    _Adding a SQL server_
 
-    Choose a unique name (it must be unique across all of Azure; the portal will prompt you if you choose a name already in use). Ensure your new Azure subscription is selected.
+1. In the ensuing blade, enter the parameters for a new SQL server, beginning with a unique name. (It must be unique across all of Azure; be sure a green check appears in the box.) Enter "azureuser" (without quotation marks) as the user name, and "AzurePass!" (again without quotation marks) as the password. Under **Resource group**, select **Use existing** and select the same resource group you have used throughout this lab. For **Location**, select the same location you selected in previous exercises. When you're finished, click the **Create** button at the bottom of the blade.
 
-    If you're following this lab in sequence, choose the resource group you created in [Exercise 1](#Exercise1). Otherwise, enter a name for the resource group that you wish to associate with your new Data Lake Analytics account — for example, "DataLakeHOL" (without quotation marks). Resource group names do not have to be globally unique as storage account names do, but they must be unique to a subscription.
+    ![Creating a new SQL server](Images/create-sql-server.png)
 
-    You'll also need to choose a server admin login and password; be mindful of the prompts for minimum password complexity... and remember your username and password!
+    _Creating a new SQL server_
 
-	Leave **Pin to dashboard** checked so the newly created SQL server appears on your dashboard in the Azure Portal. Once you're finished, click the **Create** button at the bottom of the blade.
+    After a few moments, the SQL server will be created. Click the **Refresh** button at the top of the "SQL servers" blade and make sure the new SQL server appears in the list of SQL servers associated with your subscription. 
 
-	> If there are any input errors, such as spaces in the resource-group name, the fields containing the errors will be flagged with red excalamation points. Hover the mouse over an exclamation point for help resolving the error.
-
-    After a few moments, the new SQL server tile will appear in the Azure Portal home screen.
-
-1. Next you'll need to create a new database instance on your new SQL server, using the bacpac blob you previously uploaded. Click the tile for your newly created database server and then click **Import database** toward the top:
+1. Next, you need to create a new database instance using the blob you uploaded a few moments ago. In the "SQL servers" blade, click the SQL server you just created. Then click **Import database** at the top of the ensuing blade:
 
     ![Import database](Images/import-database.png)
 
@@ -356,28 +352,32 @@ Let's get started!
 
     Navigate back to your Data Lake Analytics account and Click **New Job** near the top. In the query blade, enter the following U-SQL and then run the job:
 
-    > CREATE DATABASE UserIntegration;
+    <pre>
+	CREATE DATABASE UserIntegration;
+	</pre>
 
     Using your previously configured Azure command shell, execute the following commands to create a Data Lake catalog secret containing SQL server connection and authentication information to be used during federated query execution:
 
-    > azure config mode arm
-
-    > azure datalake analytics catalog secret create "YOUR-ANALYTICS-ACCOUNT-NAME" "UserIntegration" "tcp://YOUR-DATABASE-SERVER-NAME.database.windows.net:1433"
+    <pre>
+	azure config mode arm
+	azure datalake analytics catalog secret create "YOUR-ANALYTICS-ACCOUNT-NAME" "UserIntegration" "tcp://YOUR-DATABASE-SERVER-NAME.database.windows.net:1433"
+    </pre>
 
     You will be prompted for a catalog secret name (use "user-integration-secret", no quotes) and password (be sure to use the password for your SQL server admin account). Also, be sure to use your Data Lake Analytics account name and SQL database server (not instance) name.
 
     Return to your Data Lake Analytics account in the Azure portal, create a new U-SQL job and execute the following query:
 
-    > USE DATABASE UserIntegration;
+    <pre>
+    USE DATABASE UserIntegration;
     
-    > CREATE CREDENTIAL IF NOT EXISTS FederatedDbSecret WITH USER_NAME = "YOUR-DB-SERVER-ADMIN-LOGIN-NAME", IDENTITY = "user-integration-secret";
+    CREATE CREDENTIAL IF NOT EXISTS FederatedDbSecret WITH USER_NAME = "YOUR-DB-SERVER-ADMIN-LOGIN-NAME", IDENTITY = "user-integration-secret";
 
-    > CREATE DATA SOURCE IF NOT EXISTS AcademicSEDb FROM AZURESQLDB WITH
+    CREATE DATA SOURCE IF NOT EXISTS AcademicSEDb FROM AZURESQLDB WITH
        ( PROVIDER_STRING = "Database=YOUR-DATABASE-INSTANCE-NAME;Trusted_Connection=False;Encrypt=True",
          CREDENTIAL = FederatedDbSecret,
          REMOTABLE_TYPES = (bool, byte, sbyte, short, ushort, int, uint, long, ulong, decimal, float, double, string, DateTime) );
 
-    > CREATE EXTERNAL TABLE User (
+    CREATE EXTERNAL TABLE User (
                             [id] int,
                             [reputation] int,
                             [created] DateTime,
@@ -385,6 +385,7 @@ Let's get started!
                             [lastaccess] DateTime,
                             [location] string
                         ) FROM AcademicSEDb LOCATION "dbo.User";
+	</pre>
 
     This query creates a credential using your previously created catalog secret, configures your SQL Database as a data source authenticated with that new credential, and then creates a named table in your local Data Lake Analytics database which is actually backed by the SQL data source. The last step (creating the named external table) is optional but is more convenient than referencing a federated data source + external table over and over again.
 
