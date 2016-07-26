@@ -28,7 +28,6 @@ The following are required to complete this hands-on lab:
 
 - A Microsoft Azure subscription - [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
 - [Azure Cross-Platform Command Line Interface (CLI)](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/)
-- [Power BI desktop](https://powerbi.microsoft.com/en-us/desktop/) (Windows users only)
 
 ---
 
@@ -43,7 +42,6 @@ This hands-on lab includes the following exercises:
 - [Exercise 4: Query a TSV file with U-SQL](#Exercise4)
 - [Exercise 5: Query an Azure SQL Database with U-SQL](#Exercise5)
 - [Exercise 6: Perform a federated query with U-SQL](#Exercise6)
-- [Exercise 7: Visualize query results using Power BI Desktop (Windows only)](#Exercise7)
 
 Estimated time to complete this lab: **60** minutes.
 
@@ -336,9 +334,9 @@ Let's get started!
 
 1. While you wait for the database instance to be created, click **Show firewall settings** on the database-server blade and add an IP range entry to allow Data Lake Analytics to communicate with your server (during federated query execution). Type the following values into the three text boxes and then click **Save** at the top:
 
-    - Rule Name -> Allow Data Lake
-    - Start IP -> 25.66.0.0
-    - End IP -> 25.66.255.255
+    - **Rule Name**: Allow Data Lake
+    - **Start IP**: 25.66.0.0
+    - **End IP**: 25.66.255.255
 
     ![Configuring the firewall](Images/allow-port-range.png)
 
@@ -442,112 +440,15 @@ Two of the most compelling features of Data Lake Analytics are its ability to fe
 
     _First posts CSV query results_
 
-The file contains two columns of data, but it's hard to glean much from the output due to its textual nature. If you are running Windows, you can use Microsoft's Power BI Desktop to explore the data visually...which is precisely the focus of the final exercise.  
+1. Confirm that the file contains two columns of data: one for name of each user who posted in the discussion forum, and another for the time and date of each user's first post.
 
-<a name="Exercise7"></a>
-## Exercise 7: Visualize query results using Power BI Desktop (Windows only)
-
-Azure Data Lake features powerful storage and query capabilities, but is limited when it comes to data visualization. Let's quickly look at how to view the results of the query you performed in the previous exercise using Power BI Desktop.
-
-1. If you haven't downloaded and installed Power BI Desktop, do so now. You can download the installer from https://powerbi.microsoft.com/en-us/desktop/.
-
-1. Start Power BI Desktop and cancel any initial login prompts.
-
-1. Click **Get Data** in the ribbon at the top.
-
-    ![Getting data in Power BI](Images/pbi-get-data.png)
-
-    _Getting data in Power BI_
-
-1. In the "Get Data" dialog, select **Azure** on the left side and **Microsoft Azure Data Lake Store (beta)** on the right side. Then click **Connect**. If you are warned that Preview Connector is still under development and asked if you wish to continue anyway, click **Continue**.
-
-    ![Connecting to Azure Data Lake Store](Images/pbi-connect-to-adls.png)
-
-    _Connecting to Azure Data Lake Store_
-
-1. Enter the URL of your Azure Data Lake Store, and then click **OK**. The URL will have the following form, where *data_lake_store_name* is the name of your Data Lake Store:
-
-	<pre>
-    swebhdfs://<i>data_lake_store_name</i>.azuredatalakestore.net
-	</pre>
-
-    ![Entering the Data Lake Store URL](Images/pbi-enter-url.png)
-
-    _Entering the Data Lake Store URL_
-
-1. If prompted, sign in with your Azure subscription credentials, then click **Connect**.
-
-1. You'll next be presented with a dialog listing the contents of your Data Lake Store account. You should see the tab-delimited files you uploaded during this lab, as well as the results of queries you've executed. Click **Edit** to bring up the Query Editor view.
-
-1. You should see an expanded view of the contents of your Data Lake Store account. Click on **binary** on the row with **firstposts.csv**:
-
-    ![Drill into First Posts data](Images/pbi-drill-into-firstposts.png)
-
-    _Download and drill into first posts data_
-
-    This will download the contents of the first posts CSV from Data Lake Store and present it to you in the next view:
-
-    ![Raw First Posts data](Images/pbi-raw-firstposts.png)
-
-    _Raw first posts data_
-    
-    Right click the column header **Column1** and select **Rename...**. Change the name to "Name". Do the same for **Column2**, change it to "First Post". Now click **Close & Apply** in the ribbon at the upper left corner of the Power BI window:
-
-    ![Apply Query Modifications](Images/pbi-apply-query.png)
-
-    _Apply query modifications_
-
-    Power BI will apply your query modifications and return you to the main window.
-
-1. Next, click on the **Stacked bar chart** icon on the right under **Visualizations**:
-
-    ![Add a Stacked Bar Chart](Images/pbi-stacked-bar-chart.png)
-
-    _Add a stacked bar chart visualization_
-
-    Note how the graphic is added to the design surface but no data is yet present.
-
-1. On the right under **Fields**, right-click **Query1** and select **New column**:
-
-    ![Add a New Computed Column](Images/pbi-new-column.png)
-
-    _Add a new computed column_
-
-    In the small window that appears above the design surface, replace "Column = " with the following expression:
-
-    > Year+Month = FORMAT(YEAR([First Post]), "General Number") & " - " & FORMAT(MONTH([First Post]), "General Number")
-
-    ![Define the New Computed Column](Images/pbi-define-computed-column.png)
-
-    _Define the expression for the new computed column_
-
-    Replace the expression text and then hit Enter. Notice on the right under **Fields** that your new computed column has been created; it will serve as the axis of your visualization.
-
-1. Next, drag the new "Year+Month" column and drop it onto the "Axis" section of the visualization tool window:
-
-    ![Create Chart Axis](Images/pbi-add-axis.png)
-
-    _Add the axis field to the chart_
-
-    Now do the same for the "Name" column, dragging it to the "Value" section of the visualization tool window:
-
-    ![Create Chart Value](Images/pbi-add-value.png)
-
-    _Add the value field to the chart_
-   
-    Notice now that your chart has data! It now shows the aggregated count of users, grouped by the month/year of their first post to http://academia.stackexchange.com. If necessary, drag the edge of the chart to make it larger and easier to read on the design surface.
-
-1. A few items of note. Clicking on the ellipsis in the upper-right corner of the chart window allows you to sort by data values; trying sorting by "Count of Name" to quickly view the months with the most "first posts".
-
-    ![Sorted Chart Data](Images/pbi-sorted-data.png)
-
-    _First posts sorted by user count_
-
-    You can also hover over individual bars in the graph to view more detailed information; if you'd like to drill into the data for a given month/year, right-click that bar and select "See Records". There are numerous other possibilities for formatting, styling, pulling in other data sources, etc. within Power BI Desktop. Feel free to experiment and know that you can always start again with fresh data if necessary.
+You just demonstrated that U-SQL can be used to query multiple data sources of different types. You also saw one example of how C# expressions can be used to make U-SQL more powerful than ordinary SQL.
 
 ### Summary ###
 
-Hopefully this lab has given you a feel for the capabilities of Azure Data Lake Store and Analytics, the iterative "import/transform/query/analyze" workflow common to Azure Data Lake, and the level of integration ADL has with related Azure and analytics product offerings like Power BI.
+Azure Data Lake provides a hyperscale, enterprise-wide repository where different types of data can be collected without regard to size, structure, or velocity. Once aggregated in a Data Lake Store, data can be analyzed with Azure Data Lake Analytics, or processed with popular open-source tools such as Apache Hadoop and Apache Spark hosted in [Azure HDInsight](https://azure.microsoft.com/en-us/services/hdinsight/). In this lab, you learned how to import various types of data into a Data Lake Store and use Azure Data Lake Analytics to query the combined data with U-SQL. 
+
+Azure Data Lake does not itself provide tools for visualizing query results, but other components of Azure and the Azure ecosystem do. For example, [Microsoft Power BI](https://powerbi.microsoft.com/en-us/) can be used to visualize query results and can even be connected directly to a Data Lake Store. For more information about combining Azure Data Lake with Power BI and a tutorial to help guide the way, see [Analyze data in Data Lake Store by using Power BI](https://azure.microsoft.com/en-us/documentation/articles/data-lake-store-power-bi/).
 
 ---
 
