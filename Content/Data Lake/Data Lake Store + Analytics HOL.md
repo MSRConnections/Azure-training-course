@@ -42,8 +42,8 @@ This hands-on lab includes the following exercises:
 - [Exercise 3: Import data into Azure Data Lake Store](#Exercise3)
 - [Exercise 4: Query a TSV file with U-SQL](#Exercise4)
 - [Exercise 5: Query an Azure SQL Database with U-SQL](#Exercise5)
-- [Exercise 6: Run a more complex U-SQL job using a federated SQL Database](#Exercise6)
-- [Exercise 7: Visualize Azure Data Lake query results using Power BI (optional)](#Exercise7)
+- [Exercise 6: Perform a federated query with U-SQL](#Exercise6)
+- [Exercise 7: Visualize query results using Power BI Desktop (Windows only)](#Exercise7)
 
 Estimated time to complete this lab: **60** minutes.
 
@@ -324,56 +324,50 @@ Let's get started!
 
 1. Next, you need to create a new database instance using the blob you uploaded a few moments ago. In the "SQL servers" blade, click the SQL server you just created. Then click **Import database** at the top of the ensuing blade:
 
-    ![Import database](Images/import-database.png)
+    ![Importing a database](Images/import-database.png)
 
-    _Import a database instance to the database server_
+    _Importing a database_
 
-    In the "Import database" blade, first choose your Azure subscription, then specify the storage account, container, and blob for your previously uploaded .bacpac file. Finally, enter the username and password for your database server. Accept the defaults for the remainder of the configuration options (select "Pin to dashboard" if you want a tile for the new database instance to be added to the main Azure portal home page). Click "OK" at the bottom of the blade.
+1. In the "Import database" blade, click **Subscription** and choose your Azure Pass subscription. Then click **Storage** and select the storage account that you uploaded the .bacpac file to, followed by the "bacpacs" container and, after that, the blob you uploaded to that container. Finally, enter "azureuser" as the user name and "AzurePass!" as the password, both without quotation marks. Finally, click "OK" at the bottom of the blade.
 
-    ![Specify database instance import options](Images/import-database-instance.png)
+    ![Specifying database import options](Images/import-database-instance.png)
 
-    _Specify database instance import options_
+    _Specifying database import options_
 
-    While you're waiting for the database instance to be created, click on "Show firewall settings" on the main SQL server blade and add an IP range entry to allow Data Lake Analytics to communicate with your server (during federated query execution). Type the following into the three text boxes and then click **Save** at the top:
+1. While you wait for the database instance to be created, click **Show firewall settings** on the database-server blade and add an IP range entry to allow Data Lake Analytics to communicate with your server (during federated query execution). Type the following values into the three text boxes and then click **Save** at the top:
 
-    > Rule Name -> "Allow Data Lake"
+    - Rule Name -> Allow Data Lake
+    - Start IP -> 25.66.0.0
+    - End IP -> 25.66.255.255
 
-    > Start IP -> 25.66.0.0
-    
-    > End IP -> 25.66.255.255
+    ![Configuring the firewall](Images/allow-port-range.png)
 
-    When you're finished it should look like this:
+    _Configuring the firewall_
 
-    ![Allow Data Lake Analytics port range](Images/allow-port-range.png)
-
-    _Allow Data Lake Analytics port range_
-
-1. Now that you have a SQL Database instance up and running, the last step is to register it with Data Lake Analytics for federation.
-
-    Navigate back to your Data Lake Analytics account and Click **New Job** near the top. In the query blade, enter the following U-SQL and then run the job:
+1. Now that you have a SQL Database instance up and running, the final step is to register it with Data Lake Analytics for federation. Navigate back to your Data Lake Analytics account in the portal and click **New Job** at the top of the blade. In the "New U-SQL Job" blade, enter the following statement and then click **Submit job** to run the job:
 
     <pre>
 	CREATE DATABASE UserIntegration;
 	</pre>
 
-    Using your previously configured Azure command shell, execute the following commands to create a Data Lake catalog secret containing SQL server connection and authentication information to be used during federated query execution:
+1. Return to the command shell and execute the following commands to create a Data Lake catalog secret containing SQL server connection and authentication information to be used during federated query execution. Substitute your Data Lake Analytics account name for *analytics_account_name* and your database server name for *database_server_name*:
 
     <pre>
 	azure config mode arm
-	azure datalake analytics catalog secret create "YOUR-ANALYTICS-ACCOUNT-NAME" "UserIntegration" "tcp://YOUR-DATABASE-SERVER-NAME.database.windows.net:1433"
+	azure datalake analytics catalog secret create "<i>analytics_account_name</i>" "UserIntegration" "tcp://<i>database_server_name</i>.database.windows.net:1433"
     </pre>
 
-    You will be prompted for a catalog secret name (use "user-integration-secret", no quotes) and password (be sure to use the password for your SQL server admin account). Also, be sure to use your Data Lake Analytics account name and SQL database server (not instance) name.
+    When prompted for a catalog secret name, type "user-integration-secret" without quotation marks. When prompted for a password, enter the password for your SQL server account, which you specified in Step 18 of this exercise.
 
-    Return to your Data Lake Analytics account in the Azure portal, create a new U-SQL job and execute the following query:
+1. Return to your Data Lake Analytics account in the Azure portal. Then click **+ New Job** and execute the following query:
 
     <pre>
     USE DATABASE UserIntegration;
     
-    CREATE CREDENTIAL IF NOT EXISTS FederatedDbSecret WITH USER_NAME = "YOUR-DB-SERVER-ADMIN-LOGIN-NAME", IDENTITY = "user-integration-secret";
+    CREATE CREDENTIAL IF NOT EXISTS FederatedDbSecret WITH USER_NAME = "azureuser", IDENTITY = "user-integration-secret";
 
     CREATE DATA SOURCE IF NOT EXISTS AcademicSEDb FROM AZURESQLDB WITH
-       ( PROVIDER_STRING = "Database=YOUR-DATABASE-INSTANCE-NAME;Trusted_Connection=False;Encrypt=True",
+       ( PROVIDER_STRING = "Database=academics-stackexchange-users;Trusted_Connection=False;Encrypt=True",
          CREDENTIAL = FederatedDbSecret,
          REMOTABLE_TYPES = (bool, byte, sbyte, short, ushort, int, uint, long, ulong, decimal, float, double, string, DateTime) );
 
@@ -387,59 +381,99 @@ Let's get started!
                         ) FROM AcademicSEDb LOCATION "dbo.User";
 	</pre>
 
-    This query creates a credential using your previously created catalog secret, configures your SQL Database as a data source authenticated with that new credential, and then creates a named table in your local Data Lake Analytics database which is actually backed by the SQL data source. The last step (creating the named external table) is optional but is more convenient than referencing a federated data source + external table over and over again.
+    This query creates a credential using the "user-integration-secret" catalog secret, configures your SQL Database as a data source authenticated with that new credential, and then creates a named table in your local Data Lake Analytics database which is backed by the SQL data source. The last step (creating the named external table) is optional but is more convenient than referencing a federated data source and external table over and over again.
 
-Okay, that was a lot of preamble... but you're finally ready to issue federated queries. Let's try it out!
+That was a lot of work, but you're now ready to issue federated queries. Let's try it out!
 
 <a name="Exercise6"></a>
-## Exercise 6: Run a more complex U-SQL job using a federated SQL Database
+## Exercise 6: Perform a federated query with U-SQL
 
-Two of the most interesting capabilities of Data Lake Analytics are the ability to federate external data sources (meaning, query them in their native storage, with copying) and also the ability to join multiple disparate data sources together in a single query. For this next exercise you'll use both of these together to join data from an external SQL Database with data in a tab-delimited file you've previously imported into Data Lake Store. 
+Two of the most compelling features of Data Lake Analytics are its ability to federate external data sources (meaning, query them in their native storage, with copying) and its ability to address multiple disparate data sources in a single query. In this exercise, you'll use both to join data from the SQL database you created in Exercise 5 with data in the tab-delimited file you imported in Exercise 3.
 
-1. In your browser, log in to the [Azure Portal](https://portal.azure.com) if you're not already there.
+1. In the Azure Portal, navigate to your Data Lake Analytics account and click **+ New Job**. Paste the following query into the query-text field and click **Submit Job** to run the job.
 
-1. In the portal, navigate to your Data Lake Analytics account and click **+ New Job**. Copy and paste the query from [complex-query.usql](resources\complex-query.usql) into the query text field; leave the remaining fields as-is. When finished it should look like this:
+	<pre>
+	USE DATABASE UserIntegration;
+	
+	// here we define the schema for the imported posts.tsv file
+	@posts =
+	    EXTRACT id          		int,
+	            [type]      		string,
+				acceptedanswerid	int?,
+				parentquestionid	int?,
+				creationdate		string,
+	            score       		int,
+			   	views				int,
+				ownerid				int,
+	            title       		string,
+				body				string,
+				tags				string,
+				answers				int,
+				comments			int
+	    FROM "posts.tsv"
+	    USING Extractors.Tsv();
+	
+	// here we find the earliest post date per user... note the C# date conversion
+	@earliest_posts =
+	    SELECT
+	        ownerid,
+	        MIN(DateTime.Parse(creationdate)) AS created
+	    FROM @posts
+	GROUP BY ownerid;
+	
+	// now we join to the external SQL Database table to add user names to the output
+	@results =
+		SELECT
+			u.[displayname] AS [name],
+			ep.[created] AS [first_post_date]
+		FROM
+			User AS u
+				INNER JOIN @earliest_posts AS ep ON ep.[ownerid] == u.[id];
+	
+	// finally we output the transformed data for further analysis or visualization
+	OUTPUT @results
+	    TO "firstposts.csv"
+	    USING Outputters.Csv();
+	</pre>
 
-    ![More Complex Query](Images/complex-query.png)
-
-    _A U-SQL query joining across multiple data sources_
-
-    Submit the job and let it finish.
-
-1. Now re-open your Data Lake Store blade and click on **Data Explorer** near the top. You should see a new "firstposts.csv" file:
+1. Once the job has run successfully, open the blade for your Data Lake Store and click **Data Explorer** near the top. Confirm that the Data Lake Store contains a file named **firstposts.csv**. Then click the file.
 
     ![First Posts CSV file](Images/first-posts-csv.png)
 
     _First posts CSV query results_
 
-    Click "firstposts.csv" and verify that it contains two columns of data. We'll next take a brief look at visualizing these results in Power BI Desktop.    
+The file contains two columns of data, but it's hard to glean much from the output due to its textual nature. If you are running Windows, you can use Microsoft's Power BI Desktop to explore the data visually...which is precisely the focus of the final exercise.  
 
 <a name="Exercise7"></a>
-## Exercise 7: Visualize Azure Data Lake query results using Power BI
+## Exercise 7: Visualize query results using Power BI Desktop (Windows only)
 
-*for Windows users only*
+Azure Data Lake features powerful storage and query capabilities, but is limited when it comes to data visualization. Let's quickly look at how to view the results of the query you performed in the previous exercise using Power BI Desktop.
 
-Azure Data Lake has very powerful storage and query capabilities but when it comes to data visualization, Power BI is the tool of choice. Let's quickly look at how to view the results of your previous query using Power BI Desktop.
+1. If you haven't downloaded and installed Power BI Desktop, do so now. You can download the installer from https://powerbi.microsoft.com/en-us/desktop/.
 
 1. Start Power BI Desktop and cancel any initial login prompts.
 
-1. On the ribbon at the top of the main screen, click on **Get Data**:
+1. Click **Get Data** in the ribbon at the top.
 
-    ![Get Data in Power BI](Images/pbi-get-data.png)
+    ![Getting data in Power BI](Images/pbi-get-data.png)
 
-    _Get Data in Power BI_
+    _Getting data in Power BI_
 
-1. In the resulting popup window, choose **Azure** on the left side and **Microsoft Azure Data Lake Store (beta)** on the right side. Then click **Connect**:
+1. In the "Get Data" dialog, select **Azure** on the left side and **Microsoft Azure Data Lake Store (beta)** on the right side. Then click **Connect**. If you are warned that Preview Connector is still under development and asked if you wish to continue anyway, click **Continue**.
 
-    ![Connect to ADLS](Images/pbi-connect-to-adls.png)
+    ![Connecting to Azure Data Lake Store](Images/pbi-connect-to-adls.png)
 
-    _Connect to Azure Data Lake Store_
+    _Connecting to Azure Data Lake Store_
 
-    If prompted, click thru any dialog warnings about Azure Data Lake in preview, etc.
+1. Enter the URL of your Azure Data Lake Store, and then click **OK**. The URL will have the following form, where *data_lake_store_name* is the name of your Data Lake Store:
 
-1. When next prompted, enter the URL of your Azure Data Lake Store account, then click **OK**. The URL will have the following form:
+	<pre>
+    swebhdfs://<i>data_lake_store_name</i>.azuredatalakestore.net
+	</pre>
 
-    > swebhdfs://YOUR-ADLS-ACCOUNT-NAME.azuredatalakestore.net
+    ![Entering the Data Lake Store URL](Images/pbi-enter-url.png)
+
+    _Entering the Data Lake Store URL_
 
 1. If prompted, sign in with your Azure subscription credentials, then click **Connect**.
 
