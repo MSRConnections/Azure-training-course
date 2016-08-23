@@ -1,4 +1,4 @@
-d<a name="HOLTitle"></a>
+<a name="HOLTitle"></a>
 # Running Docker Containers in the Azure Container Service #
 
 ---
