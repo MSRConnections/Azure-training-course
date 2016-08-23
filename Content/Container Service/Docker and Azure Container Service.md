@@ -1,4 +1,4 @@
-<a name="HOLTitle"></a>
+d<a name="HOLTitle"></a>
 # Running Docker Containers in the Azure Container Service #
 
 ---
@@ -6,15 +6,19 @@
 <a name="Overview"></a>
 ## Overview ##
 
-Containers, which allow software and files to be bundled up into neat packages that can be run on different computers and different operating systems in a virtualized environment, garner a lot of attention these days. And when most researchers think about containers, they think about Docker. [Docker](http://www.docker.com) is the world's most popular containerization platform. This description of it comes from the Docker Web site:
+Containers, which allow software and files to be bundled up into neat packages that can be run on different computers and different operating systems, garner a lot of attention these days. And almost synonymous with the term "container" is the term "Docker." [Docker](http://www.docker.com) is the world's most popular containerization platform. This description of it comes from the Docker Web site:
 
 *Docker containers wrap a piece of software in a complete filesystem that contains everything needed to run: code, runtime, system tools, system libraries – anything that can be installed on a server. This guarantees that the software will always run the same, regardless of its environment.*
 
 Containers are similar to virtual machines (VMs) in that they provide a predictable and isolated environment in which software can run. Because containers are smaller than VMs, they start almost instantly and use less RAM. Moreover, multiple containers running on a single machine share the same operating system kernel. Docker is based on open standards, enabling Docker containers to run on all major Linux distributions as well as Windows Server 2016.
 
-To simplify the use of Docker containers, Azure offers the [Azure Container Service](https://azure.microsoft.com/en-us/services/container-service/) (ACS), which hosts Docker containers in the cloud and includes an optimized configuration of popular open-source scheduling and orchestration tools, including [DC/OS](https://dcos.io/) and [Docker Swarm](https://www.docker.com/products/docker-swarm). The latter uses native clustering capabilities to turn a group of Docker engines into a single virtual Docker engine and is the perfect tool for executing CPU-intensive jobs in parallel. 
+To simplify the use of Docker containers, Azure offers the [Azure Container Service](https://azure.microsoft.com/en-us/services/container-service/) (ACS), which hosts Docker containers in the cloud and provides an optimized configuration of popular open-source scheduling and orchestration tools, including [DC/OS](https://dcos.io/) and [Docker Swarm](https://www.docker.com/products/docker-swarm). The latter uses native clustering capabilities to turn a group of Docker engines into a single virtual Docker engine using the configuration shown below and is a handy tool for executing CPU-intensive jobs in parallel. In essence, one or more master VMs control a "swarm" of agent VMs created from an [Azure Virtual Machine Scale Set](https://azure.microsoft.com/en-us/documentation/articles/virtual-machine-scale-sets-overview/). The agent VMs host Docker containers that execute your code.
+
+![Docker Swarm configuration in the Azure Container Service](Images/docker-swarm.png)
+
+ _Docker Swarm configuration in the Azure Container Service_
  
-In this lab, you will package a Python app and a set of color images in a Docker container. Then you will run the container in Azure and run the Python app inside it to convert the color images to grayscale.
+In this lab, you will package a Python app and a set of color images in a Docker container. Then you will run the container in Azure and run the Python app inside it to convert the color images to grayscale. You will get hands-on experience creating Azure Container Services and remoting into them to execute Docker commands and manipulate Docker containers
 
 <a name="Objectives"></a>
 ### Objectives ###
@@ -22,9 +26,10 @@ In this lab, you will package a Python app and a set of color images in a Docker
 In this hands-on lab, you will learn how to:
 
 - Create an Azure Container Service
-- Deploy Docker images to a container service
+- Remote into an Azure Container Service using SSH
+- Create Docker images and run Docker containers in Azure
 - Run jobs in containers created from Docker images
-- Stop container instances running in a container service
+- Stop Docker containers that are running
 - Delete a container service
 
 <a name="Prerequisites"></a>
@@ -32,10 +37,13 @@ In this hands-on lab, you will learn how to:
 
 The following are required to complete this hands-on lab:
 
-- An active Microsoft Azure subscription. Use the one you created in Lab 1, or [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
-- [Microsoft Azure Storage Explorer](http://storageexplorer.com/)
-- [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) (Windows users only)
-- Docker client for [Windows](https://get.docker.com/builds/Windows/x86_64/docker-latest.zip), OS X, or Linux
+- An active Microsoft Azure subscription. Use the one you activated in Lab 1, or [sign up for a free trial](http://aka.ms/WATK-FreeTrial).
+- [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) (Windows users only). You can either install the full package using the MSI installer, or install just two binaries: putty.exe and puttygen.exe.
+- Docker client (also known as the *Docker Engine CLI*) for [Windows](https://get.docker.com/builds/Windows/x86_64/docker-latest.zip), [OS X](https://get.docker.com/builds/Darwin/x86_64/docker-latest.tgz), or [Linux](https://get.docker.com/builds/Linux/x86_64/docker-latest.tgz)
+
+To install the Docker client for Windows, open https://get.docker.com/builds/Windows/x86_64/docker-latest.zip and copy the executable file named "docker.exe" from the "docker" subdirectory to a local folder. To install the Docker client for OS X, open https://get.docker.com/builds/Darwin/x86_64/docker-latest.tgz and copy the executable file named "docker" from the "docker" subdirectory to a local folder. To install the Docker client for Linux, open https://get.docker.com/builds/Linux/x86_64/docker-latest.tgz and copy the executable file named "docker" from the "docker" subdirectory to a local folder. (You can ignore the other files in the "docker" subdirectory.)
+
+You do not need to install the Docker client if you already have Docker (or Docker Toolbox) installed on your machine.
 
 ---
 <a name="Exercises"></a>
@@ -47,33 +55,46 @@ This hands-on lab includes the following exercises:
 - [Exercise 2: Create an Azure Container Service](#Exercise2)
 - [Exercise 3: Connect to the Azure Container Service](#Exercise3)
 - [Exercise 4: Create a Docker image and run it in a container](#Exercise4)
-- [Exercise 5: Suspend the master VM](#Exercise5)
+- [Exercise 5: Suspend the swarm's master VM](#Exercise5)
 - [Exercise 6: Delete the resource group](#Exercise6)
 
 Estimated time to complete this lab: **60** minutes.
 
 <a name="Exercise1"></a>
-## Exercise 1: Create an SSH Key Pair
+## Exercise 1: Create an SSH key pair
 
-Before you can deploy Docker images to Azure, you must create an Azure Container Service. And in order to create an Azure Container Service, you need a public/private key pair for authentication. In this exercise, you will create the SSH key pair. If you are using OS X or Linux, you will create the key pair with tk. If you are running Windows instead, you will use a third-party tool named PuTTYGen.
+Before you can deploy Docker images to Azure, you must create an Azure Container Service. And in order to create an Azure Container Service, you need a public/private key pair for authenticating with that service. In this exercise, you will create an SSH key pair. If you are using OS X or Linux, you will create the key pair with ssh-keygen. If you are running Windows instead, you will use a third-party tool named PuTTYGen.
 
 > Unlike OS X and Linux, Windows doesn't have an SSH key generator built in. PuTTYGen is a free key generator that is popular in the Windows community. It is part of an open-source toolset called [PuTTY](http://www.putty.org/), which provides the SSH support that Windows lacks.
 
-1. **If you are running Windows, skip to Step tk**. Otherwise, tk.
+1. **If you are running Windows, skip to Step 6**. Otherwise, proceed to Step 2.
 
-1. tk.
+1. On your Mac or Linux machine, launch a terminal window.
 
-1. tk.
+1. Execute the following command in the terminal window:
 
-1. tk.
+	<pre>
+	ssh-keygen
+	</pre>
 
-1. tk.
+	Press **Enter** three times to accept the default output file name and create a key pair without a passphrase. The output will look something like this: 
 
-1. tk.
+ 	![Generating a public/private key pair](Images/docker-ssh-keygen.png)
+
+	_Generating a public/private key pair_
+
+1. Use the following commands to navigate to the hidden ".ssh" subdirectory created by ssh-keygen and list the contents of that subdirectory:
+
+	<pre>
+	cd ~/.ssh
+	ls
+	</pre>
+
+	Confirm that the .ssh subdirectory contains a pair of files named id_rsa and id_rsa.pub. The former contains the private key, and the latter contains the public key. Remember where these files are located, because you will need them in subsequent exercises.
 
 1. **Proceed to [Exercise 2](#Exercise2). The remaining steps in this exercise are for Windows users only**.
 
-1. Launch PuTTYGen (which comes with PuTTY) and click the **Generate** button. For the next few seconds, move your cursor around in the empty space in the "Key" box to help randomize the keys that are generated.
+1. Launch PuTTYGen and click the **Generate** button. For the next few seconds, move your cursor around in the empty space in the "Key" box to help randomize the keys that are generated.
 
  	![Generating a public/private key pair](Images/docker-puttygen1.png)
 
@@ -85,12 +106,12 @@ Before you can deploy Docker images to Azure, you must create an Azure Container
 
 	_Saving the public and private keys_
 
-[Conclusion]
+You now have a pair of files containing a public key and a private key. Remember where these files are located, because you will need them in subsequent exercises.
 
 <a name="Exercise2"></a>
 ## Exercise 2: Create an Azure Container Service
 
-Now that you have an SSH key pair, you can create and configure an Azure Container Service. In this exercise, you will use the Azure Portal to create an Azure Container Service to deploy Docker images to.
+Now that you have an SSH key pair, you can create and configure an Azure Container Service. In this exercise, you will use the Azure Portal to create an Azure Container Service for running Docker containers.
 
 1. Open the [Azure Portal](https://portal.azure.com) in your browser. Select **+ New -> Containers -> Azure Container Service**.
 
@@ -114,7 +135,7 @@ Now that you have an SSH key pair, you can create and configure an Azure Contain
 
 1. In the "Azure Container service settings" blade, set **Agent count** to **2**, **Master count** to **1**, and enter a DNS name in the **DNS prefix** box. (The DNS name doesn't have to be unique across Azure, but it does have to be unique to a data center.) Then click **OK**.
 
-	> When you create an Azure container service, one or more master VMs are created to orchestrate the workload. In addition, an [Azure Virtual Machine Scale Set](https://azure.microsoft.com/en-us/documentation/articles/virtual-machine-scale-sets-overview/) is created to provide VMs for the "agents," or VMs that the master VMs delegate work to. Docker container instances are hosted in the agent VMs. By default, Azure uses a standard D2 virtual machine for each agent. These are dual-core machines with 7 GB of RAM. Agent VMs are created as needed to handle the workload. In this example, there will be one master VM and up to two agent VMs, regardless of the number of Docker container instances.
+	> When you create an Azure Container Service, one or more master VMs are created to orchestrate the workload. In addition, an [Azure Virtual Machine Scale Set](https://azure.microsoft.com/en-us/documentation/articles/virtual-machine-scale-sets-overview/) is created to provide VMs for the "agents," or VMs that the master VMs delegate work to. Docker container instances are hosted in the agent VMs. By default, Azure uses a standard D2 virtual machine for each agent. These are dual-core machines with 7 GB of RAM. Agent VMs are created as needed to handle the workload. In this example, there will be one master VM and up to two agent VMs, regardless of the number of Docker container instances.
 
 	![Service settings](Images/docker-acs-service-settings.png)
 
@@ -141,9 +162,9 @@ Take a short break and wait for the deployment to finish. Then proceed to Exerci
 <a name="Exercise3"></a>
 ## Exercise 3: Connect to the Azure Container Service
 
-In this exercise, you will open an SSH connection to the container service you deployed in Exercise 2 so you can use the Docker client to deploy Docker containers and run them in Azure.
+In this exercise, you will establish an SSH connection to the container service you deployed in Exercise 2 so you can use the Docker client to create Docker containers and run them in Azure.
 
-1. After the container service finishes deploying, return to the blade for the resource group that contains the container service. Then click the resource named **swarm-master-lb-xxxxxxxx**. This is the master load balancer for the swarm.
+1. After the container service finishes deploying, return to the blade for the "ACSLabResourceGroup" resource group that contains the container service. Then click the resource named **swarm-master-lb-xxxxxxxx**. This is the master load balancer for the swarm.
 
 	![Opening the master load balancer](Images/docker-open-master-lb.png)
 
@@ -161,19 +182,27 @@ In this exercise, you will open an SSH connection to the container service you d
 
 	_Copying the DNS name_
 
-1. **If you are running Windows, skip to Step tk**. Otherwise, tk.
+1. **If you are running Windows, skip to Step 9**. Otherwise, proceed to Step 5.
 
-1. tk.
+1. On your Mac or Linux machine, launch a terminal window (or return to the one you opened in Exercise 1 if it's still open).
 
-1. tk.
+1. Execute the following command to SSH in to the Azure Container Service, replacing *dnsname* with the DNS name on the clipboard:
 
-1. tk.
+	<pre>
+	ssh dockeruser@<i>dnsname</i> -p 2200 -L 22375:127.0.0.1.2375
+	</pre>
 
-1. tk.
+	> The purpose of the -L switch is to forward traffic transmitted through port 22375 on the local machine (that's the port used by the **docker** command you will be using shortly) to port 2375 at the other end. Docker Swarm listens on port 2375. The -p switch instructs SSH to use port 2200 rather than the default 22. The load balancer you're connecting to listens on port 2200 and forwards the SSH messages it receives to port 22 on the master VM.
 
-1. tk.
+1. If asked to confirm that you wish to connect, answer yes. Once connected, you'll see a screen that resembles the one below.
 
-1. **Proceed to [Exercise 4](#Exercise4). The remaining steps in this exercise are for Windows users only**. 
+	> Observe that you didn't have to enter a password. That's because the connection was authenticated using the public/private key pair you generated in Exercise 1. Key pairs tend to be much more secure than passwords because they are cryptographically strong.
+
+	![Successful connection](Images/docker-ssh.png)
+
+	_Successful connection_
+
+1. Leave the terminal window open and **proceed to [Exercise 4](#Exercise4). The remaining steps in this exercise are for Windows users only**. 
 
 1. Launch PuTTY and paste the DNS name on the clipboard into the **Host Name (or IP address)** box. Set the port number to **2200** and type "ACS" (without quotation marks) into the **Saved Sessions** box. Click the **Save** button to save these settings under that name.
 
@@ -203,7 +232,7 @@ In this exercise, you will open an SSH connection to the container service you d
 
 	_Opening a connection to the container service_
 
-1. An SSH window will open and prompt you to log in. Enter the user name ("dockeruser") that you specified in Exercise 2, Step 2. Then press the **Enter** key. If you successfully connected, you'll see a screen that looks like the one below.
+1. An SSH window will open and prompt you to log in. Enter the user name ("dockeruser") that you specified in Exercise 2, Step 2. Then press the **Enter** key. Once connected, you'll see a screen that resembles the one below.
 
 	> Observe that you didn't have to enter a password. That's because the connection was authenticated using the public/private key pair you generated in Exercise 1. Key pairs tend to be much more secure than passwords because they are cryptographically strong.
 
@@ -216,7 +245,7 @@ Now that you're connected, you can run the Docker client on your local machine a
 <a name="Exercise4"></a>
 ## Exercise 4: Create a Docker image and run it in a container
 
-Now comes the fun part: creating a Docker image and running it inside a container in Azure.
+Now comes the fun part: creating a Docker image and running it inside a container in Azure. If you haven't already installed the Docker client, refer to the instructions at the beginning of this lab to download and install the Docker client for your operating system. 
 
 1. Open a terminal window (OS X or Linux) or a Command Prompt window (Windows) and navigate to the "resources" subdirectory of this lab. It contains the files that you will build into a container image.
 
@@ -250,13 +279,11 @@ Now comes the fun part: creating a Docker image and running it inside a containe
 	docker images
 	</pre>
 
-1. Now execute the following command to start the container image running and name it "acslab:"
+1. Now execute the following command to start the container image running and name the container "acslab:"
 
 	<pre>
 	docker run -dit --name acslab ubuntu-convert /bin/bash
 	</pre>
-
-	> The -dit switch stands for "daemon interactive terminal." It tells Docker to tk. 
 
 1. The container is now running. The next task is to execute the Python script in the root of the file system in the running container. To do that, execute the following command:
 
@@ -278,10 +305,10 @@ Now comes the fun part: creating a Docker image and running it inside a containe
 	docker stop acslab
 	</pre>
 
-1. Type the following command to list all running containers and confirm that the "acslab" container shows a status of "Exited:"
+1. Type the following command to delete the "acslab" container:
 
 	<pre>
-	docker ps -a
+	docker rm acslab
 	</pre>
 
 1. List the contents of the "output" subdirectory under the "resources" subdirectory that you are currently in. Confirm that it contains eight JPG files copied from the container.
@@ -292,10 +319,10 @@ Now comes the fun part: creating a Docker image and running it inside a containe
 	
 	 _Grayscale image copied from the container_
 
-Congratulations! You created a Docker container image and ran it in a Docker container, all in Azure.
+Congratulations! You just created a Docker container image and ran it in a Docker container hosted by Azure.
 
 <a name="Exercise5"></a>
-## Exercise 5: Suspend the master VM
+## Exercise 5: Suspend the swarm's master VM
 
 When virtual machines are running, you are being charged — even if the VMs are idle. Therefore, it's advisable to stop virtual machines when they are not in use. You will still be charged for storage, but that cost is typically insignificant compared to the cost of an active VM.
 
