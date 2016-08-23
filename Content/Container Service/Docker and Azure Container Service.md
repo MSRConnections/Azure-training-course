@@ -1,20 +1,20 @@
 <a name="HOLTitle"></a>
-# Deploying Docker Containers to the Azure Container Service #
+# Running Docker Containers in the Azure Container Service #
 
 ---
 
 <a name="Overview"></a>
 ## Overview ##
 
-[Docker](http://www.docker.com) is the world's most popular containerization platform. This concise description is found on the Docker Web site:
+Containers, which allow software and files to be bundled up into neat packages that can be run on different computers and different operating systems in a virtualized environment, garner a lot of attention these days. And when most researchers think about containers, they think about Docker. [Docker](http://www.docker.com) is the world's most popular containerization platform. This description of it comes from the Docker Web site:
 
 *Docker containers wrap a piece of software in a complete filesystem that contains everything needed to run: code, runtime, system tools, system libraries – anything that can be installed on a server. This guarantees that the software will always run the same, regardless of its environment.*
 
-Containers are similar to virtual machines (VMs) in that they provide a predictable and isolated environment in which software can run. Because containers are smaller than VMs, they start almost instantly and use less RAM. Moreover, multiple containers running on a single machine share the same operating system kernel. Docker is based on open standards, enabling Docker containers to run on all major Linux distributions as well as Microsoft Windows.
+Containers are similar to virtual machines (VMs) in that they provide a predictable and isolated environment in which software can run. Because containers are smaller than VMs, they start almost instantly and use less RAM. Moreover, multiple containers running on a single machine share the same operating system kernel. Docker is based on open standards, enabling Docker containers to run on all major Linux distributions as well as Windows Server 2016.
 
 To simplify the use of Docker containers, Azure offers the [Azure Container Service](https://azure.microsoft.com/en-us/services/container-service/) (ACS), which hosts Docker containers in the cloud and includes an optimized configuration of popular open-source scheduling and orchestration tools, including [DC/OS](https://dcos.io/) and [Docker Swarm](https://www.docker.com/products/docker-swarm). The latter uses native clustering capabilities to turn a group of Docker engines into a single virtual Docker engine and is the perfect tool for executing CPU-intensive jobs in parallel. 
  
-In this lab, you will package a Python app and a set of color images in a Docker container. Then you will deploy the container to Azure and run the Python app to convert the color images to grayscale.
+In this lab, you will package a Python app and a set of color images in a Docker container. Then you will run the container in Azure and run the Python app inside it to convert the color images to grayscale.
 
 <a name="Objectives"></a>
 ### Objectives ###
@@ -46,10 +46,9 @@ This hands-on lab includes the following exercises:
 - [Exercise 1: Create an SSH key pair](#Exercise1)
 - [Exercise 2: Create an Azure Container Service](#Exercise2)
 - [Exercise 3: Connect to the Azure Container Service](#Exercise3)
-- [Exercise 4: Create a Docker image and run it in Azure](#Exercise4)
-- [Exercise 5: View the converted images](#Exercise5)
-- [Exercise 6: Suspend the master VM](#Exercise6)
-- [Exercise 7: Delete the resource group](#Exercise7)
+- [Exercise 4: Create a Docker image and run it in a container](#Exercise4)
+- [Exercise 5: Suspend the master VM](#Exercise5)
+- [Exercise 6: Delete the resource group](#Exercise6)
 
 Estimated time to complete this lab: **60** minutes.
 
@@ -215,9 +214,9 @@ In this exercise, you will open an SSH connection to the container service you d
 Now that you're connected, you can run the Docker client on your local machine and use port forwarding to execute commands in the Azure Container Service. Leave the SSH window open while you work through the next exercise.
 
 <a name="Exercise4"></a>
-## Exercise 4: Create a Docker image and run it in Azure
+## Exercise 4: Create a Docker image and run it in a container
 
-Now comes the fun part: creating a Docker container image and deploying it to Azure.
+Now comes the fun part: creating a Docker image and running it inside a container in Azure.
 
 1. Open a terminal window (OS X or Linux) or a Command Prompt window (Windows) and navigate to the "resources" subdirectory of this lab. It contains the files that you will build into a container image.
 
@@ -282,42 +281,27 @@ Now comes the fun part: creating a Docker container image and deploying it to Az
 1. Type the following command to list all running containers and confirm that the "acslab" container shows a status of "Exited:"
 
 	<pre>
-	dockr ps -a
+	docker ps -a
 	</pre>
 
-The output images have been copied to the local machine and the container has been stopped. Now let's see if the grayscale conversion worked.
+1. List the contents of the "output" subdirectory under the "resources" subdirectory that you are currently in. Confirm that it contains eight JPG files copied from the container.
+
+1. Open one of the JPG files and confirm that it contains a grayscale image like the one pictured below.
+
+	![Grayscale image copied from the container](Images/docker-output.jpg)
+	
+	 _Grayscale image copied from the container_
+
+Congratulations! You created a Docker container image and ran it in a Docker container, all in Azure.
 
 <a name="Exercise5"></a>
-## Exercise 5: View the converted images
+## Exercise 5: Suspend the master VM
 
-If the job ran successfully, the grayscale images generated from the color images in the input container will be in the output container you created in [Exercise 3](#Exercise3). In this exercise, you will check the contents of that container.
+When virtual machines are running, you are being charged — even if the VMs are idle. Therefore, it's advisable to stop virtual machines when they are not in use. You will still be charged for storage, but that cost is typically insignificant compared to the cost of an active VM.
 
-1. tk.
+Your container service contains a master VM that needs to be stopped when you're not running containers. The Azure Portal makes it easy to stop virtual machines. VMs that you stop are easily started again later so you can pick up right where you left off. In this exercise, you will stop the master VM to avoid incurring charges for it.
 
-1. tk.
-
-1. tk.
-
-1. tk.
-
-1. Open one of the downloaded images. When the downloaded image opens, confirm that it's a grayscale image, not a color image.
-
-[Summary]
-
-<a name="Exercise6"></a>
-## Exercise 6: Suspend the master VM
-
-When virtual machines are running, you are being charged — even if the VMs are idle. Therefore, it's advisable to stop virtual machines when they are not in use. You will still be charged for storage, but that cost is typically insignificant compared to the cost of an active VM. Your container service contains a master VM that needs to be stopped when you're not using the cluster. The Azure Portal makes it easy to stop virtual machines. VMs that you stop are easily started again later so you can pick up right where you left off.
-
-1. Return to the Command Prompt window and ensure that you are still in the lab's "docker-resources" directory. Then run the following command:
-
-	<pre>
-	stop-slurm
-	</pre>
-
-	This command is actually a batch file that shuts down all of the container instances, effectively shutting down the SLURM cluster. You can use the **start-slurm** command to restart the container instances at any time.
-
-1. Wait for the **stop-slurm** command to finish. Then go to the Azure Portal and open the blade for the resource group that contains the container service. Click the virtual machine whose name begins with **swarm-master** to open a blade for the master VM.
+1. In the Azure Portal, open the blade for the "ACSLabResourceGroup" resource group. Click the virtual machine whose name begins with **swarm-master** to open a blade for the master VM.
 
 	![Opening a blade for the master VM](Images/docker-open-vm.png)
 	
@@ -325,20 +309,20 @@ When virtual machines are running, you are being charged — even if the VMs are
 
 1. Click the **Stop** button to stop the master VM. Answer **Yes** when prompted to verify that you wish to stop it.
 
-	![Stopping the master virtual machine](Images/docker-stop-vm.png)
+	![Stopping the master VM](Images/docker-stop-vm.png)
 	
-	_Stopping the master virtual machine_
+	_Stopping the master VM_
 
-There is no need to stop the agent VMs. They are part of an Azure Virtual Machine Scale Set and are automatically spun up and down as needed by the master VM. Note that if you wish to start the cluster again, you will need to restart the master VM before executing a **start-slurm** command.
+There is no need to stop the agent VMs. They are part of an [Azure Virtual Machine Scale Set](https://azure.microsoft.com/en-us/documentation/articles/virtual-machine-scale-sets-overview/) and are automatically spun up and down as needed by the master VM. Note that if you wish to run containers again in this container service, you will need to restart the master VM.
 
-<a name="Exercise7"></a>
-## Exercise 7: Delete the resource group
+<a name="Exercise6"></a>
+## Exercise 6: Delete the resource group
 
 Resource groups are a useful feature of Azure because they simplify the task of managing related resources. One of the most practical reasons to use resource groups is that deleting a resource group deletes all the resources it contains. Rather than delete those resources one by one, you can delete them all at once.
 
 In this exercise, you'll delete the resource group created in [Exercise 2](#Exercise2) when you created the container service. Deleting the resource group deletes everything in it and prevents any further charges from being incurred for it.
 
-1. In the Azure Portal, open the blade for the resource group ("ACSLabResourceGroup") that holds the container service. Then click the **Delete** button at the top of the blade.
+1. In the Azure Portal, open the blade for the "ACSLabResourceGroup" resource group. Then click the **Delete** button at the top of the blade.
 
 	![Deleting a resource group](Images/docker-delete-resource-group.png)
 
