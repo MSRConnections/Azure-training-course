@@ -189,7 +189,7 @@ In this exercise, you will establish an SSH connection to the container service 
 1. Execute the following command to SSH in to the Azure Container Service, replacing *dnsname* with the DNS name on the clipboard:
 
 	<pre>
-	ssh dockeruser@<i>dnsname</i> -p 2200 -L 22375:127.0.0.1.2375
+	ssh dockeruser@<i>dnsname</i> -p 2200 -L 22375:127.0.0.1:2375
 	</pre>
 
 	> The purpose of the -L switch is to forward traffic transmitted through port 22375 on the local machine (that's the port used by the **docker** command you will be using shortly) to port 2375 at the other end. Docker Swarm listens on port 2375. The -p switch instructs SSH to use port 2200 rather than the default 22. The load balancer you're connecting to listens on port 2200 and forwards the SSH messages it receives to port 22 on the master VM.
