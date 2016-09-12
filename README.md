@@ -1,4 +1,4 @@
 msr-courseware
 ==============
 
-The courseware for the MSR course introducing Windows Azure to research scientists 
+Content for the MSR course introducing Microsoft Azure to researchers and data scientists.
