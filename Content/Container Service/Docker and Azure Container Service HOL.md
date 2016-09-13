@@ -6,7 +6,7 @@
 <a name="Overview"></a>
 ## Overview ##
 
-Containers, which allow software and files to be bundled up into neat packages that can be run on different computers and different operating systems, garner a lot of attention these days. And almost synonymous with the term "container" is the term "Docker." [Docker](http://www.docker.com) is the world's most popular containerization platform. This description of it comes from the Docker Web site:
+Containers, which allow software and files to be bundled up into neat packages that can be run on different computers and different operating systems, are earning a lot of attention these days. And almost synonymous with the term "container" is the term "Docker." [Docker](http://www.docker.com) is the world's most popular containerization platform. This description of it comes from the Docker Web site:
 
 *Docker containers wrap a piece of software in a complete filesystem that contains everything needed to run: code, runtime, system tools, system libraries – anything that can be installed on a server. This guarantees that the software will always run the same, regardless of its environment.*
 
@@ -37,11 +37,11 @@ In this hands-on lab, you will learn how to:
 
 The following are required to complete this hands-on lab:
 
-- An active Microsoft Azure subscription. Use the one you activated in Lab 1, or [sign up for a free trial](http://aka.ms/WATK-FreeTrial).
+- An active Microsoft Azure subscription. Use the Azure Pass you activated earlier, or [sign up for a free trial](http://aka.ms/WATK-FreeTrial).
 - [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) (Windows users only). You can either install the full package using the MSI installer, or install just two binaries: putty.exe and puttygen.exe.
-- Docker client (also known as the *Docker Engine CLI*) for [Windows](https://get.docker.com/builds/Windows/x86_64/docker-latest.zip), [OS X](https://get.docker.com/builds/Darwin/x86_64/docker-latest.tgz), or [Linux](https://get.docker.com/builds/Linux/x86_64/docker-latest.tgz)
+- Docker client (also known as the *Docker Engine CLI*) for [Windows](https://get.docker.com/builds/Windows/x86_64/docker-latest.zip), [macOS](https://get.docker.com/builds/Darwin/x86_64/docker-latest.tgz), or [Linux](https://get.docker.com/builds/Linux/x86_64/docker-latest.tgz)
 
-To install the Docker client for Windows, open https://get.docker.com/builds/Windows/x86_64/docker-latest.zip and copy the executable file named "docker.exe" from the "docker" subdirectory to a local folder. To install the Docker client for OS X, open https://get.docker.com/builds/Darwin/x86_64/docker-latest.tgz and copy the executable file named "docker" from the "docker" subdirectory to a local folder. To install the Docker client for Linux, open https://get.docker.com/builds/Linux/x86_64/docker-latest.tgz and copy the executable file named "docker" from the "docker" subdirectory to a local folder. (You can ignore the other files in the "docker" subdirectory.)
+To install the Docker client for Windows, open https://get.docker.com/builds/Windows/x86_64/docker-latest.zip and copy the executable file named "docker.exe" from the "docker" subdirectory to a local folder. To install the Docker client for macOS, open https://get.docker.com/builds/Darwin/x86_64/docker-latest.tgz and copy the executable file named "docker" from the "docker" subdirectory to a local folder. To install the Docker client for Linux, open https://get.docker.com/builds/Linux/x86_64/docker-latest.tgz and copy the executable file named "docker" from the "docker" subdirectory to a local folder. (You can ignore the other files in the "docker" subdirectory.)
 
 You do not need to install the Docker client if you already have Docker (or Docker Toolbox) installed on your machine.
 
@@ -55,7 +55,7 @@ This hands-on lab includes the following exercises:
 - [Exercise 2: Create an Azure Container Service](#Exercise2)
 - [Exercise 3: Connect to the Azure Container Service](#Exercise3)
 - [Exercise 4: Create a Docker image and run it in a container](#Exercise4)
-- [Exercise 5: Suspend the swarm's master VM](#Exercise5)
+- [Exercise 5: Suspend the master VM](#Exercise5)
 - [Exercise 6: Delete the resource group](#Exercise6)
 
 Estimated time to complete this lab: **60** minutes.
@@ -63,9 +63,9 @@ Estimated time to complete this lab: **60** minutes.
 <a name="Exercise1"></a>
 ## Exercise 1: Create an SSH key pair
 
-Before you can deploy Docker images to Azure, you must create an Azure Container Service. And in order to create an Azure Container Service, you need a public/private key pair for authenticating with that service. In this exercise, you will create an SSH key pair. If you are using OS X or Linux, you will create the key pair with ssh-keygen. If you are running Windows instead, you will use a third-party tool named PuTTYGen.
+Before you can deploy Docker images to Azure, you must create an Azure Container Service. And in order to create an Azure Container Service, you need a public/private key pair for authenticating with that service over SSH. In this exercise, you will create an SSH key pair. If you are using macOS or Linux, you will create the key pair with ssh-keygen. If you are running Windows instead, you will use a third-party tool named PuTTYGen.
 
-> Unlike OS X and Linux, Windows doesn't have an SSH key generator built in. PuTTYGen is a free key generator that is popular in the Windows community. It is part of an open-source toolset called [PuTTY](http://www.putty.org/), which provides the SSH support that Windows lacks.
+> Unlike macOS and Linux, Windows doesn't have an SSH key generator built in. PuTTYGen is a free key generator that is popular in the Windows community. It is part of an open-source toolset called [PuTTY](http://www.putty.org/), which provides the SSH support that Windows lacks.
 
 1. **If you are running Windows, skip to Step 6**. Otherwise, proceed to Step 2.
 
@@ -90,7 +90,7 @@ Before you can deploy Docker images to Azure, you must create an Azure Container
 	ls
 	</pre>
 
-	Confirm that the .ssh subdirectory contains a pair of files named id_rsa and id_rsa.pub. The former contains the private key, and the latter contains the public key. Remember where these files are located, because you will need them in subsequent exercises.
+	Confirm that the ".ssh" subdirectory contains a pair of files named id_rsa and id_rsa.pub. The former contains the private key, and the latter contains the public key. Remember where these files are located, because you will need them in subsequent exercises.
 
 1. **Proceed to [Exercise 2](#Exercise2). The remaining steps in this exercise are for Windows users only**.
 
@@ -119,7 +119,7 @@ Now that you have an SSH key pair, you can create and configure an Azure Contain
 
 	_Creating a container service_
 
-1. Click the **Create** button in the "Azure Container Service" blade. In the "Basics" blade, enter "dockeruser" (without quotation marks) for the user name, the public key that you generated in Exercise 1, and the subscription you want to charge to. Select **Create new** under **Resource group** and enter the resource-group name "ACSLabResourceGroup" (without quotation marks). Select the location nearest you under **Location**, and then click the **OK** button.
+1. Click the **Create** button in the "Azure Container Service" blade. In the "Basics" blade, enter "dockeruser" (without quotation marks) for **User name** and the public key that you generated in Exercise 1 for **SSH public key**. Select **Create new** under **Resource group** and enter the resource-group name "ACSLabResourceGroup" (without quotation marks). Select the location nearest you under **Location**, and then click the **OK** button.
 
 	![Basic settings](Images/docker-acs-basics.png)
 
@@ -135,7 +135,7 @@ Now that you have an SSH key pair, you can create and configure an Azure Contain
 
 1. In the "Azure Container service settings" blade, set **Agent count** to **2**, **Master count** to **1**, and enter a DNS name in the **DNS prefix** box. (The DNS name doesn't have to be unique across Azure, but it does have to be unique to a data center.) Then click **OK**.
 
-	> When you create an Azure Container Service, one or more master VMs are created to orchestrate the workload. In addition, an [Azure Virtual Machine Scale Set](https://azure.microsoft.com/en-us/documentation/articles/virtual-machine-scale-sets-overview/) is created to provide VMs for the "agents," or VMs that the master VMs delegate work to. Docker container instances are hosted in the agent VMs. By default, Azure uses a standard D2 virtual machine for each agent. These are dual-core machines with 7 GB of RAM. Agent VMs are created as needed to handle the workload. In this example, there will be one master VM and up to two agent VMs, regardless of the number of Docker container instances.
+	> When you create an Azure Container Service, one or more master VMs are created to orchestrate the workload. In addition, an [Azure Virtual Machine Scale Set](https://azure.microsoft.com/en-us/documentation/articles/virtual-machine-scale-sets-overview/) is created to provide VMs for the "agents," or VMs that the master VMs delegate work to. Docker container instances are hosted in the agent VMs. By default, Azure uses a standard D2 virtual machine for each agent. These are dual-core machines with 7 GB of RAM. Agent VMs are created as needed to handle the workload. In this example, there will be one master VM and up to two agent VMs.
 
 	![Service settings](Images/docker-acs-service-settings.png)
 
@@ -149,9 +149,9 @@ Now that you have an SSH key pair, you can create and configure an Azure Contain
 
 1. In the ensuing "Purchase" blade, click the **Purchase** button to begin deploying a new container service.
 
-1. Deployment typically takes about 10 minutes. To monitor the deployment, click **Resource groups** on the left side of the portal to display a list of all the resource groups associated with your subscription. Then select the resource group created for the container service ("ACSLabResourceGroup") to open a resource-group blade. When "Succeeded" appears under "Last Deployment," the deployment has completed successfully.
+1. Deployment typically takes about 10 minutes. To monitor the deployment, click **Resource groups** on the left side of the portal to display a list of all the resource groups associated with your account. Then select the **ACSLabResourceGroup** resource group created for the container service to open a resource-group blade. When "Succeeded" appears under "Last Deployment," the deployment has completed successfully.
 
-	> Click the browser's **Refresh** button every few minutes to update the deployment status. Clicking the **Refresh** button in the resource-group blade doesn't reliably update the status.
+	> Click the browser's **Refresh** button every few minutes to update the deployment status. Clicking the **Refresh** button in the resource-group blade refreshes the list of resources in the resource group, but does not reliably update the deployment status.
 
 	![Successful deployment](Images/docker-success.png)
 
@@ -164,7 +164,7 @@ Take a short break and wait for the deployment to finish. Then proceed to Exerci
 
 In this exercise, you will establish an SSH connection to the container service you deployed in Exercise 2 so you can use the Docker client to create Docker containers and run them in Azure.
 
-1. After the container service finishes deploying, return to the blade for the "ACSLabResourceGroup" resource group that contains the container service. Then click the resource named **swarm-master-lb-xxxxxxxx**. This is the master load balancer for the swarm.
+1. After the container service finishes deploying, return to the blade for the "ACSLabResourceGroup" resource group. Then click the resource named **swarm-master-lb-xxxxxxxx**. This is the master load balancer for the swarm.
 
 	![Opening the master load balancer](Images/docker-open-master-lb.png)
 
@@ -247,11 +247,11 @@ Now that you're connected, you can run the Docker client on your local machine a
 
 Now comes the fun part: creating a Docker image and running it inside a container in Azure. If you haven't already installed the Docker client, refer to the instructions at the beginning of this lab to download and install the Docker client for your operating system. 
 
-1. Open a terminal window (OS X or Linux) or a Command Prompt window (Windows) and navigate to the "resources" subdirectory of this lab. It contains the files that you will build into a container image.
+1. Open a terminal window (macOS or Linux) or a Command Prompt window (Windows) and navigate to the "resources" subdirectory of this lab. It contains the files that you will build into a container image.
 
-	Take a moment to examine the contents of the "resources" subdirectory. It contains a file named Dockerfile, which contains the commands Docker will use to build a container image. It also contains a Python script named convertimages.py, a subdirectory named "input," and a subdirectory named "output." The latter subdirectory is empty. The "input" subdirectory contains several color images in the form of JPG files. The script enumerates the files in the "input" subdirectory, converts them to grayscale, and writes the grayscale images to the "output" subdirectory.
+	Take a moment to examine the contents of the "resources" subdirectory. It contains a file named Dockerfile, which contains the commands Docker will use to build a container image. It also contains a Python script named convertimages.py, a subdirectory named "input," and a subdirectory named "output." The latter subdirectory is empty. The "input" subdirectory contains several color JPG images. The Python script enumerates the files in the "input" subdirectory, converts them to grayscale, and writes the grayscale images to the "output" subdirectory.
 
-1. If you are running OS X or Linux, execute the following command in the terminal window:
+1. If you are running macOS or Linux, execute the following command in the terminal window:
 
 	<pre>
 	export DOCKER_HOST=tcp://127.0.0.1:22375
@@ -265,13 +265,11 @@ Now comes the fun part: creating a Docker image and running it inside a containe
 
 	> This command directs the Docker client to send output to localhost port 22375, which you redirected to port 2375 in the Azure Container Service in the previous exercise. Remember that port 2375 is the one Docker Swarm listens on.
 
-1. Be sure you're in the "resources" subdirectory. Then execute the following command to create a container image named "ubuntu-convert" containing the Python script as well as the "input" and "output" subdirectories and their contents:
+1. Be sure you're in the "resources" subdirectory. Then execute the following command to create a container image named "ubuntu-convert" containing the Python script as well as the "input" and "output" subdirectories and their contents. Be sure to include the period at the end of the command:
 
 	<pre>
 	docker build --no-cache --tag ubuntu-convert .
 	</pre>
-
-	> Be sure to include the period at the end of the command. That's a path name instructing the Docker client to package up all the resources in the current directory.
 
 1. Wait for the command to finish executing. (It will take a few minutes for Docker to build the container image.) Then execute the following command to list the images that are present, and confirm that the list contains an image named "ubuntu-convert:"
 
@@ -319,10 +317,10 @@ Now comes the fun part: creating a Docker image and running it inside a containe
 	
 	 _Grayscale image copied from the container_
 
-Congratulations! You just created a Docker container image and ran it in a Docker container hosted by Azure.
+Congratulations! You just created a Docker container image and ran it in a Docker container hosted in Azure. You can close the SSH window now if you'd like because you are finished using the SSH connection.
 
 <a name="Exercise5"></a>
-## Exercise 5: Suspend the swarm's master VM
+## Exercise 5: Suspend the master VM
 
 When virtual machines are running, you are being charged — even if the VMs are idle. Therefore, it's advisable to stop virtual machines when they are not in use. You will still be charged for storage, but that cost is typically insignificant compared to the cost of an active VM.
 
@@ -347,7 +345,7 @@ There is no need to stop the agent VMs. They are part of an [Azure Virtual Machi
 
 Resource groups are a useful feature of Azure because they simplify the task of managing related resources. One of the most practical reasons to use resource groups is that deleting a resource group deletes all the resources it contains. Rather than delete those resources one by one, you can delete them all at once.
 
-In this exercise, you'll delete the resource group created in [Exercise 2](#Exercise2) when you created the container service. Deleting the resource group deletes everything in it and prevents any further charges from being incurred for it.
+In this exercise, you will delete the resource group created in [Exercise 2](#Exercise2) when you created the container service. Deleting the resource group deletes everything in it and prevents any further charges from being incurred for it.
 
 1. In the Azure Portal, open the blade for the "ACSLabResourceGroup" resource group. Then click the **Delete** button at the top of the blade.
 
@@ -355,11 +353,16 @@ In this exercise, you'll delete the resource group created in [Exercise 2](#Exer
 
 	_Deleting a resource group_
 
-1. For safety, you are required to type in the resource group's name. (Once deleted, a resource group cannot be recovered.) Type the name of the resource group.
+1. Because deleting a resource group is a permanent action that can't be undone, you must confirm that you want to delete it. Do so by typing the name of the resource group into the box labeled 
+**TYPE THE RESOURCE GROUP NAME**. Then click **Delete** to delete the resource group and everything inside it.
 
-1. Click the **Delete** button to remove all traces of this lab from your account.
+    ![Confirming resource-group deletion](Images/confirm-delete-resource-group.png)
 
-### Summary ###
+    _Confirming resource-group deletion_
+
+After a few minutes, you will be notified that the resource group was deleted. If the deleted resource group still appears in the "Resource groups" blade, click that blade's **Refresh** button to update the list of resource groups. The deleted resource group should go away.  
+
+## Summary ##
 
 The Azure Container Service makes it easy to run apps packaged in Docker containers in the cloud without having to manage servers or install a container stack yourself. Container images are smaller than VM images, they start faster, and they typically cost less since a single VM can host multiple container instances. More importantly, Docker containers can be hosted in other cloud platforms such as Amazon Web Services (AWS). If you want to avoid being tied to a single cloud platform, containers are a great way to achieve that independence.
 

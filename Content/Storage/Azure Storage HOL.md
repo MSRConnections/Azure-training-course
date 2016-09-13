@@ -27,7 +27,7 @@ In this hands-on lab, you will learn how to:
 
 The following is required to complete this hands-on lab:
 
-- A Microsoft Azure subscription - [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
+- An active Microsoft Azure subscription. Use the Azure Pass you activated earlier, or [sign up for a free trial](http://aka.ms/WATK-FreeTrial).
 - [Microsoft Azure Storage Explorer](http://storageexplorer.com/)
 
 ----
@@ -264,9 +264,7 @@ In this exercise, you will use the Azure Portal to delete the resource group you
 
     _Confirming resource-group deletion_
 
-1. After a few minutes, you will be notified that the resource group was deleted. If the deleted resource group still appears in the "Resource groups" blade, click that blade's **Refresh** button to update the list of resource groups. The deleted resource group should go away.  
-
-You can confirm that the storage account was deleted by clicking **All resources** in the ribbon on the left side of the portal. The storage account no longer appears in the list of resources, which means it was deleted along with the resource group.
+After a few minutes, you will be notified that the resource group was deleted. If the deleted resource group still appears in the "Resource groups" blade, click that blade's **Refresh** button to update the list of resource groups. The deleted resource group should go away.  
 
 <a name="summary"></a>
 ## Summary ##
