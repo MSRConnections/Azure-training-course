@@ -6,38 +6,29 @@
 <a name="Overview"></a>
 ## Overview ##
 
-Machine learning, which facilitates predictive analysis from large volumes of data by employing algorithms that iteratively learn from that data, is one of the fastest growing areas of computer science. Its uses range from credit-card fraud detection and self-driving cars to optical character recognition (OCR) and online shopping recommendations. It makes us smarter by making computers smarter. And its usefulness will only increase as more and more data becomes available and our desire to perform predictive analysis from that data grows, too.
+Machine learning, which facilitates predictive analytics from large volumes of data by employing algorithms that iteratively learn from that data, is one of the fastest growing areas of computer science. Its uses range from credit-card fraud detection and self-driving cars to optical character recognition (OCR) and online shopping recommendations. It makes us smarter by making computers smarter. And its usefulness will only increase as more and more data becomes available and our desire to perform predictive analysis from that data grows, too.
 
-Azure Machine Learning is a cloud-based predictive-analytics service that offers a streamlined experience for data scientists of all skill levels. It's accompanied by the Azure Machine Learning Studio (ML Studio), which is a browser-based tool that allows you to build models using simple drag-and-drop gestures. It comes with a library of time-saving experiments and features best-in-class algorithms developed and tested in the real world by Microsoft businesses such as Bing. And its built-in support for [R](https://www.r-project.org/) and [Python](https://www.python.org/) means you can build custom scripts  to customize your model. Once you've built and trained your model in the ML Studio, you can easily expose it as a Web service that is consumable using a variety of programming languages, or share it with the community by placing it in the [Cortana Intelligence Gallery](https://gallery.cortanaintelligence.com/).
+Azure Machine Learning is a cloud-based predictive-analytics service that offers a streamlined experience for data scientists of all skill levels. It's accompanied by the Azure Machine Learning Studio (ML Studio), which is a browser-based tool that provides an easy to use, drag-and-drop interface for building machine-learning models. It comes with a library of time-saving experiments and features best-in-class algorithms developed and tested in the real world by Microsoft businesses such as Bing. And its built-in support for [R](https://www.r-project.org/) and [Python](https://www.python.org/) means you can include scripts of your own to customize your model. Once you've built and trained your model in the ML Studio, you can easily expose it as a Web service that is consumable using a variety of programming languages, or share it with the community by placing it in the [Cortana Intelligence Gallery](https://gallery.cortanaintelligence.com/).
 
-In this lab, you will use Azure Machine Learning to model automobile features and prices and generate price predictions from feature inputs. You will employ the following steps to build the experiment in the Azure Machine Learning Studio and to create, train, and score your model to predict automobile price:
-
-1. Create a model
-    - Get the data
-    - Preprocess the data
-    - Define features
-1. Train the model
-    - Choose and apply a learning algorithm
-1. Score and test the model
-    - Predict new automobile prices
+In this lab, you will use Azure Machine Learning to model automobile features and prices and generate price predictions from feature inputs. Then you will deploy the model as a Web service and test it by placing calls to it.
 
 <a name="Objectives"></a>
 ### Objectives ###
 
 In this hands-on lab, you will learn how to:
 
-- Log in to the Azure Machine Learning Studio
-- Work with the Azure Machine Learning Studio
-- Acquire and process data for machine-learning experiments
+- Work with Azure Machine Learning Studio
+- Prepare input data and use it to train a model
 - Apply and test learning algorithms
-- Deploy your model as a Web service so it can be accessed from code or scripts
+- Score a model and evaluate its accuracy
+- Deploy a model as a Web service
 
 <a name="Prerequisites"></a>
 ### Prerequisites ###
 
 The following is required to complete this hands-on lab:
 
-- A Microsoft Azure subscription - [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
+- An active Microsoft Azure subscription. Use the Azure Pass you activated earlier, or [sign up for a free trial](http://aka.ms/WATK-FreeTrial).
 
 ---
 <a name="Exercises"></a>
@@ -45,64 +36,46 @@ The following is required to complete this hands-on lab:
 
 This hands-on lab includes the following exercises:
 
-1. [Exercise 1: Log in to the Azure Machine Learning Studio](#Exercise1)
-1. [Exercise 2: Load a dataset](#Exercise2)
-1. [Exercise 3: Preprocess the data](#Exercise3)
-1. [Exercise 4: Define the features](#Exercise4)
-1. [Exercise 5: Select a learning algorithm and train the model](#Exercise5)
-1. [Exercise 6: Score the model](#Exercise6)
-1. [Exercise 7: Deploy as a Web service](#Exercise7)
-1. [Exercise 8 (Optional): Compare two models](#Exercise8)
+- [Exercise 1: Create an experiment and load a dataset](#Exercise1)
+- [Exercise 2: Preprocess the data](#Exercise2)
+- [Exercise 3: Define the features](#Exercise3)
+- [Exercise 4: Select a learning algorithm and train the model](#Exercise4)
+- [Exercise 5: Score the model](#Exercise5)
+- [Exercise 6: Deploy as a Web service](#Exercise6)
+- [Exercise 7 (Optional): Compare two models](#Exercise7)
 
 Estimated time to complete this lab: **60** minutes.
 
 <a name="Exercise1"></a>
-## Exercise1: Log in to the Azure Machine Learning Studio
+## Exercise 1: Create an experiment and load a dataset
 
-The first step in employing Azure Machine Learning is to log in.
+The first step in building a machine-learning model with Azure Machine Learning is to use ML Studio to create an experiment and load data into it. Azure Machine Learning Studio comes with several sample datasets. In this exercise, you will load the sample dataset named "Automobile price data (Raw)," which includes entries for more than 200 automobiles, including make, model, technical specifications, and price.
 
-1. In your web browser, navigate to [http://studio.azureml.net](http://studio.azureml.net) and click the **Sign In** button
+1. In your Web browser, navigate to http://studio.azureml.net and click the **Sign In** button. If you are asked to log in, do so using your Microsoft account.
 
-    ![Getting started with Azure ML](Images/logging-in-started.png)
+    ![Signing in to ML Studio](Images/sign-in.png)
 
-    _Getting started with Azure ML_
+    _Signing in to ML Studio_
 
-1. You can either use a guest account or sign in with your Microsoft account. You should do the latter because the guest account is both time-limited (8 hours) and size-limited (max data file size is 100 MB and experiments are limited to 50 or fewer modules), and it doesn't support R or Python. Therefore, click the **SIGN IN** button and sign in with your Microsoft account.
+1. Start a new experiment by clicking **+ NEW** in the lower-left corner of the page, followed by **Blank Experiment**.
 
-    ![Signing in to the Azure Machine Learning Studio](Images/logging-in-choose-account.png)
-
-    _Signing in to the Azure Machine Learning Studio_
-
-Now that you're logged in, the next step is to import some data and begin building a model around it.
-
-<a name="Exercise2"></a>
-## Exercise 2: Load a dataset
-
-In this exercise, you will create an Azure Machine Learning experiment and add a dataset to it.
-
-> When working with the Azure Machine Learning Studio, get in the habit of saving your experiments often — for example, after each step of this lab. That way, if you encounter a problem, you will not have to replicate steps to get caught up. Also, be aware that you **may lose your work if you click the browser's Back button without saving your experiment first.**
-
-Azure Machine Learning Studio comes with several sample datasets. In this lab, you will utilize the sample dataset named "Automobile price data (Raw)." This dataset includes entries for a number of individual automobiles, including make, model, technical specifications, and price.
-
-1. Start a new experiment by clicking **New** at the bottom left followed by **Blank Experiment**.
-
-    ![Creating a blank Experiment](Images/data-blank-experiment.png)
+    ![Creating a blank Experiment](Images/new-experiment.png)
 
     _Creating a blank experiment_
 
-1. Click the default experiment name at the top of the canvas and change it to something more meaningful, such as "Automobile price prediction."
+1. Click the default experiment name at the top of the canvas and change it to "Automobile price prediction" (without quotation marks).
 
-    ![Renaming the experiment](Images/data-rename-experiment.png)
+    ![Naming the experiment](Images/data-rename-experiment.png)
 
-    _Renaming the experiment_
+    _Naming the experiment_
 
-1. To the left of the experiment canvas is the modules palette. Type "automobile" in the search box at the top to find the dataset labeled "Automobile price data (Raw)."
+1. To the left of the experiment canvas is the modules palette. Type "automobile" in the search box at the top of the modules palette to find the **Automobile price data (Raw)** dataset.
 
     ![Finding a dataset](Images/data-palette-to-search.png)
 
     _Finding a dataset_
 
-1. Drag the "Automobile price data (Raw)" dataset from the modules palette and drop it onto the experiment canvas.
+1. Drag the **Automobile price data (Raw)** dataset from the modules palette and drop it onto the experiment canvas.
 
     ![Adding a dataset](Images/data-dataset-on-canvas.png)
 
@@ -114,7 +87,7 @@ Azure Machine Learning Studio comes with several sample datasets. In this lab, y
 
     _Visualizing the dataset_
 
-1. The variables in the dataset appear as columns, with each row representing an automobile. The far-right column titled "price" is the target variable for your predictive analysis. Scroll to the right until you see this column.
+1. The values in the dataset appear as columns, with each row representing an automobile and each column representing an automobile feature. The far-right column titled "price" is the target variable for your predictive analysis. Scroll to the right until you see this column. Then click it to select it.
 
     ![Viewing the raw data](Images/data-viewing-data.png)
 
@@ -122,75 +95,69 @@ Azure Machine Learning Studio comes with several sample datasets. In this lab, y
 
 1. Close the visualization window by clicking the "**x**" in the upper-right corner.
 
-In this exercise, you learned how to create a new ML experiment and add a sample dataset to it. Note that you can upload custom datasets by clicking the **+ NEW** button in the ribbon at the bottom of the window, and then clicking **DATASET** followed by **FROM LOCAL FILE**. Next up: preparing the sample data for use.
+In this exercise, you learned how to create a new ML experiment and import a sample dataset. Note that you can upload custom datasets by clicking the **+ NEW** button in the ribbon at the bottom of the window, and then clicking **DATASET** followed by **FROM LOCAL FILE**. Next up: preparing the sample data for use.
 
-<a name="Exercise3"></a>
-## Exercise 3: Preprocess the data
+<a name="Exercise2"></a>
+## Exercise 2: Preprocess the data
 
-No dataset is perfect. Most require some amount of preprocessing before they can be used to train a model. When you visualized the data, you may have noticed that some rows of automobile data were missing values. These missing values need to be cleaned up before training begins. In this example, you will remove any rows that have missing values. In addition, the "normalized-losses" column has a lot of missing values, so you'll exclude that column from the model.
+No dataset is perfect. Most require some amount of preparation or *cleaning* before they can be used to train a model. When you visualized the data, you may have noticed that some rows were missing values. These need to be cleaned up before training begins. In this exercise, you will remove any rows that have missing values. In addition, the "normalized-losses" column has a lot of missing values, so you'll exclude that column from the model.
 
-1. At the top of the modules pallete, type "select columns" (without quotation marks) into the search box to find the Select Columns in Dataset module. Drag the module over to the experiment canvas and connect it to the output port of the "Automobile price data (Raw)" dataset by dragging an arrow downward from the output port. The Select Columns in Dataset module allows you to specify which columns of data to include or exclude in the model.
+1. At the top of the modules palette, type "select columns" (without quotation marks) into the search box to find the **Select Columns in Dataset** module. Drag the module over to the experiment canvas and connect it to the output port of the **Automobile price data (Raw)** dataset by dragging an arrow downward from the output port. The **Select Columns in Dataset** module allows you to specify which columns of data to include or exclude in the model.
 
-     > A key concept to understand in Azure ML Studio is that of ports and connectors. In this step, you connected the output port of the raw data module to the input port of the Select Columns in Dataset module. The data flows from one module to the next through the connector. Some modules, such as the Train Model, support multiple inputs and therefore have multiple input ports. If you want to know what a port does, hover over it with the mouse and a tooltip will pop up. If you want more information, right-click on the module and select **Help** from the popup menu.
+     > A key concept to understand in Azure ML Studio is that of ports and connectors. In this step, you connected the output port of the data module to the input port of the **Select Columns in Dataset** module. The data flows from one module to the next through the connector. Some modules have multiple input and output ports. If you want to know what a port does, hover over it with the mouse and a tooltip will pop up. To call up the documentation for an entire module, right-click (on a Mac, Command-click) the module and select **Help** from the ensuing menu.
 
     ![Connecting the dataset to the Select Columns in Dataset module](Images/select-columns-in-dataset.png)
 
     _Connecting the dataset to the Select Columns in Dataset module_
 
-1. Select the Select Columns in Dataset module on the experiment canvas and click the **Launch column selector** button in the Properties pane on the right.
+1. Click the **Select Columns in Dataset** module on the experiment canvas to make sure it's selected, and then click the **Launch column selector** button in the Properties pane on the right.
 
     ![Launching the column selector](Images/launch-column-selector.png)
 
     _Launching the column selector_
 
-1. Select **WITH RULES** in the leftmost column if it isn't already selected, and then select **ALL COLUMNS** under **Begin With**. This tells the Select Columns module to pass through all the columns (except those you're about to exclude). In the next row, select **Exclude** and **column names**, and then click the box to the right of **column names**. When a list of columns appears, select **normalized-losses** to add that column to the text box. Now click the check mark to close the column selector.
+1. Select **WITH RULES** in the leftmost column, and then select **ALL COLUMNS** under **Begin With**. This tells the **Select Columns in Dataset** module to pass through all the columns except those you're about to exclude. In the next row, select **Exclude** and **column names**, and then click the box to the right of **column names**. When a list of columns appears, select **normalized-losses** to add that column to the text box. Then click the check mark to close the column selector.
 
-    > In some browsers, it can take up to a minute for the column names to appear. If they don't appear for you, simply type the column name (normalized-losses) into the box. The list of column names will sometimes appear when you begin typing.
+    > In some browsers, the list of column names might not appear. If they don't appear for you, simply type the column name ("normalized-losses") into the box. The column names will sometimes appear when you begin typing.
 
     ![Selecting columns for the model](Images/preprocess-select-columns-dialog.png)
     
-1. The Properties pane indicates that the Select Columns module will pass through all columns from the dataset except "normalized-losses." Confirm that your Select Columns module is configured to do the same.
+1. In ML Studio, you can annotate modules with comments to help document your experiment. To demonstrate, double-click the **Select Columns in Dataset** module and type "Exclude normalized-losses" in the text box that pops up. When you're finished typing, click outside the text box. To display the comment, click the down-arrow on the right side of the module. If you wish to change the comment, simply right-click (or Command-click) the module and select **Edit Comment** from the menu that pops up.
 
-    ![Final column selection](Images/preprocess-final-project-properties.png)
+    ![Annotating modules with comments](Images/preprocess-seeing-box-comments.png)
 
-    _Final column selection_
+    _Annotating modules with comments_
 
-1. You are building a real model in this lab, but it is a relatively simple one. In larger and more complex experiments containing many modules, it's easy to lose track of what each module does and why. A nice feature of Azure Machine Learning Studio is that if you double-click a module on the experiment canvas, you can annotate it with comments. Double-click the Select Columns module and type "Exclude normalized-losses" in the text box that pops up. To display the comment, click the down-arrow in the Select Columns box. If you wish to change the comment, simply right-click the module and select **Edit Comment** from the menu that pops up.
-
-    ![Adding and viewing comments](Images/preprocess-seeing-box-comments.png)
-
-    _Adding and viewing comments_
-
-1. Now it's time to remove rows containing blank values. Type "clean" into the search box and drag the Clean Missing Data module to the experiment canvas and connect it to the output of the Select Columns module. In the Properties pane, select **Remove entire row** from the list under **Cleaning mode** to clean the data by removing rows that have at least one missing value.
+1. Now it's time to remove rows containing blank values. Type "clean" (without quotation marks) into the search box at the top of the modules palette. Add a **Clean Missing Data** module to the experiment canvas and connect it to the output of the **Select Columns in Dataset** module. In the Properties pane, select **Remove entire row** from the list under **Cleaning mode** to remove rows that have at least one missing value.
 
     ![Removing rows with missing values](Images/preprocess-clean-missing-properties.png)
 
     _Removing rows with missing values_
 
-1. Double-click the Clean Missing Data module and enter the comment "Remove rows with missing values."
+1. Double-click the **Clean Missing Data** module and enter the comment "Remove rows with missing values."
 
-1. Click the **SAVE** button at the bottom of the canvas and save the experiment.
+1. Click the **SAVE** button at the bottom of the canvas to save the experiment.
+
+    ![Saving the experiment](Images/save-experiment.png)
+
+    _Saving the experiment_ 
+
+	> When working with Azure Machine Learning Studio, get in the habit of saving your experiments often. That way, if you encounter a problem, you will not have to replicate steps to get caught up. Also, be aware that you **may lose your work if you click the browser's Back button without saving your experiment first.**
 
 1. Click the **RUN** button at the bottom of the canvas to run the experiment.
 
-1. When the experiment finishes running, the Select Columns and Clean Missing Data modules will be tagged with a green check mark to indicate that they executed successfully. In addition, the status in the upper-right corner will change to "Finished running".
-
-    ![Outcome of a successful run](Images/preprocess-finished-run.png)
-
-    _Outcome of a successful run_
-
-1. The output from the Clean Missing Data module is a dataset with the "normalized-losses" column removed and all rows with at least one missing value removed. To view the cleaned dataset, click the left output port of the Clean Missing Data module and select **Visualize**. Notice that the "normalized-losses" column is no longer present, and there are no missing values.
+1. Wait for the run to finish. Then click the left output port of the **Clean Missing Data** module and select **Visualize**. Notice that the "normalized-losses" column is no longer present, and there are no rows with missing values.
 
 1. Close the visualization window by clicking the "**x**" in the upper-right corner.
 
-In this exercise, you learned how to clean input to provide the best possible data to your experiments. The data is ready; now it's time to work on the model itself.
+In this exercise, you learned about two ways to clean input data in preparation for training a model. The data is ready; now it's time to work on the model itself.
 
-<a name="Exercise4"></a>
-## Exercise 4: Define the features
+<a name="Exercise3"></a>
+## Exercise 3: Define the features
 
-In machine learning, _features_ are individually measurable properties of the data that you're analyzing. In the "Automobile price data (Raw)" dataset, each row represents one automobile, and each column represents a feature of that automobile. Identifying features for a robust and accurate predictive model frequently requires experimentation and domain knowledge of the problem you're trying to solve. Some features are better for predicting target values than others. For example, it's likely that there is some correlation between engine size and price, because larger engines cost more. But intuition tells us that miles per gallon might not be a strong indicator of price. In addition, some features have a strong correlation with other features (for example, city-mpg versus highway-mpg), and can therefore be excluded since they add little to the model.
+In machine learning, _features_ are individually measurable properties of the data that you're analyzing. In the **Automobile price data (Raw)** dataset, each row represents one automobile, and each column represents a feature of that automobile. Identifying features for a robust and accurate predictive model frequently requires experimentation and domain knowledge of the problem you're trying to solve. Some features are better for predicting target values than others. For example, it's likely that there is some correlation between engine size and price, because larger engines cost more. But intuition tells us that miles per gallon might not be a strong indicator of price. In addition, some features have a strong correlation with other features (for example, city-mpg versus highway-mpg), and can therefore be excluded since they add little to the model.
 
-It is time to build a model that uses a subset of the features in the dataset. You'll start with the following features (columns), which include the "price" feature that the model will attempt to predict:
+It is time to build a model that uses a subset of the features in the dataset. You will use the following features (columns), which include the "price" feature that the model will attempt to predict:
 
 - make
 - body-style
@@ -201,93 +168,91 @@ It is time to build a model that uses a subset of the features in the dataset. Y
 - highway-mpg
 - price
 
-Later, you can always come back and refine the model by selecting different features.
+If needed, you can always refine a model later by selecting different features.
 
-1. Drag another Select Columns module to the experiment canvas and connect it to the left output port of the Clean Missing Data module. Double-click the new Select Columns module and type "Select features for prediction" as the comment.
+1. Drag another **Select Columns in Dataset** module to the canvas and connect it to the left output port of the **Clean Missing Data** module.
+
+    ![Adding another Select Columns in Dataset module](Images/define-features.png)
+
+    _Adding another Select Columns in Dataset module_
 
 1. Select the module you just added and click **Launch column selector** in the Properties pane.
 
-1. Select **WITH RULES** in the leftmost column if it isn't already selected, and then select **NO COLUMNS** under **Begin With**. Then select **Include** and **column names** in the filter row. This directs the module to pass through only the columns that are specified. Now click the box to the right of **column names** and select the columns pictured below. Finish up by clicking the check mark in the lower-right corner.
+1. Select **WITH RULES** in the leftmost column, and select **NO COLUMNS** under **Begin With**. Then select **Include** and **column names** in the filter row. This directs the module to pass through only the columns that are specified. Now click the box to the right of **column names** and select the columns pictured below. Finish up by clicking the check mark in the lower-right corner.
 
-    ![Selecting columns for the experiment](Images/define-select-project-columns.png)
+    ![Selecting the model's features](Images/define-select-project-columns.png)
 
-    _Selecting columns for the experiment_
+    _Selecting the model's features_
 
-1. The Properties pane will show the selected columns. Confirm that your selected-columns readout matches the one below.
+1. Click the **SAVE** button at the bottom of the canvas to save the experiment.
 
-    ![Columns selected for the experiment](Images/define-select-project-property-page.png)
+1. Click the **RUN** button at the bottom of the canvas to run the experiment.
 
-    _Columns selected for the experiment_
+1. Click the output port of the second **Select Columns in Dataset** module and use the **Visualize** command to confirm that the output contains just the eight columns that you selected in Step 3. Then close the visualization window by clicking the "**x**" in the upper-right corner.
 
-1. Click the **SAVE** button at the bottom of the canvas and save the experiment.
+You're getting close! Now comes perhaps the most important part of the process: selecting a learning algorithm and training the model.
 
-You're getting close! Now comes perhaps the most important part of the process: selecting a learning algorithm to use in the experiment.
-
-<a name="Exercise5"></a>
-## Exercise 5: Select a learning algorithm and train the model
+<a name="Exercise4"></a>
+## Exercise 4: Select a learning algorithm and train the model
 
 Now that the data is ready and the features are selected, constructing a robust predictive model requires training and testing the model. You will use part of the dataset to train the model, and another part of it to measure how adept the model is at predicting automobile prices.
 
 Before you can train the model, you must select a learning algorithm to use. _Classification_ and _regression_ are two types of supervised machine-learning algorithms. Classification is used to make a prediction from a defined set of values, such as the make of a car (for example, Honda or BMW). Regression is used to make a prediction from a continuous set of values, such as a person's age or the price of an automobile. Azure Machine Learning offers several types of classification and regression algorithms for you to choose from, as well as algorithms of other types.
 
-> The Azure Machine Learning team has put together a "cheat sheet" to help you decide which machine-learning algorithm to choose based on the intended purpose of your model. You can download it from [http://aka.ms/MLCheatSheet](http://aka.ms/MLCheatSheet)
+> The Azure Machine Learning team has put together a "cheat sheet" to help you decide which machine-learning algorithm to choose based on the purpose of your model. You can view it at http://aka.ms/MLCheatSheet.
 
-The goal in this lab is to predict the price of an automobile, so you will use a regression model. In this exercise, you will train a simple linear-regression model, and in the next exercise, you will test the results.
+The goal of this lab is to predict the price of an automobile from a set of input features, so you will use a regression model. In this exercise, you will train a simple linear-regression model, and in the next exercise, you will test the results.
 
-1. You can use a single dataset for training and testing by splitting its output. Find the Split Data module in the modules palette and drag it over to the canvas. Then connect the output of the last Select Columns module to the Split Data module. Set **Fraction of rows in the first output dataset** to 0.8. This will use 80% of the data to train the model, and hold back 20% for testing. Leave **Random seed** set to 0. This parameter controls the seeding of the pseudo-random number generator and allows you to produce different random samples by entering different values.
+1. You can use a single dataset for training and testing by splitting its output. Find the **Split Data** module in the modules palette and drag it over to the canvas. Then connect the output of the last **Select Columns in DataSet** module to the **Split Data** module. Set **Fraction of rows in the first output dataset** to 0.8. This will use 80% of the data to train the model, and hold back 20% for testing. Leave **Random seed** set to 0. This parameter controls the seeding of the pseudo-random number generator and allows you to produce different random samples by entering different values.
 
     ![Splitting the data](Images/choose-split-percentage.png)
 
     _Splitting the data_
 
-1. Click the **RUN** button to allow the Select Columns and Split Data modules to pass column definitions to the modules you will be adding next.
+1. Click the **SAVE** button to save the experiment.
 
-1. To specify a learning algorithm, type "linear regression" into the search box in the modules palette. Then drag the Linear Regression module onto the canvas.
+1. Click the **RUN** button to run the experiment.
 
-    ![Adding the Linear Regression module](Images/choose-add-linear-regression.png)
+1. To specify a learning algorithm, type "linear" into the search box in the modules palette. Then drag a **Linear Regression** module onto the canvas.
 
-    _Adding the Linear Regression module_
+    ![Adding a Linear Regression module](Images/choose-add-linear-regression.png)
 
-1.	Find the Train Model module and add it to the experiment. Then select the module and click **Launch column selector** in the Properties pane.
+    _Adding a Linear Regression module_
 
-    ![Training the model on price](Images/choose-train-model-price.png)
+1.	Add a **Train Model** module to the canvas. Connect the output of the **Linear Regression** module to the left input of **Train Model**, and the output from **Split Data** to the right input of **Train Model**. Then select the **Train Model** module and click **Launch column selector** in the Properties pane.
 
-    _Training the model on price_
+    ![Adding a Train Model module](Images/choose-train-model-price.png)
 
-1. Make sure **WITH RULES** is selected on the left and **Include** and **column names** are selected in the drop-down lists. Then add the "price" column to the box on the right. This is the value that your model is going to predict. Finish up by clicking the check mark in the column-selector dialog.
+    _TAdding a Train Model module_
+
+1. Select **WITH RULES** on the left and make sure **Include** and **column names** are selected in the drop-down lists. Then add the "price" column to the box on the right. This is the value that your model is going to predict. Finish up by clicking the check mark in the lower-right corner.
 
     ![Specifying the output variable](Images/select-price.png)
 
     _Specifying the output variable_
 
-1. Connect the output port of the Linear Regression module to the left input port of the Train Model module. Then connect the left output port of the Split Data module to the right input port of the Train Model module.
-
-    ![Connecting the modules](Images/choose-connect-lr-split-to-train.png)
-
-    _Connecting the modules_
-
-1. Click the **SAVE** button and save the experiment.
-
-1. Click the **RUN** button to run the experiment. After the run finishes, you will have a trained regression model that can be used to score new samples and make predictions.
-
-Now comes the fun part: testing the model to see how well it's able to predict automobile prices!
-
-<a name="Exercise6"></a>
-## Exercise 6: Score the model
-
-With a model that was trained on 80% of the data, you can use the remaining 20% of the data to score the model and judge how well it functions.
-
-1. Add a Score Model module to the canvas. Connect the output of the Train Model module to the Score Model module's left input port. Then connect the right output port of the Split Data module to the right input port of the Score Model module. That connection represents the 20% of the data that was not used for training.
-
-    ![Adding the Score Model module](Images/predict-score-module.png)
-
-    _Adding the Score Model module_
-
-1. Click the **SAVE** button and save the experiment.
+1. Click the **SAVE** button to save the experiment.
 
 1. Click the **RUN** button to run the experiment.
 
-1. After the run finishes, click the output port of the Score Model module and select **Visualize**. The output shows the known values for price from the dataset followed by the predicted values determined by the algorithm. You may have to scroll the table to the right to see the "price" and "Scored Labeled" columns.
+You now have a trained regression model. The next step is to score the model to see how adept it is at predicting automobile prices.
+
+<a name="Exercise5"></a>
+## Exercise 5: Score the model
+
+In this exercise, you will score the model you trained in the previous exercise. Scoring determines how well the model was trained — that is, how adept it is at predicting target values from values presented to it. ML Studio makes the scoring process very easy. You used 80% of the dataset that you uploaded to train the model. You will use the remaining 20% to score it
+
+1. Add a **Score Model** module to the canvas. Connect the output of the **Train Mode**l module to the **Score Model** module's left input port. Then connect the right output port of the **Split Data** module to the right input port of the **Score Mode**l module. That connection represents the 20% of the data that was not used for training.
+
+    ![Adding a Score Model module](Images/predict-score-module.png)
+
+    _Adding a Score Model module_
+
+1. Click the **SAVE** button to save the experiment.
+
+1. Click the **RUN** button to run the experiment.
+
+1. After the run finishes, click the output port of the **Score Model** module and select **Visualize**. The output shows the known values for price from the dataset followed by the predicted values determined by the algorithm. You may have to scroll the table to the right to see the "price" and "Scored Labeled" columns.
 
     ![The scored data](Images/predict-scored-data.png)
 
@@ -295,15 +260,17 @@ With a model that was trained on 80% of the data, you can use the remaining 20% 
 
 1. Close the visualization window by clicking the "**x**" in the upper-right corner.
 
-1. To evaluate the quality of the results, add an Evaluate Model module to the experiment canvas. Connect the output port of the Score Model module to the left input port of the output of the Evaluate Model module. (There are two input ports because Evaluate Model can be used to compare two models.)
+1. To evaluate the quality of the results, add an **Evaluate Model** module to the experiment canvas. Connect the output port of the **Score Model** module to the left input port of the output of the **Evaluate Model** module. (There are two input ports because **Evaluate Model** can be used to compare two models.)
 
-    ![The Evaluate Model module](Images/predict-evaluate-model.png)
+    ![Adding an Evaluate Model module](Images/predict-evaluate-model.png)
 
-    _The Evaluate Model module_
+    _Adding an Evaluate Model module_
 
-1. Run the experiment again by clicking the **RUN** button.
+1. Click the **SAVE** button to save the experiment.
 
-1. Click the output port of the Evaluate Model and select **Visualize** from the menu.
+1. Click the **RUN** button to run the experiment.
+
+1. Click the output port of the **Evaluate Model** module and select **Visualize** from the menu.
 
     ![The evaluation results](Images/predict-evaluation-results.png)
 
@@ -311,26 +278,22 @@ With a model that was trained on 80% of the data, you can use the remaining 20% 
 
 	Here is a quick explanation of the results:
 
-    - **Mean Absolute Error** (MAE): The average of absolute errors (an error is the difference between the predicted value and the actual value).
-    - **Root Mean Squared Error** (RMSE): The square root of the average of squared errors of predictions made on the test dataset.
-    - **Relative Absolute Error**: The average of absolute errors relative to the absolute difference between actual values and the average of all actual values.
-    - **Relative Squared Error**: The average of squared errors relative to the squared difference between the actual values and the average of all actual values.
-    - **Coefficient of Determination**: Also known as the **R-squared value**, this is a statistical metric indicating how well a model fits the data.
+    - **Mean Absolute Error** (MAE): The average of absolute errors (an error is the difference between the predicted value and the actual value)
+    - **Root Mean Squared Error** (RMSE): The square root of the average of squared errors of predictions made on the test dataset
+    - **Relative Absolute Error**: The average of absolute errors relative to the absolute difference between actual values and the average of all actual values
+    - **Relative Squared Error**: The average of squared errors relative to the squared difference between the actual values and the average of all actual values
+    - **Coefficient of Determination**: Also known as the **R-squared value**, this is a statistical metric indicating how well a model fits the data
 
-    For each of the error statistics, smaller is better. A smaller value indicates that the predictions more closely match the actual values. For **Coefficient of Determination**, the closer its value is to 1.0, the better the predictions. In this case, the model was able to predict the price of a car from the test data with slightly more than 90% accuracy.
+    For each of the error statistics, smaller is better. A smaller value indicates that the predictions more closely match the actual values. For **Coefficient of Determination**, the closer its value is to 1.0, the better the predictions. In this case, the model was able to predict the price of a car from the test data with more than 90% accuracy.
 
 1. Close the visualization window by clicking the "**x**" in the upper-right corner.
 
 Now that the model is adequately refined (90% is indicative of a reasonably strong correlation between the input data and results), you might want to be able write programs that utilize the model. That is the subject of the next exercise.
 
-<a name="Exercise7"></a>
-## Exercise 7: Deploy as a Web service
+<a name="Exercise6"></a>
+## Exercise 6: Deploy as a Web service
 
-Once you have a trained model, you can deploy it as a Web service in order to interact with it programmatically. That way, you can write apps to pass data in and get results back.
-
-Before deploying as a Web service, you need to streamline your experiment for scoring. This involves creating a _scoring experiment_ from your trained model, removing unnecessary modules that are needed for training but not for scoring, and adding Web-service input and output modules. Fortunately, the Azure Machine Learning Studio can do this for you.
-
-1. Even though you have already run your model, there's a bug in ML Studio whereby visualizing the data sometimes disables one of the Web-service menu items. To work around this, click the **RUN** button to rerun your model.
+Once you have a trained and scored model, you can deploy it as a Web service and interact with it programmatically. Before deploying as a Web service, you need to streamline your experiment. This involves creating a new experiment from your trained model, removing unnecessary modules, and adding Web-service input and output modules. Fortunately, ML Studio can do all of this for you
 
 1. At the bottom of the screen, click the **SET UP WEB SERVICE** button and in the ensuing menu, select **Predictive Web Service [Recommended]**. If this option is grayed out, click the **RUN** button and try again.
 
@@ -338,25 +301,61 @@ Before deploying as a Web service, you need to streamline your experiment for sc
 
     _Creating a predictive Web service_
 
-1. The predictive experiment setup will spin for a few seconds, after which you will see a set of tabs at the top of the canvas indicating which model is your training experiment and which is the predictive experiment. When you look at the predictive experiment, you will find that the Train Model module has been replaced by a module named "Automobile price prediction [trained model]," and that new modules were added at the top and bottom for Web-service input and output.
+1. ML Studio will spin for a few seconds, after which a predictive experiment will appear. Observe that **Split Data** and **Train Model** are gone, and that 100% of the training data now flows into **Score Model**. In addition, new modules were added at the top and bottom for Web-service input and output.
 
-    ![The predictive experiment](Images/deploy-auto-predict-model.png)
+	> Don't be alarmed thinking your original model is gone. It's still there. You can get to it by clicking the **Training experiment** tab at the top of the page.
+
+    ![The predictive experiment](Images/predictive-experiment.png)
 
     _The predictive experiment_
 
-1. To create a Web service to use for your predictions, click **RUN** once more. After the run completes, click the **DEPLOY WEB SERVICE** button to deploy your price-predicting Web service. This will take you to the dashboard for the new Web service. Now click the **Test** button in the middle of the screen. Also note that in the "APPS" column, you can download an Excel spreadsheet for working with your Web service.
+1. To create a Web service that you can call to perform predictive analytics, click **RUN** once more. After the run completes, click the **DEPLOY WEB SERVICE** button followed by **Deploy Web Service [Classic]** to deploy the Web service.
 
-    ![Testing your Web service](Images/deploy-test-button.png)
+    ![Deploying the Web service](Images/deploy-web-service.png)
 
-    _Testing your Web service_
+    _Deploying the Web service_
+ 
+1. In a moment, the dashboard for the new Web service appears. The dashboard includes links to Excel spreadsheets that you can download to work with the Web service by inputting values and computing prices. It also includes a **Test** button that you can click to test the Web service. But don't click the **Test** button just yet.
 
-1. The following dialog appears for entering test parameters:
+    ![The Web service dashboard](Images/web-service-dashboard.png)
 
-    ![Entering data](Images/deploy-enter-data.png)
+    _The Web service dashboard_
 
-    _Entering data_
+1. If you click **Test** right now, a dialog will appear in which you enter input values before calling the Web service and getting a predicted price in return. But you would have to enter values for *all* of the columns in the dataset, including those that you filtered out through **Select Columns in Dataset**.
 
-1. Enter the parameter values shown below. These parameters are features of a car whose price we want our trained ML model to predict. Enter these values in the corresponding spaces in the dialog, and note that you will have to **scroll the dialog** to see all of the input fields. If you don't fill in all of the fields, you'll receive an error message when you submit the data to the Web service.
+	To fix that, you are going to modify the predictive experiment before testing it. Begin by clicking **View latest** in the dashboard to return to the predictive experiment.
+
+1. Delete the arrow connecting the **Web service input** module to **Automobile price data (raw)**. The drag the **Web service input** module down the canvas and position it above the **Score Model** module. Finally, connect the output from **Web service input** to the right input of **Score Model**. This will limit the inputs required to those coming into **Score Model** from the **Select Columns in Dataset** module above.
+
+	> You can delete a connection between modules by right-clicking it (Command-click on a Mac) and selecting **Delete** from the ensuing menu.
+
+    ![Repositioning Web service input](Images/reposition-web-service-input.png)
+
+    _Repositioning Web service input_
+
+1. Click the **Select Columns in Dataset** module that is connected to the **Score Model** module. Then click the **Launch column selector** button in the Properties pane and remove "price" from the columns included in the output. This will prevent you from having to enter an input price when testing the Web serivce. (Even though the input would be ignored, it doesn't make sense to require it because the purpose of the model is to *predict* prices.)
+
+1. Make a copy of the **Select Columns in Dataset** module that you just modified by right-clicking it and selecting **Copy**, and then right-clicking an empty part of the canvas and selecting **Paste**. Now insert the new **Select Columns in Dataset** module between **Score Model** and **Web service output** as shown below.
+
+    ![Filtering output values](Images/new-select-columns.png)
+
+    _Filtering output values_
+
+1. Click the **Select Columns in Dataset** module that you just pasted onto the canvas to select it. Then click the **Launch column selector** button in the Properties pane and add "Scored Labels" to the columns included in the output. This is the price that the Web service predicts from the inputs you specify.
+
+    ![Adding "Scored Labels" to the output](Images/add-scored-labels.png)
+
+    _Adding "Scored Labels" to the output_
+
+1. Click the **SAVE** button to save the predictive experiment.
+
+1. Click the **RUN** button to run the predictive experiment.
+
+1. Click the **DEPLOY WEB SERVICE** button followed by **Deploy Web Service [Classic]** to deploy the Web service. When asked to confirm that you want to overwrite the existing predictive experiment, answer **YES**.
+
+1. Click the **Test** button on the Web-service dashboard.
+
+1. In the dialog that appears, enter the parameter values shown below. These parameters are features of a car whose price we want our trained ML model to predict. Enter these values in the corresponding fields in the dialog, and then click the check mark to pass the data to your Web service. Note that you may have to **scroll the dialog** to see all of the input fields.
 
     <table>
         <tbody>
@@ -365,88 +364,19 @@ Before deploying as a Web service, you need to streamline your experiment for sc
                 <th>Value</th>
             </tr>
             <tr>
-                <td>symboling</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td>normalized-losses</td>
-                <td>0</td>
-            </tr>
-            <tr>
                 <td>make</td>
                 <td>audi</td>
-            </tr>
-            <tr>
-                <td>fuel-type</td>
-                <td>gas</td>
-            </tr>
-            <tr>
-                <td>aspiration</td>
-                <td>turbo</td>
-            </tr>
-            <tr>
-                <td>num-of-doors</td>
-                <td>two</td>
             </tr>
             <tr>
                 <td>body-style</td>
                 <td>hatchback</td>
             </tr>
-            <tr>
-                <td>drive-wheels</td>
-                <td>4wd</td>
-            </tr>
-            <tr>
-                <td>engine-location</td>
-                <td>front</td>
-            </tr>
-            <tr>
                 <td>wheel-base</td>
                 <td>99.5</td>
             </tr>
             <tr>
-                <td>length</td>
-                <td>178.2</td>
-            </tr>
-            <tr>
-                <td>width</td>
-                <td>67.9</td>
-            </tr>
-            <tr>
-                <td>height</td>
-                <td>52</td>
-            </tr>
-            <tr>
-                <td>curb-weight</td>
-                <td>3053</td>
-            </tr>
-            <tr>
-                <td>engine-type</td>
-                <td>ohc</td>
-            </tr>
-            <tr>
-                <td>num-of-cylinders</td>
-                <td>five</td>
-            </tr>
-            <tr>
                 <td>engine-size</td>
                 <td>131</td>
-            </tr>
-            <tr>
-                <td>fuel-system</td>
-                <td>mpfi</td>
-            </tr>
-            <tr>
-                <td>bore</td>
-                <td>3.13</td>
-            </tr>
-            <tr>
-                <td>stroke</td>
-                <td>3.4</td>
-            </tr>
-            <tr>
-                <td>compression-ratio</td>
-                <td>7</td>
             </tr>
             <tr>
                 <td>horsepower</td>
@@ -457,21 +387,11 @@ Before deploying as a Web service, you need to streamline your experiment for sc
                 <td>5500</td>
             </tr>
             <tr>
-                <td>city-mpg</td>
-                <td>16</td>
-            </tr>
-            <tr>
                 <td>highway-mpg</td>
                 <td>22</td>
             </tr>
-            <tr>
-                <td>price</td>
-                <td>0</td>
-            </tr>
         </tbody>
     </table>
-
-1. Click the check mark to pass the data to your Web service.
 
 1. After a short pause, a report will appear at the bottom of the screen. Click the **DETAILS** button to see the full results. The final number in the "Scored Labels" column is the projected price.
 
@@ -479,30 +399,32 @@ Before deploying as a Web service, you need to streamline your experiment for sc
 
     _Projected price_
 
-A common question regarding hosting and using Azure ML web services is: how much does it cost? You can find the current pricing information in the [Machine Learning Pricing](https://azure.microsoft.com/en-us/pricing/details/machine-learning/) page.
+You won't do it in this lab, but realize that you could easily write an app that calls the Web service. Click **REQUEST/RESPONSE** on the Web-service dashboard and scroll to the bottom of the page. There, you will see sample code in three languages (C#, Python, and R) demonstrating how to place calls to the Web service to retrieve predicted price values for a given set of inputs.
 
-<a name="Exercise8"></a>
-## Exercise 8 (Optional): Compare two models
+<a name="Exercise7"></a>
+## Exercise 7 (Optional): Compare two models
 
-When you build a predictive model, it is often useful to try different algorithms and compare the results to see which algorithm delivers the best results. The Evaluate Model module is very effective in comparing the metrics between two different algorithms.
+When you build a predictive model, it is often useful to try different algorithms and compare the results to see which algorithm delivers the best results. The **Evaluate Model** module is very effective in comparing the metrics between two different algorithms.
 
-1. If time permits and you're so inclined, compare the results of the linear-regression model to a model that uses a different algorithm — for example, Boosted Decision Tree regression. Which model performs better?
+1. If time permits and you're so inclined, compare the results of the linear-regression model to a model that uses a different algorithm — for example, Boosted Decision Tree regression.
 
     ![Comparing two models](Images/compare-ml-models.png)
 
     _Comparing two models_
 
-### Summary ###
+Which model performs better?
+
+## Summary ##
 
 In this hands-on lab, you learned how to:
 
-- Log in to the Azure Machine Learning Studio
+- Create a new experiment in Azure Machine Learning Studio
 - Import a sample dataset and prepare it for analysis
 - Define the features of a model and select a learning algorithm
 - Train and score the model
 - Deploy the model as a Web service
 
-There's much more than you can do with Azure Machine Learning, but this is a start. Feel free to experiment with it on your own and explore the exciting world of predictive analysis with a tool that is not only productive, but fun!
+There's much more than you can do with Azure Machine Learning, but this is a start. Feel free to experiment with it on your own and explore the exciting world of predictive analytics with a tool that is both productive and interactive.
 
 ----
 
