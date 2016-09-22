@@ -54,7 +54,7 @@ In this exercise, you will create an HDInsight cluster running [Apache Spark](ht
 
 1. Go to the [Azure Portal](https://portal.azure.com/) and sign in using your Microsoft account.
 
-1. Click **+ New** in the upper-left corner. Then click **Data + Analytics**, followed by **HDInsight**.
+1. Click **+ New** in the upper-left corner. Then click **Intelligence + Analytics**, followed by **HDInsight**.
 
     ![Creating an HDInsight cluster](Images/spark-create-hdinsight-cluster.png)
 
