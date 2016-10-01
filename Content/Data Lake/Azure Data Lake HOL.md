@@ -52,7 +52,7 @@ The starting point for using Azure Data Lake is setting up an Azure Data Lake St
 
 1. In your browser, navigate to the [Azure Portal](https://portal.azure.com). If you're asked to sign in, do so using your Microsoft account.
 
-1. In the portal, click **+ New -> Data + Storage -> Data Lake Store (preview)**.
+1. In the portal, click **+ New -> Intelligence + analytics -> Data Lake Store (preview)**.
 
     ![Adding a new Data Lake Store](Images/new-data-lake-store.png)
 
@@ -85,7 +85,7 @@ Now that you have created a Data Lake Store, the next step is to create a Data L
 
 Azure Data Lake formally separates the concepts of storing data and querying data. This allows Azure Data Lake Analytics to operate against a range of possible data sources contained in an Azure Data Lake Store. In this exercise, you will create a Data Lake Analytics account and connect it to the Data Lake Store you created in Exercise 1.
 
-1. In the portal, click **+ New -> Data + Analytics -> Data Lake Analytics (preview)**.
+1. In the portal, click **+ New -> Intelligence + analytics -> Data Lake Analytics (preview)**.
 
     ![Adding a new Data Lake Analytics account](Images/new-data-lake-analytics.png)
 
@@ -224,7 +224,7 @@ Enabling federated queries will require a series of steps:
 
 Let's get started!
 
-1. In the Azure Portal, click **+ New -> Data + Storage -> Storage account**.
+1. In the Azure Portal, click **+ New -> Storage -> Storage account**.
 
     ![Adding a storage account](Images/new-storage-account.png)
 
