@@ -309,7 +309,7 @@ Once you have a trained and scored model, you can deploy it as a Web service and
 
     _The predictive experiment_
 
-1. To create a Web service that you can call to perform predictive analytics, click **RUN** once more. After the run completes, click the **DEPLOY WEB SERVICE** button followed by **Deploy Web Service [Classic]** to deploy the Web service.
+1. To create a Web service that you can call to perform predictive analytics, click **RUN** once more. After the run completes, click the **DEPLOY WEB SERVICE** button to deploy the Web service.
 
     ![Deploying the Web service](Images/deploy-web-service.png)
 
@@ -351,7 +351,7 @@ Once you have a trained and scored model, you can deploy it as a Web service and
 
 1. Click the **RUN** button to run the predictive experiment.
 
-1. Click the **DEPLOY WEB SERVICE** button followed by **Deploy Web Service [Classic]** to deploy the Web service. When asked to confirm that you want to overwrite the existing predictive experiment, answer **YES**.
+1. Click the **DEPLOY WEB SERVICE** button to deploy the Web service. If asked to confirm that you want to overwrite the existing predictive experiment, answer **YES**.
 
 1. Click the **Test** button on the Web-service dashboard.
 
