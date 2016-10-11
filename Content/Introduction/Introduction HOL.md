@@ -115,6 +115,8 @@ In this exercise, you will learn how to open the Azure Portal and view the subsc
 
 1. Click **Subscriptions** in the ribbon on the left side of the page.
 
+	> If **Subscriptions** doesn't appear in the ribbon, click **More Services** and look for it there.
+
     ![Viewing Azure subscriptions](Images/azure-portal-view-subscriptions.png)
 
     _Viewing Azure subscriptions_
