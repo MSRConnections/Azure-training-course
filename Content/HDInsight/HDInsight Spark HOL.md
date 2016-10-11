@@ -68,13 +68,13 @@ In this exercise, you will create an HDInsight cluster running [Apache Spark](ht
 
     _Specifying the cluster name_
 
-1. Click **Select Cluster Type** to open a "Cluster Type configuration" blade. In that blade, select **Spark** as the **Cluster Type**. Under **Version**, select the latest Spark version, which is **1.6.1 (HDI 3.4)** at the time of this writing. Then click **Standard** to select a **Cluster Tier**, and finish up by clicking the **Select** button at the bottom of the blade.
+1. Click **Select Cluster Type** to open a "Cluster Type configuration" blade. In that blade, select **Spark** as the **Cluster Type**. Under **Version**, select Spark version **1.6.2 (HDI 3.5)**. Then click **Standard** to select a **Cluster Tier**, and finish up by clicking the **Select** button at the bottom of the blade.
 
     ![Specifying the cluster type](Images/cluster-type.png)
 
     _Specifying the cluster type_
 
-1. Click **Credentials** to open a "Cluster Credentials" blade. Leave **Cluster Login Username** set to "admin" and make sure **SSH Authentication Type** is set to **Password**. Enter "sshuser" (without quotation marks) for the **SSH Username** and "A4rsparkdemo!" (again without quotation marks) for the **Cluster Login Password** and **SSH Password**. Then click the **Select** button at the bottom of the blade.
+1. Click **Credentials** to open a "Cluster Credentials" blade. Leave **Cluster Login Username** set to "admin" and set the **Cluster Login Password** to "A4rsparkdemo!".  Enter "sshuser" (without quotation marks) for the **SSH Username**, make sure **SSH Authentication Type** is set to **Password**, and enter "A4rsparkdemo!" (again without quotation marks) again for the **SSH Password**. Then click the **Select** button at the bottom of the blade.
 
     ![Specifying cluster credentials](Images/cluster-credentials.png)
 
