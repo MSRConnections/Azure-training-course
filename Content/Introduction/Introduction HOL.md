@@ -1,34 +1,30 @@
 <a name="HOLTitle"></a>
-# Activating Your Azure Pass and Using the Azure Portal #
+# Using the Azure Portal #
 
 ---
 
 <a name="Overview"></a>
 ## Overview ##
 
-The entry point to Azure is the [Azure Portal](https://portal.azure.com) shown below, which you will become familiar with as you work through the labs. In order to use the portal, you must have an Azure subscription. When you consume Azure services through the portal — when, for example, you store data in a storage account or deploy a high-performance computing (HPC) cluster — those services are billed against your subscription. A free subscription has been provided for you for this class in the form of an [Azure Pass](https://www.microsoftazurepass.com/). Activating your Azure Pass allows you to get started exploring Azure without worrying about the cost.
+[Microsoft Azure](https://azure.microsoft.com) is Microsoft's cloud computing platform. It offers dozens of services to help developers write cloud-based applications and researchers process and analyze big data. And it is supported by more than 20 data centers around the world, producing unprecedented scale, availability, and reliability, all while offering massive economy of scale to consumers.
+
+The entry point to Azure is the [Azure Portal](https://portal.azure.com), which you will become familiar with as you work through the labs. In order to use the portal, you must have an Azure subscription. When you consume Azure services through the portal — when, for example, you store data in a storage account or deploy a high-performance computing (HPC) cluster — those services are billed against your subscription. A free subscription has been provided for you for this class in the form of an [Azure Pass](https://www.microsoftazurepass.com/). Activating your Azure Pass allows you to get started exploring Azure without worrying about the cost.
 
 ![The Azure Portal](Images/azure-portal.png)
 
 _The Azure Portal_
 
-The objective of this lab is to activate your Azure Pass and begin familiarizing yourself with the Azure Portal.
+In this lab, you will activate an Azure Pass using a new Microsoft account created just for you. Then you will log in to the Azure Portal and confirm that the Azure Pass was properly activated.
+
 
 <a name="Objectives"></a>
 ### Objectives ###
 
 In this hands-on lab, you will learn how to:
 
-- Activate your Azure Pass
+- Activate an Azure Pass
 - Log in to the Azure Portal with a Microsoft account
 - View the Azure subscriptions associated with your account
-
-<a name="Prerequisites"></a>
-### Prerequisites ###
-
-The following is required to complete this hands-on lab:
-
-- An Azure Pass activation code. If you do not have one, please see the instructor.
 
 ---
 <a name="Exercises"></a>
@@ -36,88 +32,86 @@ The following is required to complete this hands-on lab:
 
 This hands-on lab includes the following exercises:
 
-- [Exercise 1: Get a Microsoft account](#Exercise1)
-- [Exercise 2: Activate your Azure Pass](#Exercise2)
-- [Exercise 3: Access the Azure Portal and view subscription information](#Exercise3)
+- [Exercise 1: Activate an Azure Pass](#Exercise1)
+- [Exercise 2: Access the Azure Portal and view subscription information](#Exercise2)
 
 Estimated time to complete this lab: **15** minutes.
 
 <a name="Exercise1"></a>
-## Exercise 1: Get a Microsoft account ##
+## Exercise 1: Activate an Azure Pass ##
  
-Your Azure Pass is a subscription that provides $500 worth of Azure credits for up to one month. In order to activate an Azure Pass, you need a Microsoft account. Currently, you can only use an Azure Pass with a given Microsoft account one time. If you already have a Microsoft account and are certain that it that has never been used with an Azure Pass, then you can **skip this exercise and [proceed to Exercise 2](#Exercise2)**. If you don't have a Microsoft account, or if you do but aren't sure whether it has ever been used with an Azure Pass, then follow the steps below to create a new Microsoft account. Microsoft accounts are free and provide access to a wide range of Microsoft services, including Azure.
+In this exercise, you will activate an Azure Pass that provides you with $500 worth of Azure credits for up to one month. You will also receive a brand new Microsoft account for activating your Azure Pass and logging in to the Azure Portal.
 
 1. Start a **private or incognito session** in the browser of your choice. In Chrome, you can start an incognito session by clicking the ![Chrome Menu](Images/chrome-menu.png) button in the upper-right corner and selecting **New Incognito Window**. In Microsoft Edge, click the **...** button in the upper-right corner and select **New InPrivate window**.
 
-1. In the private browsing window, navigate to the Microsoft account sign-up page at [https://signup.live.com](https://signup.live.com/).
+1. In the private or incognito browsing session, navigate to https://azure4research.org.
 
-    ![Creating a new Microsoft account](Images/new-microsoft-account.png)
+1. Type the event code provided by the instructor into the **Event Code** box and your e-mail address into the **Email Address** box. Then click **Submit**.
 
-    _Creating a new Microsoft account_
+    ![Requesting an Azure Pass](Images/enter-event-code.png)
 
-1. Type in the information requested and at the bottom of the page, click the **Create account** button. _Remember the user name and password you entered_ because you will need them to log in to the Azure Portal.
+    _Requesting an Azure Pass_
 
-	> You can use any e-mail address you'd like as the user name for your new Microsoft account, including the .edu address provided by your school, but you can't use an e-mail address that has *already* been used to create a Microsoft account. If you need a new e-mail address, click **Get a new email address** under the **User name** box near the top of the form.
+1. Enter your first and last name and click **Submit**.
 
-1. If you're prompted to provide further information or perform additional actions, follow the instructions provided to finish creating the Microsoft account.
+1. If an Azure Pass code and login credentials aren't shown to you, wait for the instructor to approve the request. Then refresh the page in your browser.
 
-Now that you have a Microsoft account, you can activate your Azure Pass.
+1. Copy the Azure Pass code and the user name and password assigned to you into your favorite text editor so you can retrieve them later. Then click the **Redeem** button.
 
-<a name="Exercise2"></a>
-## Exercise 2: Activate your Azure Pass ##
+    ![Azure Pass code and login credentials](Images/pass-and-credentials.png)
 
-In this exercise, you will use the code you were given at the start of the day to activate an Azure Pass and associate it with your Microsoft account.
+    _Azure Pass code and login credentials_
+ 
+1. Select a country, and type the Azure Pass code you received in the previous step into the box underneath the drop-down list. Then click the **Submit** button.
 
-1. Open your Web browser and navigate to [https://www.microsoftazurepass.com](https://www.microsoftazurepass.com). Select a country from the drop-down list labeled **Please Select Country**, and type the activation code you were given into the box underneath the drop-down list. Then click the **Submit** button.
+    ![Entering the Azure Pass code](Images/activate-azure-pass-1.png)
 
-    ![Entering the activation code](Images/activate-azure-pass-1.png)
+    _Entering the Azure Pass code_
 
-    _Entering the activation code_
-
-1. If your activation code is accepted, you will be asked to sign in using your Microsoft account. Click the **Sign in** button.
+1. Click the **Sign in** button.
 
     ![Signing in](Images/ex1-click-sign-in.png)
 
     _Signing in_
 
-1. What happens next will vary depending on how many and what types of Microsoft accounts you have. The goal is to sign in using the credentials for the new Microsoft account you created in Exercise 1, or for your existing Microsoft account if you skipped Exercise 1. Ultimately, you will probably be asked to enter the user name and password for that account. Type them in and click the **Sign in** button.
+1. What happens next will vary depending on how many and what types of Microsoft accounts you have. The goal is to sign in using the credentials you received in Step 6, **not** with an existing Microsoft account. When you are asked to sign in, enter the user name and password from Step 6 and click the **Sign in** button.
 
-    ![Signing in with your Microsoft account](Images/activate-azure-pass-3.png)
+1. When prompted to update your password, type the old password and the new password (twice) and click **Update password and sign in**. *Remember the new password because you will need it to log in to the Azure Portal*.
 
-    _Signing in with your Microsoft account_
+    ![Updating your password](Images/update-password.png)
 
-1. You will now be returned to the Azure Pass site and asked to verify your first and last names. Confirm that they are correct and click the **Submit** button.
+    _Updating your password_
 
-    ![Verifying your Microsoft account information](Images/ex1-verify-account-info.png)
+1. Confirm that your first name, last name, and user name are correct, and then click the **Submit** button.
+
+    ![Verifying your Microsoft account information](Images/verify-info.png)
 
     _Verifying your Microsoft account information_
 
 1. Click the **Activate** button to activate your Azure Pass.
 
-    ![Activating your Azure Pass](Images/ex1-activate-subscription.png)
+    ![Activating your Azure Pass](Images/activate.png)
 
     _Activating your Azure Pass_
 
-1. After a few moments, you will be asked to provide additional information, including a contact phone number. Enter your phone number and check the **I agree to the subscription agreement, offer details, and privacy statement** box. Then click the **Sign up** button and *do not close the browser* as it can take several minutes to activate the Azure Pass.
+1. You will be asked to provide additional information, including a contact phone number. Enter the required information and click the **Sign up** button to finish activating your Azure Pass.
 
-    ![Completing the activation process](Images/activate-azure-pass-5.png)
-
-    _Completing the activation process_
-
-1. After several minutes, you'll be told "Your subscription is ready for you!" *Do not* click the **Start managing my service** button. Instead, close the browser window.
+1. After a few minutes, you'll be told "Your subscription is ready for you!" *Do not* click the **Start managing my service** button. Instead, close the browser window.
 
     ![Your subscription is ready!](Images/subscription-is-ready.png)
 
     _Your subscription is ready!_
 
-Now let's confirm that your Azure Pass was activated and associated with your Microsoft account.
+Now let's confirm that your Azure Pass was activated.
 
-<a name="Exercise3"></a>
-## Exercise 3: Access the Azure Portal and view subscription information ##
+<a name="Exercise2"></a>
+## Exercise 2: Access the Azure Portal and view subscription information ##
 
-In this exercise, you will learn how to open the Azure Portal and view the subscriptions associated with your Microsoft account, as well as how to view usage data regarding those subscriptions so you can keep track of how much of your $500 credit is left.
+In this exercise, you will learn how to open the Azure Portal and view the subscriptions associated with your account.
 
-1. Open a new browser window and navigate to the Azure Portal at [https://portal.azure.com](https://portal.azure.com). If you're prompted to log in with a Microsoft account, use the Microsoft account you used to activate your Azure Pass in Exercise 2.
+1. Open a new browser window and navigate to the Azure Portal at https://portal.azure.com. Log in with the user name you received in Exercise 1, Step 6, and the new password you entered in Step 10.
+
+	> If you are automatically logged in to the portal using another Microsoft account, sign out of the portal and **sign in with your new credentials**.
 
 1. Click **Subscriptions** in the ribbon on the left side of the page.
 
@@ -141,7 +135,7 @@ In this hands-on lab, you learned how to:
 - Log in to the Azure Portal with a Microsoft account
 - View the Azure subscriptions associated with your account
 
-The portal will be your home for everything Azure and your gateway for using the cloud to aid your research.
+The portal will be your home for everything Azure and your gateway for using the cloud.
 
 ---
 
