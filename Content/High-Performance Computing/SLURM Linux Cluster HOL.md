@@ -204,9 +204,7 @@ You can use any text editor that you're comfortable with. There is no need to be
 
 1. Save your changes to **slurmdemo.py** and close the text editor.
 
-1. Open **slurmdemo.setup.sh** in your text editor. Search for all instances of "adminuser" and replace them with the ADMINUSERNAME value ("azureuser") you specified in [Exercise 1](#Exercise1). **There are six instances that need to be replaced**.
-
-1. Save your changes to **slurmdemo.setup.sh** and close the text editor.
+1. If you entered a value different than "azureuser" in [Exercise 1](#Exercise1) for the cluster admin name, then open **slurmdemo.setup.sh** in your text editor. Search for all instances of "adminuser" and replace them with the ADMINUSERNAME value ("azureuser") you specified in [Exercise 1](#Exercise1). **There are six instances that need to be replaced**.  Save your changes to **slurmdemo.setup.sh** and close the text editor when you have finished.  *Reminder: If you used the default value ("azureuser"), then you do not need to perform this step.*
 
 You've updated the script files with the necessary information. Now you're ready for the next step: configuring the SLURM cluster and using it to process the images. If you're running macOS or Linux, proceed to [Exercise 4](#Exercise4). If you are running Windows, skip to [Exercise 5](#Exercise5).
 
