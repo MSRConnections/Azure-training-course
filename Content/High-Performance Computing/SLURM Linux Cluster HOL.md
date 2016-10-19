@@ -72,33 +72,43 @@ Let's get started!
 
      _Deploying from GitHub_
 
-1. In the Azure Portal, click **Edit template** in the "Custom deployment" blade. When the "Edit template" blade opens, find the variable named "ubuntuOSVersion." If the variable's value is anything other than "16.04.0-LTS," change it to "16.04.0-LTS" and then click the **Save** button. (If the variable value doesn't have to be changed, click the **Discard** button instead.)
+1. In the Azure Portal, click **Edit** in the "Spin up  SLURM cluster" blade.
 
-    ![Editing the deployment template](Images/edit-template.png)
+    ![Edit the deployment template](Images/edit-template.png)
+
+     _Edit the deployment template_
+
+1. When the "Edit template" blade opens, scroll down to find the variable named "ubuntuOSVersion." If the variable's value is anything other than "16.04.0-LTS," change it to "16.04.0-LTS" and then click the **Save** button. (If the variable value doesn't have to be changed, click the **Discard** button instead.)
+
+    ![Editing the deployment template](Images/update-ubuntu.png)
 
      _Editing the deployment template_
 
-1. Click **Edit parameters** in the "Custom deployment" blade. In the ensuing "Parameters" blade, enter a unique DNS name for **DNSNAME** and a unique storage-account name for **NEWSTORAGEACCOUNTNAME**. (Recall that storage-account names must be from 3 to 24 characters in length and can only contain numbers and lowercase characters.) Make both names as unique as possible, even factoring in your initials, birth date, etc. A name that is unique right now might not be unique several minutes from now while the deployment is in progress.
+1. Back in the "Spin up a SLURM cluster" blade, in the "BASICS" section, select **Create new** under under **Resource group** and enter the name "SLURMLabResourceGroup" (without quotation marks). Under **Resource group location**, select the location nearest you.
+
+    ![Basic Settings](Images/basic-settings.png)
+
+     _Basic Settings_
+
+1. In the "SETTINGS" section, enter a unique DNS name for **Dns Name** and a unique storage-account name for **New Storage Account Name**. (Recall that storage-account names must be from 3 to 24 characters in length and can only contain numbers and lowercase characters.) Make both names as unique as possible, even factoring in your initials, birth date, etc. A name that is unique right now might not be unique several minutes from now while the deployment is in progress.
 
 	> The storage account that's being created will hold the virtual hard disks (VHDs) for the VMs in the cluster.
 
-	Accept the default **ADMINUSERNAME** value of "azureuser" and type the password "Azure\*Pass" (without quotation marks) into the **ADMINPASSWORD** field. You will need these credentials to log into the cluster later.
+	Accept the default **Admin User Name** value of "azureuser" and type the password "Azure4Research" (without quotation marks) into the **Admin Password** field. You will need these credentials to log into the cluster later.
 
-	Accept the default values for **VMSIZE** and **SCALENUMBER**. The latter specifies the number of worker nodes in the cluster. The template automatically creates an additional VM to serve as the master node. For **LOCATION**, select the location nearest you. Once all these values are entered, click the **OK** button at the bottom of the blade.
+	Accept the default values for **Vm Size** and **Scale Number**. The latter specifies the number of worker nodes in the cluster. The template automatically creates an additional VM to serve as the master node.
 
-    ![The "Parameters" blade](Images/template-parameters.png)
+    ![SLURM Cluster Settings](Images/cluster-settings.png)
 
-     _The "Parameters" blade_
+     _SLURM Cluster Settings_
 
-1. In the "Custom deployment" blade, select **Create new** under under **Resource group** and enter the name "SLURMLabResourceGroup" (without quotation marks). Under **Resource group location**, select the same location that you selected in the previous step.
+1. Before you can create the cluster, you must accept the legal terms. Scroll down to reveal the **TERMS AND CONDITIONS** content and review the content. Check the box next to **I agree to the terms and conditions stated above**.  Also check the box next to **Pin to dashboard** to create an entry for the SLURM cluster on your Azure Portal dashboard.	
 
-	Before you can create the cluster, you must accept the legal terms. Click **Review legal terms**, review the terms in the new blade that appears, and then click **Purchase** at the bottom of that blade to indicate that you accept the terms.
+	Finally, click **Purchase** at the bottom of that blade to begin deploying your SLURM cluster.
 
-	Once that's done, click the **Create** button at the bottom of the "Custom deployment" blade to begin deploying your SLURM cluster.
+    ![_Accept legal terms and begin the deployment](Images/custom-deployment.png)
 
-    ![The "Custom deployment" blade](Images/custom-deployment.png)
-
-     _The "Custom deployment" blade_
+     _Accept legal terms and begin the deployment_
 
 1. Deploying the SLURM cluster can take 10 minutes or more. You can monitor the status of the deployment by opening the resource group's blade. Click **Resource group** in the ribbon on the left side of the portal, and then click the resource group name ("SLURMLabResourceGroup") to open the blade. "Deploying" will change to "Succeeded" when the deployment has completed successfully.
 
@@ -227,7 +237,7 @@ In this exercise, you will upload the slurmdemo.* files to the master node of th
 
 1. Open a terminal window and navigate to this lab's "resources" directory.
 
-1. Execute the following command in the terminal window, replacing _adminuser_ with the cluster's ADMINUSERNAME ("azureuser") and _masterDNS_ with the DNS name on the clipboard. When prompted, enter your ADMINPASSWORD ("Azure*Pass").
+1. Execute the following command in the terminal window, replacing _adminuser_ with the cluster's ADMINUSERNAME ("azureuser") and _masterDNS_ with the DNS name on the clipboard. When prompted, enter your ADMINPASSWORD ("Azure4Research").
 
     <pre>
     scp *.py *.sh <i>adminuser</i>@<i>masterDNS</i>:~
@@ -235,7 +245,7 @@ In this exercise, you will upload the slurmdemo.* files to the master node of th
 
 	> Because this is the first time you have connected to the master node, you will be prompted with a warning dialog asking if you trust this host. Since the host is one you created, click **Yes**.
 
-1. The next step is to log into the master node. Execute the following command, replacing _adminuser_ with the cluster's ADMINUSERNAME ("azureuser") and _masterDNS_ with the DNS name on the clipboard. When prompted, enter your ADMINPASSWORD ("Azure*Pass").
+1. The next step is to log into the master node. Execute the following command, replacing _adminuser_ with the cluster's ADMINUSERNAME ("azureuser") and _masterDNS_ with the DNS name on the clipboard. When prompted, enter your ADMINPASSWORD ("Azure4Research").
 
     <pre>
     ssh -l <i>adminuser</i> <i>masterDNS</i>
@@ -287,11 +297,11 @@ In this exercise, you will upload the slurmdemo.* files to the master node of th
 
     _Connecting with PuTTY_
 
-1. A PuTTY terminal window will appear and you will be prompted to **login as**. Log in with the user name ("azureuser") and password ("Azure*Pass") you entered into the ADMINUSERNAME and ADMINPASSWORD fields of the deployment template in [Exercise 1](#Exercise1).
+1. A PuTTY terminal window will appear and you will be prompted to **login as**. Log in with the user name ("azureuser") and password ("Azure4Research") you entered into the ADMINUSERNAME and ADMINPASSWORD fields of the deployment template in [Exercise 1](#Exercise1).
 
 1. To copy files to the master node, you will use PuTTY's Secure Copy utility, pscp.exe. Open a Command Prompt window and navigate to the directory containing the scripts you modified in [Exercise 3](#Exercise3).
  
-1. Execute the following command, replacing _adminuser_ (in two places) with the cluster's ADMINUSERNAME ("azureuser") and _masterDNS_ with the DNS name on the clipboard. When prompted, enter your ADMINPASSWORD ("Azure*Pass").
+1. Execute the following command, replacing _adminuser_ (in two places) with the cluster's ADMINUSERNAME ("azureuser") and _masterDNS_ with the DNS name on the clipboard. When prompted, enter your ADMINPASSWORD ("Azure4Research").
 
     <pre>
     pscp *.py *.sh <i>adminuser</i>@<i>masterDNS</i>:/home/<i>adminuser</i>
