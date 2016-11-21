@@ -6,11 +6,11 @@
 <a name="Overview"></a>
 ## Overview ##
 
-Whether you realize it or not, bots are everywhere. In fact, you probably interact with bots every day without even realizing it. Bots, especially chat and messenger bots, are changing the way we interact with businesses, communities, and even each other. Thanks to light-speed advances and availability of artificial intelligence services, bots are not only becoming more advanced and personalized, but also more accessible for creation by the average developer. 
+Whether you realize it or not, bots are everywhere. In fact, you probably interact with bots every day without realizing it. Bots, especially chat and messenger bots, are changing the way we interact with businesses, communities, and even each other. Thanks to light-speed advances and availability of artificial intelligence services, bots are not only becoming more advanced and personalized, but also more accessible to developers. 
 
-Regardless of the target language or platform, developers building bots face the same common problems: Bots require basic input and output. Bots need language and dialog logic. Bots need to be responsive, scalable, and extensible, and they need to interact with users in any conversation experience and language the user chooses. The Microsoft Bot Framework provides the foundation for what developers need to build, connect, manage and publish intelligent bots that interact naturally with users over a diverse range of third-party and custom services. 
+Regardless of the target language or platform, developers building bots face the same challenges: Bots require basic input and output. Bots need language and dialog logic. Bots need to be responsive, scalable, and extensible, and they need to interact with users in a conversational manner and in the language the user chooses. The Microsoft Bot Framework provides the foundation developers need to build, connect, manage, and publish intelligent bots that interact naturally with users using a range of third-party and custom services. 
 
-In this lab, you’ll register and configure a bot for use with the Microsoft Bot Framework, as well as build and publish a bot using the Microsoft Bot Framework SDK configured for use with a Skype channel that can return random, interesting facts to a user.
+In this lab, you will create a bot for use with the Microsoft Bot Framework. The bot will use a Skype channel to return random, interesting facts to a user.
 
 <a name="Objectives"></a>
 ### Objectives ###
@@ -19,7 +19,7 @@ In this hands-on lab, you will learn how to:
 
 - Create an Azure Web App to host a bot
 - Create and configure a bot registration
-- Setup and configure a bot project 
+- Set up and configure a bot project 
 - Add conversation logic to a bot
 - Debug bot processes
 - Publish a bot for use with third-party channels
@@ -29,10 +29,9 @@ In this hands-on lab, you will learn how to:
 
 The following are required to complete this hands-on lab:
 
-- An active Microsoft account, or [sign up for an account](https://signup.microsoft.com)
-- An active Microsoft Azure subscription, or [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
-- [Visual Studio Code](http://code.visualstudio.com "Visual Studio Code") 
-- [Skype](https://www.skype.com/en/download-skype/skype-for-computer/ "Skype") installed on your computer (to test third-party channel integration)
+- An active Microsoft Azure subscription. Use the Azure Pass you activated earlier, or [sign up for a free trial](http://aka.ms/WATK-FreeTrial).
+- [Visual Studio Code](http://code.visualstudio.com) 
+- [Skype](https://www.skype.com/en/download-skype/skype-for-computer/)
 
 ---
 
@@ -43,7 +42,7 @@ This hands-on lab includes the following exercises:
 
 - [Exercise 1: Create an Azure Web App](#Exercise1)
 - [Exercise 2: Create and configure a bot registration](#Exercise2)
-- [Exercise 3: Setup and configure a bot project](#Exercise3)
+- [Exercise 3: Set up and configure a bot project](#Exercise3)
 - [Exercise 4: Add conversation logic to your bot](#Exercise4)
 - [Exercise 5: Debug bot processes](#Exercise5)
 - [Exercise 6: Publish and test your bot](#Exercise6)
@@ -53,126 +52,101 @@ Estimated time to complete this lab: **60** minutes.
 <a name="Exercise1"></a>
 ## Exercise 1: Create an Azure Web App ##
 
-The first step in creating a bot is to provide a location for the bot logic to be hosted. Azure Web Apps are a perfect solution for hosting bot applications. In this exercise you will create and configure your Azure Web App.
+The first step in creating a bot is to provide a location for the bot logic to be hosted. Azure Web Apps are perfect for hosting bot applications. In this exercise, you will create and configure an Azure Web App.
 
-1. Open the Azure Management Portal, if asked to login, do so with your Microsoft Account.
-1. Click **+ New**, followed by **Web + mobile** and then **Web App**.
+1. Open the [Azure Portal](https://portal.azure.com) in your browser. If asked to login, do so with your Microsoft Account.
+
+1. Click **+ New**, followed by **Web + Mobile** and then **Web App**.
 
     ![Creating a new Web App](Images/portal-create-new-web-app.png)
 
     _Creating a new Web App_
 
-1. The Azure portal will display a form for creating a new Azure Web App. Enter an App name such as “factbot01” (without the quotation marks) or any unique label without spaces or special characters.
-
-	>Azure Web App names can be 3 to 24 characters in length and can only contain numbers and lowercase letters. In addition, the name you enter must be unique within Azure. If someone else has chosen the same name, you'll be notified that the name isn't available with a red exclamation mark in the **App name** field.
-
-1. Under “Resource Group” select **Create New**, enter a Resource Group name such as “TrainingLabResources.”
-1. Leave “App service plan/Location” as the default generated by the Azure Portal, and click **Create**.
+1. Enter a name such as "factbot" (without quotation marks) into the **App name** box. *This name must be unique within Azure, so make sure a green check mark appears next to it.*  Make sure **Create New** is selected under **Resource Group** and enter the resource-group name "BotsResourceGroup" (again, without quotation marks). Then click **Create**.
 
     ![Configuring a new Web App](Images/portal-configure-new-web-app.png)
 
     _Configuring a new Web App_
 
-	The Azure Portal will redirect you to the Azure Portal Dashboard while it provisions your Web App. It typically takes around 30 seconds to fully provision a new Azure Web App. To monitor provisioning of your Web App from the Azure Portal:
+1. Click **Resource Groups** in the ribbon the left, followed by **BotsResourceGroup** to open the resource group created for the Web App.
 
-1. Click the **“hamburger”** icon in the Azure Portal to open the side drawer.
-1. Click **Resource Groups** followed by **TrainingLabResources**.
-1. Select the "Overview" tab.
-1. Review the Last deployment label and watch for the status to change from “Deploying” to “Succeeded”, at which time your Web App has been successfully provisioned.
+    ![Opening the resource group](Images/portal-open-resource-group.png)
 
-    ![Resource Group deployment status](Images/portal-app-deployment-status.png)
+    _Opening the resource group_
 
-    _Resource Group deployment status_
+1. Wait until **Last deployment** changes from "Deploying" to "Succeeded" indicating your Web App has been successfully provisioned.
 
-	>You may need to refresh the page in your browser from time to time to see the most recent deployment status changes.
+	> You may need to refresh the page in your browser from time to time to see the most recent deployment status changes.
 
-Your Azure Web App is now provisioned and ready to create your bot registration. You will need the Azure Web App URL created in Step 3 as part of this next exercise. 
+    ![Successful deployment](Images/portal-app-deployment-status.png)
+
+    _Successful deployment_
+
+Your Azure Web App is now provisioned and ready to create your bot registration. The URL of the Web App is http://*webappname*.azurewebsites.net, where *webappname* is the name you entered for the Web App in Step 3 (for example, http://factbot.azurewebsites.net).
 
 <a name="Exercise2"></a>
 ## Exercise 2: Create and configure a bot registration ##
 
-The next step in building a bot with the Microsoft Bot Framework is creating and configuring a bot registration at the Microsoft Bot Framework Portal. This process will create registration information and access keys you’ll need in later exercises.
+The next step in building a bot with the Microsoft Bot Framework is creating and configuring a bot registration using the Microsoft Bot Framework Portal. This process will create registration information and access keys you will need in later exercises.
 
-1. Open the Microsoft Bot Framework Portal, and click **Sign in** on the portal menu. if asked to login, do so with your Microsoft Account.
-1. Click **Register a bot** in the top navigation menu. You will be redirected to the bot registration page.
+1. Open the [Microsoft Bot Framework Portal](https://dev.botframework.com/) in your browser. If you are not signed in, click **Sign in** in the upper-right corner and sign in with your Microsoft Account.
+
+1. Click **Register a bot** in the menu at the top of the page.
 
     ![Registering a bot](Images/bot-registering-bot.png)
 
     _Registering a bot_
 
-1. Under the “Bot profile” section, type “Factbot” (without quotation marks) in the Name field, and “Factbot01” (also without quotation marks) in the **Bot handle** field.
+1. In the "Bot profile" section, type "Factbot" (without quotation marks) in the **Name** field. Type a bot handle such as "Factbot" into the **Bot handle** field, and enter a brief description of your bot into the **Description** field.
 	
-	>Microsoft Bot handles names can be 3 to 24 characters in length and can only contain numbers, lowercase letters, and a limited set of special characters. In addition, the handle you enter must be unique within the Bot Framework registry. If someone else has chosen the same handle, you'll be notified that the name isn't available with a red exclamation mark in the **Bot handle** field when attempting to save your bot registration.
-
-1. Type “Training lab fact bot” in the **Description** field.
-
     ![Registering a bot profile](Images/bot-bot-registration-01.png)
 
     _Registering a bot profile_
 
-1. Scroll down to the “Configuration” section and in the **Messaging endpoint** field, and enter the following value, replacing “[webappname]” with the Azure Web App name entered in Exercise 1, Step 3. Be certain to add "/api/messages" to the end of the endpoint URL.
+1. Scroll down to the "Configuration" section and in the **Messaging endpoint** field, enter the value below, replacing *webappname* with the Azure Web App name you entered in Exercise 1, Step 3. Then click the **Create Microsoft App ID and password** button.
 
-	```
-	https://[webappname].azurewebsites.net/api/messsages
-	```
-	
-	>Bot messaging endpoints can only communicate over secure protocols. Observe the messaging endpoint URL uses https rather than http.
+	<pre>
+	https://<i>webappname</i>.azurewebsites.net/api/messsages
+	</pre>
 
-1. Leave Microsoft App ID field empty for now, and click the **Create Microsoft App ID and password** button. You will be redirected to the “Generate App ID and secret” page.
+	> Bot messaging endpoints can only communicate over secure protocols. Observe that the messaging endpoint URL uses HTTPS rather than HTTP.
 
     ![Configuring a bot messaging endpoint](Images/bot-bot-registration-02.png)
 
     _Configuring a bot messaging endpoint_
 
-1. Your bot App name will be automatically populated, and a new Microsoft App ID will be created for you. Click the **Generate an app secret** to continue button to create an app secret value.
+1. An app ID is automatically generated for your bot. Click **Generate an app password to continue** to create an app password.
 
-    ![Generating an app secret value](Images/bot-generate-app-secret.png)
+    ![Generating an app password](Images/bot-generate-app-secret.png)
 
-    _Generating an app secret value_
+    _Generating an app password_
+
+1. Copy the password into your favorite text editor and save it so you can retrieve it later. **You will not be able to retrieve this password after this step**, but will be required to use it in a later exercise. Once the password is saved, click **Ok** to dismiss the dialog.
+
+    ![Copying the new app password](Images/bot-new-app-secret.png)
+
+    _Copying the new app password_
 	
-	>Copy the new password generated in the “New password generated” dialog, and **immediately paste it into a text file**. **You will not be able to retrieve this password after this step**, but will be required to use it in a later exercise.
-
-1. After you’ve successfully copied and pasted the new password. Click **Ok** to dismiss the dialog.
-
-    ![Copying the new app secret value](Images/bot-new-app-secret.png)
-
-    _Copying the new app secret value_
+1. Click the **Finish and go back to Bot framework** button to return to the bot registration page.
 	
-1. Click the **Finish and go back to Bot framework** button. You will be redirected back to your bot registration page, with your Microsoft App ID automatically populated.
+1. Check the box at the bottom of the form, and then click the **Register** button. Finish up by clicking **OK** to dismiss the dialog that informs you that your bot was successfully registered.
  
-    ![Completing the bot app registration](Images/bot-complete-bot-app-registration.png)
-
-    _Completing the bot app registration_
-	
-1. Scroll down to the “Publisher profile” section. 
-	
-	>Although these values are required for publishing a bot for public use, they are not required to be valid for the exercises in this lab. You will be populating many of these fields with “placeholder” information instead.
-
-1. Type in “Training Lab” (without quotation marks) in the **Publisher name** field. Your Microsoft account email will already be populated as the Publisher Email field. Leave this value as the default.
-1. Type in “http://www.microsoft.com” in both the **Privacy statement** and **Terms of Use** fields. Leave all remaining fields empty, or as their default values.
- 
-    ![Adding the bot registration publisher profile](Images/bot-bot-registration-03.png)
-
-    _Adding the bot registration publisher profile_
-	
-1. Scroll to the bottom of the form and check the **By clicking Register, you agree to the Privacy statement, Terms of use, and Code of conduct** value check box and then click the **Register** button. After a short delay, a “Bot created” dialog will appear notifying you of a successful registration.
- 
-    ![Completing the bot registration](Images/bot-bot-registration-04.png)
+    ![Completing the bot registration](Images/bot-bot-registration-03.png)
 
     _Completing the bot registration_
+
+1. Leave the ensuing page open in your browser so you can easily return to it later.
 
     ![Completed bot registration](Images/bot-bot-registration-complete.png)
 
     _Completed bot registration_
 	
-Your bot is now configured and registered for use with the Microsoft Bot Framework and you’re ready to start building your bot. To build your bot you will be using Visual Studio Code. 
+Your bot is now configured and registered for use with the Microsoft Bot Framework and you are ready to start building your bot.
 
 <a name="Exercise3"></a>
-## Exercise 3: Setup and configure a bot project ##
+## Exercise 3: Set up and configure a bot project ##
 
-Now that you’ve created and configured your bot registration, it’s time to start building your bot in Visual Studio Code. If you haven’t installed Visual Studio Code, you will need to do so before continuing with this exercise.
-
-Once you have confirmed you have Visual Studio Code installed you can start building your bot:
+Now that you've created and configured your bot registration, it's time to start building your bot in Visual Studio Code. If you haven’t installed Visual Studio Code, you will need to do so before continuing with this exercise.
 
 1. Start Visual Studio Code and open the Integrated Terminal by clicking **View > Integrated Terminal** in the VS Code menu. The TERMINAL window will appear at the bottom of your environment workspace.
 
@@ -190,13 +164,13 @@ Once you have confirmed you have Visual Studio Code installed you can start buil
 
     _Executing mkdir Factbot_
 
-1. Type “cd Factbot” in the TERMINAL window, and hit the **enter** key on your keyboard to navigate to the new Factbot folder.
+1. Type "cd Factbot" in the terminal window, and press the **Enter** key on your keyboard to navigate to the new Factbot folder.
 
     ![Executing cd Factbot](Images/vs-cd-factbot.png)
 
     _Executing cd Factbot_
 
-1. Type “code .” [the word code, followed by a space and period) and hit the **enter** key on your keyboard to open VS Code in your new folder location.
+1. Type “code .” (the word code, followed by a space and period) and hit the **enter** key on your keyboard to open VS Code in your new folder location.
 
     ![Opening a new instance of Visual Studio Code](Images/vs-code-dot.png)
 
@@ -208,7 +182,7 @@ Once you have confirmed you have Visual Studio Code installed you can start buil
 
     _The new Factbot project_
 
-1. In the **Explorer**, click the **New File** icon to the right of the FACTBOT heading to create a new file, and then type “app.js” (without quotation marks) in the new line item in Explorer, and then hit the **enter** key on your keyboard. 
+1. In the Explorer panel, click the **New File** icon to the right of the FACTBOT heading to create a new file, and then type "app.js" (without quotation marks) in the new line item in Explorer, and then hit the **enter** key on your keyboard. 
 
     ![Adding a new project file](Images/vs-click-add-new-file.png)
 
@@ -307,11 +281,9 @@ To automatically generate your bot project configuration file:
 
     _Replacing bot registration values_	
 
-
 1.	Replace the values [BOT_MICROSOFT_APP_ID] with the Microsoft App Id generated in Exercise 2, and then replace [BOT_MICROSOFT_APP_PASSWORD] with the password you copied to a text file, also in Exercise 2.	
-	
  
-	>If you need to view the Microsoft App ID created in Exercise 2, open up a browser and navigate to the **Microsoft Bot Framework Portal**. When the portal opens, click **My Bots** and then **Factbot**, to review your bot configuration information, including the Microsoft App ID created in Exercise 2.
+	> If you need to view the Microsoft App ID created in Exercise 2, open up a browser and navigate to the **Microsoft Bot Framework Portal**. When the portal opens, click **My Bots** and then **Factbot**, to review your bot configuration information, including the Microsoft App ID created in Exercise 2.
 
 1.	Close the new launch.json file by selecting **File > Close Editor** from the Visual Studio Code menu. If prompted to save changes, click **Save**.
 	
@@ -340,9 +312,8 @@ Your bot project is now setup and configured and you’re ready to write code to
 
 The entire goal of creating a bot is to have intelligent, automated interactions with users. Now that all the configuration, registration, and project setup are complete, you can start writing code for your bot.
 
-To add some simple code logic to your bot:
-
 1. Open Visual Studio Code, or return to it if Visual Studio Code is still open from the previous exercise.
+
 1. In the Visual Studio Code Explorer, select the app.js file created in the previous exercise. The file contents will open in the Editor window.
  
     ![Opening the app.js file](Images/vs-select-app-js-file.png)
@@ -514,6 +485,7 @@ To add some simple code logic to your bot:
 	]);
 	```
 1. Select **File > Save** to save the changes to your app.js file.
+
 1. In the TERMINAL window right-click anywhere in the window and select **New Terminal**.
 	
     ![Opening a new terminal window](Images/vs-select-new-terminal.png)
@@ -526,14 +498,15 @@ To add some simple code logic to your bot:
 
     _Running the Factbot application_	
 
-1. Type “hello” (again, without quotation marks) to “wake up” your bot. 
+1. Type "hello" (again, without quotation marks) to “wake up” your bot. 
+
 1. Continue answering the questions as Factbot guides you a step at a time.
 	
     ![Answering questions in a guided conversation](Images/vs-bot-interaction-01.png)
 
     _Answering questions in a guided conversation_	 
 
-1. When Factbot asks you “[W]ould you like me to grab a random, interesting fact for you to enjoy?” select **1. yes**. by typing either the number "1" (without quotation marks) or the word "yes" (again without quotation marks.)
+1. When Factbot asks you "[W]ould you like me to grab a random, interesting fact for you to enjoy?" select **1. yes**. by typing either the number "1" (without quotation marks) or the word "yes" (again without quotation marks.)
 	
     ![Confirming you want to view a random, interesting fact](Images/vs-request-view-fact.png)
 
@@ -551,16 +524,15 @@ To add some simple code logic to your bot:
 
     _Viewing additional facts through guided bot interactions_	 
   
-In this exercise you’ve written a fully functional bot that leverages built in features of the Microsoft Bot Framework, and added additional code to call an external REST-based API service. You have also run your bot within the terminal to experience the flow of the guided conversation. Let’s take a look at how we can debug a bot to ensure everything is working as designed, before we publish our bot to our Azure service.
+In this exercise, you wrote a fully functional bot that leverages built in features of the Microsoft Bot Framework, and added additional code to call an external REST-based API service. You have also run your bot within the terminal to experience the flow of the guided conversation. Let’s take a look at how we can debug a bot to ensure everything is working as designed, before we publish our bot to our Azure service.
 
 <a name="Exercise5"></a>
 ## Exercise 5: Debug bot processes ##
 
-Debugging processes requiring input and output, such as a conversational bot is often problematic and cumbersome. The Microsoft Bot Framework makes it easy to debug bot processes on any platform through a number of helpful mechanisms, such as Bot Emulators and external consoles. One simple yet powerful way to debug bot processes is within the Visual Studio Code Integrated Terminal. 
-
-In order to enable real-time bot debugging within the Visual Studio Code Integrated Terminal:
+Debugging processes requiring input and output, such as a conversational bot is often problematic and cumbersome. The Microsoft Bot Framework makes it easy to debug bot processes on any platform through a number of helpful mechanisms, such as Bot Emulators and external consoles. One simple yet powerful way to debug bot processes is within the Visual Studio Code Integrated Terminal.
 
 1. In Visual Studio Code Explorer, select the launch.json file to open it in the Editor window.
+
 1. Locate the “console” element and change the value from "internalConsole" to “integratedTerminal”.
  
     ![Viewing the console element in the launch.json file](Images/vs-open-launch-file.png)
@@ -609,7 +581,7 @@ In order to enable real-time bot debugging within the Visual Studio Code Integra
 
     _Ending a bot debugging session_	
 
-It’s just that easy to debug and step through code written with the Microsoft Bot Framework. At this point you have a fully functioning bot and you’re ready to publish it to your Azure Web App for use within third party applications, like Skype.
+It is just that easy to debug and step through code written with the Microsoft Bot Framework. At this point you have a fully functioning bot and you’re ready to publish it to your Azure Web App for use within third party applications, like Skype.
 
 <a name="Exercise6"></a>
 ## Exercise 6: Publish and test your bot ##
@@ -619,8 +591,11 @@ In this exercise you will publish your bot application using your OneDrive accou
 To publish your bot your OneDrive and connect it to your Azure Web App:
 
 1. Open the Azure Portal dashboard (if it’s not already open from Exercise 1) and click the **“hamburger” **icon to open the side drawer menu.
+
 1. Click **Resource Groups** followed by **TrainingLabResources**.
+
 1. Select the "Overview" tab.
+
 1. Click **factbot01** (or the alternative name you entered in Step 3 of Exercise 1) to open your newly provisioned Azure Web App to open the App Service blade.
  
     ![Selecting the Azure Web App](Images/portal-select-web-app.png)
@@ -654,6 +629,7 @@ To publish your bot your OneDrive and connect it to your Azure Web App:
 To publish your bot application to your Azure Web App:
 
 1. Open a browser and go to [OneDrive](https://onedrive.live.com "OneDrive"). If asked to login in, do so with your Microsoft account.
+
 1. In the OneDrive **search box**, type “Azure Web Apps” and select the **Azure Web Apps** folder.
  
     ![Searching OneDrive for the Azure Web Apps deployment folder](Images/onedrive-search.png)
@@ -677,6 +653,7 @@ To publish your bot application to your Azure Web App:
     _Adding the bot deployment files to the OneDrive deployment folder_	
 
 1. Return to the Azure Portal and navigate to the Web App configured for deployment earlier in this exercise.
+
 1. Locate the APP DEPLOYMENT section and click **Deployment options**. Notice the blade display and menu have now changed to prepare for deployment from OneDrive. 
  
     ![Viewing the updated deployment options panel](Images/portal-view-deployment-options.png)
@@ -702,6 +679,7 @@ To publish your bot application to your Azure Web App:
     _The Azure Web App Application settings section_	
 
 1. Add a new key named “MICROSOFT_APP_ID”. Copy and paste the “MICROSOFT_APP_ID” value added to the launch.json file in Exercise 3 into the value field.
+
 1. Add a new key named “MICROSOFT_APP_PASSWORD”. Copy and paste the “MICROSOFT_APP_PASSWORD” value added to the launch.json file in Exercise 3 into the value field and click **Save**.
  
     ![Adding the MICROSOFT_APP_ID and MICROSOFT_APP_PASSWORD keys and values](Images/portal-add-new-app-settings.png)
@@ -745,8 +723,6 @@ To publish your bot application to your Azure Web App:
     _A completed Restify installation_
 
 	Now that your bot has been written, tested, and deployed to an Azure Web App, you’re ready to test Factbot in a connected channel.
-
-To connect and test Factbot in a channel:
 
 1. Open the Microsoft Bot Framework portal and click **My Bots** to view a list of your registered bots, and then click **Factbot**. If you only have a single bot registered you will automatically be redirect to the bot registration properties page.
 1. Locate the "Test connection to your bot" panel. Click the **Test** button. After a short delay, the word Accepted will appear in the panel.
@@ -815,4 +791,4 @@ This is just a beginning, as there’s a whole lot more you can do to leverage t
 
 ----
 
-Copyright 2016 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the MIT License. You may use them according to the license as is most appropriate for your project. The terms of this license can be found at https://opensource.org/licenses/MIT.
+Copyright 2016 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0).
