@@ -6,9 +6,9 @@
 <a name="Overview"></a>
 ## Overview ##
 
-Whether you realize it or not, bots are everywhere. In fact, you probably interact with bots every day without realizing it. Bots, especially chat and messenger bots, are changing the way we interact with businesses, communities, and even each other. Thanks to light-speed advances and availability of artificial intelligence services, bots are not only becoming more advanced and personalized, but also more accessible to developers. 
+Bots are everywhere. You probably interact with them every day without realizing it. Bots, especially chat and messenger bots, are changing the way we interact with businesses, communities, and even each other. Thanks to light-speed advances in artificial intelligence (AI)  and the easy availability of AI services, bots are not only becoming more advanced and personalized, but also more accessible to developers. 
 
-Regardless of the target language or platform, developers building bots face the same challenges: Bots require basic input and output. Bots need language and dialog logic. Bots need to be responsive, scalable, and extensible, and they need to interact with users in a conversational manner and in the language the user chooses. The Microsoft Bot Framework provides the foundation developers need to build, connect, manage, and publish intelligent bots that interact naturally with users using a range of third-party and custom services. 
+Regardless of the target language or platform, developers building bots face the same challenges. Bots require basic input and output. Bots need language and dialog logic. Bots need to be responsive, scalable, and extensible, and they need to interact with users in a conversational manner and in the language the user chooses. The Microsoft Bot Framework provides the foundation developers need to build, connect, manage, and publish intelligent bots that interact naturally with users using a range of third-party and custom services. 
 
 In this lab, you will create a bot for use with the Microsoft Bot Framework. The bot will use a Skype channel to return random, interesting facts to a user.
 
@@ -53,17 +53,17 @@ Estimated time to complete this lab: **60** minutes.
 <a name="Exercise1"></a>
 ## Exercise 1: Create an Azure Web App ##
 
-The first step in creating a bot is to provide a location for the bot logic to be hosted. Azure Web Apps are perfect for hosting bot applications. In this exercise, you will create and configure an Azure Web App.
+The first step in creating a bot is to provide a location for the bot to be hosted. Azure Web Apps are perfect for hosting bot applications. In this exercise, you will create and configure an Azure Web App.
 
 1. Open the [Azure Portal](https://portal.azure.com) in your browser. If asked to login, do so with your Microsoft Account.
 
 1. Click **+ New**, followed by **Web + Mobile** and then **Web App**.
 
-    ![Creating a new Web App](Images/portal-create-new-web-app.png)
+    ![Creating a new Azure Web App](Images/portal-create-new-web-app.png)
 
-    _Creating a new Web App_
+    _Creating a new Azure Web App_
 
-1. Enter a name such as "factbot" (without quotation marks) into the **App name** box. *This name must be unique within Azure, so make sure a green check mark appears next to it.*  Make sure **Create New** is selected under **Resource Group** and enter the resource-group name "BotsResourceGroup" (again, without quotation marks). Then click **Create**.
+1. Enter a name such as "factbot" (without quotation marks) into the **App name** box. *This name must be unique within Azure, so make sure a green check mark appears next to it.*  Make sure **Create new** is selected under **Resource Group** and enter the resource-group name "BotsResourceGroup" (again, without quotation marks). Then click **Create**.
 
     ![Configuring a new Web App](Images/portal-configure-new-web-app.png)
 
@@ -83,7 +83,7 @@ The first step in creating a bot is to provide a location for the bot logic to b
 
     _Successful deployment_
 
-Your Azure Web App is now provisioned and ready to create your bot registration. The URL of the Web App is http://*webappname*.azurewebsites.net, where *webappname* is the name you entered for the Web App in Step 3 (for example, http://factbot.azurewebsites.net).
+Your Azure Web App is now provisioned and ready to create your bot registration. The URL of the Web App is http://*appname*.azurewebsites.net, where *appname* is the name you entered for the Web App in Step 3 (for example, http://factbot.azurewebsites.net).
 
 <a name="Exercise2"></a>
 ## Exercise 2: Create and configure a bot registration ##
@@ -104,10 +104,10 @@ The next step in building a bot with the Microsoft Bot Framework is creating and
 
     _Registering a bot profile_
 
-1. Scroll down to the "Configuration" section and in the **Messaging endpoint** field, enter the value below, replacing *webappname* with the Azure Web App name you entered in Exercise 1, Step 3. Then click the **Create Microsoft App ID and password** button.
+1. Scroll down to the "Configuration" section and in the **Messaging endpoint** field, enter the value below, replacing *appname* with the Azure Web App name you entered in Exercise 1, Step 3. Then click the **Create Microsoft App ID and password** button.
 
 	<pre>
-	https://<i>webappname</i>.azurewebsites.net/api/messsages
+	https://<i>appname</i>.azurewebsites.net/api/messages
 	</pre>
 
 	> Bot messaging endpoints can only communicate over secure protocols. Observe that the messaging endpoint URL uses HTTPS rather than HTTP.
@@ -213,48 +213,23 @@ Now that you have created and configured your bot registration, it's time to sta
 
     _Creating a new launch file_	
 	
-1.	Locate the "env" node in **launch.json**:		
+1.	Add the "env" section highlighted below to the "configuration" section of **launch.json**, and include the app ID and app password generated for your bot in Exercise 2.	
 	
-    ![The launch file env node](Images/vs-locating-env-node.png)
+	![Adding bot registration values](Images/vs-replacing-bot-config-values.png)
 
-    _The launch file env node_	
+    _Adding bot registration values_	
 
-1.	Enter the following code directly below the “NODE_ENV”:
-
-	```
-     "MICROSOFT_APP_ID" : "[BOT_MICROSOFT_APP_ID]",
-     "MICROSOFT_APP_PASSWORD" : "[BOT_MICROSOFT_APP_PASSWORD]"
-	```	
+1.	Save your changes to **launch.json**. Then close the file.
 	
-	![Replacing bot registration values](Images/vs-replacing-bot-config-values.png)
-
-    _Replacing bot registration values_	
-
-1.	Replace the values [BOT_MICROSOFT_APP_ID] with the Microsoft App Id generated in Exercise 2, and then replace [BOT_MICROSOFT_APP_PASSWORD] with the password you copied to a text file, also in Exercise 2.	
- 
-	> If you need to view the Microsoft App ID created in Exercise 2, open up a browser and navigate to the **Microsoft Bot Framework Portal**. When the portal opens, click **My Bots** and then **Factbot**, to review your bot configuration information, including the Microsoft App ID created in Exercise 2.
-
-1.	Close the new launch.json file by selecting **File > Close Editor** from the Visual Studio Code menu. If prompted to save changes, click **Save**.
-	
-    ![Closing the Visual Code editor window](Images/vs-file-close-editor.png)
-
-    _Closing the Visual Code editor window_	
-
-1.	In the Explorer, click the **Add folder** button to create a new folder.
+1.	Click the **Explorer** button on the left, and then click the **New Folder** button to create a new folder named "en" (without quotation marks) in the "Factbot" directory.
 	
     ![Adding a new folder](Images/vs-click-add-folder.png)
 
     _Adding a new folder_	
 
-1.	Type in "en" (without quotation marks) and hit the **enter** key on your keyboard.
-	
-    ![Creating the en language folder](Images/vs-new-en-folder-created.png)
+	> The "en" folder is not required for your bot to work correctly. However, the Bot Builder SDK will display warnings in the Integrated Terminal if a default language folder is not present.
 
-    _Creating the en language folder_	
-
-	>The en folder is **not required** for you bot to work correctly, however the Bot Builder SDK will display warnings in the Integrated Terminal if a default language folder is not available.
-
-Your bot project is now setup and configured and you’re ready to write code to demonstrate communication between a user and your bot The next step is to write code to provide simple responses to a user from your bot, and then add conversation logic to provide a more meaningful experience.
+Your bot project is now setup and configured. The next step is to write code to provide simple responses to a user from your bot, and then add conversation logic to provide a more meaningful experience.
 
 <a name="Exercise4"></a>
 ## Exercise 4: Add conversation logic to your bot ##
