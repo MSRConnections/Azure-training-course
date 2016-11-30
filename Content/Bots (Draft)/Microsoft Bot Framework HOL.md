@@ -234,17 +234,9 @@ Your bot project is now setup and configured. The next step is to write code to 
 <a name="Exercise4"></a>
 ## Exercise 4: Add conversation logic to your bot ##
 
-The entire goal of creating a bot is to have intelligent, automated interactions with users. Now that all the configuration, registration, and project setup are complete, you can start writing code for your bot.
+The entire goal of creating a bot is to have intelligent, automated interactions with users. Now that all the configuration, registration, and project setup are complete, you can start coding your bot.
 
-1. Open Visual Studio Code, or return to it if Visual Studio Code is still open from the previous exercise.
-
-1. In the Visual Studio Code Explorer, select the app.js file created in the previous exercise. The file contents will open in the Editor window.
- 
-    ![Opening the app.js file](Images/vs-select-app-js-file.png)
-
-    _Opening the app.js file_	
-
-1. Replace the entire contents of the file with the following code:
+1. In Visual Studio Code, open **app.js** if it isn't already open. Then replace the contents of the file with the following JavaScript code:
  
 	```javascript
 	var builder = require('botbuilder');
@@ -289,53 +281,29 @@ The entire goal of creating a bot is to have intelligent, automated interactions
 
 	```
 
-1. Select **File > Save** to save the changes to your app.js file.
+1. Save your changes to **app.js**. Then, In the TERMINAL window, execute the following command to run your bot:
 
-	Review the code and observe the use of the Microsoft Bot Framework Bot Builder prompt actions, such as number, choice, and confirm. These are all conveniently build into the framework. It’s simple to test your bot logic via the terminal as well. 
+	<pre>
+	node app.js
+	</pre>
 
-	![Code replaced in the app.js file](Images/vs-first-code-inserted.png)
-
-    _Code replaced in the app.js file_
-
-	To run your Factbot to sample real user interaction:
-
-1. Open the Integrated Terminal by clicking **View > Integrated Terminal** in the VS Code menu. The TERMINAL window will appear at the bottom of your environment workspace.
-
-	![The Integrated Terminal window](Images/vs-integrated-terminal-with-code.png)
-
-    _The Integrated Terminal window_
-
-1. At the prompt, type “node app.js” (without quotation marks) and hit **enter** on your keyboard. Your bot is now running and listening for interaction.
-
-	![Running the Factbot application](Images/vs-execute-node-js.png)
-
-    _Running the Factbot application_
-
-1. Type “hello” (again, without quotation marks) to “wake up” your bot. Factbot will now begin a guided conversation.
+1. Type "hello" (without quotation marks) and press **Enter** to wake up your bot. Factbot will now begin a guided conversation.
 	
-    !["Waking up" the Factbot by typing "Hello"](Images/vs-typing-hello.png)
+    !["Waking up" the bot](Images/vs-typing-hello.png)
 
-    _"Waking up" the Factbot by typing "Hello"_	
+    _"Waking up" the bot_	
 
-1. Continue answering the questions as Factbot guides you a step at a time.
+1. Answer the questions Factbot prompts you with.
 	
     ![Interacting with your bot](Images/vs-bot-interaction-01.png)
 
     _Interacting with your bot_	 
 
-	>Bots created with the Microsoft Bot Framework are smart enough to understand variations in your responses. For example, you can type "2", "JavaScript", or "javascript". Your bot will understand these are the same response.
+	> Bots created with the Microsoft Bot Framework are smart enough to understand variations in your responses. For example, you can type "2", "JavaScript", or "javascript". Your bot will understand these are the same response.
 
-	Up until now, your bot simply guides a user through a simple question and answer format, and doesn’t give a user an opportunity to get a random, interesting fact. The next step will be to write code to access an external REST-based API that exposes the ability to access random facts.
-
-1. In the Visual Studio Code Explorer, select the app.js file created in the previous exercise. The file contents will open in the Editor window.
+1. Now let's modify the bot to use an external REST-based API to retrieve random facts. In Visual Studio Code, replace the contents of **app.js** with the following code:
  	
-    ![App.js opened in the editor window](Images/vs-first-code-inserted.png)
-
-    _App.js opened in the editor window_	 
-
-1. Replace the entire contents of the file with the following code:
-
-	```
+	```JavaScript
 	var builder = require('botbuilder');
 	var https = require('https');
 	
@@ -408,104 +376,59 @@ The entire goal of creating a bot is to have intelligent, automated interactions
     }
 	]);
 	```
-1. Select **File > Save** to save the changes to your app.js file.
 
-1. In the TERMINAL window right-click anywhere in the window and select **New Terminal**.
+1. Save your changes to **app.js**. In the TERMINAL window, press **Ctrl+C** to terminate the running **app.js** file. Then start the modified bot using the following command:
+
+	<pre>
+	node app.js
+	</pre>
+
+1. Type "hello" (without quotation marks) and press **Enter** to wake up your bot. Answer the questions asked by the bot. When Factbot asks "would you like me to grab a random, interesting fact for you to enjoy," respond by typing "yes" (again, without quotation marks). After a short pause, a random fact will appear in the TERMINAL window.
 	
-    ![Opening a new terminal window](Images/vs-select-new-terminal.png)
+    ![Random fact displayed by FactBot](Images/vs-request-view-fact.png)
 
-    _Opening a new terminal window_	
+    _Random fact displayed by FactBot_	 
 
-1. At the prompt, type “node app.js” (without quotation marks) and hit the **enter** key on your keyboard. Your updated bot is now running and listening for interaction.
-	
-    ![Running the Factbot application](Images/vs-execute-node-js.png)
-
-    _Running the Factbot application_	
-
-1. Type "hello" (again, without quotation marks) to “wake up” your bot. 
-
-1. Continue answering the questions as Factbot guides you a step at a time.
-	
-    ![Answering questions in a guided conversation](Images/vs-bot-interaction-01.png)
-
-    _Answering questions in a guided conversation_	 
-
-1. When Factbot asks you "[W]ould you like me to grab a random, interesting fact for you to enjoy?" select **1. yes**. by typing either the number "1" (without quotation marks) or the word "yes" (again without quotation marks.)
-	
-    ![Confirming you want to view a random, interesting fact](Images/vs-request-view-fact.png)
-
-    _Confirming you want to view a random, interesting fact_	 
-
-1. After a short delay a random interesting fact will appear in the TERMINAL window.
-
-	>Feel free to repeat this process as many times as you like. After final confirmation your bot will show you a new random fact every time.
-	
-    ![Viewing additional facts through guided bot interactions](Images/vs-view-fact-01.png)
-
-    ![Viewing additional facts through guided bot interactions](Images/vs-view-fact-02.png)
-
-    ![Viewing additional facts through guided bot interactions](Images/vs-view-fact-03.png)
-
-    _Viewing additional facts through guided bot interactions_	 
-  
-In this exercise, you wrote a fully functional bot that leverages built in features of the Microsoft Bot Framework, and added additional code to call an external REST-based API service. You have also run your bot within the terminal to experience the flow of the guided conversation. Let’s take a look at how we can debug a bot to ensure everything is working as designed, before we publish our bot to our Azure service.
+In this exercise, you wrote a fully functional bot that leverages built-in features of the Microsoft Bot Framework, and added additional code to call an external REST-based API service. You have also run your bot within the terminal to experience the flow of the guided conversation. Let’s take a look at how we can debug a bot to ensure everything is working as designed, before we publish our bot to our Azure service.
 
 <a name="Exercise5"></a>
 ## Exercise 5: Debug bot processes ##
 
-Debugging processes requiring input and output, such as a conversational bot is often problematic and cumbersome. The Microsoft Bot Framework makes it easy to debug bot processes on any platform through a number of helpful mechanisms, such as Bot Emulators and external consoles. One simple yet powerful way to debug bot processes is within the Visual Studio Code Integrated Terminal.
+The Microsoft Bot Framework makes it easy to debug bot processes on any platform through a number of helpful mechanisms, such as bot emulators and external consoles. In this exercise, you will learn how to use Visual Studio code to debug bots by setting breakpoints and stepping through code.
 
-1. In Visual Studio Code Explorer, select the launch.json file to open it in the Editor window.
+1. In Visual Studio Code, open **launch.json** for editing. Add the "console" property highlighted below, and then save your changes.
 
-1. Locate the “console” element and change the value from "internalConsole" to “integratedTerminal”.
- 
-    ![Viewing the console element in the launch.json file](Images/vs-open-launch-file.png)
+    ![Modifying launch.json](Images/vs-open-launch-file.png)
 
-    _Viewing the console element in the launch.json file_	 
+    _Modifying launch.json_	 
   
-1. In the Explorer, select the app.js file and click the **left-hand margin** to add a breakpoint at or near line 43.
+1. Open **app.js** and add a breakpoint at line 41 by clicking in the margin to the left of the line number.
  
-    ![Setting a brekpoint in the app.js file](Images/vs-set-breakpoint.png)
+    ![Setting a brekpoint in app.js](Images/vs-set-breakpoint.png)
 
-    _Setting a brekpoint in the app.js file_	 
+    _Setting a brekpoint in app.js_ 
   
-1. Navigate to the Debug tab and click the **DEBUG green arrow** to start a debugging session. The TERMINAL window will update with a command to update debugging launch variables.
+1. Click the **Debug** button in the ribbon on the left, and then click the **green arrow** to start a debugging session.
  
     ![Starting a debugging session](Images/vs-start-debugging.png)
 
     _Starting a debugging session_	 
  
-    ![Terminal debugging launch variables](Images/vs-debug-parameters.png)
-
-    _Terminal debugging launch variables_	 
-
-	>The first time you start the debugger, the DEBUG CONSOLE will become active. Be sure to switch back over to the Integrated Terminal by selecting **View > Integrated Terminal** from the Visual Studio Code menu.   
-  
-1. Place your mouse cursor in the TERMINAL window and begin the conversation process from the previous exercise, beginning with typing “Hello” and then hit the **enter** key on your keyboard.
+1. Type "hello" into the TERMINAL window and press **Enter**. Then answer the bot's questions, and be sure to answer "yes" when asked if you want to see a random fact.
  
-    !["Waking up" the Factbot in a debugging session](Images/vs-typing-hello-in-debug.png)
-
-    _"Waking up" the Factbot in a debugging session_	 
+1. Visual Studio Code will break on line 41. Hover over any variable or parameter to see its value. Then click the **Step Over** button a few times to step through the code. 
  
-1. When your bot has gathered the information necessary, and you have responded to whether you would like to see a random, interesting fact, the debugger will break on line 43. 
+    ![Stepping through the code](Images/vs-on-breakpoint.png)
+
+    _Stepping through the code_	 
+
+1. Click the **Stop** button to end the debugging session.
  
-    ![The debugger paused on a breakpoint](Images/vs-on-breakpoint.png)
+    ![Ending a debugging session](Images/vs-click-stop-debugging.png)
 
-    _The debugger paused on a breakpoint_	 
+    _Ending a debugging session_	
 
- Just as in other Visual Studio projects and environments, you can now hover over values, view variables via the Debugger window, and step through your code.
- 
-    ![Interacting with a bot in debug mode](Images/vs-debug-interaction.png)
-
-    _Interacting with a bot in debug mode_	 
-
-1. Click the **Stop (red square)** icon in the Debugging toolbar to end your debugging session.
- 
-    ![Ending a bot debugging session](Images/vs-click-stop-debugging.png)
-
-    _Ending a bot debugging session_	
-
-It is just that easy to debug and step through code written with the Microsoft Bot Framework. At this point you have a fully functioning bot and you’re ready to publish it to your Azure Web App for use within third party applications, like Skype.
+It is just that easy to debug and step through code written with the Microsoft Bot Framework. At this point you have a fully functioning bot and you're ready to publish it to your Azure Web App for use within third party applications, like Skype.
 
 <a name="Exercise6"></a>
 ## Exercise 6: Publish and test your bot ##
