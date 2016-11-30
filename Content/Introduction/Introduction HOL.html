@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Introduction HOL</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+<style type="text/css">
+.highlight  { background: #ffffff; }
+.highlight .c { color: #999988; font-style: italic } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+.pl-c {
+    color: #969896;
+}
+
+.pl-c1,.pl-mdh,.pl-mm,.pl-mp,.pl-mr,.pl-s1 .pl-v,.pl-s3,.pl-sc,.pl-sv {
+    color: #0086b3;
+}
+
+.pl-e,.pl-en {
+    color: #795da3;
+}
+
+.pl-s1 .pl-s2,.pl-smi,.pl-smp,.pl-stj,.pl-vo,.pl-vpf {
+    color: #333;
+}
+
+.pl-ent {
+    color: #63a35c;
+}
+
+.pl-k,.pl-s,.pl-st {
+    color: #a71d5d;
+}
+
+.pl-pds,.pl-s1,.pl-s1 .pl-pse .pl-s2,.pl-sr,.pl-sr .pl-cce,.pl-sr .pl-sra,.pl-sr .pl-sre,.pl-src,.pl-v {
+    color: #df5000;
+}
+
+.pl-id {
+    color: #b52a1d;
+}
+
+.pl-ii {
+    background-color: #b52a1d;
+    color: #f8f8f8;
+}
+
+.pl-sr .pl-cce {
+    color: #63a35c;
+    font-weight: bold;
+}
+
+.pl-ml {
+    color: #693a17;
+}
+
+.pl-mh,.pl-mh .pl-en,.pl-ms {
+    color: #1d3e81;
+    font-weight: bold;
+}
+
+.pl-mq {
+    color: #008080;
+}
+
+.pl-mi {
+    color: #333;
+    font-style: italic;
+}
+
+.pl-mb {
+    color: #333;
+    font-weight: bold;
+}
+
+.pl-md,.pl-mdhf {
+    background-color: #ffecec;
+    color: #bd2c00;
+}
+
+.pl-mdht,.pl-mi1 {
+    background-color: #eaffea;
+    color: #55a532;
+}
+
+.pl-mdr {
+    color: #795da3;
+    font-weight: bold;
+}
+
+.pl-mo {
+    color: #1d3e81;
+}
+.task-list {
+padding-left:10px;
+margin-bottom:0;
+}
+
+.task-list li {
+    margin-left: 20px;
+}
+
+.task-list-item {
+list-style-type:none;
+padding-left:10px;
+}
+
+.task-list-item label {
+font-weight:400;
+}
+
+.task-list-item.enabled label {
+cursor:pointer;
+}
+
+.task-list-item+.task-list-item {
+margin-top:3px;
+}
+
+.task-list-item-checkbox {
+display:inline-block;
+margin-left:-20px;
+margin-right:3px;
+vertical-align:1px;
+}
+</style>
+</head>
+<body>
+<p><a name="HOLTitle"></a></p>
+<h1>Using the Azure Portal</h1>
+<hr>
+<p><a name="Overview"></a></p>
+<h2>Overview</h2>
+<p><a href="https://azure.microsoft.com">Microsoft Azure</a> is Microsoft's cloud computing platform. It offers dozens of services to help developers write cloud-based applications and researchers process and analyze big data. And it is supported by more than 20 data centers around the world, producing unprecedented scale, availability, and reliability, all while offering massive economy of scale to consumers.</p>
+<p>The entry point to Azure is the <a href="https://portal.azure.com">Azure Portal</a>, which you will become familiar with as you work through the labs. In order to use the portal, you must have an Azure subscription. When you consume Azure services through the portal — when, for example, you store data in a storage account or deploy a high-performance computing (HPC) cluster — those services are billed against your subscription. A free subscription has been provided for you for this class in the form of an <a href="https://www.microsoftazurepass.com/">Azure Pass</a>. Activating your Azure Pass allows you to get started exploring Azure without worrying about the cost.</p>
+<p><a href="Images/azure-portal.png" target="_blank"><img src="Images/azure-portal.png" alt="The Azure Portal" style="max-width:100%;"></a></p>
+<p><em>The Azure Portal</em></p>
+<p>In this lab, you will activate an Azure Pass using a new Microsoft account created just for you. Then you will log in to the Azure Portal and confirm that the Azure Pass was properly activated.</p>
+<p><a name="Objectives"></a></p>
+<h3>Objectives</h3>
+<p>In this hands-on lab, you will learn how to:</p>
+<ul>
+<li>Activate an Azure Pass</li>
+<li>Log in to the Azure Portal with a Microsoft account</li>
+<li>View the Azure subscriptions associated with your account</li>
+</ul>
+<hr>
+<p><a name="Exercises"></a></p>
+<h2>Exercises</h2>
+<p>This hands-on lab includes the following exercises:</p>
+<ul>
+<li><a href="#Exercise1">Exercise 1: Activate an Azure Pass</a></li>
+<li><a href="#Exercise2">Exercise 2: Access the Azure Portal and view subscription information</a></li>
+</ul>
+<p>Estimated time to complete this lab: <strong>15</strong> minutes.</p>
+<p><a name="Exercise1"></a></p>
+<h2>Exercise 1: Activate an Azure Pass</h2>
+<p>In this exercise, you will activate an Azure Pass that provides you with $500 worth of Azure credits for up to one month. You will also receive a brand new Microsoft account for activating your Azure Pass and logging in to the Azure Portal.</p>
+<ol>
+<li>
+<p>Start a <strong>private or incognito session</strong> in the browser of your choice. In Chrome, you can start an incognito session by clicking the <a href="Images/chrome-menu.png" target="_blank"><img src="Images/chrome-menu.png" alt="Chrome Menu" style="max-width:100%;"></a> button in the upper-right corner and selecting <strong>New Incognito Window</strong>. In Microsoft Edge, click the <strong>...</strong> button in the upper-right corner and select <strong>New InPrivate window</strong>.</p>
+</li>
+<li>
+<p>In the private or incognito browsing session, navigate to <a href="https://azure4research.org">https://azure4research.org</a>.</p>
+</li>
+<li>
+<p>Type the event code provided by the instructor into the <strong>Event Code</strong> box and your e-mail address into the <strong>Email Address</strong> box. Then click <strong>Submit</strong>.</p>
+<p><a href="Images/enter-event-code.png" target="_blank"><img src="Images/enter-event-code.png" alt="Requesting an Azure Pass" style="max-width:100%;"></a></p>
+<p><em>Requesting an Azure Pass</em></p>
+</li>
+<li>
+<p>Enter your first and last name and click <strong>Submit</strong>.</p>
+</li>
+<li>
+<p>If an Azure Pass code and login credentials aren't shown to you, wait for the instructor to approve the request. Then refresh the page in your browser.</p>
+</li>
+<li>
+<p>Copy the Azure Pass code and the user name and password assigned to you into your favorite text editor so you can retrieve them later. Then click the <strong>Redeem</strong> button.</p>
+<p><a href="Images/pass-and-credentials.png" target="_blank"><img src="Images/pass-and-credentials.png" alt="Azure Pass code and login credentials" style="max-width:100%;"></a></p>
+<p><em>Azure Pass code and login credentials</em></p>
+</li>
+<li>
+<p>Select a country, and type the Azure Pass code you received in the previous step into the box underneath the drop-down list. Then click the <strong>Submit</strong> button.</p>
+<p><a href="Images/activate-azure-pass-1.png" target="_blank"><img src="Images/activate-azure-pass-1.png" alt="Entering the Azure Pass code" style="max-width:100%;"></a></p>
+<p><em>Entering the Azure Pass code</em></p>
+</li>
+<li>
+<p>Click the <strong>Sign in</strong> button.</p>
+<p><a href="Images/ex1-click-sign-in.png" target="_blank"><img src="Images/ex1-click-sign-in.png" alt="Signing in" style="max-width:100%;"></a></p>
+<p><em>Signing in</em></p>
+</li>
+<li>
+<p>What happens next will vary depending on how many and what types of Microsoft accounts you have. The goal is to sign in using the credentials you received in Step 6, <strong>not</strong> with an existing Microsoft account. When you are asked to sign in, enter the user name and password from Step 6 and click the <strong>Sign in</strong> button.</p>
+</li>
+<li>
+<p>When prompted to update your password, type the old password and the new password (twice) and click <strong>Update password and sign in</strong>. <em>Remember the new password because you will need it to log in to the Azure Portal</em>.</p>
+<p><a href="Images/update-password.png" target="_blank"><img src="Images/update-password.png" alt="Updating your password" style="max-width:100%;"></a></p>
+<p><em>Updating your password</em></p>
+</li>
+<li>
+<p>Confirm that your first name, last name, and user name are correct, and then click the <strong>Submit</strong> button.</p>
+<p><a href="Images/verify-info.png" target="_blank"><img src="Images/verify-info.png" alt="Verifying your Microsoft account information" style="max-width:100%;"></a></p>
+<p><em>Verifying your Microsoft account information</em></p>
+</li>
+<li>
+<p>Click the <strong>Activate</strong> button to activate your Azure Pass.</p>
+<p><a href="Images/activate.png" target="_blank"><img src="Images/activate.png" alt="Activating your Azure Pass" style="max-width:100%;"></a></p>
+<p><em>Activating your Azure Pass</em></p>
+</li>
+<li>
+<p>You will be asked to provide additional information, including a contact phone number. Enter the required information and click the <strong>Sign up</strong> button to finish activating your Azure Pass.</p>
+</li>
+<li>
+<p>After a few minutes, you'll be told "Your subscription is ready for you!" <em>Do not</em> click the <strong>Start managing my service</strong> button. Instead, close the browser window.</p>
+<p><a href="Images/subscription-is-ready.png" target="_blank"><img src="Images/subscription-is-ready.png" alt="Your subscription is ready!" style="max-width:100%;"></a></p>
+<p><em>Your subscription is ready!</em></p>
+</li>
+</ol>
+<p>Now let's confirm that your Azure Pass was activated.</p>
+<p><a name="Exercise2"></a></p>
+<h2>Exercise 2: Access the Azure Portal and view subscription information</h2>
+<p>In this exercise, you will learn how to open the Azure Portal and view the subscriptions associated with your account.</p>
+<ol>
+<li>
+<p>Open a new browser window and navigate to the Azure Portal at <a href="https://portal.azure.com">https://portal.azure.com</a>. Log in with the user name you received in Exercise 1, Step 6, and the new password you entered in Step 10.</p>
+<blockquote>
+<p>If you are automatically logged in to the portal using another Microsoft account, sign out of the portal and <strong>sign in with your new credentials</strong>.</p>
+</blockquote>
+</li>
+<li>
+<p>Click <strong>Subscriptions</strong> in the ribbon on the left side of the page.</p>
+<blockquote>
+<p>If <strong>Subscriptions</strong> doesn't appear in the ribbon, click <strong>More Services</strong> and look for it there.</p>
+</blockquote>
+<p><a href="Images/azure-portal-view-subscriptions.png" target="_blank"><img src="Images/azure-portal-view-subscriptions.png" alt="Viewing Azure subscriptions" style="max-width:100%;"></a></p>
+<p><em>Viewing Azure subscriptions</em></p>
+</li>
+<li>
+<p>Confirm that <strong>Azure Pass</strong> appears among the list of subscriptions associated with your account, and that the subscription status is <strong>Active</strong>.</p>
+<p><a href="Images/subscriptions.png" target="_blank"><img src="Images/subscriptions.png" alt="Your Azure Pass subscription" style="max-width:100%;"></a></p>
+<p><em>Your Azure Pass subscription</em></p>
+</li>
+</ol>
+<p>You can click a subscription to retrieve billing and usage information for it. However, since your Azure Pass subscription is brand new, no data is presently available. Make a note to return to the "Subscriptions" blade later today and see if there is billing and usage information available for your Azure Pass.</p>
+<h3>Summary</h3>
+<p>In this hands-on lab, you learned how to:</p>
+<ul>
+<li>Activate an Azure Pass</li>
+<li>Log in to the Azure Portal with a Microsoft account</li>
+<li>View the Azure subscriptions associated with your account</li>
+</ul>
+<p>The portal will be your home for everything Azure and your gateway for using the cloud.</p>
+<hr>
+<p>Copyright 2016 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>.</p>
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

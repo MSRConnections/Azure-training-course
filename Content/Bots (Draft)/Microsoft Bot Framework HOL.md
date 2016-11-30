@@ -32,6 +32,7 @@ The following are required to complete this hands-on lab:
 - An active Microsoft Azure subscription. Use the Azure Pass you activated earlier, or [sign up for a free trial](http://aka.ms/WATK-FreeTrial).
 - [Visual Studio Code](http://code.visualstudio.com) 
 - [Skype](https://www.skype.com/en/download-skype/skype-for-computer/)
+- [Node.js](https://nodejs.org)
 
 ---
 
@@ -74,9 +75,9 @@ The first step in creating a bot is to provide a location for the bot logic to b
 
     _Opening the resource group_
 
-1. Wait until **Last deployment** changes from "Deploying" to "Succeeded" indicating your Web App has been successfully provisioned.
+1. Wait until **Last deployment** changes from "Deploying" to "Succeeded" indicating your Web App has been successfully deployed.
 
-	> You may need to refresh the page in your browser from time to time to see the most recent deployment status changes.
+	> You may need to refresh the page in your browser from time to time to see the most recent deployment status.
 
     ![Successful deployment](Images/portal-app-deployment-status.png)
 
@@ -123,9 +124,9 @@ The next step in building a bot with the Microsoft Bot Framework is creating and
 
 1. Copy the password into your favorite text editor and save it so you can retrieve it later. **You will not be able to retrieve this password after this step**, but will be required to use it in a later exercise. Once the password is saved, click **Ok** to dismiss the dialog.
 
-    ![Copying the new app password](Images/bot-new-app-secret.png)
+    ![Copying the app password](Images/bot-new-app-secret.png)
 
-    _Copying the new app password_
+    _Copying the app password_
 	
 1. Click the **Finish and go back to Bot framework** button to return to the bot registration page.
 	
@@ -146,125 +147,73 @@ Your bot is now configured and registered for use with the Microsoft Bot Framewo
 <a name="Exercise3"></a>
 ## Exercise 3: Set up and configure a bot project ##
 
-Now that you've created and configured your bot registration, it's time to start building your bot in Visual Studio Code. If you haven’t installed Visual Studio Code, you will need to do so before continuing with this exercise.
+Now that you have created and configured your bot registration, it's time to start building your bot in Visual Studio Code. If you haven't installed Visual Studio Code, take a moment to do so now. You can download Visual Studio Code from http://code.visualstudio.com. You should also install [Node.js](https://nodejs.org) if it isn't already installed.
 
-1. Start Visual Studio Code and open the Integrated Terminal by clicking **View > Integrated Terminal** in the VS Code menu. The TERMINAL window will appear at the bottom of your environment workspace.
+> An easy way to determine whether Node.js is installed is to open a terminal window or Command Prompt window and execute a **node -v** command. If the Node.js version number is displayed, then Node.js is installed.
 
-    ![Opening the Integrated Terminal](Images/vs-select-open-terminal.png)
+1. Open a terminal window or a Command Prompt window and use an **md** or **mkdir** command to create a directory named "Factbot" in the location of your choice. This is the directory that will hold the source code files for your bot.
 
-    _Opening the Integrated Terminal_
+1. Use a **cd** command to make the directory that you just created the current directory. Then type the following command to start Visual Studio code in that directory:
 
-    ![The Integrated Terminal window](Images/vs-integrated-terminal.png)
+	<pre>
+	code .
+	</pre>
 
-    _The Integrated Terminal window_
-
-1. In the TERMINAL window type “mkdir Factbot” and hit the **enter** key on your keyboard. A new folder named Factbot has been created.
-
-    ![Executing mkdir Factbot](Images/vs-mkdir-factbot.png)
-
-    _Executing mkdir Factbot_
-
-1. Type "cd Factbot" in the terminal window, and press the **Enter** key on your keyboard to navigate to the new Factbot folder.
-
-    ![Executing cd Factbot](Images/vs-cd-factbot.png)
-
-    _Executing cd Factbot_
-
-1. Type “code .” (the word code, followed by a space and period) and hit the **enter** key on your keyboard to open VS Code in your new folder location.
-
-    ![Opening a new instance of Visual Studio Code](Images/vs-code-dot.png)
-
-    _Opening a new instance of Visual Studio Code_
-
-	A new instance of VS Code will start. You will be working in this instance of VS Code for the remainder of the exercises.
-
-    ![The new Factbot project](Images/vs-factbot-opened.png)
-
-    _The new Factbot project_
-
-1. In the Explorer panel, click the **New File** icon to the right of the FACTBOT heading to create a new file, and then type "app.js" (without quotation marks) in the new line item in Explorer, and then hit the **enter** key on your keyboard. 
+1. In the Explorer panel, click the **New File** button to create a new file in the "Factbot" directory and name the file **app.js**. 
 
     ![Adding a new project file](Images/vs-click-add-new-file.png)
 
     _Adding a new project file_
 
-    ![The new app.js file](Images/vs-new-app-js-file.png)
-
-    _The new app.js file_
-
-	A new app.js file has been created. This file will contain the code for your bot.
-
-1. Enter the following single line of code at the top of your new app.js file: 
+1. Add the following line of code to **app.js**: 
 
 	```
 	console.log("Hello world!");
 	```
 
-    ![Adding code to the app.js file](Images/vs-add-console-log.png)
+	Then use the **File -> Save** command (or simply press **Ctrl+S**) to save the file.
 
-    _Adding code to the app.js file_
-
-1. From the Visual Studio code menu, open the Integrated Terminal again by clicking **View > Integrated Terminal**. 
+1. Open an Integrated Terminal by selecting **Integrated Terminal** from the **View** menu. The TERMINAL window will appear at the bottom of your workspace. 
 
     ![Opening the Integrated Terminal](Images/vs-select-open-terminal.png)
 
     _Opening the Integrated Terminal_
 
-1. In the TERMINAL window, enter the following command: “npm install --save botbuilder” (without quotation marks), and then hit the **enter** key on your keyboard. This command installs the Microsoft Bot Builder SDK into your environment.
+1. In the TERMINAL window, execute the following command:
+ 
+	<pre>
+	npm install --save botbuilder
+	</pre>
 
-    ![Adding support for the Microsoft Bot Builder SDK](Images/vs-execute-npm-botbuilder.png)
+	This command installs the Microsoft Bot Builder SDK into your environment.
 
-    _Adding support for the Microsoft Bot Builder SDK_
-	
-	>npm commands may take up to 60 seconds to complete. Installation details will be displayed in the terminal window during processing.
+1. Now execute this command in the TERMINAL window:
 
-    ![A completed Microsoft Bot Builder SDK installation](Images/vs-completed-npm-botbuilder.png)
+	<pre>
+	npm install --save restify
+	</pre>
 
-    _A completed Microsoft Bot Builder SDK installation_
-	
-1. Again, in the TERMINAL windows, enter the following command: “npm install --save restify”, and hit the **enter** key on your keyboard. This command installs the packages required to leverage REST-based messaging routes in your bot code.
+	This command installs the packages required to leverage REST-based messaging routes in your bot code.
 
-    ![Adding support for the REST-based messaging routes](Images/vs-execute-npm-restify.png)
+1. Execute the following command in the TERMINAL window to run the application and output "Hello world!":
 
-    _Adding support for the REST-based messaging routes_
+	<pre>
+	node app.js
+	</pre>
 
-    ![A completed Restify installation](Images/vs-completed-npm-restify.png)
+1. The next step is to generate a bot configuration file and insert values obtained from the Microsoft Bot Framework portal in the previous exercise. To begin, click the **Debug** button in the ribbon on the left side of Visual Studio Code.
 
-    _A completed Restify installation_	
+    ![Opening the debugger](Images/vs-select-debug-tab.png)
 
-	>At this point in the exercise you should save any changes you've made to your app.js file. This is a good habit to get into as you continue to write code throughout this lab.
+    _Opening the debugger_	
 
-    ![Saving project file changes](Images/vs-file-save-menu.png)
-
-    _Saving project file changes_	
-
-1. Finally, in the in the TERMINAL window, type “node app.js”, hit the **enter** key on your keyboard. This command will run your application and output “Hello world!” to your TERMINAL window.
-
-    ![Running the Factbot app.js application](Images/vs-first-run-executed.png)
-
-    _Running the Factbot app.js application_	
-
-To finish configuring your bot project we need to add the configuration values generated by the Microsoft Bot Framework portal in the previous exercise. You will be adding these values to an auto generated configuration file.
-
-To automatically generate your bot project configuration file:
-
-1.	Click the Visual Studio Code **Debug** tab to open the DEBUG panel.
-
-    ![Selecting the Debug tab](Images/vs-select-debug-tab.png)
-
-    _Selecting the Debug tab_	
-
-1.	Click the **DEBUG** (green arrow) in the top panel menu and then select **Node.js** from the “Select Environment” drop down. A new launch.json file will be automatically created with default values for deployment and debugging. A message will appear alerting you to setup the launch configuration file for this project. Click the **Close** button.
+1.	Click the **green arrow** at the top of the debugging panel and then select **Node.js** from the drop-down list. A new file named **launch.json** will be created. When prompted to set up the launch configuration file, click **Close**.
 	
     ![Creating a new launch file](Images/vs-creating-launch-file.png)
 
     _Creating a new launch file_	
 	
-    ![Acknowledging creation of a newly created launch.json file](Images/vs-new-launch-file-created.png)
-
-    _Acknowledging creation of a newly created launch.json file_	
-
-1.	Locate the “env” node in the newly created launch.json file:		
+1.	Locate the "env" node in **launch.json**:		
 	
     ![The launch file env node](Images/vs-locating-env-node.png)
 
