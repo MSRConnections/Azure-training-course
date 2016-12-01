@@ -6,7 +6,7 @@
 <a name="Overview"></a>
 ## Overview ##
 
-Bots are everywhere. You probably interact with them every day without realizing it. Bots, especially chat and messenger bots, are changing the way we interact with businesses, communities, and even each other. Thanks to light-speed advances in artificial intelligence (AI)  and the easy availability of AI services, bots are not only becoming more advanced and personalized, but also more accessible to developers. 
+Software bots are everywhere. You probably interact with them every day without realizing it. Bots, especially chat and messenger bots, are changing the way we interact with businesses, communities, and even each other. Thanks to light-speed advances in artificial intelligence (AI)  and the easy availability of AI services, bots are not only becoming more advanced and personalized, but also more accessible to developers. 
 
 Regardless of the target language or platform, developers building bots face the same challenges. Bots require basic input and output. Bots need language and dialog logic. Bots need to be responsive, scalable, and extensible, and they need to interact with users in a conversational manner and in the language the user chooses. The Microsoft Bot Framework provides the foundation developers need to build, connect, manage, and publish intelligent bots that interact naturally with users using a range of third-party and custom services. 
 
@@ -30,6 +30,7 @@ In this hands-on lab, you will learn how to:
 The following are required to complete this hands-on lab:
 
 - An active Microsoft Azure subscription. Use the Azure Pass you activated earlier, or [sign up for a free trial](http://aka.ms/WATK-FreeTrial).
+- A Microsoft OneDrive account. If you don't have one, sign up for free at https://onedrive.live.com/about/en-us/.
 - [Visual Studio Code](http://code.visualstudio.com) 
 - [Skype](https://www.skype.com/en/download-skype/skype-for-computer/)
 - [Node.js](https://nodejs.org)
@@ -46,7 +47,8 @@ This hands-on lab includes the following exercises:
 - [Exercise 3: Set up and configure a bot project](#Exercise3)
 - [Exercise 4: Add conversation logic to your bot](#Exercise4)
 - [Exercise 5: Debug bot processes](#Exercise5)
-- [Exercise 6: Publish and test your bot](#Exercise6)
+- [Exercise 6: Deploy the bot to Azure](#Exercise6)
+- [Exercise 7: Test the bot](#Exercise6)
  
 Estimated time to complete this lab: **60** minutes.
 
@@ -428,54 +430,46 @@ The Microsoft Bot Framework makes it easy to debug bot processes on any platform
 
     _Ending a debugging session_	
 
-It is just that easy to debug and step through code written with the Microsoft Bot Framework. At this point you have a fully functioning bot and you're ready to publish it to your Azure Web App for use within third party applications, like Skype.
+It is just that easy to debug and step through code written with the Microsoft Bot Framework. At this point you have a fully functioning bot and you're ready to publish it to your Azure Web App for use within third-party applications such as Skype.
 
 <a name="Exercise6"></a>
-## Exercise 6: Publish and test your bot ##
+## Exercise 6: Deploy the bot to Azure ##
 
-In this exercise you will publish your bot application using your OneDrive account as an Azure Web App Deployment Source.
+In this exercise you will publish your bot application to the Azure Web App you created earlier using OneDrive as a deployment source.
 
-To publish your bot your OneDrive and connect it to your Azure Web App:
+1. Return to the [Azure Portal](https://portal.azure.com) and to the resource group named "BotsResourceGroup" you created in Exercise 1.
 
-1. Open the Azure Portal dashboard (if it’s not already open from Exercise 1) and click the **“hamburger” **icon to open the side drawer menu.
-
-1. Click **Resource Groups** followed by **TrainingLabResources**.
-
-1. Select the "Overview" tab.
-
-1. Click **factbot01** (or the alternative name you entered in Step 3 of Exercise 1) to open your newly provisioned Azure Web App to open the App Service blade.
+1. Click the Azure Web App that you provisioned in Exercise 1.
  
     ![Selecting the Azure Web App](Images/portal-select-web-app.png)
 
     _Selecting the Azure Web App_	
 
-1. Locate the APP DEPLOYMENT section and click Deployment options.
+1. Click **Deployment options**.
  
-    ![Selecting Azure Web App Deployment Options](Images/portal-select-deployment-options.png)
+    ![Viewing deployment options](Images/portal-select-deployment-options.png)
 
-    _Selecting Azure Web App Deployment Options_	
+    _Viewing deployment options_	
 
-1. In the Deployment source panel click **Choose Source**, and then **OneDrive**.
+1. Click **Choose Source**, and then click **OneDrive**.
  
     ![Selecting OneDrive as the deployment source](Images/portal-select-onedrive-source.png)
 
     _Selecting OneDrive as the deployment source_	
 
-1. Click **Authorization** and then the **Authorize** button. If prompted for credentials enter your Microsoft account credentials, and then click **OK**. 
+1. Click **Authorization** and then the **Authorize** button. If you are prompted for credentials, enter your Microsoft account credentials, and then click **OK**. If prompted to allow this app to access your info, answer yes. Once authorization is complete, click **OK** to close the blade.
  
-    ![Completing OneDrive authorization](Images/portal-onedrive-authorization-complete.png)
+    ![Authorizing OneDrive](Images/portal-authorize.png)
 
-    _Completing OneDrive authorization_	
+    _Authorizing OneDrive_	
 
-1. Leave the remaining values in the Deployment source panel as the defaults, and click **OK**. Your bot deployment source has now been configured.
+1. Leave the remaining values in the "Deployment source" blade set to the defaults, and then click **OK**. Your bot deployment source has now been configured.
  
-    ![Finalizing deployment source setup](Images/portal-finalize-deployment-source.png)
+    ![Finalizing deployment-source setup](Images/portal-finalize-deployment-source.png)
 
-    _Finalizing deployment source setup_	
+    _Finalizing deployment-source setup_	
 
-To publish your bot application to your Azure Web App:
-
-1. Open a browser and go to [OneDrive](https://onedrive.live.com "OneDrive"). If asked to login in, do so with your Microsoft account.
+1. Open a browser and go to [OneDrive](https://onedrive.live.com). If asked to login in, do so with your Microsoft account.
 
 1. In the OneDrive **search box**, type “Azure Web Apps” and select the **Azure Web Apps** folder.
  
@@ -483,144 +477,110 @@ To publish your bot application to your Azure Web App:
 
     _Searching OneDrive for the Azure Web Apps deployment folder_	
 
-1. Click the **factbot** folder to view the contents. At this point the folder should be empty.
+1. Click the folder created for your bot to view the contents. At this point the folder should be empty.
  
     ![Selecting the Factbot folder in OneDrive](Images/onedrive-select-factbot-folder.png)
 
     _Selecting the Factbot folder in OneDrive_	
 
-1. On the OneDrive actions menu, click **Upload > Files**, and browse your local files to the **Resources** folder included in the content for the lab. Select both files in the Resources folder and click **Open**. Your bot project files have now been added to OneDrive and are ready for deployment.
+1. Click **Upload -> Files**, and browse to the "Resources" folder included with this lab. Select both files in the "Resources" folder and click **Open** to upload the bot to OneDrive.
+
+	> You are uploading a slightly different bot than the one you created because, among other things, this one retrieves the app ID and password from settings rather than hardcode them in.
  
-    ![Selecting upload to a OneDrive deployment folder](Images/onedrive-upload-files.png)
+    ![Uploading to OneDrive](Images/onedrive-upload-files.png)
 
-    _Selecting upload to a OneDrive deployment folder_	
+    _Uploading to OneDrive_	
  
-    ![Adding the bot deployment files to the OneDrive deployment folder](Images/onedrive-add-files.png)
-
-    _Adding the bot deployment files to the OneDrive deployment folder_	
-
-1. Return to the Azure Portal and navigate to the Web App configured for deployment earlier in this exercise.
-
-1. Locate the APP DEPLOYMENT section and click **Deployment options**. Notice the blade display and menu have now changed to prepare for deployment from OneDrive. 
+1. Return to the Azure Portal and navigate back to the Web App you configured earlier in this exercise. Click **Deployment options** again. Notice that the blade has now changed to show that deployment will occur from OneDrive. 
  
-    ![Viewing the updated deployment options panel](Images/portal-view-deployment-options.png)
+    ![Updated deployment options](Images/portal-view-deployment-options.png)
 
-    _Viewing the updated deployment options panel_	
+    _Updated deployment options_	
 
-1. Click **Sync** and then accept the prompt to “Synchronize Source Control” content by clicking **Yes**.
+1. Click **Sync**, and then click **Yes** when prompted to synchronize source control.
 
     ![Synchronizing OneDrive deployment files](Images/portal-select-sync.png)
 
     _Synchronizing OneDrive deployment files_	
 
-	Your Factbot application files will now be deployed to your Azure Web App. This process typically takes around 20 to 30 seconds. When deployment is complete, an entry will be added to the Deployment options panel with a details status of activity, such as file counts and a timestamp.
-
-    ![Synchronization complete](Images/portal-sync-complete.png)
-
-    _Synchronization complete_	
-
-1. Locate the SETTINGS section and click **Application Settings**, and then scroll down to the “App Settings” section.
+1. Click **Application Settings**, and then scroll down to the "App settings" section on the right.
  
     ![The Azure Web App Application settings section](Images/portal-app-settings-panel.png)
 
     _The Azure Web App Application settings section_	
 
-1. Add a new key named “MICROSOFT_APP_ID”. Copy and paste the “MICROSOFT_APP_ID” value added to the launch.json file in Exercise 3 into the value field.
+1. Add a new key named "MICROSOFT_APP_ID". Paste your bot's app ID into the value field.
 
-1. Add a new key named “MICROSOFT_APP_PASSWORD”. Copy and paste the “MICROSOFT_APP_PASSWORD” value added to the launch.json file in Exercise 3 into the value field and click **Save**.
+1. Add a new key named "MICROSOFT_APP_PASSWORD." Paste your bot's password into the value field and then click **Save** at the top of the blade.
  
-    ![Adding the MICROSOFT_APP_ID and MICROSOFT_APP_PASSWORD keys and values](Images/portal-add-new-app-settings.png)
+    ![Adding the app ID and password](Images/portal-add-new-app-settings.png)
 
-    _Adding the MICROSOFT_APP_ID and MICROSOFT_APP_PASSWORD keys and values_
+    _Adding the app ID and password_
  
-    ![Saving Web App Application settings](Images/portal-save-app-settings.png)
-
-    _Saving Web App Application settings_
-
-1. Locate the DEPLOYMENT TOOLS section and click **Console**. The Azure Web App Console tool will initialize in a new blade.
+1. Click **Console** in the "DEPLOYMENT TOOLS" section on the left.
  
-    ![Selecting the Web App Console tool](Images/portal-select-console.png)
+    ![Opening the Console tool](Images/portal-select-console.png)
 
-    _Selecting the Web App Console tool_	
+    _Opening the Console tool_	
  
-    ![The Azure Portal Console tool](Images/portal-azure-console.png)
+1. Execute the following command in the console to install the Microsoft Bot Builder SDK into your Azure Web App environment.
 
-    _The Azure Portal Console tool_	
-
-1. Enter the following command: “npm install --save botbuilder”, and then hit the **enter** key on your keyboard. This command installs the Microsoft Bot Builder SDK into your Azure Web App environment.
+	<pre>
+	npm install --save botbuilder
+	</pre>
  
-    ![Adding support for the Microsoft Bot Builder SDK](Images/portal-npm-botbuilder.png)
+1. Now execute the following command in the console to install the packages required to leverage REST-based messaging routes in your Azure Web App environment.
 
-    _Adding support for the Microsoft Bot Builder SDK_	
+	<pre>
+	npm install --save restify
+	</pre>
 
-	>npm commands may take up to 60 seconds to complete.
+Now that your bot has been written, tested, and deployed to an Azure Web App, you're ready to test it in a connected channel.
+
+<a name="Exercise7"></a>
+## Exercise 7: Test the bot ##
+
+Bots can be deployed TK. In this exercise, you will test your bot with Skype. If Skype isn't already installed on your computer, please install it now.
+
+1. Return to the [Microsoft Bot Framework Portal](https://dev.botframework.com/) and open the bot that you registered earlier. Locate the "Test connection to your bot" panel and click the **Test** button. Verify that the word "Accepted" appears, indicating that the test was successful.
  
-    ![A completed Microsoft Bot Builder SDK installation](Images/portal-botbuilder-complete.png)
+    ![Testing the connection to your bot](Images/bot-test-connection.png)
 
-    _A completed Microsoft Bot Builder SDK installation_	
-
-1. When the command completes, enter the following command: “npm install --save restify”, and hit the **enter** key on your keyboard. This command installs the packages required to leverage REST-based messaging routes in your Azure Web App environment.
+    _Testing the connection to your bot_
  
-    ![Adding support for the REST-based messaging routes](Images/portal-npm-restify.png)
-
-    _Adding support for the REST-based messaging routes_
- 
-    ![A completed Restify installation](Images/portal-restify-complete.png)
-
-    _A completed Restify installation_
-
-	Now that your bot has been written, tested, and deployed to an Azure Web App, you’re ready to test Factbot in a connected channel.
-
-1. Open the Microsoft Bot Framework portal and click **My Bots** to view a list of your registered bots, and then click **Factbot**. If you only have a single bot registered you will automatically be redirect to the bot registration properties page.
-1. Locate the "Test connection to your bot" panel. Click the **Test** button. After a short delay, the word Accepted will appear in the panel.
- 
-    ![Testing your deployed bot connection](Images/bot-test-connection.png)
-
-    _Testing your deployed bot connection_
- 
-    ![A successful bot connection](Images/bot-test-complete.png)
-
-    _A successful bot connection_
-
-1. Locate the “Channels” panel and click **Edit** at the far right of the Skype channel listing.
+1. Locate the "Channels" panel and click **Edit** in the row for the Skype channel.
  
     ![Selecting to edit the Skype bot channel](Images/bot-edit-skype-channel.png)
 
     _Selecting to edit the Skype bot channel_
 
-1. Ensure **Enable Factbot on Skype** is toggled to ON, leave the remaining values as the defaults, and click **I’m done configuring Skype**. Your bot is now ready to test within a Skype conversation.
+1. Ensure that **Enable Factbot on Skype** is toggled ON and click **I’m done configuring** at the bottom of the page. Your bot is now ready to test within a Skype conversation.
  
     ![Configuring the Skype bot channel](Images/bot-configure-skype.png)
 
     _Configuring the Skype bot channel_
 	
-	>If you haven’t installed Skype and this point do so now. The final step in this exercise will be adding Factbot to a Skype conversation.
-
-1. In the "Channels" panel of your Factbot registration settings page, click the **Add to Skype** button to be redirected to the Skype “Add to Contacts” page.
+1. Click the **Add to Skype** button.
  
-    ![Selecting to add Factbot to Skype](Images/bot-click-add-to-skype.png)
+    ![Adding the bot to Skype](Images/bot-click-add-to-skype.png)
 
-    _Selecting to add Factbot to Skype_
+    _Adding the bot to Skype_
 	
-1.  Click the **Add to Contacts** button to add Factbot as a Skype contact, after a short delay, Skype will load a new conversation window, and a new conversation thread between you and Factbot. 
+1.  Click **Add to Contacts** to add the bot as a Skype contact. After a short delay, Skype will launch and display a new conversation thread between you and the bot. 
   
-    ![Selecting to add Factbot as a Skype contact](Images/skype-add-to-contacts.png)
+	> If Skype does not automatically add Factbot to a conversation, select the bot from the "Recent" list in Skype to initiate a conversation manually.
+  
+    ![Adding the bot to your Skype contacts](Images/skype-add-to-contacts.png)
 
-    _Selecting to add Factbot as a Skype contact_
+    _Adding the bot to your Skype contacts_
 	
-	>If Skype does not automicatlly add Factbot to a conversation, select Factbot from the “Recent” list in Skype to initiate a conversation manually.
-  
-    ![Selecting Factbot from the Skype Recent panel](Images/skype-select-factbot-recent.png)
-
-    _Selecting Factbot from the Skype Recent panel_
-
-1. Initiate your Factbot conversation by typing “Hello” in your Skype window. After a short delay, Factbot will begin the guided conversation experienced in Exercise 4, but now in a rich conversation experience. Continue through the conversation until the end, to make sure you get a quick random and interesting fact! 
+1. Initiate your Factbot conversation by typing "Hello" into the Skype window. After a short delay, Factbot will begin the guided conversation you experienced in Exercise 4. Continue the conversation until the end to make sure you get a random and interesting fact! 
  
-    ![Factbot serving up a guided conversation via Skype](Images/skype-guided-conversation.png)
+    ![Conversing with the bot via Skype](Images/skype-guided-conversation.png)
 
-    _Factbot serving up a guided conversation via Skype_
+    _Conversing with the bot via Skype_
 
-You now have a fully functioning bot, created with the Microsoft Bot Framework available for anyone in the world to use. In this exercise we enabled your bot to be connected to a Skype channel, but you may have notices there are many other channels to choose from as well. Feel free to configure other channels to test your bot in as many scenarios as appropriate. 
+You now have a fully functioning bot, created with the Microsoft Bot Framework available for anyone in the world to use. In this exercise, we enabled your bot to be connected to a Skype channel, but you may have notices there are many other channels to choose from as well. Feel free to configure other channels to test your bot in as many scenarios as appropriate. 
 
 <a name="Summary"></a>
 ## Summary ##
