@@ -474,7 +474,7 @@ vertical-align:1px;
 <p><a name="Overview"></a></p>
 <h2>Overview</h2>
 <p><a href="https://azure.microsoft.com/en-us/solutions/data-lake/">Azure Data Lake</a> enables you to collect data of any size, type, and velocity in one place in order to explore, analyze, and process the data using tools and languages such as U-SQL, Apache Spark, Hive, HBase, and Storm. It works with existing IT investments for identity, management, and security for simplified handling and governance. It also integrates easily with operational stores and data warehouses.</p>
-<p>Data Lake consists of two primary elements: <a href="https://azure.microsoft.com/en-us/services/data-lake-store/">Azure Data Lake Store</a> and <a href="https://azure.microsoft.com/en-us/services/data-lake-analytics/">Azure Data Lake Analytics</a>. Data Lake Store is an enterprise-wide hyper-scale repository for big-data analytical workloads. It was build from the ground up to support massive throughput and integrates with Apache Hadoop by acting as an HDFS distributed file system. It also supports <a href="https://www.microsoft.com/en-us/cloud-platform/azure-active-directory">Azure Active Directory</a> for access control independent of Hadoop. Data Lake Analytics is an easy-to-learn query and analytics engine that features a new query language called U-SQL, which combines elements of traditional SQL syntax with powerful expression support and programmatic extensibility. It integrates seamlessly with Data Lake Store so you can execute queries against multiple disparate data sources as if they were one. This lab will introduce you to Data Lake Store and Data Lake Analytics and walk you through typical usage scenarios for each.</p>
+<p>Data Lake consists of two primary elements: <a href="https://azure.microsoft.com/en-us/services/data-lake-store/">Azure Data Lake Store</a> and <a href="https://azure.microsoft.com/en-us/services/data-lake-analytics/">Azure Data Lake Analytics</a>. Data Lake Store is an enterprise-wide hyper-scale repository for big-data analytical workloads. It was built from the ground up to support massive throughput and integrates with Apache Hadoop by acting as an HDFS distributed file system. It also supports <a href="https://www.microsoft.com/en-us/cloud-platform/azure-active-directory">Azure Active Directory</a> for access control independent of Hadoop. Data Lake Analytics is an easy-to-learn query and analytics engine that features a new query language called U-SQL, which combines elements of traditional SQL syntax with powerful expression support and extensibility. It integrates seamlessly with Data Lake Store so you can execute queries against multiple disparate data sources as if they were one. This lab will introduce Data Lake Store and Data Lake Analytics and walk you through typical usage scenarios for each.</p>
 <p><a name="Objectives"></a></p>
 <h3>Objectives</h3>
 <p>In this hands-on lab, you will learn how to:</p>
@@ -489,8 +489,8 @@ vertical-align:1px;
 <h3>Prerequisites</h3>
 <p>The following are required to complete this hands-on lab:</p>
 <ul>
-<li>A Microsoft Azure subscription - <a href="http://aka.ms/WATK-FreeTrial">sign up for a free trial</a></li>
-<li><a href="https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/">Azure Cross-Platform Command Line Interface (CLI)</a></li>
+<li>An active Microsoft Azure subscription. Use the Azure Pass you activated earlier, or <a href="http://aka.ms/WATK-FreeTrial">sign up for a free trial</a>.</li>
+<li><a href="https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/">Azure Command-Line Interface (CLI)</a></li>
 </ul>
 <hr>
 <p><a name="Exercises"></a></p>
@@ -510,10 +510,10 @@ vertical-align:1px;
 <p>The starting point for using Azure Data Lake is setting up an Azure Data Lake Store to serve as a repository for various data sources. In this exercise, you will create a new Azure Data Lake Store in your Azure subscription. Later, you will import data into the Data Lake Store and query it with U-SQL.</p>
 <ol>
 <li>
-<p>In your browser, navigate to the <a href="https://portal.azure.com">Azure Portal</a>. If you're asked to sign in, do so using your Microsoft account.</p>
+<p>In your browser, navigate to the <a href="https://portal.azure.com">Azure Portal</a>. If you are asked to sign in, do so using your Microsoft account.</p>
 </li>
 <li>
-<p>In the portal, click <strong>+ New -&gt; Intelligence + analytics -&gt; Data Lake Store (preview)</strong>.</p>
+<p>In the portal, click <strong>+ New</strong>, followed by <strong>Intelligence + analytics</strong> and <strong>Data Lake Store</strong>.</p>
 <p><a href="Images/new-data-lake-store.png" target="_blank"><img src="Images/new-data-lake-store.png" alt="Adding a new Data Lake Store" style="max-width:100%;"></a></p>
 <p><em>Adding a new Data Lake Store</em></p>
 </li>
@@ -531,18 +531,21 @@ vertical-align:1px;
 <p><em>Opening the resource group</em></p>
 </li>
 <li>
-<p>When "(Deploying)" changes to succeeded, the Data Lake Store has been created. Deployment typically takes a minute or less. You may have to refresh the page in your browser to ascertain that the deployment has finished.</p>
-<p><a href="Images/successful-deployment.png" target="_blank"><img src="Images/successful-deployment.png" alt="Deployment succeeded" style="max-width:100%;"></a></p>
+<p>When "Deploying" changes to "Succeeded," the Data Lake Store has been created. Deployment typically takes a minute or less.</p>
+<blockquote>
+<p>Click the browser's <strong>Refresh</strong> button occasionally to update the deployment status. Clicking the <strong>Refresh</strong> button in the resource-group blade refreshes the list of resources in the resource group, but does not reliably update the deployment status.</p>
+</blockquote>
+<p><a href="Images/successful-deployment-1.png" target="_blank"><img src="Images/successful-deployment-1.png" alt="Deployment succeeded" style="max-width:100%;"></a></p>
 <p><em>Deployment succeeded</em></p>
 </li>
 </ol>
 <p>Now that you have created a Data Lake Store, the next step is to create a Data Lake Analytics account so you can run queries against the store.</p>
 <p><a name="Exercise2"></a></p>
 <h2>Exercise 2: Create an Azure Data Lake Analytics account</h2>
-<p>Azure Data Lake formally separates the concepts of storing data and querying data. This allows Azure Data Lake Analytics to operate against a range of possible data sources contained in an Azure Data Lake Store. In this exercise, you will create a Data Lake Analytics account and connect it to the Data Lake Store you created in Exercise 1.</p>
+<p>Azure Data Lake formally separates the concepts of storing data and querying data. This allows Azure Data Lake Analytics to operate against a range of possible data sources contained in an Azure Data Lake Store. In this exercise, you will create a Data Lake Analytics account and connect it to the Data Lake Store you created in <a href="#Exercise1">Exercise 1</a>.</p>
 <ol>
 <li>
-<p>In the portal, click <strong>+ New -&gt; Intelligence + analytics -&gt; Data Lake Analytics (preview)</strong>.</p>
+<p>In the portal, click <strong>+ New</strong>, followed by <strong>Intelligence + analytics</strong> and <strong>Data Lake Analytics</strong>.</p>
 <p><a href="Images/new-data-lake-analytics.png" target="_blank"><img src="Images/new-data-lake-analytics.png" alt="Adding a new Data Lake Analytics account" style="max-width:100%;"></a></p>
 <p><em>Adding a new Data Lake Analytics account</em></p>
 </li>
@@ -553,16 +556,18 @@ vertical-align:1px;
 <p><em>Creating a Data Lake Analytics account</em></p>
 </li>
 <li>
-<p>Return to the resource group that holds the Data Lake Store and the Data Lake Analytics account. Click the Data Lake Analytics account and wait for "(Deploying)" to change to "(Succeeded)." Once more, it helps to refresh the page every now and then to make sure the information displayed there is up to date.</p>
+<p>Return to the resource group that holds the Data Lake Store and the Data Lake Analytics account and wait for "Deploying" to change to "Succeeded." Once more, it helps to refresh the page every now and then to make sure the information displayed there is up to date.</p>
+<p><a href="Images/successful-deployment-2.png" target="_blank"><img src="Images/successful-deployment-2.png" alt="Deployment succeeded" style="max-width:100%;"></a></p>
+<p><em>Deployment succeeded</em></p>
 </li>
 </ol>
 <p>You now have Azure Data Lake storage and query capability set up in your Azure subscription. The next task is to add some data to query.</p>
 <p><a name="Exercise3"></a></p>
 <h2>Exercise 3: Import data into Azure Data Lake Store</h2>
-<p>This lab's "resources" directory holds two tab-delimited TSV files containing sample data. This data comes from the public domain and consists of questions and answers from the popular academia-focused site <a href="http://academia.stackexchange.com">http://academia.stackexchange.com</a>. In this exercise, you will import the sample data into your Azure Data Lake Store so you can execute queries against it.</p>
+<p>This lab's "resources" directory holds two tab-delimited TSV files containing sample data. The data comes from the public domain and consists of questions and answers from the popular site <a href="http://academia.stackexchange.com">http://academia.stackexchange.com</a>. In this exercise, you will import the sample data into your Azure Data Lake Store so you can execute queries against it.</p>
 <ol>
 <li>
-<p>In the portal, open the Azure Data Lake Store that you created in Exercise 1. (An easy way to do that is to open the resource group and then click the Data Lake Store resource.) In the blade for the Data Lake Store, click <strong>Data Explorer</strong> near the top.</p>
+<p>In the portal, open the Azure Data Lake Store that you created in <a href="#Exercise1">Exercise 1</a>. (An easy way to do that is to open the resource group and then click the Data Lake Store resource.) In the blade for the Data Lake Store, click <strong>Data Explorer</strong> near the top.</p>
 <p><a href="Images/data-explorer.png" target="_blank"><img src="Images/data-explorer.png" alt="Opening Data Explorer" style="max-width:100%;"></a></p>
 <p><em>Opening Data Explorer</em></p>
 </li>
@@ -572,73 +577,74 @@ vertical-align:1px;
 <p><em>Opening the "Upload files" blade</em></p>
 </li>
 <li>
-<p>In the "Upload files" blade, click the folder icon and select the <strong>posts.tsv</strong> file in this lab's "resources" directory. Then click <strong>Start upload</strong>. The file is 60 MB in length, so the upload will take a few minutes.</p>
-<p><a href="Images/data-explorer-upload-tsv.png" target="_blank"><img src="Images/data-explorer-upload-tsv.png" alt="Uploading posts.tsv" style="max-width:100%;"></a></p>
-<p><em>Uploading posts.tsv</em></p>
+<p>In the "Upload files" blade, click the <strong>Open</strong> button and select the files named <strong>comments.tsv</strong> and <strong>posts.tsv</strong> in this lab's "resources" directory. Then click <strong>Add selected files</strong>. The combined file size file is more than 90 MB, so the upload might take a few minutes.</p>
+<p><a href="Images/data-explorer-upload-tsv.png" target="_blank"><img src="Images/data-explorer-upload-tsv.png" alt="Uploading TSV files" style="max-width:100%;"></a></p>
+<p><em>Uploading TSV files</em></p>
 </li>
 <li>
-<p>Repeat this process to upload <strong>comments.tsv</strong>, which is also located in the "resources" directory. Then close the "Upload files" blade and return to the blade for your Data Lake Store. Confirm that both of the data files you uploaded appear there:</p>
-<p><a href="Images/data-explorer-uploads-complete.png" target="_blank"><img src="Images/data-explorer-uploads-complete.png" alt="The uploaded data files" style="max-width:100%;"></a></p>
-<p><em>The uploaded data files</em></p>
+<p>Once the uploads have finished, close the "Upload files" blade and return to the blade for your Data Lake Store. Confirm that both of the data files you uploaded appear there. Then click <strong>posts.tsv</strong> to view the contents of that file.</p>
+<p><a href="Images/data-explorer-uploads-complete.png" target="_blank"><img src="Images/data-explorer-uploads-complete.png" alt="Opening posts.tsv" style="max-width:100%;"></a></p>
+<p><em>Opening posts.tsv</em></p>
 </li>
 <li>
-<p>Click <strong>posts.tsv</strong> to open a "File Preview" blade showing the contents of the file.</p>
-<p><a href="Images/file-preview.png" target="_blank"><img src="Images/file-preview.png" alt="File preview" style="max-width:100%;"></a></p>
-<p><em>File preview</em></p>
+<p>The file preview only shows a portion of the data file. Take a moment to examine the data and familiarize yourself with its content and structure.</p>
+<p><a href="Images/file-preview.png" target="_blank"><img src="Images/file-preview.png" alt="Previewing posts.tsv" style="max-width:100%;"></a></p>
+<p><em>Previewing  posts.tsv</em></p>
 </li>
 </ol>
-<p>The file preview only shows a portion of the data file. The next step is to query the data to extract the information you want from it. For that, Azure Data Lake Analytics provides U-SQL.</p>
+<p>The next step is to query the data to extract the information you want from it. For that, Azure Data Lake Analytics provides U-SQL.</p>
 <p><a name="Exercise4"></a></p>
 <h2>Exercise 4: Query a TSV file with U-SQL</h2>
-<p><a href="http://usql.io/">U-SQL</a> is a language created by Microsoft that combines traditional SQL Data Definition Language (DDL) and Data Manipulation Language (DML) constructs with expressions, functions, and operators based on the popular C# programming language. It marries the benefits of SQL with the power of expressive code. And it is supported natively in Azure Data Lake Analytics. In this exercise, you will use U-SQL to query the data you imported in Exercise 3.</p>
+<p><a href="http://usql.io/">U-SQL</a> is a language created by Microsoft that combines traditional SQL Data Definition Language (DDL) and Data Manipulation Language (DML) constructs with expressions, functions, and operators based on the popular C# programming language. It marries the benefits of SQL with the power of expressive code. And it is supported natively in Azure Data Lake Analytics. In this exercise, you will use U-SQL to query the data you imported in <a href="#Exercise3">Exercise 3</a>.</p>
 <ol>
 <li>
-<p>In the portal, open the Azure Data Lake Analytics account that you created in <a href="#Exercise2">Exercise 2</a>. In the ensuing blade, click <strong>New Job</strong> to create a new U-SQL job.</p>
+<p>In the portal, open the Azure Data Lake Analytics account that you created in <a href="#Exercise2">Exercise 2</a>. In the ensuing blade, click <strong>+ New Job</strong> to create a new U-SQL job.</p>
 <p><a href="Images/new-analytics-job.png" target="_blank"><img src="Images/new-analytics-job.png" alt="Creating a new U-SQL job" style="max-width:100%;"></a></p>
 <p><em>Creating a new U-SQL job</em></p>
 </li>
 <li>
 <p>In the "New U-SQL Job" blade, paste the following query into the empty query field:</p>
- <pre> // here we define the schema for the imported posts.tsv file
- @posts =
-     EXTRACT id          		int,
-             [type]      		string,
- 			acceptedanswerid	int?,
- 			parentquestionid	int?,
- 			creationdate		string,
-             score       		int,
- 		   	views				int,
- 			ownerid				int,
-             title       		string,
- 			body				string,
- 			tags				string,
- 			answers				int,
- 			comments			int
-     FROM "posts.tsv"
-     USING Extractors.Tsv();
- 
- // here we transform the imported data using various aggregate functions
- @results =
-     SELECT
-         ownerid AS userid,
-         SUM(score) AS totalscore,
- 		COUNT(*) AS totalposts
-     FROM @posts
- GROUP BY ownerid;
- 
- // finally we output the transformed data for further analysis or visualization
- OUTPUT @results
-     TO "totalscores.csv"
-     ORDER BY totalscore DESC
-     USING Outputters.Csv();
- </pre>
-<p>Here's how the blade will look after the query is entered:</p>
-<p><a href="Images/simple-query.png" target="_blank"><img src="Images/simple-query.png" alt="A U-SQL query" style="max-width:100%;"></a></p>
-<p><em>A U-SQL query</em></p>
+<div class="highlight highlight-source-sql"><pre><span class="pl-k">//</span> here we define the schema for the imported <span class="pl-c1">posts</span>.<span class="pl-c1">tsv</span> file
+@posts <span class="pl-k">=</span>
+    EXTRACT id                  <span class="pl-k">int</span>,
+            [type]              string,
+            acceptedanswerid    <span class="pl-k">int</span>?,
+            parentquestionid    <span class="pl-k">int</span>?,
+            creationdate        string,
+            score               <span class="pl-k">int</span>,
+            views               <span class="pl-k">int</span>,
+            ownerid             <span class="pl-k">int</span>,
+            title               string,
+            body                string,
+            tags                string,
+            answers             <span class="pl-k">int</span>,
+            comments            <span class="pl-k">int</span>
+    <span class="pl-k">FROM</span> <span class="pl-s"><span class="pl-pds">"</span>posts.tsv<span class="pl-pds">"</span></span>
+    USING <span class="pl-c1">Extractors</span>.<span class="pl-c1">Tsv</span>();
+
+<span class="pl-k">//</span> here we transform the imported data using various aggregate functions
+@results <span class="pl-k">=</span>
+    <span class="pl-k">SELECT</span>
+        ownerid <span class="pl-k">AS</span> userid,
+        <span class="pl-c1">SUM</span>(score) <span class="pl-k">AS</span> totalscore,
+        <span class="pl-c1">COUNT</span>(<span class="pl-k">*</span>) <span class="pl-k">AS</span> totalposts
+    <span class="pl-k">FROM</span> @posts
+<span class="pl-k">GROUP BY</span> ownerid;
+
+<span class="pl-k">//</span> finally we output the transformed data for further analysis <span class="pl-k">or</span> visualization
+OUTPUT @results
+    TO <span class="pl-s"><span class="pl-pds">"</span>totalscores.csv<span class="pl-pds">"</span></span>
+    <span class="pl-k">ORDER BY</span> totalscore <span class="pl-k">DESC</span>
+    USING <span class="pl-c1">Outputters</span>.<span class="pl-c1">Csv</span>();</pre></div>
 <p>The query contains three main parts. The <strong>EXTRACT</strong> statement extracts data from an existing data source, in this case the <strong>posts.tsv</strong> file you uploaded to the Data Lake Store. The <strong>SELECT</strong> statement transforms the input data into a shape suitable to the task at hand. Finally, the <strong>OUTPUT</strong> statement outputs the result as a named rowset, which can be used for further analysis or visualization.</p>
 </li>
 <li>
-<p>Click the <strong>Submit Job</strong> button at the top of the blade. A new blade will open to show what is happening as the Data Lake Analytics engine prepares, queues, and executes your query. The job is complete when the "Finalizing" step turns green.</p>
+<p>Click <strong>Submit Job</strong> to execute the query.</p>
+<p><a href="Images/simple-query.png" target="_blank"><img src="Images/simple-query.png" alt="Executing the query" style="max-width:100%;"></a></p>
+<p><em>Executing the query</em></p>
+</li>
+<li>
+<p>A new blade will open to show what is happening as the Data Lake Analytics engine prepares, queues, and executes your query. The job is complete when the "Finalizing" step turns green.</p>
 <p><a href="Images/finished-job.png" target="_blank"><img src="Images/finished-job.png" alt="The completed job" style="max-width:100%;"></a></p>
 <p><em>The completed job</em></p>
 </li>
@@ -648,7 +654,7 @@ vertical-align:1px;
 <p><em>Viewing the query results</em></p>
 </li>
 </ol>
-<p>In the next two exercises, you will build on what you learned here by joining multiple data sources and performing more complex queries against the aggregated data. Now that you know to set up a Data Lake Store, import data, connect it to Data Lake Analytics, and execute U-SQL queries, the fundamentals are in place.</p>
+<p>In the next two exercises, you will build on what you learned here by joining multiple data sources and performing more complex queries against the aggregated data. Now that you know how to set up a Data Lake Store, import data, connect it to in Data Lake Analytics, and execute U-SQL queries, the fundamentals are in place.</p>
 <p><a name="Exercise5"></a></p>
 <h2>Exercise 5: Create an Azure SQL Database as a federated data source</h2>
 <p>In the previous exercise, you issued a simple query against a single file in an Azure Data Lake Store. To make things more interesting, you are now going to create a SQL database in your Azure subscription and configure it to serve as a federated data source in Data Lake Analytics. This will allow you to not only query the database with U-SQL, but also join data from the database to data already residing in your Data Lake Store. This demonstrates the power of Azure Data Lake as a distributed storage and analytics engine.</p>
@@ -662,79 +668,60 @@ vertical-align:1px;
 <p>Let's get started!</p>
 <ol>
 <li>
-<p>In the Azure Portal, click <strong>+ New -&gt; Storage -&gt; Storage account</strong>.</p>
+<p>In the Azure Portal, click <strong>+ New</strong>, followed by <strong>Storage</strong> and <strong>Storage account</strong>.</p>
 <p><a href="Images/new-storage-account.png" target="_blank"><img src="Images/new-storage-account.png" alt="Adding a storage account" style="max-width:100%;"></a></p>
 <p><em>Adding a storage account</em></p>
 </li>
 <li>
 <p>In the ensuing "Create storage account" blade, enter a name for the new storage account in <strong>Name</strong> field. Storage account names must be 3 to 24 characters in length and can only contain numbers and lowercase letters. In addition, the name you enter must be unique within Azure. If someone else has chosen the same name, you'll be notified that the name isn't available with a red exclamation mark in the <strong>Name</strong> field.</p>
-<p>Once you have a name that Azure will accept (as indicated by the green check mark in the <strong>Name</strong> field), make sure <strong>Resource manager</strong> is selected as the deployment model and <strong>General purpose</strong> is selected as the account kind. Then select <strong>Locally-redundant storage (LRS)</strong> as the replication type.</p>
-<p>Select <strong>Use existing</strong> under <strong>Resource group</strong> and select the resource group that you created in Exercise 1. Then select the location that you selected for the Data Lake Store. Finish up by clicking the <strong>Create</strong> button at the bottom of the blade to create the new storage account.</p>
+<p>Once you have a name that Azure will accept, select <strong>Use existing</strong> under <strong>Resource group</strong> and select the resource group that you created in Exercise 1. Then select the location that you selected for the Data Lake Store. Finish up by clicking the <strong>Create</strong> button at the bottom of the blade to create the new storage account.</p>
 <p><a href="images/create-storage-account.png" target="_blank"><img src="images/create-storage-account.png" alt="Creating a new storage account" style="max-width:100%;"></a></p>
 <p><em>Creating a new storage account</em></p>
 </li>
 <li>
-<p>Once the storage account has been created, click <strong>Resource groups</strong> in the ribbon on the left side of the portal, and then click the resource group that holds the storage account. Now click the storage account to open a blade for that account.</p>
+<p>Click <strong>Resource groups</strong> in the ribbon on the left side of the portal, and then click the resource group that holds the storage account. Now click the storage account to open a blade for that account.</p>
 <p><a href="Images/open-storage-account.png" target="_blank"><img src="Images/open-storage-account.png" alt="Opening the storage account" style="max-width:100%;"></a></p>
 <p><em>Opening the storage account</em></p>
 </li>
 <li>
-<p>You need to create a container in the storage account to hold your database backup. To begin, click <strong>Blobs</strong> in the storage account's blade.</p>
+<p>You need to create a container in the storage account to hold the database backup. To begin, click <strong>Blobs</strong> in the storage account's blade.</p>
 <p><a href="Images/open-blob-storage.png" target="_blank"><img src="Images/open-blob-storage.png" alt="Opening blob storage" style="max-width:100%;"></a></p>
 <p><em>Opening blob storage</em></p>
 </li>
 <li>
-<p>Click <strong>+ Container</strong> at the top of the blade.</p>
+<p>Click <strong>+ Container</strong> to create a new container.</p>
 <p><a href="Images/add-container.png" target="_blank"><img src="Images/add-container.png" alt="Adding a container" style="max-width:100%;"></a></p>
 <p><em>Adding a container</em></p>
 </li>
 <li>
-<p>Enter the name "bacpacs" (without quotation marks) for your new blob container, and then click <strong>Create</strong>:</p>
+<p>Enter the name "bacpacs" (without quotation marks) for the new blob container, and then click <strong>Create</strong>:</p>
 <p><a href="Images/new-container.png" target="_blank"><img src="Images/new-container.png" alt="Creating a new container" style="max-width:100%;"></a></p>
 <p><em>Creating a new container</em></p>
 </li>
 <li>
-<p>Return to the storage account's blade and click the key icon:</p>
-<p><a href="Images/open-access-keys.png" target="_blank"><img src="Images/open-access-keys.png" alt="Viewing the storage account's access keys" style="max-width:100%;"></a></p>
-<p><em>Viewing the storage account's access keys</em></p>
+<p>Click the "bacpacs" container to open it.</p>
+<p><a href="Images/open-container.png" target="_blank"><img src="Images/open-container.png" alt="Opening the &quot;bacpacs&quot; container" style="max-width:100%;"></a></p>
+<p><em>Opening the "bacpacs" container</em></p>
 </li>
 <li>
-<p>In the "Access keys" blade, click the <strong>Copy</strong> button to the right of <strong>key1</strong> to copy the storage account's primary access key to the clipboard. Then paste the access key into your favorite text editor so you can easily access it again in a few moments.</p>
-<p><a href="Images/copy-access-key.png" target="_blank"><img src="Images/copy-access-key.png" alt="Copying the storage account's access key" style="max-width:100%;"></a></p>
-<p><em>Copying the storage account's access key</em></p>
+<p>Click <strong>Upload</strong>.</p>
+<p><a href="Images/upload-blob-1.png" target="_blank"><img src="Images/upload-blob-1.png" alt="Uploading to the &quot;bacpacs&quot; container" style="max-width:100%;"></a></p>
+<p><em>Uploading to the "bacpacs" container</em></p>
 </li>
 <li>
-<p>Now you need to upload the database backup file (<strong>academics-stackexchange-users.bacpac</strong>, provided for you in this labs "resources" directory) to the new storage account. You'll do that using the cross-platform Azure command line interface, commonly referred to as the "Azure CLI".</p>
-<p>If you haven't already downloaded and installed the Azure CLI, <strong>do so now</strong>. You'll find instructions at <a href="https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/">https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/</a>. The Azure CLI is a Node.js application, so Node.js must be installed before you can run the CLI. You can download Node.js from <a href="https://nodejs.org/en/">https://nodejs.org/en/</a> if it isn't already installed on your computer.</p>
+<p>Click the <strong>Open</strong> button to the right of the <strong>Files</strong> box. Navigate to this lab's "resources" folder and select the file named <strong>academics-stackexchange-users.bacpac</strong>. Then click the <strong>Upload</strong> button to upload the file to the container.</p>
+<p><a href="Images/upload-blob-2.png" target="_blank"><img src="Images/upload-blob-2.png" alt="Uploading a file" style="max-width:100%;"></a></p>
+<p><em>Uploading a file</em></p>
 </li>
 <li>
-<p>Open a command shell (Bash, Terminal, command prompt, etc.) and execute the following command:</p>
- <pre> azure login
- </pre>
+<p>Wait until the upload has completed. Then close the "Upload blob" blade and return to the blade for the "bacpacs" container. Confirm that the container now contains a blob named <strong>academics-stackexchange-users.bacpac</strong>.</p>
+<p><a href="Images/new-bacpac-blob.png" target="_blank"><img src="Images/new-bacpac-blob.png" alt="The uploaded blob" style="max-width:100%;"></a></p>
+<p><em>The uploaded blob</em></p>
 </li>
 <li>
-<p>Copy the access code presented to you in the command shell. Then open a browser window and navigate to <a href="https://aka.ms/devicelogin">https://aka.ms/devicelogin</a> and enter the code. If prompted to log in, do so using your Microsoft account. Upon successful authentication, your command-line session will be connected to your Azure subscription.</p>
-</li>
-<li>
-<p>Assuming you are using the Azure Pass subscription provided to you for working these labs, execute the following command to ensure that Azure Pass is the active subscription (the subscription that will be charged against) for operations performed with the CLI:</p>
- <pre> azure account set "Azure Pass"
- </pre>
-</li>
-<li>
-<p>In the command shell, navigate to this lab "resources" directory. Then execute the following command, substituting the name of the storage account you created in Step 2 for <em>storage_account_name</em>, and the access key you copied in Step 8 for <em>storage_account_key</em>:</p>
- <pre> azure storage blob upload -a "<i>storage_account_name</i>" -k "<i>storage_account_key</i>" -f "academics-stackexchange-users.bacpac" --container "bacpacs" -b "academics-stackexchange-users.bacpac"
- </pre>
-<p><strong>Keep the shell open when you are done; you will need it later on.</strong></p>
-</li>
-<li>
-<p>Return to the Azure Portal and to the blade for the storage account. Click <strong>Blobs</strong>, and then click the <strong>bacpacs</strong> container. Verify that the container now contains a blob named <strong>academics-stackexchange-users.bacpac</strong>:</p>
-<p><a href="Images/new-bacpac-blob.png" target="_blank"><img src="Images/new-bacpac-blob.png" alt="Database backup in Azure storage" style="max-width:100%;"></a></p>
-<p><em>Database backup in Azure storage</em></p>
-</li>
-<li>
-<p>The next step is to add a new SQL database server. In the Azure portal, click <strong>Browse -&gt; SQL servers</strong>:</p>
-<p><a href="Images/sql-servers.png" target="_blank"><img src="Images/sql-servers.png" alt="Listing SQL servers" style="max-width:100%;"></a></p>
-<p><em>Listing SQL servers</em></p>
+<p>The next step is to create a new SQL database server. In the Azure portal, click <strong>More services</strong> in the ribbon on the left and type "sql" (without quotation marks) in the search box. Then click <strong>SQL servers</strong>:</p>
+<p><a href="Images/sql-servers.png" target="_blank"><img src="Images/sql-servers.png" alt="Searching for SQL servers" style="max-width:100%;"></a></p>
+<p><em>Searching for SQL servers</em></p>
 </li>
 <li>
 <p>Click <strong>+ Add</strong> in the "SQL servers" blade:</p>
@@ -742,23 +729,28 @@ vertical-align:1px;
 <p><em>Adding a SQL server</em></p>
 </li>
 <li>
-<p>In the ensuing blade, enter the parameters for a new SQL server, beginning with a unique name. (It must be unique across all of Azure; be sure a green check appears in the box.) Enter "azureuser" (without quotation marks) as the user name, and "AzurePass!" (again without quotation marks) as the password. Under <strong>Resource group</strong>, select <strong>Use existing</strong> and select the same resource group you have used throughout this lab. For <strong>Location</strong>, select the same location you selected in previous exercises. When you're finished, click the <strong>Create</strong> button at the bottom of the blade.</p>
+<p>Enter a unique name for your SQL server. (It must be unique across all of Azure; be sure a green check mark appears in the box.) Enter "azureuser" (without quotation marks) as the user name, and "Azure4Research!" (again without quotation marks) as the password. Under <strong>Resource group</strong>, select <strong>Use existing</strong> and select the same resource group you have used throughout this lab. For <strong>Location</strong>, select the same location you selected in previous exercises. When you're finished, click the <strong>Create</strong> button at the bottom of the blade.</p>
 <p><a href="Images/create-sql-server.png" target="_blank"><img src="Images/create-sql-server.png" alt="Creating a new SQL server" style="max-width:100%;"></a></p>
 <p><em>Creating a new SQL server</em></p>
 <p>After a few moments, the SQL server will be created. Click the <strong>Refresh</strong> button at the top of the "SQL servers" blade and make sure the new SQL server appears in the list of SQL servers associated with your subscription.</p>
 </li>
 <li>
-<p>Next, you need to create a new database instance using the blob you uploaded a few moments ago. In the "SQL servers" blade, click the SQL server you just created. Then click <strong>Import database</strong> at the top of the ensuing blade:</p>
+<p>Next, you need to create a new database instance using the blob you uploaded a few moments ago. In the "SQL servers" blade, click the SQL server you just created. Then click <strong>Import database</strong>.</p>
 <p><a href="Images/import-database.png" target="_blank"><img src="Images/import-database.png" alt="Importing a database" style="max-width:100%;"></a></p>
 <p><em>Importing a database</em></p>
 </li>
 <li>
-<p>In the "Import database" blade, click <strong>Subscription</strong> and choose your Azure Pass subscription. Then click <strong>Storage</strong> and select the storage account that you uploaded the .bacpac file to, followed by the "bacpacs" container and, after that, the blob you uploaded to that container. Finally, enter "azureuser" as the user name and "AzurePass!" as the password, both without quotation marks. Finish up by clicking <strong>OK</strong> at the bottom of the blade.</p>
+<p>In the "Import database" blade, click <strong>Storage</strong> and select the storage account that you uploaded the .bacpac file to, followed by the "bacpacs" container and, after that, the blob you uploaded to that container. Then click the <strong>Select</strong> button at the bottom of that blade. Now return to the "Import database" blade and enter "azureuser" as the user name and "Azure4Research!" as the password, both without quotation marks. Finish up by clicking <strong>OK</strong> at the bottom of the blade.</p>
 <p><a href="Images/import-database-instance.png" target="_blank"><img src="Images/import-database-instance.png" alt="Specifying database import options" style="max-width:100%;"></a></p>
 <p><em>Specifying database import options</em></p>
 </li>
 <li>
-<p>While you wait for the database instance to be created, click <strong>Show firewall settings</strong> on the database-server blade and add an IP range entry to allow Data Lake Analytics to communicate with your server during federated query execution. Type the following values into the three text boxes and then click <strong>Save</strong> at the top of the "Firewall settings" blade:</p>
+<p>While you wait for the database instance to be created, click <strong>Show firewall settings</strong> in the database-server blade.</p>
+<p><a href="Images/show-firewall-settings.png" target="_blank"><img src="Images/show-firewall-settings.png" alt="Viewing firewall settings" style="max-width:100%;"></a></p>
+<p><em>Viewing firewall settings</em></p>
+</li>
+<li>
+<p>Add an IP range to allow Data Lake Analytics to communicate with your server during federated query execution. Type the following values into the three text boxes and then click <strong>Save</strong> at the top of the blade:</p>
 <ul>
 <li><strong>Rule Name</strong>: Allow Data Lake</li>
 <li><strong>Start IP</strong>: 25.66.0.0</li>
@@ -768,107 +760,114 @@ vertical-align:1px;
 <p><em>Configuring the firewall</em></p>
 </li>
 <li>
-<p>Now that you have a SQL database instance up and running, the final step is to register it with Data Lake Analytics for federation. Navigate back to your Data Lake Analytics account in the portal and click <strong>New Job</strong> at the top of the blade. In the "New U-SQL Job" blade, enter the following statement and then click <strong>Submit Job</strong> to run the job:</p>
- <pre> CREATE DATABASE UserIntegration;
- </pre>
+<p>Now that you have a SQL database instance up and running, the final step is to register it with Data Lake Analytics for federation. Navigate back to your Data Lake Analytics account in the portal and click <strong>+ New Job</strong> at the top of the blade. In the "New U-SQL Job" blade, enter the following statement and then click <strong>Submit Job</strong> to run the job:</p>
+<div class="highlight highlight-source-sql"><pre><span class="pl-k">CREATE</span> <span class="pl-k">DATABASE</span> <span class="pl-en">UserIntegration</span>;</pre></div>
 </li>
 <li>
-<p>Return to the command shell and execute the following commands to create a Data Lake catalog secret containing SQL server connection and authentication information for federated query execution. Substitute your Data Lake Analytics account name for <em>analytics_account_name</em> and your database server name (the one specified in Step 17 of this exercise) for <em>database_server_name</em>:</p>
+<p>If you haven't installed the <a href="https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/">Azure CLI</a>, take a moment to install it now. Then open a command shell (Bash, Terminal, Command Prompt, etc.) and execute the following command:</p>
+<pre><code>azure login
+</code></pre>
+</li>
+<li>
+<p>Copy the access code presented to you in the command shell. Then open a browser window and navigate to <a href="https://aka.ms/devicelogin">https://aka.ms/devicelogin</a> and enter the code. If prompted to log in, do so using your Microsoft account. Upon successful authentication, your command-line session will be connected to your Azure subscription.</p>
+</li>
+<li>
+<p>Assuming you are using the Azure Pass subscription provided to you for these labs, execute the following command to ensure that Azure Pass is the active subscription (the subscription that will be charged against) for operations performed with the CLI:</p>
+<pre><code>azure account set "Azure Pass"
+</code></pre>
+</li>
+<li>
+<p>Now execute the following commands to create a Data Lake catalog secret containing SQL server connection and authentication information for federated query execution. Substitute your Data Lake Analytics account name for <em>analytics_account_name</em> and your database server name (the one specified in Step 13 of this exercise) for <em>database_server_name</em>:</p>
  <pre> azure config mode arm
- azure datalake analytics catalog secret create "<i>analytics_account_name</i>" "UserIntegration" "tcp://<i>database_server_name</i>.database.windows.net:1433"
- </pre>
-<p>When prompted for a catalog secret name, type "user-integration-secret" without quotation marks. When prompted for a password, enter the password for your SQL server account ("AzurePass!"), which you specified in Step 19 of this exercise.</p>
+ azure datalake analytics catalog secret create "<i>analytics_account_name</i>" "UserIntegration" "tcp://<i>database_server_name</i>.database.windows.net:1433"</pre>
+<p>When prompted for a catalog secret name, type "user-integration-secret" without quotation marks. When prompted for a password, enter the SQL server password ("Azure4Research!") you specified in Step 13.</p>
 </li>
 <li>
 <p>Return to your Data Lake Analytics account in the Azure Portal. Then click <strong>+ New Job</strong> and execute the following query:</p>
- <pre> USE DATABASE UserIntegration;
- 
- CREATE CREDENTIAL IF NOT EXISTS FederatedDbSecret WITH USER_NAME = "azureuser", IDENTITY = "user-integration-secret";
+<div class="highlight highlight-source-sql"><pre>USE DATABASE UserIntegration;
 
- CREATE DATA SOURCE IF NOT EXISTS AcademicSEDb FROM AZURESQLDB WITH
-    ( PROVIDER_STRING = "Database=academics-stackexchange-users;Trusted_Connection=False;Encrypt=True",
-      CREDENTIAL = FederatedDbSecret,
-      REMOTABLE_TYPES = (bool, byte, sbyte, short, ushort, int, uint, long, ulong, decimal, float, double, string, DateTime) );
+CREATE CREDENTIAL IF NOT EXISTS FederatedDbSecret WITH USER_NAME <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>azureuser<span class="pl-pds">"</span></span>, IDENTITY <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>user-integration-secret<span class="pl-pds">"</span></span>;
 
- CREATE EXTERNAL TABLE User (
-                         [id] int,
-                         [reputation] int,
-                         [created] DateTime,
-                         [displayname] string,
-                         [lastaccess] DateTime,
-                         [location] string
-                     ) FROM AcademicSEDb LOCATION "dbo.User";
- </pre>
-<blockquote>
+CREATE DATA SOURCE IF NOT EXISTS AcademicSEDb <span class="pl-k">FROM</span> AZURESQLDB WITH
+   ( PROVIDER_STRING <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Database=academics-stackexchange-users;Trusted_Connection=False;Encrypt=True<span class="pl-pds">"</span></span>,
+     CREDENTIAL <span class="pl-k">=</span> FederatedDbSecret,
+     REMOTABLE_TYPES <span class="pl-k">=</span> (bool, byte, sbyte, short, ushort, <span class="pl-k">int</span>, uint, long, ulong, <span class="pl-k">decimal</span>, float, double, string, DateTime) );
+
+CREATE EXTERNAL TABLE User (
+                        [id] <span class="pl-k">int</span>,
+                        [reputation] <span class="pl-k">int</span>,
+                        [created] DateTime,
+                        [displayname] string,
+                        [lastaccess] DateTime,
+                        [location] string
+                    ) <span class="pl-k">FROM</span> AcademicSEDb LOCATION <span class="pl-s"><span class="pl-pds">"</span>dbo.User<span class="pl-pds">"</span></span>;</pre></div>
 <p>This query creates a credential using the "user-integration-secret" catalog secret, configures your SQL database as a data source authenticated with the new credential, and then creates a named table in your local Data Lake Analytics database which is backed by the SQL data source.</p>
-</blockquote>
 </li>
 </ol>
 <p>That was a lot of work, but you are now ready to issue federated queries. Let's try it out!</p>
 <p><a name="Exercise6"></a></p>
 <h2>Exercise 6: Perform a federated query with U-SQL</h2>
-<p>Two of the most compelling features of Data Lake Analytics are its ability to federate external data sources (meaning, query them in their native storage, with copying) and its ability to address multiple disparate data sources in a single query. In this exercise, you'll use both to join data from the SQL database you created in Exercise 5 with data in the tab-delimited file you imported in Exercise 3.</p>
+<p>Two of the most compelling features of Data Lake Analytics are its ability to federate external data sources (meaning, query them in their native storage, with copying) and its ability to address multiple disparate data sources in a single query. In this exercise, you'll use both to join data from the SQL database you created in <a href="#Exercise5">Exercise 5</a> with data in one of the tab-delimited files you imported in <a href="#Exercise3">Exercise 3</a>.</p>
 <ol>
 <li>
 <p>In the Azure Portal, navigate to your Data Lake Analytics account and click <strong>+ New Job</strong>. Paste the following query into the query-text field and click <strong>Submit Job</strong> to run the job.</p>
- <pre> USE DATABASE UserIntegration;
- 
- // here we define the schema for the imported posts.tsv file
- @posts =
-     EXTRACT id          		int,
-             [type]      		string,
- 			acceptedanswerid	int?,
- 			parentquestionid	int?,
- 			creationdate		string,
-             score       		int,
- 		   	views				int,
- 			ownerid				int,
-             title       		string,
- 			body				string,
- 			tags				string,
- 			answers				int,
- 			comments			int
-     FROM "posts.tsv"
-     USING Extractors.Tsv();
- 
- // here we find the earliest post date per user... note the C# date conversion
- @earliest_posts =
-     SELECT
-         ownerid,
-         MIN(DateTime.Parse(creationdate)) AS created
-     FROM @posts
- GROUP BY ownerid;
- 
- // now we join to the external SQL Database table to add user names to the output
- @results =
- 	SELECT
- 		u.[displayname] AS [name],
- 		ep.[created] AS [first_post_date]
- 	FROM
- 		User AS u
- 			INNER JOIN @earliest_posts AS ep ON ep.[ownerid] == u.[id];
- 
- // finally we output the transformed data for further analysis or visualization
- OUTPUT @results
-     TO "firstposts.csv"
-     USING Outputters.Csv();
- </pre>
-<blockquote>
-<p>This query first applies structure to the data in <strong>posts.tsv</strong> and then queries that file for the earliest post by each user. Then it joins the query results to the external database table created in the previous exercise and performs another query to associate a user name with each post. Finally, it writes the output of this query to <strong>firstposts.csv</strong>. Note the call to DateTime.Parse embedded in the query. This is an example of how C# expressions can be included in U-SQL to richen the queries you perform.</p>
-</blockquote>
+<div class="highlight highlight-source-sql"><pre>USE DATABASE UserIntegration;
+
+<span class="pl-k">//</span> here we define the schema for the imported <span class="pl-c1">posts</span>.<span class="pl-c1">tsv</span> file
+@posts <span class="pl-k">=</span>
+    EXTRACT id                  <span class="pl-k">int</span>,
+            [type]              string,
+            acceptedanswerid    <span class="pl-k">int</span>?,
+            parentquestionid    <span class="pl-k">int</span>?,
+            creationdate        string,
+            score               <span class="pl-k">int</span>,
+            views               <span class="pl-k">int</span>,
+            ownerid             <span class="pl-k">int</span>,
+            title               string,
+            body                string,
+            tags                string,
+            answers             <span class="pl-k">int</span>,
+            comments            <span class="pl-k">int</span>
+    <span class="pl-k">FROM</span> <span class="pl-s"><span class="pl-pds">"</span>posts.tsv<span class="pl-pds">"</span></span>
+    USING <span class="pl-c1">Extractors</span>.<span class="pl-c1">Tsv</span>();
+
+<span class="pl-k">//</span> here we find the earliest post <span class="pl-k">date</span> per user... note the C<span class="pl-c"><span class="pl-c">#</span> date conversion</span>
+@earliest_posts <span class="pl-k">=</span>
+    <span class="pl-k">SELECT</span>
+        ownerid,
+        <span class="pl-c1">MIN</span>(<span class="pl-c1">DateTime</span>.<span class="pl-c1">Parse</span>(creationdate)) <span class="pl-k">AS</span> created
+    <span class="pl-k">FROM</span> @posts
+<span class="pl-k">GROUP BY</span> ownerid;
+
+<span class="pl-k">//</span> now we <span class="pl-k">join</span> to the external SQL Database table to add user names to the output
+@results <span class="pl-k">=</span>
+    <span class="pl-k">SELECT</span>
+        u.[displayname] <span class="pl-k">AS</span> [name],
+        ep.[created] <span class="pl-k">AS</span> [first_post_date]
+    <span class="pl-k">FROM</span>
+        User <span class="pl-k">AS</span> u
+            <span class="pl-k">INNER JOIN</span> @earliest_posts <span class="pl-k">AS</span> ep <span class="pl-k">ON</span> ep.[ownerid] <span class="pl-k">==</span> u.[id];
+
+<span class="pl-k">//</span> finally we output the transformed data for further analysis <span class="pl-k">or</span> visualization
+OUTPUT @results
+    TO <span class="pl-s"><span class="pl-pds">"</span>firstposts.csv<span class="pl-pds">"</span></span>
+    USING <span class="pl-c1">Outputters</span>.<span class="pl-c1">Csv</span>();</pre></div>
+<p>This query first applies structure to the data in <strong>posts.tsv</strong> and then queries that file for the earliest post by each user. Then it joins the query results to the external database table created in the previous exercise and performs another query to associate a user name with each post. Finally, it writes the output of this query to <strong>firstposts.csv</strong>. Note the call to <strong>DateTime.Parse</strong> embedded in the query. This is an example of how C# expressions can be included in U-SQL to richen the queries you perform.</p>
 </li>
 <li>
 <p>Once the job has run successfully, open the blade for your Data Lake Store and click <strong>Data Explorer</strong> near the top. Confirm that the Data Lake Store contains a file named <strong>firstposts.csv</strong>. Then click the file.</p>
-<p><a href="Images/first-posts-csv.png" target="_blank"><img src="Images/first-posts-csv.png" alt="First Posts CSV file" style="max-width:100%;"></a></p>
-<p><em>First posts CSV query results</em></p>
+<p><a href="Images/first-posts-csv.png" target="_blank"><img src="Images/first-posts-csv.png" alt="Viewing the query results" style="max-width:100%;"></a></p>
+<p><em>Viewing the query results</em></p>
 </li>
 <li>
-<p>Confirm that the file contains two columns of data: one for name of each user who posted in the discussion forum, and another for the time and date of each user's first post.</p>
+<p>Confirm that the file contains two columns of data: one containing the name of each user who posted in the discussion forum, and another containing the time and date of each user's first post.</p>
+<p><a href="Images/query-results.png" target="_blank"><img src="Images/query-results.png" alt="The query results" style="max-width:100%;"></a></p>
+<p><em>The query results</em></p>
 </li>
 </ol>
 <p>You just demonstrated that U-SQL can be used to query multiple data sources of different types. You also saw one example of how C# expressions can be used to richen queries in U-SQL.</p>
-<h3>Summary</h3>
-<p>Azure Data Lake provides a hyperscale, enterprise-wide repository where different types of data can be collected without regard to size, structure, or velocity. Once aggregated in a Data Lake Store, data can be analyzed with Azure Data Lake Analytics, or processed with popular open-source tools such as Apache Hadoop and Apache Spark hosted in <a href="https://azure.microsoft.com/en-us/services/hdinsight/">Azure HDInsight</a>. In this lab, you learned how to import various types of data into a Data Lake Store and use Azure Data Lake Analytics to query the combined data with U-SQL.</p>
+<h2>Summary</h2>
+<p>Azure Data Lake provides a hyperscale, enterprise-wide repository in which different types of data can be collected without regard to size, structure, or velocity. Once aggregated in a Data Lake Store, data can be analyzed with Azure Data Lake Analytics, or processed with popular open-source tools such as Apache Hadoop and Apache Spark hosted in <a href="https://azure.microsoft.com/en-us/services/hdinsight/">Azure HDInsight</a>. In this lab, you learned how to import various types of data into a Data Lake Store and use Azure Data Lake Analytics to query the combined data with U-SQL.</p>
 <p>Azure Data Lake does not itself provide tools for visualizing query results, but other components of Azure and the Azure ecosystem do. For example, <a href="https://powerbi.microsoft.com/en-us/">Microsoft Power BI</a> can be used to visualize query results and can even be connected directly to a Data Lake Store. For more information about combining Azure Data Lake with Power BI and a tutorial to help guide the way, see <a href="https://azure.microsoft.com/en-us/documentation/articles/data-lake-store-power-bi/">Analyze data in Data Lake Store by using Power BI</a>.</p>
 <hr>
 <p>Copyright 2016 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>.</p>
