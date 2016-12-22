@@ -240,7 +240,7 @@ Let's get started!
 
 	Once you have a name that Azure will accept, select **Use existing** under **Resource group** and select the resource group that you created in Exercise 1. Then select the location that you selected for the Data Lake Store. Finish up by clicking the **Create** button at the bottom of the blade to create the new storage account.
     
-	![Creating a new storage account](images/create-storage-account.png)
+	![Creating a new storage account](Images/create-storage-account.png)
 
     _Creating a new storage account_
 
