@@ -71,7 +71,7 @@ Azure Batch accounts are simple to setup through the Azure Portal.
 
 	_Creating a Batch service_
 
-1. In the "New Batch account" blade, give the account a unique name such as "batchservicelab" and make sure a green check mark appears next to it. (You can only use numbers and lowercase letters since the name becomes part of a DNS name.) Select **Create new** under **Resource group** and name the resource group "batch-service-lab". Selection the **Location** nearest you, and then click **Select a storage account**.
+1. In the "New Batch account" blade, give the account a unique name such as "batchservicelab" and make sure a green check mark appears next to it. (You can only use numbers and lowercase letters since the name becomes part of a DNS name.) Select **Create new** under **Resource group** and name the resource group "batch-service-lab". Select the **Location** nearest you, and then click **Select a storage account**.
 
 	![Entering Batch service parameters](Images/setup-azure-batch-2.png)
 
@@ -230,10 +230,11 @@ Ubuntu Linux can also run Batch Shipyard. The setup process is slightly differen
 	````
 	./install.sh
 	````
+
 <a id="Exercise5"/></a>
 ## Exercise 5: Configure Batch Shipyard
 
-Batch Shipyard uses four different JSON files -- **config.json, pool.json,  jobs.json**, and **credentials.json** -- to configure the environment. These four files, the Dockerfiles used to define Docker images, their associated files, and a **readme.md** file define a Batch Shipyard "recipe."
+Batch Shipyard uses four different JSON files — **config.json, pool.json,  jobs.json**, and **credentials.json** — to configure the environment. These four files, the Dockerfiles used to define Docker images, their associated files, and a **readme.md** file define a Batch Shipyard "recipe."
 
 Each of the configuration files configures some portion of Batch Shipyard. The **config.json** file contains a set of global configuration settings used by the other files to set up the Batch Shipyard environment. **pool.json** file contains the definitions for the compute pools used to perform batch jobs. **jobs.json** outlines the job definition and the tasks that are a part of that job. **credentials.json** provides the needed keys and passwords to access the Batch Account and the associated Storage Accounts on Azure.
 
