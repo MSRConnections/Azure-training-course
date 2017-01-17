@@ -104,56 +104,42 @@ Wait for the deployment to finish, and then proceed to [Exercise 2](#Exercise2) 
 
 **Note: if at any point in the setup process for this lab the setup will not work, try using a Windows 10 virtual machine on Azure and run the lab from the VM.** Instructions for creating a Windows 10 VM in Azure can be found [here](Windows VM.html).
 
-Batch Shipyard is built on Python. Windows does not have a built in Python client, so one needs to be installed. This is a straight forward process that involves Downloading and installing Python, then using PiPy, the Python package manager to install the dependencies for Python for Batch Shipyard.
+Batch Shipyard is built on Python. Windows does not have a built-in Python client, so you need to install one if it isn't installed already. This is a straightforward process that involves downloading and installing Python, and then using PiPy, the Python package manager, to install the dependencies for Python for Batch Shipyard.
 
-1. Visit [https://www.python.org/downloads/](https://www.python.org/downloads/) to download the latest version of Python for Windows. Click on **Download Python 3.X.X** to start the download.
+1. Visit https://www.python.org/downloads/ to download the latest version of Python for Windows. Click **Download Python 3.x.x** to start the download.
 
-	![Download Python](Images/python-3-download.png)
+	![Downloading Python for Windows](Images/python-3-download.png)
 
-1. Once the download completes, launch the installer from the Downloads folder on your computer.
+	_Downloading Python for Windows_
 
-	![Install Python](Images/python-3-installer.png)
+1. Once the download completes, launch the installer. Check the **Add Python 3.x to PATH** box, and then click **Install Now**.
 
-1. Once the Python installer starts, Check the box next to **Add Python 3.x.x to PATH** then click **Install Now**.
+	![Installing Python](Images/python-3-installer-2.png)
 
-	![Install Python](Images/python-3-installer-2.png)
+	_Installing Python_
 
-1. After Python installs, the installer will indicate a successful install with Setup was successful. Click **Close** to quit the installer.
+1. Wait for the installer to finish. Then close the installer, go to https://github.com/Azure/batch-shipyard/releases, and download the latest version of Batch Shipyard.
 
-	![Close Python Installer](Images/python-3-installer-3.png)
+	![Downloading Batch Shipyard](Images/download-batch-shipyard.png)
 
-1. Visit [https://github.com/Azure/batch-shipyard/releases](https://github.com/Azure/batch-shipyard/releases) to download the latest version of Batch Shipyard. **Download the Source code (zip)** file.
+	_Downloading Batch Shipyard_
 
-	![Download Batch Shipyard](Images/download-batch-shipyard.png)
+1. Once the download completes, open the downloaded zip file and copy the folder named "batch-shipyard-2.x.x" inside the zip file to the clipboard.
 
-1. Once the download completes, open the zip file (batch-shipyard-2.x.x.zip) in the Downloads folder and, select the **batch-shipyard-2.x.x** folder in the zip file. Right click the files and select **Copy** from the context menu.
+1. Paste the folder onto the Desktop, and then rename the folder "batch-shipyard."
 
-	![Copy Folder](Images/copy-folder.png)
+1. Press **Windows Key + R** to open a "Run" dialog, type "cmd," then click **OK**. 
 
-1. On the Desktop, right click and **Paste** the folder to the Desktop.
+	![Opening a Command Prompt](Images/command-prompt.png)
 
-	![Paste Folder](Images/paste-folder.png)
+	_Opening a Command Prompt_
 
-1. Right-click the **batch-shipyard-2.x.x** folder, then select **Rename**.
-
-	![Rename Folder](Images/rename-folder.png)
-
-1. Type in **batch-shipyard** into the name field, then press Enter.
-
-1. Python needs a Command Prompt to finish the setup. Press the **Windows Key + R** to open a **Run** dialog, type in "cmd" in the **Open** field, then click **OK**. 
-
-	![Command Prompt](Images/command-prompt.png)
-
-1. Once the Command Prompt opens, use the CD command to change directories to the **batch-shipyard** folder on the Desktop. 
-
-	````
-	cd %HOMEPATH%\Desktop\batch-shipyard
-	````
-1. Use PiPy (pip3) to finish the setup.  This will install the dependencies for Batch Shipyard. Leave the terminal open. The lab will use it in the next exercise.
+1. In the Command Prompt window, use a ```cd``` command to change directories to the "batch-shipyard" folder on the Desktop. Then execute the following command to run PiPy and install the dependencies for Batch Shipyard. When you're finished, leave the Command Prompt window open so you can return to it in the next exercise
 
 	````
 	pip3 install --upgrade -r requirements.txt
 	````
+
 Now **proceed to [Exercise 5](#Exercise5)**. Exercises 3 and 4 are for macOS and Linux users only.
 
 <a id="Exercise3"/></a>
