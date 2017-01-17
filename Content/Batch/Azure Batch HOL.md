@@ -154,6 +154,7 @@ Batch Shipyard is built on Python. Windows does not have a built in Python clien
 	````
 	pip3 install --upgrade -r requirements.txt
 	````
+Now **proceed to [Exercise 5](#Exercise5)**. Exercises 3 and 4 are for macOS and Linux users only.
 
 <a id="Exercise3"/></a>
 ## Exercise 3: Set up Batch Shipyard (macOS)
@@ -197,6 +198,8 @@ MacOS comes with Python preinstalled, but using the preinstalled version of Pyth
 	````
 	pip3 install --upgrade -r requirements.txt
 	````
+
+Now **proceed to [Exercise 5](#Exercise5)**. Exercise 4 is for Linux users only.
 
 <a id="Exercise4"/></a>
 ## Exercise 4: Set up Batch Shipyard (Ubuntu Linux)
