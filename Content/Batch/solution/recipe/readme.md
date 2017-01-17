@@ -1,0 +1,1 @@
+The readme.md is part of the Azure Batch lab using Batch Shipyard. See the readme.md for the lab for instructions on how to use this recipe.

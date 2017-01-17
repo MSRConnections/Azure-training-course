@@ -1,0 +1,18 @@
+{
+    "job_specifications": [
+        {
+            "id": "batch-lab-job",
+            "tasks": [
+                {
+                    "image": "blaize/txt2ogg",
+                    "remove_container_after_exit": true,
+                    "command": "sh /text2ogg.sh",
+                    "shared_data_volumes": [
+                        "shipyardvol"
+                    ]
+					
+                }
+            ]
+        }
+    ]
+}
