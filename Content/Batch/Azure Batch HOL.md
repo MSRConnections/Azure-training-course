@@ -102,9 +102,9 @@ Wait for the deployment to finish, and then proceed to [Exercise 2](#Exercise2) 
 <a id="Exercise2"/></a>
 ## Exercise 2: Set up Batch Shipyard (Windows)
 
-**Note: If setup fails at any point in this exercise, try using a Windows 10 virtual machine on Azure rather than your local PC.** Instructions for creating a Windows 10 VM can be found [here](Windows VM.html).
+**Note: If setup fails at any point in this exercise, try using a Windows 10 virtual machine on Azure rather than your local PC.** Instructions for creating a Windows 10 VM can be found [here](https://github.com/MSRConnections/Azure-training-course/blob/master/Content/Batch/Windows%20VM.html).
 
-Batch Shipyard is built on Python. Windows does not have a built-in Python client, so you need to install one if it isn't installed already. In this exercise, you will download and install Python, and then use PiPy, the Python package manager, to install the dependencies for Python for Batch Shipyard.
+Azure Batch Shipyard is built on Python. Windows does not have a built-in Python client, so you need to install one if it isn't installed already. In this exercise, you will download and install Python, and then use PiPy, the Python package manager, to install the dependencies for Batch Shipyard.
 
 1. Visit https://www.python.org/downloads/ to download the latest version of Python for Windows. Click **Download Python 3.x.x** to start the download.
 
@@ -139,9 +139,9 @@ Now **proceed to [Exercise 5](#Exercise5)**. Exercises 3 and 4 are for macOS and
 <a id="Exercise3"/></a>
 ## Exercise 3: Set up Batch Shipyard (macOS)
 
-**Note: If setup fails at any point in this exercise, try using a Windows 10 virtual machine on Azure rather than your local PC.** Instructions for creating a Windows 10 VM can be found [here](Windows VM.html).
+**Note: If setup fails at any point in this exercise, try using a Windows 10 virtual machine on Azure rather than your local PC.** Instructions for creating a Windows 10 VM can be found [here](https://github.com/MSRConnections/Azure-training-course/blob/master/Content/Batch/Windows%20VM.html).
 
-macOS comes with Python preinstalled, but using the preinstalled version of Python with Batch Shipyard is problematic. Batch Shipyard works best with Python 3 installed on a Mac. Python 3 can coexist with Python 2 without interference. In this exercise, you will download and install Python 3, and then use PiPy, the Python package manager, to install the dependencies for Python for Batch Shipyard.
+macOS comes with Python preinstalled, but using the preinstalled version of Python with Azure Batch Shipyard is problematic. Batch Shipyard works best with Python 3 installed on a Mac. Python 3 can coexist with Python 2 without interference. In this exercise, you will download and install Python 3, and then use PiPy, the Python package manager, to install the dependencies for Batch Shipyard.
 
 1. Visit https://www.python.org/downloads/ to download the latest version of Python for the Mac. Click **Download Python 3.x.x** to start the download.
 
@@ -170,35 +170,35 @@ Now **proceed to [Exercise 5](#Exercise5)**. Exercise 4 is for Linux users only.
 <a id="Exercise4"/></a>
 ## Exercise 4: Set up Batch Shipyard (Ubuntu Linux)
 
-**Note: If setup fails at any point in this exercise, try using a Windows 10 virtual machine on Azure rather than your local PC.** Instructions for creating a Windows 10 VM can be found [here](Windows VM.html).
+**Note: If setup fails at any point in this exercise, try using a Windows 10 virtual machine on Azure rather than your local PC.** Instructions for creating a Windows 10 VM can be found [here](https://github.com/MSRConnections/Azure-training-course/blob/master/Content/Batch/Windows%20VM.html).
 
-Ubuntu Linux can also run Batch Shipyard. The setup process is slightly different from the MacOS and Windows because it uses only a CLI. 
+In this exercise, you will install PiPy, the Python package manager, and then use it to install the dependencies for Batch Shipyard. 
 
-1. To install Batch Shipyard, launch a Terminal. If you're using a Desktop version of Linux, the Terminal is usually on the Applications menu. It can also be launched by pressing Ctrl + Alt + F1.
-
-1. Once the terminal is started, install python, PiPy and git using apt-get.
+1. Begin by launching a terminal. If you're using a desktop version of Linux, the terminal is usually in the Applications menu. It can also be launched by pressing **Ctrl+Alt+F1**. Once the terminal is started, use the following command to install Python, PiPy, and git using apt-get:
 
 	````
 	sudo apt-get install python-pip python git
 	````
 
-1. Use git to download Batch Shipyard using the clone command. This will create a folder called batch-shipyard and download all the files into the directory.
+1. Execute the following command to clone Batch Shipyard on the local machine. This will create a folder named "batch-shipyard" and download all the files to that directory.
 
 	````
 	git clone https://github.com/Azure/batch-shipyard.git
 	````
 
-1. Change to the batch-shipyard folder with the cd command.
+1. Use a ```cd``` command to change to the "batch-shipyard" folder:
 
 	````
 	cd batch-shipyard
 	````
 
-1. Finish the setup with the included setup script. The script will invoke PiPy and install the dependencies needed for Batch Shipyard to run.
+1. Use the following command to finish the installation by running the included setup script. The script invokes PiPy to install the dependencies needed by Batch Shipyard.
 
 	````
 	./install.sh
 	````
+
+Now that Batch Shipyard is installed, it's time to configure it.
 
 <a id="Exercise5"/></a>
 ## Exercise 5: Configure Batch Shipyard
