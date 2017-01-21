@@ -92,11 +92,25 @@ Azure Batch accounts are simple to setup through the Azure Portal.
 
 1. Click the **Create** button at the bottom of the "New Batch account" blade to start the deployment
 
-	![Creating a Batch service](Images/setup-azure-batch-3.png)
+	![Creating a Batch account](Images/setup-azure-batch-3.png)
 
-	_Creating a Batch service_
+	_Creating a Batch account_
 
-Wait for the deployment to finish, and then proceed to [Exercise 2](#Exercise2) if you are running Windows, [Exercise 3](#Exercise3) if you are running macOS, or [Exercise 4](#Exercise4) if you are running Linux.
+1. Click **Resource groups** in the ribbon on the left side of the portal, and then click the resource group created for the Batch account.
+ 
+    ![Opening the resource group](Images/open-resource-group.png)
+
+    _Opening the resource group_
+
+1. Wait until "Deploying" changes to "Succeeded," indicating that the Batch account has been deployed.
+
+	> Refresh the page in the browser every now and then to update the deployment status. Clicking the **Refresh** button in the resource-group blade refreshes the list of resources in the resource group, but does not reliably update the deployment status.
+
+    ![Viewing the deployment status](Images/deployment-status.png)
+
+    _Viewing the deployment status_
+
+After the deployment finishes, proceed to [Exercise 2](#Exercise2) if you are running Windows, [Exercise 3](#Exercise3) if you are running macOS, or [Exercise 4](#Exercise4) if you are running Linux.
 
 <a id="Exercise2"/></a>
 ## Exercise 2: Set up Batch Shipyard (Windows)
@@ -127,7 +141,7 @@ Azure Batch Shipyard is built on Python. Windows does not have a built-in Python
 
 1. Paste the folder onto the Desktop, and then rename the folder "batch-shipyard."
 
-1. Open a Command Prompt window and use a ```cd``` command to change directories to the "batch-shipyard" folder on the Desktop. Then execute the following command to run PiPy and install the dependencies for Batch Shipyard. When you're finished, leave the Command Prompt window open so you can return to it in the next exercise.
+1. Open a Command Prompt window and use a ```cd``` command to change directories to the "batch-shipyard" folder on the Desktop. Then execute the following command to run PiPy and install the dependencies for Batch Shipyard. When you're finished, leave the Command Prompt window open so you can return to it later.
 
 	````
 	pip3 install --upgrade -r requirements.txt
@@ -158,7 +172,7 @@ macOS comes with Python preinstalled, but using the preinstalled version of Pyth
 
 1. Open the Downloads folder in Finder. Then rename the "batch-shipyard-2.x.x" folder to "batch-shipyard."
 
-1. Open a terminal window and use a ```cd ~/Downloads/batch-shipyard``` command to change directories to the "batch-shipyard" folder in Downloads. Then execute the following command to run PiPy and install the dependencies for Batch Shipyard. When you're finished, leave the terminal window open so you can return to it in the next exercise.
+1. Open a terminal window and use a ```cd ~/Downloads/batch-shipyard``` command to change directories to the "batch-shipyard" folder in Downloads. Then execute the following command to run PiPy and install the dependencies for Batch Shipyard. When you're finished, leave the terminal window open so you can return to it later.
 
 	````
 	pip3 install --upgrade -r requirements.txt
@@ -204,45 +218,37 @@ Now that Batch Shipyard is installed, it's time to configure it.
 
 Batch Shipyard uses four different JSON files — **config.json, pool.json,  jobs.json**, and **credentials.json** — to configure the environment. These four files, the Dockerfiles used to define Docker images, their associated files, and a **readme.md** file define a Batch Shipyard "recipe."
 
-Each of the configuration files configures some portion of Batch Shipyard. The **config.json** file contains a set of global configuration settings used by the other files to set up the Batch Shipyard environment. **pool.json** file contains the definitions for the compute pools used to perform batch jobs. **jobs.json** outlines the job definition and the tasks that are a part of that job. **credentials.json** provides the needed keys and passwords to access the Batch Account and the associated Storage Accounts on Azure.
+Each of the configuration files configures some portion of Batch Shipyard. **config.json** contains configuration settings for the Batch Shipyard environment. **pool.json** contains definitions for the compute pools used to perform batch jobs. **jobs.json** outlines the job definition and the tasks that are part of that job. **credentials.json** holds the access keys for the batch account and the storage account.
 
-The lab here doesn't go into detail about how to use a Dockerfile, but in short a Dockerfile contains a list of instructions that are used to build Docker images which contain be deployed as containers. The Dockerfile included in the lab is the one used to build the image that is deployed in the lab. For more information about how to use Dockerfiles, check out (some training resource here).
+The lab here doesn't go into detail about how to use a Dockerfile, but in short a Dockerfile contains a list of instructions that are used to build Docker images which contain be deployed as containers. The Dockerfile included in the lab is the one used to build the image that is deployed in the lab. For more information about how to create Dockerfiles, check out https://docs.docker.com/engine/getstarted/step_four/.
 
 Three of the four JSON files are already configured in the solution recipe. The only one that needs to be changed is **credentials.json**.
 
-1. Open this lab's "solution" folder, and then copy the "recipe" folder from the "solution" folder into the "batch-shipyard" folder created in the previous exercise.
+1. Open this lab's "resources" folder, and then copy the "recipe" folder from the "resources" folder into the "batch-shipyard" folder created in the previous exercise.
 
-1. Open the copied "recipe" folder. Open the "config" folder in that folder, and then open the file named **credentials.json** in your favorite text editor. There are two sections in the file: "batch" and "storage." The "batch" section contains the settings for the batch account that Batch Shipyard needs to access the instance of Batch Services on Azure. The "storage" section contains the settings Batch Shipyard needs to make changes to the the storage account. 
+1. Open the copied "recipe" folder. Open the "config" folder in that folder, and then open the file named **credentials.json** in your favorite text editor. There are two sections in the file: "batch" and "storage." The "batch" section contains the settings for the batch account that Batch Shipyard will use. The "storage" section contains the settings Batch Shipyard will use to access the storage account that was created for the batch account.
 
-1. In the Azure Portal, click **Resource groups** in the ribbon on the left, and then click **batch-service-lab** to open that resource group.
+1. In **credentials.json**, replace *my_batch_account_name* with the name of the batch account that you created in Exercise 1, Step 3. 
 
-	![Opening the resource group](Images/select-batch-service-resource-group.png)
+1. Return to the Azure Portal. Click **Resource groups** in the ribbon on the left, and then click the resource group created for the Batch account.
+
+	![Opening the resource group](Images/open-resource-group.png)
 
 	_Opening the resource group_
 
-1. In the resource group, click the Batch account. Click **Keys** under **Settings**, and then click the **Copy** button next to the **PRIMARY ACCESS KEY** field.
+1. In the resource group, click the Batch account.
+
+	![Opening the batch account](Images/open-batch-account.png)
+
+	_Opening the batch account_
+
+1. Click **Keys**, and then click the **Copy** button next to the **PRIMARY ACCESS KEY** field.
 
 	![Copying the Batch account key](Images/select-batch-account-key.png)
 
 	_Copying the Batch account key_
 
-1. Return to **credentials.json** and paste the key that is on the clipboard into the value for "account_key" in the "batch" section:
-
-	````
-	"account_key": "YOUR KEY GOES HERE",
-	````
-
-1. Locate the Batch account name at the top of the blade. 
-
-	![The Batch account name](Images/batch-account-name.png)
-
-	_The Batch account name_
-
-1. Type the name of the Batch account into the value for "account" in the "batch" section of **credentials.json**.
-
-	````
-	"account": "batchservicelab",
-	````
+1. Return to **credentials.json** and replace *my_batch_account_key* with the key that is on the clipboard.
 
 1. In the blade for the Batch account, click **Properties**, and then click the **Copy** button next to the **URL** field.
 
@@ -250,11 +256,15 @@ Three of the four JSON files are already configured in the solution recipe. The 
 
 	_Copying the Batch account URL_
 
-1. In **credentials.json**, paste the copied URL into the value for "account_service_url" in the "batch" section:
+1. In **credentials.json**, replace *my_batch_account_url* with the URL that is on the clipboard. The "batch" section of **credentials.json** should now look something like this:
 
-	````
-	"account_service_url": "https://batchservicelab.eastus.batch.azure.com"
-	````
+	```JSON
+	"batch": {
+	    "account": "batchservicelab",
+	    "account_key": "ghS8vZrI+5TvmcdRoILz...7XBuvRIA6HFzCaMsPTsXToKdQtWeg==",
+	    "account_service_url": "https://batchservicelab.eastus.batch.azure.com"
+	},
+	```
 
 1. In the Azure Portal, return to the "batch-service-lab" resource group and click the storage account in that resource group.
 
@@ -268,11 +278,7 @@ Three of the four JSON files are already configured in the solution recipe. The 
 
 	_Copying the storage account name_
 
-1. In **credentials.json**, paste the storage account name into the value for "account" in the "storage" section:
-
-	````
-	"account": "batchservicelabstore",
-	````
+1. In **credentials.json**, replace *my_storage_account_name* with the storage-account name that is on the clipboard.
 
 1. Return to the portal and click the **Copy** button next to the **key1** field.
 
@@ -280,17 +286,17 @@ Three of the four JSON files are already configured in the solution recipe. The 
 
 	_Copying the storage account key_
 
-1. In **credentials.json**, paste the key into the value for "account_key" in the "storage" section:
+1. In **credentials.json**, replace *my_storage_account_key* with the key that is on the clipboard. The "storage" section of **credentials.json** should now look something like this:
 
-	````
-	"account_key": "YOUR KEY GOES HERE",
-	````
-
-	The modified file should look something like this:
-
-	![Modified credentials.json file](Images/credentials-json.png)
-
-	_Modified credentials.json file_
+	```JSON
+	"storage": {
+	    "mystorageaccount": {
+	        "account": "batchservicelabstorage",
+	        "account_key": "YuTLwG3nuaQqezl/rhEkT...Xrs8+UZrxr+TFdzA==",
+	        "endpoint": "core.windows.net"
+	    }
+	}
+	```
 
 Save your changes to **credentials.json** before proceeding to the next exercise.
 
@@ -299,7 +305,7 @@ Save your changes to **credentials.json** before proceeding to the next exercise
 
 Now that **credentials.json** has been set up and the environment variable created, Batch Shipyard is configured to run. Batch Shipyard uses several commands to control pools of Batch Services. The next step is to create a compute pool in the account using Batch Shipyard.
 
-1. In the terminal or Command Prompt window, run one of the following commands based on which operating system you are using:
+1. In the terminal or Command Prompt window that you left open, run one of the following commands based on which operating system you are using:
 
 	**Windows**:
 	````
@@ -316,46 +322,52 @@ Now that **credentials.json** has been set up and the environment variable creat
 	python shipyard.py pool add --configdir ./recipe/config
 	````
 
-This command will take a while to complete. Batch Shipyard is actually creating virtual machines using Batch Services on Azure, and then provisioning those virtual machines with Docker. Monitor the process in the terminal or Command Prompt window as Azure creates the pool. 
+This command will take a few minutes to complete. Batch Shipyard is creating virtual machines using Azure Batch, and then provisioning those virtual machines with Docker. You don't have to wait for the provisioning to complete, however.
 
 <a id="Exercise7"/></a>
 ## Exercise 7: Prepare a job
 
 While the pool is being created, this is a good time to prepare the data for the jobs. The lab uses Azure File Storage for data input and output. The configuration files tell Batch Services to mount an Azure file share inside of a container. The container can read data in and then write data back to the file share as output.
 
-1. In the Azure Portal, click **Resource groups** in the ribbon on the left. Select the "batch-service-lab" resource group. Then click the storage account in that resource group.
+1. In the Azure Portal, return to the "batch-service-lab" resource group and click the storage account in that resource group.
 
 	![Opening the storage account](Images/select-batch-service-storage-account.png)
 
 	_Opening the storage account_
 
-1. Click **Files**, and then click **+ File share** in the "File service" blade.
+1. Click **Files**.
 
-	![Adding a file share](Images/select-files.png)
+	![Opening file storage](Images/open-files.png)
+
+	_Opening file storage_
+
+1. Click **+ File share**.
+
+	![Adding a file share](Images/add-file-share.png)
 
 	_Adding a file share_
 
 1. Enter "myfileshare" for the file-share name. Leave **Quota** blank, and then click **Create** at the bottom of the blade.
 
-	![Creating a file Share](Images/create-file-share.png)
+	![Creating a file share](Images/create-file-share.png)
 
-	_Creating a file Share_
+	_Creating a file share_
 
-1. Once the file share is created, click it.
+1. Click the new file share to open it.
 
-	![Opening the file share](Images/select-fileshare.png)
+	![Opening the file share](Images/select-file-share.png)
 
 	_Opening the file share_
 
 1. In the blade for the file share, click **+ Add directory**.
 
-	![Adding a directory](Images/new-directory.png)
+	![Adding a directory](Images/add-directory.png)
 
 	_Adding a directory_
 
 1. Enter "textfiles" for the directory name, and then click **Create**.
 
-	![Creating a directory](Images/new-directory-2.png)
+	![Creating a directory](Images/create-directory.png)
 
 	_Creating a directory_ 
 
@@ -371,7 +383,7 @@ While the pool is being created, this is a good time to prepare the data for the
 
 	_Uploading to the directory_
 
-1. In the "Upload files" blade, click the **folder** icon. Select the file named **tale-of-2-cities.txt** in the "solution" folder of this lab, and then click the **Upload** button.
+1. In the "Upload files" blade, click the **folder** icon. Select the file named **tale-of-2-cities.txt** in the "resources" folder of this lab, and then click the **Upload** button.
 
 	![Uploading a text file](Images/upload-files-2.png)
 
@@ -419,7 +431,7 @@ Once the job has finished running, the next task is to examine the output that i
 
 The results are now available in the storage account. The output file can be downloaded and played back locally in any media player that supports the .ogg file type.
 
-1. In the Azure Portal, click **Resource groups** in the ribbon on the left. Select the "batch-service-lab" resource group. Then click the storage account in that resource group.
+1. In the Azure Portal, return to the "batch-service-lab" resource group and click the storage account in that resource group.
 
 	![Opening the storage account](Images/select-batch-service-storage-account.png)
 
@@ -427,11 +439,17 @@ The results are now available in the storage account. The output file can be dow
 
 1. Click **myfileshare**.
 
-	![Opening the fileshare](Images/select-fileshare.png)
+	![Opening the fileshare](Images/select-file-share.png)
 
 	_Opening the fileshare_
 
-1. Notice that a new file named **tale-of-2-cities.ogg** has been created. Click the file, and then click **Download** to download the file. This will download the file to the local machine where it can be played back in a media player.
+1. Notice that a new file named **tale-of-2-cities.ogg** has been created. Click it to open a blade for it.
+
+	![Opening the output file](Images/open-output-file.png)
+
+	_Opening the output file_
+
+1. Click **Download** to download the file. This will download the file to the local machine where it can be played back in a media player.
 
 	![Downloading the results](Images/download-file.png)
 
@@ -442,13 +460,13 @@ The .ogg file contains approximately 12 hours of spoken content, which is indica
 <a id="Exercise10"/></a>
 ## Exercise 10: Remove the Batch service
 
-In this exercise, you will delete the resource group created in [Exercise 1](#Exercise1) when you created the Batch service. Deleting the resource group deletes everything in it and prevents any further charges from being incurred for it.
+In this exercise, you will delete the resource group created in [Exercise 1](#Exercise1) when you created the Batch account. Deleting the resource group deletes everything in it and prevents any further charges from being incurred for it.
 
-1. In the Azure Portal, click **Resource groups** in the ribbon on the left, and then click the ellipsis **(...)** to display the context menu for the "batch-service-lab" resource group. Select **Delete** from the menu.
+1. In the Azure Portal, open the blade for the resource group created for the Batch account. Then click the **Delete** button at the top of the blade.
 
-	![Deleting the resource group](Images/delete-batch-service.png)
+	![Deleting a resource group](Images/delete-resource-group.png)
 
-	_Deleting the resource group_
+	_Deleting a resource group_
 
 1. For safety, you are required to type in the resource group's name. (Once deleted, a resource group cannot be recovered.) Type the name of the resource group. Then click the **Delete** button to remove all traces of this lab from your account.
 
@@ -456,7 +474,7 @@ After a few minutes, the service and all of its resources will be deleted.
 
 ## Summary
 
-This lab provided a hands on demonstration for how to use Batch Services with Batch Shipyard for creating Docker Containers to run batch jobs in the cloud. Batch on Azure though can perform many types on Docker and non-Docker jobs and even leverage some of the high performance N-seres virtual machines that have GPU's for tasks like animation rendering.
+This lab provided a hands-on demonstration of how to use Batch Services with Batch Shipyard to run batch jobs in the cloud in Docker containers. Batch on Azure though can perform many types on Docker and non-Docker jobs and even leverage some of the high performance N-seres virtual machines that have GPUs for tasks such as animation rendering.
 
 ---
 
