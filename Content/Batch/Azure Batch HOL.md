@@ -6,24 +6,23 @@
 <a name="Overview"></a>
 ## Overview
 
-[**Azure Batch**](https://azure.microsoft.com/en-us/services/batch/) is a service that enables you to run batch processes on high-performance compute (HPC) clusters without incurring large capital expenditures to build out such clusters. Batch processes are ideal for handling compute-intensive tasks such as rendering videos and predicting the weather. 
+[**Azure Batch**](https://azure.microsoft.com/en-us/services/batch/) is a service that enables you to run batch processes on high-performance compute (HPC) clusters composed of Azure virtual machines (VMs). Batch processes are ideal for handling compute-intensive tasks such as rendering videos and performing financial risk analysis that can run unattended. Azure Batch uses [VM scale sets](https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-overview) to scale up and down as needed to ensure that adequate compute resources are available to handle the workload, while preventing you from paying for resources that you don't need.
 
-Azure Batch services are oriented around three major components: **storage**, **pools**, and **jobs**. **Storage** is implemented through Azure Storage, and is where data input and output are stored. **Pools** are composed of compute nodes. Each pool has one or more virtual machines, and each virtual machine has one or more CPU's that can be used for computing. **Jobs** contain the applications and scripts that process the information from storage. The output from jobs are written back to storage. Jobs themselves are composed of one or more **tasks** that make up an entire job. Tasks can be run one at a time or multiple tasks in parallel.
+Azure Batch services are oriented around three major components: **storage**, **pools**, and **jobs**. **Storage** is implemented through Azure Storage, and is where data input and output are stored. **Pools** are composed of compute nodes. Each pool has one or more VMs, and each VM has one or more CPUs. **Jobs** contain the applications and scripts that process the information from storage. The output from jobs are written back to storage. Jobs themselves are composed of one or more **tasks**. Tasks can be run one at a time or in parallel.
 
-**[Batch Shipyard](https://github.com/Azure/batch-shipyard)** itself is a utility that runs on your local computer. The flow is pretty straightforward for performing batches:
+**[Batch Shipyard](https://github.com/Azure/batch-shipyard)** is an open-source toolkit that allows Dockerized workloads to be deployed to Azure Batch compute pools. The interaction between Azure Batch and Batch Shipyard is as follows:
 
 1. Batch Shipyard creates a pool
 1. Azure Storage is loaded with input data
 1. Batch Shipyard creates and starts a job, which is composed of tasks
-1. The tasks read data from storage and process it
-1. The tasks write the results back to Azure Storage
+1. Tasks read data from storage, process it, and write the results back to storage
 1. The results are downloaded and viewed locally
 
 ![Batch Shipyard](Images/batch-shipyard.png)
 
 _Azure Batch Shipyard workflow_
 
-The value Batch Shipyard adds to Azure Batch is that instead of doing the batch tasks on virtual machines, tasks are performed in Docker containers. Containers are created as part of job contain all of the software intended to process the data from storage. Batch Shipyard helps automate the deployment and use of containers on A Batch Service. This hand-on lab takes this flow and applies it by running a compute job that will take a novel-length text file and convert it to a sound file using a text to speech engine.
+In this lab, you will use Azure Batch and Batch Shipyard to process a text file containing the manuscript for the novel "A Tale of Two Cities" and generate a sound file using a text-to-speech engine.
 
 Estimated time to complete this lab: **60** minutes.
 
