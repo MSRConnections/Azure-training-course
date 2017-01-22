@@ -70,11 +70,11 @@ Azure Batch accounts are simple to setup through the Azure Portal.
 
 	_Creating a Batch service_
 
-1. In the "New Batch account" blade, give the account a unique name such as "batchservicelab" and make sure a green check mark appears next to it. (You can only use numbers and lowercase letters since the name becomes part of a DNS name.) Select **Create new** under **Resource group** and name the resource group "batch-service-lab". Select the **Location** nearest you, and then click **Select a storage account**.
+1. In the "New Batch account" blade, give the account a unique name such as "batchservicelab" and make sure a green check mark appears next to it. (You can only use numbers and lowercase letters since the name becomes part of a DNS name.) Select **Create new** under **Resource group** and name the resource group "BatchResourceGroup." Select the **Location** nearest you, and then click **Select a storage account**.
 
-	![Entering Batch service parameters](Images/setup-azure-batch-2.png)
+	![Entering Batch account parameters](Images/batch-parameters.png)
 
-	_Entering Batch service parameters_
+	_Entering Batch account parameters_
 
 1. Click **Create new** to create a new storage account for the Batch service.
 
@@ -92,7 +92,7 @@ Azure Batch accounts are simple to setup through the Azure Portal.
 
 1. Click the **Create** button at the bottom of the "New Batch account" blade to start the deployment
 
-	![Creating a Batch account](Images/setup-azure-batch-3.png)
+	![Creating a Batch account](Images/create-batch-account.png)
 
 	_Creating a Batch account_
 
@@ -266,9 +266,9 @@ Three of the four JSON files are already configured in the solution recipe. The 
 	},
 	```
 
-1. In the Azure Portal, return to the "batch-service-lab" resource group and click the storage account in that resource group.
+1. In the Azure Portal, return to the "BatchResourceGroup" resource group and click the storage account in that resource group.
 
-	![Opening the storage account](Images/select-batch-service-storage-account.png)
+	![Opening the storage account](Images/open-storage-account.png)
 
 	_Opening the storage account_
 
@@ -329,9 +329,9 @@ This command will take a few minutes to complete. Batch Shipyard is creating vir
 
 While the pool is being created, this is a good time to prepare the data for the jobs. The lab uses Azure File Storage for data input and output. The configuration files tell Batch Services to mount an Azure file share inside of a container. The container can read data in and then write data back to the file share as output.
 
-1. In the Azure Portal, return to the "batch-service-lab" resource group and click the storage account in that resource group.
+1. In the Azure Portal, return to the "BatchResourceGroup" resource group and click the storage account in that resource group.
 
-	![Opening the storage account](Images/select-batch-service-storage-account.png)
+	![Opening the storage account](Images/open-storage-account.png)
 
 	_Opening the storage account_
 
@@ -431,9 +431,9 @@ Once the job has finished running, the next task is to examine the output that i
 
 The results are now available in the storage account. The output file can be downloaded and played back locally in any media player that supports the .ogg file type.
 
-1. In the Azure Portal, return to the "batch-service-lab" resource group and click the storage account in that resource group.
+1. In the Azure Portal, return to the "BatchResourceGroup" resource group and click the storage account in that resource group.
 
-	![Opening the storage account](Images/select-batch-service-storage-account.png)
+	![Opening the storage account](Images/open-storage-account.png)
 
 	_Opening the storage account_
 
