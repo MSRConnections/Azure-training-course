@@ -4,7 +4,7 @@
     },
     "global_resources": {
         "docker_images": [
-            "blaize/txt2ogg"
+            "blaize/text2ogg"
         ],
         "docker_volumes": {
             "shared_data_volumes": {

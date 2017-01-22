@@ -1,8 +1,9 @@
 {
     "pool_specification": {
         "id": "batch-lab-1",
-        "vm_size": "STANDARD_D3_V2",
-        "vm_count": 1,
+        "vm_size": "Standard_A1",
+		"max_tasks_per_node": 1,
+        "vm_count": 2,
         "publisher": "Canonical",
         "offer": "UbuntuServer",
         "sku": "16.04.0-LTS",

@@ -4,9 +4,18 @@
             "id": "batch-lab-job",
             "tasks": [
                 {
-                    "image": "blaize/txt2ogg",
+                    "image": "blaize/text2ogg",
                     "remove_container_after_exit": true,
-                    "command": "sh /text2ogg.sh",
+                    "command": "/bin/bash /text2ogg.sh",
+                    "shared_data_volumes": [
+                        "shipyardvol"
+                    ]
+					
+                },
+				{
+                    "image": "blaize/text2ogg",
+                    "remove_container_after_exit": true,
+                    "command": "/bin/bash /text2ogg.sh",
                     "shared_data_volumes": [
                         "shipyardvol"
                     ]

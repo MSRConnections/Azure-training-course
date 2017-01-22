@@ -6,26 +6,21 @@
 <a name="Overview"></a>
 ## Overview
 
-[**Azure Batch**](https://azure.microsoft.com/en-us/services/batch/) is a service that enables you to run batch processes on high-performance compute (HPC) clusters composed of Azure virtual machines (VMs). Batch processes are ideal for handling compute-intensive tasks such as rendering videos and performing financial risk analysis that can run unattended. Azure Batch uses [VM scale sets](https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-overview) to scale up and down as needed to ensure that adequate compute resources are available to handle the workload, while preventing you from paying for resources that you don't need.
+[**Azure Batch**](https://azure.microsoft.com/en-us/services/batch/) is a service that enables you to run batch processes on high-performance compute (HPC) clusters composed of Azure virtual machines (VMs). Batch processes are ideal for handling compute-intensive tasks such as rendering videos and performing large-scale financial risk analyses that can run unattended. Azure Batch uses [VM scale sets](https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-overview) to scale up and down as needed to ensure that adequate compute resources are available to handle the workload, while preventing you from paying for resources that you don't need.
 
-Azure Batch services are oriented around three major components: **storage**, **pools**, and **jobs**. **Storage** is implemented through Azure Storage, and is where data input and output are stored. **Pools** are composed of compute nodes. Each pool has one or more VMs, and each VM has one or more CPUs. **Jobs** contain the applications and scripts that process the information from storage. The output from jobs are written back to storage. Jobs themselves are composed of one or more **tasks**. Tasks can be run one at a time or in parallel.
+Azure Batch services are oriented around three major components: **storage**, **pools**, and **jobs**. **Storage** is implemented through Azure Storage, and is where data input and output are stored. **Pools** are composed of compute nodes. Each pool has one or more VMs, and each VM has one or more CPUs. **Jobs** contain the scripts that process the information in storage and write the results back out to storage. Jobs themselves are composed of one or more **tasks**. Tasks can be run one at a time or in parallel.
 
-**[Batch Shipyard](https://github.com/Azure/batch-shipyard)** is an open-source toolkit that allows Dockerized workloads to be deployed to Azure Batch compute pools. The interaction between Azure Batch and Batch Shipyard is as follows:
-
-1. Batch Shipyard creates a pool
-1. Azure Storage is loaded with input data
-1. Batch Shipyard creates and starts a job, which is composed of tasks
-1. Tasks read data from storage, process it, and write the results back to storage
-1. The results are downloaded and viewed locally
+**[Batch Shipyard](https://github.com/Azure/batch-shipyard)** is an open-source toolkit that allows Dockerized workloads to be deployed to Azure Batch compute pools. The workflow for using Batch Shipyard with Azure Batch is pictured below. You begin by using Batch Shipyard to create a pool and uploading input files to storage. Then you use Batch Shipyard to create and run a job, which uses tasks to read data from storage, process it, and write the results back to storage.
 
 ![Batch Shipyard](Images/batch-shipyard.png)
 
 _Azure Batch Shipyard workflow_
 
-In this lab, you will use Azure Batch and Batch Shipyard to process a text file containing the manuscript for the novel "A Tale of Two Cities" and generate a sound file using a text-to-speech engine.
+In this lab, you will use Azure Batch and Batch Shipyard to process a pair of text files containing the manuscripts for the novels "A Tale of Two Cities" and "War of the Worlds" and generate .ogg sound files from the text files.
 
-Estimated time to complete this lab: **60** minutes.
+**Note**: Azure Batch Shipyard is constantly being refined and improved. If you work this lab on your laptop and it fails at any point (especially [Exercise 6](#Exercise6)), try creating a Linux VM and running the lab in the VM. You will find instructions for creating a Linux VM in Azure at https://docs.microsoft.com/en-us/azure/virtual-machines/virtual-machines-linux-quick-create-portal.
 
+<a name="Objectives"></a>
 ### Objectives:
 
 In this hands-on lab, you will learn how to:
@@ -34,12 +29,14 @@ In this hands-on lab, you will learn how to:
 - Configure Batch Shipyard to use the Batch account
 - Create a pool and run a job on that pool
 - View the results of the job
-- Use Azure Portal to remove the Batch account
+- Use the Azure Portal to remove the Batch account
 
+<a name="Prerequisites"></a>
 ### Prerequisites:
 
-* An active Microsoft Azure subscription, or [sign up for a free trial](https://azure.microsoft.com/en-us/free/)
+* An active Microsoft Azure subscription. If you don't have one, [sign up for a free trial](https://azure.microsoft.com/en-us/free/)
 
+<a name="Exercises"></a>
 ## Exercises
 
 This hands-on lab includes the following exercises:
@@ -50,10 +47,10 @@ This hands-on lab includes the following exercises:
 - [Exercise 4: Set up Batch Shipyard (Ubuntu Linux)](#Exercise4)
 - [Exercise 5: Configure Batch Shipyard](#Exercise5)
 - [Exercise 6: Create a pool](#Exercise6)
-- [Exercise 7: Prepare a job](#Exercise7)
+- [Exercise 7: Upload input files](#Exercise7)
 - [Exercise 8: Run the job](#Exercise8)
 - [Exercise 9: View the results](#Exercise9)
-- [Exercise 10: Remove the Batch service](#Exercise10)
+- [Exercise 10: Delete the resource group](#Exercise10)
 
 Estimated time to complete this lab: **60** minutes.
 
@@ -102,7 +99,7 @@ Azure Batch accounts are simple to setup through the Azure Portal.
 
     _Opening the resource group_
 
-1. Wait until "Deploying" changes to "Succeeded," indicating that the Batch account has been deployed.
+1. Wait until "Deploying" changes to "Succeeded," indicating that the Batch account and the storage account have been deployed.
 
 	> Refresh the page in the browser every now and then to update the deployment status. Clicking the **Refresh** button in the resource-group blade refreshes the list of resources in the resource group, but does not reliably update the deployment status.
 
@@ -114,8 +111,6 @@ After the deployment finishes, proceed to [Exercise 2](#Exercise2) if you are ru
 
 <a id="Exercise2"/></a>
 ## Exercise 2: Set up Batch Shipyard (Windows)
-
-**Note: If setup fails at any point in this exercise, try using a Windows 10 virtual machine on Azure rather than your local PC.** Instructions for creating a Windows 10 VM can be found [here](https://github.com/MSRConnections/Azure-training-course/blob/master/Content/Batch/Windows%20VM.html).
 
 Azure Batch Shipyard is built on Python. Windows does not have a built-in Python client, so you need to install one if it isn't installed already. In this exercise, you will download and install Python, and then use PiPy, the Python package manager, to install the dependencies for Batch Shipyard.
 
@@ -152,8 +147,6 @@ Now **proceed to [Exercise 5](#Exercise5)**. Exercises 3 and 4 are for macOS and
 <a id="Exercise3"/></a>
 ## Exercise 3: Set up Batch Shipyard (macOS)
 
-**Note: If setup fails at any point in this exercise, try using a Windows 10 virtual machine on Azure rather than your local PC.** Instructions for creating a Windows 10 VM can be found [here](https://github.com/MSRConnections/Azure-training-course/blob/master/Content/Batch/Windows%20VM.html).
-
 macOS comes with Python preinstalled, but using the preinstalled version of Python with Azure Batch Shipyard is problematic. Batch Shipyard works best with Python 3 installed on a Mac. Python 3 can coexist with Python 2 without interference. In this exercise, you will download and install Python 3, and then use PiPy, the Python package manager, to install the dependencies for Batch Shipyard.
 
 1. Visit https://www.python.org/downloads/ to download the latest version of Python for the Mac. Click **Download Python 3.x.x** to start the download.
@@ -182,8 +175,6 @@ Now **proceed to [Exercise 5](#Exercise5)**. Exercise 4 is for Linux users only.
 
 <a id="Exercise4"/></a>
 ## Exercise 4: Set up Batch Shipyard (Ubuntu Linux)
-
-**Note: If setup fails at any point in this exercise, try using a Windows 10 virtual machine on Azure rather than your local PC.** Instructions for creating a Windows 10 VM can be found [here](https://github.com/MSRConnections/Azure-training-course/blob/master/Content/Batch/Windows%20VM.html).
 
 In this exercise, you will install PiPy, the Python package manager, and then use it to install the dependencies for Batch Shipyard. 
 
@@ -216,17 +207,15 @@ Now that Batch Shipyard is installed, it's time to configure it.
 <a id="Exercise5"/></a>
 ## Exercise 5: Configure Batch Shipyard
 
-Batch Shipyard uses four different JSON files — **config.json, pool.json,  jobs.json**, and **credentials.json** — to configure the environment. These four files, the Dockerfiles used to define Docker images, their associated files, and a **readme.md** file define a Batch Shipyard "recipe."
+Batch Shipyard uses four different JSON files — **config.json, pool.json,  jobs.json**, and **credentials.json** — to configure the environment. These four files, the Dockerfiles used to build Docker images, the files referenced in the Dockerfiles, and a **readme.md** file define a Batch Shipyard "recipe."
 
-Each of the configuration files configures some portion of Batch Shipyard. **config.json** contains configuration settings for the Batch Shipyard environment. **pool.json** contains definitions for the compute pools used to perform batch jobs. **jobs.json** outlines the job definition and the tasks that are part of that job. **credentials.json** holds the access keys for the batch account and the storage account.
+Each of the configuration files configures some part of Batch Shipyard. **config.json** contains configuration settings for the Batch Shipyard environment. **pool.json** contains definitions for the compute pools, including the VM size and the number of VMs per pool. **jobs.json** outlines the job definition and the tasks that are part of that job. **credentials.json** holds the access keys for the batch account and the storage account.
 
-The lab here doesn't go into detail about how to use a Dockerfile, but in short a Dockerfile contains a list of instructions that are used to build Docker images which contain be deployed as containers. The Dockerfile included in the lab is the one used to build the image that is deployed in the lab. For more information about how to create Dockerfiles, check out https://docs.docker.com/engine/getstarted/step_four/.
-
-Three of the four JSON files are already configured in the solution recipe. The only one that needs to be changed is **credentials.json**.
+Three of the four JSON files are already configured in the solution recipe. The only one that needs to be changed is **credentials.json**. In this exercise, you will modify **credentials.json** so you can use it in a Batch job. Rather than build a Dockerfile, you will use one that has been built for you. For more information about how to create Dockerfiles, check out https://docs.docker.com/engine/getstarted/step_four/.
 
 1. Open this lab's "resources" folder, and then copy the "recipe" folder from the "resources" folder into the "batch-shipyard" folder created in the previous exercise.
 
-1. Open the copied "recipe" folder. Open the "config" folder in that folder, and then open the file named **credentials.json** in your favorite text editor. There are two sections in the file: "batch" and "storage." The "batch" section contains the settings for the batch account that Batch Shipyard will use. The "storage" section contains the settings Batch Shipyard will use to access the storage account that was created for the batch account.
+1. Open the copied "recipe" folder. Open the "config" folder in that folder, and then open the file named **credentials.json** in your favorite text editor. There are two sections in the file: "batch" and "storage." The "batch" section contains the settings for the Batch account that Batch Shipyard will use. The "storage" section contains the settings Batch Shipyard will use to access the storage account created for the Batch account.
 
 1. In **credentials.json**, replace *my_batch_account_name* with the name of the batch account that you created in Exercise 1, Step 3. 
 
@@ -303,31 +292,36 @@ Save your changes to **credentials.json** before proceeding to the next exercise
 <a id="Exercise6"/></a>
 ## Exercise 6: Create a pool
 
-Now that **credentials.json** has been set up and the environment variable created, Batch Shipyard is configured to run. Batch Shipyard uses several commands to control pools of Batch Services. The next step is to create a compute pool in the account using Batch Shipyard.
+Before you run the job, you need to create a compute pool using the configuration settings in **pool.json**. Batch Shipyard uses several commands to control Batch pools. In this exercise, you will use one of those commands to create a compute pool.
+
+> The **pool.json** file provided for you configures each pool to have two VMs and specifies a VM size of STANDARD_D3_V2, which contains 4 cores and 14 GB of RAM. Feel free to vary these parameters if you would like to gauge their effect on performance.
 
 1. In the terminal or Command Prompt window that you left open, run one of the following commands based on which operating system you are using:
 
 	**Windows**:
+
 	````
 	python shipyard.py pool add --configdir .\recipe\config
 	````
 
 	**macOS**:
+
 	````
 	python3 shipyard.py pool add --configdir ./recipe/config
 	````
 
 	**Linux**:
+
 	````
 	python shipyard.py pool add --configdir ./recipe/config
 	````
 
-This command will take a few minutes to complete. Batch Shipyard is creating virtual machines using Azure Batch, and then provisioning those virtual machines with Docker. You don't have to wait for the provisioning to complete, however.
+This command will take a few minutes to complete. Batch Shipyard is creating virtual machines using Azure Batch, and then provisioning those virtual machines with Docker. You don't have to wait for the provisioning to complete, however, before proceeding to the next exercise.
 
 <a id="Exercise7"/></a>
-## Exercise 7: Prepare a job
+## Exercise 7: Upload input files
 
-While the pool is being created, this is a good time to prepare the data for the jobs. The lab uses Azure File Storage for data input and output. The configuration files tell Batch Services to mount an Azure file share inside of a container. The container can read data in and then write data back to the file share as output.
+While the pool is being created, now is a good time to upload the input files that the job will process. The job uses Azure File Storage for data input and output. The configuration files tell Azure Batch to mount an Azure file share inside of a container. The container can read data in and then write data back to the file share as output.
 
 1. In the Azure Portal, return to the "BatchResourceGroup" resource group and click the storage account in that resource group.
 
@@ -383,34 +377,49 @@ While the pool is being created, this is a good time to prepare the data for the
 
 	_Uploading to the directory_
 
-1. In the "Upload files" blade, click the **folder** icon. Select the file named **tale-of-2-cities.txt** in the "resources" folder of this lab, and then click the **Upload** button.
+1. In the "Upload files" blade, click the **folder** icon. Select the files named **tale-of-2-cities.txt** and **war-of-the-worlds.txt** in the "resources" folder of this lab, and then click the **Upload** button.
 
-	![Uploading a text file](Images/upload-files-2.png)
+	![Uploading text files](Images/upload-files-2.png)
 
-	_Uploading a text file_
+	_Uploading text files_
 
-The container is designed to handle multiple text files with a .txt extension and text for content. For each text file, the container will generate a corresponding .ogg file in the root folder.
+1. Wait for the uploads to complete. Then confirm that both files were uploaded to the "textfiles" directory.
+
+	![The uploaded text files](Images/uploaded-files.png)
+
+	_The uploaded text files_
+
+The container is configured to handle multiple text files with a .txt extension. For each text file, the container will generate a corresponding .ogg file in the root folder.
 
 <a id="Exercise8"/></a>
 ## Exercise 8: Run the job
 
-Now that Batch Shipyard is configured, the pool is created, and the job data is prepared, it's time to run the job. Running the job requires one simple command that will invoke Batch Services based on all the predefined configurations and containers.
+Now that Batch Shipyard is configured, the pool is created, and the input data is uploaded, it's time to run the job. Running the job requires one simple command to invoke Batch Shipyard, which in turn invokes Azure Batch.
 
-1. To run the job, simply execute one of the following commands based on which operating system you are using. The command will create a job if it doesn't already exist in the Batch account, and then it will create a new task for that job. Jobs can be run multiple times without creating new jobs. Batch Shipyard will simply create a new task each time the **jobs add** command is called.
+1. Execute one of the following commands based on which operating system you are using. The command creates a job if it doesn't already exist in the Batch account, and then creates a new task for that job. Jobs can be run multiple times without creating new jobs. Batch Shipyard simply creates a new task each time the **jobs add** command is called.
 
 	**Windows**:
+
 	````
 	python shipyard.py jobs add --configdir .\recipe\config
 	````
 	**macOS**:
+
 	````
 	python3 shipyard.py jobs add --configdir ./recipe/config
 	````
 
 	**Linux**:
+
 	````
 	python shipyard.py jobs add --configdir ./recipe/config
 	````
+
+1. Return to the Azure Portal and open the Batch account.
+
+	![Opening the batch account](Images/open-batch-account.png)
+
+	_Opening the batch account_
 
 1. Click **Jobs** in the menu on the left side of blade, and then click **batch-lab-job**.
 
@@ -429,7 +438,7 @@ Once the job has finished running, the next task is to examine the output that i
 <a id="Exercise9"/></a>
 ## Exercise 9: View the results
 
-The results are now available in the storage account. The output file can be downloaded and played back locally in any media player that supports the .ogg file type.
+The results are now available in the storage account. The output files can be downloaded and played back locally in any media player that supports the .ogg file type.
 
 1. In the Azure Portal, return to the "BatchResourceGroup" resource group and click the storage account in that resource group.
 
@@ -437,13 +446,19 @@ The results are now available in the storage account. The output file can be dow
 
 	_Opening the storage account_
 
+1. Click **Files**.
+
+	![Opening file storage](Images/open-files.png)
+
+	_Opening file storage_
+
 1. Click **myfileshare**.
 
 	![Opening the fileshare](Images/select-file-share.png)
 
 	_Opening the fileshare_
 
-1. Notice that a new file named **tale-of-2-cities.ogg** has been created. Click it to open a blade for it.
+1. Notice that two new files named **tale-of-2-cities.ogg** and **war-of-the-worlds.ogg** have been created. Click one of them to open a blade for it.
 
 	![Opening the output file](Images/open-output-file.png)
 
@@ -455,18 +470,18 @@ The results are now available in the storage account. The output file can be dow
 
 	_Downloading the results_
 
-The .ogg file contains approximately 12 hours of spoken content, which is indicative of the CPU intensiveness of the batch job.
+Each .ogg file contains hours of spoken content, which is indicative of the CPU intensiveness of the batch job that you executed.
 
 <a id="Exercise10"/></a>
-## Exercise 10: Remove the Batch service
+## Exercise 10: Delete the resource group
 
 In this exercise, you will delete the resource group created in [Exercise 1](#Exercise1) when you created the Batch account. Deleting the resource group deletes everything in it and prevents any further charges from being incurred for it.
 
 1. In the Azure Portal, open the blade for the resource group created for the Batch account. Then click the **Delete** button at the top of the blade.
 
-	![Deleting a resource group](Images/delete-resource-group.png)
+	![Deleting the resource group](Images/delete-resource-group.png)
 
-	_Deleting a resource group_
+	_Deleting the resource group_
 
 1. For safety, you are required to type in the resource group's name. (Once deleted, a resource group cannot be recovered.) Type the name of the resource group. Then click the **Delete** button to remove all traces of this lab from your account.
 
