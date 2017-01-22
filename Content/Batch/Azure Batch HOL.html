@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Azure Batch HOL</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+<style type="text/css">
+.highlight  { background: #ffffff; }
+.highlight .c { color: #999988; font-style: italic } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+.pl-c {
+    color: #969896;
+}
+
+.pl-c1,.pl-mdh,.pl-mm,.pl-mp,.pl-mr,.pl-s1 .pl-v,.pl-s3,.pl-sc,.pl-sv {
+    color: #0086b3;
+}
+
+.pl-e,.pl-en {
+    color: #795da3;
+}
+
+.pl-s1 .pl-s2,.pl-smi,.pl-smp,.pl-stj,.pl-vo,.pl-vpf {
+    color: #333;
+}
+
+.pl-ent {
+    color: #63a35c;
+}
+
+.pl-k,.pl-s,.pl-st {
+    color: #a71d5d;
+}
+
+.pl-pds,.pl-s1,.pl-s1 .pl-pse .pl-s2,.pl-sr,.pl-sr .pl-cce,.pl-sr .pl-sra,.pl-sr .pl-sre,.pl-src,.pl-v {
+    color: #df5000;
+}
+
+.pl-id {
+    color: #b52a1d;
+}
+
+.pl-ii {
+    background-color: #b52a1d;
+    color: #f8f8f8;
+}
+
+.pl-sr .pl-cce {
+    color: #63a35c;
+    font-weight: bold;
+}
+
+.pl-ml {
+    color: #693a17;
+}
+
+.pl-mh,.pl-mh .pl-en,.pl-ms {
+    color: #1d3e81;
+    font-weight: bold;
+}
+
+.pl-mq {
+    color: #008080;
+}
+
+.pl-mi {
+    color: #333;
+    font-style: italic;
+}
+
+.pl-mb {
+    color: #333;
+    font-weight: bold;
+}
+
+.pl-md,.pl-mdhf {
+    background-color: #ffecec;
+    color: #bd2c00;
+}
+
+.pl-mdht,.pl-mi1 {
+    background-color: #eaffea;
+    color: #55a532;
+}
+
+.pl-mdr {
+    color: #795da3;
+    font-weight: bold;
+}
+
+.pl-mo {
+    color: #1d3e81;
+}
+.task-list {
+padding-left:10px;
+margin-bottom:0;
+}
+
+.task-list li {
+    margin-left: 20px;
+}
+
+.task-list-item {
+list-style-type:none;
+padding-left:10px;
+}
+
+.task-list-item label {
+font-weight:400;
+}
+
+.task-list-item.enabled label {
+cursor:pointer;
+}
+
+.task-list-item+.task-list-item {
+margin-top:3px;
+}
+
+.task-list-item-checkbox {
+display:inline-block;
+margin-left:-20px;
+margin-right:3px;
+vertical-align:1px;
+}
+</style>
+</head>
+<body>
+<p><a name="HOLTitle"></a></p>
+<h1>Azure Batch Service with Batch Shipyard</h1>
+<hr>
+<p><a name="Overview"></a></p>
+<h2>Overview</h2>
+<p><a href="https://azure.microsoft.com/en-us/services/batch/"><strong>Azure Batch</strong></a> is a service that enables you to run batch processes on high-performance computing (HPC) clusters composed of Azure virtual machines (VMs). Batch processes are ideal for handling computationally intensive tasks that can run unattended such as photorealistic rendering and computational fluid dynamics. Azure Batch uses <a href="https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-overview">VM scale sets</a> to scale up and down and to prevent you from paying for VMs that aren't being used. It also supports autoscaling, which, if enabled, allows Batch to scale up as needed to handle massively complex workloads.</p>
+<p>Azure Batch involves three important concepts: <strong>storage</strong>, <strong>pools</strong>, and <strong>jobs</strong>. Storage is implemented through Azure Storage, and is where data input and output are stored. Pools are composed of compute nodes. Each pool has one or more VMs, and each VM has one or more CPUs. Jobs contain the scripts that process the information in storage and write the results back out to storage. Jobs themselves are composed of one or more tasks. Tasks can be run one at a time or in parallel.</p>
+<p><strong><a href="https://github.com/Azure/batch-shipyard">Batch Shipyard</a></strong> is an open-source toolkit that allows Dockerized workloads to be deployed to Azure Batch compute pools. The workflow for using Batch Shipyard with Azure Batch is pictured below. After creating a Batch account and configuring Batch Shipyard to use it, you upload input files to storage and use Batch Shipyard to create Batch pools. Then you use Batch Shipyard to create and run jobs against those pools. The jobs themselves use tasks to read data from storage, process it, and write the results back to storage.</p>
+<p><a href="Images/batch-shipyard.png" target="_blank"><img src="Images/batch-shipyard.png" alt="Batch Shipyard" style="max-width:100%;"></a></p>
+<p><em>Azure Batch Shipyard workflow</em></p>
+<p>In this lab, you will use Azure Batch and Batch Shipyard to process a pair of text files containing the manuscripts for the novels "A Tale of Two Cities" and "War of the Worlds" and generate .ogg sound files from the text files.</p>
+<p><strong>Note</strong>: Azure Batch Shipyard is constantly being refined and improved. If you work this lab on your laptop and it fails at any point, try creating a Linux VM and running the lab in the VM. You will find instructions for creating a Linux VM in Azure at <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/virtual-machines-linux-quick-create-portal">https://docs.microsoft.com/en-us/azure/virtual-machines/virtual-machines-linux-quick-create-portal</a>.</p>
+<p><a name="Objectives"></a></p>
+<h3>Objectives:</h3>
+<p>In this hands-on lab, you will learn how to:</p>
+<ul>
+<li>Create an Azure Batch account</li>
+<li>Configure Batch Shipyard to use the Batch account</li>
+<li>Create a pool and run a job on that pool</li>
+<li>View the results of the job</li>
+<li>Use the Azure Portal to remove the Batch account</li>
+</ul>
+<p><a name="Prerequisites"></a></p>
+<h3>Prerequisites:</h3>
+<ul>
+<li>An active Microsoft Azure subscription. If you don't have one, <a href="https://azure.microsoft.com/en-us/free/">sign up for a free trial</a></li>
+</ul>
+<p><a name="Exercises"></a></p>
+<h2>Exercises</h2>
+<p>This hands-on lab includes the following exercises:</p>
+<ul>
+<li><a href="#Exercise1">Exercise 1: Create a Batch account</a></li>
+<li><a href="#Exercise2">Exercise 2: Set up Batch Shipyard (Windows)</a></li>
+<li><a href="#Exercise3">Exercise 3: Set up Batch Shipyard (macOS)</a></li>
+<li><a href="#Exercise4">Exercise 4: Set up Batch Shipyard (Ubuntu Linux)</a></li>
+<li><a href="#Exercise5">Exercise 5: Configure Batch Shipyard</a></li>
+<li><a href="#Exercise6">Exercise 6: Create a pool</a></li>
+<li><a href="#Exercise7">Exercise 7: Upload input files</a></li>
+<li><a href="#Exercise8">Exercise 8: Run the job</a></li>
+<li><a href="#Exercise9">Exercise 9: View the results</a></li>
+<li><a href="#Exercise10">Exercise 10: Delete the resource group</a></li>
+</ul>
+<p>Estimated time to complete this lab: <strong>60</strong> minutes.</p>
+<p><a id="user-content-Exercise1"></a></p>
+<h2>Exercise 1: Create a Batch account</h2>
+<p>Azure Batch accounts can be created through the Azure Portal. In this exercise, you will create a Batch account and a storage account to go with it. This is the storage account that will be used for job input and output.</p>
+<ol>
+<li>
+<p>Open the <a href="https://portal.azure.com">Azure Portal</a> in your browser. If you are asked to log in, do so using your Microsoft account.</p>
+</li>
+<li>
+<p>Click <strong>+ New</strong>, followed by <strong>Compute</strong> and <strong>Batch Service</strong>.</p>
+<p><a href="Images/setup-azure-batch.png" target="_blank"><img src="Images/setup-azure-batch.png" alt="Creating a Batch service" style="max-width:100%;"></a></p>
+<p><em>Creating a Batch service</em></p>
+</li>
+<li>
+<p>In the "New Batch account" blade, give the account a unique name such as "batchservicelab" and make sure a green check mark appears next to it. (You can only use numbers and lowercase letters since the name becomes part of a DNS name.) Select <strong>Create new</strong> under <strong>Resource group</strong> and name the resource group "BatchResourceGroup." Select the <strong>Location</strong> nearest you, and then click <strong>Select a storage account</strong>.</p>
+<p><a href="Images/batch-parameters.png" target="_blank"><img src="Images/batch-parameters.png" alt="Entering Batch account parameters" style="max-width:100%;"></a></p>
+<p><em>Entering Batch account parameters</em></p>
+</li>
+<li>
+<p>Click <strong>Create new</strong> to create a new storage account for the Batch service.</p>
+<p><a href="Images/create-new-storage-account.png" target="_blank"><img src="Images/create-new-storage-account.png" alt="Creating a new storage account" style="max-width:100%;"></a></p>
+<p><em>Creating a new storage account</em></p>
+</li>
+<li>
+<p>Enter a unique name for the storage account and make sure a green check mark appears next to it. Then set <strong>Replication</strong> to <strong>Locally-redundant Storage (LRS)</strong> and click <strong>OK</strong> at the bottom of the blade.</p>
+<blockquote>
+<p>Storage account names can be 3 to 24 characters in length and can only contain numbers and lowercase letters. In addition, the name you enter must be unique within Azure; if someone else has chosen the same name, you'll be notified that the name isn't available with a red exclamation mark in the <strong>Name</strong> field.</p>
+</blockquote>
+<p><a href="Images/create-new-storage-account-2.png" target="_blank"><img src="Images/create-new-storage-account-2.png" alt="Creating a new storage account" style="max-width:100%;"></a></p>
+<p><em>Creating a new storage account</em></p>
+</li>
+<li>
+<p>Click the <strong>Create</strong> button at the bottom of the "New Batch account" blade to start the deployment</p>
+<p><a href="Images/create-batch-account.png" target="_blank"><img src="Images/create-batch-account.png" alt="Creating a Batch account" style="max-width:100%;"></a></p>
+<p><em>Creating a Batch account</em></p>
+</li>
+<li>
+<p>Click <strong>Resource groups</strong> in the ribbon on the left side of the portal, and then click the resource group created for the Batch account.</p>
+<p><a href="Images/open-resource-group.png" target="_blank"><img src="Images/open-resource-group.png" alt="Opening the resource group" style="max-width:100%;"></a></p>
+<p><em>Opening the resource group</em></p>
+</li>
+<li>
+<p>Wait until "Deploying" changes to "Succeeded," indicating that the Batch account and the storage account have been deployed.</p>
+<blockquote>
+<p>Refresh the page in the browser every now and then to update the deployment status. Clicking the <strong>Refresh</strong> button in the resource-group blade refreshes the list of resources in the resource group, but does not reliably update the deployment status.</p>
+</blockquote>
+<p><a href="Images/deployment-status.png" target="_blank"><img src="Images/deployment-status.png" alt="Viewing the deployment status" style="max-width:100%;"></a></p>
+<p><em>Viewing the deployment status</em></p>
+</li>
+</ol>
+<p>After the deployment finishes, proceed to <a href="#Exercise2">Exercise 2</a> if you are running Windows, <a href="#Exercise3">Exercise 3</a> if you are running macOS, or <a href="#Exercise4">Exercise 4</a> if you are running Linux.</p>
+<p><a id="user-content-Exercise2"></a></p>
+<h2>Exercise 2: Set up Batch Shipyard (Windows)</h2>
+<p>Azure Batch Shipyard is built on Python. Windows does not have a built-in Python client, so you need to install one if it isn't installed already. In this exercise, you will download and install Python, and then use PiPy, the Python package manager, to install the dependencies for Batch Shipyard.</p>
+<ol>
+<li>
+<p>Visit <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a> to download the latest version of Python for Windows. Click <strong>Download Python 3.x.x</strong> to start the download.</p>
+<p><a href="Images/python-3-download.png" target="_blank"><img src="Images/python-3-download.png" alt="Downloading Python for Windows" style="max-width:100%;"></a></p>
+<p><em>Downloading Python for Windows</em></p>
+</li>
+<li>
+<p>Once the download completes, launch the installer. Check the <strong>Add Python 3.x to PATH</strong> box, and then click <strong>Install Now</strong>.</p>
+<p><a href="Images/python-3-installer-2.png" target="_blank"><img src="Images/python-3-installer-2.png" alt="Installing Python" style="max-width:100%;"></a></p>
+<p><em>Installing Python</em></p>
+</li>
+<li>
+<p>Wait for the installer to finish. Then close the installer, go to <a href="https://github.com/Azure/batch-shipyard/releases">https://github.com/Azure/batch-shipyard/releases</a>, and download the latest version of Batch Shipyard.</p>
+<p><a href="Images/download-batch-shipyard.png" target="_blank"><img src="Images/download-batch-shipyard.png" alt="Downloading Batch Shipyard" style="max-width:100%;"></a></p>
+<p><em>Downloading Batch Shipyard</em></p>
+</li>
+<li>
+<p>Once the download completes, open the downloaded zip file and copy the folder named "batch-shipyard-2.x.x" inside the zip file to the clipboard.</p>
+</li>
+<li>
+<p>Paste the folder onto the Desktop, and then rename the folder "batch-shipyard."</p>
+</li>
+<li>
+<p>Open a Command Prompt window and use a <code>cd</code> command to change directories to the "batch-shipyard" folder on the Desktop. Then execute the following command to run PiPy and install the dependencies for Batch Shipyard. When you're finished, leave the Command Prompt window open so you can return to it later.</p>
+<pre><code>pip3 install --upgrade -r requirements.txt
+</code></pre>
+</li>
+</ol>
+<p>Now <strong>proceed to <a href="#Exercise5">Exercise 5</a></strong>. Exercises 3 and 4 are for macOS and Linux users only.</p>
+<p><a id="user-content-Exercise3"></a></p>
+<h2>Exercise 3: Set up Batch Shipyard (macOS)</h2>
+<p>macOS comes with Python preinstalled, but using the preinstalled version of Python with Azure Batch Shipyard is problematic. Batch Shipyard works best with Python 3 installed on a Mac. Python 3 can coexist with Python 2 without interference. In this exercise, you will download and install Python 3, and then use PiPy, the Python package manager, to install the dependencies for Batch Shipyard.</p>
+<ol>
+<li>
+<p>Visit <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a> to download the latest version of Python for the Mac. Click <strong>Download Python 3.x.x</strong> to start the download.</p>
+<p><a href="Images/python-3-download-mac.png" target="_blank"><img src="Images/python-3-download-mac.png" alt="Downloading Python for macOS" style="max-width:100%;"></a></p>
+<p><em>Downloading Python for macOS</em></p>
+</li>
+<li>
+<p>Once the download completes, launch the installer. The package will need elevated permissions to install Python, so when prompted, enter your password.</p>
+</li>
+<li>
+<p>Wait for the installer to finish. Then close the installer, go to <a href="https://github.com/Azure/batch-shipyard/releases">https://github.com/Azure/batch-shipyard/releases</a>, and download the latest version of Batch Shipyard. macOS will automatically unzip the files in the Downloads folder.</p>
+<p><a href="Images/download-batch-shipyard.png" target="_blank"><img src="Images/download-batch-shipyard.png" alt="Downloading Batch Shipyard" style="max-width:100%;"></a></p>
+<p><em>Downloading Batch Shipyard</em></p>
+</li>
+<li>
+<p>Open the Downloads folder in Finder. Then rename the "batch-shipyard-2.x.x" folder to "batch-shipyard."</p>
+</li>
+<li>
+<p>Open a terminal window and use a <code>cd ~/Downloads/batch-shipyard</code> command to change directories to the "batch-shipyard" folder in Downloads. Then execute the following command to run PiPy and install the dependencies for Batch Shipyard. When you're finished, leave the terminal window open so you can return to it later.</p>
+<pre><code>pip3 install --upgrade -r requirements.txt
+</code></pre>
+</li>
+</ol>
+<p>Now <strong>proceed to <a href="#Exercise5">Exercise 5</a></strong>. Exercise 4 is for Linux users only.</p>
+<p><a id="user-content-Exercise4"></a></p>
+<h2>Exercise 4: Set up Batch Shipyard (Ubuntu Linux)</h2>
+<p>In this exercise, you will install PiPy, the Python package manager, and then use it to install the dependencies for Batch Shipyard.</p>
+<ol>
+<li>
+<p>Begin by launching a terminal. If you're using a desktop version of Linux, the terminal is usually in the Applications menu. It can also be launched by pressing <strong>Ctrl+Alt+F1</strong>. Once the terminal is started, use the following command to install Python, PiPy, and git using apt-get:</p>
+<pre><code>sudo apt-get install python-pip python git
+</code></pre>
+</li>
+<li>
+<p>Execute the following command to clone Batch Shipyard on the local machine. This will create a folder named "batch-shipyard" and download all the files to that directory.</p>
+<pre><code>git clone https://github.com/Azure/batch-shipyard.git
+</code></pre>
+</li>
+<li>
+<p>Use a <code>cd</code> command to change to the "batch-shipyard" folder:</p>
+<pre><code>cd batch-shipyard
+</code></pre>
+</li>
+<li>
+<p>Use the following command to finish the installation by running the included setup script. The script invokes PiPy to install the dependencies needed by Batch Shipyard.</p>
+<pre><code>./install.sh
+</code></pre>
+</li>
+</ol>
+<p>Now that Batch Shipyard is installed, it's time to configure it.</p>
+<p><a id="user-content-Exercise5"></a></p>
+<h2>Exercise 5: Configure Batch Shipyard</h2>
+<p>Batch Shipyard uses JSON files named <strong>config.json, pool.json,  jobs.json</strong>, and <strong>credentials.json</strong> to configure the environment. These four files, the Dockerfiles used to build Docker images, the files referenced in the Dockerfiles, and a <strong>readme.md</strong> file define a Batch Shipyard "recipe."</p>
+<p>Each of the configuration files in a recipe configures one element of Batch Shipyard. <strong>config.json</strong> contains configuration settings for the Batch Shipyard environment. <strong>pool.json</strong> contains definitions for the compute pools, including the VM size and the number of VMs per pool. <strong>jobs.json</strong> contains the job definition and the tasks that are part of the job. <strong>credentials.json</strong> holds information regarding the batch account and the storage account, including the keys used to access them.</p>
+<p>Three of the four JSON files are already configured in the provided recipe. The only one that needs to be changed is <strong>credentials.json</strong>. In this exercise, you will modify <strong>credentials.json</strong> so you can use it in a Batch job. Rather than create a Dockerfile, you will use one that has been created for you. To learn more about Dockerfiles, refer to <a href="https://docs.docker.com/engine/getstarted/step_four/">https://docs.docker.com/engine/getstarted/step_four/</a>.</p>
+<ol>
+<li>
+<p>Open this lab's "resources" folder, and then copy the "recipe" folder from the "resources" folder into the "batch-shipyard" folder created in the previous exercise.</p>
+</li>
+<li>
+<p>Open the copied "recipe" folder. Open the "config" folder in that folder, and then open the file named <strong>credentials.json</strong> in your favorite text editor. There are two sections in the file: "batch" and "storage." The "batch" section contains the settings for the Batch account that Batch Shipyard will use. The "storage" section contains the settings Batch Shipyard will use to access the storage account created for the Batch account.</p>
+</li>
+<li>
+<p>In <strong>credentials.json</strong>, replace <em>my_batch_account_name</em> with the name of the batch account that you created in Exercise 1, Step 3.</p>
+</li>
+<li>
+<p>Return to the Azure Portal. Click <strong>Resource groups</strong> in the ribbon on the left, and then click the resource group created for the Batch account.</p>
+<p><a href="Images/open-resource-group.png" target="_blank"><img src="Images/open-resource-group.png" alt="Opening the resource group" style="max-width:100%;"></a></p>
+<p><em>Opening the resource group</em></p>
+</li>
+<li>
+<p>In the resource group, click the Batch account.</p>
+<p><a href="Images/open-batch-account.png" target="_blank"><img src="Images/open-batch-account.png" alt="Opening the batch account" style="max-width:100%;"></a></p>
+<p><em>Opening the batch account</em></p>
+</li>
+<li>
+<p>Click <strong>Keys</strong>, and then click the <strong>Copy</strong> button next to the <strong>PRIMARY ACCESS KEY</strong> field.</p>
+<p><a href="Images/select-batch-account-key.png" target="_blank"><img src="Images/select-batch-account-key.png" alt="Copying the Batch account key" style="max-width:100%;"></a></p>
+<p><em>Copying the Batch account key</em></p>
+</li>
+<li>
+<p>Return to <strong>credentials.json</strong> and replace <em>my_batch_account_key</em> with the key that is on the clipboard.</p>
+</li>
+<li>
+<p>In the blade for the Batch account, click <strong>Properties</strong>, and then click the <strong>Copy</strong> button next to the <strong>URL</strong> field.</p>
+<p><a href="Images/select-batch-account-url.png" target="_blank"><img src="Images/select-batch-account-url.png" alt="Copying the Batch account URL" style="max-width:100%;"></a></p>
+<p><em>Copying the Batch account URL</em></p>
+</li>
+<li>
+<p>In <strong>credentials.json</strong>, replace <em>my_batch_account_url</em> with the URL that is on the clipboard. The "batch" section of <strong>credentials.json</strong> should now look something like this:</p>
+<div class="highlight highlight-source-json"><pre><span class="pl-s"><span class="pl-pds">"</span>batch<span class="pl-pds">"</span></span>: {
+    <span class="pl-s"><span class="pl-pds">"</span>account<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>batchservicelab<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>account_key<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>ghS8vZrI+5TvmcdRoILz...7XBuvRIA6HFzCaMsPTsXToKdQtWeg==<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>account_service_url<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>https://batchservicelab.eastus.batch.azure.com<span class="pl-pds">"</span></span>
+},</pre></div>
+</li>
+<li>
+<p>In the Azure Portal, return to the "BatchResourceGroup" resource group and click the storage account in that resource group.</p>
+<p><a href="Images/open-storage-account.png" target="_blank"><img src="Images/open-storage-account.png" alt="Opening the storage account" style="max-width:100%;"></a></p>
+<p><em>Opening the storage account</em></p>
+</li>
+<li>
+<p>Click <strong>Access keys</strong>, and then click the <strong>Copy</strong> button next to the <strong>Storage account name</strong> field.</p>
+<p><a href="Images/copy-storage-account-name.png" target="_blank"><img src="Images/copy-storage-account-name.png" alt="Copying the storage account name" style="max-width:100%;"></a></p>
+<p><em>Copying the storage account name</em></p>
+</li>
+<li>
+<p>In <strong>credentials.json</strong>, replace <em>my_storage_account_name</em> with the storage-account name that is on the clipboard.</p>
+</li>
+<li>
+<p>Return to the portal and click the <strong>Copy</strong> button next to the <strong>key1</strong> field.</p>
+<p><a href="Images/copy-storage-account-key.png" target="_blank"><img src="Images/copy-storage-account-key.png" alt="Copying the storage account key" style="max-width:100%;"></a></p>
+<p><em>Copying the storage account key</em></p>
+</li>
+<li>
+<p>In <strong>credentials.json</strong>, replace <em>my_storage_account_key</em> with the key that is on the clipboard. The "storage" section of <strong>credentials.json</strong> should now look something like this:</p>
+<div class="highlight highlight-source-json"><pre><span class="pl-s"><span class="pl-pds">"</span>storage<span class="pl-pds">"</span></span>: {
+    <span class="pl-s"><span class="pl-pds">"</span>mystorageaccount<span class="pl-pds">"</span></span>: {
+        <span class="pl-s"><span class="pl-pds">"</span>account<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>batchservicelabstorage<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>account_key<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>YuTLwG3nuaQqezl/rhEkT...Xrs8+UZrxr+TFdzA==<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>endpoint<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>core.windows.net<span class="pl-pds">"</span></span>
+    }
+}</pre></div>
+</li>
+</ol>
+<p>Save your changes to <strong>credentials.json</strong> before proceeding to the next exercise.</p>
+<p><a id="user-content-Exercise6"></a></p>
+<h2>Exercise 6: Create a pool</h2>
+<p>Before you run the job, you must create a compute pool using the configuration settings in <strong>pool.json</strong>. Batch Shipyard provides several commands for controlling Batch pools. In this exercise, you will use one of those commands to create a pool.</p>
+<blockquote>
+<p>The <strong>pool.json</strong> file provided for you configures each pool to have two VMs and specifies a VM size of STANDARD_A1, which contains a single core and 1.75 GB of RAM. In real life, you might find it advantageous to use larger VMs with more cores and more RAM, or to increase the number of VMs by increasing the <em>vm_count</em> property in <strong>pool.json</strong>.</p>
+</blockquote>
+<ol>
+<li>
+<p>In the terminal or Command Prompt window that you left open, run one of the following commands based on which operating system you are using:</p>
+<p><strong>Windows</strong>:</p>
+<pre><code>python shipyard.py pool add --configdir .\recipe\config
+</code></pre>
+<p><strong>macOS</strong>:</p>
+<pre><code>python3 shipyard.py pool add --configdir ./recipe/config
+</code></pre>
+<p><strong>Linux</strong>:</p>
+<pre><code>python shipyard.py pool add --configdir ./recipe/config
+</code></pre>
+</li>
+</ol>
+<p>This command will take a few minutes to complete. Batch Shipyard is creating virtual machines using Azure Batch, and then provisioning those virtual machines with Docker. You don't have to wait for the provisioning to complete, however, before proceeding to the next exercise.</p>
+<p><a id="user-content-Exercise7"></a></p>
+<h2>Exercise 7: Upload input files</h2>
+<p>While the pool is being created, now is a good time to upload the input files that the job will process. The job uses Azure File Storage for data input and output. The configuration files tell Azure Batch to mount an Azure file share inside a Docker container, enabling code running in the container to read data from the file share as input, and then write data back out as output.</p>
+<ol>
+<li>
+<p>In the Azure Portal, return to the "BatchResourceGroup" resource group and click the storage account in that resource group.</p>
+<p><a href="Images/open-storage-account.png" target="_blank"><img src="Images/open-storage-account.png" alt="Opening the storage account" style="max-width:100%;"></a></p>
+<p><em>Opening the storage account</em></p>
+</li>
+<li>
+<p>Click <strong>Files</strong>.</p>
+<p><a href="Images/open-files.png" target="_blank"><img src="Images/open-files.png" alt="Opening file storage" style="max-width:100%;"></a></p>
+<p><em>Opening file storage</em></p>
+</li>
+<li>
+<p>Click <strong>+ File share</strong>.</p>
+<p><a href="Images/add-file-share.png" target="_blank"><img src="Images/add-file-share.png" alt="Adding a file share" style="max-width:100%;"></a></p>
+<p><em>Adding a file share</em></p>
+</li>
+<li>
+<p>Enter "myfileshare" for the file-share name. Leave <strong>Quota</strong> blank, and then click <strong>Create</strong> at the bottom of the blade.</p>
+<p><a href="Images/create-file-share.png" target="_blank"><img src="Images/create-file-share.png" alt="Creating a file share" style="max-width:100%;"></a></p>
+<p><em>Creating a file share</em></p>
+</li>
+<li>
+<p>Click the new file share to open it.</p>
+<p><a href="Images/select-file-share.png" target="_blank"><img src="Images/select-file-share.png" alt="Opening the file share" style="max-width:100%;"></a></p>
+<p><em>Opening the file share</em></p>
+</li>
+<li>
+<p>In the blade for the file share, click <strong>+ Add directory</strong>.</p>
+<p><a href="Images/add-directory.png" target="_blank"><img src="Images/add-directory.png" alt="Adding a directory" style="max-width:100%;"></a></p>
+<p><em>Adding a directory</em></p>
+</li>
+<li>
+<p>Enter "textfiles" for the directory name, and then click <strong>Create</strong>.</p>
+<p><a href="Images/create-directory.png" target="_blank"><img src="Images/create-directory.png" alt="Creating a directory" style="max-width:100%;"></a></p>
+<p><em>Creating a directory</em></p>
+</li>
+<li>
+<p>Back on the "myfileshare" blade, click the directory that you just created.</p>
+<p><a href="Images/select-directory.png" target="_blank"><img src="Images/select-directory.png" alt="Opening the directory" style="max-width:100%;"></a></p>
+<p><em>Opening the directory</em></p>
+</li>
+<li>
+<p>Click <strong>Upload</strong>.</p>
+<p><a href="Images/upload-files.png" target="_blank"><img src="Images/upload-files.png" alt="Uploading to the directory" style="max-width:100%;"></a></p>
+<p><em>Uploading to the directory</em></p>
+</li>
+<li>
+<p>In the "Upload files" blade, click the <strong>folder</strong> icon. Select the files named <strong>tale-of-2-cities.txt</strong> and <strong>war-of-the-worlds.txt</strong> in the "resources" folder of this lab, and then click the <strong>Upload</strong> button.</p>
+<p><a href="Images/upload-files-2.png" target="_blank"><img src="Images/upload-files-2.png" alt="Uploading text files" style="max-width:100%;"></a></p>
+<p><em>Uploading text files</em></p>
+</li>
+<li>
+<p>Wait for the uploads to complete. Then confirm that both files were uploaded to the "textfiles" directory.</p>
+<p><a href="Images/uploaded-files.png" target="_blank"><img src="Images/uploaded-files.png" alt="The uploaded text files" style="max-width:100%;"></a></p>
+<p><em>The uploaded text files</em></p>
+</li>
+</ol>
+<p>The container is configured to handle multiple text files with a .txt extension. For each text file, the container will generate a corresponding .ogg file in the root folder.</p>
+<p><a id="user-content-Exercise8"></a></p>
+<h2>Exercise 8: Run the job</h2>
+<p>Now that Batch Shipyard is configured, the pool is created, and the input data is uploaded, it's time to run the job.</p>
+<ol>
+<li>
+<p>Execute one of the following commands based on which operating system you are using. The command creates a job if it doesn't already exist in the Batch account, and then creates a new task for that job. Jobs can be run multiple times without creating new jobs. Batch Shipyard simply creates a new task each time the <strong>jobs add</strong> command is called.</p>
+<p><strong>Windows</strong>:</p>
+<pre><code>python shipyard.py jobs add --configdir .\recipe\config
+</code></pre>
+<p><strong>macOS</strong>:</p>
+<pre><code>python3 shipyard.py jobs add --configdir ./recipe/config
+</code></pre>
+<p><strong>Linux</strong>:</p>
+<pre><code>python shipyard.py jobs add --configdir ./recipe/config
+</code></pre>
+</li>
+<li>
+<p>Return to the Azure Portal and open the Batch account.</p>
+<p><a href="Images/open-batch-account.png" target="_blank"><img src="Images/open-batch-account.png" alt="Opening the batch account" style="max-width:100%;"></a></p>
+<p><em>Opening the batch account</em></p>
+</li>
+<li>
+<p>Click <strong>Jobs</strong> in the menu on the left side of blade, and then click <strong>batch-lab-job</strong>.</p>
+<p><a href="Images/select-jobs.png" target="_blank"><img src="Images/select-jobs.png" alt="Selecting the job" style="max-width:100%;"></a></p>
+<p><em>Selecting the job</em></p>
+</li>
+<li>
+<p>Click <strong>Tasks</strong>. Then click <strong>Refresh</strong> periodically until the job completes with an exit code of 0.</p>
+<p><a href="Images/select-tasks.png" target="_blank"><img src="Images/select-tasks.png" alt="Waiting for the job to complete" style="max-width:100%;"></a></p>
+<p><em>Waiting for the job to complete</em></p>
+</li>
+</ol>
+<p>Now that the job has finished running, the next step is to examine the output that it produced.</p>
+<p><a id="user-content-Exercise9"></a></p>
+<h2>Exercise 9: View the results</h2>
+<p>The results are now available in the storage account. The output files can be downloaded and played back locally in any media player that supports the .ogg file type.</p>
+<ol>
+<li>
+<p>In the Azure Portal, return to the "BatchResourceGroup" resource group and click the storage account in that resource group.</p>
+<p><a href="Images/open-storage-account.png" target="_blank"><img src="Images/open-storage-account.png" alt="Opening the storage account" style="max-width:100%;"></a></p>
+<p><em>Opening the storage account</em></p>
+</li>
+<li>
+<p>Click <strong>Files</strong>.</p>
+<p><a href="Images/open-files.png" target="_blank"><img src="Images/open-files.png" alt="Opening file storage" style="max-width:100%;"></a></p>
+<p><em>Opening file storage</em></p>
+</li>
+<li>
+<p>Click <strong>myfileshare</strong>.</p>
+<p><a href="Images/select-file-share.png" target="_blank"><img src="Images/select-file-share.png" alt="Opening the fileshare" style="max-width:100%;"></a></p>
+<p><em>Opening the fileshare</em></p>
+</li>
+<li>
+<p>Notice that two new files named <strong>tale-of-2-cities.ogg</strong> and <strong>war-of-the-worlds.ogg</strong> have been created. Click one of them to open a blade for it.</p>
+<p><a href="Images/open-output-file.png" target="_blank"><img src="Images/open-output-file.png" alt="Opening the output file" style="max-width:100%;"></a></p>
+<p><em>Opening the output file</em></p>
+</li>
+<li>
+<p>Click <strong>Download</strong> to download the file. This will download the file to the local machine where it can be played back in a media player.</p>
+<p><a href="Images/download-file.png" target="_blank"><img src="Images/download-file.png" alt="Downloading the results" style="max-width:100%;"></a></p>
+<p><em>Downloading the results</em></p>
+</li>
+</ol>
+<p>Each .ogg file contains hours of spoken content, which is indicative of the CPU intensiveness of the batch job that you executed.</p>
+<p><a id="user-content-Exercise10"></a></p>
+<h2>Exercise 10: Delete the resource group</h2>
+<p>In this exercise, you will delete the resource group created in <a href="#Exercise1">Exercise 1</a> when you created the Batch account. Deleting the resource group deletes everything in it and prevents any further charges from being incurred for it.</p>
+<ol>
+<li>
+<p>In the Azure Portal, open the blade for the resource group created for the Batch account. Then click the <strong>Delete</strong> button at the top of the blade.</p>
+<p><a href="Images/delete-resource-group.png" target="_blank"><img src="Images/delete-resource-group.png" alt="Deleting the resource group" style="max-width:100%;"></a></p>
+<p><em>Deleting the resource group</em></p>
+</li>
+<li>
+<p>For safety, you are required to type in the resource group's name. (Once deleted, a resource group cannot be recovered.) Type the name of the resource group. Then click the <strong>Delete</strong> button to remove all traces of this lab from your account.</p>
+</li>
+</ol>
+<p>After a few minutes, the resource group and all of its resources will be deleted.</p>
+<h2>Summary</h2>
+<p>Azure Batch is ideal for running large jobs that are compute-intensive as batch jobs on clusters of virtual machines. Batch Shipyard improves on Azure Batch by running those same jobs in Docker containers. The exercises you performed here demonstrate the basic steps required to create a Batch service, configure Batch Shipyard using a custom recipe, and run a job. The Batch Shipyard team has prepared other recipes involving scenarios such as deep learning, computational fluid dynamics, molecular dynamics, and video processing. For more information, and to view the recipes themselves, see <a href="https://github.com/Azure/batch-shipyard/tree/master/recipes">https://github.com/Azure/batch-shipyard/tree/master/recipes</a>.</p>
+<hr>
+<p>Copyright 2016 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>.</p>
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

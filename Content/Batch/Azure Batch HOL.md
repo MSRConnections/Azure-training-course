@@ -6,11 +6,11 @@
 <a name="Overview"></a>
 ## Overview
 
-[**Azure Batch**](https://azure.microsoft.com/en-us/services/batch/) is a service that enables you to run batch processes on high-performance compute (HPC) clusters composed of Azure virtual machines (VMs). Batch processes are ideal for handling compute-intensive tasks such as rendering videos and performing large-scale financial risk analyses that can run unattended. Azure Batch uses [VM scale sets](https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-overview) to scale up and down as needed to ensure that adequate compute resources are available to handle the workload, while preventing you from paying for resources that you don't need.
+[**Azure Batch**](https://azure.microsoft.com/en-us/services/batch/) is a service that enables you to run batch processes on high-performance computing (HPC) clusters composed of Azure virtual machines (VMs). Batch processes are ideal for handling computationally intensive tasks that can run unattended such as photorealistic rendering and computational fluid dynamics. Azure Batch uses [VM scale sets](https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-overview) to scale up and down and to prevent you from paying for VMs that aren't being used. It also supports autoscaling, which, if enabled, allows Batch to scale up as needed to handle massively complex workloads.
 
-Azure Batch services are oriented around three major components: **storage**, **pools**, and **jobs**. **Storage** is implemented through Azure Storage, and is where data input and output are stored. **Pools** are composed of compute nodes. Each pool has one or more VMs, and each VM has one or more CPUs. **Jobs** contain the scripts that process the information in storage and write the results back out to storage. Jobs themselves are composed of one or more **tasks**. Tasks can be run one at a time or in parallel.
+Azure Batch involves three important concepts: **storage**, **pools**, and **jobs**. Storage is implemented through Azure Storage, and is where data input and output are stored. Pools are composed of compute nodes. Each pool has one or more VMs, and each VM has one or more CPUs. Jobs contain the scripts that process the information in storage and write the results back out to storage. Jobs themselves are composed of one or more tasks. Tasks can be run one at a time or in parallel.
 
-**[Batch Shipyard](https://github.com/Azure/batch-shipyard)** is an open-source toolkit that allows Dockerized workloads to be deployed to Azure Batch compute pools. The workflow for using Batch Shipyard with Azure Batch is pictured below. You begin by using Batch Shipyard to create a pool and uploading input files to storage. Then you use Batch Shipyard to create and run a job, which uses tasks to read data from storage, process it, and write the results back to storage.
+**[Batch Shipyard](https://github.com/Azure/batch-shipyard)** is an open-source toolkit that allows Dockerized workloads to be deployed to Azure Batch compute pools. The workflow for using Batch Shipyard with Azure Batch is pictured below. After creating a Batch account and configuring Batch Shipyard to use it, you upload input files to storage and use Batch Shipyard to create Batch pools. Then you use Batch Shipyard to create and run jobs against those pools. The jobs themselves use tasks to read data from storage, process it, and write the results back to storage.
 
 ![Batch Shipyard](Images/batch-shipyard.png)
 
@@ -18,7 +18,7 @@ _Azure Batch Shipyard workflow_
 
 In this lab, you will use Azure Batch and Batch Shipyard to process a pair of text files containing the manuscripts for the novels "A Tale of Two Cities" and "War of the Worlds" and generate .ogg sound files from the text files.
 
-**Note**: Azure Batch Shipyard is constantly being refined and improved. If you work this lab on your laptop and it fails at any point (especially [Exercise 6](#Exercise6)), try creating a Linux VM and running the lab in the VM. You will find instructions for creating a Linux VM in Azure at https://docs.microsoft.com/en-us/azure/virtual-machines/virtual-machines-linux-quick-create-portal.
+**Note**: Azure Batch Shipyard is constantly being refined and improved. If you work this lab on your laptop and it fails at any point, try creating a Linux VM and running the lab in the VM. You will find instructions for creating a Linux VM in Azure at https://docs.microsoft.com/en-us/azure/virtual-machines/virtual-machines-linux-quick-create-portal.
 
 <a name="Objectives"></a>
 ### Objectives:
@@ -57,7 +57,7 @@ Estimated time to complete this lab: **60** minutes.
 <a id="Exercise1"/></a>
 ## Exercise 1: Create a Batch account
 
-Azure Batch accounts are simple to setup through the Azure Portal.
+Azure Batch accounts can be created through the Azure Portal. In this exercise, you will create a Batch account and a storage account to go with it. This is the storage account that will be used for job input and output.
 
 1. Open the [Azure Portal](https://portal.azure.com) in your browser. If you are asked to log in, do so using your Microsoft account.
 
@@ -207,11 +207,11 @@ Now that Batch Shipyard is installed, it's time to configure it.
 <a id="Exercise5"/></a>
 ## Exercise 5: Configure Batch Shipyard
 
-Batch Shipyard uses four different JSON files — **config.json, pool.json,  jobs.json**, and **credentials.json** — to configure the environment. These four files, the Dockerfiles used to build Docker images, the files referenced in the Dockerfiles, and a **readme.md** file define a Batch Shipyard "recipe."
+Batch Shipyard uses JSON files named **config.json, pool.json,  jobs.json**, and **credentials.json** to configure the environment. These four files, the Dockerfiles used to build Docker images, the files referenced in the Dockerfiles, and a **readme.md** file define a Batch Shipyard "recipe."
 
-Each of the configuration files configures some part of Batch Shipyard. **config.json** contains configuration settings for the Batch Shipyard environment. **pool.json** contains definitions for the compute pools, including the VM size and the number of VMs per pool. **jobs.json** outlines the job definition and the tasks that are part of that job. **credentials.json** holds the access keys for the batch account and the storage account.
+Each of the configuration files in a recipe configures one element of Batch Shipyard. **config.json** contains configuration settings for the Batch Shipyard environment. **pool.json** contains definitions for the compute pools, including the VM size and the number of VMs per pool. **jobs.json** contains the job definition and the tasks that are part of the job. **credentials.json** holds information regarding the batch account and the storage account, including the keys used to access them.
 
-Three of the four JSON files are already configured in the solution recipe. The only one that needs to be changed is **credentials.json**. In this exercise, you will modify **credentials.json** so you can use it in a Batch job. Rather than build a Dockerfile, you will use one that has been built for you. For more information about how to create Dockerfiles, check out https://docs.docker.com/engine/getstarted/step_four/.
+Three of the four JSON files are already configured in the provided recipe. The only one that needs to be changed is **credentials.json**. In this exercise, you will modify **credentials.json** so you can use it in a Batch job. Rather than create a Dockerfile, you will use one that has been created for you. To learn more about Dockerfiles, refer to https://docs.docker.com/engine/getstarted/step_four/.
 
 1. Open this lab's "resources" folder, and then copy the "recipe" folder from the "resources" folder into the "batch-shipyard" folder created in the previous exercise.
 
@@ -292,9 +292,9 @@ Save your changes to **credentials.json** before proceeding to the next exercise
 <a id="Exercise6"/></a>
 ## Exercise 6: Create a pool
 
-Before you run the job, you need to create a compute pool using the configuration settings in **pool.json**. Batch Shipyard uses several commands to control Batch pools. In this exercise, you will use one of those commands to create a compute pool.
+Before you run the job, you must create a compute pool using the configuration settings in **pool.json**. Batch Shipyard provides several commands for controlling Batch pools. In this exercise, you will use one of those commands to create a pool.
 
-> The **pool.json** file provided for you configures each pool to have two VMs and specifies a VM size of STANDARD_D3_V2, which contains 4 cores and 14 GB of RAM. Feel free to vary these parameters if you would like to gauge their effect on performance.
+> The **pool.json** file provided for you configures each pool to have two VMs and specifies a VM size of STANDARD_A1, which contains a single core and 1.75 GB of RAM. In real life, you might find it advantageous to use larger VMs with more cores and more RAM, or to increase the number of VMs by increasing the *vm_count* property in **pool.json**.
 
 1. In the terminal or Command Prompt window that you left open, run one of the following commands based on which operating system you are using:
 
@@ -321,7 +321,7 @@ This command will take a few minutes to complete. Batch Shipyard is creating vir
 <a id="Exercise7"/></a>
 ## Exercise 7: Upload input files
 
-While the pool is being created, now is a good time to upload the input files that the job will process. The job uses Azure File Storage for data input and output. The configuration files tell Azure Batch to mount an Azure file share inside of a container. The container can read data in and then write data back to the file share as output.
+While the pool is being created, now is a good time to upload the input files that the job will process. The job uses Azure File Storage for data input and output. The configuration files tell Azure Batch to mount an Azure file share inside a Docker container, enabling code running in the container to read data from the file share as input, and then write data back out as output.
 
 1. In the Azure Portal, return to the "BatchResourceGroup" resource group and click the storage account in that resource group.
 
@@ -394,7 +394,7 @@ The container is configured to handle multiple text files with a .txt extension.
 <a id="Exercise8"/></a>
 ## Exercise 8: Run the job
 
-Now that Batch Shipyard is configured, the pool is created, and the input data is uploaded, it's time to run the job. Running the job requires one simple command to invoke Batch Shipyard, which in turn invokes Azure Batch.
+Now that Batch Shipyard is configured, the pool is created, and the input data is uploaded, it's time to run the job.
 
 1. Execute one of the following commands based on which operating system you are using. The command creates a job if it doesn't already exist in the Batch account, and then creates a new task for that job. Jobs can be run multiple times without creating new jobs. Batch Shipyard simply creates a new task each time the **jobs add** command is called.
 
@@ -433,7 +433,7 @@ Now that Batch Shipyard is configured, the pool is created, and the input data i
 
 	_Waiting for the job to complete_
 
-Once the job has finished running, the next task is to examine the output that it produced.
+Now that the job has finished running, the next step is to examine the output that it produced.
 
 <a id="Exercise9"/></a>
 ## Exercise 9: View the results
@@ -485,11 +485,11 @@ In this exercise, you will delete the resource group created in [Exercise 1](#Ex
 
 1. For safety, you are required to type in the resource group's name. (Once deleted, a resource group cannot be recovered.) Type the name of the resource group. Then click the **Delete** button to remove all traces of this lab from your account.
 
-After a few minutes, the service and all of its resources will be deleted.
+After a few minutes, the resource group and all of its resources will be deleted.
 
 ## Summary
 
-This lab provided a hands-on demonstration of how to use Batch Services with Batch Shipyard to run batch jobs in the cloud in Docker containers. Batch on Azure though can perform many types on Docker and non-Docker jobs and even leverage some of the high performance N-seres virtual machines that have GPUs for tasks such as animation rendering.
+Azure Batch is ideal for running large jobs that are compute-intensive as batch jobs on clusters of virtual machines. Batch Shipyard improves on Azure Batch by running those same jobs in Docker containers. The exercises you performed here demonstrate the basic steps required to create a Batch service, configure Batch Shipyard using a custom recipe, and run a job. The Batch Shipyard team has prepared other recipes involving scenarios such as deep learning, computational fluid dynamics, molecular dynamics, and video processing. For more information, and to view the recipes themselves, see https://github.com/Azure/batch-shipyard/tree/master/recipes.
 
 ---
 
