@@ -6,7 +6,7 @@
 
 Microsoft Azure Storage is a set of services that allows you to store large volumes of data in a cost-effective manner and in a way that makes the data readily and reliably available for consumption. Data committed to Azure Storage can be stored in blobs, tables, queues, or files. [Azure blobs](http://azure.microsoft.com/en-us/services/storage/blobs/) are ideal for storing images, videos, and other types of data, and are frequently used to provide input to and capture output from other Azure services such as [Azure Machine Learning](https://azure.microsoft.com/en-us/services/machine-learning/) and [Azure Stream Analytics](http://azure.microsoft.com/en-us/services/stream-analytics/). [Azure tables](http://azure.microsoft.com/en-us/services/storage/tables/) provide NoSQL storage for semi-structured data. [Azure queues](http://azure.microsoft.com/en-us/services/storage/queues/) support queued message transfers between applications (or parts of applications) and can be used to make applications more scalable and robust by loosely coupling them together. Finally, [Azure Files](http://azure.microsoft.com/en-us/services/storage/files) use the Server Message Block (SMB) protocol to share files through the cloud and access storage as network drives.
 
-Data stored in Microsoft Azure Storage can be accessed over HTTP or HTTPS using straightforward REST APIs, or it can be accessed using rich client libraries available for many popular languages and platforms, including .NET, Java, Android, Node.js, PHP, Ruby, and Python. The [Azure Portal](https://portal.azure.com) includes features for working with Azure Storage, but richer functionality is available from third-party tools, many of which are free and some of which work cross-platform.
+Data stored in Microsoft Azure Storage can be accessed over HTTP or HTTPS using straightforward REST APIs, or it can be accessed using rich client libraries available for many popular languages and platforms, including .NET, Java, Android, Node.js, PHP, Ruby, and Python. The [Azure Portal](https://portal.azure.com) includes basic features for working with Azure Storage, but richer functionality is available from third-party tools, many of which are free and some of which work cross-platform.
 
 In this lab, you will learn how to work with storage accounts, storage containers, and storage blobs. You'll also get familiar with some of the tools used to manage them, including the [Microsoft Azure Storage Explorer](http://storageexplorer.com/), a free tool from Microsoft that runs on Windows, macOS, and Linux. The knowledge you gain will be used in later labs featuring Azure services that rely on blob storage for input and output, and will serve you well when you use Azure in your research.
 
@@ -27,7 +27,7 @@ In this hands-on lab, you will learn how to:
 
 The following is required to complete this hands-on lab:
 
-- An active Microsoft Azure subscription. Use the Azure Pass you activated earlier, or [sign up for a free trial](http://aka.ms/WATK-FreeTrial).
+- An active Microsoft Azure subscription. If you don't have one, [sign up for a free trial](http://aka.ms/WATK-FreeTrial).
 - [Microsoft Azure Storage Explorer](http://storageexplorer.com/)
 
 ----
@@ -50,7 +50,7 @@ Estimated time to complete this lab: **45** minutes.
 
 The [Azure Portal](https://portal.azure.com) allows you to perform basic storage operations such as creating storage accounts, viewing what's stored under those accounts, and managing the access keys associated with the accounts. In this exercise, you'll use the portal to create a storage account.
 
-1. Go to the [Azure Portal](https://portal.azure.com/) and sign in using your Microsoft account.
+1. Open the [Azure Portal](https://portal.azure.com/) in your browser. If you are asked to sign in, do so with your Microsoft account.
  
 1. The first step in using Azure Storage is to create one or more storage accounts. To create a storage account, click **+ New** in the ribbon on the left. Then click **Storage**, followed by **Storage account**.
 
@@ -80,7 +80,7 @@ The [Azure Portal](https://portal.azure.com) allows you to perform basic storage
 
     _Viewing blob containers_
 
-The storage account currently has no containers. Before you create a blob, you must create a container to store it in. While you can create containers in the Azure Portal, you cannot create blobs. In Exercise 2, you will use the [Microsoft Azure Storage Explorer](http://storageexplorer.com/) to create both.
+The storage account currently has no containers. Before you create a blob, you must create a container to store it in. You can create containers and upload blobs in the Azure Portal, or you can use external tools that offer additional features that the portal does not. In Exercise 2, you will use the cross-platform [Microsoft Azure Storage Explorer](http://storageexplorer.com/) to create containers and upload blobs.
 
 <a name="#Exercise2"></a>
 ## Exercise 2: Use Storage Explorer to create a container and upload blobs ##
@@ -125,7 +125,7 @@ In this exercise, you will create a container named "images" in the storage acco
 
     _Uploading files to blob storage_
 
-	> The default blob type — block blob — supports up to approximately 195 GB of data per blob. Append blobs are similar to block blobs but are optimized for append operations. Page blobs can hold up to 1 TB of data and are used to hold virtual hard disks (VHDs) for virtual machines.
+	> The default blob type — block blob — supports up to approximately 4.75 TB of data per blob. Append blobs are similar to block blobs but are optimized for append operations. Page blobs can hold up to 1 TB of data and are used to hold virtual hard disks (VHDs) for virtual machines.
 
 1. Confirm that all ten .jpg files were uploaded to the "images" container.
 
@@ -273,9 +273,9 @@ Here's a quick summary of the important concepts that you learned in this lab:
 
 - Azure Storage is a set of services for storing data durably and reliably
 - Azure Storage blobs can contain any type of data, just like files in a file system, and are frequently used for input and output to other Azure services
-- The Azure Portal enables you to perform basic storage operations, such as creating storage accounts
-- The Microsoft Azure Storage Explorer runs on Windows, macOS, and Linux and supports many features the Azure Portal does not, such as the ability to upload blobs and generate shared-access signatures
-- Shared-access signatures can be used to share blobs in private containers and limit the amount of time the blobs can be accessed
+- The Azure Portal enables you to perform basic storage operations, such as creating storage accounts, creating blob containers, and uploading and downloading blobs
+- The Microsoft Azure Storage Explorer runs on Windows, macOS, and Linux and supports many features the Azure Portal does not, such as the ability to generate shared-access signatures
+- Shared-access signatures can be used to share blobs in private containers and limit the amount of time the blobs can be accessed, as well as limit access to read-only
 - Storage accounts and other resources that are placed inside a resource group are easily deleted by deleting the resource group itself
 
 Now that you're familiar with storage accounts, containers, and blobs, as well as some of the tools for managing them, you'll put your knowledge to work in subsequent labs. Knowing the basics of Azure Storage is an essential first step in working with Azure data services.
