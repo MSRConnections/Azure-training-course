@@ -50,7 +50,7 @@ This hands-on lab includes the following exercises:
 Estimated time to complete this lab: **45** minutes.
 
 <a name="Exercise1"></a>
-## Exercise 1: Deploy a SLURM cluster
+## Exercise 1: Deploy a SLURM cluster ##
 
 The Azure Resource Manager allows you to provision complex groups of resources such as those comprising HPC clusters using declarative templates. A template contains a complete description of everything that makes up a resource group, including virtual machines, storage accounts, IP addresses, and other resources. Templates can include parameters that users are prompted to fill in each time a resource group is deployed. Templates can also invoke scripts to initialize resources to a known and consistent state. To learn more about Azure Resource Manager templates, refer to the [documentation](https://azure.microsoft.com/en-us/documentation/articles/resource-group-template-deploy/) online.
 
@@ -97,7 +97,7 @@ Let's get started!
 When the deployment completes successfully, you will see all the resources that comprise the cluster in the resource group. The next step is to create a couple of blob containers to hold the images that the cluster will process.
 
 <a name="Exercise2"></a>
-## Exercise 2: Create blob containers and upload images
+## Exercise 2: Create blob containers and upload images ##
 
 In a later exercise, you will run a Python script on the cluster to generate grayscale images from color images. That script requires a set of color images as well as two blob storage containers: one for input and one for output. In this exercise, you will use the Azure Portal to create the containers and upload the images.
 
@@ -168,7 +168,7 @@ In a later exercise, you will run a Python script on the cluster to generate gra
 You now have containers to hold input and output and a collection of color images in the input container. The next step is to update the Python script used to process the images.
 
 <a name="Exercise3"></a>
-## Exercise 3: Prepare the Python script
+## Exercise 3: Prepare the Python script ##
 
 With the SLURM cluster up and running and the images uploaded to blob storage, you are now ready to modify the Python script that processes the images with information enabling it to access the storage account. The script is named **slurmdemo.py** and is located in this lab's "resources" directory. You can use any text editor that you're comfortable with. There is no need to be concerned about how line breaks are encoded, because after uploading these scripts to the cluster's master node, you will run a utility to insert Linux-style line breaks into each script.
 
@@ -225,7 +225,7 @@ With the SLURM cluster up and running and the images uploaded to blob storage, y
 You've updated the Python script with the necessary information. Now you're ready for the next step: configuring the SLURM cluster and using it to process the images. If you're running macOS or Linux, proceed to [Exercise 4](#Exercise4). If you are running Windows, skip to [Exercise 5](#Exercise5).
 
 <a name="Exercise4"></a>
-## Exercise 4 (macOS and Linux): Copy the job scripts, configure the nodes, and run the job
+## Exercise 4 (macOS and Linux): Copy the job scripts, configure the nodes, and run the job ##
 
 In this exercise, you will upload the Python script and a pair of setup scripts to the master node of the SLURM cluster and use them to configure the cluster and run the job.
 
@@ -277,7 +277,7 @@ In this exercise, you will upload the Python script and a pair of setup scripts 
 Next, you'll check the output to verify that the job ran correctly. Since Exercise 5 is for Windows users only, proceed directly to [Exercise 6](#Exercise6).
 
 <a name="Exercise5"></a>
-## Exercise 5 (Windows): Copy the job scripts, configure the nodes, and run the job
+## Exercise 5 (Windows): Copy the job scripts, configure the nodes, and run the job ##
 
 In this exercise, you will upload the Python script and a pair of setup scripts to the master node of the SLURM cluster and use them to configure the cluster and run the job. To remote into the cluster, you'll use a popular Windows SSH client named PuTTY. If you haven't already installed PuTTY, [download the MSI](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) and install it now.
 
@@ -332,7 +332,7 @@ In this exercise, you will upload the Python script and a pair of setup scripts 
 Next, you'll check the output to verify that the job ran correctly.
 
 <a name="Exercise6"></a>
-## Exercise 6: View the converted images
+## Exercise 6: View the converted images ##
 
 If the job ran successfully, the grayscale images generated from the color images in the input container will be in the output container you created in [Exercise 2](#Exercise2). In this exercise, you will check the contents of that container.
 
@@ -375,7 +375,7 @@ If the job ran successfully, the grayscale images generated from the color image
 You now know how to deploy and configure SLURM clusters and run jobs on them. But when those clusters aren't being used, you should shut them down to avoid incurring unnecessary charges. The next exercise explains how.
 
 <a name="Exercise7"></a>
-## Exercise 7: Suspend the SLURM cluster
+## Exercise 7: Suspend the SLURM cluster ##
 
 When virtual machines are running, you are being charged — even if the VMs are idle. Therefore, it's advisable to stop virtual machines when they are not in use. You will still be charged for storage, but that cost is typically insignificant compared to the cost of an active VM. The Azure Portal makes it easy to stop virtual machines. VMs that you stop are easily started again later so you can pick up right where you left off.
 
@@ -402,7 +402,7 @@ When virtual machines are running, you are being charged — even if the VMs are
 You can stop and start virtual machines in the Azure portal, but if you have a lot of VMs, that's not very efficient. In the real world, you might prefer to use an Azure CLI or PowerShell script to enumerate all the VMs in a resource group and start or stop them all. For more information on scripting the Azure CLI, see the section entitled "How to script the Azure CLI for Mac, Linux, and Windows" in [Install and Configure the Azure CLI](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli/). If you prefer visual tools to command-line tools, you can use [Azure Automation](https://azure.microsoft.com/en-us/services/automation/) to automate VM operations.
 
 <a name="Exercise8"></a>
-## Exercise 8: Delete the SLURM cluster
+## Exercise 8: Delete the SLURM cluster ##
 
 Resource groups are a useful feature of Azure because they simplify the task of managing related resources. One of the most practical reasons to use resource groups is that deleting a resource group deletes all of the resources it contains. Rather than delete those resources one by one, you can delete them all at once.
 

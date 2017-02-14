@@ -21,7 +21,7 @@ In this lab, you will use Azure Batch and Batch Shipyard to process a pair of te
 **Note**: Azure Batch Shipyard is constantly being refined and improved. If you work this lab on your laptop and it fails at any point, try creating a Linux VM and running the lab in the VM. You will find instructions for creating a Linux VM in Azure at https://docs.microsoft.com/en-us/azure/virtual-machines/virtual-machines-linux-quick-create-portal.
 
 <a name="Objectives"></a>
-### Objectives:
+### Objectives: ###
 
 In this hands-on lab, you will learn how to:
 
@@ -32,12 +32,12 @@ In this hands-on lab, you will learn how to:
 - Use the Azure Portal to remove the Batch account
 
 <a name="Prerequisites"></a>
-### Prerequisites:
+### Prerequisites: ###
 
 * An active Microsoft Azure subscription. If you don't have one, [sign up for a free trial](https://azure.microsoft.com/en-us/free/)
 
 <a name="Exercises"></a>
-## Exercises
+## Exercises ##
 
 This hands-on lab includes the following exercises:
 
@@ -55,7 +55,7 @@ This hands-on lab includes the following exercises:
 Estimated time to complete this lab: **60** minutes.
 
 <a id="Exercise1"/></a>
-## Exercise 1: Create a Batch account
+## Exercise 1: Create a Batch account ##
 
 Azure Batch accounts can be created through the Azure Portal. In this exercise, you will create a Batch account and a storage account to go with it. This is the storage account that will be used for job input and output.
 
@@ -110,7 +110,7 @@ Azure Batch accounts can be created through the Azure Portal. In this exercise, 
 After the deployment finishes, proceed to [Exercise 2](#Exercise2) if you are running Windows, [Exercise 3](#Exercise3) if you are running macOS, or [Exercise 4](#Exercise4) if you are running Linux.
 
 <a id="Exercise2"/></a>
-## Exercise 2: Set up Batch Shipyard (Windows)
+## Exercise 2: Set up Batch Shipyard (Windows) ##
 
 Azure Batch Shipyard is built on Python. Windows does not have a built-in Python client, so you need to install one if it isn't installed already. In this exercise, you will download and install Python, and then use PiPy, the Python package manager, to install the dependencies for Batch Shipyard.
 
@@ -145,7 +145,7 @@ Azure Batch Shipyard is built on Python. Windows does not have a built-in Python
 Now **proceed to [Exercise 5](#Exercise5)**. Exercises 3 and 4 are for macOS and Linux users only.
 
 <a id="Exercise3"/></a>
-## Exercise 3: Set up Batch Shipyard (macOS)
+## Exercise 3: Set up Batch Shipyard (macOS) ##
 
 macOS comes with Python preinstalled, but using the preinstalled version of Python with Azure Batch Shipyard is problematic. Batch Shipyard works best with Python 3 installed on a Mac. Python 3 can coexist with Python 2 without interference. In this exercise, you will download and install Python 3, and then use PiPy, the Python package manager, to install the dependencies for Batch Shipyard.
 
@@ -174,7 +174,7 @@ macOS comes with Python preinstalled, but using the preinstalled version of Pyth
 Now **proceed to [Exercise 5](#Exercise5)**. Exercise 4 is for Linux users only.
 
 <a id="Exercise4"/></a>
-## Exercise 4: Set up Batch Shipyard (Ubuntu Linux)
+## Exercise 4: Set up Batch Shipyard (Ubuntu Linux) ##
 
 In this exercise, you will install PiPy, the Python package manager, and then use it to install the dependencies for Batch Shipyard. 
 
@@ -205,7 +205,7 @@ In this exercise, you will install PiPy, the Python package manager, and then us
 Now that Batch Shipyard is installed, it's time to configure it.
 
 <a id="Exercise5"/></a>
-## Exercise 5: Configure Batch Shipyard
+## Exercise 5: Configure Batch Shipyard ##
 
 Batch Shipyard uses JSON files named **config.json, pool.json,  jobs.json**, and **credentials.json** to configure the environment. These four files, the Dockerfiles used to build Docker images, the files referenced in the Dockerfiles, and a **readme.md** file define a Batch Shipyard "recipe."
 
@@ -290,7 +290,7 @@ Three of the four JSON files are already configured in the provided recipe. The 
 Save your changes to **credentials.json** before proceeding to the next exercise.
 
 <a id="Exercise6"/></a>
-## Exercise 6: Create a pool
+## Exercise 6: Create a pool ##
 
 Before you run the job, you must create a compute pool using the configuration settings in **pool.json**. Batch Shipyard provides several commands for controlling Batch pools. In this exercise, you will use one of those commands to create a pool.
 
@@ -319,7 +319,7 @@ Before you run the job, you must create a compute pool using the configuration s
 This command will take a few minutes to complete. Batch Shipyard is creating virtual machines using Azure Batch, and then provisioning those virtual machines with Docker. You don't have to wait for the provisioning to complete, however, before proceeding to the next exercise.
 
 <a id="Exercise7"/></a>
-## Exercise 7: Upload input files
+## Exercise 7: Upload input files ##
 
 While the pool is being created, now is a good time to upload the input files that the job will process. The job uses Azure File Storage for data input and output. The configuration files tell Azure Batch to mount an Azure file share inside a Docker container, enabling code running in the container to read data from the file share as input, and then write data back out as output.
 
@@ -392,7 +392,7 @@ While the pool is being created, now is a good time to upload the input files th
 The container is configured to handle multiple text files with a .txt extension. For each text file, the container will generate a corresponding .ogg file in the root folder.
 
 <a id="Exercise8"/></a>
-## Exercise 8: Run the job
+## Exercise 8: Run the job ##
 
 Now that Batch Shipyard is configured, the pool is created, and the input data is uploaded, it's time to run the job.
 
@@ -436,7 +436,7 @@ Now that Batch Shipyard is configured, the pool is created, and the input data i
 Now that the job has finished running, the next step is to examine the output that it produced.
 
 <a id="Exercise9"/></a>
-## Exercise 9: View the results
+## Exercise 9: View the results ##
 
 The results are now available in the storage account. The output files can be downloaded and played back locally in any media player that supports the .ogg file type.
 
@@ -473,7 +473,7 @@ The results are now available in the storage account. The output files can be do
 Each .ogg file contains hours of spoken content, which is indicative of the CPU intensiveness of the batch job that you executed.
 
 <a id="Exercise10"/></a>
-## Exercise 10: Delete the resource group
+## Exercise 10: Delete the resource group ##
 
 In this exercise, you will delete the resource group created in [Exercise 1](#Exercise1) when you created the Batch account. Deleting the resource group deletes everything in it and prevents any further charges from being incurred for it.
 
@@ -487,7 +487,7 @@ In this exercise, you will delete the resource group created in [Exercise 1](#Ex
 
 After a few minutes, the resource group and all of its resources will be deleted.
 
-## Summary
+## Summary ##
 
 Azure Batch is ideal for running large jobs that are compute-intensive as batch jobs on clusters of virtual machines. Batch Shipyard improves on Azure Batch by running those same jobs in Docker containers. The exercises you performed here demonstrate the basic steps required to create a Batch service, configure Batch Shipyard using a custom recipe, and run a job. The Batch Shipyard team has prepared other recipes involving scenarios such as deep learning, computational fluid dynamics, molecular dynamics, and video processing. For more information, and to view the recipes themselves, see https://github.com/Azure/batch-shipyard/tree/master/recipes.
 

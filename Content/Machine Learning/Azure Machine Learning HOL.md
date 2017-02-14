@@ -47,7 +47,7 @@ This hands-on lab includes the following exercises:
 Estimated time to complete this lab: **60** minutes.
 
 <a name="Exercise1"></a>
-## Exercise 1: Create an experiment and load a dataset
+## Exercise 1: Create an experiment and load a dataset ##
 
 The first step in building a machine-learning model with Azure Machine Learning is to use ML Studio to create an experiment and load data into it. Azure Machine Learning Studio comes with several sample datasets. In this exercise, you will load the sample dataset named "Automobile price data (Raw)," which includes entries for more than 200 automobiles, including make, model, technical specifications, and price.
 
@@ -98,7 +98,7 @@ The first step in building a machine-learning model with Azure Machine Learning 
 In this exercise, you learned how to create a new ML experiment and import a sample dataset. Note that you can upload custom datasets by clicking the **+ NEW** button in the ribbon at the bottom of the window, and then clicking **DATASET** followed by **FROM LOCAL FILE**. Next up: preparing the sample data for use.
 
 <a name="Exercise2"></a>
-## Exercise 2: Preprocess the data
+## Exercise 2: Preprocess the data ##
 
 No dataset is perfect. Most require some amount of preparation or *cleaning* before they can be used to train a model. When you visualized the data, you may have noticed that some rows were missing values. These need to be cleaned up before training begins. In this exercise, you will remove any rows that have missing values. In addition, the "normalized-losses" column has a lot of missing values, so you'll exclude that column from the model.
 
@@ -153,7 +153,7 @@ No dataset is perfect. Most require some amount of preparation or *cleaning* bef
 In this exercise, you learned about two ways to clean input data in preparation for training a model. The data is ready; now it's time to work on the model itself.
 
 <a name="Exercise3"></a>
-## Exercise 3: Define the features
+## Exercise 3: Define the features ##
 
 In machine learning, _features_ are individually measurable properties of the data that you're analyzing. In the **Automobile price data (Raw)** dataset, each row represents one automobile, and each column represents a feature of that automobile. Identifying features for a robust and accurate predictive model frequently requires experimentation and domain knowledge of the problem you're trying to solve. Some features are better for predicting target values than others. For example, it's likely that there is some correlation between engine size and price, because larger engines cost more. But intuition tells us that miles per gallon might not be a strong indicator of price. In addition, some features have a strong correlation with other features (for example, city-mpg versus highway-mpg), and can therefore be excluded since they add little to the model.
 
@@ -193,7 +193,7 @@ If needed, you can always refine a model later by selecting different features.
 You're getting close! Now comes perhaps the most important part of the process: selecting a learning algorithm and training the model.
 
 <a name="Exercise4"></a>
-## Exercise 4: Select a learning algorithm and train the model
+## Exercise 4: Select a learning algorithm and train the model ##
 
 Now that the data is ready and the features are selected, constructing a robust predictive model requires training and testing the model. You will use part of the dataset to train the model, and another part of it to measure how adept the model is at predicting automobile prices.
 
@@ -238,7 +238,7 @@ The goal of this lab is to predict the price of an automobile from a set of inpu
 You now have a trained regression model. The next step is to score the model to see how adept it is at predicting automobile prices.
 
 <a name="Exercise5"></a>
-## Exercise 5: Score the model
+## Exercise 5: Score the model ##
 
 In this exercise, you will score the model you trained in the previous exercise. Scoring determines how well the model was trained — that is, how adept it is at predicting target values from values presented to it. ML Studio makes the scoring process very easy. You used 80% of the dataset that you uploaded to train the model. You will use the remaining 20% to score it
 
@@ -291,7 +291,7 @@ In this exercise, you will score the model you trained in the previous exercise.
 Now that the model is adequately refined (90% is indicative of a reasonably strong correlation between the input data and results), you might want to be able write programs that utilize the model. That is the subject of the next exercise.
 
 <a name="Exercise6"></a>
-## Exercise 6: Deploy as a Web service
+## Exercise 6: Deploy as a Web service ##
 
 Once you have a trained and scored model, you can deploy it as a Web service and interact with it programmatically. Before deploying as a Web service, you need to streamline your experiment. This involves creating a new experiment from your trained model, removing unnecessary modules, and adding Web-service input and output modules. Fortunately, ML Studio can do all of this for you
 
@@ -402,7 +402,7 @@ Once you have a trained and scored model, you can deploy it as a Web service and
 You won't do it in this lab, but realize that you could easily write an app that calls the Web service. Click **REQUEST/RESPONSE** on the Web-service dashboard and scroll to the bottom of the page. There, you will see sample code in three languages (C#, Python, and R) demonstrating how to place calls to the Web service to retrieve predicted price values for a given set of inputs.
 
 <a name="Exercise7"></a>
-## Exercise 7 (Optional): Compare two models
+## Exercise 7 (Optional): Compare two models ##
 
 When you build a predictive model, it is often useful to try different algorithms and compare the results to see which algorithm delivers the best results. The **Evaluate Model** module is very effective in comparing the metrics between two different algorithms.
 

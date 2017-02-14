@@ -61,7 +61,7 @@ This hands-on lab includes the following exercises:
 Estimated time to complete this lab: **60** minutes.
 
 <a name="Exercise1"></a>
-## Exercise 1: Create an SSH key pair
+## Exercise 1: Create an SSH key pair ##
 
 Before you can deploy Docker images to Azure, you must create an Azure Container Service. And in order to create an Azure Container Service, you need a public/private key pair for authenticating with that service over SSH. In this exercise, you will create an SSH key pair. If you are using macOS or Linux, you will create the key pair with ssh-keygen. If you are running Windows instead, you will use a third-party tool named PuTTYGen.
 
@@ -109,7 +109,7 @@ Before you can deploy Docker images to Azure, you must create an Azure Container
 You now have a pair of files containing a public key and a private key. Remember where these files are located, because you will need them in subsequent exercises.
 
 <a name="Exercise2"></a>
-## Exercise 2: Create an Azure Container Service
+## Exercise 2: Create an Azure Container Service ##
 
 Now that you have an SSH key pair, you can create and configure an Azure Container Service. In this exercise, you will use the Azure Portal to create an Azure Container Service for running Docker containers.
 
@@ -160,7 +160,7 @@ Now that you have an SSH key pair, you can create and configure an Azure Contain
 Take a short break and wait for the deployment to finish. Then proceed to Exercise 3.
 
 <a name="Exercise3"></a>
-## Exercise 3: Connect to the Azure Container Service
+## Exercise 3: Connect to the Azure Container Service ##
 
 In this exercise, you will establish an SSH connection to the container service you deployed in Exercise 2 so you can use the Docker client to create Docker containers and run them in Azure.
 
@@ -237,7 +237,7 @@ In this exercise, you will establish an SSH connection to the container service 
 Now that you're connected, you can run the Docker client on your local machine and use port forwarding to execute commands in the Azure Container Service. Leave the SSH window open while you work through the next exercise.
 
 <a name="Exercise4"></a>
-## Exercise 4: Create a Docker image and run it in a container
+## Exercise 4: Create a Docker image and run it in a container ##
 
 Now comes the fun part: creating a Docker image and running it inside a container in Azure. If you haven't already installed the Docker client, refer to the instructions at the beginning of this lab to download and install the Docker client for your operating system. 
 
@@ -314,7 +314,7 @@ Now comes the fun part: creating a Docker image and running it inside a containe
 Congratulations! You just created a Docker container image and ran it in a Docker container hosted in Azure. You can close the SSH window now if you'd like because you are finished using the SSH connection.
 
 <a name="Exercise5"></a>
-## Exercise 5: Suspend the master VM
+## Exercise 5: Suspend the master VM ##
 
 When virtual machines are running, you are being charged — even if the VMs are idle. Therefore, it's advisable to stop virtual machines when they are not in use. You will still be charged for storage, but that cost is typically insignificant compared to the cost of an active VM.
 
@@ -335,7 +335,7 @@ Your container service contains a master VM that needs to be stopped when you're
 There is no need to stop the agent VMs. They are part of an [Azure Virtual Machine Scale Set](https://azure.microsoft.com/en-us/documentation/articles/virtual-machine-scale-sets-overview/) and are automatically spun up and down as needed by the master VM. Note that if you wish to run containers again in this container service, you will need to restart the master VM.
 
 <a name="Exercise6"></a>
-## Exercise 6: Delete the resource group
+## Exercise 6: Delete the resource group ##
 
 Resource groups are a useful feature of Azure because they simplify the task of managing related resources. One of the most practical reasons to use resource groups is that deleting a resource group deletes all the resources it contains. Rather than delete those resources one by one, you can delete them all at once.
 

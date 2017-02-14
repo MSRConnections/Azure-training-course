@@ -46,7 +46,7 @@ This hands-on lab includes the following exercises:
 Estimated time to complete this lab: **60** minutes.
 
 <a name="Exercise1"></a>
-## Exercise 1: Create an Azure Data Lake Store
+## Exercise 1: Create an Azure Data Lake Store ##
 
 The starting point for using Azure Data Lake is setting up an Azure Data Lake Store to serve as a repository for various data sources. In this exercise, you will create a new Azure Data Lake Store in your Azure subscription. Later, you will import data into the Data Lake Store and query it with U-SQL. 
 
@@ -83,7 +83,7 @@ The starting point for using Azure Data Lake is setting up an Azure Data Lake St
 Now that you have created a Data Lake Store, the next step is to create a Data Lake Analytics account so you can run queries against the store.
 
 <a name="Exercise2"></a>
-## Exercise 2: Create an Azure Data Lake Analytics account
+## Exercise 2: Create an Azure Data Lake Analytics account ##
 
 Azure Data Lake formally separates the concepts of storing data and querying data. This allows Azure Data Lake Analytics to operate against a range of possible data sources contained in an Azure Data Lake Store. In this exercise, you will create a Data Lake Analytics account and connect it to the Data Lake Store you created in [Exercise 1](#Exercise1).
 
@@ -110,7 +110,7 @@ Azure Data Lake formally separates the concepts of storing data and querying dat
 You now have Azure Data Lake storage and query capability set up in your Azure subscription. The next task is to add some data to query.
 
 <a name="Exercise3"></a>
-## Exercise 3: Import data into Azure Data Lake Store
+## Exercise 3: Import data into Azure Data Lake Store ##
 
 This lab's "resources" directory holds two tab-delimited TSV files containing sample data. The data comes from the public domain and consists of questions and answers from the popular site http://academia.stackexchange.com. In this exercise, you will import the sample data into your Azure Data Lake Store so you can execute queries against it.
 
@@ -147,7 +147,7 @@ This lab's "resources" directory holds two tab-delimited TSV files containing sa
 The next step is to query the data to extract the information you want from it. For that, Azure Data Lake Analytics provides U-SQL. 
 
 <a name="Exercise4"></a>
-## Exercise 4: Query a TSV file with U-SQL
+## Exercise 4: Query a TSV file with U-SQL ##
 
 [U-SQL](http://usql.io/) is a language created by Microsoft that combines traditional SQL Data Definition Language (DDL) and Data Manipulation Language (DML) constructs with expressions, functions, and operators based on the popular C# programming language. It marries the benefits of SQL with the power of expressive code. And it is supported natively in Azure Data Lake Analytics. In this exercise, you will use U-SQL to query the data you imported in [Exercise 3](#Exercise3).
 
@@ -217,7 +217,7 @@ The next step is to query the data to extract the information you want from it. 
 In the next two exercises, you will build on what you learned here by joining multiple data sources and performing more complex queries against the aggregated data. Now that you know how to set up a Data Lake Store, import data, connect it to in Data Lake Analytics, and execute U-SQL queries, the fundamentals are in place.
 
 <a name="Exercise5"></a>
-## Exercise 5: Create an Azure SQL Database as a federated data source
+## Exercise 5: Create an Azure SQL Database as a federated data source ##
 
 In the previous exercise, you issued a simple query against a single file in an Azure Data Lake Store. To make things more interesting, you are now going to create a SQL database in your Azure subscription and configure it to serve as a federated data source in Data Lake Analytics. This will allow you to not only query the database with U-SQL, but also join data from the database to data already residing in your Data Lake Store. This demonstrates the power of Azure Data Lake as a distributed storage and analytics engine.
 
@@ -395,7 +395,7 @@ Let's get started!
 That was a lot of work, but you are now ready to issue federated queries. Let's try it out!
 
 <a name="Exercise6"></a>
-## Exercise 6: Perform a federated query with U-SQL
+## Exercise 6: Perform a federated query with U-SQL ##
 
 Two of the most compelling features of Data Lake Analytics are its ability to federate external data sources (meaning, query them in their native storage, with copying) and its ability to address multiple disparate data sources in a single query. In this exercise, you'll use both to join data from the SQL database you created in [Exercise 5](#Exercise5) with data in one of the tab-delimited files you imported in [Exercise 3](#Exercise3).
 
