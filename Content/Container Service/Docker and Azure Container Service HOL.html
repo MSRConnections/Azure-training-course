@@ -479,27 +479,29 @@ vertical-align:1px;
 <p>To simplify the use of Docker containers, Azure offers the <a href="https://azure.microsoft.com/en-us/services/container-service/">Azure Container Service</a> (ACS), which hosts Docker containers in the cloud and provides an optimized configuration of popular open-source scheduling and orchestration tools, including <a href="https://dcos.io/">DC/OS</a> and <a href="https://www.docker.com/products/docker-swarm">Docker Swarm</a>. The latter uses native clustering capabilities to turn a group of Docker engines into a single virtual Docker engine using the configuration shown below and is a handy tool for executing CPU-intensive jobs in parallel. In essence, one or more master VMs control a "swarm" of agent VMs created from an <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machine-scale-sets-overview/">Azure Virtual Machine Scale Set</a>. The agent VMs host Docker containers that execute your code.</p>
 <p><a href="Images/docker-swarm.png" target="_blank"><img src="Images/docker-swarm.png" alt="Docker Swarm configuration in the Azure Container Service" style="max-width:100%;"></a></p>
 <p><em>Docker Swarm configuration in the Azure Container Service</em></p>
-<p>In this lab, you will package a Python app and a set of color images in a Docker container. Then you will run the container in Azure and run the Python app inside it to convert the color images to grayscale. You will get hands-on experience creating Azure Container Services and remoting into them to execute Docker commands and manipulate Docker containers</p>
+<p>In this lab, you will package a Python app and a set of color images in a Docker container. Then you will run the container in Azure and run the Python app inside it to convert the color images to grayscale. You will get hands-on experience using the Azure Container Service and tunneling in to execute Docker commands and manipulate Docker containers.</p>
 <p><a name="Objectives"></a></p>
 <h3>Objectives</h3>
 <p>In this hands-on lab, you will learn how to:</p>
 <ul>
 <li>Create an Azure Container Service</li>
-<li>Remote into an Azure Container Service using SSH</li>
+<li>Tunnel in to an Azure Container Service using SSH</li>
 <li>Create Docker images and run Docker containers in Azure</li>
 <li>Run jobs in containers created from Docker images</li>
-<li>Stop Docker containers that are running</li>
 <li>Delete a container service</li>
 </ul>
 <p><a name="Prerequisites"></a></p>
 <h3>Prerequisites</h3>
 <p>The following are required to complete this hands-on lab:</p>
 <ul>
-<li>An active Microsoft Azure subscription. Use the Azure Pass you activated earlier, or <a href="http://aka.ms/WATK-FreeTrial">sign up for a free trial</a>.</li>
-<li><a href="http://www.chiark.greenend.org.uk/%7Esgtatham/putty/download.html">PuTTY</a> (Windows users only). You can either install the full package using the MSI installer, or install just two binaries: putty.exe and puttygen.exe.</li>
+<li>An active Microsoft Azure subscription. If you don't have one, <a href="http://aka.ms/WATK-FreeTrial">sign up for a free trial</a>.</li>
+<li><a href="http://www.chiark.greenend.org.uk/%7Esgtatham/putty/download.html">PuTTY</a> (Windows users only)</li>
 <li>Docker client (also known as the <em>Docker Engine CLI</em>) for <a href="https://get.docker.com/builds/Windows/x86_64/docker-latest.zip">Windows</a>, <a href="https://get.docker.com/builds/Darwin/x86_64/docker-latest.tgz">macOS</a>, or <a href="https://get.docker.com/builds/Linux/x86_64/docker-latest.tgz">Linux</a></li>
 </ul>
 <p>To install the Docker client for Windows, open <a href="https://get.docker.com/builds/Windows/x86_64/docker-latest.zip">https://get.docker.com/builds/Windows/x86_64/docker-latest.zip</a> and copy the executable file named "docker.exe" from the "docker" subdirectory to a local folder. To install the Docker client for macOS, open <a href="https://get.docker.com/builds/Darwin/x86_64/docker-latest.tgz">https://get.docker.com/builds/Darwin/x86_64/docker-latest.tgz</a> and copy the executable file named "docker" from the "docker" subdirectory to a local folder. To install the Docker client for Linux, open <a href="https://get.docker.com/builds/Linux/x86_64/docker-latest.tgz">https://get.docker.com/builds/Linux/x86_64/docker-latest.tgz</a> and copy the executable file named "docker" from the "docker" subdirectory to a local folder. (You can ignore the other files in the "docker" subdirectory.)</p>
+<blockquote>
+<p>After installing the Docker client, add the directory in which it was installed to the PATH environment variable so you can execute <strong>docker</strong> commands on the command line without prefacing them with path names.</p>
+</blockquote>
 <p>You do not need to install the Docker client if you already have Docker (or Docker Toolbox) installed on your machine.</p>
 <hr>
 <p><a name="Exercises"></a></p>
@@ -529,21 +531,20 @@ vertical-align:1px;
 </li>
 <li>
 <p>Execute the following command in the terminal window:</p>
- <pre> ssh-keygen
- </pre>
+ <pre>ssh-keygen</pre>
 <p>Press <strong>Enter</strong> three times to accept the default output file name and create a key pair without a passphrase. The output will look something like this:</p>
 <p><a href="Images/docker-ssh-keygen.png" target="_blank"><img src="Images/docker-ssh-keygen.png" alt="Generating a public/private key pair" style="max-width:100%;"></a></p>
 <p><em>Generating a public/private key pair</em></p>
 </li>
 <li>
 <p>Use the following commands to navigate to the hidden ".ssh" subdirectory created by ssh-keygen and list the contents of that subdirectory:</p>
- <pre> cd ~/.ssh
- ls
- </pre>
-<p>Confirm that the ".ssh" subdirectory contains a pair of files named id_rsa and id_rsa.pub. The former contains the private key, and the latter contains the public key. Remember where these files are located, because you will need them in subsequent exercises.</p>
+<pre><code>cd ~/.ssh
+ls
+</code></pre>
+<p>Confirm that the ".ssh" subdirectory contains a pair of files named <strong>id_rsa</strong> and <strong>id_rsa.pub</strong>. The former contains the private key, and the latter contains the public key.</p>
 </li>
 <li>
-<p><strong>Proceed to <a href="#Exercise2">Exercise 2</a>. The remaining steps in this exercise are for Windows users only</strong>.</p>
+<p>Leave the terminal window open and <strong>proceed to <a href="#Exercise2">Exercise 2</a>. The remaining steps in this exercise are for Windows users only</strong>.</p>
 </li>
 <li>
 <p>Launch PuTTYGen and click the <strong>Generate</strong> button. For the next few seconds, move your cursor around in the empty space in the "Key" box to help randomize the keys that are generated.</p>
@@ -551,7 +552,7 @@ vertical-align:1px;
 <p><em>Generating a public/private key pair</em></p>
 </li>
 <li>
-<p>Once the keys are generated, click <strong>Save public key</strong> and save the public key to a text file named public.txt. Then click <strong>Save private key</strong> and save the private key to a file named private.ppk. When prompted to confirm that you want to save the private key without a passphrase, click <strong>Yes</strong>.</p>
+<p>Once the keys are generated, click <strong>Save public key</strong> and save the public key to a text file named <strong>public.txt</strong>. Then click <strong>Save private key</strong> and save the private key to a file named <strong>private.ppk</strong>. When prompted to confirm that you want to save the private key without a passphrase, click <strong>Yes</strong>.</p>
 <p><a href="Images/docker-puttygen2.png" target="_blank"><img src="Images/docker-puttygen2.png" alt="Saving the public and private keys" style="max-width:100%;"></a></p>
 <p><em>Saving the public and private keys</em></p>
 </li>
@@ -562,30 +563,36 @@ vertical-align:1px;
 <p>Now that you have an SSH key pair, you can create and configure an Azure Container Service. In this exercise, you will use the Azure Portal to create an Azure Container Service for running Docker containers.</p>
 <ol>
 <li>
-<p>Open the <a href="https://portal.azure.com">Azure Portal</a> in your browser. Select <strong>+ New -&gt; Containers -&gt; Azure Container Service</strong>.</p>
+<p>Open the <a href="https://portal.azure.com">Azure Portal</a> in your browser. If you are asked to log in, do so using your Microsoft account.</p>
+</li>
+<li>
+<p>Click <strong>+ New</strong>, followed by <strong>Containers</strong> and <strong>Azure Container Service</strong>.</p>
 <p><a href="Images/docker-new-container.png" target="_blank"><img src="Images/docker-new-container.png" alt="Creating a container service" style="max-width:100%;"></a></p>
 <p><em>Creating a container service</em></p>
 </li>
 <li>
-<p>Click the <strong>Create</strong> button in the "Azure Container Service" blade. In the "Basics" blade, enter "dockeruser" (without quotation marks) for <strong>User name</strong> and the public key that you generated in Exercise 1 for <strong>SSH public key</strong>. Select <strong>Create new</strong> under <strong>Resource group</strong> and enter the resource-group name "ACSLabResourceGroup" (without quotation marks). Select the location nearest you under <strong>Location</strong>, and then click the <strong>OK</strong> button.</p>
+<p>Click the <strong>Create</strong> button at the bottom of the "Azure Container Service" blade. In the "Basics" blade, select <strong>Swarm</strong> as the orchestrator. Select <strong>Create new</strong> under <strong>Resource group</strong> and enter the resource-group name "ACSLabResourceGroup" (without quotation marks). Select the location nearest you under <strong>Location</strong>, and then click the <strong>OK</strong> button.</p>
+<blockquote>
+<p>Swarm, DC/OS, and Kubernetes are popular open-source orchestration tools that enable you to deploy clusters containing thousands or even tens of thousands of containers. (Think of a compute cluster consisting of containers rather than physical servers, all sharing a load and running code in parallel.)  All three are preinstalled in Azure Container Service, with the goal being that you can use the one you are most familiar with rather than learn a new tool. Swarm is Docker's own native clustering tool.</p>
+</blockquote>
 <p><a href="Images/docker-acs-basics.png" target="_blank"><img src="Images/docker-acs-basics.png" alt="Basic settings" style="max-width:100%;"></a></p>
 <p><em>Basic settings</em></p>
 </li>
 <li>
-<p>In the "Framework configuration" blade, select <strong>Swarm</strong> as the orchestrator configuration. Then click <strong>OK</strong>.</p>
+<p>In the "Master configuration" blade, enter a DNS name prefix in the <strong>DNS name prefix</strong> box. (The prefix doesn't have to be unique across Azure, but it does have to be unique to a data center. To ensure uniqueness, you should <em>include birth dates or other personal information</em> that is unlikely to be used by other people working these exercises. Otherwise, you may see a green check mark in the <strong>DNS name prefix</strong> box but still suffer a deployment failure.) Enter "dockeruser" (without quotation marks) for <strong>User name</strong> and the public key that you generated in <a href="#Exercise1">Exercise 1</a> for <strong>SSH public key</strong>. Then set <strong>Master count</strong> to <strong>1</strong> and click <strong>OK</strong>.</p>
 <blockquote>
-<p>DC/OS and Swarm are popular open-source orchestration tools that enable you to deploy clusters containing thousands or even tens of thousands of containers. (Think of a compute cluster consisting of containers rather than physical servers, all sharing a load and running code in parallel.) DC/OS is a distributed operating system based on the Apache Mesos distributed systems kernel. Swarm is Docker's own native clustering tool. Both are preinstalled in Azure Container Service, with the goal being that you can use the one you are most familiar with rather than have to learn a new tool.</p>
+<p>You can retrieve the public key from the <strong>id_rsa.pub</strong> or <strong>public.txt</strong> file that you generated in Exercise 1 and paste it into <strong>SSH public key</strong> box.</p>
 </blockquote>
-<p><a href="Images/docker-acs-framework-configuration.png" target="_blank"><img src="Images/docker-acs-framework-configuration.png" alt="Framework configuration settings" style="max-width:100%;"></a></p>
-<p><em>Framework configuration settings</em></p>
+<p><a href="Images/docker-acs-master-configuration.png" target="_blank"><img src="Images/docker-acs-master-configuration.png" alt="Master configuration settings" style="max-width:100%;"></a></p>
+<p><em>Master configuration settings</em></p>
 </li>
 <li>
-<p>In the "Azure Container service settings" blade, set <strong>Agent count</strong> to <strong>2</strong>, <strong>Master count</strong> to <strong>1</strong>, and enter a DNS name in the <strong>DNS prefix for container service</strong> box. (The DNS name doesn't have to be unique across Azure, but it does have to be unique to a data center. To ensure uniqueness, you should <em>include birth dates or other personal information</em> that is unlikely to be used by other students working this lab. Otherwise, you may see a green check mark in the <strong>DNS prefix</strong> box but still suffer a deployment failure.) Then click <strong>OK</strong>.</p>
+<p>In the "Agent configuration" blade, set <strong>Agent count</strong> to <strong>2</strong>. Then click <strong>OK</strong>.</p>
 <blockquote>
-<p>When you create an Azure Container Service, one or more master VMs are created to orchestrate the workload. In addition, an <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machine-scale-sets-overview/">Azure Virtual Machine Scale Set</a> is created to provide VMs for the "agents," or VMs that the master VMs delegate work to. Docker container instances are hosted in the agent VMs. By default, Azure uses a standard D2 virtual machine for each agent. These are dual-core machines with 7 GB of RAM. Agent VMs are created as needed to handle the workload. In this example, there will be one master VM and up to two agent VMs.</p>
+<p>When you create an Azure Container Service, one or more master VMs are created to orchestrate the workload. In addition, an <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machine-scale-sets-overview/">Azure Virtual Machine Scale Set</a> is created to provide VMs for the "agents," or VMs that the master VMs delegate work to. Docker container instances are hosted in the agent VMs. By default, Azure uses a standard DS2 virtual machine for each agent. These are dual-core machines with 7 GB of RAM. Agent VMs are created as needed to handle the workload. In this example, there will be one master VM and up to two agent VMs.</p>
 </blockquote>
-<p><a href="Images/docker-acs-service-settings.png" target="_blank"><img src="Images/docker-acs-service-settings.png" alt="Service settings" style="max-width:100%;"></a></p>
-<p><em>Service settings</em></p>
+<p><a href="Images/docker-acs-agent-configuration.png" target="_blank"><img src="Images/docker-acs-agent-configuration.png" alt="Agent configuration settings" style="max-width:100%;"></a></p>
+<p><em>Agent configuration settings</em></p>
 </li>
 <li>
 <p>In the "Summary" blade, review the settings you selected. Then click <strong>OK</strong>.</p>
@@ -593,18 +600,20 @@ vertical-align:1px;
 <p><em>Settings summary</em></p>
 </li>
 <li>
-<p>In the ensuing "Purchase" blade, click the <strong>Purchase</strong> button to begin deploying a new container service.</p>
+<p>Deployment typically takes 5 to 10 minutes. You can monitor the status of the deployment by opening the blade for the resource group created for the container service. Click <strong>Resource groups</strong> in the ribbon on the left. Then click the resource group named "ACSLabResourceGroup."</p>
+<p><a href="Images/open-resource-group.png" target="_blank"><img src="Images/open-resource-group.png" alt="Opening the resource group" style="max-width:100%;"></a></p>
+<p><em>Opening the resource group</em></p>
 </li>
 <li>
-<p>Deployment typically takes about 10 minutes. To monitor the deployment, click <strong>Resource groups</strong> on the left side of the portal to display a list of all the resource groups associated with your account. Then select the <strong>ACSLabResourceGroup</strong> resource group created for the container service to open a resource-group blade. When "Succeeded" appears under "Last Deployment," the deployment has completed successfully.</p>
+<p>Wait until "Deploying" changes to "Succeeded," indicating that the service has been successfully deployed.</p>
 <blockquote>
-<p>Click the browser's <strong>Refresh</strong> button every few minutes to update the deployment status. Clicking the <strong>Refresh</strong> button in the resource-group blade refreshes the list of resources in the resource group, but does not reliably update the deployment status.</p>
+<p>Click the browser's <strong>Refresh</strong> button occasionally to update the deployment status. Clicking the <strong>Refresh</strong> button in the resource-group blade refreshes the list of resources in the resource group, but does not reliably update the deployment status.</p>
 </blockquote>
-<p><a href="Images/docker-success.png" target="_blank"><img src="Images/docker-success.png" alt="Successful deployment" style="max-width:100%;"></a></p>
+<p><a href="Images/deployment-succeeded.png" target="_blank"><img src="Images/deployment-succeeded.png" alt="Successful deployment" style="max-width:100%;"></a></p>
 <p><em>Successful deployment</em></p>
 </li>
 </ol>
-<p>Take a short break and wait for the deployment to finish. Then proceed to Exercise 3.</p>
+<p>When the deployment completes successfully, you will see all the resources that comprise the container service in the resource group. The next step is to open a secure connection to the service.</p>
 <p><a name="Exercise3"></a></p>
 <h2>Exercise 3: Connect to the Azure Container Service</h2>
 <p>In this exercise, you will establish an SSH connection to the container service you deployed in Exercise 2 so you can use the Docker client to create Docker containers and run them in Azure.</p>
@@ -616,19 +625,18 @@ vertical-align:1px;
 </li>
 <li>
 <p>Hover over the IP address under "Public IP address." Wait for a <strong>Copy</strong> button to appear, and then click it to copy the master load balancer's IP address to the clipboard.</p>
-<p><a href="Images/docker-click-ip-address.png" target="_blank"><img src="Images/docker-click-ip-address.png" alt="The master load balancer's public IP address" style="max-width:100%;"></a></p>
-<p><em>The master load balancer's public IP address</em></p>
+<p><a href="Images/docker-click-ip-address.png" target="_blank"><img src="Images/docker-click-ip-address.png" alt="Copying the master load balancer's public IP address" style="max-width:100%;"></a></p>
+<p><em>Copying the master load balancer's public IP address</em></p>
 </li>
 <li>
 <p><strong>If you are running Windows, skip to Step 8</strong>. Otherwise, proceed to Step 4.</p>
 </li>
 <li>
-<p>On your Mac or Linux machine, launch a terminal window (or return to the one you opened in Exercise 1 if it's still open).</p>
+<p>On your Mac or Linux machine, return to the terminal window you opened in Exercise 1 and make sure you are still in the ".ssh" directory containing the key pair that you generated.</p>
 </li>
 <li>
-<p>Execute the following command to SSH in to the Azure Container Service, replacing <em>ipaddress</em> with the IP address on the clipboard:</p>
- <pre> ssh dockeruser@<i>ipaddress</i> -p 2200 -L 22375:127.0.0.1:2375
- </pre>
+<p>Execute the following command to SSH in to the Azure Container Service, replacing <em>ipaddress</em> with the IP address on the clipboard (and deleting the DNS name after the IP address):</p>
+ <pre>ssh dockeruser@<i>ipaddress</i> -p 2200 -L 22375:127.0.0.1:2375</pre>
 <blockquote>
 <p>The purpose of the -L switch is to forward traffic transmitted through port 22375 on the local machine (that's the port used by the <strong>docker</strong> command you will be using shortly) to port 2375 at the other end. Docker Swarm listens on port 2375. The -p switch instructs SSH to use port 2200 rather than the default 22. The load balancer you're connecting to listens on port 2200 and forwards the SSH messages it receives to port 22 on the master VM.</p>
 </blockquote>
@@ -645,7 +653,7 @@ vertical-align:1px;
 <p>Leave the terminal window open and <strong>proceed to <a href="#Exercise4">Exercise 4</a>. The remaining steps in this exercise are for Windows users only</strong>.</p>
 </li>
 <li>
-<p>Launch PuTTY and paste the IP address on the clipboard into the <strong>Host Name (or IP address)</strong> box. Set the port number to <strong>2200</strong> and type "ACS" (without quotation marks) into the <strong>Saved Sessions</strong> box. Click the <strong>Save</strong> button to save these settings under that name.</p>
+<p>Launch PuTTY and paste the IP address on the clipboard into the <strong>Host Name (or IP address)</strong> box. (Be sure to delete the DNS name after the IP address). Set the port number to <strong>2200</strong> and type "ACS" (without quotation marks) into the <strong>Saved Sessions</strong> box. Click the <strong>Save</strong> button to save these settings under that name.</p>
 <blockquote>
 <p>Why port 2200 instead of port 22, which is the default for SSH? Because the load balancer you're connecting to listens on port 2200 and forwards the SSH messages it receives to port 22 on the master VM.</p>
 </blockquote>
@@ -671,7 +679,7 @@ vertical-align:1px;
 <p><em>Opening a connection to the container service</em></p>
 </li>
 <li>
-<p>An SSH window will open and prompt you to log in. Enter the user name ("dockeruser") that you specified in Exercise 2, Step 2. Then press the <strong>Enter</strong> key. Once connected, you'll see a screen that resembles the one below.</p>
+<p>An SSH window will open and prompt you to log in. Enter the user name ("dockeruser") that you specified in Exercise 2, Step 4. Then press the <strong>Enter</strong> key. Once connected, you'll see a screen that resembles the one below.</p>
 <blockquote>
 <p>Observe that you didn't have to enter a password. That's because the connection was authenticated using the public/private key pair you generated in Exercise 1. Key pairs tend to be much more secure than passwords because they are cryptographically strong.</p>
 </blockquote>
@@ -686,56 +694,47 @@ vertical-align:1px;
 <ol>
 <li>
 <p>Open a terminal window (macOS or Linux) or a Command Prompt window (Windows) and navigate to the "resources" subdirectory of this lab. It contains the files that you will build into a container image.</p>
-<p>Take a moment to examine the contents of the "resources" subdirectory. It contains a file named Dockerfile, which contains the commands Docker will use to build a container image. It also contains a Python script named convertimages.py, a subdirectory named "input," and a subdirectory named "output." The latter subdirectory is empty. The "input" subdirectory contains several color JPG images. The Python script enumerates the files in the "input" subdirectory, converts them to grayscale, and writes the grayscale images to the "output" subdirectory.</p>
+<p>Take a moment to examine the contents of the "resources" subdirectory. It contains a file named <strong>Dockerfile</strong>, which contains the commands Docker will use to build a container image. It also contains a Python script named <strong>convertimages.py</strong>, a subdirectory named "input," and a subdirectory named "output." The latter subdirectory is empty. The "input" subdirectory contains several color JPG images. The Python script enumerates the files in the "input" subdirectory, converts them to grayscale, and writes the grayscale images to the "output" subdirectory.</p>
 </li>
 <li>
 <p>If you are running macOS or Linux, execute the following command in the terminal window:</p>
- <pre> export DOCKER_HOST=tcp://127.0.0.1:22375
- </pre>
+ <pre>export DOCKER_HOST=tcp://127.0.0.1:22375</pre>
 <p>If you are running Windows instead, execute this command in the Command Prompt window:</p>
- <pre> set DOCKER_HOST=tcp://127.0.0.1:22375
- </pre>
+ <pre>set DOCKER_HOST=tcp://127.0.0.1:22375</pre>
 <blockquote>
 <p>This command directs the Docker client to send output to localhost port 22375, which you redirected to port 2375 in the Azure Container Service in the previous exercise. Remember that port 2375 is the one Docker Swarm listens on. The commands that you execute in the next few steps are typed into a local terminal window, but they are <strong>executed in the container service you deployed to the cloud</strong> using the SSH tunnel that you established in the previous exercise.</p>
 </blockquote>
 </li>
 <li>
 <p>Be sure you're in the "resources" subdirectory. Then execute the following command to create a container image named "ubuntu-convert" containing the Python script as well as the "input" and "output" subdirectories and their contents. Be sure to include the period at the end of the command:</p>
- <pre> docker build --no-cache --tag ubuntu-convert .
- </pre>
+ <pre>docker build --no-cache --tag ubuntu-convert .</pre>
 </li>
 <li>
 <p>Wait for the command to finish executing. (It will take a few minutes for Docker to build the container image.) Then execute the following command to list the images that are present, and confirm that the list contains an image named "ubuntu-convert:"</p>
- <pre> docker images
- </pre>
+ <pre>docker images</pre>
 </li>
 <li>
 <p>Now execute the following command to start the container image running and name the container "acslab:"</p>
- <pre> docker run -dit --name acslab ubuntu-convert /bin/bash
- </pre>
+ <pre>docker run -dit --name acslab ubuntu-convert /bin/bash</pre>
 </li>
 <li>
 <p>The container is now running. The next task is to execute the Python script in the root of the file system in the running container. To do that, execute the following command:</p>
- <pre> docker exec -it acslab python /convertimages.py
- </pre>
+ <pre>docker exec -it acslab python /convertimages.py</pre>
 </li>
 <li>
 <p>If the Python script ran successfully, the "output" subdirectory in the container should contain grayscale versions of the JPG files in the "input" subdirectory. Use the following command to copy the files from the "output" subdirectory in the container to the "output" subdirectory on the local machine:</p>
- <pre> docker cp acslab:/output .
- </pre>
+ <pre>docker cp acslab:/output .</pre>
 <blockquote>
 <p>Because you are still in the lab's "resources" subdirectory, this command will copy the grayscale images to the "resources" subdirectory's "output" subdirectory.</p>
 </blockquote>
 </li>
 <li>
 <p>Stop the running container by executing the following command:</p>
- <pre> docker stop acslab
- </pre>
+ <pre>docker stop acslab</pre>
 </li>
 <li>
 <p>Type the following command to delete the "acslab" container:</p>
- <pre> docker rm acslab
- </pre>
+ <pre>docker rm acslab</pre>
 </li>
 <li>
 <p>List the contents of the "output" subdirectory under the "resources" subdirectory that you are currently in. Confirm that it contains eight JPG files copied from the container.</p>
@@ -746,7 +745,7 @@ vertical-align:1px;
 <p><em>Grayscale image copied from the container</em></p>
 </li>
 </ol>
-<p>Congratulations! You just created a Docker container image and ran it in a Docker container hosted in Azure. You can close the SSH window now if you'd like because you are finished using the SSH connection.</p>
+<p>Congratulations! You just created a Docker container image and ran it in a Docker container hosted in Azure. You can close the SSH window now because you are finished using the SSH connection.</p>
 <p><a name="Exercise5"></a></p>
 <h2>Exercise 5: Suspend the master VM</h2>
 <p>When virtual machines are running, you are being charged — even if the VMs are idle. Therefore, it's advisable to stop virtual machines when they are not in use. You will still be charged for storage, but that cost is typically insignificant compared to the cost of an active VM.</p>
@@ -775,10 +774,7 @@ vertical-align:1px;
 <p><em>Deleting a resource group</em></p>
 </li>
 <li>
-<p>Because deleting a resource group is a permanent action that can't be undone, you must confirm that you want to delete it. Do so by typing the name of the resource group into the box labeled<br>
-<strong>TYPE THE RESOURCE GROUP NAME</strong>. Then click <strong>Delete</strong> to delete the resource group and everything inside it.</p>
-<p><a href="Images/confirm-delete-resource-group.png" target="_blank"><img src="Images/confirm-delete-resource-group.png" alt="Confirming resource-group deletion" style="max-width:100%;"></a></p>
-<p><em>Confirming resource-group deletion</em></p>
+<p>For safety, you are required to type in the resource group's name. (Once deleted, a resource group cannot be recovered.) Type the name of the resource group. Then click the <strong>Delete</strong> button to remove all traces of this lab from your account.</p>
 </li>
 </ol>
 <p>After a few minutes, you will be notified that the resource group was deleted. If the deleted resource group still appears in the "Resource groups" blade, click that blade's <strong>Refresh</strong> button to update the list of resource groups. The deleted resource group should go away.</p>
