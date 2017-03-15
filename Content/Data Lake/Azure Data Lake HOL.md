@@ -360,24 +360,22 @@ Let's get started!
 	azure account set "Azure Pass"
 	```
 
-1. Now execute the following commands to create a Data Lake catalog secret containing SQL server connection and authentication information for federated query execution. Substitute your Data Lake Analytics account name for *analytics_account_name* and your database server name (the one specified in Step 13 of this exercise) for *database_server_name*:
+1. Now execute the following commands to create a Data Lake catalog credential used to authenticate when executing federated queries. Substitute your Data Lake Analytics account name for *analytics_account_name* and your database server name (the one specified in Step 13 of this exercise) for *database_server_name*:
 
     <pre>
 	azure config mode arm
-	azure datalake analytics catalog secret create "<i>analytics_account_name</i>" "UserIntegration" "tcp://<i>database_server_name</i>.database.windows.net:1433"</pre>
+	azure datalake analytics catalog credential create <i>analytics_account_name</i> UserIntegration tcp://<i>database_server_name</i>.database.windows.net FederatedCredential azureuser</pre>
 
-    When prompted for a catalog secret name, type "user-integration-secret" without quotation marks. When prompted for a password, enter the SQL server password ("Azure4Research!") you specified in Step 13.
+	When prompted for a password, enter the SQL server password ("Azure4Research!") you specified in Step 13.
 
 1. Return to your Data Lake Analytics account in the Azure Portal. Then click **+ New Job** and execute the following query:
 
     ```sql
     USE DATABASE UserIntegration;
     
-    CREATE CREDENTIAL IF NOT EXISTS FederatedDbSecret WITH USER_NAME = "azureuser", IDENTITY = "user-integration-secret";
-
     CREATE DATA SOURCE IF NOT EXISTS AcademicSEDb FROM AZURESQLDB WITH
        ( PROVIDER_STRING = "Database=academics-stackexchange-users;Trusted_Connection=False;Encrypt=True",
-         CREDENTIAL = FederatedDbSecret,
+         CREDENTIAL = FederatedCredential,
          REMOTABLE_TYPES = (bool, byte, sbyte, short, ushort, int, uint, long, ulong, decimal, float, double, string, DateTime) );
 
     CREATE EXTERNAL TABLE User (
@@ -390,7 +388,7 @@ Let's get started!
                         ) FROM AcademicSEDb LOCATION "dbo.User";
 	```
 
-    This query creates a credential using the "user-integration-secret" catalog secret, configures your SQL database as a data source authenticated with the new credential, and then creates a named table in your local Data Lake Analytics database which is backed by the SQL data source.
+    This query configures your SQL database as a data source authenticated with the credential you created in Step 22, and then creates a named table in your local Data Lake Analytics database which is backed by the SQL data source.
 
 That was a lot of work, but you are now ready to issue federated queries. Let's try it out!
 
@@ -469,4 +467,4 @@ Azure Data Lake does not itself provide tools for visualizing query results, but
 
 ---
 
-Copyright 2016 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in http://www.apache.org/licenses/LICENSE-2.0.
+Copyright 2017 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in http://www.apache.org/licenses/LICENSE-2.0.
