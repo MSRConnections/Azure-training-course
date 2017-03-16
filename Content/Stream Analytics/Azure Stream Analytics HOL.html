@@ -629,8 +629,8 @@ npm install request
 <li>
 <p>Save the modified eventgen.js file. The modified "KEY VARS" section should look something like this:</p>
 <div class="highlight highlight-source-js"><pre><span class="pl-c"><span class="pl-c">//</span>/////////////// KEY VARS /////////////////</span>
-<span class="pl-k">var</span> sas <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>SharedAccessSignature sr=https%3A%2F%2Fstreamanalyticslab.servicebus.windows.net%2Finputhub&amp;sig=Rz5dVs73XQkUU8KUcrLivDU4Q7%2Bg8zogdApBZHak480%3D&amp;se=1515170996.004&amp;skn=SendPolicy<span class="pl-pds">"</span></span>;
-<span class="pl-k">var</span> uri <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>https://streamanalyticslab.servicebus.windows.net/inputhub<span class="pl-pds">"</span></span>;
+<span class="pl-k">var</span> sas <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>SharedAccessSignature sr=https%3A%2F%2Fstreamanalytics-lab.servicebus.windows.net%2Finputhub&amp;sig=Rz5dVs73XQkUU8KUcrLivDU4Q7%2Bg8zogdApBZHak480%3D&amp;se=1515170996.004&amp;skn=SendPolicy<span class="pl-pds">"</span></span>;
+<span class="pl-k">var</span> uri <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>https://streamanalytics-lab.servicebus.windows.net/inputhub<span class="pl-pds">"</span></span>;
 <span class="pl-c"><span class="pl-c">//</span>/////////////////////////////////////////</span></pre></div>
 </li>
 </ol>
@@ -958,7 +958,7 @@ npm install request
 </ul>
 <p>One drawback to hard-coding rules into Stream Analytics is that rules don't "learn" from the data streams, which can lead to false positives in anomaly detection. If this concerns you, read the article entitled <a href="http://blogs.technet.com/b/machinelearning/archive/2014/11/05/anomaly-detection-using-machine-learning-to-detect-abnormalities-in-time-series-data.aspx">Anomaly Detection – Using Machine Learning to Detect Abnormalities in Time Series Data</a> in the Azure team's Machine Learning blog. In it, they present an anomaly detection service accessible through a REST API that uses Azure Machine Learning to learn from the data presented to it. Imagine combining the power of Stream Analytics to extract information from real-time data streams with the power of Azure Machine Learning to learn from that information and refine the analytics on the fly. This is precisely the type of solution that Microsoft Azure empowers you to build!</p>
 <hr>
-<p>Copyright 2016 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>.</p>
+<p>Copyright 2017 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>.</p>
 </body>
 </html>
 <!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

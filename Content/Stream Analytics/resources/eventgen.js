@@ -1,6 +1,6 @@
 ///////////////// KEY VARS /////////////////
-var sas = "Token";
-var uri = "URL";
+var sas = "SharedAccessSignature sr=https%3A%2F%2Fstreamanalytics-lab.servicebus.windows.net%2Finputhub&sig=XZGiM%2BOqgpGkWE14w%2FIFwWVFbz4yjKTKsRhz55SjMBU%3D&se=1520964512.624&skn=SendPolicy";
+var uri = "https://streamanalytics-lab.servicebus.windows.net/inputhub";
 ///////////////////////////////////////////
 
 var request = require("request");

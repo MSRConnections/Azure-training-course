@@ -182,8 +182,8 @@ In this exercise, you will generate a shared-access signature token for the even
 
 	```JavaScript
 	///////////////// KEY VARS /////////////////
-	var sas = "SharedAccessSignature sr=https%3A%2F%2Fstreamanalyticslab.servicebus.windows.net%2Finputhub&sig=Rz5dVs73XQkUU8KUcrLivDU4Q7%2Bg8zogdApBZHak480%3D&se=1515170996.004&skn=SendPolicy";
-	var uri = "https://streamanalyticslab.servicebus.windows.net/inputhub";
+	var sas = "SharedAccessSignature sr=https%3A%2F%2Fstreamanalytics-lab.servicebus.windows.net%2Finputhub&sig=Rz5dVs73XQkUU8KUcrLivDU4Q7%2Bg8zogdApBZHak480%3D&se=1515170996.004&skn=SendPolicy";
+	var uri = "https://streamanalytics-lab.servicebus.windows.net/inputhub";
 	///////////////////////////////////////////
 	```
 
@@ -565,4 +565,4 @@ One drawback to hard-coding rules into Stream Analytics is that rules don't "lea
 
 ---
 
-Copyright 2016 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in http://www.apache.org/licenses/LICENSE-2.0.
+Copyright 2017 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in http://www.apache.org/licenses/LICENSE-2.0.
