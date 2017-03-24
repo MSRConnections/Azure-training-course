@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Azure Storage HOL</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+<style type="text/css">
+.highlight  { background: #ffffff; }
+.highlight .c { color: #999988; font-style: italic } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+.pl-c {
+    color: #969896;
+}
+
+.pl-c1,.pl-mdh,.pl-mm,.pl-mp,.pl-mr,.pl-s1 .pl-v,.pl-s3,.pl-sc,.pl-sv {
+    color: #0086b3;
+}
+
+.pl-e,.pl-en {
+    color: #795da3;
+}
+
+.pl-s1 .pl-s2,.pl-smi,.pl-smp,.pl-stj,.pl-vo,.pl-vpf {
+    color: #333;
+}
+
+.pl-ent {
+    color: #63a35c;
+}
+
+.pl-k,.pl-s,.pl-st {
+    color: #a71d5d;
+}
+
+.pl-pds,.pl-s1,.pl-s1 .pl-pse .pl-s2,.pl-sr,.pl-sr .pl-cce,.pl-sr .pl-sra,.pl-sr .pl-sre,.pl-src,.pl-v {
+    color: #df5000;
+}
+
+.pl-id {
+    color: #b52a1d;
+}
+
+.pl-ii {
+    background-color: #b52a1d;
+    color: #f8f8f8;
+}
+
+.pl-sr .pl-cce {
+    color: #63a35c;
+    font-weight: bold;
+}
+
+.pl-ml {
+    color: #693a17;
+}
+
+.pl-mh,.pl-mh .pl-en,.pl-ms {
+    color: #1d3e81;
+    font-weight: bold;
+}
+
+.pl-mq {
+    color: #008080;
+}
+
+.pl-mi {
+    color: #333;
+    font-style: italic;
+}
+
+.pl-mb {
+    color: #333;
+    font-weight: bold;
+}
+
+.pl-md,.pl-mdhf {
+    background-color: #ffecec;
+    color: #bd2c00;
+}
+
+.pl-mdht,.pl-mi1 {
+    background-color: #eaffea;
+    color: #55a532;
+}
+
+.pl-mdr {
+    color: #795da3;
+    font-weight: bold;
+}
+
+.pl-mo {
+    color: #1d3e81;
+}
+.task-list {
+padding-left:10px;
+margin-bottom:0;
+}
+
+.task-list li {
+    margin-left: 20px;
+}
+
+.task-list-item {
+list-style-type:none;
+padding-left:10px;
+}
+
+.task-list-item label {
+font-weight:400;
+}
+
+.task-list-item.enabled label {
+cursor:pointer;
+}
+
+.task-list-item+.task-list-item {
+margin-top:3px;
+}
+
+.task-list-item-checkbox {
+display:inline-block;
+margin-left:-20px;
+margin-right:3px;
+vertical-align:1px;
+}
+</style>
+</head>
+<body>
+<h1>Using Azure Blob Storage</h1>
+<hr>
+<p><a name="Overview"></a></p>
+<h2>Overview</h2>
+<p>Microsoft Azure Storage is a set of services that allows you to store large volumes of data in a cost-effective manner and in a way that makes the data readily and reliably available for consumption. Data committed to Azure Storage can be stored in blobs, tables, queues, or files. <a href="http://azure.microsoft.com/en-us/services/storage/blobs/">Azure blobs</a> are ideal for storing images, videos, and other types of data, and are frequently used to provide input to and capture output from other Azure services such as <a href="https://azure.microsoft.com/en-us/services/machine-learning/">Azure Machine Learning</a> and <a href="http://azure.microsoft.com/en-us/services/stream-analytics/">Azure Stream Analytics</a>. <a href="http://azure.microsoft.com/en-us/services/storage/tables/">Azure tables</a> provide NoSQL storage for semi-structured data. <a href="http://azure.microsoft.com/en-us/services/storage/queues/">Azure queues</a> support queued message transfers between applications (or parts of applications) and can be used to make applications more scalable and robust by loosely coupling them together. Finally, <a href="http://azure.microsoft.com/en-us/services/storage/files">Azure Files</a> use the Server Message Block (SMB) protocol to share files through the cloud and access storage as network drives.</p>
+<p>Data stored in Microsoft Azure Storage can be accessed over HTTP or HTTPS using straightforward REST APIs, or it can be accessed using rich client libraries available for many popular languages and platforms, including .NET, Java, Android, Node.js, PHP, Ruby, and Python. The <a href="https://portal.azure.com">Azure Portal</a> includes basic features for working with Azure Storage, but richer functionality is available from third-party tools, many of which are free and some of which work cross-platform.</p>
+<p>In this lab, you will learn how to work with storage accounts, storage containers, and storage blobs. You'll also get familiar with some of the tools used to manage them, including the <a href="http://storageexplorer.com/">Microsoft Azure Storage Explorer</a>, a free tool from Microsoft that runs on Windows, macOS, and Linux. The knowledge you gain will be used in later labs featuring Azure services that rely on blob storage for input and output, and will serve you well when you use Azure in your research.</p>
+<p><a name="Objectives"></a></p>
+<h3>Objectives</h3>
+<p>In this hands-on lab, you will learn how to:</p>
+<ul>
+<li>Create storage accounts using the Azure Portal</li>
+<li>Create storage containers using the Microsoft Azure Storage Explorer</li>
+<li>Upload blobs to storage using the Microsoft Azure Storage Explorer</li>
+<li>Download blobs from storage using the Azure Portal</li>
+<li>Share blobs with other researchers</li>
+<li>Delete storage accounts using the Azure Resource Manager</li>
+</ul>
+<p><a name="Prerequisites"></a></p>
+<h3>Prerequisites</h3>
+<p>The following is required to complete this hands-on lab:</p>
+<ul>
+<li>An active Microsoft Azure subscription. If you don't have one, <a href="http://aka.ms/WATK-FreeTrial">sign up for a free trial</a>.</li>
+<li><a href="http://storageexplorer.com/">Microsoft Azure Storage Explorer</a></li>
+</ul>
+<hr>
+<p><a name="Exercises"></a></p>
+<h2>Exercises</h2>
+<p>This hands-on lab includes the following exercises:</p>
+<ul>
+<li><a href="#Exercise1">Exercise 1: Use the Azure Portal to create a storage account</a></li>
+<li><a href="#Exercise2">Exercise 2: Use Storage Explorer to create a container and upload blobs</a></li>
+<li><a href="#Exercise3">Exercise 3: Use the Azure Portal to download a blob</a></li>
+<li><a href="#Exercise4">Exercise 4: Share blobs using public containers</a></li>
+<li><a href="#Exercise5">Exercise 5: Share blobs using shared-access signatures</a></li>
+<li><a href="#Exercise6">Exercise 6: Delete the resource group</a></li>
+</ul>
+<p>Estimated time to complete this lab: <strong>45</strong> minutes.</p>
+<p><a name="#Exercise1"></a></p>
+<h2>Exercise 1: Use the Azure Portal to create a storage account</h2>
+<p>The <a href="https://portal.azure.com">Azure Portal</a> allows you to perform basic storage operations such as creating storage accounts, viewing what's stored under those accounts, and managing the access keys associated with the accounts. In this exercise, you'll use the portal to create a storage account.</p>
+<ol>
+<li>
+<p>Open the <a href="https://portal.azure.com/">Azure Portal</a> in your browser. If you are asked to sign in, do so with your Microsoft account.</p>
+</li>
+<li>
+<p>The first step in using Azure Storage is to create one or more storage accounts. To create a storage account, click <strong>+ New</strong> in the ribbon on the left. Then click <strong>Storage</strong>, followed by <strong>Storage account</strong>.</p>
+<p><a href="Images/new-storage-account.png" target="_blank"><img src="Images/new-storage-account.png" alt="Adding a storage account" style="max-width:100%;"></a></p>
+<p><em>Adding a storage account</em></p>
+</li>
+<li>
+<p>In the ensuing blade, enter a name for the new storage account in <strong>Name</strong> field. The name is important, because it forms one part of the URL through which blobs created under this account can be accessed.</p>
+<blockquote>
+<p>Storage account names can be 3 to 24 characters in length and can only contain numbers and lowercase letters. In addition, the name you enter must be unique within Azure; if someone else has chosen the same name, you'll be notified that the name isn't available with a red exclamation mark in the <strong>Name</strong> field.</p>
+</blockquote>
+<p>Once you have a unique name that Azure will accept (as indicated by the green check mark in the <strong>Name</strong> field), select <strong>Create new</strong> under <strong>Resource group</strong> and type "StorageLabResourceGroup" (without quotation marks) into the box below to name the resource group that will be created for the storage account. Select the location nearest you in the <strong>Location</strong> box. Then click the <strong>Create</strong> button at the bottom of the blade.</p>
+<p><a href="Images/create-storage-account.png" target="_blank"><img src="Images/create-storage-account.png" alt="Creating a storage account" style="max-width:100%;"></a></p>
+<p><em>Creating a storage account</em></p>
+</li>
+<li>
+<p>Click <strong>Resource groups</strong> in the ribbon on the left side of the portal to list all of your resource groups. In the "Resource groups" blade, click the <strong>StorageLabResourceGroup</strong> resource group. Once the blade showing the contents of the resource group appears, click the storage account that you created in the previous step.</p>
+<p><a href="Images/open-storage-account.png" target="_blank"><img src="Images/open-storage-account.png" alt="Opening a storage account" style="max-width:100%;"></a></p>
+<p><em>Opening a storage account</em></p>
+</li>
+<li>
+<p>In the blade for the storage account, click <strong>Blobs</strong> to view a list of blob containers.</p>
+<p><a href="Images/view-containers.png" target="_blank"><img src="Images/view-containers.png" alt="Viewing blob containers" style="max-width:100%;"></a></p>
+<p><em>Viewing blob containers</em></p>
+</li>
+</ol>
+<p>The storage account currently has no containers. Before you create a blob, you must create a container to store it in. You can create containers and upload blobs in the Azure Portal, or you can use external tools that offer additional features that the portal does not. In Exercise 2, you will use the cross-platform <a href="http://storageexplorer.com/">Microsoft Azure Storage Explorer</a> to create containers and upload blobs.</p>
+<p><a name="#Exercise2"></a></p>
+<h2>Exercise 2: Use Storage Explorer to create a container and upload blobs</h2>
+<p>A container is similar to a folder in a file system. A storage account can have an unlimited number of containers, and a container can store an unlimited number of blobs. Container names must be from 3 to 63 characters in length and may contain numbers, dashes, and lowercase letters. Dashes cannot be consecutive, and a container name cannot start with a dash. The following diagram illustrates the blob storage schema:</p>
+<p><a href="Images/blob-storage-schema.jpg" target="_blank"><img src="Images/blob-storage-schema.jpg" alt="Blob storage schema" style="max-width:100%;"></a></p>
+<p><em>Blob storage schema</em></p>
+<p>In this exercise, you will create a container named "images" in the storage account you created  in <a href="#Exercise1">Exercise 1</a>. Then you will upload several blobs to it.</p>
+<ol>
+<li>
+<p>In your browser, go to <a href="http://storageexplorer.com/">http://storageexplorer.com/</a> and download and install the Microsoft Azure Storage Explorer.</p>
+</li>
+<li>
+<p>Start Storage Explorer. If you are asked to log in, do so using your Microsoft account — the same one that you used to log in to the Azure Portal. If you are <em>not</em> asked to log in and don't see the storage account you created in the previous exercise in Storage Explorer's left pane, click the <strong>Azure Accounts settings</strong> button highlighted below, click <strong>Add an account</strong>, and log in with your Microsoft account.</p>
+<p><a href="Images/add-account.png" target="_blank"><img src="Images/add-account.png" alt="Adding an account to Storage Explorer" style="max-width:100%;"></a></p>
+<p><em>Adding an account to Storage Explorer</em></p>
+</li>
+<li>
+<p>In Storage Explorer, click the small arrow next to the storage account you created in Exercise 1 to reveal the items underneath it. Then right-click <strong>Blob Containers</strong> (on a Mac, Control-click instead) and select <strong>Create Blob Container</strong> from the context menu.</p>
+<p><a href="Images/create-blob-container.png" target="_blank"><img src="Images/create-blob-container.png" alt="Creating a container" style="max-width:100%;"></a></p>
+<p><em>Creating a container</em></p>
+</li>
+<li>
+<p>Type "images" (without quotation marks) into the box that appears under <strong>Blob Containers</strong>. Then press Enter to create a new container named "images."</p>
+<p><a href="Images/create-images-container.png" target="_blank"><img src="Images/create-images-container.png" alt="Creating an &quot;images&quot; container" style="max-width:100%;"></a></p>
+<p><em>Creating an "images" container</em></p>
+</li>
+<li>
+<p>The next step is to create blobs by uploading files to the "images" container. The files you will upload are provided for you in the "resources" subdirectory of this lab. Click the <strong>Upload</strong> button in the Storage Explorer. Then select <strong>Upload Files...</strong> from the menu.</p>
+<p><a href="Images/upload-files.png" target="_blank"><img src="Images/upload-files.png" alt="Uploading files to the &quot;images&quot; container" style="max-width:100%;"></a></p>
+<p><em>Uploading files to the "images" container</em></p>
+</li>
+<li>
+<p>Click the <strong>...</strong> button to the right of the field labeled "Files." In the ensuing dialog, navigate to this lab's "resources" subdirectory and select all the files in that subdirectory. (There are 10 of them, and each has the file-name extension .jpg.) Then close the dialog and click  the <strong>Upload</strong> button.</p>
+<p><a href="Images/upload-files-dialog.png" target="_blank"><img src="Images/upload-files-dialog.png" alt="Uploading files to blob storage" style="max-width:100%;"></a></p>
+<p><em>Uploading files to blob storage</em></p>
+<blockquote>
+<p>The default blob type — block blob — supports up to approximately 4.75 TB of data per blob. Append blobs are similar to block blobs but are optimized for append operations. Page blobs can hold up to 1 TB of data and are used to hold virtual hard disks (VHDs) for virtual machines.</p>
+</blockquote>
+</li>
+<li>
+<p>Confirm that all ten .jpg files were uploaded to the "images" container.</p>
+<p><a href="Images/uploaded-blobs.png" target="_blank"><img src="Images/uploaded-blobs.png" alt="Blobs uploaded to the &quot;images&quot; container" style="max-width:100%;"></a></p>
+<p><em>Blobs uploaded to the "images" container</em></p>
+</li>
+</ol>
+<p>Uploading blobs is easy with the Microsoft Azure Storage Explorer. Now let's learn how to download blobs.</p>
+<p><a name="#Exercise3"></a></p>
+<h2>Exercise 3: Use the Azure Portal to download a blob</h2>
+<p>You can download a blob using the Azure Storage Explorer by selecting the blob and clicking the <strong>Download</strong> button, or by right-clicking the blob and selecting <strong>Download</strong> from the ensuing menu. You can also download blobs using the Azure Portal. In this exercise, you'll use the portal to download one of the blobs you uploaded in the previous exercise.</p>
+<ol>
+<li>
+<p>Return to the <a href="https://portal.azure.com">Azure Portal</a> in your browser. If you left the blade for the storage account open at the end of Exercise 1, click the <strong>Refresh</strong> button at the top of the blade to refresh the list of containers. If you didn't leave it open, navigate back to it. The click the "images" container to view its contents.</p>
+<p><a href="Images/view-images-container.png" target="_blank"><img src="Images/view-images-container.png" alt="Viewing the blobs in the &quot;images&quot; container" style="max-width:100%;"></a></p>
+<p><em>Viewing the blobs in the "images" container</em></p>
+</li>
+<li>
+<p>Verify that azure-banner.jpg appears in the list of blobs. Then click it to open the "Blob properties" blade.</p>
+<p><a href="Images/blobs-in-images-container.png" target="_blank"><img src="Images/blobs-in-images-container.png" alt="Image blobs uploaded to Azure Storage" style="max-width:100%;"></a></p>
+<p><em>Image blobs uploaded to Azure Storage</em></p>
+</li>
+<li>
+<p>Click the <strong>Download</strong> button at the top of the blade to download azure-banner.jpg.</p>
+<p><a href="Images/download-blob.png" target="_blank"><img src="Images/download-blob.png" alt="Downloading a blob" style="max-width:100%;"></a></p>
+<p><em>Downloading a blob</em></p>
+</li>
+<li>
+<p>Confirm that azure-banner.jpg appears in your browser:</p>
+<p><a href="Images/azure-banner.jpg" target="_blank"><img src="Images/azure-banner.jpg" alt="Image blob downloaded from Azure Storage" style="max-width:100%;"></a></p>
+<p><em>Image blob downloaded from Azure Storage</em></p>
+</li>
+</ol>
+<p>Now that you know how to upload and download blobs, it is time to think about the privacy of those blobs and how to share them with other researchers.</p>
+<p><a name="#Exercise4"></a></p>
+<h2>Exercise 4: Share blobs using public containers</h2>
+<p>Each container that you create is assigned an access level that determines whether its contents are public or private. The default is private, which means that only you (or someone to whom you provide an access key for the storage account) can access the container's blobs. In this exercise, you will make the "images" container public and demonstrate that you can easily share blobs inside it using links that can be opened in a browser.</p>
+<ol>
+<li>
+<p>Return to the Microsoft Azure Storage Explorer and right-click (on a Mac, Control-click) the "images" container and select <strong>Set Public Access Level</strong>.</p>
+<p><a href="Images/set-public-access-level.png" target="_blank"><img src="Images/set-public-access-level.png" alt="Changing the container's access level" style="max-width:100%;"></a></p>
+<p><em>Changing the container's access level</em></p>
+</li>
+<li>
+<p>Select <strong>Public read access for blobs only</strong>. Then click the <strong>Apply</strong> button.</p>
+<p><a href="Images/public-read-access.png" target="_blank"><img src="Images/public-read-access.png" alt="Setting the access level to public" style="max-width:100%;"></a></p>
+<p><em>Setting the access level to public</em></p>
+<blockquote>
+<p>The difference between <strong>Public read access for blobs only</strong> and <strong>Public read access for container and blobs</strong> is that the latter allows the blobs in a container to be enumerated, while the former does not. <strong>Public read access for blobs only</strong> offers slightly more security because it prevents people from discovering other blobs in the container. To fetch the blob, they must know the blob's name.</p>
+</blockquote>
+</li>
+<li>
+<p>Right-click azure-banner.jpg and select <strong>Copy URL to Clipboard</strong>.</p>
+<p><a href="Images/copy-url-to-clipboard.png" target="_blank"><img src="Images/copy-url-to-clipboard.png" alt="Getting a blob URL" style="max-width:100%;"></a></p>
+<p><em>Getting a blob URL</em></p>
+</li>
+<li>
+<p>Now paste the URL into your browser's address bar. Confirm that the browser shows azure-banner.jpg:</p>
+<p><a href="Images/image-blob-in-browser.png" target="_blank"><img src="Images/image-blob-in-browser.png" alt="Image blob downloaded from Azure Storage" style="max-width:100%;"></a></p>
+<p><em>Image blob downloaded from Azure Storage</em></p>
+</li>
+<li>
+<p>Return to the Microsoft Azure Storage Explorer, right-click the "images" container, select <strong>Set Public Access Level</strong> again, and this time set the container's access level to <strong>No public access</strong>.</p>
+<p><a href="Images/set-access-level-to-private.png" target="_blank"><img src="Images/set-access-level-to-private.png" alt="Setting the access level to private" style="max-width:100%;"></a></p>
+<p><em>Setting the access level to private</em></p>
+</li>
+<li>
+<p>Copy the URL for azure-banner.jpg to the clipboard again and paste it into your browser's address bar. Confirm that the image can't be downloaded this time.</p>
+<blockquote>
+<p>The screen shot below was taken in Microsoft Edge. The exact output will vary from browser to browser, and Chrome will probably say "This XML file does not appear to have any style information associated with it."</p>
+</blockquote>
+<p><a href="Images/404-error.png" target="_blank"><img src="Images/404-error.png" alt="404 error" style="max-width:100%;"></a></p>
+<p><em>404 error</em></p>
+</li>
+</ol>
+<p>Making a container public is one way to share the blobs with other people. But what if you only wanted to share <em>selected</em> blobs in that container while keeping the others private? And what if you wanted to limit the amount of time that the blob can be downloaded? That's where shared-access signatures come in.</p>
+<p><a name="#Exercise5"></a></p>
+<h2>Exercise 5: Share blobs using shared-access signatures</h2>
+<p>Rather than create a separate (public) container to hold the blobs you wish to share, you can use shared-access signatures to share blobs from private containers. In this exercise, you will generate a URL containing a shared-access signature (SAS) for one of the blobs in the "images" container and demonstrate that the blob can be downloaded even though the container is private. You will also learn how to limit the amount of time a shared-access signature is valid.</p>
+<ol>
+<li>
+<p>Return to the Microsoft Azure Storage Explorer. Right-click azure-banner.jpg and select <strong>Get Shared Access Signature</strong>.</p>
+<p><a href="Images/get-sas.png" target="_blank"><img src="Images/get-sas.png" alt="Getting a shared-access signature" style="max-width:100%;"></a></p>
+<p><em>Getting a shared-access signature</em></p>
+</li>
+<li>
+<p>Set <strong>Start time</strong> to yesterday's date and <strong>Expiry time</strong> to a date a few days from now. Then click the <strong>Create</strong> button.</p>
+<p><a href="Images/create-sas.png" target="_blank"><img src="Images/create-sas.png" alt="Creating a shared-access signature" style="max-width:100%;"></a></p>
+<p><em>Creating a shared-access signature</em></p>
+</li>
+<li>
+<p>Click the <strong>Copy</strong> button to the right of the URL field to copy the blob URL containing a shared-access signature to the clipboard. Then click the <strong>Close</strong> button.</p>
+<p><a href="Images/copy-sas.png" target="_blank"><img src="Images/copy-sas.png" alt="Copying a SAS URL to the clipboard" style="max-width:100%;"></a></p>
+<p><em>Copying a SAS URL to the clipboard</em></p>
+</li>
+<li>
+<p>Paste the URL into your browser's address bar and confirm that azure-banner.jpg appears, even though the container that holds it is private rather than public.</p>
+<p><a href="Images/blob-opened-with-sas.png" target="_blank"><img src="Images/blob-opened-with-sas.png" alt="Using a SAS URL to download a blob" style="max-width:100%;"></a></p>
+<p><em>Using a SAS URL to download a blob</em></p>
+</li>
+</ol>
+<p>Take a moment to examine the URL that you pasted into the browser. The long query string — everything after the question mark — is the shared-access signature. Embedded within it is information about when the signature expires. The signature is cryptographically signed so it can't be tampered with. For more information on shared-access signatures and their application to Azure Storage, see <a href="https://azure.microsoft.com/en-us/documentation/articles/storage-dotnet-shared-access-signature-part-1/">Shared Access Signatures, Part 1: Understanding the SAS model</a>.</p>
+<p><a name="#Exercise6"></a></p>
+<h2>Exercise 6: Delete the resource group</h2>
+<p>When you created a storage account in Exercise 1, you made it part of a resource group named "StorageLabResourceGroup." One of the benefits of using resource groups is that deleting a resource group deletes all the resources inside it, including storage accounts and blobs. Deleting a resource group is a convenient way to delete complex Azure deployments without having to delete individual resources one by one.</p>
+<p>In this exercise, you will use the Azure Portal to delete the resource group you created in Exercise 1, and along with it the storage account and the blobs stored in it.</p>
+<ol>
+<li>
+<p>Return to the <a href="https://portal.azure.com">Azure Portal</a> and click <strong>Resource groups</strong> in the ribbon on the left. Then, in the "Resource groups" blade, click the <strong>StorageLabResourceGroup</strong> resource group. Finally, click <strong>Delete</strong> in the blade for the resource group.</p>
+<p><a href="Images/delete-resource-group.png" target="_blank"><img src="Images/delete-resource-group.png" alt="Deleting a resource group" style="max-width:100%;"></a></p>
+<p><em>Deleting a resource group</em></p>
+</li>
+<li>
+<p>Because deleting a resource group is a permanent action that can't be undone, you must confirm that you want to delete it. Do so by typing the name of the resource group into the box labeled<br>
+<strong>TYPE THE RESOURCE GROUP NAME</strong>. Then click <strong>Delete</strong> to delete the resource group and everything inside it.</p>
+<p><a href="Images/confirm-delete-resource-group.png" target="_blank"><img src="Images/confirm-delete-resource-group.png" alt="Confirming resource-group deletion" style="max-width:100%;"></a></p>
+<p><em>Confirming resource-group deletion</em></p>
+</li>
+</ol>
+<p>After a few minutes, you will be notified that the resource group was deleted. If the deleted resource group still appears in the "Resource groups" blade, click that blade's <strong>Refresh</strong> button to update the list of resource groups. The deleted resource group should go away.</p>
+<p><a name="summary"></a></p>
+<h2>Summary</h2>
+<p>Here's a quick summary of the important concepts that you learned in this lab:</p>
+<ul>
+<li>Azure Storage is a set of services for storing data durably and reliably</li>
+<li>Azure Storage blobs can contain any type of data, just like files in a file system, and are frequently used for input and output to other Azure services</li>
+<li>The Azure Portal enables you to perform basic storage operations, such as creating storage accounts, creating blob containers, and uploading and downloading blobs</li>
+<li>The Microsoft Azure Storage Explorer runs on Windows, macOS, and Linux and supports many features the Azure Portal does not, such as the ability to generate shared-access signatures</li>
+<li>Shared-access signatures can be used to share blobs in private containers and limit the amount of time the blobs can be accessed, as well as limit access to read-only</li>
+<li>Storage accounts and other resources that are placed inside a resource group are easily deleted by deleting the resource group itself</li>
+</ul>
+<p>Now that you're familiar with storage accounts, containers, and blobs, as well as some of the tools for managing them, you'll put your knowledge to work in subsequent labs. Knowing the basics of Azure Storage is an essential first step in working with Azure data services.</p>
+<hr>
+<p>Copyright 2016 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>.</p>
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
