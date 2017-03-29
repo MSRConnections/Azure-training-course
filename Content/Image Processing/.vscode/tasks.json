@@ -1,0 +1,9 @@
+{
+    // See http://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "0.1.0",
+    "command": "markdown-it",
+    "isShellCommand": true,
+    "args": ["Azure Image Processing HOL.md", "-o", "Azure Image Processing HOL.html"],
+    "showOutput": "always"
+}
