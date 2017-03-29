@@ -3,8 +3,9 @@
 <p><a name="Overview"></a></p>
 <h2>Overview</h2>
 <p>Microsoft Azure Storage is a set of services that allows you to store large volumes of data in a cost-effective manner and in a way that makes the data readily and reliably available for consumption. Data committed to Azure Storage can be stored in blobs, tables, queues, or files. <a href="http://azure.microsoft.com/en-us/services/storage/blobs/">Azure blobs</a> are ideal for storing images, videos, and other types of data, and are frequently used to provide input to and capture output from other Azure services such as <a href="https://azure.microsoft.com/en-us/services/machine-learning/">Azure Machine Learning</a> and <a href="http://azure.microsoft.com/en-us/services/stream-analytics/">Azure Stream Analytics</a>. <a href="http://azure.microsoft.com/en-us/services/storage/tables/">Azure tables</a> provide NoSQL storage for semi-structured data. <a href="http://azure.microsoft.com/en-us/services/storage/queues/">Azure queues</a> support queued message transfers between applications (or parts of applications) and can be used to make applications more scalable and robust by loosely coupling them together. Finally, <a href="http://azure.microsoft.com/en-us/services/storage/files">Azure Files</a> use the Server Message Block (SMB) protocol to share files through the cloud and access storage as network drives.</p>
-<p>Data stored in Microsoft Azure Storage can be accessed over HTTP or HTTPS using straightforward REST APIs, or it can be accessed using rich client libraries available for many popular languages and platforms, including .NET, Java, Android, Node.js, PHP, Ruby, and Python. The <a href="https://portal.azure.com">Azure Portal</a> includes basic features for working with Azure Storage, but richer functionality is available from third-party tools, many of which are free and some of which work cross-platform.</p>
-<p>In this lab, you will learn how to work with storage accounts, storage containers, and storage blobs. You'll also get familiar with some of the tools used to manage them, including the <a href="http://storageexplorer.com/">Microsoft Azure Storage Explorer</a>, a free tool from Microsoft that runs on Windows, macOS, and Linux. The knowledge you gain will be used in later labs featuring Azure services that rely on blob storage for input and output, and will serve you well when you use Azure in your research.</p>
+<p>Azure Machine Learning is a cloud-based predictive-analytics service that offers a streamlined experience for data scientists of all skill levels. It's accompanied by the Azure Machine Learning Studio (ML Studio), which is a browser-based tool that provides an easy to use, drag-and-drop interface for building machine-learning models. It comes with a library of time-saving experiments and features best-in-class algorithms developed and tested in the real world by Microsoft businesses such as Bing. And its built-in support for R and Python means you can include scripts of your own to customize your model. Once you've built and trained your model in the ML Studio, you can easily expose it as a Web service that is consumable using a variety of programming languages, or share it with the community by placing it in the Cortana Intelligence Gallery.</p>
+<p>In this lab, you will learn how to work with storage accounts, storage containers, and storage blobs. You'll also get familiar with some of the tools used to manage them, including the <a href="http://storageexplorer.com/">Microsoft Azure Storage Explorer</a>, a free tool from Microsoft that runs on Windows, macOS, and Linux. The knowledge you gain will be used in later labs featuring Azure services that rely on blob storage for input and output, and will serve you well when you use Azure in your research.
+you will then create a machine learning experiment in Azure Machine learning studio and use it to train an SVM based image classifier based on the cell data used in the ImageXD tutorials.</p>
 <p><a name="Objectives"></a></p>
 <h3>Objectives</h3>
 <p>In this hands-on lab, you will learn how to:</p>
@@ -256,9 +257,26 @@ Join the data on filename (Import Images) and Image Name (all.csv). This will en
 </ol>
 <p>Once the model is adequately refined, you might want to be able write programs that utilize the model. You can deploy it as a Web service and interact with it programmatically. Before deploying as a Web service, you need to streamline your experiment. This involves creating a new experiment from your trained model, removing unnecessary modules, and adding Web-service input and output modules. Fortunately, ML Studio can do all of this for you</p>
 <ol>
-<li>At the bottom of the screen, the <strong>SET UP WEB SERVICE</strong> button helps ou do just this. you can do this as an optional exercise as time permits.
-<a name="summary"></a></li>
+<li>
+<p>At the bottom of the screen, the <strong>SET UP WEB SERVICE</strong> button helps ou do just this. you can do this as an optional exercise as time permits.</p>
+</li>
+<li>
+<p>Alternately if you built a classifier using the bcc / hcpnone data, the workflow looks like the below (as this is a 2 class dataset). Each of the Import Images module takes as input the images under bcc and hcpnone labels from</p>
+<p><img src="Images/twoclass-image-classifier.png" alt="Image classifier for 2 class dataset"></p>
+<p><em>2 class image classifier</em></p>
+</li>
+<li>
+<p>The Execute R script module merely assigns class labels to the two different sets of images and combines them. Here is the code that you need to add for this module</p>
+<p><img src="Images/rscript.png" alt="R script to combine the two datasets"></p>
+<p><em>2 class image classifier results</em></p>
+</li>
+<li>
+<p>This is a better dataset and has a much higher accuracy in the trained model</p>
+<p><img src="Images/twoclass-results.png" alt="Results for 2 class dataset"></p>
+<p><em>2 class image classifier results</em></p>
+</li>
 </ol>
+<p><a name="summary"></a></p>
 <h2>Summary</h2>
 <p>Here's a quick summary of the important concepts that you learned in this lab:</p>
 <ul>
