@@ -100,7 +100,7 @@
 <p><em>Creating a container</em></p>
 </li>
 <li>
-<p>If you are working with the cell data, type  &quot;celldata&quot; (without quotation marks) into the box that appears under <strong>Blob Containers</strong>. Then press Enter to create a new container named &quot;celldata&quot;.</p>
+<p>If you are working with the cell data, type  &quot;celldata&quot; (without quotation marks) into the box that appears under <strong>Blob Containers</strong>. Then press Enter to create a new container named &quot;celldata&quot;. Upload the image files from the Resources\celldata folder of htis lab (or your local copy of cell data).</p>
 </li>
 </ol>
 <p>If you are working with the bcc / hpcnone dataset follow the instructions below -</p>
@@ -150,15 +150,15 @@
 <p>Drag the <em>Import Images</em>* module from the modules palette and drop it onto the experiment canvas.</p>
 </li>
 <li>
-<p>Next, point the Import Images to the cell data in blob storage. You will need to copy the Account Key from the Azure portal</p>
+<p>Next, point the Import Images to the cell data in blob storage. You will need to copy the Account Key from the Azure portal.</p>
+<p><img src="Images/set-account-key.png" alt="Setting the account key"></p>
+<p><em>Connect to blob storage</em></p>
 </li>
 <li>
 <p>To see what this dataset looks like, click the output port (the circle with the &quot;1&quot; in it) at the bottom of the dataset and select <strong>Visualize</strong>.</p>
-<p><img src="Images/data-select-visualize-menu.png" alt="Visualizing the dataset"></p>
-<p><em>Visualizing the dataset</em></p>
 </li>
 <li>
-<p>The values in the dataset appear as columns, with each row representing an automobile and each column representing an automobile feature. The far-right column titled &quot;price&quot; is the target variable for your predictive analysis. Scroll to the right until you see this column. Then click it to select it.</p>
+<p>The features in this dataset have been extracted by the OpenCV based Import Images module, with each row representing an cell image and each column representing a feature.</p>
 <p><img src="Images/data-viewing-data.png" alt="Viewing the raw data"></p>
 <p><em>Viewing the raw data</em></p>
 </li>
@@ -166,13 +166,17 @@
 <p>Close the visualization window by clicking the &quot;<strong>x</strong>&quot; in the upper-right corner.</p>
 </li>
 </ol>
-<p>In this exercise, you learned how to create a new ML experiment and import a sample dataset. Note that you can upload custom datasets by clicking the <strong>+ NEW</strong> button in the ribbon at the bottom of the window, and then clicking <strong>DATASET</strong> followed by <strong>FROM LOCAL FILE</strong>. Next up: preparing the sample data for use.</p>
+<p>In this exercise, you learned how to create a new ML experiment and import a sample dataset. Note that you can upload custom datasets by clicking the <strong>+ NEW</strong> button in the ribbon at the bottom of the window, and then clicking <strong>DATASET</strong> followed by <strong>FROM LOCAL FILE</strong>. Next up: preparing the sample data for use.
+Please do so now and upload the Resources\all.csv file that is a 2 column file with the file name and label for the images uploaded in the previous step</p>
 <p><a name="Exercise7"></a></p>
 <h2>Exercise 7: Preprocess the data</h2>
-<p>No dataset is perfect. Most require some amount of preparation or <em>cleaning</em> before they can be used to train a model. When you visualized the data, you may have noticed that some rows were missing values. These need to be cleaned up before training begins. In this exercise, you will remove any rows that have missing values. In addition, the &quot;normalized-losses&quot; column has a lot of missing values, so you'll exclude that column from the model.</p>
+<p>No dataset is perfect. Most require some amount of preparation or <em>cleaning</em> before they can be used to train a model.</p>
 <ol>
 <li>
-<p>At the top of the modules palette, type &quot;select columns&quot; (without quotation marks) into the search box to find the <strong>Select Columns in Dataset</strong> module. Drag the module over to the experiment canvas and connect it to the output port of the <strong>Automobile price data (Raw)</strong> dataset by dragging an arrow downward from the output port. The <strong>Select Columns in Dataset</strong> module allows you to specify which columns of data to include or exclude in the model.</p>
+<p>At the top of the modules palette, type &quot;join&quot; (without quotation marks) into the search box to find the <strong>Join Data</strong> module. Drag the module over to the experiment canvas and connect it to the output port of the Import Images and all.csv datasets by dragging an arrow downward from the output port.
+Join the data on filename (Import Images) and Image Name (all.csv). This will ensure that you combined the class labels in the same file as the extracted features.
+<img src="Images/join-data.png" alt="Joining the data"></p>
+<p><em>Joining two datasets</em></p>
 <blockquote>
 <p>A key concept to understand in Azure ML Studio is that of ports and connectors. In this step, you connected the output port of the data module to the input port of the <strong>Select Columns in Dataset</strong> module. The data flows from one module to the next through the connector. Some modules have multiple input and output ports. If you want to know what a port does, hover over it with the mouse and a tooltip will pop up. To call up the documentation for an entire module, right-click (on a Mac, Command-click) the module and select <strong>Help</strong> from the ensuing menu.</p>
 </blockquote>

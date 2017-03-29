@@ -118,7 +118,7 @@ In this exercise, you will create a container named "images" in the storage acco
 
     _Creating a container_
 
-1. If you are working with the cell data, type  "celldata" (without quotation marks) into the box that appears under **Blob Containers**. Then press Enter to create a new container named "celldata".
+1. If you are working with the cell data, type  "celldata" (without quotation marks) into the box that appears under **Blob Containers**. Then press Enter to create a new container named "celldata". Upload the image files from the Resources\celldata folder of htis lab (or your local copy of cell data).
 
 If you are working with the bcc / hpcnone dataset follow the instructions below -
 1. Type "images_bcc" (without quotation marks) into the box that appears under **Blob Containers**. Then press Enter to create a new container named "images_bcc".
@@ -167,15 +167,15 @@ The first step in building a machine-learning model with Azure Machine Learning 
 
 1. Drag the *Import Images** module from the modules palette and drop it onto the experiment canvas.
 
-1. Next, point the Import Images to the cell data in blob storage. You will need to copy the Account Key from the Azure portal
+1. Next, point the Import Images to the cell data in blob storage. You will need to copy the Account Key from the Azure portal.
+
+   ![Setting the account key](Images/set-account-key.png)
+
+    _Connect to blob storage_
 
 1. To see what this dataset looks like, click the output port (the circle with the "1" in it) at the bottom of the dataset and select **Visualize**.
-
-    ![Visualizing the dataset](Images/data-select-visualize-menu.png)
-
-    _Visualizing the dataset_
-
-1. The values in the dataset appear as columns, with each row representing an automobile and each column representing an automobile feature. The far-right column titled "price" is the target variable for your predictive analysis. Scroll to the right until you see this column. Then click it to select it.
+    
+1. The features in this dataset have been extracted by the OpenCV based Import Images module, with each row representing an cell image and each column representing a feature. 
 
     ![Viewing the raw data](Images/data-viewing-data.png)
 
@@ -184,13 +184,18 @@ The first step in building a machine-learning model with Azure Machine Learning 
 1. Close the visualization window by clicking the "**x**" in the upper-right corner.
 
 In this exercise, you learned how to create a new ML experiment and import a sample dataset. Note that you can upload custom datasets by clicking the **+ NEW** button in the ribbon at the bottom of the window, and then clicking **DATASET** followed by **FROM LOCAL FILE**. Next up: preparing the sample data for use.
+Please do so now and upload the Resources\all.csv file that is a 2 column file with the file name and label for the images uploaded in the previous step
 
 <a name="Exercise7"></a>
 ## Exercise 7: Preprocess the data ##
 
-No dataset is perfect. Most require some amount of preparation or *cleaning* before they can be used to train a model. When you visualized the data, you may have noticed that some rows were missing values. These need to be cleaned up before training begins. In this exercise, you will remove any rows that have missing values. In addition, the "normalized-losses" column has a lot of missing values, so you'll exclude that column from the model.
+No dataset is perfect. Most require some amount of preparation or *cleaning* before they can be used to train a model. 
 
-1. At the top of the modules palette, type "select columns" (without quotation marks) into the search box to find the **Select Columns in Dataset** module. Drag the module over to the experiment canvas and connect it to the output port of the **Automobile price data (Raw)** dataset by dragging an arrow downward from the output port. The **Select Columns in Dataset** module allows you to specify which columns of data to include or exclude in the model.
+1. At the top of the modules palette, type "join" (without quotation marks) into the search box to find the **Join Data** module. Drag the module over to the experiment canvas and connect it to the output port of the Import Images and all.csv datasets by dragging an arrow downward from the output port. 
+Join the data on filename (Import Images) and Image Name (all.csv). This will ensure that you combined the class labels in the same file as the extracted features. 
+![Joining the data](Images/join-data.png)
+
+    _Joining two datasets_
 
      > A key concept to understand in Azure ML Studio is that of ports and connectors. In this step, you connected the output port of the data module to the input port of the **Select Columns in Dataset** module. The data flows from one module to the next through the connector. Some modules have multiple input and output ports. If you want to know what a port does, hover over it with the mouse and a tooltip will pop up. To call up the documentation for an entire module, right-click (on a Mac, Command-click) the module and select **Help** from the ensuing menu.
 
