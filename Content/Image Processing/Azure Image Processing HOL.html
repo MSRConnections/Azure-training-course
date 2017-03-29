@@ -141,12 +141,17 @@
 <p>Drag the <em>Import Images</em>* module from the modules palette and drop it onto the experiment canvas.</p>
 </li>
 <li>
-<p>Next, point the Import Images to the cell data in blob storage. You will need to copy the Account Key from the Azure portal.</p>
-<p><img src="Images/set-account-key.png" alt="Setting the account key"></p>
-<p><em>Connect to blob storage</em></p>
+<p>Next, point the Import Images to the cell data in blob storage. In a separate window, visit the Azure Portal (portal.azure.com) where you had set up the storage account and copy the Account Key for the storage account.</p>
+<p><img src="Images/access-key.png" alt="Setting the account key"></p>
+<p><em>Copy access key from Azure Portal</em></p>
 </li>
 <li>
-<p>To see what this dataset looks like, click the output port (the circle with the &quot;1&quot; in it) at the bottom of the dataset and select <strong>Visualize</strong>.</p>
+<p>Next set the Properties of the Import Images module to point to the storage account using the account key and container name for the cell images.</p>
+<p><img src="Images/set-account-key.png" alt="Setting the account key"></p>
+<p><em>Connect to blob storage in AzureML</em></p>
+</li>
+<li>
+<p>To see what this dataset looks like, click the output port (the circle in it) at the bottom of the module and select <strong>Visualize</strong>.</p>
 </li>
 <li>
 <p>The features in this dataset have been extracted by the OpenCV based Import Images module, with each row representing an cell image and each column representing a feature.</p>
@@ -161,7 +166,8 @@
 Please do so now and upload the Resources\all.csv file that is a 2 column file with the file name and label for the images uploaded in the previous step</p>
 <p><a name="Exercise4"></a></p>
 <h2>Exercise 7: Preprocess the data</h2>
-<p>No dataset is perfect. Most require some amount of preparation or <em>cleaning</em> before they can be used to train a model.</p>
+<p>No dataset is perfect. Most require some amount of preparation before they can be used to train a model. In this particular instance we are missing the class labels which are present in a different file.
+To add this file, click on the green &quot;+&quot; sign at the bottom left of Azure ML Studio and upload the all.csv file from the \Resources folder of this lab. Once uploaded the csv file will appear under Saved Datasets -&gt; My Datasets</p>
 <ol>
 <li>
 <p>At the top of the modules palette, type &quot;join&quot; (without quotation marks) into the search box to find the <strong>Join Data</strong> module. Drag the module over to the experiment canvas and connect it to the output port of the Import Images and all.csv datasets by dragging an arrow downward from the output port.

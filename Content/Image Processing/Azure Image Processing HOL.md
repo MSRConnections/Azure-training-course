@@ -159,13 +159,19 @@ The first step in building a machine-learning model with Azure Machine Learning 
 
 1. Drag the *Import Images** module from the modules palette and drop it onto the experiment canvas.
 
-1. Next, point the Import Images to the cell data in blob storage. You will need to copy the Account Key from the Azure portal.
+1. Next, point the Import Images to the cell data in blob storage. In a separate window, visit the Azure Portal (portal.azure.com) where you had set up the storage account and copy the Account Key for the storage account.
 
-   ![Setting the account key](Images/set-account-key.png)
+    ![Setting the account key](Images/access-key.png)
 
-    _Connect to blob storage_
+    _Copy access key from Azure Portal_
 
-1. To see what this dataset looks like, click the output port (the circle with the "1" in it) at the bottom of the dataset and select **Visualize**.
+1. Next set the Properties of the Import Images module to point to the storage account using the account key and container name for the cell images.
+
+    ![Setting the account key](Images/set-account-key.png)
+
+    _Connect to blob storage in AzureML_
+
+1. To see what this dataset looks like, click the output port (the circle in it) at the bottom of the module and select **Visualize**.
     
 1. The features in this dataset have been extracted by the OpenCV based Import Images module, with each row representing an cell image and each column representing a feature. 
 
@@ -181,7 +187,8 @@ Please do so now and upload the Resources\all.csv file that is a 2 column file w
 <a name="Exercise4"></a>
 ## Exercise 7: Preprocess the data ##
 
-No dataset is perfect. Most require some amount of preparation or *cleaning* before they can be used to train a model. 
+No dataset is perfect. Most require some amount of preparation before they can be used to train a model. In this particular instance we are missing the class labels which are present in a different file. 
+To add this file, click on the green "+" sign at the bottom left of Azure ML Studio and upload the all.csv file from the \Resources folder of this lab. Once uploaded the csv file will appear under Saved Datasets -> My Datasets 
 
 1. At the top of the modules palette, type "join" (without quotation marks) into the search box to find the **Join Data** module. Drag the module over to the experiment canvas and connect it to the output port of the Import Images and all.csv datasets by dragging an arrow downward from the output port. 
 Join the data on filename (Import Images) and Image Name (all.csv). This will ensure that you combined the class labels in the same file as the extracted features. 
