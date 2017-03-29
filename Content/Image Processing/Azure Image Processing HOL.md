@@ -118,6 +118,9 @@ In this exercise, you will create a container named "images" in the storage acco
 
     _Creating a container_
 
+1. If you are working with the cell data, type  "celldata" (without quotation marks) into the box that appears under **Blob Containers**. Then press Enter to create a new container named "celldata".
+
+If you are working with the bcc / hpcnone dataset follow the instructions below -
 1. Type "images_bcc" (without quotation marks) into the box that appears under **Blob Containers**. Then press Enter to create a new container named "images_bcc".
     ![Creating an "images_bcc" container](Images/create-images-container.png)
 
@@ -134,130 +137,10 @@ In this exercise, you will create a container named "images" in the storage acco
 
     _Uploading files to the "images" container_
 
-1. Click the **...** button to the right of the field labeled "Files." In the ensuing dialog, navigate to this files that you previously downloaded and select all the files in each subdirectory. (There are 10 of them, and each has the file-name extension .jpg.) Then close the dialog and click  the **Upload** button.
+1. Click the **...** button to the right of the field labeled "Files." In the ensuing dialog, navigate to this files that you previously downloaded and select all the files in each subdirectory.  Then close the dialog and click  the **Upload** button.
 
-    ![Uploading files to blob storage](Images/upload-files-dialog.png)
+    	The default blob type — block blob — supports up to approximately 4.75 TB of data per blob. Append blobs are similar to block blobs but are optimized for append operations. Page blobs can hold up to 1 TB of data and are used to hold virtual hard disks (VHDs) for virtual machines.
 
-    _Uploading files to blob storage_
-
-	> The default blob type — block blob — supports up to approximately 4.75 TB of data per blob. Append blobs are similar to block blobs but are optimized for append operations. Page blobs can hold up to 1 TB of data and are used to hold virtual hard disks (VHDs) for virtual machines.
-
-1. Confirm that all ten .jpg files were uploaded to the "images" container.
-
-    ![Blobs uploaded to the "images" container](Images/uploaded-blobs.png)
-
-    _Blobs uploaded to the "images" container_
-
-Uploading blobs is easy with the Microsoft Azure Storage Explorer. Now let's learn how to download blobs.
-
-<a name="#Exercise3"></a>
-## Exercise 3: Use the Azure Portal to download a blob ##
-
-You can download a blob using the Azure Storage Explorer by selecting the blob and clicking the **Download** button, or by right-clicking the blob and selecting **Download** from the ensuing menu. You can also download blobs using the Azure Portal. In this exercise, you'll use the portal to download one of the blobs you uploaded in the previous exercise.
-
-1. Return to the [Azure Portal](https://portal.azure.com) in your browser. If you left the blade for the storage account open at the end of Exercise 1, click the **Refresh** button at the top of the blade to refresh the list of containers. If you didn't leave it open, navigate back to it. The click the "images" container to view its contents.
-
-    ![Viewing the blobs in the "images" container](Images/view-images-container.png)
-
-    _Viewing the blobs in the "images" container_
-
-1. Verify that azure-banner.jpg appears in the list of blobs. Then click it to open the "Blob properties" blade.
-
-    ![Image blobs uploaded to Azure Storage](Images/blobs-in-images-container.png)
-
-	_Image blobs uploaded to Azure Storage_
-
-1. Click the **Download** button at the top of the blade to download azure-banner.jpg.
-
-    ![Downloading a blob](Images/download-blob.png)
-
-	_Downloading a blob_
-
-1. Confirm that azure-banner.jpg appears in your browser:
-
-    ![Image blob downloaded from Azure Storage](Images/azure-banner.jpg)
-
-	_Image blob downloaded from Azure Storage_
-
-Now that you know how to upload and download blobs, it is time to think about the privacy of those blobs and how to share them with other researchers.
-
-<a name="#Exercise4"></a>
-##(Optional) Exercise 4: Share blobs using public containers ##
-
-Each container that you create is assigned an access level that determines whether its contents are public or private. The default is private, which means that only you (or someone to whom you provide an access key for the storage account) can access the container's blobs. In this exercise, you will make the "images" container public and demonstrate that you can easily share blobs inside it using links that can be opened in a browser.
-
-1. Return to the Microsoft Azure Storage Explorer and right-click (on a Mac, Control-click) the "images" container and select **Set Public Access Level**.
-
-    ![Changing the container's access level](Images/set-public-access-level.png)
-
-    _Changing the container's access level_
-
-1. Select **Public read access for blobs only**. Then click the **Apply** button.
-
-    ![Setting the access level to public](Images/public-read-access.png)
-
-    _Setting the access level to public_
-
-	> The difference between **Public read access for blobs only** and **Public read access for container and blobs** is that the latter allows the blobs in a container to be enumerated, while the former does not. **Public read access for blobs only** offers slightly more security because it prevents people from discovering other blobs in the container. To fetch the blob, they must know the blob's name.
-
-1. Right-click azure-banner.jpg and select **Copy URL to Clipboard**.
-
-    ![Getting a blob URL](Images/copy-url-to-clipboard.png)
-
-    _Getting a blob URL_
-
-1. Now paste the URL into your browser's address bar. Confirm that the browser shows azure-banner.jpg:
-
-    ![Image blob downloaded from Azure Storage](Images/image-blob-in-browser.png)
-
-	_Image blob downloaded from Azure Storage_
-
-1. Return to the Microsoft Azure Storage Explorer, right-click the "images" container, select **Set Public Access Level** again, and this time set the container's access level to **No public access**.
-
-    ![Setting the access level to private](Images/set-access-level-to-private.png)
-
-    _Setting the access level to private_
-
-1. Copy the URL for azure-banner.jpg to the clipboard again and paste it into your browser's address bar. Confirm that the image can't be downloaded this time.
-
-	> The screen shot below was taken in Microsoft Edge. The exact output will vary from browser to browser, and Chrome will probably say "This XML file does not appear to have any style information associated with it."
-
-    ![404 error](Images/404-error.png)
-
-    _404 error_
-
-Making a container public is one way to share the blobs with other people. But what if you only wanted to share *selected* blobs in that container while keeping the others private? And what if you wanted to limit the amount of time that the blob can be downloaded? That's where shared-access signatures come in.
-
-<a name="#Exercise5"></a>
-##(Optional) Exercise 5: Share blobs using shared-access signatures ##
-
-Rather than create a separate (public) container to hold the blobs you wish to share, you can use shared-access signatures to share blobs from private containers. In this exercise, you will generate a URL containing a shared-access signature (SAS) for one of the blobs in the "images" container and demonstrate that the blob can be downloaded even though the container is private. You will also learn how to limit the amount of time a shared-access signature is valid.
-
-1. Return to the Microsoft Azure Storage Explorer. Right-click azure-banner.jpg and select **Get Shared Access Signature**.
-
-    ![Getting a shared-access signature](Images/get-sas.png)
-
-    _Getting a shared-access signature_
-
-1. Set **Start time** to yesterday's date and **Expiry time** to a date a few days from now. Then click the **Create** button.
-
-    ![Creating a shared-access signature](Images/create-sas.png)
-
-    _Creating a shared-access signature_
-
-1. Click the **Copy** button to the right of the URL field to copy the blob URL containing a shared-access signature to the clipboard. Then click the **Close** button.
-
-    ![Copying a SAS URL to the clipboard](Images/copy-sas.png)
-
-    _Copying a SAS URL to the clipboard_
-
-1. Paste the URL into your browser's address bar and confirm that azure-banner.jpg appears, even though the container that holds it is private rather than public.
-
-    ![Using a SAS URL to download a blob](Images/blob-opened-with-sas.png)
-
-    _Using a SAS URL to download a blob_
-
-Take a moment to examine the URL that you pasted into the browser. The long query string — everything after the question mark — is the shared-access signature. Embedded within it is information about when the signature expires. The signature is cryptographically signed so it can't be tampered with. For more information on shared-access signatures and their application to Azure Storage, see [Shared Access Signatures, Part 1: Understanding the SAS model](https://azure.microsoft.com/en-us/documentation/articles/storage-dotnet-shared-access-signature-part-1/).
 
 
 <a name="Exercise6"></a>
@@ -279,21 +162,12 @@ The first step in building a machine-learning model with Azure Machine Learning 
 
 1. Click the default experiment name at the top of the canvas and change it to "Image Classifier" (without quotation marks).
 
-    ![Naming the experiment](Images/data-rename-experiment.png)
-
-    _Naming the experiment_
-
+    
 1. To the left of the experiment canvas is the modules palette. Type "import " in the search box at the top of the modules palette to find the **Import Images** module.
-
-    ![Finding a dataset](Images/data-palette-to-search.png)
-
-    _Finding a dataset_
 
 1. Drag the *Import Images** module from the modules palette and drop it onto the experiment canvas.
 
-    ![Adding a dataset](Images/data-dataset-on-canvas.png)
-
-      a dataset_
+1. Next, point the Import Images to the cell data in blob storage. You will need to copy the Account Key from the Azure portal
 
 1. To see what this dataset looks like, click the output port (the circle with the "1" in it) at the bottom of the dataset and select **Visualize**.
 
