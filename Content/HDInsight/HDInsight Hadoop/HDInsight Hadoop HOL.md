@@ -45,7 +45,7 @@ This hands-on lab includes the following exercises:
 Estimated time to complete this lab: **45** minutes.
 
 <a name="Exercise1"></a>
-## Exercise 1: Deploy an HDInsight Hadoop cluster on Linux
+## Exercise 1: Deploy an HDInsight Hadoop cluster on Linux ##
 
 In this exercise, you will use the Azure Portal to deploy an HDInsight Hadoop cluster with Linux installed on the cluster's nodes.
 
@@ -112,7 +112,7 @@ In this exercise, you will use the Azure Portal to deploy an HDInsight Hadoop cl
 In this exercise, you learned how to provision an HDInsight Hadoop cluster on Azure, and about some of the options you can choose from when doing so. Wait for the deployment to finish, and then proceed to the next exercise.
 
 <a name="Exercise2"></a>
-## Exercise 2: Connect to the cluster via SSH
+## Exercise 2: Connect to the cluster via SSH ##
 
 Before you can run jobs on the Hadoop cluster, you need to open an SSH connection to it so you can execute commands on the cluster. In this exercise, you will remote into the cluster via SSH using the **ssh** command if you are running macOS or Linux, or PuTTY if you are running Windows. If you are a Windows user and haven't installed PuTTY, take the time to [install it now](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html).
 
@@ -136,7 +136,7 @@ Before you can run jobs on the Hadoop cluster, you need to open an SSH connectio
 	A PuTTY terminal window will appear and prompt you for a password. Enter the SSH password ("Had00pdemo!") you specified when you created the cluster and press **Enter**.
 
 <a name="Exercise3"></a>
-## Exercise 3: Analyze an Apache log file with Hive
+## Exercise 3: Analyze an Apache log file with Hive ##
 
 In this exercise, you will use [Apache Hive](https://cwiki.apache.org/confluence/display/Hive?src=sidebar) and the HiveQL query language to query a sample Apache log4j log file that was created along with the cluster. Apache Hive is a data-warehouse infrastructure built on top of Hadoop that facilitates summarizing, querying, and analyzing data. It supports a SQL-like interface for querying data stores that integrate with Hadoop, and it allows you to project structure onto data that lacks structure.
 
@@ -202,7 +202,7 @@ In this exercise, you will use [Apache Hive](https://cwiki.apache.org/confluence
 Hive is useful, but executing Hive commands is not all you can do with a Hadoop cluster. In the next exercise, you will learn how to perform MapReduce operations using Python.
 
 <a name="Exercise4"></a>
-## Exercise 4: Use MapReduce to analyze a text file with Python
+## Exercise 4: Use MapReduce to analyze a text file with Python ##
 
 One of the most important algorithms introduced in recent years is Google's [MapReduce](http://research.google.com/archive/mapreduce.html), which facilitates the processing of very large data sets. MapReduce is a two-stage algorithm that relies on a pair of functions: the *map* function, which transforms a set of input data to produce a result, and the *reduce* function, which reduces the results of a map to a scalar value. What makes MapReduce so relevant for big data is that operations can be executed in parallel and independent of the data source. The parallelism facilitates handling massive amounts of data, and the data-source independence means you are not locked into a particular data store such as MySQL or Microsoft SQL Server.
 
@@ -386,7 +386,7 @@ HDInsight, with its underlying Hadoop implementation, allows you to write MapRed
 This exercise showed how to execute streaming MapReduce jobs with HDInsight using a widely used programming language, Python. The next and most important step is to delete the HDInsight cluster so you are not billed for it when it is not being used.
 
 <a name="Exercise5"></a>
-## Exercise 5:  Delete the HDInsight cluster
+## Exercise 5:  Delete the HDInsight cluster ##
 
 As long as the HDInsight clusters you create exist, you are charged for them. Even when the clusters aren't actively processing data, charges are being incurred. Therefore, it behooves you to shut them down when they're no longer needed. Currently, it is not possible to suspend an HDInsight cluster, so your only option is to delete it.
 

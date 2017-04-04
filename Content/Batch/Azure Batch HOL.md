@@ -1,10 +1,10 @@
 <a name="HOLTitle"></a>
-# Azure Batch Service with Batch Shipyard
+# Azure Batch Service with Batch Shipyard #
 
 ---	
 
 <a name="Overview"></a>
-## Overview
+## Overview ##
 
 [**Azure Batch**](https://azure.microsoft.com/en-us/services/batch/) is a service that enables you to run batch processes on high-performance computing (HPC) clusters composed of Azure virtual machines (VMs). Batch processes are ideal for handling computationally intensive tasks that can run unattended such as photorealistic rendering and computational fluid dynamics. Azure Batch uses [VM scale sets](https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-overview) to scale up and down and to prevent you from paying for VMs that aren't being used. It also supports autoscaling, which, if enabled, allows Batch to scale up as needed to handle massively complex workloads.
 
@@ -21,7 +21,7 @@ In this lab, you will use Azure Batch and Batch Shipyard to process a pair of te
 **Note**: Azure Batch Shipyard is constantly being refined and improved. If you work this lab on your laptop and it fails at any point, try creating a Linux VM and running the lab in the VM. You will find instructions for creating a Linux VM in Azure at https://docs.microsoft.com/en-us/azure/virtual-machines/virtual-machines-linux-quick-create-portal.
 
 <a name="Objectives"></a>
-### Objectives: ###
+### Objectives ###
 
 In this hands-on lab, you will learn how to:
 
@@ -32,9 +32,9 @@ In this hands-on lab, you will learn how to:
 - Use the Azure Portal to remove the Batch account
 
 <a name="Prerequisites"></a>
-### Prerequisites: ###
+### Prerequisites ###
 
-* An active Microsoft Azure subscription. If you don't have one, [sign up for a free trial](https://azure.microsoft.com/en-us/free/)
+- An active Microsoft Azure subscription. If you don't have one, [sign up for a free trial](https://azure.microsoft.com/en-us/free/)
 
 <a name="Exercises"></a>
 ## Exercises ##
@@ -487,6 +487,7 @@ In this exercise, you will delete the resource group created in [Exercise 1](#Ex
 
 After a few minutes, the resource group and all of its resources will be deleted.
 
+<a name="Summary"></a>
 ## Summary ##
 
 Azure Batch is ideal for running large jobs that are compute-intensive as batch jobs on clusters of virtual machines. Batch Shipyard improves on Azure Batch by running those same jobs in Docker containers. The exercises you performed here demonstrate the basic steps required to create a Batch service, configure Batch Shipyard using a custom recipe, and run a job. The Batch Shipyard team has prepared other recipes involving scenarios such as deep learning, computational fluid dynamics, molecular dynamics, and video processing. For more information, and to view the recipes themselves, see https://github.com/Azure/batch-shipyard/tree/master/recipes.
