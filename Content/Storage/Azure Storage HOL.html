@@ -528,9 +528,15 @@ vertical-align:1px;
 <p><em>Creating a storage account</em></p>
 </li>
 <li>
-<p>Click <strong>Resource groups</strong> in the ribbon on the left side of the portal to list all of your resource groups. In the "Resource groups" blade, click the <strong>StorageLabResourceGroup</strong> resource group. Once the blade showing the contents of the resource group appears, click the storage account that you created in the previous step.</p>
-<p><a href="Images/open-storage-account.png" target="_blank"><img src="Images/open-storage-account.png" alt="Opening a storage account" style="max-width:100%;"></a></p>
-<p><em>Opening a storage account</em></p>
+<p>Click <strong>Resource groups</strong> in the ribbon on the left side of the portal to list all of your resource groups. In the "Resource groups" blade, click the <strong>StorageLabResourceGroup</strong> resource group.</p>
+</li>
+<li>
+<p>Wait until "Deploying" changes to "Succeeded," indicating that the storage account has been deployed. Then click the storage account.</p>
+<blockquote>
+<p>Refresh the page in the browser periodically to update the deployment status. Clicking the <strong>Refresh</strong> button in the resource-group blade refreshes the list of resources in the resource group, but does not reliably update the deployment status.</p>
+</blockquote>
+<p><a href="Images/open-storage-account.png" target="_blank"><img src="Images/open-storage-account.png" alt="Opening the storage account" style="max-width:100%;"></a></p>
+<p><em>Opening the storage account</em></p>
 </li>
 <li>
 <p>In the blade for the storage account, click <strong>Blobs</strong> to view a list of blob containers.</p>
@@ -589,22 +595,22 @@ vertical-align:1px;
 <p>You can download a blob using the Azure Storage Explorer by selecting the blob and clicking the <strong>Download</strong> button, or by right-clicking the blob and selecting <strong>Download</strong> from the ensuing menu. You can also download blobs using the Azure Portal. In this exercise, you'll use the portal to download one of the blobs you uploaded in the previous exercise.</p>
 <ol>
 <li>
-<p>Return to the <a href="https://portal.azure.com">Azure Portal</a> in your browser. If you left the blade for the storage account open at the end of Exercise 1, click the <strong>Refresh</strong> button at the top of the blade to refresh the list of containers. If you didn't leave it open, navigate back to it. The click the "images" container to view its contents.</p>
+<p>Return to the <a href="https://portal.azure.com">Azure Portal</a> in your browser. If you left the blade for the storage account open at the end of <a href="#Exercise1">Exercise 1</a>, click the <strong>Refresh</strong> button at the top of the blade to refresh the list of containers. If you didn't leave it open, navigate back to it. The click the "images" container to view its contents.</p>
 <p><a href="Images/view-images-container.png" target="_blank"><img src="Images/view-images-container.png" alt="Viewing the blobs in the &quot;images&quot; container" style="max-width:100%;"></a></p>
 <p><em>Viewing the blobs in the "images" container</em></p>
 </li>
 <li>
-<p>Verify that azure-banner.jpg appears in the list of blobs. Then click it to open the "Blob properties" blade.</p>
+<p>Verify that <strong>azure-banner.jpg</strong> appears in the list of blobs. Then click it to open the "Blob properties" blade.</p>
 <p><a href="Images/blobs-in-images-container.png" target="_blank"><img src="Images/blobs-in-images-container.png" alt="Image blobs uploaded to Azure Storage" style="max-width:100%;"></a></p>
 <p><em>Image blobs uploaded to Azure Storage</em></p>
 </li>
 <li>
-<p>Click the <strong>Download</strong> button at the top of the blade to download azure-banner.jpg.</p>
+<p>Click the <strong>Download</strong> button at the top of the blade to download <strong>azure-banner.jpg</strong>.</p>
 <p><a href="Images/download-blob.png" target="_blank"><img src="Images/download-blob.png" alt="Downloading a blob" style="max-width:100%;"></a></p>
 <p><em>Downloading a blob</em></p>
 </li>
 <li>
-<p>Confirm that azure-banner.jpg appears in your browser:</p>
+<p>Confirm that <strong>azure-banner.jpg</strong> appears in your browser:</p>
 <p><a href="Images/azure-banner.jpg" target="_blank"><img src="Images/azure-banner.jpg" alt="Image blob downloaded from Azure Storage" style="max-width:100%;"></a></p>
 <p><em>Image blob downloaded from Azure Storage</em></p>
 </li>
@@ -628,12 +634,12 @@ vertical-align:1px;
 </blockquote>
 </li>
 <li>
-<p>Right-click azure-banner.jpg and select <strong>Copy URL to Clipboard</strong>.</p>
+<p>Right-click <strong>azure-banner.jpg</strong> and select <strong>Copy URL to Clipboard</strong>.</p>
 <p><a href="Images/copy-url-to-clipboard.png" target="_blank"><img src="Images/copy-url-to-clipboard.png" alt="Getting a blob URL" style="max-width:100%;"></a></p>
 <p><em>Getting a blob URL</em></p>
 </li>
 <li>
-<p>Now paste the URL into your browser's address bar. Confirm that the browser shows azure-banner.jpg:</p>
+<p>Now paste the URL into your browser's address bar. Confirm that the browser shows <strong>azure-banner.jpg</strong>:</p>
 <p><a href="Images/image-blob-in-browser.png" target="_blank"><img src="Images/image-blob-in-browser.png" alt="Image blob downloaded from Azure Storage" style="max-width:100%;"></a></p>
 <p><em>Image blob downloaded from Azure Storage</em></p>
 </li>
@@ -645,7 +651,7 @@ vertical-align:1px;
 <li>
 <p>Copy the URL for azure-banner.jpg to the clipboard again and paste it into your browser's address bar. Confirm that the image can't be downloaded this time.</p>
 <blockquote>
-<p>The screen shot below was taken in Microsoft Edge. The exact output will vary from browser to browser, and Chrome will probably say "This XML file does not appear to have any style information associated with it."</p>
+<p>The exact output will vary from browser to browser. Some will display an error message in XML.</p>
 </blockquote>
 <p><a href="Images/404-error.png" target="_blank"><img src="Images/404-error.png" alt="404 error" style="max-width:100%;"></a></p>
 <p><em>404 error</em></p>
@@ -657,12 +663,15 @@ vertical-align:1px;
 <p>Rather than create a separate (public) container to hold the blobs you wish to share, you can use shared-access signatures to share blobs from private containers. In this exercise, you will generate a URL containing a shared-access signature (SAS) for one of the blobs in the "images" container and demonstrate that the blob can be downloaded even though the container is private. You will also learn how to limit the amount of time a shared-access signature is valid.</p>
 <ol>
 <li>
-<p>Return to the Microsoft Azure Storage Explorer. Right-click azure-banner.jpg and select <strong>Get Shared Access Signature</strong>.</p>
+<p>Return to the Microsoft Azure Storage Explorer. Right-click <strong>azure-banner.jpg</strong> and select <strong>Get Shared Access Signature</strong>.</p>
 <p><a href="Images/get-sas.png" target="_blank"><img src="Images/get-sas.png" alt="Getting a shared-access signature" style="max-width:100%;"></a></p>
 <p><em>Getting a shared-access signature</em></p>
 </li>
 <li>
 <p>Set <strong>Start time</strong> to yesterday's date and <strong>Expiry time</strong> to a date a few days from now. Then click the <strong>Create</strong> button.</p>
+<blockquote>
+<p>Notice the <strong>Permissions</strong> box. By leaving <strong>Write</strong> and <strong>Delete</strong> unchecked, you ensure that the blob can't be modified or deleted using the shared-access signature. In this example, you are creating a <em>read-only</em> signature.</p>
+</blockquote>
 <p><a href="Images/create-sas.png" target="_blank"><img src="Images/create-sas.png" alt="Creating a shared-access signature" style="max-width:100%;"></a></p>
 <p><em>Creating a shared-access signature</em></p>
 </li>
@@ -672,7 +681,7 @@ vertical-align:1px;
 <p><em>Copying a SAS URL to the clipboard</em></p>
 </li>
 <li>
-<p>Paste the URL into your browser's address bar and confirm that azure-banner.jpg appears, even though the container that holds it is private rather than public.</p>
+<p>Paste the URL into your browser's address bar and confirm that <strong>azure-banner.jpg</strong> appears, even though the container that holds it is private rather than public.</p>
 <p><a href="Images/blob-opened-with-sas.png" target="_blank"><img src="Images/blob-opened-with-sas.png" alt="Using a SAS URL to download a blob" style="max-width:100%;"></a></p>
 <p><em>Using a SAS URL to download a blob</em></p>
 </li>
@@ -681,18 +690,15 @@ vertical-align:1px;
 <p><a name="#Exercise6"></a></p>
 <h2>Exercise 6: Delete the resource group</h2>
 <p>When you created a storage account in Exercise 1, you made it part of a resource group named "StorageLabResourceGroup." One of the benefits of using resource groups is that deleting a resource group deletes all the resources inside it, including storage accounts and blobs. Deleting a resource group is a convenient way to delete complex Azure deployments without having to delete individual resources one by one.</p>
-<p>In this exercise, you will use the Azure Portal to delete the resource group you created in Exercise 1, and along with it the storage account and the blobs stored in it.</p>
+<p>In this exercise, you will use the Azure Portal to delete the resource group you created in <a href="#Exercise1">Exercise 1</a>, and along with it the storage account and the blobs stored in it.</p>
 <ol>
 <li>
-<p>Return to the <a href="https://portal.azure.com">Azure Portal</a> and click <strong>Resource groups</strong> in the ribbon on the left. Then, in the "Resource groups" blade, click the <strong>StorageLabResourceGroup</strong> resource group. Finally, click <strong>Delete</strong> in the blade for the resource group.</p>
+<p>In the Azure Portal, open the blade for the resource group that holds the storage account. Then click the <strong>Delete</strong> button at the top of the blade.</p>
 <p><a href="Images/delete-resource-group.png" target="_blank"><img src="Images/delete-resource-group.png" alt="Deleting a resource group" style="max-width:100%;"></a></p>
 <p><em>Deleting a resource group</em></p>
 </li>
 <li>
-<p>Because deleting a resource group is a permanent action that can't be undone, you must confirm that you want to delete it. Do so by typing the name of the resource group into the box labeled<br>
-<strong>TYPE THE RESOURCE GROUP NAME</strong>. Then click <strong>Delete</strong> to delete the resource group and everything inside it.</p>
-<p><a href="Images/confirm-delete-resource-group.png" target="_blank"><img src="Images/confirm-delete-resource-group.png" alt="Confirming resource-group deletion" style="max-width:100%;"></a></p>
-<p><em>Confirming resource-group deletion</em></p>
+<p>For safety, you are required to type in the resource group's name. (Once deleted, a resource group cannot be recovered.) Type the name of the resource group. Then click the <strong>Delete</strong> button to remove all traces of this lab from your account.</p>
 </li>
 </ol>
 <p>After a few minutes, you will be notified that the resource group was deleted. If the deleted resource group still appears in the "Resource groups" blade, click that blade's <strong>Refresh</strong> button to update the list of resource groups. The deleted resource group should go away.</p>
@@ -703,7 +709,7 @@ vertical-align:1px;
 <li>Azure Storage is a set of services for storing data durably and reliably</li>
 <li>Azure Storage blobs can contain any type of data, just like files in a file system, and are frequently used for input and output to other Azure services</li>
 <li>The Azure Portal enables you to perform basic storage operations, such as creating storage accounts, creating blob containers, and uploading and downloading blobs</li>
-<li>The Microsoft Azure Storage Explorer runs on Windows, macOS, and Linux and supports many features the Azure Portal does not, such as the ability to generate shared-access signatures</li>
+<li>The Microsoft Azure Storage Explorer runs on Windows, macOS, and Linux and supports certain features the Azure Portal does not, such as the ability to generate shared-access signatures</li>
 <li>Shared-access signatures can be used to share blobs in private containers and limit the amount of time the blobs can be accessed, as well as limit access to read-only</li>
 <li>Storage accounts and other resources that are placed inside a resource group are easily deleted by deleting the resource group itself</li>
 </ul>
