@@ -112,28 +112,25 @@ In this exercise, you will create a container named "images" in the storage acco
 
     _Creating a container_
 
-1. Type "images" (without quotation marks) into the box that appears under **Blob Containers**. Then press Enter to create a new container named "images_bcc".
+1. Type "images" (without quotation marks) into the box that appears under **Blob Containers**. Then press Enter to create a new container named "images".
+
     ![Creating an "images" container](Images/create-images-container.png)
 
     _Creating an "images" container_
 
-<<<<<<< HEAD
-1. The next step is to create blobs by uploading files to the container created above. Click the **Upload** button in the Storage Explorer. Then select **Upload Files...** from the menu.
-=======
 1. The next step is to create blobs by uploading files to the container created above. The files you will upload are present in the resources\celldata folder of the lab. Click the **Upload** button in the Storage Explorer. Then select **Upload Files...** from the menu.
->>>>>>> vanimconf
 
     ![Uploading files to the "images" container](Images/upload-files.png)
 
     _Uploading files to the "images" container_
 
-1. Click the **...** button to the right of the field labeled "Files." In the ensuing dialog, navigate to this files from the resources\celldata directory of this lab and select all the files in the subdirectory.  Then close the dialog and click  the **Upload** button.
+1. Click the **...** button to the right of the field labeled "Files." In the ensuing dialog, navigate to this files that you previously downloaded and select all the files in each subdirectory.  Then close the dialog and click  the **Upload** button.
 
 1. The cell images in this example were kindly provided by Maryana Alegro (UCSF) for the ImageXD 2017 conference. The data has three different kinds of labeled cells, that we will use to build a classifier to label new cells.
-    ![Cell images with three different class labels]
-    (Images/cell-image-classes.png)
 
-    _Creating an "images" container_
+    ![Cell images with three different class labels](Images/cell-image-classes.png)
+
+    _3 class cell images_
 1. The default blob type — block blob — supports up to approximately 4.75 TB of data per blob. Append blobs are similar to block blobs but are optimized for append operations. Page blobs can hold up to 1 TB of data and are used to hold virtual hard disks (VHDs) for virtual machines.
 
 
@@ -269,7 +266,7 @@ In this exercise, you will score the model you trained in the previous exercise.
 
 1. Close the visualization window by clicking the "**x**" in the upper-right corner.
 
-Once the model is adequately refined, you might want to be able write programs that utilize the model. You can deploy it as a Web service and interact with it programmatically. Before deploying as a Web service, you need to streamline your experiment. This involves creating a new experiment from your trained model, removing unnecessary modules, and adding Web-service input and output modules. Fortunately, ML Studio can do all of this for you.
+Once the model is adequately refined, you might want to be able write programs that utilize the model. You can deploy it as a Web service and interact with it programmatically. Before deploying as a Web service, you need to streamline your experiment. This involves creating a new experiment from your trained model, removing unnecessary modules, and adding Web-service input and output modules. Fortunately, ML Studio can do all of this for you
 
 1. At the bottom of the screen, the **SET UP WEB SERVICE** button helps ou do just this. you can do this as an optional exercise as time permits. 
 

@@ -92,19 +92,25 @@ you will then create a machine learning experiment in Azure Machine learning stu
 <p><em>Creating a container</em></p>
 </li>
 <li>
-<p>Type &quot;images&quot; (without quotation marks) into the box that appears under <strong>Blob Containers</strong>. Then press Enter to create a new container named &quot;images_bcc&quot;.
-<img src="Images/create-images-container.png" alt="Creating an &quot;images&quot; container"></p>
+<p>Type &quot;images&quot; (without quotation marks) into the box that appears under <strong>Blob Containers</strong>. Then press Enter to create a new container named &quot;images&quot;.</p>
+<p><img src="Images/create-images-container.png" alt="Creating an &quot;images&quot; container"></p>
 <p><em>Creating an &quot;images&quot; container</em></p>
 </li>
 <li>
-<p>The next step is to create blobs by uploading files to the container created above. Click the <strong>Upload</strong> button in the Storage Explorer. Then select <strong>Upload Files...</strong> from the menu.</p>
+<p>The next step is to create blobs by uploading files to the container created above. The files you will upload are present in the resources\celldata folder of the lab. Click the <strong>Upload</strong> button in the Storage Explorer. Then select <strong>Upload Files...</strong> from the menu.</p>
 <p><img src="Images/upload-files.png" alt="Uploading files to the &quot;images&quot; container"></p>
 <p><em>Uploading files to the &quot;images&quot; container</em></p>
 </li>
 <li>
-<p>Click the <strong>...</strong> button to the right of the field labeled &quot;Files.&quot; In the ensuing dialog, navigate to this files from the resources\celldata directory of this lab and select all the files in the subdirectory.  Then close the dialog and click  the <strong>Upload</strong> button.</p>
-<pre><code> The default blob type — block blob — supports up to approximately 4.75 TB of data per blob. Append blobs are similar to block blobs but are optimized for append operations. Page blobs can hold up to 1 TB of data and are used to hold virtual hard disks (VHDs) for virtual machines.
-</code></pre>
+<p>Click the <strong>...</strong> button to the right of the field labeled &quot;Files.&quot; In the ensuing dialog, navigate to this files that you previously downloaded and select all the files in each subdirectory.  Then close the dialog and click  the <strong>Upload</strong> button.</p>
+</li>
+<li>
+<p>The cell images in this example were kindly provided by Maryana Alegro (UCSF) for the ImageXD 2017 conference. The data has three different kinds of labeled cells, that we will use to build a classifier to label new cells.</p>
+<p><img src="Images/cell-image-classes.png" alt="Cell images with three different class labels"></p>
+<p><em>3 class cell images</em></p>
+</li>
+<li>
+<p>The default blob type — block blob — supports up to approximately 4.75 TB of data per blob. Append blobs are similar to block blobs but are optimized for append operations. Page blobs can hold up to 1 TB of data and are used to hold virtual hard disks (VHDs) for virtual machines.</p>
 </li>
 </ol>
 <p><a name="Exercise3"></a></p>
@@ -155,7 +161,7 @@ you will then create a machine learning experiment in Azure Machine learning stu
 <p>In this exercise, you learned how to create a new ML experiment and import a sample dataset. Note that you can upload custom datasets by clicking the <strong>+ NEW</strong> button in the ribbon at the bottom of the window, and then clicking <strong>DATASET</strong> followed by <strong>FROM LOCAL FILE</strong>. Next up: preparing the sample data for use.
 Please do so now and upload the Resources\all.csv file that is a 2 column file with the file name and label for the images uploaded in the previous step</p>
 <p><a name="Exercise4"></a></p>
-<h2>Exercise 7: Preprocess the data</h2>
+<h2>Exercise 4: Preprocess the data</h2>
 <p>No dataset is perfect. Most require some amount of preparation before they can be used to train a model. In this particular instance we are missing the class labels which are present in a different file.
 To add this file, click on the green &quot;+&quot; sign at the bottom left of Azure ML Studio and upload the all.csv file from the \Resources folder of this lab. Once uploaded the csv file will appear under Saved Datasets -&gt; My Datasets</p>
 <ol>
@@ -164,17 +170,14 @@ To add this file, click on the green &quot;+&quot; sign at the bottom left of Az
 Join the data on filename (Import Images) and Image Name (all.csv). This will ensure that you combined the class labels in the same file as the extracted features.
 <img src="Images/join-data.png" alt="Joining the data"></p>
 <p><em>Joining two datasets</em></p>
-<pre><code> &gt; A key concept to understand in Azure ML Studio is that of ports and connectors. In this step, you connected the output port of the data module to the input port of the **Join Data** module. The data flows from one module to the next through the connector. Some modules have multiple input and output ports. If you want to know what a port does, hover over it with the mouse and a tooltip will pop up. To call up the documentation for an entire module, right-click (on a Mac, Command-click) the module and select **Help** from the ensuing menu.
-</code></pre>
 </li>
 </ol>
-<p><a name="Exercise4"></a></p>
-<h2>Exercise 4: Select a learning algorithm and train the model</h2>
+<p>A key concept to understand in Azure ML Studio is that of ports and connectors. In this step, you connected the output port of the data module to the input port of the <strong>Join Data</strong> module. The data flows from one module to the next through the connector. Some modules have multiple input and output ports. If you want to know what a port does, hover over it with the mouse and a tooltip will pop up. To call up the documentation for an entire module, right-click (on a Mac, Command-click) the module and select <strong>Help</strong> from the ensuing menu.</p>
+<p><a name="Exercise5"></a></p>
+<h2>Exercise 5: Select a learning algorithm and train the model</h2>
 <p>Now that the data is ready and the features are selected, constructing a robust predictive model requires training and testing the model. You will use part of the dataset to train the model, and another part of it to measure how adept the model is at predicting automobile prices.</p>
 <p>Before you can train the model, you must select a learning algorithm to use. <em>Classification</em> and <em>regression</em> are two types of supervised machine-learning algorithms. Classification is used to make a prediction from a defined set of values, such as the make of a car (for example, Honda or BMW). Regression is used to make a prediction from a continuous set of values, such as a person's age or the price of an automobile. Azure Machine Learning offers several types of classification and regression algorithms for you to choose from, as well as algorithms of other types.</p>
-<blockquote>
 <p>The Azure Machine Learning team has put together a &quot;cheat sheet&quot; to help you decide which machine-learning algorithm to choose based on the purpose of your model. You can view it at http://aka.ms/MLCheatSheet.</p>
-</blockquote>
 <p>The goal of this lab is to predict the price of an automobile from a set of input features, so you will use a regression model. In this exercise, you will train a Support Vector Machine model, and in the next exercise, you will test the results.</p>
 <ol>
 <li>
@@ -205,8 +208,8 @@ Join the data on filename (Import Images) and Image Name (all.csv). This will en
 </li>
 </ol>
 <p>You now have a trained regression model. The next step is to score the model to see how adept it is at predicting automobile prices.</p>
-<p><a name="Exercise5"></a></p>
-<h2>Exercise 10: Score the model</h2>
+<p><a name="Exercise6"></a></p>
+<h2>Exercise 6: Score the model</h2>
 <p>In this exercise, you will score the model you trained in the previous exercise. Scoring determines how well the model was trained — that is, how adept it is at predicting target values from values presented to it. ML Studio makes the scoring process very easy. You used 80% of the dataset that you uploaded to train the model. You will use the remaining 20% to score it</p>
 <ol>
 <li>
@@ -244,7 +247,7 @@ Join the data on filename (Import Images) and Image Name (all.csv). This will en
 <p>Close the visualization window by clicking the &quot;<strong>x</strong>&quot; in the upper-right corner.</p>
 </li>
 </ol>
-<p>Once the model is adequately refined, you might want to be able write programs that utilize the model. You can deploy it as a Web service and interact with it programmatically. Before deploying as a Web service, you need to streamline your experiment. This involves creating a new experiment from your trained model, removing unnecessary modules, and adding Web-service input and output modules. Fortunately, ML Studio can do all of this for you.</p>
+<p>Once the model is adequately refined, you might want to be able write programs that utilize the model. You can deploy it as a Web service and interact with it programmatically. Before deploying as a Web service, you need to streamline your experiment. This involves creating a new experiment from your trained model, removing unnecessary modules, and adding Web-service input and output modules. Fortunately, ML Studio can do all of this for you</p>
 <ol>
 <li>
 <p>At the bottom of the screen, the <strong>SET UP WEB SERVICE</strong> button helps ou do just this. you can do this as an optional exercise as time permits.</p>
