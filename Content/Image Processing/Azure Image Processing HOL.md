@@ -112,26 +112,18 @@ In this exercise, you will create a container named "images" in the storage acco
 
     _Creating a container_
 
-1. If you are working with the cell data, type  "celldata" (without quotation marks) into the box that appears under **Blob Containers**. Then press Enter to create a new container named "celldata". Upload the image files from the Resources\celldata folder of htis lab (or your local copy of cell data).
+1. Type "images" (without quotation marks) into the box that appears under **Blob Containers**. Then press Enter to create a new container named "images_bcc".
+    ![Creating an "images" container](Images/create-images-container.png)
 
-If you are working with the bcc / hpcnone dataset follow the instructions below -
-1. Type "images_bcc" (without quotation marks) into the box that appears under **Blob Containers**. Then press Enter to create a new container named "images_bcc".
-    ![Creating an "images_bcc" container](Images/create-images-container.png)
+    _Creating an "images" container_
 
-    _Creating an "images_bcc" container_
-
-1. Type "images_hpcnone" (without quotation marks) into the box that appears under **Blob Containers**. Then press Enter to create a new container named "images_hpcnone."
-    ![Creating an "images_hpcnone" container]
-
-    _Creating an "images_hpcnone" container_
-
-1. The next step is to create blobs by uploading files to the 2 containers created above. The files you will upload are described and provided at the location [https://github.com/dani-lbnl/ImageXD_2017](https://github.com/dani-lbnl/ImageXD_2017). Once you download the files, you will notice that there are two separate folders, each containing one class of labeled images. Click the **Upload** button in the Storage Explorer. Then select **Upload Files...** from the menu.
+1. The next step is to create blobs by uploading files to the container created above. Click the **Upload** button in the Storage Explorer. Then select **Upload Files...** from the menu.
 
     ![Uploading files to the "images" container](Images/upload-files.png)
 
     _Uploading files to the "images" container_
 
-1. Click the **...** button to the right of the field labeled "Files." In the ensuing dialog, navigate to this files that you previously downloaded and select all the files in each subdirectory.  Then close the dialog and click  the **Upload** button.
+1. Click the **...** button to the right of the field labeled "Files." In the ensuing dialog, navigate to this files from the resources\celldata directory of this lab and select all the files in the subdirectory.  Then close the dialog and click  the **Upload** button.
 
     	The default blob type — block blob — supports up to approximately 4.75 TB of data per blob. Append blobs are similar to block blobs but are optimized for append operations. Page blobs can hold up to 1 TB of data and are used to hold virtual hard disks (VHDs) for virtual machines.
 
@@ -268,7 +260,7 @@ In this exercise, you will score the model you trained in the previous exercise.
 
 1. Close the visualization window by clicking the "**x**" in the upper-right corner.
 
-Once the model is adequately refined, you might want to be able write programs that utilize the model. You can deploy it as a Web service and interact with it programmatically. Before deploying as a Web service, you need to streamline your experiment. This involves creating a new experiment from your trained model, removing unnecessary modules, and adding Web-service input and output modules. Fortunately, ML Studio can do all of this for you
+Once the model is adequately refined, you might want to be able write programs that utilize the model. You can deploy it as a Web service and interact with it programmatically. Before deploying as a Web service, you need to streamline your experiment. This involves creating a new experiment from your trained model, removing unnecessary modules, and adding Web-service input and output modules. Fortunately, ML Studio can do all of this for you.
 
 1. At the bottom of the screen, the **SET UP WEB SERVICE** button helps ou do just this. you can do this as an optional exercise as time permits. 
 

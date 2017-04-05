@@ -92,28 +92,17 @@ you will then create a machine learning experiment in Azure Machine learning stu
 <p><em>Creating a container</em></p>
 </li>
 <li>
-<p>If you are working with the cell data, type  &quot;celldata&quot; (without quotation marks) into the box that appears under <strong>Blob Containers</strong>. Then press Enter to create a new container named &quot;celldata&quot;. Upload the image files from the Resources\celldata folder of htis lab (or your local copy of cell data).</p>
-</li>
-</ol>
-<p>If you are working with the bcc / hpcnone dataset follow the instructions below -</p>
-<ol>
-<li>
-<p>Type &quot;images_bcc&quot; (without quotation marks) into the box that appears under <strong>Blob Containers</strong>. Then press Enter to create a new container named &quot;images_bcc&quot;.
-<img src="Images/create-images-container.png" alt="Creating an &quot;images_bcc&quot; container"></p>
-<p><em>Creating an &quot;images_bcc&quot; container</em></p>
+<p>Type &quot;images&quot; (without quotation marks) into the box that appears under <strong>Blob Containers</strong>. Then press Enter to create a new container named &quot;images_bcc&quot;.
+<img src="Images/create-images-container.png" alt="Creating an &quot;images&quot; container"></p>
+<p><em>Creating an &quot;images&quot; container</em></p>
 </li>
 <li>
-<p>Type &quot;images_hpcnone&quot; (without quotation marks) into the box that appears under <strong>Blob Containers</strong>. Then press Enter to create a new container named &quot;images_hpcnone.&quot;
-![Creating an &quot;images_hpcnone&quot; container]</p>
-<p><em>Creating an &quot;images_hpcnone&quot; container</em></p>
-</li>
-<li>
-<p>The next step is to create blobs by uploading files to the 2 containers created above. The files you will upload are described and provided at the location <a href="https://github.com/dani-lbnl/ImageXD_2017">https://github.com/dani-lbnl/ImageXD_2017</a>. Once you download the files, you will notice that there are two separate folders, each containing one class of labeled images. Click the <strong>Upload</strong> button in the Storage Explorer. Then select <strong>Upload Files...</strong> from the menu.</p>
+<p>The next step is to create blobs by uploading files to the container created above. Click the <strong>Upload</strong> button in the Storage Explorer. Then select <strong>Upload Files...</strong> from the menu.</p>
 <p><img src="Images/upload-files.png" alt="Uploading files to the &quot;images&quot; container"></p>
 <p><em>Uploading files to the &quot;images&quot; container</em></p>
 </li>
 <li>
-<p>Click the <strong>...</strong> button to the right of the field labeled &quot;Files.&quot; In the ensuing dialog, navigate to this files that you previously downloaded and select all the files in each subdirectory.  Then close the dialog and click  the <strong>Upload</strong> button.</p>
+<p>Click the <strong>...</strong> button to the right of the field labeled &quot;Files.&quot; In the ensuing dialog, navigate to this files from the resources\celldata directory of this lab and select all the files in the subdirectory.  Then close the dialog and click  the <strong>Upload</strong> button.</p>
 <pre><code> The default blob type — block blob — supports up to approximately 4.75 TB of data per blob. Append blobs are similar to block blobs but are optimized for append operations. Page blobs can hold up to 1 TB of data and are used to hold virtual hard disks (VHDs) for virtual machines.
 </code></pre>
 </li>
@@ -255,7 +244,7 @@ Join the data on filename (Import Images) and Image Name (all.csv). This will en
 <p>Close the visualization window by clicking the &quot;<strong>x</strong>&quot; in the upper-right corner.</p>
 </li>
 </ol>
-<p>Once the model is adequately refined, you might want to be able write programs that utilize the model. You can deploy it as a Web service and interact with it programmatically. Before deploying as a Web service, you need to streamline your experiment. This involves creating a new experiment from your trained model, removing unnecessary modules, and adding Web-service input and output modules. Fortunately, ML Studio can do all of this for you</p>
+<p>Once the model is adequately refined, you might want to be able write programs that utilize the model. You can deploy it as a Web service and interact with it programmatically. Before deploying as a Web service, you need to streamline your experiment. This involves creating a new experiment from your trained model, removing unnecessary modules, and adding Web-service input and output modules. Fortunately, ML Studio can do all of this for you.</p>
 <ol>
 <li>
 <p>At the bottom of the screen, the <strong>SET UP WEB SERVICE</strong> button helps ou do just this. you can do this as an optional exercise as time permits.</p>
