@@ -117,7 +117,11 @@ In this exercise, you will create a container named "images" in the storage acco
 
     _Creating an "images" container_
 
+<<<<<<< HEAD
 1. The next step is to create blobs by uploading files to the container created above. Click the **Upload** button in the Storage Explorer. Then select **Upload Files...** from the menu.
+=======
+1. The next step is to create blobs by uploading files to the container created above. The files you will upload are present in the resources\celldata folder of the lab. Click the **Upload** button in the Storage Explorer. Then select **Upload Files...** from the menu.
+>>>>>>> vanimconf
 
     ![Uploading files to the "images" container](Images/upload-files.png)
 
@@ -125,7 +129,12 @@ In this exercise, you will create a container named "images" in the storage acco
 
 1. Click the **...** button to the right of the field labeled "Files." In the ensuing dialog, navigate to this files from the resources\celldata directory of this lab and select all the files in the subdirectory.  Then close the dialog and click  the **Upload** button.
 
-    	The default blob type — block blob — supports up to approximately 4.75 TB of data per blob. Append blobs are similar to block blobs but are optimized for append operations. Page blobs can hold up to 1 TB of data and are used to hold virtual hard disks (VHDs) for virtual machines.
+1. The cell images in this example were kindly provided by Maryana Alegro (UCSF) for the ImageXD 2017 conference. The data has three different kinds of labeled cells, that we will use to build a classifier to label new cells.
+    ![Cell images with three different class labels]
+    (Images/cell-image-classes.png)
+
+    _Creating an "images" container_
+1. The default blob type — block blob — supports up to approximately 4.75 TB of data per blob. Append blobs are similar to block blobs but are optimized for append operations. Page blobs can hold up to 1 TB of data and are used to hold virtual hard disks (VHDs) for virtual machines.
 
 
 
@@ -179,7 +188,7 @@ In this exercise, you learned how to create a new ML experiment and import a sam
 Please do so now and upload the Resources\all.csv file that is a 2 column file with the file name and label for the images uploaded in the previous step
 
 <a name="Exercise4"></a>
-## Exercise 7: Preprocess the data ##
+## Exercise 4: Preprocess the data ##
 
 No dataset is perfect. Most require some amount of preparation before they can be used to train a model. In this particular instance we are missing the class labels which are present in a different file. 
 To add this file, click on the green "+" sign at the bottom left of Azure ML Studio and upload the all.csv file from the \Resources folder of this lab. Once uploaded the csv file will appear under Saved Datasets -> My Datasets 
@@ -190,18 +199,18 @@ Join the data on filename (Import Images) and Image Name (all.csv). This will en
 
     _Joining two datasets_
 
-        > A key concept to understand in Azure ML Studio is that of ports and connectors. In this step, you connected the output port of the data module to the input port of the **Join Data** module. The data flows from one module to the next through the connector. Some modules have multiple input and output ports. If you want to know what a port does, hover over it with the mouse and a tooltip will pop up. To call up the documentation for an entire module, right-click (on a Mac, Command-click) the module and select **Help** from the ensuing menu.
+A key concept to understand in Azure ML Studio is that of ports and connectors. In this step, you connected the output port of the data module to the input port of the **Join Data** module. The data flows from one module to the next through the connector. Some modules have multiple input and output ports. If you want to know what a port does, hover over it with the mouse and a tooltip will pop up. To call up the documentation for an entire module, right-click (on a Mac, Command-click) the module and select **Help** from the ensuing menu.
 
 
 
-<a name="Exercise4"></a>
-## Exercise 4: Select a learning algorithm and train the model ##
+<a name="Exercise5"></a>
+## Exercise 5: Select a learning algorithm and train the model ##
 
 Now that the data is ready and the features are selected, constructing a robust predictive model requires training and testing the model. You will use part of the dataset to train the model, and another part of it to measure how adept the model is at predicting automobile prices.
 
 Before you can train the model, you must select a learning algorithm to use. _Classification_ and _regression_ are two types of supervised machine-learning algorithms. Classification is used to make a prediction from a defined set of values, such as the make of a car (for example, Honda or BMW). Regression is used to make a prediction from a continuous set of values, such as a person's age or the price of an automobile. Azure Machine Learning offers several types of classification and regression algorithms for you to choose from, as well as algorithms of other types.
 
-> The Azure Machine Learning team has put together a "cheat sheet" to help you decide which machine-learning algorithm to choose based on the purpose of your model. You can view it at http://aka.ms/MLCheatSheet.
+The Azure Machine Learning team has put together a "cheat sheet" to help you decide which machine-learning algorithm to choose based on the purpose of your model. You can view it at http://aka.ms/MLCheatSheet.
 
 The goal of this lab is to predict the price of an automobile from a set of input features, so you will use a regression model. In this exercise, you will train a Support Vector Machine model, and in the next exercise, you will test the results.
 
@@ -227,8 +236,8 @@ The goal of this lab is to predict the price of an automobile from a set of inpu
 
 You now have a trained regression model. The next step is to score the model to see how adept it is at predicting automobile prices.
 
-<a name="Exercise5"></a>
-## Exercise 10: Score the model ##
+<a name="Exercise6"></a>
+## Exercise 6: Score the model ##
 
 In this exercise, you will score the model you trained in the previous exercise. Scoring determines how well the model was trained — that is, how adept it is at predicting target values from values presented to it. ML Studio makes the scoring process very easy. You used 80% of the dataset that you uploaded to train the model. You will use the remaining 20% to score it
 
