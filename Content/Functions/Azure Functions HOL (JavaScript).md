@@ -144,7 +144,7 @@ Once you have created an Azure Function App, you can add Azure Functions to it. 
 
 	function getAnalysisOptions(image, subscriptionKey) {
 	    return  {
-	        uri: "https://api.projectoxford.ai/vision/v1.0/analyze?visualFeatures=Adult",
+	        uri: "https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze?visualFeatures=Adult",
 	        method: 'POST',
 	        body: image,
 	        headers: {
@@ -417,4 +417,4 @@ This is just one example of how you can leverage Azure Functions to automate rep
 
 ---
 
-Copyright 2017 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in http://www.apache.org/licenses/LICENSE-2.0.
+Copyright 2016 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0).

@@ -172,7 +172,7 @@ Once you have created an Azure Function App, you can add Azure Functions to it. 
 	    HttpContent payload = new ByteArrayContent(bytes);
 	    payload.Headers.ContentType = new MediaTypeWithQualityHeaderValue("application/octet-stream");
 	    
-	    var results = await client.PostAsync("https://api.projectoxford.ai/vision/v1.0/analyze?visualFeatures=Adult", payload);
+	    var results = await client.PostAsync("https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze?visualFeatures=Adult", payload);
 	    var result = await results.Content.ReadAsAsync<ImageAnalysisInfo>();
 	    return result;
 	}
@@ -215,15 +215,16 @@ Once you have created an Azure Function App, you can add Azure Functions to it. 
 	    }
 	}
 	
-	// Converts a stream to a byte array 
+	// Converts a stream to a byte array
 	private async static Task<byte[]> ToByteArrayAsync(Stream stream)
 	{
 	    Int32 length = stream.Length > Int32.MaxValue ? Int32.MaxValue : Convert.ToInt32(stream.Length);
 	    byte[] buffer = new Byte[length];
 	    await stream.ReadAsync(buffer, 0, length);
+	    stream.Position = 0;
 	    return buffer;
 	}
-	
+
 	public class ImageAnalysisInfo
 	{
 	    public Adult adult { get; set; }
@@ -436,4 +437,4 @@ This is just one example of how you can leverage Azure Functions to automate rep
 
 ---
 
-Copyright 2017 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in http://www.apache.org/licenses/LICENSE-2.0.
+Copyright 2016 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0).
