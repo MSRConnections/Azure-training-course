@@ -16,7 +16,7 @@ Azure Batch involves three important concepts: **storage**, **pools**, and **job
 
 _Azure Batch Shipyard workflow_
 
-In this lab, you will use Azure Batch and Batch Shipyard to process a pair of text files containing the manuscripts for the novels "A Tale of Two Cities" and "War of the Worlds" and generate .ogg sound files from the text files.
+In this lab, you will use Azure Batch and Batch Shipyard to process a set of text files containing chapters from the novel "A Tale of Two Cities" and generate .ogg sound files from the text files.
 
 **Note**: Azure Batch Shipyard is constantly being refined and improved. If you work this lab on your laptop and it fails at any point, try creating a Linux VM and running the lab in the VM. You will find instructions for creating a Linux VM in Azure at https://docs.microsoft.com/en-us/azure/virtual-machines/virtual-machines-linux-quick-create-portal.
 
@@ -219,19 +219,13 @@ Three of the four JSON files are already configured in the provided recipe. The 
 
 1. In **credentials.json**, replace *my_batch_account_name* with the name of the batch account that you created in Exercise 1, Step 3. 
 
-1. Return to the Azure Portal. Click **Resource groups** in the ribbon on the left, and then click the resource group created for the Batch account.
-
-	![Opening the resource group](Images/open-resource-group.png)
-
-	_Opening the resource group_
-
-1. In the resource group, click the Batch account.
+1. Return to the Azure Portal and to the "BatchResourceGroup" resource group created for the batch account in [Exercise 1](#Exercise`). In the resource group, click the Batch account.
 
 	![Opening the batch account](Images/open-batch-account.png)
 
 	_Opening the batch account_
 
-1. Click **Keys**, and then click the **Copy** button next to the **PRIMARY ACCESS KEY** field.
+1. Click **Keys**, and then click the **Copy** button next to the **Primary Access Key** field.
 
 	![Copying the Batch account key](Images/select-batch-account-key.png)
 
@@ -239,13 +233,13 @@ Three of the four JSON files are already configured in the provided recipe. The 
 
 1. Return to **credentials.json** and replace *my_batch_account_key* with the key that is on the clipboard.
 
-1. In the blade for the Batch account, click **Properties**, and then click the **Copy** button next to the **URL** field.
+1. In the blade for the Batch account, click the **Copy** button next to the **URL** field.
 
 	![Copying the Batch account URL](Images/select-batch-account-url.png)
 
 	_Copying the Batch account URL_
 
-1. In **credentials.json**, replace *my_batch_account_url* with the URL that is on the clipboard. The "batch" section of **credentials.json** should now look something like this:
+1. In **credentials.json**, replace *my_batch_account_url* with the URL that is on the clipboard, leaving "https://" in place at the beginning of the URL. The "batch" section of **credentials.json** should now look something like this:
 
 	```JSON
 	"batch": {
@@ -377,13 +371,13 @@ While the pool is being created, now is a good time to upload the input files th
 
 	_Uploading to the directory_
 
-1. In the "Upload files" blade, click the **folder** icon. Select the files named **tale-of-2-cities.txt** and **war-of-the-worlds.txt** in the "resources" folder of this lab, and then click the **Upload** button.
+1. In the "Upload files" blade, click the **folder** icon. Select all of the .txt files in the "resources" folder of this lab, and then click the **Upload** button.
 
 	![Uploading text files](Images/upload-files-2.png)
 
 	_Uploading text files_
 
-1. Wait for the uploads to complete. Then confirm that both files were uploaded to the "textfiles" directory.
+1. Wait for the uploads to complete. Then confirm that five files were uploaded to the "textfiles" directory.
 
 	![The uploaded text files](Images/uploaded-files.png)
 
@@ -454,9 +448,9 @@ The results are now available in the storage account. The output files can be do
 
 1. Click **myfileshare**.
 
-	![Opening the fileshare](Images/select-file-share.png)
+	![Opening the file share](Images/select-file-share.png)
 
-	_Opening the fileshare_
+	_Opening the file share_
 
 1. Notice that two new files named **tale-of-2-cities.ogg** and **war-of-the-worlds.ogg** have been created. Click one of them to open a blade for it.
 
