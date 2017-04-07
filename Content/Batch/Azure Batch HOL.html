@@ -475,11 +475,12 @@ vertical-align:1px;
 <h2>Overview</h2>
 <p><a href="https://azure.microsoft.com/en-us/services/batch/"><strong>Azure Batch</strong></a> is a service that enables you to run batch processes on high-performance computing (HPC) clusters composed of Azure virtual machines (VMs). Batch processes are ideal for handling computationally intensive tasks that can run unattended such as photorealistic rendering and computational fluid dynamics. Azure Batch uses <a href="https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-overview">VM scale sets</a> to scale up and down and to prevent you from paying for VMs that aren't being used. It also supports autoscaling, which, if enabled, allows Batch to scale up as needed to handle massively complex workloads.</p>
 <p>Azure Batch involves three important concepts: <strong>storage</strong>, <strong>pools</strong>, and <strong>jobs</strong>. Storage is implemented through Azure Storage, and is where data input and output are stored. Pools are composed of compute nodes. Each pool has one or more VMs, and each VM has one or more CPUs. Jobs contain the scripts that process the information in storage and write the results back out to storage. Jobs themselves are composed of one or more tasks. Tasks can be run one at a time or in parallel.</p>
-<p><strong><a href="https://github.com/Azure/batch-shipyard">Batch Shipyard</a></strong> is an open-source toolkit that allows Dockerized workloads to be deployed to Azure Batch compute pools. The workflow for using Batch Shipyard with Azure Batch is pictured below. After creating a Batch account and configuring Batch Shipyard to use it, you upload input files to storage and use Batch Shipyard to create Batch pools. Then you use Batch Shipyard to create and run jobs against those pools. The jobs themselves use tasks to read data from storage, process it, and write the results back to storage.</p>
+<p><strong><a href="https://github.com/Azure/batch-shipyard">Batch Shipyard</a></strong> is an open-source toolkit that allows Dockerized workloads to be deployed to Azure Batch compute pools. Dockerized workloads use Docker containers rather than VMs. (Containers are hosted in VMs but typically require fewer VMs because one VM can host multiple container instances.) Containers start faster and use fewer resources than VMs and are generally more cost-efficient. For more information, see <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/containers">https://docs.microsoft.com/en-us/azure/virtual-machines/windows/containers</a>.</p>
+<p>The workflow for using Batch Shipyard with Azure Batch is pictured below. After creating a Batch account and configuring Batch Shipyard to use it, you upload input files to storage and use Batch Shipyard to create Batch pools. Then you use Batch Shipyard to create and run jobs against those pools. The jobs themselves use tasks to read data from storage, process it, and write the results back to storage.</p>
 <p><a href="Images/batch-shipyard.png" target="_blank"><img src="Images/batch-shipyard.png" alt="Batch Shipyard" style="max-width:100%;"></a></p>
 <p><em>Azure Batch Shipyard workflow</em></p>
-<p>In this lab, you will use Azure Batch and Batch Shipyard to process a pair of text files containing the manuscripts for the novels "A Tale of Two Cities" and "War of the Worlds" and generate .ogg sound files from the text files.</p>
-<p><strong>Note</strong>: Azure Batch Shipyard is constantly being refined and improved. If you work this lab on your laptop and it fails at any point, try creating a Linux VM and running the lab in the VM. You will find instructions for creating a Linux VM in Azure at <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/virtual-machines-linux-quick-create-portal">https://docs.microsoft.com/en-us/azure/virtual-machines/virtual-machines-linux-quick-create-portal</a>.</p>
+<p>In this lab, you will use Azure Batch and Batch Shipyard to process a set of text files containing chapters from a famous novel and generate .ogg sound files from the text files.</p>
+<p><strong>Note</strong>: This lab requires an Internet connection with a minimum upload speed of approximately 1 MB/sec or higher. If you don't have that, or if the lab fails in Exercise 6, try creating a Windows VM in Azure and working the lab in the VM. You will find instructions for creating a Windows VM in Azure at <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal">https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal</a>.</p>
 <p><a name="Objectives"></a></p>
 <h3>Objectives</h3>
 <p>In this hands-on lab, you will learn how to:</p>
@@ -606,7 +607,15 @@ vertical-align:1px;
 <p>Once the download completes, launch the installer. The package will need elevated permissions to install Python, so when prompted, enter your password.</p>
 </li>
 <li>
-<p>Wait for the installer to finish. Then close the installer, go to <a href="https://github.com/Azure/batch-shipyard/releases">https://github.com/Azure/batch-shipyard/releases</a>, and download the latest version of Batch Shipyard. macOS will automatically unzip the files in the Downloads folder.</p>
+<p>Wait for the installer to finish. Then run the <strong>Install Certificates.command</strong> file that the Python installer placed in the "/Applications/Python 3.x" directory. You can run it by double-clicking it in Finder, or by typing the following command into a terminal window (assuming the version of Python you installed is 3.6):</p>
+<pre><code>/Applications/Python\ 3.6/Install\ Certificates.command
+</code></pre>
+<blockquote>
+<p>This command is necessary because Python 3.x uses its own SSL implementation rather than the one built into macOS. For more information, see <a href="http://www.cdotson.com/2017/01/sslerror-with-python-3-6-x-on-macos-sierra/">http://www.cdotson.com/2017/01/sslerror-with-python-3-6-x-on-macos-sierra/</a>.</p>
+</blockquote>
+</li>
+<li>
+<p>Go to <a href="https://github.com/Azure/batch-shipyard/releases">https://github.com/Azure/batch-shipyard/releases</a> in your browser and download the latest version of Batch Shipyard. macOS will automatically unzip the files in the Downloads folder.</p>
 <p><a href="Images/download-batch-shipyard.png" target="_blank"><img src="Images/download-batch-shipyard.png" alt="Downloading Batch Shipyard" style="max-width:100%;"></a></p>
 <p><em>Downloading Batch Shipyard</em></p>
 </li>
@@ -662,17 +671,12 @@ vertical-align:1px;
 <p>In <strong>credentials.json</strong>, replace <em>my_batch_account_name</em> with the name of the batch account that you created in Exercise 1, Step 3.</p>
 </li>
 <li>
-<p>Return to the Azure Portal. Click <strong>Resource groups</strong> in the ribbon on the left, and then click the resource group created for the Batch account.</p>
-<p><a href="Images/open-resource-group.png" target="_blank"><img src="Images/open-resource-group.png" alt="Opening the resource group" style="max-width:100%;"></a></p>
-<p><em>Opening the resource group</em></p>
-</li>
-<li>
-<p>In the resource group, click the Batch account.</p>
+<p>Return to the Azure Portal and to the "BatchResourceGroup" resource group created for the batch account in <a href="#Exercise%60">Exercise 1</a>. In the resource group, click the Batch account.</p>
 <p><a href="Images/open-batch-account.png" target="_blank"><img src="Images/open-batch-account.png" alt="Opening the batch account" style="max-width:100%;"></a></p>
 <p><em>Opening the batch account</em></p>
 </li>
 <li>
-<p>Click <strong>Keys</strong>, and then click the <strong>Copy</strong> button next to the <strong>PRIMARY ACCESS KEY</strong> field.</p>
+<p>Click <strong>Keys</strong>, and then click the <strong>Copy</strong> button next to the <strong>Primary Access Key</strong> field.</p>
 <p><a href="Images/select-batch-account-key.png" target="_blank"><img src="Images/select-batch-account-key.png" alt="Copying the Batch account key" style="max-width:100%;"></a></p>
 <p><em>Copying the Batch account key</em></p>
 </li>
@@ -680,12 +684,12 @@ vertical-align:1px;
 <p>Return to <strong>credentials.json</strong> and replace <em>my_batch_account_key</em> with the key that is on the clipboard.</p>
 </li>
 <li>
-<p>In the blade for the Batch account, click <strong>Properties</strong>, and then click the <strong>Copy</strong> button next to the <strong>URL</strong> field.</p>
+<p>In the blade for the Batch account, click the <strong>Copy</strong> button next to the <strong>URL</strong> field.</p>
 <p><a href="Images/select-batch-account-url.png" target="_blank"><img src="Images/select-batch-account-url.png" alt="Copying the Batch account URL" style="max-width:100%;"></a></p>
 <p><em>Copying the Batch account URL</em></p>
 </li>
 <li>
-<p>In <strong>credentials.json</strong>, replace <em>my_batch_account_url</em> with the URL that is on the clipboard. The "batch" section of <strong>credentials.json</strong> should now look something like this:</p>
+<p>In <strong>credentials.json</strong>, replace <em>my_batch_account_url</em> with the URL that is on the clipboard, leaving "https://" in place at the beginning of the URL. The "batch" section of <strong>credentials.json</strong> should now look something like this:</p>
 <div class="highlight highlight-source-json"><pre><span class="pl-s"><span class="pl-pds">"</span>batch<span class="pl-pds">"</span></span>: {
     <span class="pl-s"><span class="pl-pds">"</span>account<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>batchservicelab<span class="pl-pds">"</span></span>,
     <span class="pl-s"><span class="pl-pds">"</span>account_key<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>ghS8vZrI+5TvmcdRoILz...7XBuvRIA6HFzCaMsPTsXToKdQtWeg==<span class="pl-pds">"</span></span>,
@@ -793,12 +797,12 @@ vertical-align:1px;
 <p><em>Uploading to the directory</em></p>
 </li>
 <li>
-<p>In the "Upload files" blade, click the <strong>folder</strong> icon. Select the files named <strong>tale-of-2-cities.txt</strong> and <strong>war-of-the-worlds.txt</strong> in the "resources" folder of this lab, and then click the <strong>Upload</strong> button.</p>
+<p>In the "Upload files" blade, click the <strong>folder</strong> icon. Select all of the .txt files in the "resources" folder of this lab, and then click the <strong>Upload</strong> button.</p>
 <p><a href="Images/upload-files-2.png" target="_blank"><img src="Images/upload-files-2.png" alt="Uploading text files" style="max-width:100%;"></a></p>
 <p><em>Uploading text files</em></p>
 </li>
 <li>
-<p>Wait for the uploads to complete. Then confirm that both files were uploaded to the "textfiles" directory.</p>
+<p>Wait for the uploads to complete. Then confirm that five files were uploaded to the "textfiles" directory.</p>
 <p><a href="Images/uploaded-files.png" target="_blank"><img src="Images/uploaded-files.png" alt="The uploaded text files" style="max-width:100%;"></a></p>
 <p><em>The uploaded text files</em></p>
 </li>
@@ -809,7 +813,7 @@ vertical-align:1px;
 <p>Now that Batch Shipyard is configured, the pool is created, and the input data is uploaded, it's time to run the job.</p>
 <ol>
 <li>
-<p>Execute one of the following commands based on which operating system you are using. The command creates a job if it doesn't already exist in the Batch account, and then creates a new task for that job. Jobs can be run multiple times without creating new jobs. Batch Shipyard simply creates a new task each time the <strong>jobs add</strong> command is called.</p>
+<p>Return to the terminal or Command Prompt window and execute one of the following commands based on which operating system you are using. This command creates a job if it doesn't already exist in the Batch account, and then creates a new task for that job. Jobs can be run multiple times without creating new jobs. Batch Shipyard simply creates a new task each time the <strong>jobs add</strong> command is called.</p>
 <p><strong>Windows</strong>:</p>
 <pre><code>python shipyard.py jobs add --configdir .\recipe\config
 </code></pre>
@@ -836,7 +840,7 @@ vertical-align:1px;
 <p><em>Waiting for the job to complete</em></p>
 </li>
 </ol>
-<p>Now that the job has finished running, the next step is to examine the output that it produced.</p>
+<p>Once the job has finished running, the next step is to examine the output that it produced.</p>
 <p><a id="user-content-Exercise9"></a></p>
 <h2>Exercise 9: View the results</h2>
 <p>The results are now available in the storage account. The output files can be downloaded and played back locally in any media player that supports the .ogg file type.</p>
@@ -853,11 +857,11 @@ vertical-align:1px;
 </li>
 <li>
 <p>Click <strong>myfileshare</strong>.</p>
-<p><a href="Images/select-file-share.png" target="_blank"><img src="Images/select-file-share.png" alt="Opening the fileshare" style="max-width:100%;"></a></p>
-<p><em>Opening the fileshare</em></p>
+<p><a href="Images/select-file-share.png" target="_blank"><img src="Images/select-file-share.png" alt="Opening the file share" style="max-width:100%;"></a></p>
+<p><em>Opening the file share</em></p>
 </li>
 <li>
-<p>Notice that two new files named <strong>tale-of-2-cities.ogg</strong> and <strong>war-of-the-worlds.ogg</strong> have been created. Click one of them to open a blade for it.</p>
+<p>Confirm that the file share contains five files named <strong>chapter-01.ogg</strong>, <strong>chapter-02.ogg</strong>, and so on. Click one of them to open a blade for it.</p>
 <p><a href="Images/open-output-file.png" target="_blank"><img src="Images/open-output-file.png" alt="Opening the output file" style="max-width:100%;"></a></p>
 <p><em>Opening the output file</em></p>
 </li>
@@ -867,7 +871,7 @@ vertical-align:1px;
 <p><em>Downloading the results</em></p>
 </li>
 </ol>
-<p>Each .ogg file contains hours of spoken content, which is indicative of the CPU intensiveness of the batch job that you executed.</p>
+<p>Each .ogg file contains spoken content generated from the text in the input files. Play the downloaded file in a media player. Can you guess what famous novel the content came from?</p>
 <p><a id="user-content-Exercise10"></a></p>
 <h2>Exercise 10: Delete the resource group</h2>
 <p>In this exercise, you will delete the resource group created in <a href="#Exercise1">Exercise 1</a> when you created the Batch account. Deleting the resource group deletes everything in it and prevents any further charges from being incurred for it.</p>

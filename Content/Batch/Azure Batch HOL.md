@@ -10,15 +10,17 @@
 
 Azure Batch involves three important concepts: **storage**, **pools**, and **jobs**. Storage is implemented through Azure Storage, and is where data input and output are stored. Pools are composed of compute nodes. Each pool has one or more VMs, and each VM has one or more CPUs. Jobs contain the scripts that process the information in storage and write the results back out to storage. Jobs themselves are composed of one or more tasks. Tasks can be run one at a time or in parallel.
 
-**[Batch Shipyard](https://github.com/Azure/batch-shipyard)** is an open-source toolkit that allows Dockerized workloads to be deployed to Azure Batch compute pools. The workflow for using Batch Shipyard with Azure Batch is pictured below. After creating a Batch account and configuring Batch Shipyard to use it, you upload input files to storage and use Batch Shipyard to create Batch pools. Then you use Batch Shipyard to create and run jobs against those pools. The jobs themselves use tasks to read data from storage, process it, and write the results back to storage.
+**[Batch Shipyard](https://github.com/Azure/batch-shipyard)** is an open-source toolkit that allows Dockerized workloads to be deployed to Azure Batch compute pools. Dockerized workloads use Docker containers rather than VMs. (Containers are hosted in VMs but typically require fewer VMs because one VM can host multiple container instances.) Containers start faster and use fewer resources than VMs and are generally more cost-efficient. For more information, see https://docs.microsoft.com/en-us/azure/virtual-machines/windows/containers.
+
+The workflow for using Batch Shipyard with Azure Batch is pictured below. After creating a Batch account and configuring Batch Shipyard to use it, you upload input files to storage and use Batch Shipyard to create Batch pools. Then you use Batch Shipyard to create and run jobs against those pools. The jobs themselves use tasks to read data from storage, process it, and write the results back to storage.
 
 ![Batch Shipyard](Images/batch-shipyard.png)
 
 _Azure Batch Shipyard workflow_
 
-In this lab, you will use Azure Batch and Batch Shipyard to process a set of text files containing chapters from the novel "A Tale of Two Cities" and generate .ogg sound files from the text files.
+In this lab, you will use Azure Batch and Batch Shipyard to process a set of text files containing chapters from a famous novel and generate .ogg sound files from the text files.
 
-**Note**: Azure Batch Shipyard is constantly being refined and improved. If you work this lab on your laptop and it fails at any point, try creating a Linux VM and running the lab in the VM. You will find instructions for creating a Linux VM in Azure at https://docs.microsoft.com/en-us/azure/virtual-machines/virtual-machines-linux-quick-create-portal.
+**Note**: This lab requires an Internet connection with a minimum upload speed of approximately 1 MB/sec or higher. If you don't have that, or if the lab fails in Exercise 6, try creating a Windows VM in Azure and working the lab in the VM. You will find instructions for creating a Windows VM in Azure at https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal.
 
 <a name="Objectives"></a>
 ### Objectives ###
@@ -157,7 +159,15 @@ macOS comes with Python preinstalled, but using the preinstalled version of Pyth
 
 1. Once the download completes, launch the installer. The package will need elevated permissions to install Python, so when prompted, enter your password.
 
-1. Wait for the installer to finish. Then close the installer, go to https://github.com/Azure/batch-shipyard/releases, and download the latest version of Batch Shipyard. macOS will automatically unzip the files in the Downloads folder.
+1. Wait for the installer to finish. Then run the **Install Certificates.command** file that the Python installer placed in the "/Applications/Python 3.x" directory. You can run it by double-clicking it in Finder, or by typing the following command into a terminal window (assuming the version of Python you installed is 3.6):
+
+	```
+	/Applications/Python\ 3.6/Install\ Certificates.command
+	```
+
+	> This command is necessary because Python 3.x uses its own SSL implementation rather than the one built into macOS. For more information, see http://www.cdotson.com/2017/01/sslerror-with-python-3-6-x-on-macos-sierra/.
+
+1. Go to https://github.com/Azure/batch-shipyard/releases in your browser and download the latest version of Batch Shipyard. macOS will automatically unzip the files in the Downloads folder.
 
 	![Downloading Batch Shipyard](Images/download-batch-shipyard.png)
 
@@ -390,7 +400,7 @@ The container is configured to handle multiple text files with a .txt extension.
 
 Now that Batch Shipyard is configured, the pool is created, and the input data is uploaded, it's time to run the job.
 
-1. Execute one of the following commands based on which operating system you are using. The command creates a job if it doesn't already exist in the Batch account, and then creates a new task for that job. Jobs can be run multiple times without creating new jobs. Batch Shipyard simply creates a new task each time the **jobs add** command is called.
+1. Return to the terminal or Command Prompt window and execute one of the following commands based on which operating system you are using. This command creates a job if it doesn't already exist in the Batch account, and then creates a new task for that job. Jobs can be run multiple times without creating new jobs. Batch Shipyard simply creates a new task each time the **jobs add** command is called.
 
 	**Windows**:
 
@@ -427,7 +437,7 @@ Now that Batch Shipyard is configured, the pool is created, and the input data i
 
 	_Waiting for the job to complete_
 
-Now that the job has finished running, the next step is to examine the output that it produced.
+Once the job has finished running, the next step is to examine the output that it produced.
 
 <a id="Exercise9"/></a>
 ## Exercise 9: View the results ##
@@ -452,7 +462,7 @@ The results are now available in the storage account. The output files can be do
 
 	_Opening the file share_
 
-1. Notice that two new files named **tale-of-2-cities.ogg** and **war-of-the-worlds.ogg** have been created. Click one of them to open a blade for it.
+1. Confirm that the file share contains five files named **chapter-01.ogg**, **chapter-02.ogg**, and so on. Click one of them to open a blade for it.
 
 	![Opening the output file](Images/open-output-file.png)
 
@@ -464,7 +474,7 @@ The results are now available in the storage account. The output files can be do
 
 	_Downloading the results_
 
-Each .ogg file contains hours of spoken content, which is indicative of the CPU intensiveness of the batch job that you executed.
+Each .ogg file contains spoken content generated from the text in the input files. Play the downloaded file in a media player. Can you guess what famous novel the content came from?
 
 <a id="Exercise10"/></a>
 ## Exercise 10: Delete the resource group ##
