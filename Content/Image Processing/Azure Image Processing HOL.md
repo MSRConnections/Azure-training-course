@@ -112,11 +112,10 @@ In this exercise, you will create a container named "images" in the storage acco
 
     _Creating a container_
 
-<<<<<<< HEAD
+
 1. Type "images" (without quotation marks) into the box that appears under **Blob Containers**. Then press Enter to create a new container named "images".
-=======
+
 1. Type "images" (without quotation marks) into the box that appears under **Blob Containers**. Then press Enter to create a new container named "images_bcc".
->>>>>>> vanimconf
 
     ![Creating an "images" container](Images/create-images-container.png)
 
@@ -131,17 +130,11 @@ In this exercise, you will create a container named "images" in the storage acco
 1. Click the **...** button to the right of the field labeled "Files." In the ensuing dialog, navigate to this files that you previously downloaded and select all the files in each subdirectory.  Then close the dialog and click  the **Upload** button.
 
 1. The cell images in this example were kindly provided by Maryana Alegro (UCSF) for the ImageXD 2017 conference. The data has three different kinds of labeled cells, that we will use to build a classifier to label new cells.
-<<<<<<< HEAD
-
-    ![Cell images with three different class labels](Images/cell-image-classes.png)
-
-    _3 class cell images_
-=======
-    ![Cell images with three different class labels](Images/cell-image-classes.png)
-
-    _Creating an "images" container_
     
->>>>>>> vanimconf
+    ![Cell images with three different class labels](Images/cell-image-classes.png)
+
+    _Three types of image files_
+    
 1. The default blob type — block blob — supports up to approximately 4.75 TB of data per blob. Append blobs are similar to block blobs but are optimized for append operations. Page blobs can hold up to 1 TB of data and are used to hold virtual hard disks (VHDs) for virtual machines.
 
 
