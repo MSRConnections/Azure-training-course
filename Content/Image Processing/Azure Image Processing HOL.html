@@ -1,5 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Azure Image Processing HOL</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
 <h1>Image classification with Azure Machine Learning</h1>
-<hr>
+<hr />
 <p><a name="Overview"></a></p>
 <h2>Overview</h2>
 <p>Microsoft Azure Storage is a set of services that allows you to store large volumes of data in a cost-effective manner and in a way that makes the data readily and reliably available for consumption. Data committed to Azure Storage can be stored in blobs, tables, queues, or files. <a href="http://azure.microsoft.com/en-us/services/storage/blobs/">Azure blobs</a> are ideal for storing images, videos, and other types of data, and are frequently used to provide input to and capture output from other Azure services such as <a href="https://azure.microsoft.com/en-us/services/machine-learning/">Azure Machine Learning</a> and <a href="http://azure.microsoft.com/en-us/services/stream-analytics/">Azure Stream Analytics</a>. <a href="http://azure.microsoft.com/en-us/services/storage/tables/">Azure tables</a> provide NoSQL storage for semi-structured data. <a href="http://azure.microsoft.com/en-us/services/storage/queues/">Azure queues</a> support queued message transfers between applications (or parts of applications) and can be used to make applications more scalable and robust by loosely coupling them together. Finally, <a href="http://azure.microsoft.com/en-us/services/storage/files">Azure Files</a> use the Server Message Block (SMB) protocol to share files through the cloud and access storage as network drives.</p>
@@ -24,7 +317,7 @@ you will then create a machine learning experiment in Azure Machine learning stu
 <li>An active Microsoft Azure subscription. If you don't have one, <a href="http://aka.ms/WATK-FreeTrial">sign up for a free trial</a>.</li>
 <li><a href="http://storageexplorer.com/">Microsoft Azure Storage Explorer</a></li>
 </ul>
-<hr>
+<hr />
 <p><a name="Exercises"></a></p>
 <h2>Exercises</h2>
 <p>This hands-on lab includes the following exercises:</p>
@@ -47,7 +340,7 @@ you will then create a machine learning experiment in Azure Machine learning stu
 </li>
 <li>
 <p>The first step in using Azure Storage is to create one or more storage accounts. To create a storage account, click <strong>+ New</strong> in the ribbon on the left. Then click <strong>Storage</strong>, followed by <strong>Storage account</strong>.</p>
-<p><img src="Images/new-storage-account.png" alt="Adding a storage account"></p>
+<p><img src="Images/new-storage-account.png" alt="Adding a storage account" /></p>
 <p><em>Adding a storage account</em></p>
 </li>
 <li>
@@ -56,17 +349,17 @@ you will then create a machine learning experiment in Azure Machine learning stu
 <p>Storage account names can be 3 to 24 characters in length and can only contain numbers and lowercase letters. In addition, the name you enter must be unique within Azure; if someone else has chosen the same name, you'll be notified that the name isn't available with a red exclamation mark in the <strong>Name</strong> field.</p>
 </blockquote>
 <p>Once you have a unique name that Azure will accept (as indicated by the green check mark in the <strong>Name</strong> field), select <strong>Create new</strong> under <strong>Resource group</strong> and type &quot;StorageLabResourceGroup&quot; (without quotation marks) into the box below to name the resource group that will be created for the storage account. Select the location nearest you in the <strong>Location</strong> box. Then click the <strong>Create</strong> button at the bottom of the blade.</p>
-<p><img src="Images/create-storage-account.png" alt="Creating a storage account"></p>
+<p><img src="Images/create-storage-account.png" alt="Creating a storage account" /></p>
 <p><em>Creating a storage account</em></p>
 </li>
 <li>
 <p>Click <strong>Resource groups</strong> in the ribbon on the left side of the portal to list all of your resource groups. In the &quot;Resource groups&quot; blade, click the <strong>StorageLabResourceGroup</strong> resource group. Once the blade showing the contents of the resource group appears, click the storage account that you created in the previous step.</p>
-<p><img src="Images/open-storage-account.png" alt="Opening a storage account"></p>
+<p><img src="Images/open-storage-account.png" alt="Opening a storage account" /></p>
 <p><em>Opening a storage account</em></p>
 </li>
 <li>
 <p>In the blade for the storage account, click <strong>Blobs</strong> to view a list of blob containers.</p>
-<p><img src="Images/view-containers.png" alt="Viewing blob containers"></p>
+<p><img src="Images/view-containers.png" alt="Viewing blob containers" /></p>
 <p><em>Viewing blob containers</em></p>
 </li>
 </ol>
@@ -74,7 +367,7 @@ you will then create a machine learning experiment in Azure Machine learning stu
 <p><a name="#Exercise2"></a></p>
 <h2>Exercise 2: Use Storage Explorer to create a container and upload blobs</h2>
 <p>A container is similar to a folder in a file system. A storage account can have an unlimited number of containers, and a container can store an unlimited number of blobs. Container names must be from 3 to 63 characters in length and may contain numbers, dashes, and lowercase letters. Dashes cannot be consecutive, and a container name cannot start with a dash. The following diagram illustrates the blob storage schema:</p>
-<p><img src="Images/blob-storage-schema.jpg" alt="Blob storage schema"></p>
+<p><img src="Images/blob-storage-schema.jpg" alt="Blob storage schema" /></p>
 <p><em>Blob storage schema</em></p>
 <p>In this exercise, you will create a container named &quot;images&quot; in the storage account you created  in <a href="#Exercise1">Exercise 1</a>. Then you will upload several blobs to it.</p>
 <ol>
@@ -83,80 +376,81 @@ you will then create a machine learning experiment in Azure Machine learning stu
 </li>
 <li>
 <p>Start Storage Explorer. If you are asked to log in, do so using your Microsoft account — the same one that you used to log in to the Azure Portal. If you are <em>not</em> asked to log in and don't see the storage account you created in the previous exercise in Storage Explorer's left pane, click the <strong>Azure Accounts settings</strong> button highlighted below, click <strong>Add an account</strong>, and log in with your Microsoft account.</p>
-<p><img src="Images/add-account.png" alt="Adding an account to Storage Explorer"></p>
+<p><img src="Images/add-account.png" alt="Adding an account to Storage Explorer" /></p>
 <p><em>Adding an account to Storage Explorer</em></p>
 </li>
 <li>
 <p>In Storage Explorer, click the small arrow next to the storage account you created in Exercise 1 to reveal the items underneath it. Then right-click <strong>Blob Containers</strong> (on a Mac, Control-click instead) and select <strong>Create Blob Container</strong> from the context menu.</p>
-<p><img src="Images/create-blob-container.png" alt="Creating a container"></p>
+<p><img src="Images/create-blob-container.png" alt="Creating a container" /></p>
 <p><em>Creating a container</em></p>
 </li>
 <li>
-<p>If you are working with the cell data, type  &quot;celldata&quot; (without quotation marks) into the box that appears under <strong>Blob Containers</strong>. Then press Enter to create a new container named &quot;celldata&quot;. Upload the image files from the Resources\celldata folder of htis lab (or your local copy of cell data).</p>
-</li>
-</ol>
-<p>If you are working with the bcc / hpcnone dataset follow the instructions below -</p>
-<ol>
-<li>
-<p>Type &quot;images_bcc&quot; (without quotation marks) into the box that appears under <strong>Blob Containers</strong>. Then press Enter to create a new container named &quot;images_bcc&quot;.
-<img src="Images/create-images-container.png" alt="Creating an &quot;images_bcc&quot; container"></p>
-<p><em>Creating an &quot;images_bcc&quot; container</em></p>
+<p>Type &quot;images&quot; (without quotation marks) into the box that appears under <strong>Blob Containers</strong>. Then press Enter to create a new container named &quot;images_bcc&quot;.</p>
+<p><img src="Images/create-images-container.png" alt="Creating an &quot;images&quot; container" /></p>
+<p><em>Creating an &quot;images&quot; container</em></p>
 </li>
 <li>
-<p>Type &quot;images_hpcnone&quot; (without quotation marks) into the box that appears under <strong>Blob Containers</strong>. Then press Enter to create a new container named &quot;images_hpcnone.&quot;
-![Creating an &quot;images_hpcnone&quot; container]</p>
-<p><em>Creating an &quot;images_hpcnone&quot; container</em></p>
-</li>
-<li>
-<p>The next step is to create blobs by uploading files to the 2 containers created above. The files you will upload are described and provided at the location <a href="https://github.com/dani-lbnl/ImageXD_2017">https://github.com/dani-lbnl/ImageXD_2017</a>. Once you download the files, you will notice that there are two separate folders, each containing one class of labeled images. Click the <strong>Upload</strong> button in the Storage Explorer. Then select <strong>Upload Files...</strong> from the menu.</p>
-<p><img src="Images/upload-files.png" alt="Uploading files to the &quot;images&quot; container"></p>
+<p>The next step is to create blobs by uploading files to the container created above. The files you will upload are present in the resources\celldata folder of the lab. Click the <strong>Upload</strong> button in the Storage Explorer. Then select <strong>Upload Files...</strong> from the menu.</p>
+<p><img src="Images/upload-files.png" alt="Uploading files to the &quot;images&quot; container" /></p>
 <p><em>Uploading files to the &quot;images&quot; container</em></p>
 </li>
 <li>
 <p>Click the <strong>...</strong> button to the right of the field labeled &quot;Files.&quot; In the ensuing dialog, navigate to this files that you previously downloaded and select all the files in each subdirectory.  Then close the dialog and click  the <strong>Upload</strong> button.</p>
-<pre><code> The default blob type — block blob — supports up to approximately 4.75 TB of data per blob. Append blobs are similar to block blobs but are optimized for append operations. Page blobs can hold up to 1 TB of data and are used to hold virtual hard disks (VHDs) for virtual machines.
-</code></pre>
+</li>
+<li>
+<p>The cell images in this example were kindly provided by Maryana Alegro (UCSF) for the ImageXD 2017 conference. The data has three different kinds of labeled cells, that we will use to build a classifier to label new cells.
+<img src="Images/cell-image-classes.png" alt="Cell images with three different class labels" /></p>
+<p><em>Creating an &quot;images&quot; container</em></p>
+</li>
+<li>
+<p>The default blob type — block blob — supports up to approximately 4.75 TB of data per blob. Append blobs are similar to block blobs but are optimized for append operations. Page blobs can hold up to 1 TB of data and are used to hold virtual hard disks (VHDs) for virtual machines.</p>
 </li>
 </ol>
 <p><a name="Exercise3"></a></p>
 <h2>Exercise 6: Create an experiment and load a dataset</h2>
-<p>The first step in building a machine-learning model with Azure Machine Learning is to use ML Studio to create an experiment and load data into it. Azure Machine Learning Studio comes with several sample datasets. However, in this exercise, you will load the data that you uploaded to your storage account above.</p>
+<p>The first step in building a machine-learning model with Azure Machine Learning is to use ML Studio to create an experiment and load data into it. Azure Machine Learning Studio comes with several sample datasets. However, in this exercise, you will load the data that you uploaded to your storage account above. </p>
 <ol>
 <li>
 <p>In your Web browser, navigate to http://studio.azureml.net and click the <strong>Sign In</strong> button. If you are asked to log in, do so using your Microsoft account.</p>
-<p><img src="Images/sign-in.png" alt="Signing in to ML Studio"></p>
+<p><img src="Images/sign-in.png" alt="Signing in to ML Studio" /></p>
 <p><em>Signing in to ML Studio</em></p>
 </li>
 <li>
 <p>Start a new experiment by clicking <strong>+ NEW</strong> in the lower-left corner of the page, followed by <strong>Blank Experiment</strong>.</p>
-<p><img src="Images/new-experiment.png" alt="Creating a blank Experiment"></p>
+<p><img src="Images/new-experiment.png" alt="Creating a blank Experiment" /></p>
 <p><em>Creating a blank experiment</em></p>
 </li>
 <li>
 <p>Click the default experiment name at the top of the canvas and change it to &quot;Image Classifier&quot; (without quotation marks).</p>
 </li>
 <li>
-<p>To the left of the experiment canvas is the modules palette. Type &quot;import &quot; in the search box at the top of the modules palette to find the <strong>Import Images</strong> module.</p>
+<p>To the left of the experiment canvas is the modules palette. Type &quot;import&quot; in the search box at the top of the modules palette to find the <strong>Import Images</strong> module.</p>
 </li>
 <li>
-<p>Drag the <em>Import Images</em>* module from the modules palette and drop it onto the experiment canvas.</p>
+<p>Drag the <strong>Import Images</strong> module from the modules palette and drop it onto the experiment canvas.</p>
 </li>
 <li>
 <p>Next, point the Import Images to the cell data in blob storage. In a separate window, visit the Azure Portal (portal.azure.com) where you had set up the storage account and copy the Account Key for the storage account.</p>
-<p><img src="Images/access-key.png" alt="Setting the account key"></p>
+<p><img src="Images/access-key.png" alt="Setting the account key" /></p>
 <p><em>Copy access key from Azure Portal</em></p>
 </li>
 <li>
 <p>Next set the Properties of the Import Images module to point to the storage account using the account key and container name for the cell images.</p>
-<p><img src="Images/set-account-key.png" alt="Setting the account key"></p>
+<p><img src="Images/set-account-key.png" alt="Setting the account key" /></p>
 <p><em>Connect to blob storage in AzureML</em></p>
+</li>
+<li>
+<p>Click the <strong>SAVE</strong> button at the bottom of the canvas to save the experiment.</p>
+</li>
+<li>
+<p>Click the <strong>RUN</strong> button to run the experiment </p>
 </li>
 <li>
 <p>To see what this dataset looks like, click the output port (the circle in it) at the bottom of the module and select <strong>Visualize</strong>.</p>
 </li>
 <li>
-<p>The features in this dataset have been extracted by the OpenCV based Import Images module, with each row representing an cell image and each column representing a feature.</p>
-<p><img src="Images/data-viewing-data.png" alt="Viewing the raw data"></p>
+<p>The features in this dataset have been extracted by the OpenCV based Import Images module, with each row representing an cell image and each column representing a feature. </p>
+<p><img src="Images/data-viewing-data.png" alt="Viewing the raw data" /></p>
 <p><em>Viewing the raw data</em></p>
 </li>
 <li>
@@ -164,32 +458,30 @@ you will then create a machine learning experiment in Azure Machine learning stu
 </li>
 </ol>
 <p>In this exercise, you learned how to create a new ML experiment and import a sample dataset. Note that you can upload custom datasets by clicking the <strong>+ NEW</strong> button in the ribbon at the bottom of the window, and then clicking <strong>DATASET</strong> followed by <strong>FROM LOCAL FILE</strong>. Next up: preparing the sample data for use.
-Please do so now and upload the Resources\all.csv file that is a 2 column file with the file name and label for the images uploaded in the previous step</p>
+Please do so now and upload the Resources\all.csv file that is a 2 column file with the file name and label for the images uploaded in the previous step.
+Also to save time going forward, you can also save the dataset of extracted features by selecting <strong>Save as Dataset</strong> on the output port of the Import Images module (one of the commands above the <strong>Visualize</strong> option). This will save the dataset under the <strong>Saved Datasets</strong> -&gt; <strong>My Datasets</strong> of the modules palette on the left. </p>
 <p><a name="Exercise4"></a></p>
-<h2>Exercise 7: Preprocess the data</h2>
-<p>No dataset is perfect. Most require some amount of preparation before they can be used to train a model. In this particular instance we are missing the class labels which are present in a different file.
-To add this file, click on the green &quot;+&quot; sign at the bottom left of Azure ML Studio and upload the all.csv file from the \Resources folder of this lab. Once uploaded the csv file will appear under Saved Datasets -&gt; My Datasets</p>
+<h2>Exercise 4: Preprocess the data</h2>
+<p>No dataset is perfect. Most require some amount of preparation before they can be used to train a model. In this particular instance we are missing the class labels which are present in a different file. 
+To add this file, click on the green &quot;+&quot; sign at the bottom left of Azure ML Studio and upload the all.csv file from the \Resources folder of this lab. Once uploaded the csv file will appear under Saved Datasets -&gt; My Datasets </p>
 <ol>
 <li>
-<p>At the top of the modules palette, type &quot;join&quot; (without quotation marks) into the search box to find the <strong>Join Data</strong> module. Drag the module over to the experiment canvas and connect it to the output port of the Import Images and all.csv datasets by dragging an arrow downward from the output port.
-Join the data on filename (Import Images) and Image Name (all.csv). This will ensure that you combined the class labels in the same file as the extracted features.
-<img src="Images/join-data.png" alt="Joining the data"></p>
+<p>At the top of the modules palette, type &quot;join&quot; (without quotation marks) into the search box to find the <strong>Join Data</strong> module. Drag the module over to the experiment canvas and connect it to the output port of the Import Images and all.csv datasets by dragging an arrow downward from the output port. 
+Join the data on filename (Import Images) and Image Name (all.csv). This will ensure that you combined the class labels in the same file as the extracted features. 
+<img src="Images/join-data.png" alt="Joining the data" /></p>
 <p><em>Joining two datasets</em></p>
-<pre><code> &gt; A key concept to understand in Azure ML Studio is that of ports and connectors. In this step, you connected the output port of the data module to the input port of the **Join Data** module. The data flows from one module to the next through the connector. Some modules have multiple input and output ports. If you want to know what a port does, hover over it with the mouse and a tooltip will pop up. To call up the documentation for an entire module, right-click (on a Mac, Command-click) the module and select **Help** from the ensuing menu.
-</code></pre>
 </li>
 </ol>
-<p><a name="Exercise4"></a></p>
-<h2>Exercise 4: Select a learning algorithm and train the model</h2>
+<p>A key concept to understand in Azure ML Studio is that of ports and connectors. In this step, you connected the output port of the data module to the input port of the <strong>Join Data</strong> module. The data flows from one module to the next through the connector. Some modules have multiple input and output ports. If you want to know what a port does, hover over it with the mouse and a tooltip will pop up. To call up the documentation for an entire module, right-click (on a Mac, Command-click) the module and select <strong>Help</strong> from the ensuing menu.</p>
+<p><a name="Exercise5"></a></p>
+<h2>Exercise 5: Select a learning algorithm and train the model</h2>
 <p>Now that the data is ready and the features are selected, constructing a robust predictive model requires training and testing the model. You will use part of the dataset to train the model, and another part of it to measure how adept the model is at predicting automobile prices.</p>
-<p>Before you can train the model, you must select a learning algorithm to use. <em>Classification</em> and <em>regression</em> are two types of supervised machine-learning algorithms. Classification is used to make a prediction from a defined set of values, such as the make of a car (for example, Honda or BMW). Regression is used to make a prediction from a continuous set of values, such as a person's age or the price of an automobile. Azure Machine Learning offers several types of classification and regression algorithms for you to choose from, as well as algorithms of other types.</p>
-<blockquote>
+<p>Before you can train the model, you must select a learning algorithm to use. <em>Classification</em> and <em>regression</em> are two types of supervised machine-learning algorithms. Classification is used to make a prediction from a defined set of values. Regression is used to make a prediction from a continuous set of values, such as a person's age or the price of an automobile. Azure Machine Learning offers several types of classification and regression algorithms for you to choose from, as well as algorithms of other types.</p>
 <p>The Azure Machine Learning team has put together a &quot;cheat sheet&quot; to help you decide which machine-learning algorithm to choose based on the purpose of your model. You can view it at http://aka.ms/MLCheatSheet.</p>
-</blockquote>
-<p>The goal of this lab is to predict the price of an automobile from a set of input features, so you will use a regression model. In this exercise, you will train a Support Vector Machine model, and in the next exercise, you will test the results.</p>
+<p>The goal of this lab is predict the class of a cell image from a set of input features that are automatically extracted from the images thanks to OpenCV integration with Azure Machine Learning. The input data set is a labeled set of cell images, and we will use the supervised learning technique of Support Vector Machine commonly used for image data. </p>
 <ol>
 <li>
-<p>You can use a single dataset for training and testing by splitting its output. Find the <strong>Split Data</strong> module in the modules palette and drag it over to the canvas. Then connect the output of the last <strong>Select Columns in DataSet</strong> module to the <strong>Split Data</strong> module. Set <strong>Fraction of rows in the first output dataset</strong> to 0.8. This will use 80% of the data to train the model, and hold back 20% for testing. Leave <strong>Random seed</strong> set to 0. This parameter controls the seeding of the pseudo-random number generator and allows you to produce different random samples by entering different values.</p>
+<p>You can use a single dataset for training and testing by splitting its output. Find the <strong>Split Data</strong> module in the modules palette and drag it over to the canvas. Then connect the output of the last Join module to the <strong>Split Data</strong> module. Set <strong>Fraction of rows in the first output dataset</strong> to 0.8. This will use 80% of the data to train the model, and hold back 20% for testing. Leave <strong>Random seed</strong> set to 0. This parameter controls the seeding of the pseudo-random number generator and allows you to produce different random samples by entering different values. The left output port has the training dataset and the right output port has the testing dataset. You will use these ports separately as you proceed thorugh building the experiment. </p>
 </li>
 <li>
 <p>Click the <strong>SAVE</strong> button to save the experiment.</p>
@@ -198,14 +490,14 @@ Join the data on filename (Import Images) and Image Name (all.csv). This will en
 <p>Click the <strong>RUN</strong> button to run the experiment.</p>
 </li>
 <li>
-<p>To specify a learning algorithm, type &quot;SVM&quot; into the search box in the modules palette. Then drag a <strong>Two-Class Support Vector Machine</strong> module onto the canvas. Since the data has 3 classes, you can use the <strong>One-vs-All-Multiclass</strong> technique before we connect the Train module step.</p>
+<p>To specify a learning algorithm, type &quot;Support Vector Machine&quot; into the search box in the modules palette. Then drag a <strong>Two-Class Support Vector Machine</strong> module onto the canvas. Since the data has 3 classes, you can use the <strong>One-vs-All-Multiclass</strong> technique before we connect the Train module step. </p>
 </li>
 <li>
-<p>Add a <strong>Train Model</strong> module to the canvas. Connect the output of the <strong>One-vs-All-Multiclass</strong> module to the left input of <strong>Train Model</strong>, and the output from <strong>Split Data</strong> to the right input of <strong>Train Model</strong>. Then select the <strong>Train Model</strong> module and click <strong>Launch column selector</strong> in the Properties pane. Next, you need to select the predicted value that you want to train the module for.</p>
+<p>Add a <strong>Train Model</strong> module to the canvas. The <strong>Train Model</strong> takes two inputs 1) the left input port takes as input the algorithm that is used for training the model and 2) the right input port takes as input the dataset that the algorithm uses. Connect the output of the <strong>One-vs-All-Multiclass</strong> module to the left input of <strong>Train Model</strong>, and the output from <strong>Split Data</strong> to the right input of <strong>Train Model</strong>. Then select the <strong>Train Model</strong> module and click <strong>Launch column selector</strong> in the Properties pane. Next, you need to select the predicted value that you want to train the module for. </p>
 </li>
 <li>
 <p>Select <strong>WITH RULES</strong> on the left and make sure <strong>Include</strong> and <strong>column names</strong> are selected in the drop-down lists. Then add the &quot;class&quot; column to the box on the right. This is the value that your model is going to predict. Finish up by clicking the check mark in the lower-right corner.</p>
-<p><img src="Images/choose-train-model-price.png" alt="Adding a Train Model module"></p>
+<p><img src="Images/choose-train-model-price.png" alt="Adding a Train Model module" /></p>
 <p><em>Adding a Train Model module</em></p>
 </li>
 <li>
@@ -216,8 +508,8 @@ Join the data on filename (Import Images) and Image Name (all.csv). This will en
 </li>
 </ol>
 <p>You now have a trained regression model. The next step is to score the model to see how adept it is at predicting automobile prices.</p>
-<p><a name="Exercise5"></a></p>
-<h2>Exercise 10: Score the model</h2>
+<p><a name="Exercise6"></a></p>
+<h2>Exercise 6: Score the model</h2>
 <p>In this exercise, you will score the model you trained in the previous exercise. Scoring determines how well the model was trained — that is, how adept it is at predicting target values from values presented to it. ML Studio makes the scoring process very easy. You used 80% of the dataset that you uploaded to train the model. You will use the remaining 20% to score it</p>
 <ol>
 <li>
@@ -230,14 +522,14 @@ Join the data on filename (Import Images) and Image Name (all.csv). This will en
 <p>Click the <strong>RUN</strong> button to run the experiment.</p>
 </li>
 <li>
-<p>After the run finishes, click the output port of the <strong>Score Model</strong> module and select <strong>Visualize</strong>.</p>
+<p>After the run finishes, click the output port of the <strong>Score Model</strong> module and select <strong>Visualize</strong>. </p>
 </li>
 <li>
 <p>Close the visualization window by clicking the &quot;<strong>x</strong>&quot; in the upper-right corner.</p>
 </li>
 <li>
-<p>To evaluate the quality of the results, add an <strong>Evaluate Model</strong> module to the experiment canvas. Connect the output port of the <strong>Score Model</strong> module to the left input port of the output of the <strong>Evaluate Model</strong> module. (There are two input ports because <strong>Evaluate Model</strong> can be used to compare two models.). you have completed building the entire workflow for the image classifier and your canvas should look like the below -</p>
-<p><img src="Images/predict-scored-data.png" alt="The scored data"></p>
+<p>To evaluate the quality of the results, add an <strong>Evaluate Model</strong> module to the experiment canvas. Connect the output port of the <strong>Score Model</strong> module to the left input port of the output of the <strong>Evaluate Model</strong> module. (There are two input ports because <strong>Evaluate Model</strong> can be used to compare two models.). you have completed building the entire workflow for the image classifier and your canvas should look like the below - </p>
+<p><img src="Images/predict-scored-data.png" alt="The scored data" /></p>
 <p><em>The complete workflow</em></p>
 </li>
 <li>
@@ -248,7 +540,7 @@ Join the data on filename (Import Images) and Image Name (all.csv). This will en
 </li>
 <li>
 <p>Click the output port of the <strong>Evaluate Model</strong> module and select <strong>Visualize</strong> from the menu.</p>
-<p><img src="Images/evaluate-confusion-matrix.png" alt="The evaluation results"></p>
+<p><img src="Images/evaluate-confusion-matrix.png" alt="The evaluation results" /></p>
 <p><em>The evaluation results</em></p>
 </li>
 <li>
@@ -258,21 +550,21 @@ Join the data on filename (Import Images) and Image Name (all.csv). This will en
 <p>Once the model is adequately refined, you might want to be able write programs that utilize the model. You can deploy it as a Web service and interact with it programmatically. Before deploying as a Web service, you need to streamline your experiment. This involves creating a new experiment from your trained model, removing unnecessary modules, and adding Web-service input and output modules. Fortunately, ML Studio can do all of this for you</p>
 <ol>
 <li>
-<p>At the bottom of the screen, the <strong>SET UP WEB SERVICE</strong> button helps ou do just this. you can do this as an optional exercise as time permits.</p>
+<p>At the bottom of the screen, the <strong>SET UP WEB SERVICE</strong> button helps ou do just this. you can do this as an optional exercise as time permits. </p>
 </li>
 <li>
-<p>Alternately if you built a classifier using the bcc / hcpnone data, the workflow looks like the below (as this is a 2 class dataset). Each of the Import Images module takes as input the images under bcc and hcpnone labels from</p>
-<p><img src="Images/twoclass-image-classifier.png" alt="Image classifier for 2 class dataset"></p>
+<p>Alternately if you built a classifier using the bcc / hcpnone data, the workflow looks like the below (as this is a 2 class dataset). Each of the Import Images module takes as input the images under bcc and hcpnone labels from </p>
+<p><img src="Images/twoclass-image-classifier.png" alt="Image classifier for 2 class dataset" /></p>
 <p><em>2 class image classifier</em></p>
 </li>
 <li>
 <p>The Execute R script module merely assigns class labels to the two different sets of images and combines them. Here is the code that you need to add for this module</p>
-<p><img src="Images/rscript.png" alt="R script to combine the two datasets"></p>
+<p><img src="Images/rscript.png" alt="R script to combine the two datasets" /></p>
 <p><em>2 class image classifier results</em></p>
 </li>
 <li>
 <p>This is a better dataset and has a much higher accuracy in the trained model</p>
-<p><img src="Images/twoclass-results.png" alt="Results for 2 class dataset"></p>
+<p><img src="Images/twoclass-results.png" alt="Results for 2 class dataset" /></p>
 <p><em>2 class image classifier results</em></p>
 </li>
 </ol>
@@ -288,5 +580,9 @@ Join the data on filename (Import Images) and Image Name (all.csv). This will en
 <li>Define the features of a model and select a learning algorithm</li>
 <li>Train and score the model</li>
 </ul>
-<hr>
+<hr />
 <p>Copyright 2017 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>.</p>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
