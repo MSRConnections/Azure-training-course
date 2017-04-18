@@ -112,7 +112,11 @@ In this exercise, you will create a container named "images" in the storage acco
 
     _Creating a container_
 
+<<<<<<< HEAD
 1. Type "images" (without quotation marks) into the box that appears under **Blob Containers**. Then press Enter to create a new container named "images".
+=======
+1. Type "images" (without quotation marks) into the box that appears under **Blob Containers**. Then press Enter to create a new container named "images_bcc".
+>>>>>>> vanimconf
 
     ![Creating an "images" container](Images/create-images-container.png)
 
@@ -127,10 +131,17 @@ In this exercise, you will create a container named "images" in the storage acco
 1. Click the **...** button to the right of the field labeled "Files." In the ensuing dialog, navigate to this files that you previously downloaded and select all the files in each subdirectory.  Then close the dialog and click  the **Upload** button.
 
 1. The cell images in this example were kindly provided by Maryana Alegro (UCSF) for the ImageXD 2017 conference. The data has three different kinds of labeled cells, that we will use to build a classifier to label new cells.
+<<<<<<< HEAD
 
     ![Cell images with three different class labels](Images/cell-image-classes.png)
 
     _3 class cell images_
+=======
+    ![Cell images with three different class labels](Images/cell-image-classes.png)
+
+    _Creating an "images" container_
+    
+>>>>>>> vanimconf
 1. The default blob type — block blob — supports up to approximately 4.75 TB of data per blob. Append blobs are similar to block blobs but are optimized for append operations. Page blobs can hold up to 1 TB of data and are used to hold virtual hard disks (VHDs) for virtual machines.
 
 
@@ -155,9 +166,9 @@ The first step in building a machine-learning model with Azure Machine Learning 
 1. Click the default experiment name at the top of the canvas and change it to "Image Classifier" (without quotation marks).
 
     
-1. To the left of the experiment canvas is the modules palette. Type "import " in the search box at the top of the modules palette to find the **Import Images** module.
+1. To the left of the experiment canvas is the modules palette. Type "import" in the search box at the top of the modules palette to find the **Import Images** module.
 
-1. Drag the *Import Images** module from the modules palette and drop it onto the experiment canvas.
+1. Drag the **Import Images** module from the modules palette and drop it onto the experiment canvas.
 
 1. Next, point the Import Images to the cell data in blob storage. In a separate window, visit the Azure Portal (portal.azure.com) where you had set up the storage account and copy the Account Key for the storage account.
 
@@ -171,6 +182,10 @@ The first step in building a machine-learning model with Azure Machine Learning 
 
     _Connect to blob storage in AzureML_
 
+1. Click the **SAVE** button at the bottom of the canvas to save the experiment.
+
+1. Click the **RUN** button to run the experiment 
+
 1. To see what this dataset looks like, click the output port (the circle in it) at the bottom of the module and select **Visualize**.
     
 1. The features in this dataset have been extracted by the OpenCV based Import Images module, with each row representing an cell image and each column representing a feature. 
@@ -182,7 +197,8 @@ The first step in building a machine-learning model with Azure Machine Learning 
 1. Close the visualization window by clicking the "**x**" in the upper-right corner.
 
 In this exercise, you learned how to create a new ML experiment and import a sample dataset. Note that you can upload custom datasets by clicking the **+ NEW** button in the ribbon at the bottom of the window, and then clicking **DATASET** followed by **FROM LOCAL FILE**. Next up: preparing the sample data for use.
-Please do so now and upload the Resources\all.csv file that is a 2 column file with the file name and label for the images uploaded in the previous step
+Please do so now and upload the Resources\all.csv file that is a 2 column file with the file name and label for the images uploaded in the previous step.
+Also to save time going forward, you can also save the dataset of extracted features by selecting **Save as Dataset** on the output port of the Import Images module (one of the commands above the **Visualize** option). This will save the dataset under the **Saved Datasets** -> **My Datasets** of the modules palette on the left. 
 
 <a name="Exercise4"></a>
 ## Exercise 4: Preprocess the data ##
@@ -205,21 +221,21 @@ A key concept to understand in Azure ML Studio is that of ports and connectors. 
 
 Now that the data is ready and the features are selected, constructing a robust predictive model requires training and testing the model. You will use part of the dataset to train the model, and another part of it to measure how adept the model is at predicting automobile prices.
 
-Before you can train the model, you must select a learning algorithm to use. _Classification_ and _regression_ are two types of supervised machine-learning algorithms. Classification is used to make a prediction from a defined set of values, such as the make of a car (for example, Honda or BMW). Regression is used to make a prediction from a continuous set of values, such as a person's age or the price of an automobile. Azure Machine Learning offers several types of classification and regression algorithms for you to choose from, as well as algorithms of other types.
+Before you can train the model, you must select a learning algorithm to use. _Classification_ and _regression_ are two types of supervised machine-learning algorithms. Classification is used to make a prediction from a defined set of values. Regression is used to make a prediction from a continuous set of values, such as a person's age or the price of an automobile. Azure Machine Learning offers several types of classification and regression algorithms for you to choose from, as well as algorithms of other types.
 
 The Azure Machine Learning team has put together a "cheat sheet" to help you decide which machine-learning algorithm to choose based on the purpose of your model. You can view it at http://aka.ms/MLCheatSheet.
 
-The goal of this lab is to predict the price of an automobile from a set of input features, so you will use a regression model. In this exercise, you will train a Support Vector Machine model, and in the next exercise, you will test the results.
+The goal of this lab is predict the class of a cell image from a set of input features that are automatically extracted from the images thanks to OpenCV integration with Azure Machine Learning. The input data set is a labeled set of cell images, and we will use the supervised learning technique of Support Vector Machine commonly used for image data. 
 
-1. You can use a single dataset for training and testing by splitting its output. Find the **Split Data** module in the modules palette and drag it over to the canvas. Then connect the output of the last **Select Columns in DataSet** module to the **Split Data** module. Set **Fraction of rows in the first output dataset** to 0.8. This will use 80% of the data to train the model, and hold back 20% for testing. Leave **Random seed** set to 0. This parameter controls the seeding of the pseudo-random number generator and allows you to produce different random samples by entering different values.
+1. You can use a single dataset for training and testing by splitting its output. Find the **Split Data** module in the modules palette and drag it over to the canvas. Then connect the output of the last Join module to the **Split Data** module. Set **Fraction of rows in the first output dataset** to 0.8. This will use 80% of the data to train the model, and hold back 20% for testing. Leave **Random seed** set to 0. This parameter controls the seeding of the pseudo-random number generator and allows you to produce different random samples by entering different values. The left output port has the training dataset and the right output port has the testing dataset. You will use these ports separately as you proceed thorugh building the experiment. 
 
 1. Click the **SAVE** button to save the experiment.
 
 1. Click the **RUN** button to run the experiment.
 
-1. To specify a learning algorithm, type "SVM" into the search box in the modules palette. Then drag a **Two-Class Support Vector Machine** module onto the canvas. Since the data has 3 classes, you can use the **One-vs-All-Multiclass** technique before we connect the Train module step. 
+1. To specify a learning algorithm, type "Support Vector Machine" into the search box in the modules palette. Then drag a **Two-Class Support Vector Machine** module onto the canvas. Since the data has 3 classes, you can use the **One-vs-All-Multiclass** technique before we connect the Train module step. 
 
-1.	Add a **Train Model** module to the canvas. Connect the output of the **One-vs-All-Multiclass** module to the left input of **Train Model**, and the output from **Split Data** to the right input of **Train Model**. Then select the **Train Model** module and click **Launch column selector** in the Properties pane. Next, you need to select the predicted value that you want to train the module for. 
+1.	Add a **Train Model** module to the canvas. The **Train Model** takes two inputs 1) the left input port takes as input the algorithm that is used for training the model and 2) the right input port takes as input the dataset that the algorithm uses. Connect the output of the **One-vs-All-Multiclass** module to the left input of **Train Model**, and the output from **Split Data** to the right input of **Train Model**. Then select the **Train Model** module and click **Launch column selector** in the Properties pane. Next, you need to select the predicted value that you want to train the module for. 
 
 1. Select **WITH RULES** on the left and make sure **Include** and **column names** are selected in the drop-down lists. Then add the "class" column to the box on the right. This is the value that your model is going to predict. Finish up by clicking the check mark in the lower-right corner.
 
