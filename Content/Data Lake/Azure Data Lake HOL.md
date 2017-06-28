@@ -99,7 +99,7 @@ Azure Data Lake formally separates the concepts of storing data and querying dat
 
     _Creating a Data Lake Analytics account_
 
-1. Return to the resource group that holds the Data Lake Store and the Data Lake Analytics account and wait for "Deploying" to change to "Succeeded." Once more, it helps to refresh the page every now and then to make sure the information displayed there is up to date.
+1. Return to the resource group that holds the Data Lake Store and the Data Lake Analytics account and wait for "Deploying" to change to "Succeeded." Once more, You can click the **Refresh** button at the top of the blade to refresh the deployment status.
 
     ![Deployment succeeded](Images/successful-deployment-2.png)
 
