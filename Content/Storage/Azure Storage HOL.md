@@ -70,9 +70,7 @@ The [Azure Portal](https://portal.azure.com) allows you to perform basic storage
 
 1. Click **Resource groups** in the ribbon on the left side of the portal to list all of your resource groups. In the "Resource groups" blade, click the **StorageLabResourceGroup** resource group.
 
-1. Wait until "Deploying" changes to "Succeeded," indicating that the storage account has been deployed. Then click the storage account.
-
-	> Refresh the page in the browser periodically to update the deployment status. Clicking the **Refresh** button in the resource-group blade refreshes the list of resources in the resource group, but does not reliably update the deployment status.
+1. Wait until "Deploying" changes to "Succeeded," indicating that the storage account has been deployed. (You can click the **Refresh** button at the top of the blade to refresh the deployment status.) Then click the storage account.
 
 	![Opening the storage account](Images/open-storage-account.png)
 
