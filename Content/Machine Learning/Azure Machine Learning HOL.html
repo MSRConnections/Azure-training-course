@@ -473,7 +473,7 @@ vertical-align:1px;
 <hr>
 <p><a name="Overview"></a></p>
 <h2>Overview</h2>
-<p>Machine learning, which facilitates predictive analytics from large volumes of data by employing algorithms that iteratively learn from that data, is one of the fastest growing areas of computer science. Its uses range from credit-card fraud detection and self-driving cars to optical character recognition (OCR) and online shopping recommendations. It makes us smarter by making computers smarter. And its usefulness will only increase as more and more data becomes available and our desire to perform predictive analysis from that data grows, too.</p>
+<p>Machine learning, which facilitates predictive analytics from large volumes of data by employing algorithms that iteratively learn from that data, is one of the fastest growing areas of computer science. Its uses range from credit-card fraud detection and self-driving cars to optical character recognition (OCR) and online shopping recommendations. It makes us smarter by making computers smarter. And its usefulness will only increase as more and more data becomes available and our desire to perform predictive analytics from that data grows, too.</p>
 <p>Azure Machine Learning is a cloud-based predictive-analytics service that offers a streamlined experience for data scientists of all skill levels. It's accompanied by the Azure Machine Learning Studio (ML Studio), which is a browser-based tool that provides an easy to use, drag-and-drop interface for building machine-learning models. It comes with a library of time-saving experiments and features best-in-class algorithms developed and tested in the real world by Microsoft businesses such as Bing. And its built-in support for <a href="https://www.r-project.org/">R</a> and <a href="https://www.python.org/">Python</a> means you can include scripts of your own to customize your model. Once you've built and trained your model in the ML Studio, you can easily expose it as a Web service that is consumable using a variety of programming languages, or share it with the community by placing it in the <a href="https://gallery.cortanaintelligence.com/">Cortana Intelligence Gallery</a>.</p>
 <p>In this lab, you will use Azure Machine Learning to model automobile features and prices and generate price predictions from feature inputs. Then you will deploy the model as a Web service and test it by placing calls to it.</p>
 <p><a name="Objectives"></a></p>
@@ -490,7 +490,7 @@ vertical-align:1px;
 <h3>Prerequisites</h3>
 <p>The following is required to complete this hands-on lab:</p>
 <ul>
-<li>An active Microsoft Azure subscription. Use the Azure Pass you activated earlier, or <a href="http://aka.ms/WATK-FreeTrial">sign up for a free trial</a>.</li>
+<li>An active Microsoft Azure subscription. If you don't have one, <a href="http://aka.ms/WATK-FreeTrial">sign up for a free trial</a>.</li>
 </ul>
 <hr>
 <p><a name="Exercises"></a></p>
@@ -511,9 +511,14 @@ vertical-align:1px;
 <p>The first step in building a machine-learning model with Azure Machine Learning is to use ML Studio to create an experiment and load data into it. Azure Machine Learning Studio comes with several sample datasets. In this exercise, you will load the sample dataset named "Automobile price data (Raw)," which includes entries for more than 200 automobiles, including make, model, technical specifications, and price.</p>
 <ol>
 <li>
-<p>In your Web browser, navigate to <a href="http://studio.azureml.net">http://studio.azureml.net</a> and click the <strong>Sign In</strong> button. If you are asked to log in, do so using your Microsoft account.</p>
-<p><a href="Images/sign-in.png" target="_blank"><img src="Images/sign-in.png" alt="Signing in to ML Studio" style="max-width:100%;"></a></p>
+<p>In your Web browser, navigate to <a href="http://studio.azureml.net">http://studio.azureml.net</a> and click the <strong>Sign Up</strong> button.</p>
+<p><a href="Images/sign-up.png" target="_blank"><img src="Images/sign-up.png" alt="Signing in to ML Studio" style="max-width:100%;"></a></p>
 <p><em>Signing in to ML Studio</em></p>
+</li>
+<li>
+<p>Click <strong>Sign In</strong> under Free Workspace. Then sign in using your Microsoft account.</p>
+<p><a href="Images/choose-workspace.png" target="_blank"><img src="Images/choose-workspace.png" alt="Choosing a workspace" style="max-width:100%;"></a></p>
+<p><em>Choosing a workspace</em></p>
 </li>
 <li>
 <p>Start a new experiment by clicking <strong>+ NEW</strong> in the lower-left corner of the page, followed by <strong>Blank Experiment</strong>.</p>
@@ -873,7 +878,7 @@ vertical-align:1px;
 </ul>
 <p>There's much more than you can do with Azure Machine Learning, but this is a start. Feel free to experiment with it on your own and explore the exciting world of predictive analytics with a tool that is both productive and interactive.</p>
 <hr>
-<p>Copyright 2016 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>.</p>
+<p>Copyright 2017 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>.</p>
 </body>
 </html>
 <!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

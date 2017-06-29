@@ -28,7 +28,7 @@ In this hands-on lab, you will learn how to:
 
 The following is required to complete this hands-on lab:
 
-- An active Microsoft Azure subscription. Use the Azure Pass you activated earlier, or [sign up for a free trial](http://aka.ms/WATK-FreeTrial).
+- An active Microsoft Azure subscription. If you don't have one, [sign up for a free trial](http://aka.ms/WATK-FreeTrial).
 
 ---
 <a name="Exercises"></a>
@@ -51,11 +51,17 @@ Estimated time to complete this lab: **60** minutes.
 
 The first step in building a machine-learning model with Azure Machine Learning is to use ML Studio to create an experiment and load data into it. Azure Machine Learning Studio comes with several sample datasets. In this exercise, you will load the sample dataset named "Automobile price data (Raw)," which includes entries for more than 200 automobiles, including make, model, technical specifications, and price.
 
-1. In your Web browser, navigate to http://studio.azureml.net and click the **Sign In** button. If you are asked to log in, do so using your Microsoft account.
+1. In your Web browser, navigate to http://studio.azureml.net and click the **Sign Up** button.
 
-    ![Signing in to ML Studio](Images/sign-in.png)
+    ![Signing in to ML Studio](Images/sign-up.png)
 
     _Signing in to ML Studio_
+
+1. Click **Sign In** under Free Workspace. Then sign in using your Microsoft account.
+
+    ![Choosing a workspace](Images/choose-workspace.png)
+
+    _Choosing a workspace_
 
 1. Start a new experiment by clicking **+ NEW** in the lower-left corner of the page, followed by **Blank Experiment**.
 
@@ -428,4 +434,4 @@ There's much more than you can do with Azure Machine Learning, but this is a sta
 
 ----
 
-Copyright 2016 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in http://www.apache.org/licenses/LICENSE-2.0.
+Copyright 2017 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in http://www.apache.org/licenses/LICENSE-2.0.
