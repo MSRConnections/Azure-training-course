@@ -61,46 +61,8 @@ In this exercise, you will activate an Azure Pass that provides you with $500 wo
     ![Azure Pass code and login credentials](Images/pass-and-credentials.png)
 
     _Azure Pass code and login credentials_
- 
-1. Select a country, and type the Azure Pass code you received in the previous step into the box underneath the drop-down list. Then click the **Submit** button.
 
-    ![Entering the Azure Pass code](Images/activate-azure-pass-1.png)
-
-    _Entering the Azure Pass code_
-
-1. Click the **Sign in** button.
-
-    ![Signing in](Images/ex1-click-sign-in.png)
-
-    _Signing in_
-
-1. What happens next will vary depending on how many and what types of Microsoft accounts you have. The goal is to sign in using the credentials you received in Step 6, **not** with an existing Microsoft account. When you are asked to sign in, enter the user name and password from Step 6 and click the **Sign in** button.
-
-1. When prompted to update your password, type the old password and the new password (twice) and click **Update password and sign in**. *Remember the new password because you will need it to log in to the Azure Portal*.
-
-    ![Updating your password](Images/update-password.png)
-
-    _Updating your password_
-
-1. Confirm that your first name, last name, and user name are correct, and then click the **Submit** button.
-
-    ![Verifying your Microsoft account information](Images/verify-info.png)
-
-    _Verifying your Microsoft account information_
-
-1. Click the **Activate** button to activate your Azure Pass.
-
-    ![Activating your Azure Pass](Images/activate.png)
-
-    _Activating your Azure Pass_
-
-1. You will be asked to provide additional information, including a contact phone number. Enter the required information and click the **Sign up** button to finish activating your Azure Pass.
-
-1. After a few minutes, you'll be told "Your subscription is ready for you!" *Do not* click the **Start managing my service** button. Instead, close the browser window.
-
-    ![Your subscription is ready!](Images/subscription-is-ready.png)
-
-    _Your subscription is ready!_
+1. Open https://www.microsoftazurepass.com/Home/HowTo in a **separate browser tab or window** and follow the instructions there to activate your Azure Pass. Note that when you sign in using the new credentials given to you in the previous step, you will be prompted to change your password. **Remember this password**, because there is not a convenient way to recover it.
 
 Now let's confirm that your Azure Pass was activated.
 
@@ -109,7 +71,7 @@ Now let's confirm that your Azure Pass was activated.
 
 In this exercise, you will learn how to open the Azure Portal and view the subscriptions associated with your account.
 
-1. Open a new browser window and navigate to the Azure Portal at https://portal.azure.com. Log in with the user name you received in Exercise 1, Step 6, and the new password you entered in Step 10.
+1. Open a new browser window and navigate to the Azure Portal at https://portal.azure.com. Log in with the user name you received in Exercise 1, Step 6, and the new password you entered afterward.
 
 	> If you are automatically logged in to the portal using another Microsoft account, sign out of the portal and **sign in with your new credentials**.
 
@@ -141,4 +103,4 @@ The portal will be your home for everything Azure and your gateway for using the
 
 ---
 
-Copyright 2016 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in http://www.apache.org/licenses/LICENSE-2.0.
+Copyright 2017 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in http://www.apache.org/licenses/LICENSE-2.0.
