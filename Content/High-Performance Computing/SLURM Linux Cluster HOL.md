@@ -1,5 +1,5 @@
 <a name="HOLTitle"></a>
-# Creating and Using an HPC SLURM Cluster in Azure #
+# Creating and Using an HPC Cluster in Azure #
 
 ---
 
@@ -29,7 +29,7 @@ In this hands-on lab, you will learn how to:
 
 The following are required to complete this hands-on lab:
 
-- An active Microsoft Azure subscription. Use the Azure Pass you activated earlier, or [sign up for a free trial](http://aka.ms/WATK-FreeTrial).
+- An active Microsoft Azure subscription. If you don't have one, [sign up for a free trial](http://aka.ms/WATK-FreeTrial).
 - [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) (Windows users only)
 
 ---
@@ -72,6 +72,18 @@ Let's get started!
 
 	_Deploying from GitHub_
 
+1. Click **Edit template**.
+
+    ![Editing the template](Images/edit-template.png)
+
+	_Editing the template_
+
+1. On Line 50, change the Ubuntu version number to **16.04-LTS**. Then click the **Save** button to save the change.
+
+    ![Modifying the Ubuntu version number](Images/edit-ubuntu-version.png)
+
+	_Modifying the Ubuntu version number_
+
 1. Select **Create new** under **Resource group** and enter the resource-group name "ClusterResourceGroup" (without quotation marks). Under **Location**, select the location nearest you. Specify "azureuser" as the **Admin User Name** and "Azure4Research!" as the **Admin Password**. Leave **Vm Size** set to **Standard_D1_v2** and set **Scale Number** to **2** to create a cluster containing two worker nodes. Then check the **I agree to the terms and conditions stated above** box and click the **Purchase** button at the bottom of the blade.
 
 	> It is very important to specify "azureuser" as the admin user name, because the scripts that you will use to configure the cluster use that user name.
@@ -82,7 +94,7 @@ Let's get started!
 
 1.  Deploying the cluster can take 5 minutes or more. You can monitor the status of the deployment by opening the resource group's blade. Click **Resource groups** in the ribbon on the left. Then click the resource group created for the cluster.
 
-    ![Opening the resource group](Images/open-cluster-resource-group.png)
+    ![Opening the resource group](Images/open-resource-group.png)
 
 	_Opening the resource group_
 
@@ -101,7 +113,7 @@ In a later exercise, you will run a Python script on the cluster to generate gra
 
 1. Return to the Azure Portal and the blade for the resource group containing the cluster. Then click the storage account created for the cluster.
 
-	> The storage-account name will vary each time you deploy a cluster. The deployment template generates a unique storage-account name each time it is run. This storage account holds the virtual hard disks (VHDs) and other resources used by the cluster.
+	> The storage-account name will vary for different users. This storage account holds the virtual hard disks (VHDs) and other resources used by the cluster.
 
     ![Opening the storage account](Images/open-storage-account.png)
 
@@ -109,23 +121,17 @@ In a later exercise, you will run a Python script on the cluster to generate gra
 
 1. Click **Blobs** to view a list of blob containers in the storage account.
 
-    ![Viewing blob containers](Images/view-blob-containers.png)
+    ![Viewing blob containers](Images/view-containers.png)
 
 	_Viewing blob containers_
 
-1. Click **+ Container** to create a new blob container.
+1. Click **+ Container**. Type "input" (without quotation marks) into the **Name** field and click the **OK** button to create a container named "input."
 
-    ![Creating a container](Images/create-blob-container.png)
-
-    _Creating a container_
-
-1. Type "input" (without quotation marks) into the **Name** field and click the **Create** button to create a container named "input."
-
-    ![Creating an "input" container](Images/create-input-container.png)
+    ![Creating an "input" container](Images/create-container.png)
 
     _Creating an "input" container_
 
-1. Repeat Steps 3 and 4 to create a container named "output."
+1. Repeat Step 3 to create a container named "output."
 
 1. Click **input** to open the "input" container.
 
@@ -139,13 +145,13 @@ In a later exercise, you will run a Python script on the cluster to generate gra
 
     _Uploading blobs to the "input" container_
 
-1. Click the **Open** button to the right of the **Files** box. Select all of the files in this lab's "resources/ColorImages" folder. Then click the **Upload** button to upload color images to the "input" folder.
+1. Click the **Open** button to the right of the **Files** box. Select all of the files in this lab's "resources/ColorImages" folder. Then click the **Upload** button to upload color images to the "input" container.
 
     ![Uploading color images](Images/upload-blobs-2.png)
 
     _Uploading color images_
 
-1. Wait until all of the uploads have completed. Then close the "Upload blob" blade and return to the blade for the "input" container. Confirm that the "input" container now contains a collection of .jpg and .png blobs, and click the blob named "Consoles_superhero_1920x768.jpg."
+1. Wait until all of the uploads have completed. Then close the "Upload blob" blade and return to the blade for the "input" container. Confirm that the container now contains a collection of .jpg and .png blobs, and click the blob named **Consoles_superhero_1920x768.jpg**.
 
     ![Opening a blob in the "input" container](Images/open-color-image.png)
 
@@ -163,7 +169,7 @@ In a later exercise, you will run a Python script on the cluster to generate gra
 
     _The downloaded blob_
 
-You now have containers to hold input and output and a collection of color images in the input container. The next step is to update the Python script used to process the images.
+You now have containers to hold input and output and a collection of color images in the input container. The next step is to update the Python script that will be used to process the images.
 
 <a name="Exercise3"></a>
 ## Exercise 3: Prepare the Python script ##
@@ -241,14 +247,14 @@ In this exercise, you will upload the Python script and a pair of setup scripts 
 
 1. Open a terminal window and navigate to the directory containing the Python script you modified in [Exercise 3](#Exercise3).
 
-1. Execute the following command in the terminal window, replacing _masterDNS_ with the DNS name on the clipboard. When prompted, enter the admin password for the cluster ("Azure4Research!").
+1. Execute the following command in the terminal window to copy the script files to the cluster, replacing *masterDNS* with the DNS name on the clipboard. When prompted, enter the admin password for the cluster ("Azure4Research!").
 
     <pre>
     scp * azureuser@<i>masterDNS</i>:.</pre>
 
 	> Because this is the first time you have connected to the master node, you will be prompted with a security warning asking if you want to update the cached key. Since the host is one you created, answer yes.
 
-1. The next step is to log into the master node. Execute the following command in the terminal window, replacing _masterDNS_ with the DNS name on the clipboard. When prompted, enter the admin password for the cluster ("Azure4Research!").
+1. The next step is to establish an SSH connection to the master node. Execute the following command in the terminal window, replacing _masterDNS_ with the DNS name on the clipboard. When prompted, enter the admin password for the cluster ("Azure4Research!").
 
     <pre>
     ssh azureuser@<i>masterDNS</i></pre>
@@ -308,7 +314,7 @@ In this exercise, you will upload the Python script and a pair of setup scripts 
 
 1. A PuTTY terminal window will appear and you will be prompted to **login as**. Log in with the user name ("azureuser") and password ("Azure4Research!") you entered into the deployment template in [Exercise 1](#Exercise1).
 
-1. To be certain that the script files contain Linux-style line endings ("/r" rather than "/r/n"), return to the PuTTY terminal window and execute the following commands to install and run the dos2unix conversion program:
+1. To be certain that the script files contain Linux-style line endings ("/r" rather than "/r/n"), execute the following commands in the PuTTY terminal window to install and run the dos2unix conversion program:
 
     ```
     sudo apt-get install dos2unix
@@ -342,7 +348,7 @@ If the job ran successfully, the grayscale images generated from the color image
 
 1. Click **Blobs** to view a list of blob containers in the storage account.
 
-    ![Viewing blob containers](Images/view-blob-containers.png)
+    ![Viewing blob containers](Images/view-containers.png)
 
 	_Viewing blob containers_
 
@@ -377,13 +383,7 @@ You now know how to deploy and configure SLURM clusters and run jobs on them. Bu
 
 When virtual machines are running, you are being charged — even if the VMs are idle. Therefore, it's advisable to stop virtual machines when they are not in use. You will still be charged for storage, but that cost is typically insignificant compared to the cost of an active VM. The Azure Portal makes it easy to stop virtual machines. VMs that you stop are easily started again later so you can pick up right where you left off.
 
-1. In the [Azure Portal](https://portal.azure.com), click **Resource groups** in the ribbon on the left. Then click the resource group created for the cluster.
-
-    ![Opening the resource group](Images/open-cluster-resource-group.png)
-
-	_Opening the resource group_
-
-1. Click **worker0** to open a blade for the virtual machine named "worker0."
+1. Return to the blade for the resource group containing the cluster. Then click **worker0** to open a blade for the virtual machine named "worker0."
 
     ![Opening a virtual machine](Images/open-worker.png)
 
@@ -431,4 +431,4 @@ It is **much** easier to deploy a SLURM cluster in Azure than to install and con
 
 ---
 
-Copyright 2016 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in http://www.apache.org/licenses/LICENSE-2.0.
+Copyright 2017 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in http://www.apache.org/licenses/LICENSE-2.0.
