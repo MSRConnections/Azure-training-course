@@ -137,7 +137,7 @@ Before you can run jobs on the Hadoop cluster, you need to open an SSH connectio
     <pre>
     ssh sshuser@<i>clustername</i>-ssh.azurehdinsight.net</pre>
 
-	Enter the SSH password ("Had00pdemo!") when prompted. **Now proceed to Exercise 3**. Step 2 is for Windows users only.
+	Enter the SSH password ("Azure4Research!") when prompted. **Now proceed to Exercise 3**. Step 2 is for Windows users only.
 
 1. **Windows users only**: Start PuTTY. In the **Host Name (or IP address)** field, type "sshuser@<i>clustername</i>-ssh.azurehdinsight.net" without quotation marks, replacing *clustername* with the cluster name you entered in Exercise 1, Step 3. Then click the **Open** button to open an SSH connection.
 
