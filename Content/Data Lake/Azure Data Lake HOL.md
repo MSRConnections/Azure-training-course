@@ -27,7 +27,7 @@ In this hands-on lab, you will learn how to:
 The following are required to complete this hands-on lab:
 
 - An active Microsoft Azure subscription. If you don't have one, [sign up for a free trial](http://aka.ms/WATK-FreeTrial).
-- [Azure Command-Line Interface (CLI)](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/)
+- [Azure Command-Line Interface (CLI)](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
 
 ---
 
@@ -337,7 +337,7 @@ Let's get started!
 1. If you haven't installed the [Azure CLI](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/), take a moment to install it now. Then open a command shell (Bash, Terminal, Command Prompt, etc.) and execute the following command:
 
 	```
-	azure login
+	az login
 	```
 
 1. Copy the access code presented to you in the command shell to the clipboard. Then open a browser window and navigate to https://aka.ms/devicelogin and enter the code. If prompted to sign in, do so using your Microsoft account. Upon successful authentication, your command-line session will be connected to your Azure subscription.
@@ -345,16 +345,13 @@ Let's get started!
 1. Assuming you are using the Azure Pass subscription provided to you for these labs, execute the following command to ensure that Azure Pass is the active subscription (the subscription that will be charged against) for operations performed with the CLI:
 
 	```
-	azure account set "Azure Pass"
+	az account set --subscription
 	```
 
-1. Now execute the following commands to create a Data Lake catalog credential used to authenticate when executing federated queries. Substitute your Data Lake Analytics account name for *analytics_account_name* and your database server name (the one specified in Step 11 of this exercise) for *database_server_name*:
+1. Now execute the following commands to create a Data Lake catalog credential used to authenticate when executing federated queries. Substitute your Data Lake Analytics account name for *analytics_account_name*, your database server name (the one specified in Step 11 of this exercise) for *database_server_name* and *dbPassword* for the SQL server password ("Azure4Research!") you specified in Step 11:
 
     <pre>
-	azure config mode arm
-	azure datalake analytics catalog credential create <i>analytics_account_name</i> UserIntegration tcp://<i>database_server_name</i>.database.windows.net FederatedCredential azureuser</pre>
-
-	When prompted for a password, enter the SQL server password ("Azure4Research!") you specified in Step 11.
+	az dla catalog credential create --account <i>analytics_account_name</i> --database-name UserIntegration --user-name azureuser --uri tcp://<i>database_server_name</i>.database.windows.net --credential-name FederatedCredential --password <i>dbPassword</i>
 
 1. Return to your Data Lake Analytics account in the Azure Portal. Then click **+ New Job** and execute the following query:
 
