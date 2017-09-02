@@ -345,7 +345,7 @@ Let's get started!
 1. Assuming you are using the Azure Pass subscription provided to you for these labs, execute the following command to ensure that Azure Pass is the active subscription (the subscription that will be charged against) for operations performed with the CLI:
 
 	```
-	az account set --subscription
+	az account set --subscription "Azure Pass"
 	```
 
 1. Now execute the following commands to create a Data Lake catalog credential used to authenticate when executing federated queries. Substitute your Data Lake Analytics account name for *analytics_account_name*, your database server name (the one specified in Step 11 of this exercise) for *database_server_name* and *dbPassword* for the SQL server password ("Azure4Research!") you specified in Step 11:
