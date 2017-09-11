@@ -122,7 +122,7 @@ This lab's "resources" directory holds two tab-delimited TSV files containing sa
 
     _Opening the "Upload files" blade_
     
-1. In the "Upload files" blade, click the **Open** button and select the files named **comments.tsv** and **posts.tsv** included in the [lab resources](Resource.zip). Then click **Add selected files**. The combined file size file is more than 90 MB, so the upload might take a few minutes.
+1. In the "Upload files" blade, click the **Open** button and select the files named **comments.tsv** and **posts.tsv** included in the [lab resources](Resources.zip). Then click **Add selected files**. The combined file size file is more than 90 MB, so the upload might take a few minutes.
 
     ![Uploading TSV files](Images/data-explorer-upload-tsv.png)
 
