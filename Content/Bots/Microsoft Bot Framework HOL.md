@@ -35,6 +35,11 @@ The following are required to complete this hands-on lab:
 - [Microsoft Bot Framework Emulator](https://emulator.botframework.com/)
 - [Skype](https://www.skype.com/en/download-skype/skype-for-computer/)
 
+<a name="Resources"></a>
+### Resources ###
+
+[Click here](https://a4r.blob.core.windows.net/public/bots-resources.zip) to download a zip file containing the resources used in this lab. Copy the contents of the zip file into a folder on your hard disk.
+
 ---
 
 <a name="Exercises"></a>

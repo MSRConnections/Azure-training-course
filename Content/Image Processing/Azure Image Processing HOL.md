@@ -24,7 +24,6 @@ In this hands-on lab, you will learn how to:
 - Prepare input image data and use it to train an SVM based model
 - Score the model and evaluate its accuracy
 
-
 <a name="Prerequisites"></a>
 ### Prerequisites ###
 
@@ -33,7 +32,13 @@ The following is required to complete this hands-on lab:
 - An active Microsoft Azure subscription. If you don't have one, [sign up for a free trial](http://aka.ms/WATK-FreeTrial).
 - [Microsoft Azure Storage Explorer](http://storageexplorer.com/)
 
+<a name="Resources"></a>
+### Resources ###
+
+[Click here](https://a4r.blob.core.windows.net/public/image-processing-resources.zip) to download a zip file containing the resources used in this lab. Copy the contents of the zip file into a folder on your hard disk.
+
 ----
+
 <a name="Exercises"></a>
 ## Exercises ##
 

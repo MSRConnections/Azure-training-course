@@ -32,6 +32,11 @@ The following are required to complete this hands-on lab:
 - An active Microsoft Azure subscription. If you don't have one, [sign up for a free trial](http://aka.ms/WATK-FreeTrial).
 - [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) (Windows users only)
 
+<a name="Resources"></a>
+### Resources ###
+
+[Click here](https://a4r.blob.core.windows.net/public/hpc-resources.zip) to download a zip file containing the resources used in this lab. Copy the contents of the zip file into a folder on your hard disk.
+
 ---
 <a name="Exercises"></a>
 ## Exercises ##
@@ -145,7 +150,7 @@ In a later exercise, you will run a Python script on the cluster to generate gra
 
     _Uploading blobs to the "input" container_
 
-1. Click the **Open** button to the right of the **Files** box. Select all of the files in this lab's "resources/ColorImages" folder. Then click the **Upload** button to upload color images to the "input" container.
+1. Click the **Open** button to the right of the **Files** box. Select all of the files in the "ColorImages" folder of the [resources that accompany this lab](https://a4r.blob.core.windows.net/public/hpc-resources.zip). Then click the **Upload** button to upload color images to the "input" container.
 
     ![Uploading color images](Images/upload-blobs-2.png)
 
@@ -194,7 +199,7 @@ With the SLURM cluster up and running and the images uploaded to blob storage, y
 
     _Copying the storage account's name_
 
-1. Navigate to this lab's "resources" directory. Then open **slurmdemo.py** in a text editor and find the following section near the top of the file:
+1. Open the folder containing the [lab resources](https://a4r.blob.core.windows.net/public/hpc-resources.zip) that you copied to your hard disk. Then open **slurmdemo.py** in a text editor and find the following section near the top of the file:
 
 	```python
     #######################################################

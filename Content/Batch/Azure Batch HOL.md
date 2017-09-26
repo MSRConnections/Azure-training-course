@@ -38,6 +38,11 @@ In this hands-on lab, you will learn how to:
 
 - An active Microsoft Azure subscription. If you don't have one, [sign up for a free trial](https://azure.microsoft.com/en-us/free/)
 
+<a name="Resources"></a>
+### Resources ###
+
+[Click here](https://a4r.blob.core.windows.net/public/batch-resources.zip) to download a zip file containing the resources used in this lab. Copy the contents of the zip file into a folder on your hard disk.
+
 <a name="Exercises"></a>
 ## Exercises ##
 

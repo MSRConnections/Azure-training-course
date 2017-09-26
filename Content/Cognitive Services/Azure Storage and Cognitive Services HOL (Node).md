@@ -34,6 +34,11 @@ The following are required to complete this hands-on lab:
 - [Git](https://git-scm.com/downloads) version 2.0 or higher. See https://git-scm.com/book/en/v2/Getting-Started-Installing-Git for instructions for installing it on Windows, macOS, and Linux.
 - [Node.js](https://nodejs.org/en/download/) version 4 or higher
 
+<a name="Resources"></a>
+### Resources ###
+
+[Click here](https://a4r.blob.core.windows.net/public/cognitive-services-resources.zip) to download a zip file containing the resources used in this lab. Copy the contents of the zip file into a folder on your hard disk.
+
 ---
 
 <a name="Exercises"></a>

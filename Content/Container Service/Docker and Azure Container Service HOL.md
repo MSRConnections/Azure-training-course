@@ -46,6 +46,11 @@ To install the Docker client for Windows, open https://get.docker.com/builds/Win
 
 You do not need to install the Docker client if you already have Docker (or Docker Toolbox) installed on your machine.
 
+<a name="Resources"></a>
+### Resources ###
+
+[Click here](https://a4r.blob.core.windows.net/public/container-resources.zip) to download a zip file containing the resources used in this lab. Copy the contents of the zip file into a folder on your hard disk.
+
 ---
 <a name="Exercises"></a>
 ## Exercises ##
