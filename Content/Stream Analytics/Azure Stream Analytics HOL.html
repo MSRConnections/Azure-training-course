@@ -585,12 +585,12 @@ vertical-align:1px;
 </blockquote>
 </li>
 <li>
-<p>Open a Command Prompt window or terminal window and in it, navigate to this lab's "resources" directory. Then execute the following commands to install the packages used by the Node.js apps in the "resources" directory:</p>
+<p>Open a Command Prompt window or terminal window and navigate to the directory containing the resources that accompany this lab. Then execute the following commands to install the packages used by the Node.js apps:</p>
 <pre><code>npm install shared-access-signature
 npm install request
 </code></pre>
 <blockquote>
-<p>It is very important that you run these commands from the lab's "resources" directory so the packages will be installed in the same directory as the apps that use them.</p>
+<p>It is very important that you run these commands from the directory containing the lab resources so the packages will be installed in the same directory as the apps that use them.</p>
 </blockquote>
 </li>
 <li>
@@ -617,7 +617,7 @@ npm install request
 <p><em>Copying the SAS token</em></p>
 </li>
 <li>
-<p>Find the file named eventgen.js in the "resources" directory of this lab and open it in your favorite text editor. Then find the section at the top of the file labeled "KEY VARS:"</p>
+<p>Find the file named <strong>eventgen.js</strong> in the resources accompanying this lab and open it in your favorite text editor. Then find the section at the top of the file labeled "KEY VARS:"</p>
 <div class="highlight highlight-source-js"><pre><span class="pl-c"><span class="pl-c">//</span>/////////////// KEY VARS /////////////////</span>
 <span class="pl-k">var</span> sas <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Token<span class="pl-pds">"</span></span>;
 <span class="pl-k">var</span> uri <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>URL<span class="pl-pds">"</span></span>;
@@ -630,20 +630,20 @@ npm install request
 <p>Replace <em>URL</em> with the event-hub URL you entered in Step 4.</p>
 </li>
 <li>
-<p>Save the modified eventgen.js file. The modified "KEY VARS" section should look something like this:</p>
+<p>Save the modified <strong>eventgen.js</strong> file. The modified "KEY VARS" section should look something like this:</p>
 <div class="highlight highlight-source-js"><pre><span class="pl-c"><span class="pl-c">//</span>/////////////// KEY VARS /////////////////</span>
 <span class="pl-k">var</span> sas <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>SharedAccessSignature sr=https%3A%2F%2Fstreamanalytics-lab.servicebus.windows.net%2Finputhub&amp;sig=Rz5dVs73XQkUU8KUcrLivDU4Q7%2Bg8zogdApBZHak480%3D&amp;se=1515170996.004&amp;skn=SendPolicy<span class="pl-pds">"</span></span>;
 <span class="pl-k">var</span> uri <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>https://streamanalytics-lab.servicebus.windows.net/inputhub<span class="pl-pds">"</span></span>;
 <span class="pl-c"><span class="pl-c">//</span>/////////////////////////////////////////</span></pre></div>
 </li>
 </ol>
-<p>Now that you've modified eventgen.js with information specific to your event hub, it's time to generate some events.</p>
+<p>Now that you've modified <strong>eventgen.js</strong> with information specific to your event hub, it's time to generate some events.</p>
 <p><a name="Exercise3"></a></p>
 <h2>Exercise 3: Send events to the event hub</h2>
-<p>In this exercise, you will send events to the event hub you created in <a href="#Exercise1">Exercise 1</a>. To do that, you'll use Node.js to run eventgen.js, which in turn transmits secure requests to the event hub using the <a href="https://msdn.microsoft.com/en-us/library/azure/Dn790674.aspx">Azure Event Hubs REST API</a>. eventgen.js generates events representing withdrawals from simulated ATM machines. Each event contains relevant information such as the card number used for the withdrawal, the time and amount of the withdrawal, and a unique identifier for the ATM machine used.</p>
+<p>In this exercise, you will send events to the event hub you created in <a href="#Exercise1">Exercise 1</a>. To do that, you'll use Node.js to run eventgen.js, which in turn transmits secure requests to the event hub using the <a href="https://msdn.microsoft.com/en-us/library/azure/Dn790674.aspx">Azure Event Hubs REST API</a>. <strong>eventgen.js</strong> generates events representing withdrawals from simulated ATM machines. Each event contains relevant information such as the card number used for the withdrawal, the time and amount of the withdrawal, and a unique identifier for the ATM machine used.</p>
 <ol>
 <li>
-<p>At the command prompt or in a terminal window, navigate to the "resources" directory of this lab if you aren't there already. Then execute the following command:</p>
+<p>At the Command Prompt or in a terminal window, navigate to the directory containing the lab resources if you aren't there already. Then execute the following command:</p>
 <pre><code>node eventgen.js
 </code></pre>
 <p>You should see output similar to the following. Each line represents one event sent to the event hub, and events will probably roll by at a rate of about 2 to 3 per second. (Rates will vary depending on your connection speed.) <strong>Confirm that each request returns the HTTP status code 201</strong>. This indicates that the event hub received and accepted the request. If you receive any other status code — for example, 401 — then the SAS token probably isn't valid and you need to repeat <a href="#Exercise2">Exercise 2</a>.</p>
@@ -660,7 +660,7 @@ npm install request
 </code></pre>
 </li>
 <li>
-<p>After 10 to 20 events have been sent, press Ctrl+C (or whatever key combination your operating system supports for terminating an application running in a terminal window) to stop the flow of events. <strong>Leave the Command Prompt or terminal window open so you can return to it later.</strong></p>
+<p>After 10 to 20 events have been sent, press <strong>Ctrl+C</strong> (or whatever key combination your operating system supports for terminating an application running in a terminal window) to stop the flow of events. <strong>Leave the Command Prompt or terminal window open so you can return to it later.</strong></p>
 </li>
 </ol>
 <p>Now that events are flowing to your event hub, the next step is to create a Stream Analytics job and connect it to the event hub.</p>
@@ -760,9 +760,9 @@ npm install request
 <p><em>Uploading sample data for testing queries</em></p>
 </li>
 <li>
-<p>Click the <strong>folder</strong> icon on the right and select the file named <strong>Withdrawals.json</strong> in this lab's "resources" directory. Then click <strong>OK</strong> to upload the file.</p>
+<p>Click the <strong>folder</strong> icon on the right and select the file named <strong>Withdrawals.json</strong> from the directory containing the lab resources. Then click <strong>OK</strong> to upload the file.</p>
 <blockquote>
-<p>The reason you're using a file provided for you (rather than the one you captured in the previous exercise) is to make sure everyone gets the same results. eventgen.js uses JavaScript's Math.random() function to randomize results, and Math.random() does not produce repeatable sequences of pseudo-random numbers.</p>
+<p>The reason you're using a file provided for you (rather than the one you captured in the previous exercise) is to make sure everyone gets the same results. eventgen.js uses JavaScript's <code>Math.random()</code> function to randomize results, and <code>Math.random()</code> does not produce repeatable sequences of pseudo-random numbers.</p>
 </blockquote>
 <p><a href="Images/upload-test-data-2.png" target="_blank"><img src="Images/upload-test-data-2.png" alt="Uploading Withdrawals.json" style="max-width:100%;"></a></p>
 <p><em>Uploading Withdrawals.json</em></p>

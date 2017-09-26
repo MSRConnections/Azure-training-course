@@ -735,13 +735,13 @@ In this exercise, you will run the app locally in order to test it and familiari
 
 1. Open your browser and navigate to [http://localhost:9898](http://localhost:9898).
 
-1. Click the **Browse** button and upload one of the images found in the "resources/photos" directory of this lab. After a few seconds, a thumbnail version of the photo appears on the page:
+1. Click the **Browse** button and upload one of the images in the "photos" directory included in the lab resources. After a few seconds, a thumbnail version of the photo appears on the page:
 
     ![Intellipix with one photo uploaded](Images/node-one-photo-uploaded.png)
 
     _Intellipix with one photo uploaded_
 
-1. Upload a few more images from this lab's "resources/photos" directory. Confirm that they appear on the page, too:
+1. Upload a few more images from the "photos" directory. Confirm that they appear on the page, too:
 
     ![Intellipix with three photos uploaded](Images/node-three-photos-uploaded.png)
 

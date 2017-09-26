@@ -126,13 +126,13 @@ In this exercise, you will create a container named "images" in the storage acco
 
     _Creating an "images" container_
 
-1. The next step is to create blobs by uploading files to the container created above. The files you will upload are present in the resources\celldata folder of the lab. Click the **Upload** button in the Storage Explorer. Then select **Upload Files...** from the menu.
+1. The next step is to create blobs by uploading files to the container created above. The files you will upload are present in the "celldata" folder of the lab resources. Click the **Upload** button in the Storage Explorer. Then select **Upload Files...** from the menu.
 
     ![Uploading files to the "images" container](Images/upload-files.png)
 
     _Uploading files to the "images" container_
 
-1. Click the **...** button to the right of the field labeled "Files." In the ensuing dialog, navigate to this files that you previously downloaded and select all the files in each subdirectory.  Then close the dialog and click  the **Upload** button.
+1. Click the **...** button to the right of the field labeled "Files." In the ensuing dialog, navigate to the directory containing the lab resources and select all the files in each subdirectory. Then close the dialog and click  the **Upload** button.
 
 1. The cell images in this example were kindly provided by Maryana Alegro (UCSF) for the ImageXD 2017 conference. The data has three different kinds of labeled cells, that we will use to build a classifier to label new cells.
     
@@ -195,16 +195,20 @@ The first step in building a machine-learning model with Azure Machine Learning 
 1. Close the visualization window by clicking the "**x**" in the upper-right corner.
 
 In this exercise, you learned how to create a new ML experiment and import a sample dataset. Note that you can upload custom datasets by clicking the **+ NEW** button in the ribbon at the bottom of the window, and then clicking **DATASET** followed by **FROM LOCAL FILE**. Next up: preparing the sample data for use.
-Please do so now and upload the Resources\all.csv file that is a 2 column file with the file name and label for the images uploaded in the previous step.
-Also to save time going forward, you can also save the dataset of extracted features by selecting **Save as Dataset** on the output port of the Import Images module (one of the commands above the **Visualize** option). This will save the dataset under the **Saved Datasets** -> **My Datasets** of the modules palette on the left. 
+
+Please do so now and upload the file named **all.csv** included in the lab resources. This is a 2-column file with the file name and label for the images uploaded in the previous step.
+
+To save time going forward, you can also save the dataset of extracted features by selecting **Save as Dataset** on the output port of the Import Images module (one of the commands above the **Visualize** option). This will save the dataset under the **Saved Datasets** -> **My Datasets** of the modules palette on the left. 
 
 <a name="Exercise4"></a>
 ## Exercise 4: Preprocess the data ##
 
 No dataset is perfect. Most require some amount of preparation before they can be used to train a model. In this particular instance we are missing the class labels which are present in a different file. 
-To add this file, click on the green "+" sign at the bottom left of Azure ML Studio and upload the all.csv file from the \Resources folder of this lab. Once uploaded the csv file will appear under Saved Datasets -> My Datasets 
 
-1. At the top of the modules palette, type "join" (without quotation marks) into the search box to find the **Join Data** module. Drag the module over to the experiment canvas and connect it to the output port of the Import Images and all.csv datasets by dragging an arrow downward from the output port. 
+To add this file, click the green **+** sign at the bottom-left of Azure ML Studio and upload **all.csv** from the lab resources. Once uploaded, the csv file will appear under Saved Datasets -> My Datasets.
+
+1. At the top of the modules palette, type "join" (without quotation marks) into the search box to find the **Join Data** module. Drag the module over to the experiment canvas and connect it to the output port of the Import Images and all.csv datasets by dragging an arrow downward from the output port.
+2. 
 Join the data on filename (Import Images) and Image Name (all.csv). This will ensure that you combined the class labels in the same file as the extracted features. 
 ![Joining the data](Images/join-data.png)
 

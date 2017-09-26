@@ -121,13 +121,13 @@ In this exercise, you will create a container named "images" in the storage acco
 
     _Creating an "images" container_
 
-1. The next step is to create blobs by uploading files to the "images" container. The files you will upload are provided for you in the "resources" subdirectory of this lab. Click the **Upload** button in the Storage Explorer. Then select **Upload Files...** from the menu.
+1. The next step is to create blobs by uploading files to the "images" container. The files you will upload are included in the resources that accompany this lab. Click the **Upload** button in the Storage Explorer. Then select **Upload Files...** from the menu.
 
     ![Uploading files to the "images" container](Images/upload-files.png)
 
     _Uploading files to the "images" container_
 
-1. Click the **...** button to the right of the field labeled "Files." In the ensuing dialog, navigate to this lab's "resources" subdirectory and select all the files in that subdirectory. (There are 10 of them, and each has the file-name extension .jpg.) Then close the dialog and click  the **Upload** button.
+1. Click the **...** button to the right of the field labeled "Files." In the ensuing dialog, navigate to directory containing the lab resources and select all the files in that directory. (There are 10 of them, and each has the file-name extension .jpg.) Then close the dialog and click  the **Upload** button.
 
     ![Uploading files to blob storage](Images/upload-files-dialog.png)
 

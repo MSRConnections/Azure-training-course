@@ -113,7 +113,7 @@ You now have Azure Data Lake storage and query capability set up in your Azure s
 <a name="Exercise3"></a>
 ## Exercise 3: Import data into Azure Data Lake Store ##
 
-This lab's "resources" directory holds two tab-delimited TSV files containing sample data. The data comes from the public domain and consists of questions and answers from the popular site http://academia.stackexchange.com. In this exercise, you will import the sample data into your Azure Data Lake Store so you can execute queries against it.
+The resources that accompany this lab include two tab-delimited TSV files containing sample data. The data comes from the public domain and consists of questions and answers from the popular site http://academia.stackexchange.com. In this exercise, you will import the sample data into your Azure Data Lake Store so you can execute queries against it.
 
 1. In the portal, open the Azure Data Lake Store that you created in [Exercise 1](#Exercise1). (An easy way to do that is to open the resource group and then click the Data Lake Store resource.) In the blade for the Data Lake Store, click **Data Explorer** near the top.
 
@@ -127,7 +127,7 @@ This lab's "resources" directory holds two tab-delimited TSV files containing sa
 
     _Opening the "Upload files" blade_
     
-1. In the "Upload files" blade, click the **Open** button and select the files named **comments.tsv** and **posts.tsv** in this lab's "resources" directory. Then click **Add selected files**. The combined file size file is more than 90 MB, so the upload might take a few minutes.
+1. In the "Upload files" blade, click the **Open** button and select the files named **comments.tsv** and **posts.tsv** from the lab resources. Then click **Add selected files**. The combined file size file is more than 90 MB, so the upload might take a few minutes.
 
     ![Uploading TSV files](Images/data-explorer-upload-tsv.png)
 
@@ -275,7 +275,7 @@ Let's get started!
 
     _Uploading to the "bacpacs" container_
 
-1. Click the **Open** button to the right of the **Files** box. Navigate to this lab's "resources" folder and select the file named **academics-stackexchange-users.bacpac**. Then click the **Upload** button to upload the file to the container.
+1. Click the **Open** button to the right of the **Files** box. Navigate to the folder containing the lab resources and select the file named **academics-stackexchange-users.bacpac**. Then click the **Upload** button to upload the file to the container.
 
     ![Uploading a file](Images/upload-blob-2.png)
 

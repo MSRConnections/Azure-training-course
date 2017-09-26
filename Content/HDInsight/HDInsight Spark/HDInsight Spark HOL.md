@@ -145,8 +145,7 @@ You will be using Jupyter notebooks to do the data-exploration and machine-learn
 
     _Uploading files to the "HdiNotebooks" folder_
 
-1. Click the button with the folder icon to the right of the **Files** box. Navigate to this lab's "resources" directory ([resources](https://github.com/MSRConnections/Azure-training-course/tree/master/Content/HDInsight/HDInsight%20Spark/resources)) and copy and select the three **.ipynb** files in that directory. Then click the **Upload** button. 
-If you haven't already, it may be better to first download all the resources for the labs by downloading the zip file from [github](https://github.com/MSRConnections/Azure-training-course). This lab is under the Content\HDInsight\HDInsight Spark folder. 
+1. Click the button with the folder icon to the right of the **Files** box. Navigate to the directory containing the resources that accompany this lab and select the three **.ipynb** files in that directory. Then click the **Upload** button. 
 
     ![Uploading Jupyter notebooks](Images/upload-notebooks-2.png)
 

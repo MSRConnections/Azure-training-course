@@ -226,7 +226,7 @@ Each of the configuration files in a recipe configures one element of Batch Ship
 
 Three of the four JSON files are already configured in the provided recipe. The only one that needs to be changed is **credentials.json**. In this exercise, you will modify **credentials.json** so you can use it in a Batch job. Rather than create a Dockerfile, you will use one that has been created for you. To learn more about Dockerfiles, refer to https://docs.docker.com/engine/getstarted/step_four/.
 
-1. Open this lab's "resources" folder, and then copy the "recipe" folder from the "resources" folder into the "batch-shipyard" folder created in the previous exercise.
+1. Open the resources that accompany this lab, and then copy the "recipe" folder into the "batch-shipyard" folder created in the previous exercise.
 
 1. Open the copied "recipe" folder. Open the "config" folder in that folder, and then open the file named **credentials.json** in your favorite text editor. There are two sections in the file: "batch" and "storage." The "batch" section contains the settings for the Batch account that Batch Shipyard will use. The "storage" section contains the settings Batch Shipyard will use to access the storage account created for the Batch account.
 
@@ -384,7 +384,7 @@ While the pool is being created, now is a good time to upload the input files th
 
 	_Uploading to the directory_
 
-1. In the "Upload files" blade, click the **folder** icon. Select all of the .txt files in the "resources" folder of this lab, and then click the **Upload** button.
+1. In the "Upload files" blade, click the **folder** icon. Select all of the .txt files in the resources that accompany this lab, and then click the **Upload** button.
 
 	![Uploading text files](Images/upload-files-2.png)
 

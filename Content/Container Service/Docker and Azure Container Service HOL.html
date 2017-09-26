@@ -694,8 +694,8 @@ ls
 <p>Now comes the fun part: creating a Docker image and running it inside a container in Azure. If you haven't already installed the Docker client, refer to the instructions at the beginning of this lab to download and install the Docker client for your operating system.</p>
 <ol>
 <li>
-<p>Open a terminal window (macOS or Linux) or a Command Prompt window (Windows) and navigate to the "resources" subdirectory of this lab. It contains the files that you will build into a container image.</p>
-<p>Take a moment to examine the contents of the "resources" subdirectory. It contains a file named <strong>Dockerfile</strong>, which contains the commands Docker will use to build a container image. It also contains a Python script named <strong>convertimages.py</strong>, a subdirectory named "input," and a subdirectory named "output." The latter subdirectory is empty. The "input" subdirectory contains several color JPG images. The Python script enumerates the files in the "input" subdirectory, converts them to grayscale, and writes the grayscale images to the "output" subdirectory.</p>
+<p>Open a terminal window (macOS or Linux) or a Command Prompt window (Windows) and navigate to the directory containing the resources that accompany this lab. It contains the files that you will build into a container image.</p>
+<p>Take a moment to examine the lab resources. They include a file named <strong>Dockerfile</strong>, which contains the commands Docker will use to build a container image. They also include a Python script named <strong>convertimages.py</strong>, a subdirectory named "input," and a subdirectory named "output." The latter subdirectory is empty. The "input" subdirectory contains several color JPG images. The Python script enumerates the files in the "input" subdirectory, converts them to grayscale, and writes the grayscale images to the "output" subdirectory.</p>
 </li>
 <li>
 <p>If you are running macOS or Linux, execute the following command in the terminal window:</p>
@@ -707,7 +707,7 @@ ls
 </blockquote>
 </li>
 <li>
-<p>Be sure you're in the "resources" subdirectory. Then execute the following command to create a container image named "ubuntu-convert" containing the Python script as well as the "input" and "output" subdirectories and their contents. Be sure to include the period at the end of the command:</p>
+<p>Be sure you're in the directory containing the lab resources. Then execute the following command to create a container image named "ubuntu-convert" containing the Python script as well as the "input" and "output" subdirectories and their contents. Be sure to include the period at the end of the command:</p>
  <pre>docker build --no-cache --tag ubuntu-convert .</pre>
 </li>
 <li>
@@ -726,7 +726,7 @@ ls
 <p>If the Python script ran successfully, the "output" subdirectory in the container should contain grayscale versions of the JPG files in the "input" subdirectory. Use the following command to copy the files from the "output" subdirectory in the container to the "output" subdirectory on the local machine:</p>
  <pre>docker cp acslab:/output .</pre>
 <blockquote>
-<p>Because you are still in the lab's "resources" subdirectory, this command will copy the grayscale images to the "resources" subdirectory's "output" subdirectory.</p>
+<p>Because you are still in the directory containing the lab resources, this command will copy the grayscale images to that directory's "output" subdirectory.</p>
 </blockquote>
 </li>
 <li>
@@ -738,7 +738,7 @@ ls
  <pre>docker rm acslab</pre>
 </li>
 <li>
-<p>List the contents of the "output" subdirectory under the "resources" subdirectory that you are currently in. Confirm that it contains eight JPG files copied from the container.</p>
+<p>List the contents of the "output" subdirectory in the directory that you are currently in. Confirm that it contains eight JPG files copied from the container.</p>
 </li>
 <li>
 <p>Open one of the JPG files and confirm that it contains a grayscale image like the one pictured below.</p>

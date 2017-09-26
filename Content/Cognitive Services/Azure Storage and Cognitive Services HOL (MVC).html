@@ -818,12 +818,12 @@ vertical-align:1px;
 <p>The language used here is <a href="http://www.asp.net/web-pages/overview/getting-started/introducing-razor-syntax-c">Razor</a>, which lets you embed executable code in HTML markup. The <code>@foreach</code> statement in the middle of the file enumerates the <code>BlobInfo</code> objects passed from the controller in <code>ViewBag</code> and creates HTML <code>&lt;img&gt;</code> elements from them. The <code>src</code> property of each element is initialized with the URI of the blob containing the image thumbnail.</p>
 </li>
 <li>
-<p>Use Visual Studio's <strong>Debug -&gt; Start Without Debugging</strong> command (or press <strong>Ctrl+F5</strong>) to launch the application in your browser. Then click the <strong>Upload a Photo</strong> button and upload one of the images found in the "resources/photos" folder of this lab. After a few seconds, a thumbnail version of the photo appears on the page:</p>
+<p>Use Visual Studio's <strong>Debug -&gt; Start Without Debugging</strong> command (or press <strong>Ctrl+F5</strong>) to launch the application in your browser. Then click the <strong>Upload a Photo</strong> button and upload one of the images in the "photos" folder included in the lab resources. After a few seconds, a thumbnail version of the photo appears on the page:</p>
 <p><a href="Images/one-photo-uploaded.png" target="_blank"><img src="Images/one-photo-uploaded.png" alt="Intellipix with one photo uploaded" style="max-width:100%;"></a></p>
 <p><em>Intellipix with one photo uploaded</em></p>
 </li>
 <li>
-<p>Upload a few more images from this lab's "resources/photos" folder. Confirm that they appear on the page, too:</p>
+<p>Upload a few more images from the "photos" folder. Confirm that they appear on the page, too:</p>
 <p><a href="Images/three-photos-uploaded.png" target="_blank"><img src="Images/three-photos-uploaded.png" alt="Intellipix with three photos uploaded" style="max-width:100%;"></a></p>
 <p><em>Intellipix with three photos uploaded</em></p>
 </li>
@@ -845,19 +845,19 @@ vertical-align:1px;
 <p>The app doesn't yet offer a way to view the original images that you uploaded. Ideally, clicking an image thumbnail should display the original image. Let's add that feature before proceeding further.</p>
 <p><a name="Exercise4"></a></p>
 <h2>Exercise 4: Add a lightbox for viewing photos</h2>
-<p>In this exercise, you will use a free, open-source JavaScript library to add a lightbox viewer enabling users to see the original images that they uploaded (rather than just the image thumbnails). The files are provided for you in subfolders of this lab's "resources" folder. All you have to do is integrate them into the project and make a minor modification to <strong>Index.cshtml</strong>.</p>
+<p>In this exercise, you will use a free, open-source JavaScript library to add a lightbox viewer enabling users to see the original images that they uploaded (rather than just the image thumbnails). The files are provided for you in the lab resources. All you have to do is integrate them into the project and make a minor modification to <strong>Index.cshtml</strong>.</p>
 <ol>
 <li>
-<p>In Visual Studio's Solution Explorer window, right-click the "Scripts" folder and use the <strong>Add -&gt; Existing Item...</strong> command to import <strong>lightbox.js</strong> from this lab's "resources/scripts" folder.</p>
+<p>In Visual Studio's Solution Explorer window, right-click the "Scripts" folder and use the <strong>Add -&gt; Existing Item...</strong> command to import <strong>lightbox.js</strong> from this lab's "scripts" folder in the lab resources.</p>
 </li>
 <li>
-<p>Right-click the "Content" folder and use the <strong>Add -&gt; Existing Item...</strong> command to import <strong>lightbox.css</strong> from this lab's "resources/css" folder.</p>
+<p>Right-click the "Content" folder and use the <strong>Add -&gt; Existing Item...</strong> command to import <strong>lightbox.css</strong> from the "css" folder in the lab resources.</p>
 </li>
 <li>
 <p>Right-click the Intellipix project in Solution Explorer and use the <strong>Add -&gt; New Folder</strong> command to add a folder named "Images" to the project.</p>
 </li>
 <li>
-<p>Right-click the "Images" folder and use the <strong>Add -&gt; Existing Item...</strong> command to import the four images found in this lab's "resources/images" folder.</p>
+<p>Right-click the "Images" folder and use the <strong>Add -&gt; Existing Item...</strong> command to import the four images in the "images" folder in the lab resources.</p>
 </li>
 <li>
 <p>Open <strong>BundleConfig.cs</strong> in the project's "App_Start" folder. Add the following statement to the <code>RegisterBundles</code> method in <strong>BundleConfig.cs</strong>:</p>
@@ -990,7 +990,7 @@ vertical-align:1px;
 <p>Now save your changes and close <strong>HomeController.cs</strong>.</p>
 </li>
 <li>
-<p>Use Visual Studio's <strong>Debug -&gt; Start Without Debugging</strong> command (or press <strong>Ctrl+F5</strong>) to launch the application in your browser. Upload a few images from this lab's "resources/photos" folder as you did before.</p>
+<p>Use Visual Studio's <strong>Debug -&gt; Start Without Debugging</strong> command (or press <strong>Ctrl+F5</strong>) to launch the application in your browser. Upload a few images from the "photos" folder in the lab resources as you did before.</p>
 </li>
 <li>
 <p>Hover the cursor over one of the thumbnails. Confirm that a tooltip window appears containing the computer-generated caption for the image.</p>

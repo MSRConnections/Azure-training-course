@@ -363,7 +363,7 @@ Your function is configured to listen for changes to the blob container named "u
 
     _Uploading images to the "uploaded" container_
 
-1. Click the button with the folder icon to the right of the **Files** box. Select all of the files in this lab's "Resources" folder. Then click the **Upload** button to upload the files to the "uploaded" container.
+1. Click the button with the folder icon to the right of the **Files** box. Select all of the files in the folder containing the lab resources. Then click the **Upload** button to upload the files to the "uploaded" container.
 
     ![Uploading images to the "uploaded" container](Images/upload-images-2.png)
 
