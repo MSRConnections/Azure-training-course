@@ -61,7 +61,7 @@ Estimated time to complete this lab: **60** minutes.
 ---
 
 <a name="Exercise1"></a>
-## Exercise 1: Create a storage account
+## Exercise 1: Create a storage account ##
 
 The [Azure Portal](https://portal.azure.com) allows you to perform basic storage operations such as creating storage accounts, creating containers, and managing access keys. In this exercise, you will use the portal to create a storage account. Then you'll create a pair of containers: one to store images uploaded by the user, and another to store image thumbnails generated from the uploaded images.
 
@@ -120,7 +120,7 @@ The [Azure Portal](https://portal.azure.com) allows you to perform basic storage
 You have now created a storage account to hold images uploaded to the app you're going to build, and containers to store the images in. Note that you *could* create these containers from within the app. Whether to create them programmatically or create them as part of the provisioning process is a choice that's left up to app developers.
 
 <a name="Exercise2"></a>
-## Exercise 2: Run the Microsoft Azure Storage Explorer
+## Exercise 2: Run the Microsoft Azure Storage Explorer ##
 
 The [Microsoft Azure Storage Explorer](http://storageexplorer.com/) is a free tool that provides a graphical interface for working with Azure Storage on PCs running Windows, macOS, and Linux. It provides most of the same functionality as the Azure Portal. It also offers features the portal does not, such as the ability to view blob metadata. In this exercise, you will use the Microsoft Azure Storage Explorer to view the containers you created in Exercise 1.
 
@@ -139,7 +139,7 @@ The [Microsoft Azure Storage Explorer](http://storageexplorer.com/) is a free to
 The containers are currently empty, but that will change once your app is deployed and you start uploading photos. Having Storage Explorer installed will make it easy for you to see what your app writes to blob storage.
 
 <a name="Exercise3"></a>
-## Exercise 3: Get a subscription key for the Computer Vision API
+## Exercise 3: Get a subscription key for the Computer Vision API ##
 
 [Microsoft Cognitive Services](https://www.microsoft.com/cognitive-services/) is a set of intelligence APIs that you can call from your apps. Among the more than 25 APIs it offers are the [Computer Vision API](https://www.microsoft.com/cognitive-services/en-us/computer-vision-api) for distilling actionable information from images, the [Emotion API](https://www.microsoft.com/cognitive-services/en-us/emotion-api) for recognizing emotion in images and video, and the [Text Analytics API](https://www.microsoft.com/cognitive-services/en-us/text-analytics-api) for extracting sentiments and other information from text (for example, Twitter feeds). These APIs make it possible to build smart apps that would have been impossible just a few short years ago. And they're available for you to begin using today.
 
@@ -178,7 +178,7 @@ In this exercise, you will acquire a subscription key allowing you to call the C
 The access key that you just copied will be included in each HTTPS request sent to the Computer Vision API so Azure can verify that the caller is authorized. You should protect this access key the same way you protect access keys for storage accounts and other Azure resources.
 
 <a name="Exercise4"></a>
-## Exercise 4: Set up Java and Eclipse
+## Exercise 4: Set up Java and Eclipse ##
 
 [Eclipse](https://eclipse.org/) has long been one of the most popular IDEs for developing Java apps. A rich ecosystem of components and plug-ins has grown up around it, making it a very capable IDE for doing all things Java. [Microsoft's Java group](https://azure.microsoft.com/en-us/develop/java/) has has provided tools for integrating Eclipse with Azure using the [Azure Toolkit for Eclipse](https://docs.microsoft.com/en-us/azure/azure-toolkit-for-eclipse). It comes with the ability to deploy apps to Azure either as Azure Web Apps or in Docker containers, and it contains tools for managing Azure resources such as Azure Storage, Azure Web Apps, Redis Cache, HDInsight, and Azure virtual machines.
 
@@ -229,7 +229,7 @@ In this exercise, you will set up Java, Eclipse, and the Azure Toolkit for Eclip
 Eclipse is now configured for Azure development. The next step is to use it to begin a new project and create a Web app that can be tested locally and then deployed to Azure.
 
 <a name="Exercise5"></a>
-## Exercise 5: Create a photo-upload app
+## Exercise 5: Create a photo-upload app ##
 
 In this exercise, you will create a new Web app in Eclipse and add code to upload images, write them to blob storage, display them in a Web page, generate captions and keywords using the Computer Vision API, and perform keyword searches on uploaded images. The app will be named Intellipix (for "Intelligent Pictures") and will be accessed through your browser. The server-side code will be written in Java and will utilize [Java servlets](https://en.wikipedia.org/wiki/Java_servlet). The client side will be implemented in HTML, CSS, and JavaScript.
 
@@ -778,7 +778,7 @@ In this exercise, you will create a new Web app in Eclipse and add code to uploa
 With the app complete, the next step is to run it locally and make sure it works as intended before deploying it to Azure.
 
 <a name="Exercise6"></a>
-## Exercise 6: Test the app locally
+## Exercise 6: Test the app locally ##
 
 Eclipse supports many popular servers for running Web sites written in Java, including [Apache Tomcat](http://tomcat.apache.org/). Tomcat provides the hooks needed to run servlets and is also capable of serving up static content such as HTML. Moreover, Azure can use Tomcat to host Java apps. In this exercise, you will run the app in a local Tomcat server in order to test it and familiarize yourself with its features.
 
@@ -847,7 +847,7 @@ Eclipse supports many popular servers for running Web sites written in Java, inc
 You're almost finished, but the final and most important step remains. It is time to deploy the app to the cloud.
 
 <a name="Exercise7"></a>
-## Exercise 7: Deploy the app to Azure
+## Exercise 7: Deploy the app to Azure ##
 
 The Azure Toolkit for Eclipse has integrated support for deploying Dynamic Web Site projects to Azure as [Azure Web Apps](https://docs.microsoft.com/en-us/azure/app-service-web/app-service-web-overview). In this exercise, you will use the Azure Toolkit to deploy Intellipix to Azure.
 
@@ -892,7 +892,7 @@ The Azure Toolkit for Eclipse has integrated support for deploying Dynamic Web S
 If you make changes to the app and want to push the changes out to the Web, simply deploy it again from Eclipse. Of course, you can still test your changes locally before publishing to the Web.
 
 <a name="Summary"></a>
-## Summary
+## Summary ##
 
 When you're finished using the site, you should delete the resource group containing it. Deleting the resource group deletes all of the resources inside it (including the storage account, the blobs uploaded to it, and the Azure Web App), removes all traces of this lab from your account, and prevents any further charges from being incurred for it. To delete the resource group, simply open the resource-group blade in the portal and click **Delete** at the top of the blade. You will be asked to type the resource group's name to confirm that you want to delete it, because once deleted, a resource group can't be recovered.
 

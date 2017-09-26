@@ -58,7 +58,7 @@ Estimated time to complete this lab: **60** minutes.
 ---
 
 <a name="Exercise1"></a>
-## Exercise 1: Create a storage account
+## Exercise 1: Create a storage account ##
 
 The [Azure Portal](https://portal.azure.com) allows you to perform basic storage operations such as creating storage accounts, creating containers, and managing access keys. In this exercise, you will use the portal to create a storage account. Then you'll create a pair of containers: one to store images uploaded by the user, and another to store image thumbnails generated from the uploaded images.
 
@@ -117,7 +117,7 @@ The [Azure Portal](https://portal.azure.com) allows you to perform basic storage
 You have now created a storage account to hold images uploaded to the app you're going to build, and containers to store the images in. Note that you *could* create these containers from within the app. Whether to create them programmatically or create them as part of the provisioning process is a choice that's left up to app developers.
 
 <a name="Exercise2"></a>
-## Exercise 2: Run the Microsoft Azure Storage Explorer
+## Exercise 2: Run the Microsoft Azure Storage Explorer ##
 
 The [Microsoft Azure Storage Explorer](http://storageexplorer.com/) is a free tool that provides a graphical interface for working with Azure Storage on PCs running Windows, macOS, and Linux. It provides most of the same functionality as the Azure Portal. It also offers features the portal does not, such as the ability to view blob metadata. In this exercise, you will use the Microsoft Azure Storage Explorer to view the containers you created in Exercise 1.
 
@@ -136,7 +136,7 @@ The [Microsoft Azure Storage Explorer](http://storageexplorer.com/) is a free to
 The containers are currently empty, but that will change once your app is deployed and you start uploading photos. Having Storage Explorer installed will make it easy for you to see what your app writes to blob storage.
 
 <a name="Exercise3"></a>
-## Exercise 3: Get a subscription key for the Computer Vision API
+## Exercise 3: Get a subscription key for the Computer Vision API ##
 
 [Microsoft Cognitive Services](https://www.microsoft.com/cognitive-services/) is a set of intelligence APIs that you can call from your apps. Among the more than 25 APIs it offers are the [Computer Vision API](https://www.microsoft.com/cognitive-services/en-us/computer-vision-api) for distilling actionable information from images, the [Emotion API](https://www.microsoft.com/cognitive-services/en-us/emotion-api) for recognizing emotion in images and video, and the [Text Analytics API](https://www.microsoft.com/cognitive-services/en-us/text-analytics-api) for extracting sentiments and other information from text (for example, Twitter feeds). These APIs make it possible to build smart apps that would have been impossible just a few short years ago. And they're available for you to begin using today.
 
@@ -175,7 +175,7 @@ In this exercise, you will acquire a subscription key allowing you to call the C
 The access key that you just copied will be included in each HTTPS request sent to the Computer Vision API so Azure can verify that the caller is authorized. You should protect this access key the same way you protect access keys for storage accounts and other Azure resources.
 
 <a name="Exercise4"></a>
-## Exercise 4: Create a photo-upload app
+## Exercise 4: Create a photo-upload app ##
 
 In this exercise, you will create a new Web app in Visual Studio Code and add code to upload images, write them to blob storage, display them in a Web page, generate thumbnails, captions, and keywords using the Computer Vision API, and perform keyword searches on uploaded images. The app will be named Intellipix (for "Intelligent Pictures") and will be accessed through your browser. The server-side code will be written in JavaScript and Node.js. The code that runs in the browser will be written in JavaScript and will leverage two of the most popular class libraries on the planet: [AngularJS](https://angularjs.org/) and [Bootstrap](http://getbootstrap.com/). 
 
@@ -724,7 +724,7 @@ In this exercise, you will create a new Web app in Visual Studio Code and add co
 With the code that comprises the app in place and key environment variables initialized with "secrets" such as your storage account key, the next task is to run the app locally and test it in your browser.
 
 <a name="Exercise5"></a>
-## Exercise 5: Test the app locally
+## Exercise 5: Test the app locally ##
 
 In this exercise, you will run the app locally in order to test it and familiarize yourself with its features. Running it locally is a simple matter of firing up a Node.js server process to host your server components (in this case, **server.js**) and pointing your browser to http://localhost:*port*, where *port* is the port number on which the server process is listening for HTTP requests. **server.js** listens on port 9898. You can modify that if you would like by changing line 7 in the code.
 
@@ -796,7 +796,7 @@ In this exercise, you will run the app locally in order to test it and familiari
 You're almost finished, but the final and most important step remains. It is time to deploy the app to the cloud.
 
 <a name="Exercise6"></a>
-## Exercise 6: Deploy the app to Azure
+## Exercise 6: Deploy the app to Azure ##
 
 In this exercise, you will create an Azure Web App and deploy Intellipix to it using Git. Up to now, you have been running the app locally. Azure Web Apps support local Git repositories as deployment sources, which makes it incredibly easy to [publish the contents of local Git repositories to Azure](https://azure.microsoft.com/en-us/documentation/articles/web-sites-publish-source-control/). You already have the local repository; it was created in Exercise 4. Now it's just a matter of creating the Web App, providing a few key pieces of information to it, and executing a **git push** command.
 
@@ -929,7 +929,7 @@ In this exercise, you will create an Azure Web App and deploy Intellipix to it u
 If you make changes to the app and want to push the changes out to the Web, simply commit the changes in Visual Studio Code and execute a **git push azure master** command again. Of course, you can still test your changes locally before publishing to the Web.
 
 <a name="Summary"></a>
-## Summary
+## Summary ##
 
 When you're finished using the site, you should delete the resource group containing it. Deleting the resource group deletes all of the resources inside it (including the storage account, the blobs uploaded to it, and the App Service), removes all traces of this lab from your account, and prevents any further charges from being incurred for it. To delete the resource group, simply open the resource-group blade in the portal and click **Delete** at the top of the blade. You will be asked to type the resource group's name to confirm that you want to delete it, because once deleted, a resource group can't be recovered.
 
