@@ -43,7 +43,7 @@ The following is required to complete this hands-on lab:
 This hands-on lab includes the following exercises:
 
 - [Exercise 1: Use the Azure Portal to create a storage account](#Exercise1)
-- [Exercise 2: Use Storage Explorer to create a container and upload blobs](#Exercise2)
+- [Exercise 2: Create a container and upload blobs](#Exercise2)
 - [Exercise 3: Use the Azure Portal to download a blob](#Exercise3)
 - [Exercise 4: Share blobs using public containers](#Exercise4)
 - [Exercise 5: Share blobs using shared-access signatures](#Exercise5)
@@ -91,7 +91,7 @@ The [Azure Portal](https://portal.azure.com) allows you to perform basic storage
 The storage account currently has no containers. Before you create a blob, you must create a container to store it in. You can create containers and upload blobs in the Azure Portal, or you can use external tools that offer additional features that the portal does not. In Exercise 2, you will use the cross-platform [Microsoft Azure Storage Explorer](http://storageexplorer.com/) to create containers and upload blobs.
 
 <a name="#Exercise2"></a>
-## Exercise 2: Use Storage Explorer to create a container and upload blobs ##
+## Exercise 2: Create a container and upload blobs ##
 
 A container is similar to a folder in a file system. A storage account can have an unlimited number of containers, and a container can store an unlimited number of blobs. Container names must be from 3 to 63 characters in length and may contain numbers, dashes, and lowercase letters. Dashes cannot be consecutive, and a container name cannot start with a dash. The following diagram illustrates the blob storage schema:
 
@@ -101,21 +101,21 @@ _Blob storage schema_
 
 In this exercise, you will create a container named "images" in the storage account you created  in [Exercise 1](#Exercise1). Then you will upload several blobs to it.
 
-1. In your browser, go to http://storageexplorer.com/ and download and install the Microsoft Azure Storage Explorer.
+1. In your browser, go to http://storageexplorer.com/ and download and install the Microsoft Azure Storage Explorer if it isn't already installed.
 
-1. Start Storage Explorer. If you are asked to log in, do so using your Microsoft account — the same one that you used to log in to the Azure Portal. If you are *not* asked to log in and don't see the storage account you created in the previous exercise in Storage Explorer's left pane, click the **Azure Accounts settings** button highlighted below, click **Add an account**, and log in with your Microsoft account.
+1. Start Storage Explorer. If you are asked to log in, do so using your Microsoft account — the same one that you used to log in to the Azure Portal. If you don't see the storage account created in the previous exercise in Storage Explorer's left pane, click the **Manage Accounts** button highlighted below and ensure that your Microsoft account *and* the subscription used to create the storage account have been added to Storage Explorer.
 
-    ![Adding an account to Storage Explorer](Images/add-account.png)
+    ![Managing accounts in Storage Explorer](Images/add-account.png)
 
-    _Adding an account to Storage Explorer_
+    _Managing accounts in Storage Explorer_
 
-1. In Storage Explorer, click the small arrow next to the storage account you created in Exercise 1 to reveal the items underneath it. Then right-click **Blob Containers** (on a Mac, Control-click instead) and select **Create Blob Container** from the context menu.
+1. In Storage Explorer, click the small arrow next to the storage account you created in Exercise 1 to reveal the items underneath it. Then right-click **Blob Containers** (on a Mac, Control-click instead) and select **Create Blob Container** from the menu.
 
     ![Creating a container](Images/create-blob-container.png)
 
     _Creating a container_
 
-1. Type "images" (without quotation marks) into the box that appears under **Blob Containers**. Then press Enter to create a new container named "images."
+1. Type "images" (without quotation marks) into the box that appears under **Blob Containers**. Then press **Enter** to create a new container named "images."
 
     ![Creating an "images" container](Images/create-images-container.png)
 
@@ -133,7 +133,7 @@ In this exercise, you will create a container named "images" in the storage acco
 
     _Uploading files to blob storage_
 
-	> The default blob type — block blob — supports up to approximately 4.75 TB of data per blob. Append blobs are similar to block blobs but are optimized for append operations. Page blobs can hold up to 1 TB of data and are used to hold virtual hard disks (VHDs) for virtual machines.
+	> The default blob type — block blob — supports up to approximately 4.75 TB of data per blob. Append blobs are similar to block blobs but are optimized for append operations. Page blobs can hold up to 8 TB of data and are used to hold virtual hard disks (VHDs) for virtual machines.
 
 1. Confirm that all ten .jpg files were uploaded to the "images" container.
 
@@ -141,12 +141,12 @@ In this exercise, you will create a container named "images" in the storage acco
 
     _Blobs uploaded to the "images" container_
 
-Uploading blobs is easy with the Microsoft Azure Storage Explorer. Now let's learn how to download blobs.
+Uploading blobs is easy with the Microsoft Azure Storage Explorer. Now let's learn how to download blobs, and this time, let's use the Azure Portal.
 
 <a name="#Exercise3"></a>
 ## Exercise 3: Use the Azure Portal to download a blob ##
 
-You can download a blob using the Azure Storage Explorer by selecting the blob and clicking the **Download** button, or by right-clicking the blob and selecting **Download** from the ensuing menu. You can also download blobs using the Azure Portal. In this exercise, you'll use the portal to download one of the blobs you uploaded in the previous exercise.
+You can download a blob using the Azure Storage Explorer by selecting the blob and clicking the **Download** button, or by double-clicking the blob. You can also download blobs using the Azure Portal. In this exercise, you'll use the portal to download one of the blobs you uploaded in the previous exercise.
 
 1. Return to the [Azure Portal](https://portal.azure.com) in your browser. If you left the blade for the storage account open at the end of [Exercise 1](#Exercise1), click the **Refresh** button at the top of the blade to refresh the list of containers. If you didn't leave it open, navigate back to it. The click the "images" container to view its contents.
 
@@ -179,7 +179,7 @@ Now that you know how to upload and download blobs, it is time to think about th
 
 Each container that you create is assigned an access level that determines whether its contents are public or private. The default is private, which means that only you (or someone to whom you provide an access key for the storage account) can access the container's blobs. In this exercise, you will make the "images" container public and demonstrate that you can easily share blobs inside it using links that can be opened in a browser.
 
-1. Return to the Microsoft Azure Storage Explorer and right-click (on a Mac, Control-click) the "images" container and select **Set Public Access Level**.
+1. Return to the Microsoft Azure Storage Explorer and right-click (on a Mac, Control-click) the "images" container and select **Set Public Access Level...**.
 
     ![Changing the container's access level](Images/set-public-access-level.png)
 
@@ -193,7 +193,7 @@ Each container that you create is assigned an access level that determines wheth
 
 	> The difference between **Public read access for blobs only** and **Public read access for container and blobs** is that the latter allows the blobs in a container to be enumerated, while the former does not. **Public read access for blobs only** offers slightly more security because it prevents people from discovering other blobs in the container. To fetch the blob, they must know the blob's name.
 
-1. Right-click **azure-banner.jpg** and select **Copy URL to Clipboard**.
+1. Right-click **azure-banner.jpg** and select **Properties...** from the context menu. Scroll down to find the blob URI, and copy the URI the clipboard. Then click **Cancel** to dismiss the dialog. 
 
     ![Getting a blob URL](Images/copy-url-to-clipboard.png)
 
@@ -226,7 +226,7 @@ Making a container public is one way to share the blobs with other people. But w
 
 Rather than create a separate (public) container to hold the blobs you wish to share, you can use shared-access signatures to share blobs from private containers. In this exercise, you will generate a URL containing a shared-access signature (SAS) for one of the blobs in the "images" container and demonstrate that the blob can be downloaded even though the container is private. You will also learn how to limit the amount of time a shared-access signature is valid.
 
-1. Return to the Microsoft Azure Storage Explorer. Right-click **azure-banner.jpg** and select **Get Shared Access Signature**.
+1. Return to the Microsoft Azure Storage Explorer. Right-click **azure-banner.jpg** and select **Get Shared Access Signature...**.
 
     ![Getting a shared-access signature](Images/get-sas.png)
 
@@ -261,7 +261,7 @@ When you created a storage account in Exercise 1, you made it part of a resource
 
 In this exercise, you will use the Azure Portal to delete the resource group you created in [Exercise 1](#Exercise1), and along with it the storage account and the blobs stored in it.
 
-1. In the Azure Portal, open the blade for the resource group that holds the storage account. Then click the **Delete** button at the top of the blade.
+1. In the Azure Portal, open the blade for the resource group that holds the storage account. Then click the **Delete resource group** button at the top of the blade.
 
 	![Deleting a resource group](Images/delete-resource-group.png)
 
