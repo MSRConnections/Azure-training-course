@@ -502,7 +502,7 @@ vertical-align:1px;
 <p>This hands-on lab includes the following exercises:</p>
 <ul>
 <li><a href="#Exercise1">Exercise 1: Use the Azure Portal to create a storage account</a></li>
-<li><a href="#Exercise2">Exercise 2: Use Storage Explorer to create a container and upload blobs</a></li>
+<li><a href="#Exercise2">Exercise 2: Create a container and upload blobs</a></li>
 <li><a href="#Exercise3">Exercise 3: Use the Azure Portal to download a blob</a></li>
 <li><a href="#Exercise4">Exercise 4: Share blobs using public containers</a></li>
 <li><a href="#Exercise5">Exercise 5: Share blobs using shared-access signatures</a></li>
@@ -546,27 +546,27 @@ vertical-align:1px;
 </ol>
 <p>The storage account currently has no containers. Before you create a blob, you must create a container to store it in. You can create containers and upload blobs in the Azure Portal, or you can use external tools that offer additional features that the portal does not. In Exercise 2, you will use the cross-platform <a href="http://storageexplorer.com/">Microsoft Azure Storage Explorer</a> to create containers and upload blobs.</p>
 <p><a name="#Exercise2"></a></p>
-<h2>Exercise 2: Use Storage Explorer to create a container and upload blobs</h2>
+<h2>Exercise 2: Create a container and upload blobs</h2>
 <p>A container is similar to a folder in a file system. A storage account can have an unlimited number of containers, and a container can store an unlimited number of blobs. Container names must be from 3 to 63 characters in length and may contain numbers, dashes, and lowercase letters. Dashes cannot be consecutive, and a container name cannot start with a dash. The following diagram illustrates the blob storage schema:</p>
 <p><a href="Images/blob-storage-schema.jpg" target="_blank"><img src="Images/blob-storage-schema.jpg" alt="Blob storage schema" style="max-width:100%;"></a></p>
 <p><em>Blob storage schema</em></p>
 <p>In this exercise, you will create a container named "images" in the storage account you created  in <a href="#Exercise1">Exercise 1</a>. Then you will upload several blobs to it.</p>
 <ol>
 <li>
-<p>In your browser, go to <a href="http://storageexplorer.com/">http://storageexplorer.com/</a> and download and install the Microsoft Azure Storage Explorer.</p>
+<p>In your browser, go to <a href="http://storageexplorer.com/">http://storageexplorer.com/</a> and download and install the Microsoft Azure Storage Explorer if it isn't already installed.</p>
 </li>
 <li>
-<p>Start Storage Explorer. If you are asked to log in, do so using your Microsoft account — the same one that you used to log in to the Azure Portal. If you are <em>not</em> asked to log in and don't see the storage account you created in the previous exercise in Storage Explorer's left pane, click the <strong>Azure Accounts settings</strong> button highlighted below, click <strong>Add an account</strong>, and log in with your Microsoft account.</p>
-<p><a href="Images/add-account.png" target="_blank"><img src="Images/add-account.png" alt="Adding an account to Storage Explorer" style="max-width:100%;"></a></p>
-<p><em>Adding an account to Storage Explorer</em></p>
+<p>Start Storage Explorer. If you are asked to log in, do so using your Microsoft account — the same one that you used to log in to the Azure Portal. If you don't see the storage account created in the previous exercise in Storage Explorer's left pane, click the <strong>Manage Accounts</strong> button highlighted below and ensure that your Microsoft account <em>and</em> the subscription used to create the storage account have been added to Storage Explorer.</p>
+<p><a href="Images/add-account.png" target="_blank"><img src="Images/add-account.png" alt="Managing accounts in Storage Explorer" style="max-width:100%;"></a></p>
+<p><em>Managing accounts in Storage Explorer</em></p>
 </li>
 <li>
-<p>In Storage Explorer, click the small arrow next to the storage account you created in Exercise 1 to reveal the items underneath it. Then right-click <strong>Blob Containers</strong> (on a Mac, Control-click instead) and select <strong>Create Blob Container</strong> from the context menu.</p>
+<p>In Storage Explorer, click the small arrow next to the storage account you created in Exercise 1 to reveal the items underneath it. Then right-click <strong>Blob Containers</strong> (on a Mac, Control-click instead) and select <strong>Create Blob Container</strong> from the menu.</p>
 <p><a href="Images/create-blob-container.png" target="_blank"><img src="Images/create-blob-container.png" alt="Creating a container" style="max-width:100%;"></a></p>
 <p><em>Creating a container</em></p>
 </li>
 <li>
-<p>Type "images" (without quotation marks) into the box that appears under <strong>Blob Containers</strong>. Then press Enter to create a new container named "images."</p>
+<p>Type "images" (without quotation marks) into the box that appears under <strong>Blob Containers</strong>. Then press <strong>Enter</strong> to create a new container named "images."</p>
 <p><a href="Images/create-images-container.png" target="_blank"><img src="Images/create-images-container.png" alt="Creating an &quot;images&quot; container" style="max-width:100%;"></a></p>
 <p><em>Creating an "images" container</em></p>
 </li>
@@ -580,7 +580,7 @@ vertical-align:1px;
 <p><a href="Images/upload-files-dialog.png" target="_blank"><img src="Images/upload-files-dialog.png" alt="Uploading files to blob storage" style="max-width:100%;"></a></p>
 <p><em>Uploading files to blob storage</em></p>
 <blockquote>
-<p>The default blob type — block blob — supports up to approximately 4.75 TB of data per blob. Append blobs are similar to block blobs but are optimized for append operations. Page blobs can hold up to 1 TB of data and are used to hold virtual hard disks (VHDs) for virtual machines.</p>
+<p>The default blob type — block blob — supports up to approximately 4.75 TB of data per blob. Append blobs are similar to block blobs but are optimized for append operations. Page blobs can hold up to 8 TB of data and are used to hold virtual hard disks (VHDs) for virtual machines.</p>
 </blockquote>
 </li>
 <li>
@@ -589,10 +589,10 @@ vertical-align:1px;
 <p><em>Blobs uploaded to the "images" container</em></p>
 </li>
 </ol>
-<p>Uploading blobs is easy with the Microsoft Azure Storage Explorer. Now let's learn how to download blobs.</p>
+<p>Uploading blobs is easy with the Microsoft Azure Storage Explorer. Now let's learn how to download blobs, and this time, let's use the Azure Portal.</p>
 <p><a name="#Exercise3"></a></p>
 <h2>Exercise 3: Use the Azure Portal to download a blob</h2>
-<p>You can download a blob using the Azure Storage Explorer by selecting the blob and clicking the <strong>Download</strong> button, or by right-clicking the blob and selecting <strong>Download</strong> from the ensuing menu. You can also download blobs using the Azure Portal. In this exercise, you'll use the portal to download one of the blobs you uploaded in the previous exercise.</p>
+<p>You can download a blob using the Azure Storage Explorer by selecting the blob and clicking the <strong>Download</strong> button, or by double-clicking the blob. You can also download blobs using the Azure Portal. In this exercise, you'll use the portal to download one of the blobs you uploaded in the previous exercise.</p>
 <ol>
 <li>
 <p>Return to the <a href="https://portal.azure.com">Azure Portal</a> in your browser. If you left the blade for the storage account open at the end of <a href="#Exercise1">Exercise 1</a>, click the <strong>Refresh</strong> button at the top of the blade to refresh the list of containers. If you didn't leave it open, navigate back to it. The click the "images" container to view its contents.</p>
@@ -621,7 +621,7 @@ vertical-align:1px;
 <p>Each container that you create is assigned an access level that determines whether its contents are public or private. The default is private, which means that only you (or someone to whom you provide an access key for the storage account) can access the container's blobs. In this exercise, you will make the "images" container public and demonstrate that you can easily share blobs inside it using links that can be opened in a browser.</p>
 <ol>
 <li>
-<p>Return to the Microsoft Azure Storage Explorer and right-click (on a Mac, Control-click) the "images" container and select <strong>Set Public Access Level</strong>.</p>
+<p>Return to the Microsoft Azure Storage Explorer and right-click (on a Mac, Control-click) the "images" container and select <strong>Set Public Access Level...</strong>.</p>
 <p><a href="Images/set-public-access-level.png" target="_blank"><img src="Images/set-public-access-level.png" alt="Changing the container's access level" style="max-width:100%;"></a></p>
 <p><em>Changing the container's access level</em></p>
 </li>
@@ -634,7 +634,7 @@ vertical-align:1px;
 </blockquote>
 </li>
 <li>
-<p>Right-click <strong>azure-banner.jpg</strong> and select <strong>Copy URL to Clipboard</strong>.</p>
+<p>Right-click <strong>azure-banner.jpg</strong> and select <strong>Properties...</strong> from the context menu. Scroll down to find the blob URI, and copy the URI the clipboard. Then click <strong>Cancel</strong> to dismiss the dialog.</p>
 <p><a href="Images/copy-url-to-clipboard.png" target="_blank"><img src="Images/copy-url-to-clipboard.png" alt="Getting a blob URL" style="max-width:100%;"></a></p>
 <p><em>Getting a blob URL</em></p>
 </li>
@@ -663,7 +663,7 @@ vertical-align:1px;
 <p>Rather than create a separate (public) container to hold the blobs you wish to share, you can use shared-access signatures to share blobs from private containers. In this exercise, you will generate a URL containing a shared-access signature (SAS) for one of the blobs in the "images" container and demonstrate that the blob can be downloaded even though the container is private. You will also learn how to limit the amount of time a shared-access signature is valid.</p>
 <ol>
 <li>
-<p>Return to the Microsoft Azure Storage Explorer. Right-click <strong>azure-banner.jpg</strong> and select <strong>Get Shared Access Signature</strong>.</p>
+<p>Return to the Microsoft Azure Storage Explorer. Right-click <strong>azure-banner.jpg</strong> and select <strong>Get Shared Access Signature...</strong>.</p>
 <p><a href="Images/get-sas.png" target="_blank"><img src="Images/get-sas.png" alt="Getting a shared-access signature" style="max-width:100%;"></a></p>
 <p><em>Getting a shared-access signature</em></p>
 </li>
@@ -693,7 +693,7 @@ vertical-align:1px;
 <p>In this exercise, you will use the Azure Portal to delete the resource group you created in <a href="#Exercise1">Exercise 1</a>, and along with it the storage account and the blobs stored in it.</p>
 <ol>
 <li>
-<p>In the Azure Portal, open the blade for the resource group that holds the storage account. Then click the <strong>Delete</strong> button at the top of the blade.</p>
+<p>In the Azure Portal, open the blade for the resource group that holds the storage account. Then click the <strong>Delete resource group</strong> button at the top of the blade.</p>
 <p><a href="Images/delete-resource-group.png" target="_blank"><img src="Images/delete-resource-group.png" alt="Deleting a resource group" style="max-width:100%;"></a></p>
 <p><em>Deleting a resource group</em></p>
 </li>
@@ -715,7 +715,7 @@ vertical-align:1px;
 </ul>
 <p>Now that you're familiar with storage accounts, containers, and blobs, as well as some of the tools for managing them, you'll put your knowledge to work in subsequent labs. Knowing the basics of Azure Storage is an essential first step in working with Azure data services.</p>
 <hr>
-<p>Copyright 2016 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>.</p>
+<p>Copyright 2017 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>.</p>
 </body>
 </html>
 <!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
