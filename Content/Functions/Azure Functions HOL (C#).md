@@ -87,7 +87,7 @@ The first step in writing an Azure Function is to create an Azure Function App. 
 
     _Opening blob storage_
 
-1. Click **+ Container**. Type "uploaded" into the **Name** box and set **Access type** to **Private**. Then click the **OK** button to create a new container.
+1. Click **+ Container**. Type "uploaded" into the **Name** box and set **Public access level** to **Private**. Then click the **OK** button to create a new container.
 
     ![Adding a container](Images/add-container.png)
 
@@ -114,13 +114,13 @@ Once you have created an Azure Function App, you can add Azure Functions to it. 
 
     _Opening the Function App_
 
-1. Click the **+** sign to the right of **Functions**. Then click **Custom function**.
+1. Click the **+** sign to the right of **Functions**. Set the language to **CSharp**, and then click **Custom function**.
 
     ![Adding a function](Images/add-function.png)
 
     _Adding a function_
 
-1. Set **Language** to **C#**. Then click **BlobTrigger-CSharp**.
+1. Set **Language** to **C#**. Then click **BlobTrigger - C#**.
   
     ![Selecting a function template](Images/cs-select-template.png)
 
@@ -243,7 +243,7 @@ Once you have created an Azure Function App, you can add Azure Functions to it. 
 	}
 	```
 
-	> **Run** is the method called each time the function is executed. The **Run** method uses a helper method named **AnalyzeImageAsync** to pass each blob added to the "uploaded" container to the Computer Vision API for analysis. Then it calls a helper method named **StoreBlobWithMetadata** to create a copy of the blob in either the "accepted" container or the "rejected" container, depending on the scores returned by **AnalyzeImageAsync**. 
+	```Run``` is the method called each time the function is executed. The ```Run``` method uses a helper method named ```AnalyzeImageAsync``` to pass each blob added to the "uploaded" container to the Computer Vision API for analysis. Then it calls a helper method named ```StoreBlobWithMetadata``` to create a copy of the blob in either the "accepted" container or the "rejected" container, depending on the scores returned by ```AnalyzeImageAsync```. 
 
 1. Click the **Save** button at the top of the code editor to save your changes. Then click **View files**.
 
@@ -314,13 +314,13 @@ The Azure Function you created in [Exercise 2](#Exercise2) loads a subscription 
 
     _Copying the access key_
 
-1. Return to the Function App in the Azure Portal and click the function name in the ribbon on the left. Then click **Platform features**, followed by **Application settings**. 
+1. Return to the Function App in the Azure Portal and click the app name in the ribbon on the left. Then click **Application settings**. 
 
     ![Viewing application settings](Images/open-app-settings.png)
 
     _Viewing application settings_
 
-1. Scroll down to the "App settings" section. Add a new app setting named "SubscriptionKey" (without quotation marks), and paste the subscription key that is on the clipboard into the **Value** box. Then add a setting named "VisionEndpoint" and set its value to the endpoint URL you saved in Step 4. Finish up by clicking **Save** at the top of the blade.
+1. Scroll down to the "Application settings" section. Add a new app setting named "SubscriptionKey" (without quotation marks), and paste the subscription key that is on the clipboard into the **Value** box. Then add a setting named "VisionEndpoint" and set its value to the endpoint URL you saved in Step 4. Finish up by clicking **Save** at the top of the blade.
 
     ![Adding application settings](Images/add-keys.png)
 
@@ -363,7 +363,7 @@ Your function is configured to listen for changes to the blob container named "u
 
     _Uploading images to the "uploaded" container_
 
-1. Click the button with the folder icon to the right of the **Files** box. Select all of the files in the folder containing the lab resources. Then click the **Upload** button to upload the files to the "uploaded" container.
+1. Click the button with the folder icon to the right of the **Files** box. Select all of the files in this lab's "Resources" folder. Then click the **Upload** button to upload the files to the "uploaded" container.
 
     ![Uploading images to the "uploaded" container](Images/upload-images-2.png)
 
@@ -383,7 +383,7 @@ Your function is configured to listen for changes to the blob container named "u
 
 1. Verify that the "accepted" container holds seven images. **These are the images that were classified as neither adult nor racy by the Computer Vision API**.
 
-	> It may take a minute or more for all of the images to appear in the container. If necessary, click **Refresh** every few seconds until you see all seven images.
+	> Because you chose "Consumption Plan" when creating the Function App, it may take a few minutes for all of the images to appear in the container. If necessary, click **Refresh** periodically until you see all seven images.
 
     ![Images in the "accepted" container](Images/accepted-images.png)
 
@@ -409,8 +409,6 @@ In this exercise, you will use the cross-platform [Microsoft Azure Storage Explo
 1. Start Storage Explorer. If you are asked to log in, do so using the same account you used to log in to the Azure Portal.
 
 1. Find the storage account that was created for your Azure Function App in [Exercise 1](#Exercise1) and expand the list of blob containers underneath it. Then click the container named "rejected."
-
-	> If this is the first time you have run Storage Explorer, you may have to click the person icon and tell it which Azure subscription or subscriptions you want it to display. 
 
     ![Opening the "rejected" container](Images/explorer-open-rejected-container.png)
 
