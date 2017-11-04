@@ -131,7 +131,7 @@ Azure Batch Shipyard is built on Python. Windows does not have a built-in Python
 
 	_Installing Python_
 
-1. Wait for the installer to finish. Then close the installer, go to https://github.com/Azure/batch-shipyard/releases, and download the latest version of Batch Shipyard.
+1. Wait for the installer to finish. Then close the installer, go to https://github.com/Azure/batch-shipyard/releases and download the latest version of Batch Shipyard.
 
 	![Downloading Batch Shipyard](Images/download-batch-shipyard.png)
 
