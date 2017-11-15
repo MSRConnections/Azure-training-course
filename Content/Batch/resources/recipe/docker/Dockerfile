@@ -1,10 +1,12 @@
 FROM ubuntu
 
 MAINTAINER Blaize Stewart
-
-ADD text2ogg.sh /text2ogg.sh
+COPY . /
 RUN apt-get update && \
-	apt-get install -y espeak vorbis-tools && \
-	chmod +x text2ogg.sh && \
-	mkdir /fileshare
-CMD ["/bin/bash" "text2ogg.sh"]
+	apt-get install -y curl espeak vorbis-tools && \
+	curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+	apt-get install -y nodejs && \
+	npm install
+	
+WORKDIR /
+CMD node /index.js

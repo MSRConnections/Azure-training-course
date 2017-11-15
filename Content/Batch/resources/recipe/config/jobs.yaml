@@ -1,0 +1,15 @@
+job_specifications:
+
+- id: batch-lab-job-1
+  environment_variables:
+    AZ_STORE_CONN_STR:  my_storage_account_connection_string
+  tasks:
+  - image: blaize/text2ogg
+    remove_container_after_exit: false
+    shared_data_volumes:
+    - shipyardvol
+  - image: blaize/text2ogg
+    remove_container_after_exit: false
+    shared_data_volumes:
+    - shipyardvol
+

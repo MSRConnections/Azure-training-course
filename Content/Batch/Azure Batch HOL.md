@@ -220,17 +220,17 @@ Now that Batch Shipyard is installed, it's time to configure it.
 <a id="Exercise5"/></a>
 ## Exercise 5: Configure Batch Shipyard ##
 
-Batch Shipyard uses JSON files named **config.json, pool.json,  jobs.json**, and **credentials.json** to configure the environment. These four files, the Dockerfiles used to build Docker images, the files referenced in the Dockerfiles, and a **readme.md** file define a Batch Shipyard "recipe."
+Batch Shipyard uses YAML files named **config.yaml, pool.yaml,  jobs.yaml**, and **credentials.yaml** to configure the environment. These four files, the Dockerfiles used to build Docker images, the files referenced in the Dockerfiles, and a **readme.md** file define a Batch Shipyard "recipe."
 
-Each of the configuration files in a recipe configures one element of Batch Shipyard. **config.json** contains configuration settings for the Batch Shipyard environment. **pool.json** contains definitions for the compute pools, including the VM size and the number of VMs per pool. **jobs.json** contains the job definition and the tasks that are part of the job. **credentials.json** holds information regarding the batch account and the storage account, including the keys used to access them.
+Each of the configuration files in a recipe configures one element of Batch Shipyard. **config.yaml** contains configuration settings for the Batch Shipyard environment. **pool.yaml** contains definitions for the compute pools, including the VM size and the number of VMs per pool. **jobs.yaml** contains the job definition and the tasks that are part of the job. **credentials.yaml** holds information regarding the batch account and the storage account, including the keys used to access them.
 
-Three of the four JSON files are already configured in the provided recipe. The only one that needs to be changed is **credentials.json**. In this exercise, you will modify **credentials.json** so you can use it in a Batch job. Rather than create a Dockerfile, you will use one that has been created for you. To learn more about Dockerfiles, refer to https://docs.docker.com/engine/getstarted/step_four/.
+Three of the four YAML files are already configured in the provided recipe. The only one that needs to be changed is **credentials.yaml**. In this exercise, you will modify **credentials.yaml** so you can use it in a Batch job. Rather than create a Dockerfile, you will use one that has been created for you. To learn more about Dockerfiles, refer to https://docs.docker.com/engine/getstarted/step_four/.
 
 1. Open the resources that accompany this lab, and then copy the "recipe" folder into the "batch-shipyard" folder created in the previous exercise.
 
-1. Open the copied "recipe" folder. Open the "config" folder in that folder, and then open the file named **credentials.json** in your favorite text editor. There are two sections in the file: "batch" and "storage." The "batch" section contains the settings for the Batch account that Batch Shipyard will use. The "storage" section contains the settings Batch Shipyard will use to access the storage account created for the Batch account.
+1. Open the copied "recipe" folder. Open the "config" folder in that folder, and then open the file named **credentials.yaml** in your favorite text editor. There are two sections in the file: "batch" and "storage." The "batch" section contains the settings for the Batch account that Batch Shipyard will use. The "storage" section contains the settings Batch Shipyard will use to access the storage account created for the Batch account.
 
-1. In **credentials.json**, replace *my_batch_account_name* with the name of the batch account that you created in Exercise 1, Step 3. 
+1. In **credentials.yaml**, replace BATCH_ACCOUNT_NAME with the name of the batch account that you created in Exercise 1, Step 3. 
 
 1. Return to the Azure Portal and to the "BatchResourceGroup" resource group created for the batch account in [Exercise 1](#Exercise`). In the resource group, click the Batch account.
 
@@ -244,7 +244,7 @@ Three of the four JSON files are already configured in the provided recipe. The 
 
 	_Copying the Batch account key_
 
-1. Return to **credentials.json** and replace *my_batch_account_key* with the key that is on the clipboard.
+1. Return to **credentials.yaml** and replace BATCH_ACCOUNT_KEY with the key that is on the clipboard.
 
 1. In the blade for the Batch account, click the **Copy** button next to the **URL** field.
 
@@ -252,14 +252,13 @@ Three of the four JSON files are already configured in the provided recipe. The 
 
 	_Copying the Batch account URL_
 
-1. In **credentials.json**, replace *my_batch_account_url* with the URL that is on the clipboard, leaving "https://" in place at the beginning of the URL. The "batch" section of **credentials.json** should now look something like this:
+1. In **credentials.yaml**, replace BATCH_ACCOUNT_URL with the URL that is on the clipboard, leaving "https://" in place at the beginning of the URL. The "batch" section of **credentials.yaml** should now look something like this:
 
-	```JSON
-	"batch": {
-	    "account": "batchservicelab",
-	    "account_key": "ghS8vZrI+5TvmcdRoILz...7XBuvRIA6HFzCaMsPTsXToKdQtWeg==",
-	    "account_service_url": "https://batchservicelab.eastus.batch.azure.com"
-	},
+	```Jyaml
+	batch:
+	    account: batchservicelab
+	    account_key: ghS8vZrI+5TvmcdRoILz...7XBuvRIA6HFzCaMsPTsXToKdQtWeg==
+	    account_service_url: "https://batchservicelab.eastus.batch.azure.com
 	```
 
 1. In the Azure Portal, return to the "BatchResourceGroup" resource group and click the storage account in that resource group.
@@ -274,7 +273,7 @@ Three of the four JSON files are already configured in the provided recipe. The 
 
 	_Copying the storage account name_
 
-1. In **credentials.json**, replace *my_storage_account_name* with the storage-account name that is on the clipboard.
+1. In **credentials.yaml**, replace STORAGE_ACCOUNT_NAME with the storage-account name that is on the clipboard.
 
 1. Return to the portal and click the **Copy** button next to the **key1** field.
 
@@ -282,26 +281,24 @@ Three of the four JSON files are already configured in the provided recipe. The 
 
 	_Copying the storage account key_
 
-1. In **credentials.json**, replace *my_storage_account_key* with the key that is on the clipboard. The "storage" section of **credentials.json** should now look something like this:
+1. In **credentials.yaml**, replace STORAGE_ACCOUNT_KEY with the key that is on the clipboard. The "storage" section of **credentials.yaml** should now look something like this:
 
-	```JSON
-	"storage": {
-	    "mystorageaccount": {
-	        "account": "batchservicelabstorage",
-	        "account_key": "YuTLwG3nuaQqezl/rhEkT...Xrs8+UZrxr+TFdzA==",
-	        "endpoint": "core.windows.net"
-	    }
-	}
+	```yaml
+	storage:
+	    mystorageaccount:
+	        account: batchservicelabstorage
+	        account_key: YuTLwG3nuaQqezl/rhEkT...Xrs8+UZrxr+TFdzA==
+	        endpoint: core.windows.net
 	```
 
-Save your changes to **credentials.json** before proceeding to the next exercise.
+Save your changes to **credentials.yaml** before proceeding to the next exercise.
 
 <a id="Exercise6"/></a>
 ## Exercise 6: Create a pool ##
 
-Before you run the job, you must create a compute pool using the configuration settings in **pool.json**. Batch Shipyard provides several commands for controlling Batch pools. In this exercise, you will use one of those commands to create a pool.
+Before you run the job, you must create a compute pool using the configuration settings in **pool.yaml**. Batch Shipyard provides several commands for controlling Batch pools. In this exercise, you will use one of those commands to create a pool.
 
-> The **pool.json** file provided for you configures each pool to have two VMs and specifies a VM size of STANDARD_A1, which contains a single core and 1.75 GB of RAM. In real life, you might find it advantageous to use larger VMs with more cores and more RAM, or to increase the number of VMs by increasing the *vm_count* property in **pool.json**.
+> The **pool.yaml** file provided for you configures each pool to have two VMs and specifies a VM size of STANDARD_A1, which contains a single core and 1.75 GB of RAM. In real life, you might find it advantageous to use larger VMs with more cores and more RAM, or to increase the number of VMs by increasing the *vm_count* property in **pool.yaml**.
 
 1. In the terminal or Command Prompt window that you left open, run one of the following commands based on which operating system you are using:
 
@@ -342,15 +339,9 @@ While the pool is being created, now is a good time to upload the input files th
 
 	_Opening file storage_
 
-1. Click **+ File share**.
+1. Click **+ File share**. Enter "myfileshare" for the file-share name. Leave **Quota** blank, and then click **OK**.
 
-	![Adding a file share](Images/add-file-share.png)
-
-	_Adding a file share_
-
-1. Enter "myfileshare" for the file-share name. Leave **Quota** blank, and then click **Create** at the bottom of the blade.
-
-	![Creating a file share](Images/create-file-share.png)
+	![Creating a file share](Images/add-file-share.png)
 
 	_Creating a file share_
 
@@ -360,15 +351,9 @@ While the pool is being created, now is a good time to upload the input files th
 
 	_Opening the file share_
 
-1. In the blade for the file share, click **+ Add directory**.
+1. In the blade for the file share, click **+ Add directory**. Enter "textfiles" for the directory name, and then click **OK**.
 
-	![Adding a directory](Images/add-directory.png)
-
-	_Adding a directory_
-
-1. Enter "textfiles" for the directory name, and then click **Create**.
-
-	![Creating a directory](Images/create-directory.png)
+	![Creating a directory](Images/add-directory.png)
 
 	_Creating a directory_ 
 
@@ -501,4 +486,4 @@ Azure Batch is ideal for running large jobs that are compute-intensive as batch 
 
 ---
 
-Copyright 2016 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in http://www.apache.org/licenses/LICENSE-2.0.
+Copyright 2017 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in http://www.apache.org/licenses/LICENSE-2.0.

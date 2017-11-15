@@ -577,7 +577,7 @@ vertical-align:1px;
 <p><em>Installing Python</em></p>
 </li>
 <li>
-<p>Wait for the installer to finish. Then close the installer, go to <a href="https://github.com/Azure/batch-shipyard/releases">https://github.com/Azure/batch-shipyard/releases</a>, and download the latest version of Batch Shipyard.</p>
+<p>Wait for the installer to finish. Then close the installer, go to <a href="https://github.com/Azure/batch-shipyard/releases">https://github.com/Azure/batch-shipyard/releases</a> and download the latest version of Batch Shipyard.</p>
 <p><a href="Images/download-batch-shipyard.png" target="_blank"><img src="Images/download-batch-shipyard.png" alt="Downloading Batch Shipyard" style="max-width:100%;"></a></p>
 <p><em>Downloading Batch Shipyard</em></p>
 </li>
@@ -657,18 +657,18 @@ vertical-align:1px;
 <p>Now that Batch Shipyard is installed, it's time to configure it.</p>
 <p><a id="user-content-Exercise5"></a></p>
 <h2>Exercise 5: Configure Batch Shipyard</h2>
-<p>Batch Shipyard uses JSON files named <strong>config.json, pool.json,  jobs.json</strong>, and <strong>credentials.json</strong> to configure the environment. These four files, the Dockerfiles used to build Docker images, the files referenced in the Dockerfiles, and a <strong>readme.md</strong> file define a Batch Shipyard "recipe."</p>
-<p>Each of the configuration files in a recipe configures one element of Batch Shipyard. <strong>config.json</strong> contains configuration settings for the Batch Shipyard environment. <strong>pool.json</strong> contains definitions for the compute pools, including the VM size and the number of VMs per pool. <strong>jobs.json</strong> contains the job definition and the tasks that are part of the job. <strong>credentials.json</strong> holds information regarding the batch account and the storage account, including the keys used to access them.</p>
-<p>Three of the four JSON files are already configured in the provided recipe. The only one that needs to be changed is <strong>credentials.json</strong>. In this exercise, you will modify <strong>credentials.json</strong> so you can use it in a Batch job. Rather than create a Dockerfile, you will use one that has been created for you. To learn more about Dockerfiles, refer to <a href="https://docs.docker.com/engine/getstarted/step_four/">https://docs.docker.com/engine/getstarted/step_four/</a>.</p>
+<p>Batch Shipyard uses YAML files named <strong>config.yaml, pool.yaml,  jobs.yaml</strong>, and <strong>credentials.yaml</strong> to configure the environment. These four files, the Dockerfiles used to build Docker images, the files referenced in the Dockerfiles, and a <strong>readme.md</strong> file define a Batch Shipyard "recipe."</p>
+<p>Each of the configuration files in a recipe configures one element of Batch Shipyard. <strong>config.yaml</strong> contains configuration settings for the Batch Shipyard environment. <strong>pool.yaml</strong> contains definitions for the compute pools, including the VM size and the number of VMs per pool. <strong>jobs.yaml</strong> contains the job definition and the tasks that are part of the job. <strong>credentials.yaml</strong> holds information regarding the batch account and the storage account, including the keys used to access them.</p>
+<p>Three of the four YAML files are already configured in the provided recipe. The only one that needs to be changed is <strong>credentials.yaml</strong>. In this exercise, you will modify <strong>credentials.yaml</strong> so you can use it in a Batch job. Rather than create a Dockerfile, you will use one that has been created for you. To learn more about Dockerfiles, refer to <a href="https://docs.docker.com/engine/getstarted/step_four/">https://docs.docker.com/engine/getstarted/step_four/</a>.</p>
 <ol>
 <li>
 <p>Open the resources that accompany this lab, and then copy the "recipe" folder into the "batch-shipyard" folder created in the previous exercise.</p>
 </li>
 <li>
-<p>Open the copied "recipe" folder. Open the "config" folder in that folder, and then open the file named <strong>credentials.json</strong> in your favorite text editor. There are two sections in the file: "batch" and "storage." The "batch" section contains the settings for the Batch account that Batch Shipyard will use. The "storage" section contains the settings Batch Shipyard will use to access the storage account created for the Batch account.</p>
+<p>Open the copied "recipe" folder. Open the "config" folder in that folder, and then open the file named <strong>credentials.yaml</strong> in your favorite text editor. There are two sections in the file: "batch" and "storage." The "batch" section contains the settings for the Batch account that Batch Shipyard will use. The "storage" section contains the settings Batch Shipyard will use to access the storage account created for the Batch account.</p>
 </li>
 <li>
-<p>In <strong>credentials.json</strong>, replace <em>my_batch_account_name</em> with the name of the batch account that you created in Exercise 1, Step 3.</p>
+<p>In <strong>credentials.yaml</strong>, replace BATCH_ACCOUNT_NAME with the name of the batch account that you created in Exercise 1, Step 3.</p>
 </li>
 <li>
 <p>Return to the Azure Portal and to the "BatchResourceGroup" resource group created for the batch account in <a href="#Exercise%60">Exercise 1</a>. In the resource group, click the Batch account.</p>
@@ -681,7 +681,7 @@ vertical-align:1px;
 <p><em>Copying the Batch account key</em></p>
 </li>
 <li>
-<p>Return to <strong>credentials.json</strong> and replace <em>my_batch_account_key</em> with the key that is on the clipboard.</p>
+<p>Return to <strong>credentials.yaml</strong> and replace BATCH_ACCOUNT_KEY with the key that is on the clipboard.</p>
 </li>
 <li>
 <p>In the blade for the Batch account, click the <strong>Copy</strong> button next to the <strong>URL</strong> field.</p>
@@ -689,12 +689,12 @@ vertical-align:1px;
 <p><em>Copying the Batch account URL</em></p>
 </li>
 <li>
-<p>In <strong>credentials.json</strong>, replace <em>my_batch_account_url</em> with the URL that is on the clipboard, leaving "https://" in place at the beginning of the URL. The "batch" section of <strong>credentials.json</strong> should now look something like this:</p>
-<div class="highlight highlight-source-json"><pre><span class="pl-s"><span class="pl-pds">"</span>batch<span class="pl-pds">"</span></span>: {
-    <span class="pl-s"><span class="pl-pds">"</span>account<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>batchservicelab<span class="pl-pds">"</span></span>,
-    <span class="pl-s"><span class="pl-pds">"</span>account_key<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>ghS8vZrI+5TvmcdRoILz...7XBuvRIA6HFzCaMsPTsXToKdQtWeg==<span class="pl-pds">"</span></span>,
-    <span class="pl-s"><span class="pl-pds">"</span>account_service_url<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>https://batchservicelab.eastus.batch.azure.com<span class="pl-pds">"</span></span>
-},</pre></div>
+<p>In <strong>credentials.yaml</strong>, replace BATCH_ACCOUNT_URL with the URL that is on the clipboard, leaving "https://" in place at the beginning of the URL. The "batch" section of <strong>credentials.yaml</strong> should now look something like this:</p>
+<pre lang="Jyaml"><code>batch:
+    account: batchservicelab
+    account_key: ghS8vZrI+5TvmcdRoILz...7XBuvRIA6HFzCaMsPTsXToKdQtWeg==
+    account_service_url: "https://batchservicelab.eastus.batch.azure.com
+</code></pre>
 </li>
 <li>
 <p>In the Azure Portal, return to the "BatchResourceGroup" resource group and click the storage account in that resource group.</p>
@@ -707,7 +707,7 @@ vertical-align:1px;
 <p><em>Copying the storage account name</em></p>
 </li>
 <li>
-<p>In <strong>credentials.json</strong>, replace <em>my_storage_account_name</em> with the storage-account name that is on the clipboard.</p>
+<p>In <strong>credentials.yaml</strong>, replace STORAGE_ACCOUNT_NAME with the storage-account name that is on the clipboard.</p>
 </li>
 <li>
 <p>Return to the portal and click the <strong>Copy</strong> button next to the <strong>key1</strong> field.</p>
@@ -715,22 +715,20 @@ vertical-align:1px;
 <p><em>Copying the storage account key</em></p>
 </li>
 <li>
-<p>In <strong>credentials.json</strong>, replace <em>my_storage_account_key</em> with the key that is on the clipboard. The "storage" section of <strong>credentials.json</strong> should now look something like this:</p>
-<div class="highlight highlight-source-json"><pre><span class="pl-s"><span class="pl-pds">"</span>storage<span class="pl-pds">"</span></span>: {
-    <span class="pl-s"><span class="pl-pds">"</span>mystorageaccount<span class="pl-pds">"</span></span>: {
-        <span class="pl-s"><span class="pl-pds">"</span>account<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>batchservicelabstorage<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>account_key<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>YuTLwG3nuaQqezl/rhEkT...Xrs8+UZrxr+TFdzA==<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>endpoint<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>core.windows.net<span class="pl-pds">"</span></span>
-    }
-}</pre></div>
+<p>In <strong>credentials.yaml</strong>, replace STORAGE_ACCOUNT_KEY with the key that is on the clipboard. The "storage" section of <strong>credentials.yaml</strong> should now look something like this:</p>
+<div class="highlight highlight-source-yaml"><pre><span class="pl-ent">storage</span>:
+    <span class="pl-ent">mystorageaccount</span>:
+        <span class="pl-ent">account</span>: <span class="pl-s">batchservicelabstorage</span>
+        <span class="pl-ent">account_key</span>: <span class="pl-s">YuTLwG3nuaQqezl/rhEkT...Xrs8+UZrxr+TFdzA==</span>
+        <span class="pl-ent">endpoint</span>: <span class="pl-s">core.windows.net</span></pre></div>
 </li>
 </ol>
-<p>Save your changes to <strong>credentials.json</strong> before proceeding to the next exercise.</p>
+<p>Save your changes to <strong>credentials.yaml</strong> before proceeding to the next exercise.</p>
 <p><a id="user-content-Exercise6"></a></p>
 <h2>Exercise 6: Create a pool</h2>
-<p>Before you run the job, you must create a compute pool using the configuration settings in <strong>pool.json</strong>. Batch Shipyard provides several commands for controlling Batch pools. In this exercise, you will use one of those commands to create a pool.</p>
+<p>Before you run the job, you must create a compute pool using the configuration settings in <strong>pool.yaml</strong>. Batch Shipyard provides several commands for controlling Batch pools. In this exercise, you will use one of those commands to create a pool.</p>
 <blockquote>
-<p>The <strong>pool.json</strong> file provided for you configures each pool to have two VMs and specifies a VM size of STANDARD_A1, which contains a single core and 1.75 GB of RAM. In real life, you might find it advantageous to use larger VMs with more cores and more RAM, or to increase the number of VMs by increasing the <em>vm_count</em> property in <strong>pool.json</strong>.</p>
+<p>The <strong>pool.yaml</strong> file provided for you configures each pool to have two VMs and specifies a VM size of STANDARD_A1, which contains a single core and 1.75 GB of RAM. In real life, you might find it advantageous to use larger VMs with more cores and more RAM, or to increase the number of VMs by increasing the <em>vm_count</em> property in <strong>pool.yaml</strong>.</p>
 </blockquote>
 <ol>
 <li>
@@ -762,13 +760,8 @@ vertical-align:1px;
 <p><em>Opening file storage</em></p>
 </li>
 <li>
-<p>Click <strong>+ File share</strong>.</p>
-<p><a href="Images/add-file-share.png" target="_blank"><img src="Images/add-file-share.png" alt="Adding a file share" style="max-width:100%;"></a></p>
-<p><em>Adding a file share</em></p>
-</li>
-<li>
-<p>Enter "myfileshare" for the file-share name. Leave <strong>Quota</strong> blank, and then click <strong>Create</strong> at the bottom of the blade.</p>
-<p><a href="Images/create-file-share.png" target="_blank"><img src="Images/create-file-share.png" alt="Creating a file share" style="max-width:100%;"></a></p>
+<p>Click <strong>+ File share</strong>. Enter "myfileshare" for the file-share name. Leave <strong>Quota</strong> blank, and then click <strong>OK</strong>.</p>
+<p><a href="Images/add-file-share.png" target="_blank"><img src="Images/add-file-share.png" alt="Creating a file share" style="max-width:100%;"></a></p>
 <p><em>Creating a file share</em></p>
 </li>
 <li>
@@ -777,13 +770,8 @@ vertical-align:1px;
 <p><em>Opening the file share</em></p>
 </li>
 <li>
-<p>In the blade for the file share, click <strong>+ Add directory</strong>.</p>
-<p><a href="Images/add-directory.png" target="_blank"><img src="Images/add-directory.png" alt="Adding a directory" style="max-width:100%;"></a></p>
-<p><em>Adding a directory</em></p>
-</li>
-<li>
-<p>Enter "textfiles" for the directory name, and then click <strong>Create</strong>.</p>
-<p><a href="Images/create-directory.png" target="_blank"><img src="Images/create-directory.png" alt="Creating a directory" style="max-width:100%;"></a></p>
+<p>In the blade for the file share, click <strong>+ Add directory</strong>. Enter "textfiles" for the directory name, and then click <strong>OK</strong>.</p>
+<p><a href="Images/add-directory.png" target="_blank"><img src="Images/add-directory.png" alt="Creating a directory" style="max-width:100%;"></a></p>
 <p><em>Creating a directory</em></p>
 </li>
 <li>
@@ -890,7 +878,7 @@ vertical-align:1px;
 <h2>Summary</h2>
 <p>Azure Batch is ideal for running large jobs that are compute-intensive as batch jobs on clusters of virtual machines. Batch Shipyard improves on Azure Batch by running those same jobs in Docker containers. The exercises you performed here demonstrate the basic steps required to create a Batch service, configure Batch Shipyard using a custom recipe, and run a job. The Batch Shipyard team has prepared other recipes involving scenarios such as deep learning, computational fluid dynamics, molecular dynamics, and video processing. For more information, and to view the recipes themselves, see <a href="https://github.com/Azure/batch-shipyard/tree/master/recipes">https://github.com/Azure/batch-shipyard/tree/master/recipes</a>.</p>
 <hr>
-<p>Copyright 2016 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>.</p>
+<p>Copyright 2017 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>.</p>
 </body>
 </html>
 <!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

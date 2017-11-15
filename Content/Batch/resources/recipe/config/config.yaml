@@ -1,0 +1,17 @@
+batch_shipyard:
+  storage_account_settings: mystorageaccount
+global_resources:
+  docker_images:
+  - blaize/text2ogg
+  docker_volumes:
+    shared_data_volumes:
+      shipyardvol:
+        azure_file_share_name: myfileshare
+        container_path: /fileshare
+        mount_options:
+        - filemode=0777
+        - dirmode=0777
+        storage_account_settings: mystorageaccount
+        volume_driver: azurefile
+        bind_options: rw
+

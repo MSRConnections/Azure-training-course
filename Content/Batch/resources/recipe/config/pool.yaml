@@ -1,0 +1,18 @@
+pool_specification:
+  block_until_all_global_resources_loaded: true
+  id: batch-lab-1
+  vm_configuration:
+    platform_image:
+      publisher: Canonical
+      offer: UbuntuServer
+      sku: 16.04-LTS
+      version: latest
+      native: false
+  max_tasks_per_node: 1
+  reboot_on_start_task_failed: false
+  ssh:
+    username: docker
+  vm_count:
+    dedicated: 2
+  vm_size: Standard_A1
+
