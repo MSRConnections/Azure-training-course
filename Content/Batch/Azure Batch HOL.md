@@ -224,13 +224,13 @@ Batch Shipyard uses YAML files named **config.yaml, pool.yaml,  jobs.yaml**, and
 
 Each of the configuration files in a recipe configures one element of Batch Shipyard. **config.yaml** contains configuration settings for the Batch Shipyard environment. **pool.yaml** contains definitions for the compute pools, including the VM size and the number of VMs per pool. **jobs.yaml** contains the job definition and the tasks that are part of the job. **credentials.yaml** holds information regarding the batch account and the storage account, including the keys used to access them.
 
-Three of the four YAML files are already configured in the provided recipe. The only one that needs to be changed is **credentials.yaml**. In this exercise, you will modify **credentials.yaml** so you can use it in a Batch job. Rather than create a Dockerfile, you will use one that has been created for you. To learn more about Dockerfiles, refer to https://docs.docker.com/engine/getstarted/step_four/.
+In this exercise, you will modify **credentials.yaml** and **jobs.yaml** so they can be used in a Batch job. Rather than create a Dockerfile, you will use one that has been created for you. To learn more about Dockerfiles, refer to https://docs.docker.com/engine/getstarted/step_four/.
 
 1. Open the resources that accompany this lab, and then copy the "recipe" folder into the "batch-shipyard" folder created in the previous exercise.
 
 1. Open the copied "recipe" folder. Open the "config" folder in that folder, and then open the file named **credentials.yaml** in your favorite text editor. There are two sections in the file: "batch" and "storage." The "batch" section contains the settings for the Batch account that Batch Shipyard will use. The "storage" section contains the settings Batch Shipyard will use to access the storage account created for the Batch account.
 
-1. In **credentials.yaml**, replace BATCH_ACCOUNT_NAME with the name of the batch account that you created in Exercise 1, Step 3. 
+1. In **credentials.yaml**, replace BATCH_ACCOUNT_NAME with the name of the Batch account that you created in Exercise 1, Step 3. 
 
 1. Return to the Azure Portal and to the "BatchResourceGroup" resource group created for the batch account in [Exercise 1](#Exercise`). In the resource group, click the Batch account.
 
@@ -238,7 +238,7 @@ Three of the four YAML files are already configured in the provided recipe. The 
 
 	_Opening the batch account_
 
-1. Click **Keys**, and then click the **Copy** button next to the **Primary Access Key** field.
+1. Click **Keys**, and then click the **Copy** button next to the **Primary access key** field.
 
 	![Copying the Batch account key](Images/select-batch-account-key.png)
 
@@ -254,7 +254,7 @@ Three of the four YAML files are already configured in the provided recipe. The 
 
 1. In **credentials.yaml**, replace BATCH_ACCOUNT_URL with the URL that is on the clipboard, leaving "https://" in place at the beginning of the URL. The "batch" section of **credentials.yaml** should now look something like this:
 
-	```Jyaml
+	```yaml
 	batch:
 	    account: batchservicelab
 	    account_key: ghS8vZrI+5TvmcdRoILz...7XBuvRIA6HFzCaMsPTsXToKdQtWeg==
@@ -275,13 +275,13 @@ Three of the four YAML files are already configured in the provided recipe. The 
 
 1. In **credentials.yaml**, replace STORAGE_ACCOUNT_NAME with the storage-account name that is on the clipboard.
 
-1. Return to the portal and click the **Copy** button next to the **key1** field.
+1. Return to the portal and copy the storage account's access key to the clipboard.
 
 	![Copying the storage account key](Images/copy-storage-account-key.png)
 
 	_Copying the storage account key_
 
-1. In **credentials.yaml**, replace STORAGE_ACCOUNT_KEY with the key that is on the clipboard. The "storage" section of **credentials.yaml** should now look something like this:
+1. In **credentials.yaml**, replace STORAGE_ACCOUNT_KEY with the key that is on the clipboard, and then save the file. The "storage" section of **credentials.yaml** should now look something like this:
 
 	```yaml
 	storage:
@@ -291,7 +291,15 @@ Three of the four YAML files are already configured in the provided recipe. The 
 	        endpoint: core.windows.net
 	```
 
-Save your changes to **credentials.yaml** before proceeding to the next exercise.
+1. Return to the portal and copy the storage account's connection string to the clipboard.
+
+	![Copying the storage account connection string](Images/copy-storage-account-connection-string.png)
+
+	_Copying the storage account connection string_
+
+1. Open **jobs.yaml** and replace STORAGE_ACCOUNT_CONNECTION_STRING with the connection string that is on the clipboard. Then save the file. 
+
+**credentials.yaml** and **jobs.yaml** now contain connection information for the Batch account and the storage account. The next step is to use another of the YAML files to create a compute pool.
 
 <a id="Exercise6"/></a>
 ## Exercise 6: Create a pool ##

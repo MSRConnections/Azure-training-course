@@ -2,7 +2,7 @@ job_specifications:
 
 - id: batch-lab-job-1
   environment_variables:
-    AZ_STORE_CONN_STR:  my_storage_account_connection_string
+    AZ_STORE_CONN_STR: STORAGE_ACCOUNT_CONNECTION_STRING
   tasks:
   - image: blaize/text2ogg
     remove_container_after_exit: false
