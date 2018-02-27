@@ -469,423 +469,277 @@ vertical-align:1px;
 </head>
 <body>
 <p><a name="HOLTitle"></a></p>
-<h1>Azure Batch Service with Batch Shipyard</h1>
+<h1 id="azure-batch-service-with-batch-shipyard">Azure Batch Service with Batch Shipyard</h1>
 <hr>
 <p><a name="Overview"></a></p>
-<h2>Overview</h2>
-<p><a href="https://azure.microsoft.com/en-us/services/batch/"><strong>Azure Batch</strong></a> is a service that enables you to run batch processes on high-performance computing (HPC) clusters composed of Azure virtual machines (VMs). Batch processes are ideal for handling computationally intensive tasks that can run unattended such as photorealistic rendering and computational fluid dynamics. Azure Batch uses <a href="https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-overview">VM scale sets</a> to scale up and down and to prevent you from paying for VMs that aren't being used. It also supports autoscaling, which, if enabled, allows Batch to scale up as needed to handle massively complex workloads.</p>
+<h2 id="overview">Overview</h2>
+<p><a href="https://azure.microsoft.com/en-us/services/batch/"><strong>Azure Batch</strong></a> is a service that enables you to run batch processes on high-performance computing (HPC) clusters composed of Azure virtual machines (VMs). Batch processes are ideal for handling computationally intensive tasks that can run unattended such as photorealistic rendering and computational fluid dynamics. Azure Batch uses <a href="https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-overview">VM scale sets</a> to scale up and down and to prevent you from paying for VMs that aren&#39;t being used. It also supports autoscaling, which, if enabled, allows Batch to scale up as needed to handle massively complex workloads.</p>
 <p>Azure Batch involves three important concepts: <strong>storage</strong>, <strong>pools</strong>, and <strong>jobs</strong>. Storage is implemented through Azure Storage, and is where data input and output are stored. Pools are composed of compute nodes. Each pool has one or more VMs, and each VM has one or more CPUs. Jobs contain the scripts that process the information in storage and write the results back out to storage. Jobs themselves are composed of one or more tasks. Tasks can be run one at a time or in parallel.</p>
 <p><strong><a href="https://github.com/Azure/batch-shipyard">Batch Shipyard</a></strong> is an open-source toolkit that allows Dockerized workloads to be deployed to Azure Batch compute pools. Dockerized workloads use Docker containers rather than VMs. (Containers are hosted in VMs but typically require fewer VMs because one VM can host multiple container instances.) Containers start faster and use fewer resources than VMs and are generally more cost-efficient. For more information, see <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/containers">https://docs.microsoft.com/en-us/azure/virtual-machines/windows/containers</a>.</p>
 <p>The workflow for using Batch Shipyard with Azure Batch is pictured below. After creating a Batch account and configuring Batch Shipyard to use it, you upload input files to storage and use Batch Shipyard to create Batch pools. Then you use Batch Shipyard to create and run jobs against those pools. The jobs themselves use tasks to read data from storage, process it, and write the results back to storage.</p>
-<p><a href="Images/batch-shipyard.png" target="_blank"><img src="Images/batch-shipyard.png" alt="Batch Shipyard" style="max-width:100%;"></a></p>
+<p><img src="Images/batch-shipyard.png" alt="Batch Shipyard"></p>
 <p><em>Azure Batch Shipyard workflow</em></p>
 <p>In this lab, you will use Azure Batch and Batch Shipyard to process a set of text files containing chapters from a famous novel and generate .ogg sound files from the text files.</p>
-<p><strong>Note</strong>: This lab requires an Internet connection with a minimum upload speed of approximately 1 MB/sec or higher. If you don't have that, or if the lab fails in Exercise 6, try creating a Windows VM in Azure and working the lab in the VM. You will find instructions for creating a Windows VM in Azure at <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal">https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal</a>.</p>
+<p><strong>Note</strong>: This lab requires an Internet connection with a minimum upload speed of approximately 1 MB/sec or higher. If you don&#39;t have that, or if the lab fails in Exercise 6, try creating a Windows VM in Azure and working the lab in the VM. You will find instructions for creating a Windows VM in Azure at <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal">https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal</a>.</p>
 <p><a name="Objectives"></a></p>
-<h3>Objectives</h3>
+<h3 id="objectives">Objectives</h3>
 <p>In this hands-on lab, you will learn how to:</p>
 <ul>
-<li>Create an Azure Batch account</li>
-<li>Configure Batch Shipyard to use the Batch account</li>
-<li>Create a pool and run a job on that pool</li>
-<li>View the results of the job</li>
-<li>Use the Azure Portal to remove the Batch account</li>
-</ul>
+<li>Create an Azure Batch account</li><li>Configure Batch Shipyard to use the Batch account</li><li>Create a pool and run a job on that pool</li><li>View the results of the job</li><li>Use the Azure Portal to remove the Batch account</li></ul>
 <p><a name="Prerequisites"></a></p>
-<h3>Prerequisites</h3>
+<h3 id="prerequisites">Prerequisites</h3>
 <ul>
-<li>An active Microsoft Azure subscription. If you don't have one, <a href="https://azure.microsoft.com/en-us/free/">sign up for a free trial</a></li>
-</ul>
+<li>An active Microsoft Azure subscription. If you don&#39;t have one, <a href="https://azure.microsoft.com/en-us/free/">sign up for a free trial</a></li></ul>
 <p><a name="Resources"></a></p>
-<h3>Resources</h3>
+<h3 id="resources">Resources</h3>
 <p><a href="https://a4r.blob.core.windows.net/public/batch-resources.zip">Click here</a> to download a zip file containing the resources used in this lab. Copy the contents of the zip file into a folder on your hard disk.</p>
 <p><a name="Exercises"></a></p>
-<h2>Exercises</h2>
+<h2 id="exercises">Exercises</h2>
 <p>This hands-on lab includes the following exercises:</p>
 <ul>
-<li><a href="#Exercise1">Exercise 1: Create a Batch account</a></li>
-<li><a href="#Exercise2">Exercise 2: Set up Batch Shipyard (Windows)</a></li>
-<li><a href="#Exercise3">Exercise 3: Set up Batch Shipyard (macOS)</a></li>
-<li><a href="#Exercise4">Exercise 4: Set up Batch Shipyard (Ubuntu Linux)</a></li>
-<li><a href="#Exercise5">Exercise 5: Configure Batch Shipyard</a></li>
-<li><a href="#Exercise6">Exercise 6: Create a pool</a></li>
-<li><a href="#Exercise7">Exercise 7: Upload input files</a></li>
-<li><a href="#Exercise8">Exercise 8: Run the job</a></li>
-<li><a href="#Exercise9">Exercise 9: View the results</a></li>
-<li><a href="#Exercise10">Exercise 10: Delete the resource group</a></li>
-</ul>
+<li><a href="#Exercise1">Exercise 1: Create a Batch account</a></li><li><a href="#Exercise2">Exercise 2: Set up Batch Shipyard (Windows)</a></li><li><a href="#Exercise3">Exercise 3: Set up Batch Shipyard (macOS)</a></li><li><a href="#Exercise4">Exercise 4: Set up Batch Shipyard (Ubuntu Linux)</a></li><li><a href="#Exercise5">Exercise 5: Configure Batch Shipyard</a></li><li><a href="#Exercise6">Exercise 6: Create a pool</a></li><li><a href="#Exercise7">Exercise 7: Upload input files</a></li><li><a href="#Exercise8">Exercise 8: Run the job</a></li><li><a href="#Exercise9">Exercise 9: View the results</a></li><li><a href="#Exercise10">Exercise 10: Delete the resource group</a></li></ul>
 <p>Estimated time to complete this lab: <strong>60</strong> minutes.</p>
-<p><a id="user-content-Exercise1"></a></p>
-<h2>Exercise 1: Create a Batch account</h2>
+<p><a id="Exercise1"/></a></p>
+<h2 id="exercise-1-create-a-batch-account">Exercise 1: Create a Batch account</h2>
 <p>Azure Batch accounts can be created through the Azure Portal. In this exercise, you will create a Batch account and a storage account to go with it. This is the storage account that will be used for job input and output.</p>
 <ol>
-<li>
-<p>Open the <a href="https://portal.azure.com">Azure Portal</a> in your browser. If you are asked to log in, do so using your Microsoft account.</p>
-</li>
-<li>
-<p>Click <strong>+ New</strong>, followed by <strong>Compute</strong> and <strong>Batch Service</strong>.</p>
-<p><a href="Images/setup-azure-batch.png" target="_blank"><img src="Images/setup-azure-batch.png" alt="Creating a Batch service" style="max-width:100%;"></a></p>
-<p><em>Creating a Batch service</em></p>
-</li>
-<li>
-<p>In the "New Batch account" blade, give the account a unique name such as "batchservicelab" and make sure a green check mark appears next to it. (You can only use numbers and lowercase letters since the name becomes part of a DNS name.) Select <strong>Create new</strong> under <strong>Resource group</strong> and name the resource group "BatchResourceGroup." Select the <strong>Location</strong> nearest you, and then click <strong>Select a storage account</strong>.</p>
-<p><a href="Images/batch-parameters.png" target="_blank"><img src="Images/batch-parameters.png" alt="Entering Batch account parameters" style="max-width:100%;"></a></p>
-<p><em>Entering Batch account parameters</em></p>
-</li>
-<li>
-<p>Click <strong>Create new</strong> to create a new storage account for the Batch service.</p>
-<p><a href="Images/create-new-storage-account.png" target="_blank"><img src="Images/create-new-storage-account.png" alt="Creating a new storage account" style="max-width:100%;"></a></p>
-<p><em>Creating a new storage account</em></p>
-</li>
-<li>
-<p>Enter a unique name for the storage account and make sure a green check mark appears next to it. Then set <strong>Replication</strong> to <strong>Locally-redundant Storage (LRS)</strong> and click <strong>OK</strong> at the bottom of the blade.</p>
+<li><p>Open the <a href="https://portal.azure.com">Azure Portal</a> in your browser. If you are asked to log in, do so using your Microsoft account.</p>
+</li><li><p>Click <strong>+ Create a resource</strong>, followed by <strong>Compute</strong> and <strong>Batch Service</strong>.</p>
+<p> <img src="Images/setup-azure-batch.png" alt="Creating a Batch service"></p>
+<p> <em>Creating a Batch service</em></p>
+</li><li><p>In the &quot;New Batch account&quot; blade, give the account a unique name such as &quot;batchservicelab&quot; and make sure a green check mark appears next to it. (You can only use numbers and lowercase letters since the name becomes part of a DNS name.) Select <strong>Create new</strong> under <strong>Resource group</strong> and name the resource group &quot;BatchResourceGroup.&quot; Select the <strong>Location</strong> nearest you, and then click <strong>Select a storage account</strong>.</p>
+<p> <img src="Images/batch-parameters.png" alt="Entering Batch account parameters"></p>
+<p> <em>Entering Batch account parameters</em></p>
+</li><li><p>Click <strong>Create new</strong> to create a new storage account for the Batch service.</p>
+<p> <img src="Images/create-new-storage-account.png" alt="Creating a new storage account"></p>
+<p> <em>Creating a new storage account</em></p>
+</li><li><p>Enter a unique name for the storage account and make sure a green check mark appears next to it. Then set <strong>Replication</strong> to <strong>Locally-redundant Storage (LRS)</strong> and click <strong>OK</strong> at the bottom of the blade.</p>
 <blockquote>
-<p>Storage account names can be 3 to 24 characters in length and can only contain numbers and lowercase letters. In addition, the name you enter must be unique within Azure; if someone else has chosen the same name, you'll be notified that the name isn't available with a red exclamation mark in the <strong>Name</strong> field.</p>
+<p>Storage account names can be 3 to 24 characters in length and can only contain numbers and lowercase letters. In addition, the name you enter must be unique within Azure; if someone else has chosen the same name, you&#39;ll be notified that the name isn&#39;t available with a red exclamation mark in the <strong>Name</strong> field.</p>
 </blockquote>
-<p><a href="Images/create-new-storage-account-2.png" target="_blank"><img src="Images/create-new-storage-account-2.png" alt="Creating a new storage account" style="max-width:100%;"></a></p>
-<p><em>Creating a new storage account</em></p>
-</li>
-<li>
-<p>Click the <strong>Create</strong> button at the bottom of the "New Batch account" blade to start the deployment</p>
-<p><a href="Images/create-batch-account.png" target="_blank"><img src="Images/create-batch-account.png" alt="Creating a Batch account" style="max-width:100%;"></a></p>
-<p><em>Creating a Batch account</em></p>
-</li>
-<li>
-<p>Click <strong>Resource groups</strong> in the ribbon on the left side of the portal, and then click the resource group created for the Batch account.</p>
-<p><a href="Images/open-resource-group.png" target="_blank"><img src="Images/open-resource-group.png" alt="Opening the resource group" style="max-width:100%;"></a></p>
-<p><em>Opening the resource group</em></p>
-</li>
-<li>
-<p>Wait until "Deploying" changes to "Succeeded," indicating that the Batch account and the storage account have been deployed. You can click the <strong>Refresh</strong> button at the top of the blade to refresh the deployment status.</p>
-<p><a href="Images/deployment-status.png" target="_blank"><img src="Images/deployment-status.png" alt="Viewing the deployment status" style="max-width:100%;"></a></p>
-<p><em>Viewing the deployment status</em></p>
-</li>
-</ol>
+<p> <img src="Images/create-new-storage-account-2.png" alt="Creating a new storage account"></p>
+<p> <em>Creating a new storage account</em></p>
+</li><li><p>Click the <strong>Create</strong> button at the bottom of the &quot;New Batch account&quot; blade to start the deployment</p>
+<p> <img src="Images/create-batch-account.png" alt="Creating a Batch account"></p>
+<p> <em>Creating a Batch account</em></p>
+</li><li><p>Click <strong>Resource groups</strong> in the ribbon on the left side of the portal, and then click the resource group created for the Batch account.</p>
+<p> <img src="Images/open-resource-group.png" alt="Opening the resource group"></p>
+<p> <em>Opening the resource group</em></p>
+</li><li><p>Wait until &quot;Deploying&quot; changes to &quot;Succeeded,&quot; indicating that the Batch account and the storage account have been deployed. You can click the <strong>Refresh</strong> button at the top of the blade to refresh the deployment status.</p>
+<p> <img src="Images/deployment-status.png" alt="Viewing the deployment status"></p>
+<p> <em>Viewing the deployment status</em></p>
+</li></ol>
 <p>After the deployment finishes, proceed to <a href="#Exercise2">Exercise 2</a> if you are running Windows, <a href="#Exercise3">Exercise 3</a> if you are running macOS, or <a href="#Exercise4">Exercise 4</a> if you are running Linux.</p>
-<p><a id="user-content-Exercise2"></a></p>
-<h2>Exercise 2: Set up Batch Shipyard (Windows)</h2>
-<p>Azure Batch Shipyard is built on Python. Windows does not have a built-in Python client, so you need to install one if it isn't installed already. In this exercise, you will download and install Python, and then use PiPy, the Python package manager, to install the dependencies for Batch Shipyard.</p>
+<p><a id="Exercise2"/></a></p>
+<h2 id="exercise-2-set-up-batch-shipyard-windows-">Exercise 2: Set up Batch Shipyard (Windows)</h2>
+<p>Azure Batch Shipyard is built on Python. Windows does not have a built-in Python client, so you need to install one if it isn&#39;t installed already. In this exercise, you will download and install Python, and then use PiPy, the Python package manager, to install the dependencies for Batch Shipyard.</p>
 <ol>
-<li>
-<p>Visit <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a> to download the latest version of Python for Windows. Click <strong>Download Python 3.x.x</strong> to start the download.</p>
-<p><a href="Images/python-3-download.png" target="_blank"><img src="Images/python-3-download.png" alt="Downloading Python for Windows" style="max-width:100%;"></a></p>
-<p><em>Downloading Python for Windows</em></p>
-</li>
-<li>
-<p>Once the download completes, launch the installer. Check the <strong>Add Python 3.x to PATH</strong> box, and then click <strong>Install Now</strong>.</p>
-<p><a href="Images/python-3-installer-2.png" target="_blank"><img src="Images/python-3-installer-2.png" alt="Installing Python" style="max-width:100%;"></a></p>
-<p><em>Installing Python</em></p>
-</li>
-<li>
-<p>Wait for the installer to finish. Then close the installer, go to <a href="https://github.com/Azure/batch-shipyard/releases">https://github.com/Azure/batch-shipyard/releases</a> and download the latest version of Batch Shipyard.</p>
-<p><a href="Images/download-batch-shipyard.png" target="_blank"><img src="Images/download-batch-shipyard.png" alt="Downloading Batch Shipyard" style="max-width:100%;"></a></p>
-<p><em>Downloading Batch Shipyard</em></p>
-</li>
-<li>
-<p>Once the download completes, open the downloaded zip file and copy the folder named "batch-shipyard-2.x.x" inside the zip file to the clipboard.</p>
-</li>
-<li>
-<p>Paste the folder onto the Desktop, and then rename the folder "batch-shipyard."</p>
-</li>
-<li>
-<p>Open a Command Prompt window and use a <code>cd</code> command to change directories to the "batch-shipyard" folder on the Desktop. Then execute the following command to run PiPy and install the dependencies for Batch Shipyard. When you're finished, leave the Command Prompt window open so you can return to it later.</p>
-<pre><code>pip3 install --upgrade -r requirements.txt
-</code></pre>
-</li>
-</ol>
+<li><p>Visit <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a> to download the latest version of Python for Windows. Click <strong>Download Python 3.x.x</strong> to start the download.</p>
+<p> <img src="Images/python-3-download.png" alt="Downloading Python for Windows"></p>
+<p> <em>Downloading Python for Windows</em></p>
+</li><li><p>Once the download completes, launch the installer. Check the <strong>Add Python 3.x to PATH</strong> box, and then click <strong>Install Now</strong>.</p>
+<p> <img src="Images/python-3-installer-2.png" alt="Installing Python"></p>
+<p> <em>Installing Python</em></p>
+</li><li><p>Wait for the installer to finish. Then close the installer, go to <a href="https://github.com/Azure/batch-shipyard/releases">https://github.com/Azure/batch-shipyard/releases</a> and download the latest version of Batch Shipyard.</p>
+<p> <img src="Images/download-batch-shipyard.png" alt="Downloading Batch Shipyard"></p>
+<p> <em>Downloading Batch Shipyard</em></p>
+</li><li><p>Once the download completes, open the downloaded zip file and copy the folder named &quot;batch-shipyard-2.x.x&quot; inside the zip file to the clipboard.</p>
+</li><li><p>Paste the folder onto the Desktop, and then rename the folder &quot;batch-shipyard.&quot;</p>
+</li><li><p>Open a Command Prompt window and use a <code>cd</code> command to change directories to the &quot;batch-shipyard&quot; folder on the Desktop. Then execute the following command to run PiPy and install the dependencies for Batch Shipyard. When you&#39;re finished, leave the Command Prompt window open so you can return to it later.</p>
+<pre><code> pip3 install --upgrade -r requirements.txt
+</code></pre></li></ol>
 <p>Now <strong>proceed to <a href="#Exercise5">Exercise 5</a></strong>. Exercises 3 and 4 are for macOS and Linux users only.</p>
-<p><a id="user-content-Exercise3"></a></p>
-<h2>Exercise 3: Set up Batch Shipyard (macOS)</h2>
+<p><a id="Exercise3"/></a></p>
+<h2 id="exercise-3-set-up-batch-shipyard-macos-">Exercise 3: Set up Batch Shipyard (macOS)</h2>
 <p>macOS comes with Python preinstalled, but using the preinstalled version of Python with Azure Batch Shipyard is problematic. Batch Shipyard works best with Python 3 installed on a Mac. Python 3 can coexist with Python 2 without interference. In this exercise, you will download and install Python 3, and then use PiPy, the Python package manager, to install the dependencies for Batch Shipyard.</p>
 <ol>
-<li>
-<p>Visit <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a> to download the latest version of Python for the Mac. Click <strong>Download Python 3.x.x</strong> to start the download.</p>
-<p><a href="Images/python-3-download-mac.png" target="_blank"><img src="Images/python-3-download-mac.png" alt="Downloading Python for macOS" style="max-width:100%;"></a></p>
-<p><em>Downloading Python for macOS</em></p>
-</li>
-<li>
-<p>Once the download completes, launch the installer. The package will need elevated permissions to install Python, so when prompted, enter your password.</p>
-</li>
-<li>
-<p>Wait for the installer to finish. Then run the <strong>Install Certificates.command</strong> file that the Python installer placed in the "/Applications/Python 3.x" directory. You can run it by double-clicking it in Finder, or by typing the following command into a terminal window (assuming the version of Python you installed is 3.6):</p>
-<pre><code>/Applications/Python\ 3.6/Install\ Certificates.command
-</code></pre>
-<blockquote>
+<li><p>Visit <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a> to download the latest version of Python for the Mac. Click <strong>Download Python 3.x.x</strong> to start the download.</p>
+<p> <img src="Images/python-3-download-mac.png" alt="Downloading Python for macOS"></p>
+<p> <em>Downloading Python for macOS</em></p>
+</li><li><p>Once the download completes, launch the installer. The package will need elevated permissions to install Python, so when prompted, enter your password.</p>
+</li><li><p>Wait for the installer to finish. Then run the <strong>Install Certificates.command</strong> file that the Python installer placed in the &quot;/Applications/Python 3.x&quot; directory. You can run it by double-clicking it in Finder, or by typing the following command into a terminal window (assuming the version of Python you installed is 3.6):</p>
+<pre><code> /Applications/Python\ 3.6/Install\ Certificates.command
+</code></pre><blockquote>
 <p>This command is necessary because Python 3.x uses its own SSL implementation rather than the one built into macOS. For more information, see <a href="http://www.cdotson.com/2017/01/sslerror-with-python-3-6-x-on-macos-sierra/">http://www.cdotson.com/2017/01/sslerror-with-python-3-6-x-on-macos-sierra/</a>.</p>
 </blockquote>
-</li>
-<li>
-<p>Go to <a href="https://github.com/Azure/batch-shipyard/releases">https://github.com/Azure/batch-shipyard/releases</a> in your browser and download the latest version of Batch Shipyard. macOS will automatically unzip the files in the Downloads folder.</p>
-<p><a href="Images/download-batch-shipyard.png" target="_blank"><img src="Images/download-batch-shipyard.png" alt="Downloading Batch Shipyard" style="max-width:100%;"></a></p>
-<p><em>Downloading Batch Shipyard</em></p>
-</li>
-<li>
-<p>Open the Downloads folder in Finder. Then rename the "batch-shipyard-2.x.x" folder to "batch-shipyard."</p>
-</li>
-<li>
-<p>Open a terminal window and use a <code>cd ~/Downloads/batch-shipyard</code> command to change directories to the "batch-shipyard" folder in Downloads. Then execute the following command to run PiPy and install the dependencies for Batch Shipyard. When you're finished, leave the terminal window open so you can return to it later.</p>
-<pre><code>pip3 install --upgrade -r requirements.txt
-</code></pre>
-</li>
-</ol>
+</li><li><p>Go to <a href="https://github.com/Azure/batch-shipyard/releases">https://github.com/Azure/batch-shipyard/releases</a> in your browser and download the latest version of Batch Shipyard. macOS will automatically unzip the files in the Downloads folder.</p>
+<p> <img src="Images/download-batch-shipyard.png" alt="Downloading Batch Shipyard"></p>
+<p> <em>Downloading Batch Shipyard</em></p>
+</li><li><p>Open the Downloads folder in Finder. Then rename the &quot;batch-shipyard-2.x.x&quot; folder to &quot;batch-shipyard.&quot;</p>
+</li><li><p>Open a terminal window and use a <code>cd ~/Downloads/batch-shipyard</code> command to change directories to the &quot;batch-shipyard&quot; folder in Downloads. Then execute the following command to run PiPy and install the dependencies for Batch Shipyard. When you&#39;re finished, leave the terminal window open so you can return to it later.</p>
+<pre><code> pip3 install --upgrade -r requirements.txt
+</code></pre></li></ol>
 <p>Now <strong>proceed to <a href="#Exercise5">Exercise 5</a></strong>. Exercise 4 is for Linux users only.</p>
-<p><a id="user-content-Exercise4"></a></p>
-<h2>Exercise 4: Set up Batch Shipyard (Ubuntu Linux)</h2>
-<p>In this exercise, you will install PiPy, the Python package manager, and then use it to install the dependencies for Batch Shipyard.</p>
+<p><a id="Exercise4"/></a></p>
+<h2 id="exercise-4-set-up-batch-shipyard-ubuntu-linux-">Exercise 4: Set up Batch Shipyard (Ubuntu Linux)</h2>
+<p>In this exercise, you will install PiPy, the Python package manager, and then use it to install the dependencies for Batch Shipyard. </p>
 <ol>
-<li>
-<p>Begin by launching a terminal. If you're using a desktop version of Linux, the terminal is usually in the Applications menu. It can also be launched by pressing <strong>Ctrl+Alt+F1</strong>. Once the terminal is started, use the following command to install Python, PiPy, and git using apt-get:</p>
-<pre><code>sudo apt-get install python-pip python git
-</code></pre>
-</li>
-<li>
-<p>Execute the following command to clone Batch Shipyard on the local machine. This will create a folder named "batch-shipyard" and download all the files to that directory.</p>
-<pre><code>git clone https://github.com/Azure/batch-shipyard.git
-</code></pre>
-</li>
-<li>
-<p>Use a <code>cd</code> command to change to the "batch-shipyard" folder:</p>
-<pre><code>cd batch-shipyard
-</code></pre>
-</li>
-<li>
-<p>Use the following command to finish the installation by running the included setup script. The script invokes PiPy to install the dependencies needed by Batch Shipyard.</p>
-<pre><code>./install.sh
-</code></pre>
-</li>
-</ol>
-<p>Now that Batch Shipyard is installed, it's time to configure it.</p>
-<p><a id="user-content-Exercise5"></a></p>
-<h2>Exercise 5: Configure Batch Shipyard</h2>
-<p>Batch Shipyard uses YAML files named <strong>config.yaml, pool.yaml,  jobs.yaml</strong>, and <strong>credentials.yaml</strong> to configure the environment. These four files, the Dockerfiles used to build Docker images, the files referenced in the Dockerfiles, and a <strong>readme.md</strong> file define a Batch Shipyard "recipe."</p>
+<li><p>Begin by launching a terminal. If you&#39;re using a desktop version of Linux, the terminal is usually in the Applications menu. It can also be launched by pressing <strong>Ctrl+Alt+F1</strong>. Once the terminal is started, use the following command to install Python, PiPy, and git using apt-get:</p>
+<pre><code> sudo apt-get install python-pip python git
+</code></pre></li><li><p>Execute the following command to clone Batch Shipyard on the local machine. This will create a folder named &quot;batch-shipyard&quot; and download all the files to that directory.</p>
+<pre><code> git clone https://github.com/Azure/batch-shipyard.git
+</code></pre></li><li><p>Use a <code>cd</code> command to change to the &quot;batch-shipyard&quot; folder:</p>
+<pre><code> cd batch-shipyard
+</code></pre></li><li><p>Use the following command to finish the installation by running the included setup script. The script invokes PiPy to install the dependencies needed by Batch Shipyard.</p>
+<pre><code> ./install.sh
+</code></pre></li></ol>
+<p>Now that Batch Shipyard is installed, it&#39;s time to configure it.</p>
+<p><a id="Exercise5"/></a></p>
+<h2 id="exercise-5-configure-batch-shipyard">Exercise 5: Configure Batch Shipyard</h2>
+<p>Batch Shipyard uses YAML files named <strong>config.yaml, pool.yaml,  jobs.yaml</strong>, and <strong>credentials.yaml</strong> to configure the environment. These four files, the Dockerfiles used to build Docker images, the files referenced in the Dockerfiles, and a <strong>readme.md</strong> file define a Batch Shipyard &quot;recipe.&quot;</p>
 <p>Each of the configuration files in a recipe configures one element of Batch Shipyard. <strong>config.yaml</strong> contains configuration settings for the Batch Shipyard environment. <strong>pool.yaml</strong> contains definitions for the compute pools, including the VM size and the number of VMs per pool. <strong>jobs.yaml</strong> contains the job definition and the tasks that are part of the job. <strong>credentials.yaml</strong> holds information regarding the batch account and the storage account, including the keys used to access them.</p>
 <p>In this exercise, you will modify <strong>credentials.yaml</strong> and <strong>jobs.yaml</strong> so they can be used in a Batch job. Rather than create a Dockerfile, you will use one that has been created for you. To learn more about Dockerfiles, refer to <a href="https://docs.docker.com/engine/getstarted/step_four/">https://docs.docker.com/engine/getstarted/step_four/</a>.</p>
 <ol>
-<li>
-<p>Open the resources that accompany this lab, and then copy the "recipe" folder into the "batch-shipyard" folder created in the previous exercise.</p>
-</li>
-<li>
-<p>Open the copied "recipe" folder. Open the "config" folder in that folder, and then open the file named <strong>credentials.yaml</strong> in your favorite text editor. There are two sections in the file: "batch" and "storage." The "batch" section contains the settings for the Batch account that Batch Shipyard will use. The "storage" section contains the settings Batch Shipyard will use to access the storage account created for the Batch account.</p>
-</li>
-<li>
-<p>In <strong>credentials.yaml</strong>, replace BATCH_ACCOUNT_NAME with the name of the Batch account that you created in Exercise 1, Step 3.</p>
-</li>
-<li>
-<p>Return to the Azure Portal and to the "BatchResourceGroup" resource group created for the batch account in <a href="#Exercise%60">Exercise 1</a>. In the resource group, click the Batch account.</p>
-<p><a href="Images/open-batch-account.png" target="_blank"><img src="Images/open-batch-account.png" alt="Opening the batch account" style="max-width:100%;"></a></p>
-<p><em>Opening the batch account</em></p>
-</li>
-<li>
-<p>Click <strong>Keys</strong>, and then click the <strong>Copy</strong> button next to the <strong>Primary access key</strong> field.</p>
-<p><a href="Images/select-batch-account-key.png" target="_blank"><img src="Images/select-batch-account-key.png" alt="Copying the Batch account key" style="max-width:100%;"></a></p>
-<p><em>Copying the Batch account key</em></p>
-</li>
-<li>
-<p>Return to <strong>credentials.yaml</strong> and replace BATCH_ACCOUNT_KEY with the key that is on the clipboard.</p>
-</li>
-<li>
-<p>In the blade for the Batch account, click the <strong>Copy</strong> button next to the <strong>URL</strong> field.</p>
-<p><a href="Images/select-batch-account-url.png" target="_blank"><img src="Images/select-batch-account-url.png" alt="Copying the Batch account URL" style="max-width:100%;"></a></p>
-<p><em>Copying the Batch account URL</em></p>
-</li>
-<li>
-<p>In <strong>credentials.yaml</strong>, replace BATCH_ACCOUNT_URL with the URL that is on the clipboard, leaving "https://" in place at the beginning of the URL. The "batch" section of <strong>credentials.yaml</strong> should now look something like this:</p>
-<div class="highlight highlight-source-yaml"><pre><span class="pl-ent">batch</span>:
-    <span class="pl-ent">account</span>: <span class="pl-s">batchservicelab</span>
-    <span class="pl-ent">account_key</span>: <span class="pl-s">ghS8vZrI+5TvmcdRoILz...7XBuvRIA6HFzCaMsPTsXToKdQtWeg==</span>
-    <span class="pl-ent">account_service_url</span>: <span class="pl-s"><span class="pl-pds">"</span>https://batchservicelab.eastus.batch.azure.com</span></pre></div>
-</li>
-<li>
-<p>In the Azure Portal, return to the "BatchResourceGroup" resource group and click the storage account in that resource group.</p>
-<p><a href="Images/open-storage-account.png" target="_blank"><img src="Images/open-storage-account.png" alt="Opening the storage account" style="max-width:100%;"></a></p>
-<p><em>Opening the storage account</em></p>
-</li>
-<li>
-<p>Click <strong>Access keys</strong>, and then click the <strong>Copy</strong> button next to the <strong>Storage account name</strong> field.</p>
-<p><a href="Images/copy-storage-account-name.png" target="_blank"><img src="Images/copy-storage-account-name.png" alt="Copying the storage account name" style="max-width:100%;"></a></p>
-<p><em>Copying the storage account name</em></p>
-</li>
-<li>
-<p>In <strong>credentials.yaml</strong>, replace STORAGE_ACCOUNT_NAME with the storage-account name that is on the clipboard.</p>
-</li>
-<li>
-<p>Return to the portal and copy the storage account's access key to the clipboard.</p>
-<p><a href="Images/copy-storage-account-key.png" target="_blank"><img src="Images/copy-storage-account-key.png" alt="Copying the storage account key" style="max-width:100%;"></a></p>
-<p><em>Copying the storage account key</em></p>
-</li>
-<li>
-<p>In <strong>credentials.yaml</strong>, replace STORAGE_ACCOUNT_KEY with the key that is on the clipboard, and then save the file. The "storage" section of <strong>credentials.yaml</strong> should now look something like this:</p>
-<div class="highlight highlight-source-yaml"><pre><span class="pl-ent">storage</span>:
-    <span class="pl-ent">mystorageaccount</span>:
-        <span class="pl-ent">account</span>: <span class="pl-s">batchservicelabstorage</span>
-        <span class="pl-ent">account_key</span>: <span class="pl-s">YuTLwG3nuaQqezl/rhEkT...Xrs8+UZrxr+TFdzA==</span>
-        <span class="pl-ent">endpoint</span>: <span class="pl-s">core.windows.net</span></pre></div>
-</li>
-<li>
-<p>Return to the portal and copy the storage account's connection string to the clipboard.</p>
-<p><a href="Images/copy-storage-account-connection-string.png" target="_blank"><img src="Images/copy-storage-account-connection-string.png" alt="Copying the storage account connection string" style="max-width:100%;"></a></p>
-<p><em>Copying the storage account connection string</em></p>
-</li>
-<li>
-<p>Open <strong>jobs.yaml</strong> and replace STORAGE_ACCOUNT_CONNECTION_STRING with the connection string that is on the clipboard. Then save the file.</p>
-</li>
-</ol>
+<li><p>Open the resources that accompany this lab, and then copy the &quot;recipe&quot; folder into the &quot;batch-shipyard&quot; folder created in the previous exercise.</p>
+</li><li><p>Open the copied &quot;recipe&quot; folder. Open the &quot;config&quot; folder in that folder, and then open the file named <strong>credentials.yaml</strong> in your favorite text editor. There are two sections in the file: &quot;batch&quot; and &quot;storage.&quot; The &quot;batch&quot; section contains the settings for the Batch account that Batch Shipyard will use. The &quot;storage&quot; section contains the settings Batch Shipyard will use to access the storage account created for the Batch account.</p>
+</li><li><p>In <strong>credentials.yaml</strong>, replace BATCH_ACCOUNT_NAME with the name of the Batch account that you created in Exercise 1, Step 3. </p>
+</li><li><p>Return to the Azure Portal and to the &quot;BatchResourceGroup&quot; resource group created for the batch account in <a href="#Exercise`">Exercise 1</a>. In the resource group, click the Batch account.</p>
+<p> <img src="Images/open-batch-account.png" alt="Opening the batch account"></p>
+<p> <em>Opening the batch account</em></p>
+</li><li><p>Click <strong>Keys</strong>, and then click the <strong>Copy</strong> button next to the <strong>Primary access key</strong> field.</p>
+<p> <img src="Images/select-batch-account-key.png" alt="Copying the Batch account key"></p>
+<p> <em>Copying the Batch account key</em></p>
+</li><li><p>Return to <strong>credentials.yaml</strong> and replace BATCH_ACCOUNT_KEY with the key that is on the clipboard.</p>
+</li><li><p>In the blade for the Batch account, click the <strong>Copy</strong> button next to the <strong>URL</strong> field.</p>
+<p> <img src="Images/select-batch-account-url.png" alt="Copying the Batch account URL"></p>
+<p> <em>Copying the Batch account URL</em></p>
+</li><li><p>In <strong>credentials.yaml</strong>, replace BATCH_ACCOUNT_URL with the URL that is on the clipboard, leaving &quot;https://&quot; in place at the beginning of the URL. The &quot;batch&quot; section of <strong>credentials.yaml</strong> should now look something like this:</p>
+<pre><code class="lang-yaml"> batch:
+     account: batchservicelab
+     account_key: ghS8vZrI+5TvmcdRoILz...7XBuvRIA6HFzCaMsPTsXToKdQtWeg==
+     account_service_url: &quot;https://batchservicelab.eastus.batch.azure.com
+</code></pre>
+</li><li><p>In the Azure Portal, return to the &quot;BatchResourceGroup&quot; resource group and click the storage account in that resource group.</p>
+<p> <img src="Images/open-storage-account.png" alt="Opening the storage account"></p>
+<p> <em>Opening the storage account</em></p>
+</li><li><p>Click <strong>Access keys</strong>, and then click the <strong>Copy</strong> button next to the <strong>Storage account name</strong> field.</p>
+<p> <img src="Images/copy-storage-account-name.png" alt="Copying the storage account name"></p>
+<p> <em>Copying the storage account name</em></p>
+</li><li><p>In <strong>credentials.yaml</strong>, replace STORAGE_ACCOUNT_NAME with the storage-account name that is on the clipboard.</p>
+</li><li><p>Return to the portal and copy the storage account&#39;s access key to the clipboard.</p>
+<p> <img src="Images/copy-storage-account-key.png" alt="Copying the storage account key"></p>
+<p> <em>Copying the storage account key</em></p>
+</li><li><p>In <strong>credentials.yaml</strong>, replace STORAGE_ACCOUNT_KEY with the key that is on the clipboard, and then save the file. The &quot;storage&quot; section of <strong>credentials.yaml</strong> should now look something like this:</p>
+<pre><code class="lang-yaml"> storage:
+     mystorageaccount:
+         account: batchservicelabstorage
+         account_key: YuTLwG3nuaQqezl/rhEkT...Xrs8+UZrxr+TFdzA==
+         endpoint: core.windows.net
+</code></pre>
+</li><li><p>Return to the portal and copy the storage account&#39;s connection string to the clipboard.</p>
+<p> <img src="Images/copy-storage-account-connection-string.png" alt="Copying the storage account connection string"></p>
+<p> <em>Copying the storage account connection string</em></p>
+</li><li><p>Open <strong>jobs.yaml</strong> and replace STORAGE_ACCOUNT_CONNECTION_STRING with the connection string that is on the clipboard. Then save the file. </p>
+</li></ol>
 <p><strong>credentials.yaml</strong> and <strong>jobs.yaml</strong> now contain connection information for the Batch account and the storage account. The next step is to use another of the YAML files to create a compute pool.</p>
-<p><a id="user-content-Exercise6"></a></p>
-<h2>Exercise 6: Create a pool</h2>
+<p><a id="Exercise6"/></a></p>
+<h2 id="exercise-6-create-a-pool">Exercise 6: Create a pool</h2>
 <p>Before you run the job, you must create a compute pool using the configuration settings in <strong>pool.yaml</strong>. Batch Shipyard provides several commands for controlling Batch pools. In this exercise, you will use one of those commands to create a pool.</p>
 <blockquote>
 <p>The <strong>pool.yaml</strong> file provided for you configures each pool to have two VMs and specifies a VM size of STANDARD_A1, which contains a single core and 1.75 GB of RAM. In real life, you might find it advantageous to use larger VMs with more cores and more RAM, or to increase the number of VMs by increasing the <em>vm_count</em> property in <strong>pool.yaml</strong>.</p>
 </blockquote>
 <ol>
-<li>
-<p>In the terminal or Command Prompt window that you left open, run one of the following commands based on which operating system you are using:</p>
-<p><strong>Windows</strong>:</p>
-<pre><code>python shipyard.py pool add --configdir .\recipe\config
-</code></pre>
-<p><strong>macOS</strong>:</p>
-<pre><code>python3 shipyard.py pool add --configdir ./recipe/config
-</code></pre>
-<p><strong>Linux</strong>:</p>
-<pre><code>python shipyard.py pool add --configdir ./recipe/config
-</code></pre>
-</li>
-</ol>
-<p>This command will take a few minutes to complete. Batch Shipyard is creating virtual machines using Azure Batch, and then provisioning those virtual machines with Docker. You don't have to wait for the provisioning to complete, however, before proceeding to the next exercise.</p>
-<p><a id="user-content-Exercise7"></a></p>
-<h2>Exercise 7: Upload input files</h2>
+<li><p>In the terminal or Command Prompt window that you left open, run one of the following commands based on which operating system you are using:</p>
+<p> <strong>Windows</strong>:</p>
+<pre><code> python shipyard.py pool add --configdir .\recipe\config
+</code></pre><p> <strong>macOS</strong>:</p>
+<pre><code> python3 shipyard.py pool add --configdir ./recipe/config
+</code></pre><p> <strong>Linux</strong>:</p>
+<pre><code> python shipyard.py pool add --configdir ./recipe/config
+</code></pre></li></ol>
+<p>This command will take a few minutes to complete. Batch Shipyard is creating virtual machines using Azure Batch, and then provisioning those virtual machines with Docker. You don&#39;t have to wait for the provisioning to complete, however, before proceeding to the next exercise.</p>
+<p><a id="Exercise7"/></a></p>
+<h2 id="exercise-7-upload-input-files">Exercise 7: Upload input files</h2>
 <p>While the pool is being created, now is a good time to upload the input files that the job will process. The job uses Azure File Storage for data input and output. The configuration files tell Azure Batch to mount an Azure file share inside a Docker container, enabling code running in the container to read data from the file share as input, and then write data back out as output.</p>
 <ol>
-<li>
-<p>In the Azure Portal, return to the "BatchResourceGroup" resource group and click the storage account in that resource group.</p>
-<p><a href="Images/open-storage-account.png" target="_blank"><img src="Images/open-storage-account.png" alt="Opening the storage account" style="max-width:100%;"></a></p>
-<p><em>Opening the storage account</em></p>
-</li>
-<li>
-<p>Click <strong>Files</strong>.</p>
-<p><a href="Images/open-files.png" target="_blank"><img src="Images/open-files.png" alt="Opening file storage" style="max-width:100%;"></a></p>
-<p><em>Opening file storage</em></p>
-</li>
-<li>
-<p>Click <strong>+ File share</strong>. Enter "myfileshare" for the file-share name. Leave <strong>Quota</strong> blank, and then click <strong>OK</strong>.</p>
-<p><a href="Images/add-file-share.png" target="_blank"><img src="Images/add-file-share.png" alt="Creating a file share" style="max-width:100%;"></a></p>
-<p><em>Creating a file share</em></p>
-</li>
-<li>
-<p>Click the new file share to open it.</p>
-<p><a href="Images/select-file-share.png" target="_blank"><img src="Images/select-file-share.png" alt="Opening the file share" style="max-width:100%;"></a></p>
-<p><em>Opening the file share</em></p>
-</li>
-<li>
-<p>In the blade for the file share, click <strong>+ Add directory</strong>. Enter "textfiles" for the directory name, and then click <strong>OK</strong>.</p>
-<p><a href="Images/add-directory.png" target="_blank"><img src="Images/add-directory.png" alt="Creating a directory" style="max-width:100%;"></a></p>
-<p><em>Creating a directory</em></p>
-</li>
-<li>
-<p>Back on the "myfileshare" blade, click the directory that you just created.</p>
-<p><a href="Images/select-directory.png" target="_blank"><img src="Images/select-directory.png" alt="Opening the directory" style="max-width:100%;"></a></p>
-<p><em>Opening the directory</em></p>
-</li>
-<li>
-<p>Click <strong>Upload</strong>.</p>
-<p><a href="Images/upload-files.png" target="_blank"><img src="Images/upload-files.png" alt="Uploading to the directory" style="max-width:100%;"></a></p>
-<p><em>Uploading to the directory</em></p>
-</li>
-<li>
-<p>In the "Upload files" blade, click the <strong>folder</strong> icon. Select all of the .txt files in the resources that accompany this lab, and then click the <strong>Upload</strong> button.</p>
-<p><a href="Images/upload-files-2.png" target="_blank"><img src="Images/upload-files-2.png" alt="Uploading text files" style="max-width:100%;"></a></p>
-<p><em>Uploading text files</em></p>
-</li>
-<li>
-<p>Wait for the uploads to complete. Then confirm that five files were uploaded to the "textfiles" directory.</p>
-<p><a href="Images/uploaded-files.png" target="_blank"><img src="Images/uploaded-files.png" alt="The uploaded text files" style="max-width:100%;"></a></p>
-<p><em>The uploaded text files</em></p>
-</li>
-</ol>
+<li><p>In the Azure Portal, return to the &quot;BatchResourceGroup&quot; resource group and click the storage account in that resource group.</p>
+<p> <img src="Images/open-storage-account.png" alt="Opening the storage account"></p>
+<p> <em>Opening the storage account</em></p>
+</li><li><p>Click <strong>Files</strong>.</p>
+<p> <img src="Images/open-files.png" alt="Opening file storage"></p>
+<p> <em>Opening file storage</em></p>
+</li><li><p>Click <strong>+ File share</strong>. Enter &quot;myfileshare&quot; for the file-share name. Leave <strong>Quota</strong> blank, and then click <strong>OK</strong>.</p>
+<p> <img src="Images/add-file-share.png" alt="Creating a file share"></p>
+<p> <em>Creating a file share</em></p>
+</li><li><p>Click the new file share to open it.</p>
+<p> <img src="Images/select-file-share.png" alt="Opening the file share"></p>
+<p> <em>Opening the file share</em></p>
+</li><li><p>In the blade for the file share, click <strong>+ Add directory</strong>. Enter &quot;textfiles&quot; for the directory name, and then click <strong>OK</strong>.</p>
+<p> <img src="Images/add-directory.png" alt="Creating a directory"></p>
+<p> <em>Creating a directory</em> </p>
+</li><li><p>Back on the &quot;myfileshare&quot; blade, click the directory that you just created.</p>
+<p> <img src="Images/select-directory.png" alt="Opening the directory"></p>
+<p> <em>Opening the directory</em></p>
+</li><li><p>Click <strong>Upload</strong>.</p>
+<p> <img src="Images/upload-files.png" alt="Uploading to the directory"></p>
+<p> <em>Uploading to the directory</em></p>
+</li><li><p>In the &quot;Upload files&quot; blade, click the <strong>folder</strong> icon. Select all of the .txt files in the resources that accompany this lab, and then click the <strong>Upload</strong> button.</p>
+<p> <img src="Images/upload-files-2.png" alt="Uploading text files"></p>
+<p> <em>Uploading text files</em></p>
+</li><li><p>Wait for the uploads to complete. Then confirm that five files were uploaded to the &quot;textfiles&quot; directory.</p>
+<p> <img src="Images/uploaded-files.png" alt="The uploaded text files"></p>
+<p> <em>The uploaded text files</em></p>
+</li></ol>
 <p>The container is configured to handle multiple text files with a .txt extension. For each text file, the container will generate a corresponding .ogg file in the root folder.</p>
-<p><a id="user-content-Exercise8"></a></p>
-<h2>Exercise 8: Run the job</h2>
-<p>Now that Batch Shipyard is configured, the pool is created, and the input data is uploaded, it's time to run the job.</p>
+<p><a id="Exercise8"/></a></p>
+<h2 id="exercise-8-run-the-job">Exercise 8: Run the job</h2>
+<p>Now that Batch Shipyard is configured, the pool is created, and the input data is uploaded, it&#39;s time to run the job.</p>
 <ol>
-<li>
-<p>Return to the terminal or Command Prompt window and execute one of the following commands based on which operating system you are using. This command creates a job if it doesn't already exist in the Batch account, and then creates a new task for that job. Jobs can be run multiple times without creating new jobs. Batch Shipyard simply creates a new task each time the <strong>jobs add</strong> command is called.</p>
-<p><strong>Windows</strong>:</p>
-<pre><code>python shipyard.py jobs add --configdir .\recipe\config
-</code></pre>
-<p><strong>macOS</strong>:</p>
-<pre><code>python3 shipyard.py jobs add --configdir ./recipe/config
-</code></pre>
-<p><strong>Linux</strong>:</p>
-<pre><code>python shipyard.py jobs add --configdir ./recipe/config
-</code></pre>
-</li>
-<li>
-<p>Return to the Azure Portal and open the Batch account.</p>
-<p><a href="Images/open-batch-account.png" target="_blank"><img src="Images/open-batch-account.png" alt="Opening the batch account" style="max-width:100%;"></a></p>
-<p><em>Opening the batch account</em></p>
-</li>
-<li>
-<p>Click <strong>Jobs</strong> in the menu on the left side of blade, and then click <strong>batch-lab-job</strong>.</p>
-<p><a href="Images/select-jobs.png" target="_blank"><img src="Images/select-jobs.png" alt="Selecting the job" style="max-width:100%;"></a></p>
-<p><em>Selecting the job</em></p>
-</li>
-<li>
-<p>Click <strong>Tasks</strong>. Then click <strong>Refresh</strong> periodically until the job completes with an exit code of 0.</p>
-<p><a href="Images/select-tasks.png" target="_blank"><img src="Images/select-tasks.png" alt="Waiting for the job to complete" style="max-width:100%;"></a></p>
-<p><em>Waiting for the job to complete</em></p>
-</li>
-</ol>
+<li><p>Return to the terminal or Command Prompt window and execute one of the following commands based on which operating system you are using. This command creates a job if it doesn&#39;t already exist in the Batch account, and then creates a new task for that job. Jobs can be run multiple times without creating new jobs. Batch Shipyard simply creates a new task each time the <strong>jobs add</strong> command is called.</p>
+<p> <strong>Windows</strong>:</p>
+<pre><code> python shipyard.py jobs add --configdir .\recipe\config
+</code></pre><p> <strong>macOS</strong>:</p>
+<pre><code> python3 shipyard.py jobs add --configdir ./recipe/config
+</code></pre><p> <strong>Linux</strong>:</p>
+<pre><code> python shipyard.py jobs add --configdir ./recipe/config
+</code></pre></li><li><p>Return to the Azure Portal and open the Batch account.</p>
+<p> <img src="Images/open-batch-account.png" alt="Opening the batch account"></p>
+<p> <em>Opening the batch account</em></p>
+</li><li><p>Click <strong>Jobs</strong> in the menu on the left side of blade, and then click <strong>batch-lab-job</strong>.</p>
+<p> <img src="Images/select-jobs.png" alt="Selecting the job"></p>
+<p> <em>Selecting the job</em></p>
+</li><li><p>Click <strong>Tasks</strong>. Then click <strong>Refresh</strong> periodically until the job completes with an exit code of 0.</p>
+<p> <img src="Images/select-tasks.png" alt="Waiting for the job to complete"></p>
+<p> <em>Waiting for the job to complete</em></p>
+</li></ol>
 <p>Once the job has finished running, the next step is to examine the output that it produced.</p>
-<p><a id="user-content-Exercise9"></a></p>
-<h2>Exercise 9: View the results</h2>
+<p><a id="Exercise9"/></a></p>
+<h2 id="exercise-9-view-the-results">Exercise 9: View the results</h2>
 <p>The results are now available in the storage account. The output files can be downloaded and played back locally in any media player that supports the .ogg file type.</p>
 <ol>
-<li>
-<p>In the Azure Portal, return to the "BatchResourceGroup" resource group and click the storage account in that resource group.</p>
-<p><a href="Images/open-storage-account.png" target="_blank"><img src="Images/open-storage-account.png" alt="Opening the storage account" style="max-width:100%;"></a></p>
-<p><em>Opening the storage account</em></p>
-</li>
-<li>
-<p>Click <strong>Files</strong>.</p>
-<p><a href="Images/open-files.png" target="_blank"><img src="Images/open-files.png" alt="Opening file storage" style="max-width:100%;"></a></p>
-<p><em>Opening file storage</em></p>
-</li>
-<li>
-<p>Click <strong>myfileshare</strong>.</p>
-<p><a href="Images/select-file-share.png" target="_blank"><img src="Images/select-file-share.png" alt="Opening the file share" style="max-width:100%;"></a></p>
-<p><em>Opening the file share</em></p>
-</li>
-<li>
-<p>Confirm that the file share contains five files named <strong>chapter-01.ogg</strong>, <strong>chapter-02.ogg</strong>, and so on. Click one of them to open a blade for it.</p>
-<p><a href="Images/open-output-file.png" target="_blank"><img src="Images/open-output-file.png" alt="Opening the output file" style="max-width:100%;"></a></p>
-<p><em>Opening the output file</em></p>
-</li>
-<li>
-<p>Click <strong>Download</strong> to download the file. This will download the file to the local machine where it can be played back in a media player.</p>
-<p><a href="Images/download-file.png" target="_blank"><img src="Images/download-file.png" alt="Downloading the results" style="max-width:100%;"></a></p>
-<p><em>Downloading the results</em></p>
-</li>
-</ol>
+<li><p>In the Azure Portal, return to the &quot;BatchResourceGroup&quot; resource group and click the storage account in that resource group.</p>
+<p> <img src="Images/open-storage-account.png" alt="Opening the storage account"></p>
+<p> <em>Opening the storage account</em></p>
+</li><li><p>Click <strong>Files</strong>.</p>
+<p> <img src="Images/open-files.png" alt="Opening file storage"></p>
+<p> <em>Opening file storage</em></p>
+</li><li><p>Click <strong>myfileshare</strong>.</p>
+<p> <img src="Images/select-file-share.png" alt="Opening the file share"></p>
+<p> <em>Opening the file share</em></p>
+</li><li><p>Confirm that the file share contains five files named <strong>chapter-01.ogg</strong>, <strong>chapter-02.ogg</strong>, and so on. Click one of them to open a blade for it.</p>
+<p> <img src="Images/open-output-file.png" alt="Opening the output file"></p>
+<p> <em>Opening the output file</em></p>
+</li><li><p>Click <strong>Download</strong> to download the file. This will download the file to the local machine where it can be played back in a media player.</p>
+<p> <img src="Images/download-file.png" alt="Downloading the results"></p>
+<p> <em>Downloading the results</em></p>
+</li></ol>
 <p>Each .ogg file contains spoken content generated from the text in the input files. Play the downloaded file in a media player. Can you guess what famous novel the content came from?</p>
-<p><a id="user-content-Exercise10"></a></p>
-<h2>Exercise 10: Delete the resource group</h2>
+<p><a id="Exercise10"/></a></p>
+<h2 id="exercise-10-delete-the-resource-group">Exercise 10: Delete the resource group</h2>
 <p>In this exercise, you will delete the resource group created in <a href="#Exercise1">Exercise 1</a> when you created the Batch account. Deleting the resource group deletes everything in it and prevents any further charges from being incurred for it.</p>
 <ol>
-<li>
-<p>In the Azure Portal, open the blade for the resource group created for the Batch account. Then click the <strong>Delete</strong> button at the top of the blade.</p>
-<p><a href="Images/delete-resource-group.png" target="_blank"><img src="Images/delete-resource-group.png" alt="Deleting the resource group" style="max-width:100%;"></a></p>
-<p><em>Deleting the resource group</em></p>
-</li>
-<li>
-<p>For safety, you are required to type in the resource group's name. (Once deleted, a resource group cannot be recovered.) Type the name of the resource group. Then click the <strong>Delete</strong> button to remove all traces of this lab from your account.</p>
-</li>
-</ol>
+<li><p>In the Azure Portal, open the blade for the resource group created for the Batch account. Then click the <strong>Delete</strong> button at the top of the blade.</p>
+<p> <img src="Images/delete-resource-group.png" alt="Deleting the resource group"></p>
+<p> <em>Deleting the resource group</em></p>
+</li><li><p>For safety, you are required to type in the resource group&#39;s name. (Once deleted, a resource group cannot be recovered.) Type the name of the resource group. Then click the <strong>Delete</strong> button to remove all traces of this lab from your account.</p>
+</li></ol>
 <p>After a few minutes, the resource group and all of its resources will be deleted.</p>
 <p><a name="Summary"></a></p>
-<h2>Summary</h2>
+<h2 id="summary">Summary</h2>
 <p>Azure Batch is ideal for running large jobs that are compute-intensive as batch jobs on clusters of virtual machines. Batch Shipyard improves on Azure Batch by running those same jobs in Docker containers. The exercises you performed here demonstrate the basic steps required to create a Batch service, configure Batch Shipyard using a custom recipe, and run a job. The Batch Shipyard team has prepared other recipes involving scenarios such as deep learning, computational fluid dynamics, molecular dynamics, and video processing. For more information, and to view the recipes themselves, see <a href="https://github.com/Azure/batch-shipyard/tree/master/recipes">https://github.com/Azure/batch-shipyard/tree/master/recipes</a>.</p>
 <hr>
 <p>Copyright 2017 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>.</p>
+
 </body>
 </html>
 <!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

@@ -68,7 +68,7 @@ Azure Batch accounts can be created through the Azure Portal. In this exercise, 
 
 1. Open the [Azure Portal](https://portal.azure.com) in your browser. If you are asked to log in, do so using your Microsoft account.
 
-1. Click **+ New**, followed by **Compute** and **Batch Service**.
+1. Click **+ Create a resource**, followed by **Compute** and **Batch Service**.
 
 	![Creating a Batch service](Images/setup-azure-batch.png)
 
