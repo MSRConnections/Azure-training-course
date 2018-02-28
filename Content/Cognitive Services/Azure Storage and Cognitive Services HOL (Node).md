@@ -64,7 +64,7 @@ The [Azure Portal](https://portal.azure.com) allows you to perform basic storage
 
 1. Open the [Azure Portal](https://portal.azure.com) in your browser. If you are asked to log in, do so using your Microsoft account.
  
-1. The first step in using Azure Storage is to create a storage account. To create a storage account, click **+ New** in the ribbon on the left. Then click **Storage**, followed by **Storage account**.
+1. The first step in using Azure Storage is to create a storage account. To create a storage account, click **+ Create a resource** in the ribbon on the left. Then click **Storage**, followed by **Storage account**.
 
     ![Creating a storage account](Images/new-storage-account.png)
 
@@ -142,7 +142,7 @@ The containers are currently empty, but that will change once your app is deploy
 
 In this exercise, you will acquire a subscription key allowing you to call the Computer Vision API from your code. You'll use this key in a later exercise to generate thumbnails from the images uploaded to the Web site, and to generate captions and search keywords for the images.
 
-1. In the Azure Portal, click **+ New**, followed by **AI + Cognitive Services** and **Computer Vision API**.
+1. In the Azure Portal, click **+ Create a resource**, followed by **AI + Cognitive Services** and **Computer Vision API**.
 
     ![Creating a new Computer Vision API subscription](Images/new-vision-api.png)
 
@@ -804,7 +804,7 @@ In this exercise, you will create an Azure Web App and deploy Intellipix to it u
 
 1. Open the [Azure Portal](https://portal.azure.com) in your browser. If you are asked to log in, do so using your Microsoft account.
 
-1. Click **+ New**, followed by **Web + Mobile** and **Web App**.
+1. Click **+ Create a resource**, followed by **Web + Mobile** and **Web App**.
 
     ![Creating a new Azure Web App](Images/node-new-web-app.png)
 
