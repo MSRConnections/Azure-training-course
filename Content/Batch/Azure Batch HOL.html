@@ -592,7 +592,6 @@ vertical-align:1px;
 <ol>
 <li><p>Open the resources that accompany this lab, and then copy the &quot;recipe&quot; folder into the &quot;batch-shipyard&quot; folder created in the previous exercise.</p>
 </li><li><p>Open the copied &quot;recipe&quot; folder. Open the &quot;config&quot; folder in that folder, and then open the file named <strong>credentials.yaml</strong> in your favorite text editor. There are two sections in the file: &quot;batch&quot; and &quot;storage.&quot; The &quot;batch&quot; section contains the settings for the Batch account that Batch Shipyard will use. The &quot;storage&quot; section contains the settings Batch Shipyard will use to access the storage account created for the Batch account.</p>
-</li><li><p>In <strong>credentials.yaml</strong>, replace BATCH_ACCOUNT_NAME with the name of the Batch account that you created in Exercise 1, Step 3. </p>
 </li><li><p>Return to the Azure Portal and to the &quot;BatchResourceGroup&quot; resource group created for the batch account in <a href="#Exercise`">Exercise 1</a>. In the resource group, click the Batch account.</p>
 <p> <img src="Images/open-batch-account.png" alt="Opening the batch account"></p>
 <p> <em>Opening the batch account</em></p>
@@ -605,7 +604,6 @@ vertical-align:1px;
 <p> <em>Copying the Batch account URL</em></p>
 </li><li><p>In <strong>credentials.yaml</strong>, replace BATCH_ACCOUNT_URL with the URL that is on the clipboard, leaving &quot;https://&quot; in place at the beginning of the URL. The &quot;batch&quot; section of <strong>credentials.yaml</strong> should now look something like this:</p>
 <pre><code class="lang-yaml"> batch:
-     account: batchservicelab
      account_key: ghS8vZrI+5TvmcdRoILz...7XBuvRIA6HFzCaMsPTsXToKdQtWeg==
      account_service_url: &quot;https://batchservicelab.eastus.batch.azure.com
 </code></pre>
