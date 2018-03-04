@@ -230,8 +230,6 @@ In this exercise, you will modify **credentials.yaml** and **jobs.yaml** so they
 
 1. Open the copied "recipe" folder. Open the "config" folder in that folder, and then open the file named **credentials.yaml** in your favorite text editor. There are two sections in the file: "batch" and "storage." The "batch" section contains the settings for the Batch account that Batch Shipyard will use. The "storage" section contains the settings Batch Shipyard will use to access the storage account created for the Batch account.
 
-1. In **credentials.yaml**, replace BATCH_ACCOUNT_NAME with the name of the Batch account that you created in Exercise 1, Step 3. 
-
 1. Return to the Azure Portal and to the "BatchResourceGroup" resource group created for the batch account in [Exercise 1](#Exercise`). In the resource group, click the Batch account.
 
 	![Opening the batch account](Images/open-batch-account.png)
@@ -256,7 +254,6 @@ In this exercise, you will modify **credentials.yaml** and **jobs.yaml** so they
 
 	```yaml
 	batch:
-	    account: batchservicelab
 	    account_key: ghS8vZrI+5TvmcdRoILz...7XBuvRIA6HFzCaMsPTsXToKdQtWeg==
 	    account_service_url: "https://batchservicelab.eastus.batch.azure.com
 	```
