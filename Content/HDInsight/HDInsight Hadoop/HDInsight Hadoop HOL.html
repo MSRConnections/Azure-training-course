@@ -469,369 +469,282 @@ vertical-align:1px;
 </head>
 <body>
 <p><a name="HOLTitle"></a></p>
-<h1>Processing Big Data with Apache Hadoop on Azure HDInsight</h1>
+<h1 id="processing-big-data-with-apache-hadoop-on-azure-hdinsight">Processing Big Data with Apache Hadoop on Azure HDInsight</h1>
 <hr>
 <p><a name="Overview"></a></p>
-<h2>Overview</h2>
-<p>When you consider that there are more than 20 billion devices connected to the Internet today, most all of them generating data, and then think of the massive amounts of data being produced by Web sites, social networks, and other sources, you begin to understand the true implications of <strong>BIG DATA</strong>. Data is being collected in ever-escalating volumes, at increasingly high velocities, and in a widening variety of formats, and it's being used in increasingly diverse contexts. "Data" used to be something stored in a table in a database, but today it can be a sensor reading, a tweet, a GPS location, or almost anything else. The challenge for information scientists is to make sense of all that data.</p>
-<p>A popular tool for analyzing big data is <a href="https://hadoop.apache.org/">Apache Hadoop</a>. Hadoop is "a framework that allows for the distributed processing of large data sets across clusters of computers using simple programming models." It is frequently combined with other open-source frameworks such as <a href="http://spark.apache.org/">Apache Spark</a>, <a href="http://hbase.apache.org/">Apache HBase</a>, and <a href="https://storm.apache.org/">Apache Storm</a> to increase its capabilities and performance. <a href="http://azure.microsoft.com/en-us/services/hdinsight/">Azure HDInsight</a> is the Azure implementation of Hadoop, Spark, HBase, and Storm, with other tools such as <a href="https://pig.apache.org/">Apache Pig</a> and <a href="https://hive.apache.org/">Apache Hive</a> thrown in to provide a comprehensive and high-performance solution for advanced analytics. HDInsight can spin up Hadoop clusters for you using either Linux or Windows as the underlying operating system, and it integrates with popular business-intelligence tools such as Microsoft Excel and SQL Server Analysis Services.</p>
+<h2 id="overview">Overview</h2>
+<p>When you consider that there are more than 20 billion devices connected to the Internet today, most all of them generating data, and then think of the massive amounts of data being produced by Web sites, social networks, and other sources, you begin to understand the true implications of <strong>BIG DATA</strong>. Data is being collected in ever-escalating volumes, at increasingly high velocities, and in a widening variety of formats, and it&#39;s being used in increasingly diverse contexts. &quot;Data&quot; used to be something stored in a table in a database, but today it can be a sensor reading, a tweet, a GPS location, or almost anything else. The challenge for information scientists is to make sense of all that data.</p>
+<p>A popular tool for analyzing big data is <a href="https://hadoop.apache.org/">Apache Hadoop</a>. Hadoop is &quot;a framework that allows for the distributed processing of large data sets across clusters of computers using simple programming models.&quot; It is frequently combined with other open-source frameworks such as <a href="http://spark.apache.org/">Apache Spark</a>, <a href="http://hbase.apache.org/">Apache HBase</a>, and <a href="https://storm.apache.org/">Apache Storm</a> to increase its capabilities and performance. <a href="http://azure.microsoft.com/en-us/services/hdinsight/">Azure HDInsight</a> is the Azure implementation of Hadoop, Spark, HBase, and Storm, with other tools such as <a href="https://pig.apache.org/">Apache Pig</a> and <a href="https://hive.apache.org/">Apache Hive</a> thrown in to provide a comprehensive and high-performance solution for advanced analytics. HDInsight can spin up Hadoop clusters for you using either Linux or Windows as the underlying operating system, and it integrates with popular business-intelligence tools such as Microsoft Excel and SQL Server Analysis Services.</p>
 <p>The purpose of this lab is to acquaint you with the process of deploying and running Hadoop clusters provisioned by HDInsight on Linux VMs. Once your Hadoop cluster is running, most of the operations you perform on it are identical to the ones you would perform on hardware clusters running Hadoop.</p>
 <p><a name="Objectives"></a></p>
-<h3>Objectives</h3>
+<h3 id="objectives">Objectives</h3>
 <p>In this hands-on lab, you will learn how to:</p>
 <ul>
-<li>Create an HDInsight cluster running Linux</li>
-<li>Use Hive on the cluster to query datasets</li>
-<li>Use Python to perform MapReduce operations</li>
-<li>Delete a cluster when it is no longer needed</li>
-</ul>
+<li>Create an HDInsight cluster running Linux</li><li>Use Hive on the cluster to query datasets</li><li>Use Python to perform MapReduce operations</li><li>Delete a cluster when it is no longer needed</li></ul>
 <p><a name="Prerequisites"></a></p>
-<h3>Prerequisites</h3>
+<h3 id="prerequisites">Prerequisites</h3>
 <p>The following are required to complete this hands-on lab:</p>
 <ul>
-<li>An active Microsoft Azure subscription. If you don't have one, <a href="http://aka.ms/WATK-FreeTrial">sign up for a free trial</a>.</li>
-<li><a href="http://www.chiark.greenend.org.uk/%7Esgtatham/putty/download.html">PuTTY</a> (Windows users only). Install the latest full package using the MSI installer.</li>
-</ul>
+<li>An active Microsoft Azure subscription. If you don&#39;t have one, <a href="http://aka.ms/WATK-FreeTrial">sign up for a free trial</a>.</li><li><a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">PuTTY</a> (Windows users only). Install the latest full package using the MSI installer.</li></ul>
 <p><a name="Resources"></a></p>
-<h3>Resources</h3>
+<h3 id="resources">Resources</h3>
 <p><a href="https://a4r.blob.core.windows.net/public/hadoop-resources.zip">Click here</a> to download a zip file containing the resources used in this lab. Copy the contents of the zip file into a folder on your hard disk.</p>
 <hr>
 <p><a name="Exercises"></a></p>
-<h2>Exercises</h2>
+<h2 id="exercises">Exercises</h2>
 <p>This hands-on lab includes the following exercises:</p>
 <ul>
-<li><a href="#Exercise1">Exercise 1: Deploy an HDInsight Hadoop cluster on Linux</a></li>
-<li><a href="#Exercise2">Exercise 2: Connect to the cluster via SSH</a></li>
-<li><a href="#Exercise3">Exercise 3: Analyze an Apache log file with Hive</a></li>
-<li><a href="#Exercise4">Exercise 4: Use MapReduce to analyze a text file with Python</a></li>
-<li><a href="#Exercise5">Exercise 5: Delete the Hadoop cluster</a></li>
-</ul>
+<li><a href="#Exercise1">Exercise 1: Deploy an HDInsight Hadoop cluster on Linux</a></li><li><a href="#Exercise2">Exercise 2: Connect to the cluster via SSH</a></li><li><a href="#Exercise3">Exercise 3: Analyze an Apache log file with Hive</a></li><li><a href="#Exercise4">Exercise 4: Use MapReduce to analyze a text file with Python</a></li><li><a href="#Exercise5">Exercise 5: Delete the Hadoop cluster</a></li></ul>
 <p>Estimated time to complete this lab: <strong>45</strong> minutes.</p>
 <p><a name="Exercise1"></a></p>
-<h2>Exercise 1: Deploy an HDInsight Hadoop cluster on Linux</h2>
-<p>In this exercise, you will use the Azure Portal to deploy an HDInsight Hadoop cluster with Linux installed on the cluster's nodes.</p>
+<h2 id="exercise-1-deploy-an-hdinsight-hadoop-cluster-on-linux">Exercise 1: Deploy an HDInsight Hadoop cluster on Linux</h2>
+<p>In this exercise, you will use the Azure Portal to deploy an HDInsight Hadoop cluster with Linux installed on the cluster&#39;s nodes.</p>
 <ol>
-<li>
-<p>Open the <a href="https://portal.azure.com">Azure Portal</a> in your browser. If you are asked to log in, do so using your Microsoft account.</p>
-</li>
-<li>
-<p>Click <strong>+ New</strong> in the upper-left corner of the portal. Then click <strong>Data + Analytics</strong>, followed by <strong>HDInsight</strong>.</p>
-<p><a href="Images/new-hdinsight.png" target="_blank"><img src="Images/new-hdinsight.png" alt="Creating an HDInsight cluster" style="max-width:100%;"></a></p>
-<p><em>Creating an HDInsight cluster</em></p>
-</li>
-<li>
-<p>In the <strong>Cluster Name</strong> box, enter a unique DNS name for the cluster and make sure a green check mark appears next to it indicating that the name is valid and unique.</p>
+<li><p>Open the <a href="https://portal.azure.com">Azure Portal</a> in your browser. If you are asked to log in, do so using your Microsoft account.</p>
+</li><li><p>Click <strong>+ Create a resource</strong> in the upper-left corner of the portal. Then click <strong>Data + Analytics</strong>, followed by <strong>HDInsight</strong>.</p>
+<p> <img src="Images/new-hdinsight.png" alt="Creating an HDInsight cluster"></p>
+<p> <em>Creating an HDInsight cluster</em></p>
+</li><li><p>In the <strong>Cluster Name</strong> box, enter a unique DNS name for the cluster and make sure a green check mark appears next to it indicating that the name is valid and unique.</p>
 <blockquote>
 <p>In case someone else in the lab selects the same cluster name, make it as unique as possible by including birth dates, initials, and anything else you care to add. The name you entered may be unique right now, but it might NOT be unique a few minutes into the deployment.</p>
 </blockquote>
-<p>Enter "Azure4Research!" (without quotation marks) for <strong>Cluster login password</strong>. Select <strong>Create new</strong> under <strong>Resource group</strong> and enter the resource-group name "HadoopLabResourceGroup." Select the <strong>Location</strong> nearest you, and then click <strong>Cluster type</strong> to open a "Cluster configuration" blade.</p>
-<p><a href="Images/hadoop-basic.png" target="_blank"><img src="Images/hadoop-basic.png" alt="Entering basic cluster settings" style="max-width:100%;"></a></p>
-<p><em>Entering basic cluster settings</em></p>
-</li>
-<li>
-<p>Select <strong>Hadoop</strong> as the <strong>Cluster type</strong>. Make sure <strong>Linux</strong> is selected as the <strong>Operating system</strong>, and accept the default Hadoop version on the right. Make sure <strong>Cluster tier</strong> is set to <strong>Standard</strong>. Click the <strong>Select</strong> button at the bottom of the blade, and then finish up by clicking the <strong>Next</strong> button at the bottom of the "Basics" blade.</p>
-<p><a href="Images/hadoop-cluster-configuration.png" target="_blank"><img src="Images/hadoop-cluster-configuration.png" alt="Entering cluster-configuration settings" style="max-width:100%;"></a></p>
-<p><em>Entering cluster-configuration settings</em></p>
-</li>
-<li>
-<p>Make sure <strong>Primary storage type</strong> is set to <strong>Azure Storage</strong> and <strong>Selection method</strong> is set to <strong>My subscriptions</strong>. Then enter a unique storage account name, once more making it as unique as possible by including birth dates or other information. (If the portal selects an existing storage account by default, click <strong>Create new</strong> to create a new storage account.) Type "hadooplab" into the <strong>Default container</strong> box, and then click <strong>Next</strong>.</p>
+<p> Enter &quot;Azure4Research!&quot; (without quotation marks) for <strong>Cluster login password</strong>. Select <strong>Create new</strong> under <strong>Resource group</strong> and enter the resource-group name &quot;HadoopLabResourceGroup.&quot; Select the <strong>Location</strong> nearest you, and then click <strong>Cluster type</strong> to open a &quot;Cluster configuration&quot; blade.</p>
+<p> <img src="Images/hadoop-basic.png" alt="Entering basic cluster settings"></p>
+<p> <em>Entering basic cluster settings</em></p>
+</li><li><p>Select <strong>Hadoop</strong> as the <strong>Cluster type</strong>. Make sure <strong>Linux</strong> is selected as the <strong>Operating system</strong>, and accept the default Hadoop version on the right. Make sure <strong>Cluster tier</strong> is set to <strong>Standard</strong>. Click the <strong>Select</strong> button at the bottom of the blade, and then finish up by clicking the <strong>Next</strong> button at the bottom of the &quot;Basics&quot; blade.</p>
+<p> <img src="Images/hadoop-cluster-configuration.png" alt="Entering cluster-configuration settings"></p>
+<p> <em>Entering cluster-configuration settings</em></p>
+</li><li><p>Make sure <strong>Primary storage type</strong> is set to <strong>Azure Storage</strong> and <strong>Selection method</strong> is set to <strong>My subscriptions</strong>. Then enter a unique storage account name, once more making it as unique as possible by including birth dates or other information. (If the portal selects an existing storage account by default, click <strong>Create new</strong> to create a new storage account.) Type &quot;hadooplab&quot; into the <strong>Default container</strong> box, and then click <strong>Next</strong>.</p>
 <blockquote>
-<p>These settings apply to the storgage account that is provisioned along with the cluster. The storage account contains the cluster's file system and the software installed inside.</p>
+<p>These settings apply to the storgage account that is provisioned along with the cluster. The storage account contains the cluster&#39;s file system and the software installed inside.</p>
 </blockquote>
-<p><a href="Images/hadoop-storage.png" target="_blank"><img src="Images/hadoop-storage.png" alt="Entering cluster-storage settings" style="max-width:100%;"></a></p>
-<p><em>Entering cluster-storage settings</em></p>
-</li>
-<li>
-<p>Click the <strong>Edit</strong> link next to <strong>Applications</strong>.</p>
-<p><a href="Images/hadoop-summary.png" target="_blank"><img src="Images/hadoop-summary.png" alt="Editing installed applications" style="max-width:100%;"></a></p>
-<p><em>Editing installed applications</em></p>
-</li>
-<li>
-<p>Select <strong>StreamSets Data Collector for HI</strong>. Then click <strong>Legal terms</strong> in the "Streamsets Data Collector" blade and the <strong>Purchase</strong> button in the "Purchase" blade. Finish up by clicking <strong>OK</strong> at the bottom of the "Streamsets Data Collector" blade and <strong>Next</strong> at the bottom of the "Applications" blade.</p>
-<p><a href="Images/hadoop-applications.png" target="_blank"><img src="Images/hadoop-applications.png" alt="Installing Streamsets Data Collector" style="max-width:100%;"></a></p>
-<p><em>Installing Streamsets Data Collector</em></p>
-</li>
-<li>
-<p>Click <strong>Next</strong> at the bottom of the "Cluster size" blade. By accepting the defaults, you are deploying a cluster that contains two head nodes and four worker nodes. If you would like to change the number of nodes or the sizes of the nodes, you may do so in this blade.</p>
-<p><a href="Images/hadoop-cluster-size.png" target="_blank"><img src="Images/hadoop-cluster-size.png" alt="Specifying the cluster size" style="max-width:100%;"></a></p>
-<p><em>Specifying the cluster size</em></p>
-</li>
-<li>
-<p>Click <strong>Next</strong> at the bottom of the "Advanced settings" blade.</p>
-<p><a href="Images/hadoop-advanced-settings.png" target="_blank"><img src="Images/hadoop-advanced-settings.png" alt="Specifying advanced settings" style="max-width:100%;"></a></p>
-<p><em>Specifying advanced settings</em></p>
-</li>
-<li>
-<p>Review the cluster settings and make sure everything is correct. Then click <strong>Create</strong> to begin deploying the cluster.</p>
-<p><a href="Images/hadoop-summary-2.png" target="_blank"><img src="Images/hadoop-summary-2.png" alt="Reviewing cluster settings" style="max-width:100%;"></a></p>
-<p><em>Reviewing cluster settings</em></p>
-</li>
-<li>
-<p>Click <strong>Resource groups</strong> in the ribbon on the left side of the portal, and then click the resource group created for the HDInsight cluster.</p>
-<p><a href="Images/open-resource-group.png" target="_blank"><img src="Images/open-resource-group.png" alt="Opening the resource group" style="max-width:100%;"></a></p>
-<p><em>Opening the resource group</em></p>
-</li>
-<li>
-<p>Deploying an HDInsight cluster can take 15 minutes or more. Wait until "Deploying" changes to "Succeeded," indicating that the cluster has been deployed. You can click the <strong>Refresh</strong> button at the top of the blade to refresh the deployment status.</p>
-<p><a href="Images/deployment-status.png" target="_blank"><img src="Images/deployment-status.png" alt="Viewing the deployment status" style="max-width:100%;"></a></p>
-<p><em>Viewing the deployment status</em></p>
-</li>
-</ol>
+<p> <img src="Images/hadoop-storage.png" alt="Entering cluster-storage settings"></p>
+<p> <em>Entering cluster-storage settings</em></p>
+</li><li><p>Click the <strong>Edit</strong> link next to <strong>Applications</strong>.</p>
+<p> <img src="Images/hadoop-summary.png" alt="Editing installed applications"></p>
+<p> <em>Editing installed applications</em></p>
+</li><li><p>Select <strong>StreamSets Data Collector for HI</strong>. Then click <strong>Legal terms</strong> in the &quot;Streamsets Data Collector&quot; blade and the <strong>Purchase</strong> button in the &quot;Purchase&quot; blade. Finish up by clicking <strong>OK</strong> at the bottom of the &quot;Streamsets Data Collector&quot; blade and <strong>Next</strong> at the bottom of the &quot;Applications&quot; blade.</p>
+<p> <img src="Images/hadoop-applications.png" alt="Installing Streamsets Data Collector"></p>
+<p> <em>Installing Streamsets Data Collector</em></p>
+</li><li><p>Click <strong>Next</strong> at the bottom of the &quot;Cluster size&quot; blade. By accepting the defaults, you are deploying a cluster that contains two head nodes and four worker nodes. If you would like to change the number of nodes or the sizes of the nodes, you may do so in this blade.</p>
+<p> <img src="Images/hadoop-cluster-size.png" alt="Specifying the cluster size"></p>
+<p> <em>Specifying the cluster size</em></p>
+</li><li><p>Click <strong>Next</strong> at the bottom of the &quot;Advanced settings&quot; blade.</p>
+<p> <img src="Images/hadoop-advanced-settings.png" alt="Specifying advanced settings"></p>
+<p> <em>Specifying advanced settings</em></p>
+</li><li><p>Review the cluster settings and make sure everything is correct. Then click <strong>Create</strong> to begin deploying the cluster.</p>
+<p> <img src="Images/hadoop-summary-2.png" alt="Reviewing cluster settings"></p>
+<p> <em>Reviewing cluster settings</em></p>
+</li><li><p>Click <strong>Resource groups</strong> in the ribbon on the left side of the portal, and then click the resource group created for the HDInsight cluster.</p>
+<p> <img src="Images/open-resource-group.png" alt="Opening the resource group"></p>
+<p> <em>Opening the resource group</em></p>
+</li><li><p>Deploying an HDInsight cluster can take 15 minutes or more. Wait until &quot;Deploying&quot; changes to &quot;Succeeded,&quot; indicating that the cluster has been deployed. You can click the <strong>Refresh</strong> button at the top of the blade to refresh the deployment status.</p>
+<p> <img src="Images/deployment-status.png" alt="Viewing the deployment status"></p>
+<p> <em>Viewing the deployment status</em></p>
+</li></ol>
 <p>In this exercise, you learned how to provision an HDInsight Hadoop cluster on Azure, and about some of the options you can choose from when doing so. Wait for the deployment to finish, and then proceed to the next exercise.</p>
 <p><a name="Exercise2"></a></p>
-<h2>Exercise 2: Connect to the cluster via SSH</h2>
-<p>Before you can run jobs on the Hadoop cluster, you need to open an SSH connection to it so you can execute commands on the cluster. In this exercise, you will remote into the cluster via SSH using the <strong>ssh</strong> command if you are running macOS or Linux, or PuTTY if you are running Windows. If you are a Windows user and haven't installed PuTTY, take the time to <a href="http://www.chiark.greenend.org.uk/%7Esgtatham/putty/download.html">install it now</a>.</p>
+<h2 id="exercise-2-connect-to-the-cluster-via-ssh">Exercise 2: Connect to the cluster via SSH</h2>
+<p>Before you can run jobs on the Hadoop cluster, you need to open an SSH connection to it so you can execute commands on the cluster. In this exercise, you will remote into the cluster via SSH using the <strong>ssh</strong> command if you are running macOS or Linux, or PuTTY if you are running Windows. If you are a Windows user and haven&#39;t installed PuTTY, take the time to <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">install it now</a>.</p>
 <p><strong>If you are running Windows, skip to Step 2</strong>. Otherwise, proceed to Step 1.</p>
 <ol>
-<li>
-<p><strong>Linux and macOS users only</strong>: Open a terminal window so you can use the <strong>ssh</strong> command to establish a connection. Execute the following command in the terminal window, replacing <em>clustername</em> with the cluster name you entered in Exercise 1, Step 3:</p>
- <pre> ssh sshuser@<i>clustername</i>-ssh.azurehdinsight.net</pre>
-<p>Enter the SSH password ("Azure4Research!") when prompted. <strong>Now proceed to Exercise 3</strong>. Step 2 is for Windows users only.</p>
-</li>
-<li>
-<p><strong>Windows users only</strong>: Start PuTTY. In the <strong>Host Name (or IP address)</strong> field, type "sshuser@<i>clustername</i>-ssh.azurehdinsight.net" without quotation marks, replacing <em>clustername</em> with the cluster name you entered in Exercise 1, Step 3. Then click the <strong>Open</strong> button to open an SSH connection.</p>
+<li><p><strong>Linux and macOS users only</strong>: Open a terminal window so you can use the <strong>ssh</strong> command to establish a connection. Execute the following command in the terminal window, replacing <em>clustername</em> with the cluster name you entered in Exercise 1, Step 3:</p>
+ <pre>
+ ssh sshuser@<i>clustername</i>-ssh.azurehdinsight.net</pre>
+
+<p> Enter the SSH password (&quot;Azure4Research!&quot;) when prompted. <strong>Now proceed to Exercise 3</strong>. Step 2 is for Windows users only.</p>
+</li><li><p><strong>Windows users only</strong>: Start PuTTY. In the <strong>Host Name (or IP address)</strong> field, type &quot;sshuser@<i>clustername</i>-ssh.azurehdinsight.net&quot; without quotation marks, replacing <em>clustername</em> with the cluster name you entered in Exercise 1, Step 3. Then click the <strong>Open</strong> button to open an SSH connection.</p>
 <blockquote>
 <p>Because this is the first time you have connected to the master node, you will be prompted with a warning dialog asking if you trust this host. Since the host is one you created, click <strong>Yes</strong>.</p>
 </blockquote>
-<p><a href="Images/putty-1.png" target="_blank"><img src="Images/putty-1.png" alt="Establishing a connection with PuTTY" style="max-width:100%;"></a></p>
-<p><em>Establishing a connection with PuTTY</em></p>
-<p>A PuTTY terminal window will appear and prompt you for a password. Enter the SSH password ("Azure4Research!") you specified when you created the cluster and press <strong>Enter</strong>.</p>
-</li>
-</ol>
+<p> <img src="Images/putty-1.png" alt="Establishing a connection with PuTTY"></p>
+<p> <em>Establishing a connection with PuTTY</em></p>
+<p> A PuTTY terminal window will appear and prompt you for a password. Enter the SSH password (&quot;Azure4Research!&quot;) you specified when you created the cluster and press <strong>Enter</strong>.</p>
+</li></ol>
 <p><a name="Exercise3"></a></p>
-<h2>Exercise 3: Analyze an Apache log file with Hive</h2>
+<h2 id="exercise-3-analyze-an-apache-log-file-with-hive">Exercise 3: Analyze an Apache log file with Hive</h2>
 <p>In this exercise, you will use <a href="https://cwiki.apache.org/confluence/display/Hive?src=sidebar">Apache Hive</a> and the HiveQL query language to query a sample Apache log4j log file that was created along with the cluster. Apache Hive is a data-warehouse infrastructure built on top of Hadoop that facilitates summarizing, querying, and analyzing data. It supports a SQL-like interface for querying data stores that integrate with Hadoop, and it allows you to project structure onto data that lacks structure.</p>
 <ol>
-<li>
-<p>In the terminal window you opened in the previous exercise, start the Hive command-line interface by executing the following command:</p>
-<pre><code>hive
-</code></pre>
-</li>
-<li>
-<p>Wait for a Hive prompt to appear. Then enter the following commands to create a new table named "log4jlogs" using sample data stored in a blob that was created along with your cluster. (Tip: You can paste a command into a PuTTY terminal window by right-clicking in the window.)</p>
-<pre><code>DROP TABLE log4jLogs;
-CREATE EXTERNAL TABLE log4jLogs(t1 string, t2 string, t3 string, t4 string, t5 string, t6 string, t7 string) ROW FORMAT DELIMITED FIELDS TERMINATED BY ' ' STORED AS TEXTFILE LOCATION 'wasb:///example/data/';
-SELECT t4 AS sev, COUNT(*) AS cnt FROM log4jLogs WHERE t4 = '[ERROR]' GROUP BY t4;
-</code></pre>
-<p>The <strong>DROP TABLE</strong> command removes any existing table named "log4jLogs." <strong>CREATE EXTERNAL TABLE</strong> creates a new external table. External tables store only the table definitions in Hive; the data is left in the original location. <strong>STORED AS TEXTFILE LOCATION</strong> tells Hive that the data is stored in a text file and where the file is located. "wasb" is the protocol prefix; it stands for "Windows Azure Storage Blob." (HDInsight transparently maps HDFS to Azure blob storage.) Finally, the <strong>SELECT</strong> statement counts all the rows in which column t4 contains the value "[ERROR]."</p>
-<p>After the final command is entered, you will see statements similar to the following at the end of the output:</p>
-<pre><code>OK
-[ERROR]	3
-Time taken: 15.388 seconds, Fetched: 1 row(s)
-</code></pre>
-<p>Note that the output contains "[ERROR] 3," as there are three rows that contain this value.</p>
-</li>
-<li>
-<p>Execute the following commands to create a new internal table named "errorLogs:"</p>
-<pre><code>CREATE TABLE IF NOT EXISTS errorLogs (t1 string, t2 string, t3 string, t4 string, t5 string, t6 string, t7 string) STORED AS ORC;
-INSERT OVERWRITE TABLE errorLogs SELECT t1, t2, t3, t4, t5, t6, t7 FROM log4jLogs WHERE t4 = '[ERROR]';
-</code></pre>
-<p><strong>CREATE TABLE IF NOT EXISTS</strong> creates a table if it does not already exist. Because the EXTERNAL keyword is not specified, this is an internal table that is stored in the Hive data warehouse and is managed completely by Hive. Unlike dropping an external table, dropping an internal table deletes the underlying data as well. <strong>STORED AS ORC</strong> says to store the data in Optimized Row Columnar (ORC) format. This is a highly optimized and efficient format for storing Hive data. <strong>INSERT OVERWRITE...SELECT</strong> selects rows from the "log4jLogs" table that contain the string "[ERROR]," and then inserts them into the "errorLogs" table.</p>
-</li>
-<li>
-<p>The final step is to verify that only rows containing "[ERROR]" in column t4 were stored in the "errorLogs" table. To do that, use the following command to return all rows from "errorLogs:"</p>
-<pre><code>SELECT * FROM errorLogs;
-</code></pre>
-<p>The output will look like this:</p>
-<pre><code>OK
-2012-02-03	18:35:34	SampleClass0	[ERROR]	incorrect	id
-2012-02-03	18:55:54	SampleClass1	[ERROR]	incorrect	id
-2012-02-03	19:25:27	SampleClass4	[ERROR]	incorrect	id
-Time taken: 0.58 seconds, Fetched: 3 row(s)
-</code></pre>
-</li>
-<li>
-<p>Use the following command to close the Hive session:</p>
-<pre><code>quit;
-</code></pre>
-<p><strong>Leave your SSH session open</strong>, because you will use it again in the next exercise.</p>
-</li>
-</ol>
+<li><p>In the terminal window you opened in the previous exercise, start the Hive command-line interface by executing the following command:</p>
+<pre><code> hive
+</code></pre></li><li><p>Wait for a Hive prompt to appear. Then enter the following commands to create a new table named &quot;log4jlogs&quot; using sample data stored in a blob that was created along with your cluster. (Tip: You can paste a command into a PuTTY terminal window by right-clicking in the window.)</p>
+<pre><code> DROP TABLE log4jLogs;
+ CREATE EXTERNAL TABLE log4jLogs(t1 string, t2 string, t3 string, t4 string, t5 string, t6 string, t7 string) ROW FORMAT DELIMITED FIELDS TERMINATED BY &#39; &#39; STORED AS TEXTFILE LOCATION &#39;wasb:///example/data/&#39;;
+ SELECT t4 AS sev, COUNT(*) AS cnt FROM log4jLogs WHERE t4 = &#39;[ERROR]&#39; GROUP BY t4;
+</code></pre><p> The <strong>DROP TABLE</strong> command removes any existing table named &quot;log4jLogs.&quot; <strong>CREATE EXTERNAL TABLE</strong> creates a new external table. External tables store only the table definitions in Hive; the data is left in the original location. <strong>STORED AS TEXTFILE LOCATION</strong> tells Hive that the data is stored in a text file and where the file is located. &quot;wasb&quot; is the protocol prefix; it stands for &quot;Windows Azure Storage Blob.&quot; (HDInsight transparently maps HDFS to Azure blob storage.) Finally, the <strong>SELECT</strong> statement counts all the rows in which column t4 contains the value &quot;[ERROR].&quot;</p>
+<p> After the final command is entered, you will see statements similar to the following at the end of the output:</p>
+<pre><code> OK
+ [ERROR]    3
+ Time taken: 15.388 seconds, Fetched: 1 row(s)
+</code></pre><p> Note that the output contains &quot;[ERROR] 3,&quot; as there are three rows that contain this value.</p>
+</li><li><p>Execute the following commands to create a new internal table named &quot;errorLogs:&quot;</p>
+<pre><code> CREATE TABLE IF NOT EXISTS errorLogs (t1 string, t2 string, t3 string, t4 string, t5 string, t6 string, t7 string) STORED AS ORC;
+ INSERT OVERWRITE TABLE errorLogs SELECT t1, t2, t3, t4, t5, t6, t7 FROM log4jLogs WHERE t4 = &#39;[ERROR]&#39;;
+</code></pre><p> <strong>CREATE TABLE IF NOT EXISTS</strong> creates a table if it does not already exist. Because the EXTERNAL keyword is not specified, this is an internal table that is stored in the Hive data warehouse and is managed completely by Hive. Unlike dropping an external table, dropping an internal table deletes the underlying data as well. <strong>STORED AS ORC</strong> says to store the data in Optimized Row Columnar (ORC) format. This is a highly optimized and efficient format for storing Hive data. <strong>INSERT OVERWRITE...SELECT</strong> selects rows from the &quot;log4jLogs&quot; table that contain the string &quot;[ERROR],&quot; and then inserts them into the &quot;errorLogs&quot; table.</p>
+</li><li><p>The final step is to verify that only rows containing &quot;[ERROR]&quot; in column t4 were stored in the &quot;errorLogs&quot; table. To do that, use the following command to return all rows from &quot;errorLogs:&quot;</p>
+<pre><code> SELECT * FROM errorLogs;
+</code></pre><p> The output will look like this:</p>
+<pre><code> OK
+ 2012-02-03    18:35:34    SampleClass0    [ERROR]    incorrect    id
+ 2012-02-03    18:55:54    SampleClass1    [ERROR]    incorrect    id
+ 2012-02-03    19:25:27    SampleClass4    [ERROR]    incorrect    id
+ Time taken: 0.58 seconds, Fetched: 3 row(s)
+</code></pre></li><li><p>Use the following command to close the Hive session:</p>
+<pre><code> quit;
+</code></pre><p> <strong>Leave your SSH session open</strong>, because you will use it again in the next exercise.</p>
+</li></ol>
 <p>Hive is useful, but executing Hive commands is not all you can do with a Hadoop cluster. In the next exercise, you will learn how to perform MapReduce operations using Python.</p>
 <p><a name="Exercise4"></a></p>
-<h2>Exercise 4: Use MapReduce to analyze a text file with Python</h2>
-<p>One of the most important algorithms introduced in recent years is Google's <a href="http://research.google.com/archive/mapreduce.html">MapReduce</a>, which facilitates the processing of very large data sets. MapReduce is a two-stage algorithm that relies on a pair of functions: the <em>map</em> function, which transforms a set of input data to produce a result, and the <em>reduce</em> function, which reduces the results of a map to a scalar value. What makes MapReduce so relevant for big data is that operations can be executed in parallel and independent of the data source. The parallelism facilitates handling massive amounts of data, and the data-source independence means you are not locked into a particular data store such as MySQL or Microsoft SQL Server.</p>
+<h2 id="exercise-4-use-mapreduce-to-analyze-a-text-file-with-python">Exercise 4: Use MapReduce to analyze a text file with Python</h2>
+<p>One of the most important algorithms introduced in recent years is Google&#39;s <a href="http://research.google.com/archive/mapreduce.html">MapReduce</a>, which facilitates the processing of very large data sets. MapReduce is a two-stage algorithm that relies on a pair of functions: the <em>map</em> function, which transforms a set of input data to produce a result, and the <em>reduce</em> function, which reduces the results of a map to a scalar value. What makes MapReduce so relevant for big data is that operations can be executed in parallel and independent of the data source. The parallelism facilitates handling massive amounts of data, and the data-source independence means you are not locked into a particular data store such as MySQL or Microsoft SQL Server.</p>
 <p>HDInsight, with its underlying Hadoop implementation, allows you to write MapReduce functions in Java, Python, C#, and even <a href="http://pig.apache.org/">Apache Pig</a>. In this exercise, you will use Python since it is widely used in the data-processing community. The Python code, which is based on a sample from<a href="http://www.michael-noll.com/tutorials/writing-an-hadoop-mapreduce-program-in-python/"> Michael Noll</a>, reads a text file and counts the frequency of the words in it.</p>
 <ol>
-<li>
-<p>Before you start, take a moment to read over the Python code for the mapper you will be using:</p>
-<div class="highlight highlight-source-python"><pre><span class="pl-c"><span class="pl-c">#</span>!/usr/bin/env python</span>
+<li><p>Before you start, take a moment to read over the Python code for the mapper you will be using:</p>
+<pre><code class="lang-python"> #!/usr/bin/env python
 
-<span class="pl-c"><span class="pl-c">#</span> Use the sys module</span>
-<span class="pl-k">import</span> sys
+ # Use the sys module
+ import sys
 
-<span class="pl-c"><span class="pl-c">#</span> 'file' in this case is STDIN</span>
-<span class="pl-k">def</span> <span class="pl-en">read_input</span>(<span class="pl-smi">file</span>):
-    <span class="pl-c"><span class="pl-c">#</span> Split each line into words</span>
-    <span class="pl-k">for</span> line <span class="pl-k">in</span> <span class="pl-v">file</span>:
-        <span class="pl-k">yield</span> line.split()
+ # &#39;file&#39; in this case is STDIN
+ def read_input(file):
+     # Split each line into words
+     for line in file:
+         yield line.split()
 
-<span class="pl-k">def</span> <span class="pl-en">main</span>(<span class="pl-smi">separator</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span><span class="pl-cce">\t</span><span class="pl-pds">'</span></span>):
-    <span class="pl-c"><span class="pl-c">#</span> Read the data using read_input</span>
-    data <span class="pl-k">=</span> read_input(sys.stdin)
-    <span class="pl-c"><span class="pl-c">#</span> Process each words returned from read_input</span>
-    <span class="pl-k">for</span> words <span class="pl-k">in</span> data:
-        <span class="pl-c"><span class="pl-c">#</span> Process each word</span>
-        <span class="pl-k">for</span> word <span class="pl-k">in</span> words:
-            <span class="pl-c"><span class="pl-c">#</span> Write to STDOUT</span>
-            <span class="pl-c1">print</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-c1">%s%s%d</span><span class="pl-pds">'</span></span> <span class="pl-k">%</span> (word, separator, <span class="pl-c1">1</span>)
+ def main(separator=&#39;\t&#39;):
+     # Read the data using read_input
+     data = read_input(sys.stdin)
+     # Process each words returned from read_input
+     for words in data:
+         # Process each word
+         for word in words:
+             # Write to STDOUT
+             print &#39;%s%s%d&#39; % (word, separator, 1)
 
-<span class="pl-k">if</span> <span class="pl-c1">__name__</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>__main__<span class="pl-pds">"</span></span>:
-    main()</pre></div>
-<p>The mapper reads a file from standard input (STDIN) and outputs each word in the file, followed by a tab character and the value 1, on a separate line.</p>
-</li>
-<li>
-<p>Now take a moment to examine the reducer:</p>
-<div class="highlight highlight-source-python"><pre><span class="pl-c"><span class="pl-c">#</span>!/usr/bin/env python</span>
+ if __name__ == &quot;__main__&quot;:
+     main()
+</code></pre>
+<p> The mapper reads a file from standard input (STDIN) and outputs each word in the file, followed by a tab character and the value 1, on a separate line.</p>
+</li><li><p>Now take a moment to examine the reducer:</p>
+<pre><code class="lang-python"> #!/usr/bin/env python
 
-<span class="pl-c"><span class="pl-c">#</span> import modules</span>
-<span class="pl-k">from</span> itertools <span class="pl-k">import</span> groupby
-<span class="pl-k">from</span> operator <span class="pl-k">import</span> itemgetter
-<span class="pl-k">import</span> sys
+ # import modules
+ from itertools import groupby
+ from operator import itemgetter
+ import sys
 
-<span class="pl-c"><span class="pl-c">#</span> 'file' in this case is STDIN</span>
-<span class="pl-k">def</span> <span class="pl-en">read_mapper_output</span>(<span class="pl-smi">file</span>, <span class="pl-smi">separator</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span><span class="pl-cce">\t</span><span class="pl-pds">'</span></span>):
-    <span class="pl-c"><span class="pl-c">#</span> Go through each line</span>
-    <span class="pl-k">for</span> line <span class="pl-k">in</span> <span class="pl-v">file</span>:
-        <span class="pl-c"><span class="pl-c">#</span> Strip out the separator character</span>
-        <span class="pl-k">yield</span> line.rstrip().split(separator, <span class="pl-c1">1</span>)
+ # &#39;file&#39; in this case is STDIN
+ def read_mapper_output(file, separator=&#39;\t&#39;):
+     # Go through each line
+     for line in file:
+         # Strip out the separator character
+         yield line.rstrip().split(separator, 1)
 
-<span class="pl-k">def</span> <span class="pl-en">main</span>(<span class="pl-smi">separator</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span><span class="pl-cce">\t</span><span class="pl-pds">'</span></span>):
-    <span class="pl-c"><span class="pl-c">#</span> Read the data using read_mapper_output</span>
-    data <span class="pl-k">=</span> read_mapper_output(sys.stdin, <span class="pl-v">separator</span><span class="pl-k">=</span>separator)
-    <span class="pl-c"><span class="pl-c">#</span> Group words and counts into 'group'</span>
-    <span class="pl-c"><span class="pl-c">#</span>   Since MapReduce is a distributed process, each word</span>
-    <span class="pl-c"><span class="pl-c">#</span>   may have multiple counts. 'group' will have all counts</span>
-    <span class="pl-c"><span class="pl-c">#</span>   which can be retrieved using the word as the key.</span>
-    <span class="pl-k">for</span> current_word, group <span class="pl-k">in</span> groupby(data, itemgetter(<span class="pl-c1">0</span>)):
-        <span class="pl-k">try</span>:
-            <span class="pl-c"><span class="pl-c">#</span> For each word, pull the count(s) for the word</span>
-            <span class="pl-c"><span class="pl-c">#</span>   from 'group' and create a total count</span>
-            total_count <span class="pl-k">=</span> <span class="pl-c1">sum</span>(<span class="pl-c1">int</span>(count) <span class="pl-k">for</span> current_word, count <span class="pl-k">in</span> group)
-            <span class="pl-c"><span class="pl-c">#</span> Write to stdout</span>
-            <span class="pl-c1">print</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-c1">%s%s%d</span><span class="pl-pds">"</span></span> <span class="pl-k">%</span> (current_word, separator, total_count)
-        <span class="pl-k">except</span> <span class="pl-c1">ValueError</span>:
-            <span class="pl-c"><span class="pl-c">#</span> Count was not a number, so do nothing</span>
-            <span class="pl-k">pass</span>
+ def main(separator=&#39;\t&#39;):
+     # Read the data using read_mapper_output
+     data = read_mapper_output(sys.stdin, separator=separator)
+     # Group words and counts into &#39;group&#39;
+     #   Since MapReduce is a distributed process, each word
+     #   may have multiple counts. &#39;group&#39; will have all counts
+     #   which can be retrieved using the word as the key.
+     for current_word, group in groupby(data, itemgetter(0)):
+         try:
+             # For each word, pull the count(s) for the word
+             #   from &#39;group&#39; and create a total count
+             total_count = sum(int(count) for current_word, count in group)
+             # Write to stdout
+             print &quot;%s%s%d&quot; % (current_word, separator, total_count)
+         except ValueError:
+             # Count was not a number, so do nothing
+             pass
 
-<span class="pl-k">if</span> <span class="pl-c1">__name__</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>__main__<span class="pl-pds">"</span></span>:
-    main()</pre></div>
-<p>The reducer reads each word output by the mapper, looks it up in the list of word groups it compiles, and adds the number of instances found to the total number of instances, writing the data to standard output (STDOUT).</p>
-</li>
-<li>
-<p>The two Python scripts containing the mapper and the reducer are included in the lab resources. The next step is to copy the two files, which are named <strong>mapper.py</strong> and <strong>reducer.py</strong>, from the local machine to the cluster. <strong>If you're using Windows, skip to Step 5</strong>. Otherwise, proceed to the next step.</p>
-</li>
-<li>
-<p><strong>Linux and macOS users only</strong>: Open a terminal window and navigate to the directory containing the lab resources. Then execute the following command to copy <strong>mapper.py</strong> and <strong>reduce.py</strong> to the HDInsight cluster, replacing <em>clustername</em> with the cluster name you specified in Exercise 1, Step 3. When prompted for a password, enter the cluster's SSH password ("Azure4Research!").</p>
- <pre> scp *.py sshuser@<i>clustername</i>-ssh.azurehdinsight.net:</pre>
-<p><strong>Now skip to Step 6</strong>. Step 5 is for Windows users only.</p>
-</li>
-<li>
-<p><strong>Windows users only</strong>: Open a Command Prompt window and navigate to the directory containing the lab resources. Then execute the following command to copy <strong>mapper.py</strong> and <strong>reduce.py</strong> to the HDInsight cluster, replacing <em>clustername</em> with the cluster name you specified in Exercise 1, Step 3. When prompted for a password, enter the cluster's SSH password ("Azure4Research!").</p>
- <pre> pscp *.py sshuser@<i>clustername</i>-ssh.azurehdinsight.net:</pre>
+ if __name__ == &quot;__main__&quot;:
+     main()
+</code></pre>
+<p> The reducer reads each word output by the mapper, looks it up in the list of word groups it compiles, and adds the number of instances found to the total number of instances, writing the data to standard output (STDOUT).</p>
+</li><li><p>The two Python scripts containing the mapper and the reducer are included in the lab resources. The next step is to copy the two files, which are named <strong>mapper.py</strong> and <strong>reducer.py</strong>, from the local machine to the cluster. <strong>If you&#39;re using Windows, skip to Step 5</strong>. Otherwise, proceed to the next step.</p>
+</li><li><p><strong>Linux and macOS users only</strong>: Open a terminal window and navigate to the directory containing the lab resources. Then execute the following command to copy <strong>mapper.py</strong> and <strong>reduce.py</strong> to the HDInsight cluster, replacing <em>clustername</em> with the cluster name you specified in Exercise 1, Step 3. When prompted for a password, enter the cluster&#39;s SSH password (&quot;Azure4Research!&quot;).</p>
+ <pre>
+ scp *.py sshuser@<i>clustername</i>-ssh.azurehdinsight.net:</pre>
+
+<p> <strong>Now skip to Step 6</strong>. Step 5 is for Windows users only.</p>
+</li><li><p><strong>Windows users only</strong>: Open a Command Prompt window and navigate to the directory containing the lab resources. Then execute the following command to copy <strong>mapper.py</strong> and <strong>reduce.py</strong> to the HDInsight cluster, replacing <em>clustername</em> with the cluster name you specified in Exercise 1, Step 3. When prompted for a password, enter the cluster&#39;s SSH password (&quot;Azure4Research!&quot;).</p>
+ <pre>
+ pscp *.py sshuser@<i>clustername</i>-ssh.azurehdinsight.net:</pre>
+
 <blockquote>
-<p>pscp.exe is part of PuTTY. This command assumes that pscp.exe is in the PATH. If it's not, preface the command with the path to pscp.exe.</p>
+<p>pscp.exe is part of PuTTY. This command assumes that pscp.exe is in the PATH. If it&#39;s not, preface the command with the path to pscp.exe.</p>
 </blockquote>
-</li>
-<li>
-<p>Return to the SSH session that you established in Exercise 2. (If you closed the session, or if it timed out, follow the instructions in Exercise 2 to establish a new SSH connection.)</p>
-</li>
-<li>
-<p>To be certain that the Python files you uploaded contain Linux-style line endings ("/r" rather than "/r/n"), execute the following commands in the terminal window to install and run the dos2unix conversion program:</p>
-<pre><code>sudo apt-get install dos2unix
-dos2unix -k -o *.py
-</code></pre>
-</li>
-<li>
-<p>Now execute the following command to run the Hadoop job:</p>
-<pre><code>hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-streaming.jar -files mapper.py,reducer.py -mapper mapper.py -reducer reducer.py -input wasb:///example/data/gutenberg/davinci.txt -output wasb:///example/wordcountout
-</code></pre>
-<p>There is a lot going on in that command. Here's a quick synopsis of each part:</p>
+</li><li><p>Return to the SSH session that you established in Exercise 2. (If you closed the session, or if it timed out, follow the instructions in Exercise 2 to establish a new SSH connection.)</p>
+</li><li><p>To be certain that the Python files you uploaded contain Linux-style line endings (&quot;/r&quot; rather than &quot;/r/n&quot;), execute the following commands in the terminal window to install and run the dos2unix conversion program:</p>
+<pre><code> sudo apt-get install dos2unix
+ dos2unix -k -o *.py
+</code></pre></li><li><p>Now execute the following command to run the Hadoop job:</p>
+<pre><code> hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-streaming.jar -files mapper.py,reducer.py -mapper mapper.py -reducer reducer.py -input wasb:///example/data/gutenberg/davinci.txt -output wasb:///example/wordcountout
+</code></pre><p> There is a lot going on in that command. Here&#39;s a quick synopsis of each part:</p>
 <ul>
-<li><strong>hadoop</strong>: Launches the Hadoop program</li>
-<li><strong>jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-streaming.jar</strong>: Tells Hadoop you want to run a specific jar (Java ARchive). In this case, it is the program that interfaces Hadoop with the MapReduce code.</li>
-<li><strong>-files mapper.py,reducer.py</strong>: Specifies that these files should be copied to all the nodes in the cluster</li>
-<li><strong>-mapper mapper.py</strong>: Specifies which file contains the mapper</li>
-<li><strong>-reducer reducer.py</strong>: Specifies which file contains the reducer</li>
-<li><strong>-input wasb:///example/data/gutenberg/davinci.txt</strong>: Specifies the input file. In this case, it is the file named davinci.txt, which was copied into blob storage when the cluster was created.</li>
-<li><strong>-output wasb:///example/wordcountout</strong>: Specifies the output file</li>
-</ul>
+<li><strong>hadoop</strong>: Launches the Hadoop program</li><li><strong>jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-streaming.jar</strong>: Tells Hadoop you want to run a specific jar (Java ARchive). In this case, it is the program that interfaces Hadoop with the MapReduce code.</li><li><strong>-files mapper.py,reducer.py</strong>: Specifies that these files should be copied to all the nodes in the cluster</li><li><strong>-mapper mapper.py</strong>: Specifies which file contains the mapper</li><li><strong>-reducer reducer.py</strong>: Specifies which file contains the reducer</li><li><strong>-input wasb:///example/data/gutenberg/davinci.txt</strong>: Specifies the input file. In this case, it is the file named davinci.txt, which was copied into blob storage when the cluster was created.</li><li><p><strong>-output wasb:///example/wordcountout</strong>: Specifies the output file</p>
 <p>A lot of output will stream by. Near the end of the output will be something resembling the following:</p>
 <pre><code>Shuffle Errors
-        BAD_ID=0
-        CONNECTION=0
-        IO_ERROR=0
-        WRONG_LENGTH=0
-        WRONG_MAP=0
-        WRONG_REDUCE=0
+      BAD_ID=0
+      CONNECTION=0
+      IO_ERROR=0
+      WRONG_LENGTH=0
+      WRONG_MAP=0
+      WRONG_REDUCE=0
 File Input Format Counters
-        Bytes Read=1615338
+      Bytes Read=1615338
 File Output Format Counters
-        Bytes Written=337623
+      Bytes Written=337623
 16/12/09 13:44:48 INFO streaming.StreamJob: Output directory: wasb:///example/wordcountout
-</code></pre>
-</li>
-<li>
-<p>To see the files that Hadoop created, execute the following command:</p>
-<pre><code>hadoop fs -ls /example/wordcountout
-</code></pre>
-<p>The output will show that two files were created:</p>
-<pre><code>Found 2 items
--rw-r--r--   1 sshuser supergroup          0 2016-12-09 14:04 /example/wordcountout/_SUCCESS
--rw-r--r--   1 sshuser supergroup     337623 2016-12-09 14:04 /example/wordcountout/part-00000
-</code></pre>
-<p>The _SUCCESS file, which is zero bytes in length, indicates that the job was a success. The part-00000 file contains the list of words and their counts. To view the contents of that file, use the following command.</p>
-<pre><code>hadoop fs -cat /example/wordcountout/part-00000
-</code></pre>
-<p>You will see a lot of output showing words and their counts. Here's a small sample:</p>
-<pre><code>yourself	26
-yourself,	3
-yourself.	3
-yourself;	2
-yourselves	2
-yourselves;	1
-youth	9
-youth,	3
-youth--devoted	1
-youth.	2
-youth.]	1
-youth;	1
-youthful	3
-</code></pre>
-<p>As you can see, <strong>mapper.py</strong> does not separate words that contain punctuation characters. It is left as an exercise for you to consider how you would change the code to strip off extra punctuation marks when harvesting words.</p>
-<p>If you want to run the job again, you will either have to change the output directory specified in the <strong>hadoop</strong> command, or delete the output directory with the following command:</p>
-<pre><code>hadoop fs -rm -r /example/wordcountout
-</code></pre>
-</li>
-</ol>
+</code></pre></li></ul>
+</li><li><p>To see the files that Hadoop created, execute the following command:</p>
+<pre><code> hadoop fs -ls /example/wordcountout
+</code></pre><p> The output will show that two files were created:</p>
+<pre><code> Found 2 items
+ -rw-r--r--   1 sshuser supergroup          0 2016-12-09 14:04 /example/wordcountout/_SUCCESS
+ -rw-r--r--   1 sshuser supergroup     337623 2016-12-09 14:04 /example/wordcountout/part-00000
+ `
+</code></pre><p> The &#95;SUCCESS file, which is zero bytes in length, indicates that the job was a success. The part-00000 file contains the list of words and their counts. To view the contents of that file, use the following command.</p>
+<pre><code> hadoop fs -cat /example/wordcountout/part-00000
+</code></pre><p> You will see a lot of output showing words and their counts. Here&#39;s a small sample:</p>
+<pre><code> yourself    26
+ yourself,    3
+ yourself.    3
+ yourself;    2
+ yourselves    2
+ yourselves;    1
+ youth    9
+ youth,    3
+ youth--devoted    1
+ youth.    2
+ youth.]    1
+ youth;    1
+ youthful    3
+</code></pre><p> As you can see, <strong>mapper.py</strong> does not separate words that contain punctuation characters. It is left as an exercise for you to consider how you would change the code to strip off extra punctuation marks when harvesting words.</p>
+<p> If you want to run the job again, you will either have to change the output directory specified in the <strong>hadoop</strong> command, or delete the output directory with the following command:</p>
+<pre><code> hadoop fs -rm -r /example/wordcountout
+</code></pre></li></ol>
 <p>This exercise showed how to execute streaming MapReduce jobs with HDInsight using a widely used programming language, Python. The next and most important step is to delete the HDInsight cluster so you are not billed for it when it is not being used.</p>
 <p><a name="Exercise5"></a></p>
-<h2>Exercise 5:  Delete the Hadoop cluster</h2>
-<p>When you are finished using an HDInsight Hadoop cluster, you should delete it because you are charged for it while it exists, regardless of whether it's doing any work. In this exercise, you will delete the resource group created in <a href="#Exercise1">Exercise 1</a> when you created the cluster. Deleting the resource group deletes everything in it and prevents any further charges from being incurred for it.</p>
+<h2 id="exercise-5-delete-the-hadoop-cluster">Exercise 5:  Delete the Hadoop cluster</h2>
+<p>When you are finished using an HDInsight Hadoop cluster, you should delete it because you are charged for it while it exists, regardless of whether it&#39;s doing any work. In this exercise, you will delete the resource group created in <a href="#Exercise1">Exercise 1</a> when you created the cluster. Deleting the resource group deletes everything in it and prevents any further charges from being incurred for it.</p>
 <ol>
-<li>
-<p>In the Azure Portal, open the blade for the "HadoopLabResourceGroup" resource group that holds the cluster. Then click the <strong>Delete</strong> button at the top of the blade.</p>
-<p><a href="Images/delete-resource-group.png" target="_blank"><img src="Images/delete-resource-group.png" alt="Deleting a resource group" style="max-width:100%;"></a></p>
-<p><em>Deleting a resource group</em></p>
-</li>
-<li>
-<p>For safety, you are required to type in the resource group's name. (Once deleted, a resource group cannot be recovered.) Type the name of the resource group. Then click the <strong>Delete</strong> button to remove all traces of this lab from your account.</p>
-</li>
-</ol>
-<p>After a few minutes, the cluster and all of its resources will be deleted. Billing stops when you click the <strong>Delete</strong> button, so you're not charged for the time required to delete the cluster. Similarly, bulling doesn't start until a cluster is fully and successfully deployed.</p>
+<li><p>In the Azure Portal, open the blade for the &quot;HadoopLabResourceGroup&quot; resource group that holds the cluster. Then click the <strong>Delete</strong> button at the top of the blade.</p>
+<p> <img src="Images/delete-resource-group.png" alt="Deleting a resource group"></p>
+<p> <em>Deleting a resource group</em></p>
+</li><li><p>For safety, you are required to type in the resource group&#39;s name. (Once deleted, a resource group cannot be recovered.) Type the name of the resource group. Then click the <strong>Delete</strong> button to remove all traces of this lab from your account.</p>
+</li></ol>
+<p>After a few minutes, the cluster and all of its resources will be deleted. Billing stops when you click the <strong>Delete</strong> button, so you&#39;re not charged for the time required to delete the cluster. Similarly, bulling doesn&#39;t start until a cluster is fully and successfully deployed.</p>
 <p><a name="Summary"></a></p>
-<h2>Summary</h2>
+<h2 id="summary">Summary</h2>
 <p>Here is a quick summary of what you learned in this lab:</p>
 <ul>
-<li>HDInsight is Microsoft Azure's implementation of Hadoop, Spark, and supporting big-data tools</li>
-<li>The Azure Portal makes it easy to create and configure HDInsight Hadoop clusters running Windows or Linux</li>
-<li>Hive can be used on HDInsight Hadoop clusters to query and analyze data</li>
-<li>An HDInsight Hadoop cluster can perform MapReduce operations coded in Python or other languages</li>
-<li>HDInsight clusters should be deleted when they're not being used to avoid unnecessary charges</li>
-</ul>
+<li>HDInsight is Microsoft Azure&#39;s implementation of Hadoop, Spark, and supporting big-data tools</li><li>The Azure Portal makes it easy to create and configure HDInsight Hadoop clusters running Windows or Linux</li><li>Hive can be used on HDInsight Hadoop clusters to query and analyze data</li><li>An HDInsight Hadoop cluster can perform MapReduce operations coded in Python or other languages</li><li>HDInsight clusters should be deleted when they&#39;re not being used to avoid unnecessary charges</li></ul>
 <p>If you have set up hardware clusters of your own and installed and configured Hadoop on them, you appreciate how easy Azure makes it to deploy Hadoop clusters. The provisioning is done for you, so you can spend your time crunching data rather than troubleshooting hardware and software installs. This is yet another example of how cloud computing is changing the face of data analytics, and just one example of the types of HDInsight clusters that Azure supports.</p>
 <hr>
 <p>Copyright 2017 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>.</p>
+
 </body>
 </html>
 <!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
