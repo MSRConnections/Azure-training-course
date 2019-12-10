@@ -8,8 +8,6 @@ Your feedback is appreciated - please fork this repo and contribute!
 
 If you want to report any issues we need to fix. Please [log an issue](https://github.com/MSRConnections/Azure-training-course/issues). 
 
-You can find out more about how cloud computing can help you in our "[Cloud computing guide for researchers](http://aka.ms/a4rguide "Cloud computing guide for researchers")". 
-
 ## Need access to Microsoft Azure? ##
 There are several ways you can get access to Microsoft Azure for your research. Your university may already make Azure available to you, so first port of call is to speak to your research computing department. There are also other ways for you to start experimenting with the cloud:
 
