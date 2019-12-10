@@ -2,7 +2,7 @@
 
 This repo provides training material for researchers and data scientists to learn how [Microsoft Azure](https://azure.microsoft.com/) can help to achieve faster, better and more reproducible research. There are individual modules covering a range of topics that can be worked through in a self-paced way. Each modules comprises a short slide deck that explains key concepts. A markdown file then contains a very detailed walkthrough, and required source and data files are also provided. 
 
-Please feel free to use this material in your own courses and training. Do let us know if you do at [azurerfp@microsoft.com](mailto:azurerfp@microsoft.com)
+Please feel free to use this material in your own courses and training. Do let us know if you do at [roa@microsoft.com](mailto:roa@microsoft.com)
 
 Your feedback is appreciated - please fork this repo and contribute!
 
@@ -20,6 +20,3 @@ Several free services are available for you to explore:
 - [Azure Jupyter notebooks](http://notebooks.azure.com/)
 - [Azure web apps](https://azure.microsoft.com/en-gb/services/app-service/web/)
 - [Sign-up to a one month free trial here](https://azure.microsoft.com/en-us/free/)
-
- **Apply for an Azure for Research award**
- Microsoft Azure for Research awards offer large allocations of cloud computing for your research project, and already supports hundreds of researchers worldwide across all domains. Find out more at [www.azure4research.com](http://www.azure4research.com)
