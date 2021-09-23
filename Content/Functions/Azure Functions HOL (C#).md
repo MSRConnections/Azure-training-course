@@ -176,6 +176,10 @@ Once you have created an Azure Function App, you can add Azure Functions to it. 
 	    
 	    var endpoint = ConfigurationManager.AppSettings["VisionEndpoint"];
 	    var results = await client.PostAsync(endpoint + "/analyze?visualFeatures=Adult", payload);
+	    if (!results.IsSuccessStatusCode) {
+	        throw new Exception(String.Format("Vision API request failed with status {0}, response: {1}",
+	            results.StatusCode, await results.Content.ReadAsStringAsync()));
+	    }
 	    var result = await results.Content.ReadAsAsync<ImageAnalysisInfo>();
 	    return result;
 	}
