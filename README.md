@@ -18,3 +18,5 @@ Several free services are available for you to explore:
 - [Azure Jupyter notebooks](http://notebooks.azure.com/)
 - [Azure web apps](https://azure.microsoft.com/en-gb/services/app-service/web/)
 - [Sign-up to a one month free trial here](https://azure.microsoft.com/en-us/free/)
+
+For more information on the variety of resources available to researchers, refer to [Microsoft Higher Education Academic Research](https://www.microsoft.com/en-us/education/higher-education/academic-research) page
