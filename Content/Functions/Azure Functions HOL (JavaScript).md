@@ -251,7 +251,7 @@ Once you have created an Azure Function App, you can add Azure Functions to it. 
 1. Execute the following command in the console to navigate to the function directory:
 
 	```
-	cd BlobImageAnalyis
+	cd BlobImageAnalysis
 	```
 
 1. Execute the following commands in the console to install the packages used by the function. Ignore any warning messages that are displayed, and note that each command may take a minute or more to run:
